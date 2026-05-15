@@ -55664,9 +55664,9 @@ Resources:`;
         }).limit(20);
         return n ? [] : t;
     }
-    var Ese = `0x039ca898a9bf293edfaa29decbe5e2267b21b4e1932f59816c71ab5fc6cfd6f5`;
+    var Ese = `0x01396d5df31922799610a9710bc69c5cb59c3427b400403d43c198de5d0003e3`;
     new q_({
-        nodeUrl: `https://api.cartridge.gg/x/starknet/sepolia`
+        nodeUrl: `https://api.cartridge.gg/x/starknet/mainnet`
     });
     async function Dse(e, t, n, r, i, a) {
         let o = new TextEncoder().encode(a.slice(0, 31)), s = `0x` + (Array.from(o).map((e)=>e.toString(16).padStart(2, `0`)).join(``) || `00`);
