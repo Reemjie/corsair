@@ -57327,7 +57327,7 @@ Resources:`;
         {
             id: `hunter`,
             title: `🐙 The Hunter`,
-            bubble: `At turn 8, a mysterious creature spawns and begins hunting you. It gets faster over time. The only way to survive — keep moving forward. Never stay in one place.`,
+            bubble: `At turn 8, a creature spawns and tracks you. Watch the HUNTER bar on the left — it shows its mode (TRACKING → STALKING → ENRAGED) and awareness. Storms and ports reduce its awareness. Keep moving forward.`,
             waitFor: `none`
         },
         {
