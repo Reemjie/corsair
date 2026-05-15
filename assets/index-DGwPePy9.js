@@ -57392,7 +57392,7 @@ Resources:`;
                 be(!1);
                 return;
             }
-            s.event?.cellType === `port` && !y && (be(!0), setTimeout(()=>be(!1), 4e3));
+            s.event?.cellType === `port` && !y && !i && (be(!0), setTimeout(()=>be(!1), 4e3));
         }, [
             s.event
         ]), (0, x.useEffect)(()=>{
