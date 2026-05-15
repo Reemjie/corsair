@@ -57489,7 +57489,7 @@ Resources:`;
                 se(!1);
                 return;
             }
-            if (s.event?.cellType === `pirate` && !y) {
+            if (s.event?.cellType === `pirate` && !y && !i) {
                 se(!0);
                 let e = setTimeout(()=>se(!1), 4e3);
                 return ()=>clearTimeout(e);
