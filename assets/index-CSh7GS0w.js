@@ -42771,7 +42771,19 @@ ${JSON.stringify(i, null, 2)}`;
                 rpcUrl: `https://api.cartridge.gg/x/starknet/mainnet`
             }
         ],
-        defaultChainId: `0x534e5f4d41494e`
+        defaultChainId: `0x534e5f4d41494e`,
+        policies: {
+            contracts: {
+                "0x01396d5df31922799610a9710bc69c5cb59c3427b400403d43c198de5d0003e3": {
+                    methods: [
+                        {
+                            name: `submit_score`,
+                            entrypoint: `submit_score`
+                        }
+                    ]
+                }
+            }
+        }
     });
     function FX(e) {
         return e.id === Uv.id ? {
