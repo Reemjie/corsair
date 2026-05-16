@@ -60019,6 +60019,7 @@ Resources:`;
                                 autoPlay: !0,
                                 muted: !0,
                                 playsInline: !0,
+                                preload: `auto`,
                                 style: {
                                     width: `100%`,
                                     height: `100%`,
@@ -60085,6 +60086,7 @@ Resources:`;
                                 autoPlay: !0,
                                 muted: !0,
                                 playsInline: !0,
+                                preload: `auto`,
                                 style: {
                                     width: `100%`,
                                     height: `110%`,
@@ -60153,6 +60155,7 @@ Resources:`;
                                 autoPlay: !0,
                                 muted: !0,
                                 playsInline: !0,
+                                preload: `auto`,
                                 style: {
                                     width: `100%`,
                                     height: `100%`,
@@ -60219,6 +60222,7 @@ Resources:`;
                                 autoPlay: !0,
                                 muted: !0,
                                 playsInline: !0,
+                                preload: `auto`,
                                 style: {
                                     width: `100%`,
                                     height: `100%`,
@@ -60285,6 +60289,7 @@ Resources:`;
                                 autoPlay: !0,
                                 muted: !0,
                                 playsInline: !0,
+                                preload: `auto`,
                                 style: {
                                     width: `100%`,
                                     height: `110%`,
@@ -60353,6 +60358,7 @@ Resources:`;
                                 autoPlay: !0,
                                 muted: !0,
                                 playsInline: !0,
+                                preload: `auto`,
                                 style: {
                                     width: `100%`,
                                     height: `100%`,
