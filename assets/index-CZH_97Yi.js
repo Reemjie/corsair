@@ -57402,7 +57402,8 @@ Resources:`;
             }
             s.event?.cellType === `port` && !y && !i && (be(!0), setTimeout(()=>be(!1), 4e3));
         }, [
-            s.event
+            s.event,
+            s.turn
         ]), (0, x.useEffect)(()=>{
             if (s.gameOver) {
                 ge(!1);
@@ -57487,7 +57488,8 @@ Resources:`;
                 return ()=>clearTimeout(e);
             }
         }, [
-            s.event
+            s.event,
+            s.turn
         ]), (0, x.useEffect)(()=>{
             if (s.gameOver) {
                 se(!1);
@@ -57503,7 +57505,8 @@ Resources:`;
                 return ()=>clearTimeout(e);
             }
         }, [
-            s.event
+            s.event,
+            s.turn
         ]), (0, x.useEffect)(()=>{
             if (s.gameOver) {
                 ae(!1);
@@ -57573,7 +57576,8 @@ Resources:`;
             let e = K9[Math.min(_, K9.length - 1)];
             s.event && (s.event.cellType === `pirate` || s.event.cellType === `port`) && (e.waitFor === `ahead` || e.waitFor === `starboard`) && (v((e)=>e + 1), Se(!0));
         }, [
-            s.event
+            s.event,
+            s.turn
         ]), (0, F.jsxs)(X.div, {
             animate: l ? {
                 x: [
