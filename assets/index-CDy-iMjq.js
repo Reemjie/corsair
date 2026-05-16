@@ -61347,13 +61347,21 @@ Resources:`;
                                     color: `rgba(255,255,255,0.25)`,
                                     fontFamily: `'Cinzel', serif`,
                                     letterSpacing: 2,
-                                    marginBottom: 24
+                                    marginBottom: 24,
+                                    display: `flex`,
+                                    flexDirection: `column`,
+                                    alignItems: `center`,
+                                    gap: 8
                                 },
                                 children: [
-                                    `Seed: `,
-                                    O.seed,
-                                    ` — `,
-                                    S ? `Daily Key: ${P9()}` : `challenge your crew!`,
+                                    (0, F.jsxs)(`div`, {
+                                        children: [
+                                            `Seed: `,
+                                            O.seed,
+                                            ` — `,
+                                            S ? `Daily Key: ${P9()}` : `challenge your crew!`
+                                        ]
+                                    }),
                                     S && (0, F.jsxs)(`div`, {
                                         style: {
                                             display: `inline-flex`,
@@ -61366,8 +61374,7 @@ Resources:`;
                                             color: `#88ddff`,
                                             fontSize: 12,
                                             fontFamily: `'Cinzel', serif`,
-                                            letterSpacing: 2,
-                                            marginTop: 8
+                                            letterSpacing: 2
                                         },
                                         children: [
                                             `☀ DAILY RUN — `,
