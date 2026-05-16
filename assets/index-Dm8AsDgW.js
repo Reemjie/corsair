@@ -61420,13 +61420,10 @@ Resources:`;
                                                 await wse(e, O.score, t, O.seed, n ?? void 0);
                                             }
                                             if (t) try {
-                                                console.log(`Submitting on-chain, account:`, t);
-                                                let e = await Dse(t, O.score, O.seed, O.turn, O.zone, O.runTitle);
-                                                console.log(`On-chain tx result:`, e);
+                                                await Dse(t, O.score, O.seed, O.turn, O.zone, O.runTitle);
                                             } catch (e) {
-                                                console.error(`On-chain submit failed:`, e?.message || e);
+                                                console.warn(`On-chain submit failed:`, e);
                                             }
-                                            else console.warn(`No account for on-chain submit`);
                                             g(!1);
                                         },
                                         style: {
