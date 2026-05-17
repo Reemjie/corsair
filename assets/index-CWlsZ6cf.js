@@ -61599,8 +61599,11 @@ Resources:`;
                                                 scale: .97
                                             },
                                             onClick: ()=>{
-                                                let e = `🏴\u200d☠️ ${O.runTitle} — ${O.score} pts before the storm claimed me.\n${O.turn} turns. ${O.ship.gold} gold. No mercy.\nDare to sail further? ⚓\nhttps://reemjie.github.io/corsair/`;
-                                                window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(e)}`, `_blank`);
+                                                let e = new Date().toLocaleDateString(`en-US`, {
+                                                    month: `short`,
+                                                    day: `numeric`
+                                                }), t = S ? `☀️ Daily Challenge — ${e} — ${O.score} pts before the storm claimed me.\nSame seed for everyone today. Can you beat me?\n⚓ https://reemjie.github.io/corsair/` : `🏴\u200d☠️ ${O.runTitle} — ${O.score} pts before the storm claimed me.\n${O.turn} turns. ${O.ship.gold} gold. No mercy.\nDare to sail further? ⚓\nhttps://reemjie.github.io/corsair/`;
+                                                window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(t)}`, `_blank`);
                                             },
                                             style: {
                                                 padding: `14px 24px`,
