@@ -61599,7 +61599,7 @@ Resources:`;
                                                 scale: .97
                                             },
                                             onClick: ()=>{
-                                                let e = `⚓ ${O.runTitle} — ${O.score} pts in ${O.turn} turns on Corsair!\n🌊 Can you beat my score?\nhttps://reemjie.github.io/corsair/`;
+                                                let e = `🏴\u200d☠️ ${O.runTitle} — ${O.score} pts before the storm claimed me.\n${O.turn} turns. ${O.ship.gold} gold. No mercy.\nDare to sail further? ⚓\nhttps://reemjie.github.io/corsair/`;
                                                 window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(e)}`, `_blank`);
                                             },
                                             style: {
