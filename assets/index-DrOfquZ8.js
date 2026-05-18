@@ -57400,7 +57400,7 @@ Resources:`;
                 Ce(!1);
                 return;
             }
-            s.event?.cellType === `port` && !y && !i && (Ce(!0), setTimeout(()=>Ce(!1), 4e3));
+            s.event?.cellType === `port` && !y && !i && (Ce(!0), setTimeout(()=>Ce(!1), 5e3));
         }, [
             s.event,
             s.turn
@@ -57415,7 +57415,7 @@ Resources:`;
             }
             if (s.event?.cellType === `rocks` && !y) {
                 he(!0);
-                let e = setTimeout(()=>he(!1), 4e3);
+                let e = setTimeout(()=>he(!1), 5e3);
                 return ()=>clearTimeout(e);
             }
         }, [
@@ -57428,7 +57428,7 @@ Resources:`;
             }
             if (s.event?.cellType === `treasure` && !y) {
                 _e(!0);
-                let e = setTimeout(()=>_e(!1), 4e3);
+                let e = setTimeout(()=>_e(!1), 5e3);
                 return ()=>clearTimeout(e);
             }
         }, [
@@ -57441,7 +57441,7 @@ Resources:`;
             }
             if (s.event?.cellType === `cursed_treasure` && !y) {
                 ye(!0);
-                let e = setTimeout(()=>ye(!1), 4e3);
+                let e = setTimeout(()=>ye(!1), 5e3);
                 return ()=>clearTimeout(e);
             }
         }, [
@@ -57454,7 +57454,7 @@ Resources:`;
             }
             if (s.event?.cellType === `storm` && !y) {
                 xe(!0);
-                let e = setTimeout(()=>xe(!1), 4e3);
+                let e = setTimeout(()=>xe(!1), 5e3);
                 return ()=>clearTimeout(e);
             }
         }, [
@@ -57467,7 +57467,7 @@ Resources:`;
             }
             if (s.event?.cellType === `ancient_kraken` && !y) {
                 de(!0);
-                let e = setTimeout(()=>de(!1), 4e3);
+                let e = setTimeout(()=>de(!1), 5e3);
                 return ()=>clearTimeout(e);
             }
         }, [
@@ -57480,7 +57480,7 @@ Resources:`;
             }
             if (s.event?.cellType === `maelstrom` && !y) {
                 pe(!0);
-                let e = setTimeout(()=>pe(!1), 4e3);
+                let e = setTimeout(()=>pe(!1), 5e3);
                 return ()=>clearTimeout(e);
             }
         }, [
@@ -57493,7 +57493,7 @@ Resources:`;
             }
             if (s.event?.cellType === `island` && !y) {
                 le(!0);
-                let e = setTimeout(()=>le(!1), 4e3);
+                let e = setTimeout(()=>le(!1), 5e3);
                 return ()=>clearTimeout(e);
             }
         }, [
@@ -57510,7 +57510,7 @@ Resources:`;
             }
             if (s.event?.cellType === `wreck` && !y) {
                 O(!0);
-                let e = setTimeout(()=>O(!1), 4e3);
+                let e = setTimeout(()=>O(!1), 5e3);
                 return ()=>clearTimeout(e);
             }
         }, [
@@ -57527,7 +57527,7 @@ Resources:`;
             }
             if (s.event?.cellType === `pirate` && !y && !i) {
                 oe(!0);
-                let e = setTimeout(()=>oe(!1), 4e3);
+                let e = setTimeout(()=>oe(!1), 5e3);
                 return ()=>clearTimeout(e);
             }
         }, [
@@ -57540,7 +57540,7 @@ Resources:`;
             }
             if (s.event?.cellType === `kraken` && !y) {
                 ie(!0);
-                let e = setTimeout(()=>ie(!1), 4e3);
+                let e = setTimeout(()=>ie(!1), 5e3);
                 return ()=>clearTimeout(e);
             }
         }, [
