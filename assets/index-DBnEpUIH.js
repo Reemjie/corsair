@@ -58038,7 +58038,7 @@ Resources:`;
                                             style: {
                                                 fontSize: 20,
                                                 color: `rgba(255,255,255,0.8)`,
-                                                fontFamily: `'Caveat', cursive`,
+                                                fontFamily: `'IM Fell English', cursive`,
                                                 marginTop: 2
                                             },
                                             children: `turns until impact`
@@ -58896,7 +58896,7 @@ Resources:`;
                                         marginTop: 10,
                                         fontSize: 18,
                                         color: `rgba(255,255,255,0.9)`,
-                                        fontFamily: `'Caveat', cursive`,
+                                        fontFamily: `'IM Fell English', cursive`,
                                         textAlign: `center`,
                                         maxWidth: 420,
                                         lineHeight: 1.4,
@@ -59027,7 +59027,7 @@ Resources:`;
                                                                     }),
                                                                     (0, F.jsx)(`span`, {
                                                                         style: {
-                                                                            fontFamily: `'Caveat', cursive`
+                                                                            fontFamily: `'IM Fell English', cursive`
                                                                         },
                                                                         children: e.trim()
                                                                     })
@@ -59048,7 +59048,7 @@ Resources:`;
                                                                 }),
                                                                 (0, F.jsx)(`span`, {
                                                                     style: {
-                                                                        fontFamily: `'Caveat', cursive`
+                                                                        fontFamily: `'IM Fell English', cursive`
                                                                     },
                                                                     children: e.trim()
                                                                 })
@@ -59292,7 +59292,7 @@ Resources:`;
                                                         style: {
                                                             fontSize: 20,
                                                             color: `rgba(255,255,255,0.8)`,
-                                                            fontFamily: `'Caveat', cursive`,
+                                                            fontFamily: `'IM Fell English', cursive`,
                                                             marginTop: 8,
                                                             textAlign: `center`
                                                         },
@@ -59418,7 +59418,7 @@ Resources:`;
                                                             style: {
                                                                 fontSize: 20,
                                                                 color: `rgba(255,255,255,0.8)`,
-                                                                fontFamily: `'Caveat', cursive`,
+                                                                fontFamily: `'IM Fell English', cursive`,
                                                                 marginTop: 2
                                                             },
                                                             children: e.desc
@@ -59605,7 +59605,7 @@ Resources:`;
                                                             style: {
                                                                 fontSize: 12,
                                                                 color: `rgba(255,255,255,0.6)`,
-                                                                fontFamily: `'Caveat', cursive`,
+                                                                fontFamily: `'IM Fell English', cursive`,
                                                                 marginBottom: 6
                                                             },
                                                             children: e.effects[t]
@@ -59739,7 +59739,7 @@ Resources:`;
                                                                             }),
                                                                             (0, F.jsx)(`span`, {
                                                                                 style: {
-                                                                                    fontFamily: `'Caveat', cursive`
+                                                                                    fontFamily: `'IM Fell English', cursive`
                                                                                 },
                                                                                 children: e.trim()
                                                                             })
@@ -59760,7 +59760,7 @@ Resources:`;
                                                                         }),
                                                                         (0, F.jsx)(`span`, {
                                                                             style: {
-                                                                                fontFamily: `'Caveat', cursive`
+                                                                                fontFamily: `'IM Fell English', cursive`
                                                                             },
                                                                             children: e.trim()
                                                                         })
@@ -61327,7 +61327,7 @@ Resources:`;
                                 style: {
                                     fontSize: y ? 15 : 20,
                                     color: `rgba(255,255,255,0.35)`,
-                                    fontFamily: `'Caveat', cursive`,
+                                    fontFamily: `'IM Fell English', cursive`,
                                     marginBottom: 16,
                                     maxWidth: y ? `90vw` : 600,
                                     textAlign: `center`,
