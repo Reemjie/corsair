@@ -56742,6 +56742,7 @@ Resources:`;
             ...e.exploits
         ], S = e.lowestHull, C = e.portUpgrades, w = e.hunter, T = e.grid.map((e, t)=>e.map((e, n)=>n === a.x && t === a.y ? {
                     ...e,
+                    visited: !0,
                     type: e.type === `treasure` || e.type === `port` ? `sea` : e.type
                 } : e)), E = {
             ...e.scoreBreakdown
