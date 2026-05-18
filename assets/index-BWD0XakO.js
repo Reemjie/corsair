@@ -57563,7 +57563,7 @@ Resources:`;
         }, [
             s.gameOver
         ]), (0, x.useEffect)(()=>{
-            s.log?.includes(`Tentacles rake the hull`) && (ae(!0), setTimeout(()=>ae(!1), 2e3));
+            s.log?.includes(`Tentacles rake the hull`) && (ae(!0), setTimeout(()=>ae(!1), 8e3));
         }, [
             s.log
         ]), (0, x.useEffect)(()=>{
