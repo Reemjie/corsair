@@ -57426,7 +57426,7 @@ Resources:`;
                 ve(!1);
                 return;
             }
-            if (s.event?.cellType === `treasure` && !y) {
+            if (s.event?.cellType === `treasure` && !y && qe) {
                 ve(!0);
                 let e = setTimeout(()=>ve(!1), 4e3);
                 return ()=>clearTimeout(e);
@@ -57439,7 +57439,7 @@ Resources:`;
                 be(!1);
                 return;
             }
-            if (s.event?.cellType === `cursed_treasure` && !y) {
+            if (s.event?.cellType === `cursed_treasure` && !y && qe) {
                 be(!0);
                 let e = setTimeout(()=>be(!1), 4e3);
                 return ()=>clearTimeout(e);
