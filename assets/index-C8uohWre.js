@@ -56604,10 +56604,13 @@ Resources:`;
         e.hunter?.active && (e = {
             ...e
         });
-        let { state: t, ship: n, grid: r, turn: i, depth: a, score: o, stormDistance: s, gameOver: c, log: l, event: u, showPort: d } = e, f = e.hunter ?? null, p = {
+        let { state: t, ship: n, grid: r, turn: i, depth: a, score: o, stormDistance: s, gameOver: c, log: l, event: u, showPort: d } = e, f = e.hunter ?? null, p = u ? r : r.map((e, t)=>e.map((e, r)=>r === n.x && t === n.y ? {
+                    ...e,
+                    visited: !0
+                } : e)), m = {
             ...t,
             ship: n,
-            grid: r,
+            grid: p,
             turn: i,
             depth: a,
             score: o,
@@ -56636,9 +56639,9 @@ Resources:`;
             escapeUsed: t.escapeUsed
         };
         return c ? {
-            ...p,
-            runTitle: N9(p)
-        } : p;
+            ...m,
+            runTitle: N9(m)
+        } : m;
     }
     function Wse(e, t, n) {
         if (e.gameOver || e.showPort || e.event) return e;
