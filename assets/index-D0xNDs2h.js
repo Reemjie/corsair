@@ -58592,26 +58592,17 @@ Resources:`;
                                                                         (0, F.jsxs)(`div`, {
                                                                             style: {
                                                                                 position: `absolute`,
-                                                                                bottom: 2,
+                                                                                bottom: 3,
                                                                                 left: `5%`,
-                                                                                width: `90%`
+                                                                                width: `90%`,
+                                                                                display: `flex`,
+                                                                                alignItems: `center`,
+                                                                                gap: 3
                                                                             },
                                                                             children: [
                                                                                 (0, F.jsx)(`div`, {
                                                                                     style: {
-                                                                                        fontSize: Math.max(8, h * .18),
-                                                                                        color: O.ship.hull <= 5 ? `#ee4444` : O.ship.hull <= 10 ? `#ee8844` : `#44cc88`,
-                                                                                        fontFamily: `'Cinzel', serif`,
-                                                                                        textAlign: `center`,
-                                                                                        lineHeight: 1,
-                                                                                        marginBottom: 1,
-                                                                                        fontWeight: 700,
-                                                                                        textShadow: `0 1px 3px rgba(0,0,0,0.9)`
-                                                                                    },
-                                                                                    children: O.ship.hull
-                                                                                }),
-                                                                                (0, F.jsx)(`div`, {
-                                                                                    style: {
+                                                                                        flex: 1,
                                                                                         height: 3,
                                                                                         background: `rgba(0,0,0,0.5)`,
                                                                                         borderRadius: 2
@@ -58625,6 +58616,18 @@ Resources:`;
                                                                                             transition: `width 0.3s`
                                                                                         }
                                                                                     })
+                                                                                }),
+                                                                                (0, F.jsx)(`div`, {
+                                                                                    style: {
+                                                                                        fontSize: Math.max(7, h * .16),
+                                                                                        color: O.ship.hull <= 5 ? `#ee4444` : O.ship.hull <= 10 ? `#ee8844` : `#44cc88`,
+                                                                                        fontFamily: `'Cinzel', serif`,
+                                                                                        fontWeight: 700,
+                                                                                        textShadow: `0 1px 3px rgba(0,0,0,0.9)`,
+                                                                                        lineHeight: 1,
+                                                                                        flexShrink: 0
+                                                                                    },
+                                                                                    children: O.ship.hull
                                                                                 })
                                                                             ]
                                                                         })
