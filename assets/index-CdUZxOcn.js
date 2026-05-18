@@ -60121,11 +60121,12 @@ Resources:`;
                             exit: {
                                 opacity: 0
                             },
+                            onClick: ()=>ve(!1),
                             style: {
                                 position: `fixed`,
                                 inset: 0,
                                 zIndex: 25,
-                                pointerEvents: `none`
+                                cursor: `pointer`
                             },
                             children: (0, F.jsx)(`video`, {
                                 src: `/corsair/scenes/treasure.mp4`,
@@ -60136,7 +60137,8 @@ Resources:`;
                                 style: {
                                     width: `100%`,
                                     height: `100%`,
-                                    objectFit: `cover`
+                                    objectFit: `cover`,
+                                    pointerEvents: `none`
                                 }
                             })
                         }),
@@ -60150,11 +60152,12 @@ Resources:`;
                             exit: {
                                 opacity: 0
                             },
+                            onClick: ()=>be(!1),
                             style: {
                                 position: `fixed`,
                                 inset: 0,
                                 zIndex: 25,
-                                pointerEvents: `none`
+                                cursor: `pointer`
                             },
                             children: (0, F.jsx)(`video`, {
                                 src: `/corsair/scenes/cursed_treasure.mp4`,
@@ -60165,7 +60168,8 @@ Resources:`;
                                 style: {
                                     width: `100%`,
                                     height: `100%`,
-                                    objectFit: `cover`
+                                    objectFit: `cover`,
+                                    pointerEvents: `none`
                                 }
                             })
                         }),
