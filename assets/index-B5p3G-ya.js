@@ -57551,7 +57551,7 @@ Resources:`;
                 ee(!1), w(!0), setTimeout(()=>{
                     w(!1), E(!0);
                 }, 5e3);
-            }, D ? 2200 : 0)) : E(!1);
+            }, D ? 8e3 : 0)) : E(!1);
         }, [
             s.gameOver
         ]), (0, x.useEffect)(()=>{
