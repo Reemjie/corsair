@@ -58564,28 +58564,52 @@ Resources:`;
                                                                 cursor: `default`
                                                             },
                                                             children: [
-                                                                u && (0, F.jsx)(X.div, {
-                                                                    animate: {
-                                                                        y: [
-                                                                            0,
-                                                                            -3,
-                                                                            0
-                                                                        ]
-                                                                    },
-                                                                    transition: {
-                                                                        repeat: 1 / 0,
-                                                                        duration: 2,
-                                                                        ease: `easeInOut`
-                                                                    },
-                                                                    children: (0, F.jsx)(`img`, {
-                                                                        src: `/corsair/icons/ship.png`,
-                                                                        style: {
-                                                                            width: h * .82,
-                                                                            height: h * .82,
-                                                                            objectFit: `contain`,
-                                                                            filter: `drop-shadow(0 0 10px rgba(74,138,204,0.9))`
-                                                                        }
-                                                                    })
+                                                                u && (0, F.jsxs)(F.Fragment, {
+                                                                    children: [
+                                                                        (0, F.jsx)(X.div, {
+                                                                            animate: {
+                                                                                y: [
+                                                                                    0,
+                                                                                    -3,
+                                                                                    0
+                                                                                ]
+                                                                            },
+                                                                            transition: {
+                                                                                repeat: 1 / 0,
+                                                                                duration: 2,
+                                                                                ease: `easeInOut`
+                                                                            },
+                                                                            children: (0, F.jsx)(`img`, {
+                                                                                src: `/corsair/icons/ship.png`,
+                                                                                style: {
+                                                                                    width: h * .82,
+                                                                                    height: h * .82,
+                                                                                    objectFit: `contain`,
+                                                                                    filter: `drop-shadow(0 0 10px rgba(74,138,204,0.9))`
+                                                                                }
+                                                                            })
+                                                                        }),
+                                                                        (0, F.jsx)(`div`, {
+                                                                            style: {
+                                                                                position: `absolute`,
+                                                                                bottom: 3,
+                                                                                left: `10%`,
+                                                                                width: `80%`,
+                                                                                height: 3,
+                                                                                background: `rgba(0,0,0,0.5)`,
+                                                                                borderRadius: 2
+                                                                            },
+                                                                            children: (0, F.jsx)(`div`, {
+                                                                                style: {
+                                                                                    width: `${O.ship.hull / O.ship.maxHull * 100}%`,
+                                                                                    height: `100%`,
+                                                                                    borderRadius: 2,
+                                                                                    background: O.ship.hull <= 5 ? `#ee4444` : O.ship.hull <= 10 ? `#ee8844` : `#44cc88`,
+                                                                                    transition: `width 0.3s`
+                                                                                }
+                                                                            })
+                                                                        })
+                                                                    ]
                                                                 }),
                                                                 !l && !u && d && (0, F.jsx)(`img`, {
                                                                     src: `/corsair/icons/${o.type}.png`,
