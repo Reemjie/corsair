@@ -57555,15 +57555,24 @@ Resources:`;
         }, [
             s.gameOver
         ]), (0, x.useEffect)(()=>{
-            s.gameOver && !i ? (o !== void 0 && Pse(), w ? re(!0) : setTimeout(()=>{
-                ae(!1), te(!0), setTimeout(()=>{
-                    te(!1), re(!0);
-                }, 5e3);
-            }, ie ? 8e3 : 0)) : re(!1);
+            if (s.gameOver && !i) if (o !== void 0 && Pse(), w) re(!0);
+            else {
+                let e = Be.current ? 8e3 : 0;
+                setTimeout(()=>{
+                    ae(!1), te(!0), setTimeout(()=>{
+                        te(!1), re(!0);
+                    }, 5e3);
+                }, e);
+            }
+            else re(!1);
         }, [
             s.gameOver
-        ]), (0, x.useEffect)(()=>{
-            s.log?.includes(`Tentacles rake the hull`) && (ae(!0), setTimeout(()=>ae(!1), 8e3));
+        ]);
+        let Be = (0, x.useRef)(!1);
+        (0, x.useEffect)(()=>{
+            s.log?.includes(`Tentacles rake the hull`) && (Be.current = !0, ae(!0), setTimeout(()=>{
+                Be.current = !1, ae(!1);
+            }, 8e3));
         }, [
             s.log
         ]), (0, x.useEffect)(()=>{
@@ -57577,7 +57586,7 @@ Resources:`;
             s
         ]), (0, x.useEffect)(()=>{
             let e = (e)=>{
-                s.gameOver || s.event || s.showPort || (e.key === `ArrowLeft` && Be(-1, 0), e.key === `ArrowUp` && Be(0, -1), e.key === `ArrowRight` && Be(1, 0));
+                s.gameOver || s.event || s.showPort || (e.key === `ArrowLeft` && Ve(-1, 0), e.key === `ArrowUp` && Ve(0, -1), e.key === `ArrowRight` && Ve(1, 0));
             };
             return window.addEventListener(`keydown`, e), ()=>window.removeEventListener(`keydown`, e);
         }, [
@@ -57586,7 +57595,7 @@ Resources:`;
             s.showPort,
             s.turn
         ]);
-        let Be = (e, t)=>{
+        let Ve = (e, t)=>{
             if (i) {
                 let t = K9[Math.min(S, K9.length - 1)];
                 if (!(t.waitFor === `ahead` || t.waitFor === `starboard`) || t.waitFor === `starboard` && e !== 1 || t.waitFor === `ahead` && e !== 0) return;
@@ -57598,25 +57607,25 @@ Resources:`;
                     `pre_port2`
                 ].includes(e.id) || (C((e)=>e + 1), Ae(!0));
             }
-        }, Ve = (e)=>{
+        }, He = (e)=>{
             c((t)=>{
                 let n = Yse(t, e);
                 return n.ship.hull < t.ship.hull && Fe(), n;
             }), i && K9[Math.min(S, K9.length - 1)].waitFor === `choice0` && e === 0 && (C((e)=>e + 1), Ae(!0));
-        }, He = ()=>c((e)=>Xse(e)), Ue = (e)=>c((t)=>I9(t, e)), We = (e, t)=>{
+        }, Ue = ()=>c((e)=>Xse(e)), We = (e)=>c((t)=>I9(t, e)), Ge = (e, t)=>{
             c((n)=>R9(n, e, t)), i && K9[Math.min(S, K9.length - 1)].waitFor === `repair` && (C((e)=>e + 1), Ae(!0));
-        }, Ge = ()=>{
+        }, Ke = ()=>{
             f([]), c((e)=>B9(e));
-        }, Ke = (e)=>c((t)=>L9(t, e)), qe = ()=>c(F9()), Je = (0, x.useRef)(null), [Ye, Xe] = (0, x.useState)(!1);
+        }, qe = (e)=>c((t)=>L9(t, e)), Je = ()=>c(F9()), Ye = (0, x.useRef)(null), [Xe, Ze] = (0, x.useState)(!1);
         return (0, x.useEffect)(()=>{
             let e = new Audio(`/corsair/sounds/ambient.mp3`);
-            return e.loop = !0, e.volume = .4, e.play().catch(()=>{}), Je.current = e, ()=>{
+            return e.loop = !0, e.volume = .4, e.play().catch(()=>{}), Ye.current = e, ()=>{
                 e.pause(), e.currentTime = 0;
             };
         }, []), (0, x.useEffect)(()=>{
-            Je.current && (Je.current.muted = Ye);
+            Ye.current && (Ye.current.muted = Xe);
         }, [
-            Ye
+            Xe
         ]), (0, x.useEffect)(()=>{
             if (!i) return;
             let e = K9[Math.min(S, K9.length - 1)];
@@ -57891,7 +57900,7 @@ Resources:`;
                                     ]
                                 }),
                                 (0, F.jsx)(`button`, {
-                                    onClick: ()=>Xe((e)=>!e),
+                                    onClick: ()=>Ze((e)=>!e),
                                     style: {
                                         background: `transparent`,
                                         border: `1px solid rgba(255,255,255,0.1)`,
@@ -57902,7 +57911,7 @@ Resources:`;
                                         padding: `6px 10px`,
                                         fontFamily: `'Cinzel', serif`
                                     },
-                                    children: Ye ? `🔇` : `🔊`
+                                    children: Xe ? `🔇` : `🔊`
                                 })
                             ]
                         }),
@@ -57926,7 +57935,7 @@ Resources:`;
                                     ]
                                 }),
                                 (0, F.jsx)(`button`, {
-                                    onClick: ()=>Xe((e)=>!e),
+                                    onClick: ()=>Ze((e)=>!e),
                                     style: {
                                         background: `transparent`,
                                         border: `none`,
@@ -57934,7 +57943,7 @@ Resources:`;
                                         fontSize: 14,
                                         cursor: `pointer`
                                     },
-                                    children: Ye ? `🔇` : `🔊`
+                                    children: Xe ? `🔇` : `🔊`
                                 })
                             ]
                         })
@@ -59256,7 +59265,7 @@ Resources:`;
                                                     scale: o ? .96 : 1
                                                 },
                                                 onClick: ()=>{
-                                                    o && (i && K9[Math.min(S, K9.length - 1)].waitFor === `choice0` && t !== 0 || Ve(t));
+                                                    o && (i && K9[Math.min(S, K9.length - 1)].waitFor === `choice0` && t !== 0 || He(t));
                                                 },
                                                 style: {
                                                     flex: 1,
@@ -59392,7 +59401,7 @@ Resources:`;
                                                         scale: o ? .98 : 1
                                                     },
                                                     onClick: ()=>{
-                                                        o && (i && K9[Math.min(S, K9.length - 1)].waitFor === `choice0` && t !== 0 || Ve(t));
+                                                        o && (i && K9[Math.min(S, K9.length - 1)].waitFor === `choice0` && t !== 0 || He(t));
                                                     },
                                                     style: {
                                                         flex: 1,
@@ -59447,7 +59456,7 @@ Resources:`;
                                             })
                                         }),
                                         ze && (0, F.jsx)(`button`, {
-                                            onClick: He,
+                                            onClick: Ue,
                                             style: {
                                                 marginTop: 8,
                                                 padding: `6px 16px`,
@@ -59560,7 +59569,7 @@ Resources:`;
                                             ].map((e)=>{
                                                 let t = O.ship.levels[e.key], n = t === 0 ? 50 : 110, r = t < 2 && O.ship.gold >= n && !(t === 1 && O.maxedComponents >= 2), i = t >= 2;
                                                 return (0, F.jsxs)(`div`, {
-                                                    onClick: ()=>r && Ke(e.key),
+                                                    onClick: ()=>r && qe(e.key),
                                                     style: {
                                                         background: `${e.color}12`,
                                                         border: `1px solid ${e.color}${r ? `66` : `22`}`,
@@ -59803,13 +59812,13 @@ Resources:`;
                                                 label: `Rum Barrel`,
                                                 desc: `+8 hull`,
                                                 cost: 25,
-                                                fn: ()=>We(8, 25)
+                                                fn: ()=>Ge(8, 25)
                                             },
                                             {
                                                 label: `Full Repair`,
                                                 desc: `Restore all`,
                                                 cost: 55,
-                                                fn: ()=>We(O.ship.maxHull, 55)
+                                                fn: ()=>Ge(O.ship.maxHull, 55)
                                             }
                                         ].map((e)=>{
                                             let t = O.ship.gold >= e.cost;
@@ -59865,7 +59874,7 @@ Resources:`;
                                                 scale: 1.02
                                             },
                                             onClick: ()=>{
-                                                d.forEach((e)=>Ue(e)), f([]);
+                                                d.forEach((e)=>We(e)), f([]);
                                             },
                                             style: {
                                                 flex: 1,
@@ -59889,7 +59898,7 @@ Resources:`;
                                             whileHover: {
                                                 scale: 1.02
                                             },
-                                            onClick: Ge,
+                                            onClick: Ke,
                                             style: {
                                                 flex: 1,
                                                 padding: `12px`,
@@ -59963,7 +59972,7 @@ Resources:`;
                                 whileTap: o ? {
                                     scale: .95
                                 } : {},
-                                onClick: ()=>o && Be(e.dx, e.dy),
+                                onClick: ()=>o && Ve(e.dx, e.dy),
                                 style: {
                                     padding: w ? `10px 0` : `12px 28px`,
                                     flex: w ? 1 : `none`,
@@ -60840,13 +60849,13 @@ Resources:`;
                                     label: `Rum Barrel`,
                                     desc: `+8 hull`,
                                     cost: 25,
-                                    fn: ()=>We(8, 25)
+                                    fn: ()=>Ge(8, 25)
                                 },
                                 {
                                     label: `Full Repair`,
                                     desc: `Restore all`,
                                     cost: 55,
-                                    fn: ()=>We(O.ship.maxHull, 55)
+                                    fn: ()=>Ge(O.ship.maxHull, 55)
                                 }
                             ].map((e)=>(0, F.jsxs)(X.button, {
                                     whileTap: {
@@ -61688,7 +61697,7 @@ Resources:`;
                                                 whileTap: {
                                                     scale: .97
                                                 },
-                                                onClick: qe,
+                                                onClick: Je,
                                                 style: {
                                                     padding: `14px 36px`,
                                                     borderRadius: 12,
