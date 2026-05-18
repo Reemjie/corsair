@@ -60076,6 +60076,7 @@ Resources:`;
                         transition: {
                             duration: .6
                         },
+                        onClick: ()=>ge(!1),
                         style: {
                             position: `fixed`,
                             inset: 0,
@@ -60083,7 +60084,8 @@ Resources:`;
                             background: `#000`,
                             display: `flex`,
                             alignItems: `center`,
-                            justifyContent: `center`
+                            justifyContent: `center`,
+                            cursor: `pointer`
                         },
                         children: [
                             (0, F.jsx)(`video`, {
@@ -60206,6 +60208,7 @@ Resources:`;
                             transition: {
                                 duration: .6
                             },
+                            onClick: ()=>Se(!1),
                             style: {
                                 position: `fixed`,
                                 inset: 0,
@@ -60213,7 +60216,8 @@ Resources:`;
                                 background: `#000`,
                                 display: `flex`,
                                 alignItems: `center`,
-                                justifyContent: `center`
+                                justifyContent: `center`,
+                                cursor: `pointer`
                             },
                             children: [
                                 (0, F.jsx)(`video`, {
@@ -60276,6 +60280,7 @@ Resources:`;
                         transition: {
                             duration: .6
                         },
+                        onClick: ()=>fe(!1),
                         style: {
                             position: `fixed`,
                             inset: 0,
@@ -60283,7 +60288,8 @@ Resources:`;
                             background: `#000`,
                             display: `flex`,
                             alignItems: `center`,
-                            justifyContent: `center`
+                            justifyContent: `center`,
+                            cursor: `pointer`
                         },
                         children: [
                             (0, F.jsx)(`video`, {
@@ -60343,6 +60349,7 @@ Resources:`;
                         transition: {
                             duration: .6
                         },
+                        onClick: ()=>me(!1),
                         style: {
                             position: `fixed`,
                             inset: 0,
@@ -60350,7 +60357,8 @@ Resources:`;
                             background: `#000`,
                             display: `flex`,
                             alignItems: `center`,
-                            justifyContent: `center`
+                            justifyContent: `center`,
+                            cursor: `pointer`
                         },
                         children: [
                             (0, F.jsx)(`video`, {
@@ -60410,6 +60418,7 @@ Resources:`;
                         transition: {
                             duration: .6
                         },
+                        onClick: ()=>ue(!1),
                         style: {
                             position: `fixed`,
                             inset: 0,
@@ -60417,7 +60426,8 @@ Resources:`;
                             background: `#000`,
                             display: `flex`,
                             alignItems: `center`,
-                            justifyContent: `center`
+                            justifyContent: `center`,
+                            cursor: `pointer`
                         },
                         children: [
                             (0, F.jsx)(`video`, {
@@ -60479,6 +60489,7 @@ Resources:`;
                         transition: {
                             duration: .6
                         },
+                        onClick: ()=>D(!1),
                         style: {
                             position: `fixed`,
                             inset: 0,
@@ -60486,7 +60497,8 @@ Resources:`;
                             background: `#000`,
                             display: `flex`,
                             alignItems: `center`,
-                            justifyContent: `center`
+                            justifyContent: `center`,
+                            cursor: `pointer`
                         },
                         children: [
                             (0, F.jsx)(`video`, {
@@ -60557,6 +60569,7 @@ Resources:`;
                         transition: {
                             duration: .6
                         },
+                        onClick: ()=>se(!1),
                         style: {
                             position: `fixed`,
                             inset: 0,
@@ -60564,7 +60577,8 @@ Resources:`;
                             background: `#000`,
                             display: `flex`,
                             alignItems: `center`,
-                            justifyContent: `center`
+                            justifyContent: `center`,
+                            cursor: `pointer`
                         },
                         children: [
                             (0, F.jsx)(`video`, {
@@ -60634,6 +60648,7 @@ Resources:`;
                         transition: {
                             duration: .6
                         },
+                        onClick: ()=>ae(!1),
                         style: {
                             position: `fixed`,
                             inset: 0,
@@ -60641,7 +60656,8 @@ Resources:`;
                             background: `#000`,
                             display: `flex`,
                             alignItems: `center`,
-                            justifyContent: `center`
+                            justifyContent: `center`,
+                            cursor: `pointer`
                         },
                         children: [
                             (0, F.jsx)(`video`, {
