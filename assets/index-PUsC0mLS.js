@@ -57574,7 +57574,8 @@ Resources:`;
                 Be.current = !1, ae(!1);
             }, 8e3));
         }, [
-            s.log
+            s.log,
+            s.turn
         ]), (0, x.useEffect)(()=>{
             s.log?.includes(`⚡ Storm surge`) && Ie(`rgba(100,150,255,0.35)`), (s.event?.cellType === `kraken` || s.event?.cellType === `ancient_kraken`) && Ie(`rgba(150,0,255,0.3)`), s.event?.cellType === `ancient_kraken` && Ie(`rgba(200,160,48,0.4)`);
             let e = s.hunter;
