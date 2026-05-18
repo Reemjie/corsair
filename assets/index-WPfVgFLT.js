@@ -58589,25 +58589,44 @@ Resources:`;
                                                                                 }
                                                                             })
                                                                         }),
-                                                                        (0, F.jsx)(`div`, {
+                                                                        (0, F.jsxs)(`div`, {
                                                                             style: {
                                                                                 position: `absolute`,
-                                                                                bottom: 3,
-                                                                                left: `10%`,
-                                                                                width: `80%`,
-                                                                                height: 3,
-                                                                                background: `rgba(0,0,0,0.5)`,
-                                                                                borderRadius: 2
+                                                                                bottom: 2,
+                                                                                left: `5%`,
+                                                                                width: `90%`
                                                                             },
-                                                                            children: (0, F.jsx)(`div`, {
-                                                                                style: {
-                                                                                    width: `${O.ship.hull / O.ship.maxHull * 100}%`,
-                                                                                    height: `100%`,
-                                                                                    borderRadius: 2,
-                                                                                    background: O.ship.hull <= 5 ? `#ee4444` : O.ship.hull <= 10 ? `#ee8844` : `#44cc88`,
-                                                                                    transition: `width 0.3s`
-                                                                                }
-                                                                            })
+                                                                            children: [
+                                                                                (0, F.jsx)(`div`, {
+                                                                                    style: {
+                                                                                        fontSize: Math.max(8, h * .18),
+                                                                                        color: O.ship.hull <= 5 ? `#ee4444` : O.ship.hull <= 10 ? `#ee8844` : `#44cc88`,
+                                                                                        fontFamily: `'Cinzel', serif`,
+                                                                                        textAlign: `center`,
+                                                                                        lineHeight: 1,
+                                                                                        marginBottom: 1,
+                                                                                        fontWeight: 700,
+                                                                                        textShadow: `0 1px 3px rgba(0,0,0,0.9)`
+                                                                                    },
+                                                                                    children: O.ship.hull
+                                                                                }),
+                                                                                (0, F.jsx)(`div`, {
+                                                                                    style: {
+                                                                                        height: 3,
+                                                                                        background: `rgba(0,0,0,0.5)`,
+                                                                                        borderRadius: 2
+                                                                                    },
+                                                                                    children: (0, F.jsx)(`div`, {
+                                                                                        style: {
+                                                                                            width: `${O.ship.hull / O.ship.maxHull * 100}%`,
+                                                                                            height: `100%`,
+                                                                                            borderRadius: 2,
+                                                                                            background: O.ship.hull <= 5 ? `#ee4444` : O.ship.hull <= 10 ? `#ee8844` : `#44cc88`,
+                                                                                            transition: `width 0.3s`
+                                                                                        }
+                                                                                    })
+                                                                                })
+                                                                            ]
                                                                         })
                                                                     ]
                                                                 }),
