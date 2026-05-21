@@ -61746,17 +61746,27 @@ Resources:`;
                                                     fontFamily: `'Pirata One', cursive`,
                                                     letterSpacing: 2
                                                 },
-                                                children: `NFT UNLOCKED!`
+                                                children: `NFT EARNED!`
                                             }),
                                             h.map((e)=>(0, F.jsx)(`div`, {
                                                     style: {
-                                                        fontSize: 12,
-                                                        color: `rgba(255,255,255,0.7)`,
+                                                        fontSize: 13,
+                                                        color: `rgba(255,255,255,0.8)`,
                                                         fontFamily: `'Cinzel', serif`,
                                                         marginTop: 4
                                                     },
                                                     children: e.replace(/_/g, ` `).toUpperCase()
-                                                }, e))
+                                                }, e)),
+                                            (0, F.jsx)(`div`, {
+                                                style: {
+                                                    fontSize: 11,
+                                                    color: `rgba(255,255,255,0.4)`,
+                                                    fontFamily: `'Cinzel', serif`,
+                                                    marginTop: 8,
+                                                    lineHeight: 1.4
+                                                },
+                                                children: `Your NFT will be sent to your wallet soon.`
+                                            })
                                         ]
                                     }),
                                     !e && (0, F.jsx)(`div`, {
