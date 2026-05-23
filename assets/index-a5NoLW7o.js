@@ -61766,6 +61766,31 @@ Resources:`;
                                                     lineHeight: 1.4
                                                 },
                                                 children: `Your NFT will be sent to your wallet soon.`
+                                            }),
+                                            (0, F.jsx)(X.button, {
+                                                whileHover: {
+                                                    scale: 1.05
+                                                },
+                                                whileTap: {
+                                                    scale: .97
+                                                },
+                                                onClick: ()=>{
+                                                    let e = `🏴‍☠️ I just found "${h[0].replace(/_/g, ` `).replace(/\b\w/g, (e)=>e.toUpperCase())}" — a hidden NFT inside Corsair.\nNo mint button. No whitelist. Just playing.\nDare to find yours? ⚓\nhttps://reemjie.github.io/corsair/`;
+                                                    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(e)}`, `_blank`);
+                                                },
+                                                style: {
+                                                    marginTop: 10,
+                                                    padding: `8px 20px`,
+                                                    borderRadius: 8,
+                                                    border: `1px solid rgba(255,255,255,0.3)`,
+                                                    background: `rgba(0,0,0,0.5)`,
+                                                    color: `#ffffff`,
+                                                    cursor: `pointer`,
+                                                    fontSize: 13,
+                                                    fontFamily: `'Pirata One', cursive`,
+                                                    letterSpacing: 1
+                                                },
+                                                children: `𝕏 Share your find`
                                             })
                                         ]
                                     }),
