@@ -56423,7 +56423,7 @@ Resources:`;
     }
     function Rse(e) {
         let t = e.hunter?.awareness ?? 0, n = e.ship, r = e.hunter, i = Math.abs(r.x - e.nx) + Math.abs(r.y - e.ny);
-        t += 1, i <= 3 ? t += 3 : i <= 6 && (t += 1), e.state.dangerStreak >= 3 && (t += 2), n.upgrades.includes(`greed`) && (t += Math.floor(n.gold / 400));
+        t += 1, e.hunter?.mode === `frenzy` && (t -= 8), i <= 3 ? t += 3 : i <= 6 && (t += 1), e.state.dangerStreak >= 3 && (t += 2), n.upgrades.includes(`greed`) && (t += Math.floor(n.gold / 400));
         let a = e.grid[e.ny]?.[e.nx];
         return a?.type === `storm` && (t -= 10), a?.type === `port` && (t -= 15), Math.max(0, Math.min(100, t));
     }
@@ -56441,7 +56441,7 @@ Resources:`;
         }) : t >= 80 && r !== `frenzy` ? {
             ...e,
             mode: `frenzy`,
-            frenzyTurns: 3,
+            frenzyTurns: 2,
             searchTurns: 0
         } : r === `frenzy` ? (a = Math.max(0, a - 1), a === 0 && (r = t >= 50 ? `stalking` : `tracking`), {
             ...e,
