@@ -56519,19 +56519,22 @@ Resources:`;
             skipTurn: !1
         };
         else if (i && i.active) {
-            let r = Rse(e), a = e.state.hunterTarget, o = !!(a && Math.abs(a.x - t) + Math.abs(a.y - n) >= 2 && e.rng.next() < .25), s = i.mode;
+            let r = Rse(e), a = e.state.hunterTarget, o = i.lastMoveDir ?? null, s = t - (a?.x ?? t), c = n - (a?.y ?? n), l = s === 0 ? c === 0 ? null : `v` : `h`, u = !!(o && l && o !== l), d = i.mode;
             i = {
-                ...zse(i, r, o),
+                ...zse(i, r, u),
                 awareness: r
             };
-            let c = e.state.hunterTargetHistory ?? [], l = c.length >= 2 ? c[c.length - 2] : e.state.hunterTarget ?? {
+            let f = e.state.hunterTargetHistory ?? [], p = f.length >= 2 ? f[f.length - 2] : e.state.hunterTarget ?? {
                 x: t,
                 y: n
             };
-            i.mode === `tracking` && (i.skipTurn ?? !1) || (i = Bse(i, l, t, n, e.rng)), i = {
+            i.mode === `tracking` && (i.skipTurn ?? !1) || (i = Bse(i, p, t, n, e.rng));
+            let m = i.x - (e.hunter?.x ?? i.x), h = i.y - (e.hunter?.y ?? i.y), g = m === 0 ? h === 0 ? i.lastMoveDir ?? null : `v` : `h`;
+            i = {
                 ...i,
-                skipTurn: i.mode === `tracking` ? !(i.skipTurn ?? !1) : !1
-            }, Vse(e, i, s);
+                skipTurn: i.mode === `tracking` ? !(i.skipTurn ?? !1) : !1,
+                lastMoveDir: g
+            }, Vse(e, i, d);
         }
         if (i && i.active && i.x === t && i.y === n) {
             let t = Math.max(D9.hunter.minDamage, D9.hunter.baseDamage - e.ship.power);
