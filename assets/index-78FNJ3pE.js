@@ -56329,6 +56329,7 @@ Resources:`;
             runTitle: `Corsaire`,
             hunter: null,
             hunterTarget: null,
+            hunterTargetHistory: [],
             scoreBreakdown: {
                 movement: 0,
                 combat: 0,
@@ -56523,11 +56524,11 @@ Resources:`;
                 ...zse(i, r, o),
                 awareness: r
             };
-            let c = e.state.hunterTarget ?? {
+            let c = e.state.hunterTargetHistory ?? [], l = c.length >= 2 ? c[c.length - 2] : e.state.hunterTarget ?? {
                 x: t,
                 y: n
             };
-            i.mode === `tracking` && (i.skipTurn ?? !1) || (i = Bse(i, c, t, n, e.rng)), i = {
+            i.mode === `tracking` && (i.skipTurn ?? !1) || (i = Bse(i, l, t, n, e.rng)), i = {
                 ...i,
                 skipTurn: i.mode === `tracking` ? !(i.skipTurn ?? !1) : !1
             }, Vse(e, i, s);
@@ -56649,6 +56650,13 @@ Resources:`;
             event: u,
             showPort: d,
             hunter: f,
+            hunterTargetHistory: [
+                ...t.hunterTargetHistory ?? [],
+                {
+                    x: n.x,
+                    y: n.y
+                }
+            ].slice(-3),
             hunterTarget: {
                 x: n.x,
                 y: n.y
