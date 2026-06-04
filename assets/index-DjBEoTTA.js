@@ -55689,36 +55689,7 @@ Resources:`;
             };
         }
     }
-    var kse = `0x01396d5df31922799610a9710bc69c5cb59c3427b400403d43c198de5d0003e3`;
-    new G_({
-        nodeUrl: `https://api.cartridge.gg/x/starknet/mainnet`
-    });
-    async function Ase(e, t, n, r, i, a) {
-        let o = new TextEncoder().encode(a.slice(0, 31)), s = `0x` + (Array.from(o).map((e)=>e.toString(16).padStart(2, `0`)).join(``) || `00`);
-        return await e.execute([
-            {
-                contractAddress: kse,
-                entrypoint: `submit_score`,
-                calldata: [
-                    t.toString(),
-                    n.toString(),
-                    r.toString(),
-                    i.toString(),
-                    s,
-                    `1`
-                ]
-            }
-        ]);
-    }
-    function w9(e) {
-        let t = e;
-        return {
-            next: ()=>(t = t * 1664525 + 1013904223 & 4294967295, (t >>> 0) / 4294967295),
-            int: (e, n)=>(t = t * 1664525 + 1013904223 & 4294967295, Math.floor((t >>> 0) / 4294967295 * (n - e + 1)) + e),
-            getState: ()=>t
-        };
-    }
-    var T9 = {
+    var w9 = {
         storm: {
             initial: 22,
             surgeEarly: .03,
@@ -55803,7 +55774,7 @@ Resources:`;
             krakenChance: .05,
             visionBonus: 2
         }
-    }, E9 = {
+    }, T9 = {
         1: {
             name: `The Coasts`,
             subtitle: `Where corsairs are born`,
@@ -55841,15 +55812,43 @@ Resources:`;
             portalMessage: ``,
             transitionText: []
         }
-    };
+    }, kse = `0x01396d5df31922799610a9710bc69c5cb59c3427b400403d43c198de5d0003e3`;
+    new G_({
+        nodeUrl: `https://api.cartridge.gg/x/starknet/mainnet`
+    });
+    async function Ase(e, t, n, r, i, a) {
+        let o = new TextEncoder().encode(a.slice(0, 31)), s = `0x` + (Array.from(o).map((e)=>e.toString(16).padStart(2, `0`)).join(``) || `00`);
+        return await e.execute([
+            {
+                contractAddress: kse,
+                entrypoint: `submit_score`,
+                calldata: [
+                    t.toString(),
+                    n.toString(),
+                    r.toString(),
+                    i.toString(),
+                    s,
+                    `1`
+                ]
+            }
+        ]);
+    }
+    function E9(e) {
+        let t = e;
+        return {
+            next: ()=>(t = t * 1664525 + 1013904223 & 4294967295, (t >>> 0) / 4294967295),
+            int: (e, n)=>(t = t * 1664525 + 1013904223 & 4294967295, Math.floor((t >>> 0) / 4294967295 * (n - e + 1)) + e),
+            getState: ()=>t
+        };
+    }
     function D9(e) {
         return {
-            goldBonus: e >= T9.streak.goldBonusAt ? T9.streak.goldBonus : 1,
-            hunterAggro: e >= T9.streak.hunterAggroAt,
-            stormAggro: e >= T9.streak.stormAggroAt ? T9.streak.stormAggroBonus : 0,
-            eliteChance: e >= T9.streak.eliteAt ? T9.streak.eliteChance : 0,
-            curseChance: e >= T9.streak.curseAt ? T9.streak.curseChance : 0,
-            rareEventChance: e >= T9.streak.rareAt ? T9.streak.rareChance : 0
+            goldBonus: e >= w9.streak.goldBonusAt ? w9.streak.goldBonus : 1,
+            hunterAggro: e >= w9.streak.hunterAggroAt,
+            stormAggro: e >= w9.streak.stormAggroAt ? w9.streak.stormAggroBonus : 0,
+            eliteChance: e >= w9.streak.eliteAt ? w9.streak.eliteChance : 0,
+            curseChance: e >= w9.streak.curseAt ? w9.streak.curseChance : 0,
+            rareEventChance: e >= w9.streak.rareAt ? w9.streak.rareChance : 0
         };
     }
     function O9(e) {
@@ -55858,7 +55857,7 @@ Resources:`;
             berserkerCrit: t(`berserker`) && e.levels.weapon >= 2,
             ghostVision: t(`ghost`) && e.levels.nav >= 1,
             stormHeal: t(`rider`) && e.levels.hull >= 2,
-            greedFrenzy: t(`greed`) && e.gold >= T9.greed.frenzyGold
+            greedFrenzy: t(`greed`) && e.gold >= w9.greed.frenzyGold
         };
     }
     var k9 = 12;
@@ -56339,11 +56338,11 @@ Resources:`;
         let t = e === `tutorial`, n = t ? 0 : e ?? Date.now() % 999999, r = {
             x: 6,
             y: 11,
-            hull: T9.ship.startHull,
-            maxHull: T9.ship.startHull,
-            gold: T9.ship.startGold,
-            power: T9.ship.startPower,
-            vision: T9.ship.startVision,
+            hull: w9.ship.startHull,
+            maxHull: w9.ship.startHull,
+            gold: w9.ship.startGold,
+            power: w9.ship.startPower,
+            vision: w9.ship.startVision,
             upgrades: [],
             levels: {
                 hull: 0,
@@ -56363,7 +56362,7 @@ Resources:`;
             log: `The sea calls, Captain.`,
             gameOver: !1,
             showPort: !1,
-            stormDistance: T9.storm.initial,
+            stormDistance: w9.storm.initial,
             upgradeToken: !1,
             escapeUsed: !1,
             dangerStreak: 0,
@@ -56411,7 +56410,7 @@ Resources:`;
             y: a
         }, c = e.ship.levels.hull >= 2 ? 3 : 2;
         s.upgrades.includes(`rider`) && (e.turn + 1) % c === 0 && (s.hull = Math.max(1, s.hull - 1));
-        let l = D9(e.dangerStreak), u = e.ship.upgrades.includes(`hunter`) ? T9.storm.hunterSurgeBonus : 0, d = (e.ship.upgrades.includes(`greed`) ? Math.floor(e.ship.gold / T9.greed.corruptionStep) : 0) * T9.greed.corruptionStormBonus, f = l.stormAggro, p = a <= 7 && a > 3 ? .05 : 0, m = (o === `early` ? T9.storm.surgeEarly : o === `mid` ? T9.storm.surgeMid : T9.storm.surgeLate) + u + p + f + d, h = Math.min(T9.storm.maxSurge, m), g = r.next() < h ? 2 : r.next() < .15 ? 0 : 1, _ = Math.max(0, e.stormDistance - g - (e.ship.upgrades.includes(`greed`) && e.turn % 3 == 0 ? 1 : 0)), v = j9(e.grid, i, a, s.vision), y = g === 2 ? `Storm surge!` : ``;
+        let l = D9(e.dangerStreak), u = e.ship.upgrades.includes(`hunter`) ? w9.storm.hunterSurgeBonus : 0, d = (e.ship.upgrades.includes(`greed`) ? Math.floor(e.ship.gold / w9.greed.corruptionStep) : 0) * w9.greed.corruptionStormBonus, f = l.stormAggro, p = a <= 7 && a > 3 ? .05 : 0, m = (o === `early` ? w9.storm.surgeEarly : o === `mid` ? w9.storm.surgeMid : w9.storm.surgeLate) + u + p + f + d, h = Math.min(w9.storm.maxSurge, m), g = r.next() < h ? 2 : r.next() < .15 ? 0 : 1, _ = Math.max(0, e.stormDistance - g - (e.ship.upgrades.includes(`greed`) && e.turn % 3 == 0 ? 1 : 0)), v = j9(e.grid, i, a, s.vision), y = g === 2 ? `Storm surge!` : ``;
         if (s.levels.nav >= 2) {
             let e = [];
             for(let t = -2; t <= 2; t++)for(let n = -2; n <= 2; n++){
@@ -56432,7 +56431,7 @@ Resources:`;
             ].join(`, `)}.`);
         }
         let b = ``;
-        e.turn + 1 === T9.hunter.spawnTurn && !e.hunter && (b = `Something surfaces from the deep... It has found your trail.`);
+        e.turn + 1 === w9.hunter.spawnTurn && !e.hunter && (b = `Something surfaces from the deep... It has found your trail.`);
         let x = [
             y,
             b
@@ -56500,7 +56499,7 @@ Resources:`;
                         } : e)), e.state = {
                     ...e.state,
                     portalSpawned: !0
-                }, e.log = (e.log ? e.log + ` ` : ``) + E9[n.currentZone].portalMessage;
+                }, e.log = (e.log ? e.log + ` ` : ``) + T9[n.currentZone].portalMessage;
             }
         }
         if (n.portalSpawned) {
@@ -56615,7 +56614,7 @@ Resources:`;
     }
     function Wse(e) {
         let { nx: t, ny: n, turn: r } = e, i = e.hunter;
-        if (r === T9.hunter.spawnTurn && !i) i = {
+        if (r === w9.hunter.spawnTurn && !i) i = {
             x: t < 12 / 2 ? 11 : 0,
             y: 0,
             active: !0,
@@ -56644,7 +56643,7 @@ Resources:`;
             }, Use(e, i, d);
         }
         if (i && i.active && i.x === t && i.y === n) {
-            let t = Math.max(T9.hunter.minDamage, T9.hunter.baseDamage - e.ship.power);
+            let t = Math.max(w9.hunter.minDamage, w9.hunter.baseDamage - e.ship.power);
             e.ship = {
                 ...e.ship,
                 hull: Math.max(0, e.ship.hull - t)
@@ -56659,7 +56658,7 @@ Resources:`;
         if (e.gameOver) return e;
         let { nx: t, ny: n, ship: r, rng: i, zoneLabel: a } = e, o = e.grid[n][t];
         if (o.type === `sea`) {
-            if (r.upgrades.includes(`ghost`) && n <= 7 && i.next() < T9.ghost.krakenChance) return e.event = M9(`kraken`, r.power), e.log = `The Ghost Ship attracts the deep...` + (e.log ? ` ` + e.log : ``), e;
+            if (r.upgrades.includes(`ghost`) && n <= 7 && i.next() < w9.ghost.krakenChance) return e.event = M9(`kraken`, r.power), e.log = `The Ghost Ship attracts the deep...` + (e.log ? ` ` + e.log : ``), e;
             let t = i.next();
             if (t < .08) {
                 let t = i.int(1, 3);
@@ -56792,7 +56791,7 @@ Resources:`;
     }
     function qse(e, t, n) {
         if (e.gameOver || e.showPort || e.event) return e;
-        let r = Lse(e, t, n, w9(e.rngState));
+        let r = Lse(e, t, n, E9(e.rngState));
         return r ? Kse(Gse(Wse(zse(Rse(r))))) : e;
     }
     function Jse(e) {
@@ -56831,7 +56830,7 @@ Resources:`;
     function Yse(e, t) {
         if (!e.ship.upgrades.includes(`greed`)) return e;
         let { ship: n, curses: r, log: i } = e, a = D9(e.dangerStreak);
-        if (n.gold >= T9.greed.curseThreshold && a.curseChance > 0 && t.next() < a.curseChance && r.length < 3) {
+        if (n.gold >= w9.greed.curseThreshold && a.curseChance > 0 && t.next() < a.curseChance && r.length < 3) {
             let e = t.next() < .5 ? `kraken_curse` : `cursed_treasure`;
             r.includes(e) || (r = [
                 ...r,
@@ -56873,7 +56872,7 @@ Resources:`;
     }
     function Qse(e, t) {
         if (!e.event) return e;
-        let n = w9(e.rngState), { cellType: r } = e.event, i = e.ship.upgrades.includes(`greed`), a = {
+        let n = E9(e.rngState), { cellType: r } = e.event, i = e.ship.upgrades.includes(`greed`), a = {
             ...e.ship
         }, o = e.score, s = !1, c = e.upgradeToken, l = ``, u = !1, d = e.stormDistance, f = e.ship.levels.hull, p = f >= 2 ? 3 : f >= 1 ? 2 : 0, m = +(f >= 2 && a.hull > Math.floor(a.maxHull * .5)), h = e.ship.levels.weapon >= 1 ? 2 : 0, g = [
             `pirate`,
@@ -56965,12 +56964,12 @@ Resources:`;
         if (t === 0) switch(r){
             case `pirate`:
                 {
-                    let t = D9(_), r = Math.max(0, n.int(3, 10) - a.power - m), s = Math.max(h, r), c = n.int(20, 60) + Math.floor(y / 3), u = Math.floor(c * (i ? 1.5 : 1) * t.goldBonus), d = a.gold >= 300 ? .6 : a.gold >= 200 ? .8 : 1, f = Math.floor(u * d), p = d < 1 ? ` (hold full — gold lost at sea)` : ``, g = O9(a).berserkerCrit && n.next() < T9.combat.berserkerCritChance;
+                    let t = D9(_), r = Math.max(0, n.int(3, 10) - a.power - m), s = Math.max(h, r), c = n.int(20, 60) + Math.floor(y / 3), u = Math.floor(c * (i ? 1.5 : 1) * t.goldBonus), d = a.gold >= 300 ? .6 : a.gold >= 200 ? .8 : 1, f = Math.floor(u * d), p = d < 1 ? ` (hold full — gold lost at sea)` : ``, g = O9(a).berserkerCrit && n.next() < w9.combat.berserkerCritChance;
                     a.hull -= s, a.gold += f, e = {
                         ...e,
                         piratesFought: (e.piratesFought ?? 0) + 1
                     };
-                    let b = Math.floor((f + 35) * v * (g ? T9.combat.berserkerCritMult : 1));
+                    let b = Math.floor((f + 35) * v * (g ? w9.combat.berserkerCritMult : 1));
                     o += b, E = {
                         ...E,
                         combat: E.combat + b
@@ -57030,8 +57029,8 @@ Resources:`;
                 ].sort(()=>n.next() - .5).slice(0, 2), l = `Welcome to port, Captain!`;
                 break;
             case `island`:
-                if (a.gold >= T9.port.islandRitualCost) return a.gold -= T9.port.islandRitualCost, l = `The old stones drink your gold. A cold wind sweeps the storm back. +${T9.port.islandRitualBonus} turns.`, D({
-                    stormDistance: d + T9.port.islandRitualBonus
+                if (a.gold >= w9.port.islandRitualCost) return a.gold -= w9.port.islandRitualCost, l = `The old stones drink your gold. A cold wind sweeps the storm back. +${w9.port.islandRitualBonus} turns.`, D({
+                    stormDistance: d + w9.port.islandRitualBonus
                 });
                 l = `Not enough gold. (need 100g)`;
                 break;
@@ -57093,7 +57092,7 @@ Resources:`;
                 }
             case `kraken`:
                 {
-                    a.hull = Math.max(1, a.hull - T9.port.krakenPactHull);
+                    a.hull = Math.max(1, a.hull - w9.port.krakenPactHull);
                     let t = e.ship.upgrades.includes(`rider`) ? 200 : 0;
                     return t > 0 && (o += t, E = {
                         ...E,
@@ -57114,7 +57113,7 @@ Resources:`;
                         frenzyTurns: 3,
                         awareness: 80
                     }, l = `You offer your blood to the deep. The storm holds back... but something stirs in the dark. -20 hull.${t > 0 ? ` +200pts` : ``}`, D({
-                        stormDistance: d + T9.port.krakenPactStorm,
+                        stormDistance: d + w9.port.krakenPactStorm,
                         hunter: w
                     });
                 }
@@ -57124,13 +57123,13 @@ Resources:`;
                 });
             case `portal`:
                 if (t === 0) {
-                    let t = (e.currentZone ?? 1) + 1, n = E9[t], r = A9(e.rngState ? parseInt(e.rngState.toString()) : Date.now(), []);
+                    let t = (e.currentZone ?? 1) + 1, n = T9[t], r = A9(e.rngState ? parseInt(e.rngState.toString()) : Date.now(), []);
                     return l = n.transitionText.join(` `), D({
                         currentZone: t,
                         portalSpawned: !1,
                         portalHint: null,
                         grid: r,
-                        stormDistance: T9.storm.initial,
+                        stormDistance: w9.storm.initial,
                         hunter: null
                     });
                 }
@@ -57252,7 +57251,7 @@ Resources:`;
             ...e,
             log: `Not enough gold to reroll. (need 20g)`
         };
-        let t = w9(e.rngState + e.turn), n = [
+        let t = E9(e.rngState + e.turn), n = [
             ...[
                 `escape`,
                 `ghost`,
@@ -57997,8 +57996,8 @@ Resources:`;
                                 },
                                 {
                                     icon: `turn`,
-                                    label: `ZONE`,
-                                    val: k.zone,
+                                    label: (T9[k.currentZone ?? 1]?.name ?? `The Coasts`).toUpperCase(),
+                                    val: ``,
                                     color: `#aa44ee`
                                 }
                             ]).map((e)=>(0, I.jsxs)(`div`, {
@@ -58629,14 +58628,11 @@ Resources:`;
                                                 ` turns`
                                             ]
                                         }),
-                                        (0, I.jsxs)(`span`, {
+                                        (0, I.jsx)(`span`, {
                                             style: {
                                                 color: `#cc44ee`
                                             },
-                                            children: [
-                                                `ZONE `,
-                                                k.zone
-                                            ]
+                                            children: T9[k.currentZone ?? 1]?.name ?? `The Coasts`
                                         }),
                                         (0, I.jsxs)(`span`, {
                                             style: {
