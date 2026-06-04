@@ -56410,13 +56410,13 @@ Resources:`;
             y: a
         }, c = e.ship.levels.hull >= 2 ? 3 : 2;
         s.upgrades.includes(`rider`) && (e.turn + 1) % c === 0 && (s.hull = Math.max(1, s.hull - 1));
-        let l = D9(e.dangerStreak), u = e.ship.upgrades.includes(`hunter`) ? w9.storm.hunterSurgeBonus : 0, d = (e.ship.upgrades.includes(`greed`) ? Math.floor(e.ship.gold / w9.greed.corruptionStep) : 0) * w9.greed.corruptionStormBonus, f = l.stormAggro, p = a <= 7 && a > 3 ? .05 : 0, m = (o === `early` ? w9.storm.surgeEarly : o === `mid` ? w9.storm.surgeMid : w9.storm.surgeLate) + u + p + f + d, h = Math.min(w9.storm.maxSurge, m), g = r.next() < h ? 2 : r.next() < .15 ? 0 : 1, _ = Math.max(0, e.stormDistance - g - (e.ship.upgrades.includes(`greed`) && e.turn % 3 == 0 ? 1 : 0)), v = j9(e.grid, i, a, s.vision), y = g === 2 ? `Storm surge!` : ``;
+        let l = D9(e.dangerStreak), u = e.ship.upgrades.includes(`hunter`) ? w9.storm.hunterSurgeBonus : 0, d = (e.ship.upgrades.includes(`greed`) ? Math.floor(e.ship.gold / w9.greed.corruptionStep) : 0) * w9.greed.corruptionStormBonus, f = l.stormAggro, p = a <= 7 && a > 3 ? .05 : 0, m = (o === `early` ? w9.storm.surgeEarly : o === `mid` ? w9.storm.surgeMid : w9.storm.surgeLate) + u + p + f + d, h = T9[e.currentZone ?? 1]?.stormMultiplier ?? 1, g = Math.min(w9.storm.maxSurge, m * h), _ = r.next() < g ? 2 : r.next() < .15 ? 0 : 1, v = Math.max(0, e.stormDistance - _ - (e.ship.upgrades.includes(`greed`) && e.turn % 3 == 0 ? 1 : 0)), y = j9(e.grid, i, a, s.vision), b = _ === 2 ? `Storm surge!` : ``;
         if (s.levels.nav >= 2) {
             let e = [];
             for(let t = -2; t <= 2; t++)for(let n = -2; n <= 2; n++){
                 let r = i + n, o = a + t;
                 if (r >= 0 && r < 12 && o >= 0 && o < 12) {
-                    let t = v[o][r];
+                    let t = y[o][r];
                     t.revealed && !t.visited && [
                         `pirate`,
                         `kraken`,
@@ -56426,16 +56426,16 @@ Resources:`;
                     ].includes(t.type) && e.push(t.type);
                 }
             }
-            e.length > 0 && (y += (y ? ` ` : ``) + `Navigator detects: ${[
+            e.length > 0 && (b += (b ? ` ` : ``) + `Navigator detects: ${[
                 ...new Set(e)
             ].join(`, `)}.`);
         }
-        let b = ``;
-        e.turn + 1 === w9.hunter.spawnTurn && !e.hunter && (b = `Something surfaces from the deep... It has found your trail.`);
-        let x = [
-            y,
-            b
-        ].filter(Boolean).join(` `), S = v[a]?.[i]?.type ?? `sea`, C = ![
+        let x = ``, S = T9[e.currentZone ?? 1]?.hunterSpawnTurn ?? w9.hunter.spawnTurn;
+        e.turn + 1 === S && !e.hunter && (x = `Something surfaces from the deep... It has found your trail.`);
+        let C = [
+            b,
+            x
+        ].filter(Boolean).join(` `), w = y[a]?.[i]?.type ?? `sea`, T = ![
             `pirate`,
             `kraken`,
             `storm`,
@@ -56445,11 +56445,11 @@ Resources:`;
             `ancient_kraken`,
             `cursed_treasure`,
             `island`
-        ].includes(S) && S !== `port` && S !== `treasure` ? Math.max(0, e.dangerStreak - 1) : e.dangerStreak, w = C >= 3 ? 3 : C >= 2 ? 2 : 1;
+        ].includes(w) && w !== `port` && w !== `treasure` ? Math.max(0, e.dangerStreak - 1) : e.dangerStreak, E = T >= 3 ? 3 : T >= 2 ? 2 : 1;
         return {
             state: e,
             ship: s,
-            grid: v,
+            grid: y,
             nx: i,
             ny: a,
             turn: e.turn + 1,
@@ -56459,16 +56459,16 @@ Resources:`;
                 ...e.scoreBreakdown,
                 movement: (e.scoreBreakdown?.movement ?? 0) + 5
             },
-            stormDistance: _,
+            stormDistance: v,
             gameOver: !1,
-            log: x,
+            log: C,
             event: null,
             showPort: !1,
             hunter: e.hunter,
             rng: r,
             zoneLabel: o,
-            dangerStreak: C,
-            scoreMultiplier: w
+            dangerStreak: T,
+            scoreMultiplier: E
         };
     }
     function Rse(e) {
@@ -56614,7 +56614,7 @@ Resources:`;
     }
     function Wse(e) {
         let { nx: t, ny: n, turn: r } = e, i = e.hunter;
-        if (r === w9.hunter.spawnTurn && !i) i = {
+        if (r === (T9[e.state.currentZone ?? 1]?.hunterSpawnTurn ?? w9.hunter.spawnTurn) && !i) i = {
             x: t < 12 / 2 ? 11 : 0,
             y: 0,
             active: !0,
