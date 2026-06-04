@@ -59103,6 +59103,22 @@ Resources:`;
                                         paddingRight: E ? 80 : 0
                                     },
                                     children: k.log
+                                }),
+                                k.portalHint && (0, I.jsxs)(`div`, {
+                                    style: {
+                                        marginTop: 6,
+                                        fontSize: 14,
+                                        color: `#8866ff`,
+                                        fontFamily: `'IM Fell English', cursive`,
+                                        textAlign: `center`,
+                                        fontStyle: `italic`,
+                                        animation: `pulse 2s infinite`
+                                    },
+                                    children: [
+                                        `✦ `,
+                                        k.portalHint,
+                                        ` ✦`
+                                    ]
                                 })
                             ]
                         }),
