@@ -57123,14 +57123,15 @@ Resources:`;
                 });
             case `portal`:
                 if (t === 0) {
-                    let t = (e.currentZone ?? 1) + 1, n = T9[t], r = A9(e.rngState ? parseInt(e.rngState.toString()) : Date.now(), []);
+                    let t = (e.currentZone ?? 1) + 1, n = T9[t], r = A9(e.rngState ? parseInt(e.rngState.toString()) : Date.now(), []), i = t === 2 ? 100 : t === 3 ? 250 : 0;
                     return l = n.transitionText.join(` `), ee({
                         currentZone: t,
                         portalSpawned: !1,
                         portalHint: null,
                         grid: r,
                         stormDistance: w9.storm.initial,
-                        hunter: null
+                        hunter: null,
+                        score: o + i
                     });
                 }
                 return l = `You turn back. The portal fades.`, ee({});
