@@ -56482,7 +56482,7 @@ Resources:`;
     function zse(e) {
         let { turn: t, state: n } = e;
         if (n.portalSpawned || n.currentZone >= 3 || t < 12) return e;
-        if (!n.portalSpawned && e.rng.next() < .8) {
+        if (!n.portalSpawned && e.rng.next() < .2) {
             let t = [];
             for(let n = 1; n < 10; n++)for(let r = 0; r < 12; r++){
                 let i = e.grid[n][r];
