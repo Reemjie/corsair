@@ -56486,7 +56486,7 @@ Resources:`;
             let t = [];
             for(let n = 1; n < 10; n++)for(let r = 0; r < 12; r++){
                 let i = e.grid[n][r];
-                i.type === `sea` && !i.visited && !i.revealed && t.push({
+                i.type === `sea` && !i.visited && !i.revealed && !i.stormed && t.push({
                     x: r,
                     y: n
                 });
