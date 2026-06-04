@@ -90,13 +90,13 @@
                 props: r
             };
         }
-        function D(e, t) {
+        function ee(e, t) {
             return E(e.type, t, e.props);
         }
-        function ee(e) {
+        function te(e) {
             return typeof e == `object` && !!e && e.$$typeof === t;
         }
-        function te(e) {
+        function ne(e) {
             var t = {
                 "=": `=0`,
                 ":": `=2`
@@ -105,9 +105,9 @@
                 return t[e];
             });
         }
-        var ne = /\/+/g;
+        var D = /\/+/g;
         function re(e, t) {
-            return typeof e == `object` && e && e.key != null ? te(`` + e.key) : t.toString(36);
+            return typeof e == `object` && e && e.key != null ? ne(`` + e.key) : t.toString(36);
         }
         function ie(e) {
             switch(e.status){
@@ -150,9 +150,9 @@
                             return c = e._init, ae(c(e._payload), r, i, a, o);
                     }
             }
-            if (c) return o = o(e), c = a === `` ? `.` + re(e, 0) : a, S(o) ? (i = ``, c != null && (i = c.replace(ne, `$&/`) + `/`), ae(o, r, i, ``, function(e) {
+            if (c) return o = o(e), c = a === `` ? `.` + re(e, 0) : a, S(o) ? (i = ``, c != null && (i = c.replace(D, `$&/`) + `/`), ae(o, r, i, ``, function(e) {
                 return e;
-            })) : o != null && (ee(o) && (o = D(o, i + (o.key == null || e && e.key === o.key ? `` : (`` + o.key).replace(ne, `$&/`) + `/`) + c)), r.push(o)), 1;
+            })) : o != null && (te(o) && (o = ee(o, i + (o.key == null || e && e.key === o.key ? `` : (`` + o.key).replace(D, `$&/`) + `/`) + c)), r.push(o)), 1;
             c = 0;
             var l = a === `` ? `.` : a + `:`;
             if (S(e)) for(var u = 0; u < e.length; u++)a = e[u], s = l + re(a, u), c += ae(a, r, i, s, o);
@@ -215,7 +215,7 @@
                 }) || [];
             },
             only: function(e) {
-                if (!ee(e)) throw Error(`React.Children.only expected to receive a single React element child.`);
+                if (!te(e)) throw Error(`React.Children.only expected to receive a single React element child.`);
                 return e;
             }
         };
@@ -273,7 +273,7 @@
                 $$typeof: c,
                 render: e
             };
-        }, e.isValidElement = ee, e.lazy = function(e) {
+        }, e.isValidElement = te, e.lazy = function(e) {
             return {
                 $$typeof: d,
                 _payload: {
@@ -392,7 +392,7 @@
             }
         }
         function x(e) {
-            if (h = !1, b(e), !m) if (n(c) !== null) m = !0, S || (S = !0, ee());
+            if (h = !1, b(e), !m) if (n(c) !== null) m = !0, S || (S = !0, te());
             else {
                 var t = n(l);
                 t !== null && re(x, t.startTime - e);
@@ -402,7 +402,7 @@
         function E() {
             return g ? !0 : !(e.unstable_now() - T < w);
         }
-        function D() {
+        function ee() {
             if (g = !1, S) {
                 var t = e.unstable_now();
                 T = t;
@@ -439,21 +439,21 @@
                         i = void 0;
                     }
                 } finally{
-                    i ? ee() : S = !1;
+                    i ? te() : S = !1;
                 }
             }
         }
-        var ee;
-        if (typeof y == `function`) ee = function() {
-            y(D);
+        var te;
+        if (typeof y == `function`) te = function() {
+            y(ee);
         };
         else if (typeof MessageChannel < `u`) {
-            var te = new MessageChannel, ne = te.port2;
-            te.port1.onmessage = D, ee = function() {
-                ne.postMessage(null);
+            var ne = new MessageChannel, D = ne.port2;
+            ne.port1.onmessage = ee, te = function() {
+                D.postMessage(null);
             };
-        } else ee = function() {
-            _(D, 0);
+        } else te = function() {
+            _(ee, 0);
         };
         function re(t, n) {
             C = _(function() {
@@ -528,7 +528,7 @@
                 startTime: a,
                 expirationTime: s,
                 sortIndex: -1
-            }, a > o ? (r.sortIndex = a, t(l, r), n(c) === null && r === n(l) && (h ? (v(C), C = -1) : h = !0, re(x, a - o))) : (r.sortIndex = s, t(c, r), m || p || (m = !0, S || (S = !0, ee()))), r;
+            }, a > o ? (r.sortIndex = a, t(l, r), n(c) === null && r === n(l) && (h ? (v(C), C = -1) : h = !0, re(x, a - o))) : (r.sortIndex = s, t(c, r), m || p || (m = !0, S || (S = !0, te()))), r;
         }, e.unstable_shouldYield = E, e.unstable_wrapCallback = function(e) {
             var t = f;
             return function() {
@@ -775,7 +775,7 @@
             }
             return null;
         }
-        var f = Object.assign, m = Symbol.for(`react.element`), g = Symbol.for(`react.transitional.element`), v = Symbol.for(`react.portal`), y = Symbol.for(`react.fragment`), b = Symbol.for(`react.strict_mode`), x = Symbol.for(`react.profiler`), S = Symbol.for(`react.consumer`), C = Symbol.for(`react.context`), w = Symbol.for(`react.forward_ref`), T = Symbol.for(`react.suspense`), E = Symbol.for(`react.suspense_list`), D = Symbol.for(`react.memo`), ee = Symbol.for(`react.lazy`), te = Symbol.for(`react.activity`), ne = Symbol.for(`react.memo_cache_sentinel`), re = Symbol.iterator;
+        var f = Object.assign, m = Symbol.for(`react.element`), g = Symbol.for(`react.transitional.element`), v = Symbol.for(`react.portal`), y = Symbol.for(`react.fragment`), b = Symbol.for(`react.strict_mode`), x = Symbol.for(`react.profiler`), S = Symbol.for(`react.consumer`), C = Symbol.for(`react.context`), w = Symbol.for(`react.forward_ref`), T = Symbol.for(`react.suspense`), E = Symbol.for(`react.suspense_list`), ee = Symbol.for(`react.memo`), te = Symbol.for(`react.lazy`), ne = Symbol.for(`react.activity`), D = Symbol.for(`react.memo_cache_sentinel`), re = Symbol.iterator;
         function ie(e) {
             return typeof e != `object` || !e ? null : (e = re && e[re] || e[`@@iterator`], typeof e == `function` ? e : null);
         }
@@ -795,7 +795,7 @@
                     return `Suspense`;
                 case E:
                     return `SuspenseList`;
-                case te:
+                case ne:
                     return `Activity`;
             }
             if (typeof e == `object`) switch(e.$$typeof){
@@ -808,9 +808,9 @@
                 case w:
                     var t = e.render;
                     return e = e.displayName, e ||= (e = t.displayName || t.name || ``, e === `` ? `ForwardRef` : `ForwardRef(` + e + `)`), e;
-                case D:
-                    return t = e.displayName || null, t === null ? oe(e.type) || `Memo` : t;
                 case ee:
+                    return t = e.displayName || null, t === null ? oe(e.type) || `Memo` : t;
+                case te:
                     t = e._payload, e = e._init;
                     try {
                         return oe(e(t));
@@ -998,9 +998,9 @@ Error generating stack: ` + e.message + `
 ` + e.stack;
             }
         }
-        var Ae = Object.prototype.hasOwnProperty, je = t.unstable_scheduleCallback, Me = t.unstable_cancelCallback, Ne = t.unstable_shouldYield, Pe = t.unstable_requestPaint, Fe = t.unstable_now, Ie = t.unstable_getCurrentPriorityLevel, Le = t.unstable_ImmediatePriority, k = t.unstable_UserBlockingPriority, Re = t.unstable_NormalPriority, ze = t.unstable_LowPriority, Be = t.unstable_IdlePriority, Ve = t.log, He = t.unstable_setDisableYieldValue, Ue = null, We = null;
+        var Ae = Object.prototype.hasOwnProperty, je = t.unstable_scheduleCallback, Me = t.unstable_cancelCallback, Ne = t.unstable_shouldYield, Pe = t.unstable_requestPaint, Fe = t.unstable_now, Ie = t.unstable_getCurrentPriorityLevel, Le = t.unstable_ImmediatePriority, Re = t.unstable_UserBlockingPriority, ze = t.unstable_NormalPriority, Be = t.unstable_LowPriority, Ve = t.unstable_IdlePriority, k = t.log, He = t.unstable_setDisableYieldValue, Ue = null, We = null;
         function Ge(e) {
-            if (typeof Ve == `function` && He(e), We && typeof We.setStrictMode == `function`) try {
+            if (typeof k == `function` && He(e), We && typeof We.setStrictMode == `function`) try {
                 We.setStrictMode(Ue, e);
             } catch  {}
         }
@@ -2405,8 +2405,8 @@ Error generating stack: ` + e.message + `
             if (r = e, typeof e == `function`) vi(e) && (s = 1);
             else if (typeof e == `string`) s = op(e, n, he.current) ? 26 : e === `html` || e === `head` || e === `body` ? 27 : 5;
             else a: switch(e){
-                case te:
-                    return e = _i(31, n, t, a), e.elementType = te, e.lanes = o, e;
+                case ne:
+                    return e = _i(31, n, t, a), e.elementType = ne, e.lanes = o, e;
                 case y:
                     return Si(n.children, a, o, t);
                 case b:
@@ -2429,10 +2429,10 @@ Error generating stack: ` + e.message + `
                         case w:
                             s = 11;
                             break a;
-                        case D:
+                        case ee:
                             s = 14;
                             break a;
-                        case ee:
+                        case te:
                             s = 16, r = null;
                             break a;
                     }
@@ -2872,7 +2872,7 @@ Error generating stack: ` + e.message + `
             }
             function l(e, t, n, r) {
                 var i = n.type;
-                return i === y ? d(e, t, n.props.children, r, n.key) : t !== null && (t.elementType === i || typeof i == `object` && i && i.$$typeof === ee && Ra(i) === t.type) ? (t = a(t, n.props), Ga(t, n), t.return = e, t) : (t = xi(n.type, n.key, n.props, null, e.mode, r), Ga(t, n), t.return = e, t);
+                return i === y ? d(e, t, n.props.children, r, n.key) : t !== null && (t.elementType === i || typeof i == `object` && i && i.$$typeof === te && Ra(i) === t.type) ? (t = a(t, n.props), Ga(t, n), t.return = e, t) : (t = xi(n.type, n.key, n.props, null, e.mode, r), Ga(t, n), t.return = e, t);
             }
             function u(e, t, n, r) {
                 return t === null || t.tag !== 4 || t.stateNode.containerInfo !== n.containerInfo || t.stateNode.implementation !== n.implementation ? (t = Ti(n, e.mode, r), t.return = e, t) : (t = a(t, n.children || []), t.return = e, t);
@@ -2888,7 +2888,7 @@ Error generating stack: ` + e.message + `
                             return n = xi(t.type, t.key, t.props, null, e.mode, n), Ga(n, t), n.return = e, n;
                         case v:
                             return t = Ti(t, e.mode, n), t.return = e, t;
-                        case ee:
+                        case te:
                             return t = Ra(t), f(e, t, n);
                     }
                     if (se(t) || ie(t)) return t = Si(t, e.mode, n, null), t.return = e, t;
@@ -2907,7 +2907,7 @@ Error generating stack: ` + e.message + `
                             return n.key === i ? l(e, t, n, r) : null;
                         case v:
                             return n.key === i ? u(e, t, n, r) : null;
-                        case ee:
+                        case te:
                             return n = Ra(n), p(e, t, n, r);
                     }
                     if (se(n) || ie(n)) return i === null ? d(e, t, n, r, null) : null;
@@ -2925,7 +2925,7 @@ Error generating stack: ` + e.message + `
                             return e = e.get(r.key === null ? n : r.key) || null, l(t, e, r, i);
                         case v:
                             return e = e.get(r.key === null ? n : r.key) || null, u(t, e, r, i);
-                        case ee:
+                        case te:
                             return r = Ra(r), m(e, t, n, r, i);
                     }
                     if (se(r) || ie(r)) return e = e.get(n) || null, d(t, e, r, i, null);
@@ -2988,7 +2988,7 @@ Error generating stack: ` + e.message + `
                                                 n(e, r.sibling), c = a(r, o.props.children), c.return = e, e = c;
                                                 break a;
                                             }
-                                        } else if (r.elementType === l || typeof l == `object` && l && l.$$typeof === ee && Ra(l) === r.type) {
+                                        } else if (r.elementType === l || typeof l == `object` && l && l.$$typeof === te && Ra(l) === r.type) {
                                             n(e, r.sibling), c = a(r, o.props), Ga(c, o), c.return = e, e = c;
                                             break a;
                                         }
@@ -3016,7 +3016,7 @@ Error generating stack: ` + e.message + `
                                 c = Ti(o, e.mode, c), c.return = e, e = c;
                             }
                             return s(e);
-                        case ee:
+                        case te:
                             return o = Ra(o), b(e, r, o, c);
                     }
                     if (se(o)) return h(e, r, o, c);
@@ -3359,7 +3359,7 @@ Error generating stack: ` + e.message + `
             if (t ??= {
                 data: [],
                 index: 0
-            }, n === null && (n = Wo(), A.updateQueue = n), n.memoCache = t, n = t.data[t.index], n === void 0) for(n = t.data[t.index] = Array(e), r = 0; r < e; r++)n[r] = ne;
+            }, n === null && (n = Wo(), A.updateQueue = n), n.memoCache = t, n = t.data[t.index], n === void 0) for(n = t.data[t.index] = Array(e), r = 0; r < e; r++)n[r] = D;
             return t.index++, n;
         }
         function Jo(e, t) {
@@ -4692,7 +4692,7 @@ Error generating stack: ` + e.message + `
                                 if (a === w) {
                                     t.tag = 11, t = vc(null, t, e, r, n);
                                     break a;
-                                } else if (a === D) {
+                                } else if (a === ee) {
                                     t.tag = 14, t = yc(null, t, e, r, n);
                                     break a;
                                 }
@@ -6414,7 +6414,7 @@ Error generating stack: ` + e.message + `
             if (eu & 6) throw Error(i(327));
             if (t !== null) {
                 if (t === e.current) throw Error(i(177));
-                if (o = t.lanes | t.childLanes, o |= ci, ot(e, n, o, s, c, l), e === tu && (nu = tu = null, ru = 0), Tu = t, wu = e, Eu = n, Du = o, Ou = a, ku = r, t.subtreeFlags & 10256 || t.flags & 10256 ? (e.callbackNode = null, e.callbackPriority = 0, md(Re, function() {
+                if (o = t.lanes | t.childLanes, o |= ci, ot(e, n, o, s, c, l), e === tu && (nu = tu = null, ru = 0), Tu = t, wu = e, Eu = n, Du = o, Ou = a, ku = r, t.subtreeFlags & 10256 || t.flags & 10256 ? (e.callbackNode = null, e.callbackPriority = 0, md(ze, function() {
                     return od(), null;
                 })) : (e.callbackNode = null, e.callbackPriority = 0), r = (t.flags & 13878) != 0, t.subtreeFlags & 13878 || r) {
                     r = O.T, O.T = null, a = ce.p, ce.p = 2, s = eu, eu |= 4;
@@ -6651,16 +6651,16 @@ Error generating stack: ` + e.message + `
                 switch(r !== null && Me(r), dt(n)){
                     case 2:
                     case 8:
-                        n = k;
+                        n = Re;
                         break;
                     case 32:
-                        n = Re;
+                        n = ze;
                         break;
                     case 268435456:
-                        n = Be;
+                        n = Ve;
                         break;
                     default:
-                        n = Re;
+                        n = ze;
                 }
                 return r = Ed.bind(null, e), n = je(n, r), e.callbackPriority = t, e.callbackNode = n, t;
             }
@@ -8465,12 +8465,12 @@ Error generating stack: ` + e.message + `
                     switch(Ie()){
                         case Le:
                             return 2;
-                        case k:
-                            return 8;
                         case Re:
+                            return 8;
                         case ze:
-                            return 32;
                         case Be:
+                            return 32;
+                        case Ve:
                             return 268435456;
                         default:
                             return 32;
@@ -8819,7 +8819,7 @@ Error generating stack: ` + e.message + `
         }, c.prototype.off = c.prototype.removeListener, c.prototype.addListener = c.prototype.on, c.prefixed = r, c.EventEmitter = c, t !== void 0 && (t.exports = c);
     })), x = u(p(), 1), S = u(y(), 1), C = u(b(), 1).default, w = {
         ACCOUNTS: `accounts`
-    }, T = c({}), E = `ACCEPTED_ON_L2`, D = `ACCEPTED_ON_L1`, ee = `SUCCEEDED`, te = `REVERTED`, ne = `RECEIVED`, re = `CANDIDATE`, ie = `PRE_CONFIRMED`, ae = ie.toLowerCase(), oe = `DECLARE`, se = `DEPLOY`, O = `DEPLOY_ACCOUNT`, ce = `INVOKE`, le = `L1_HANDLER`, ue = `struct`, de = `event`, fe = `function`, pe = `constructor`, me = `l1_handler`, he = `enum`, ge = `view`, _e = `external`, ve = {
+    }, T = c({}), E = `ACCEPTED_ON_L2`, ee = `ACCEPTED_ON_L1`, te = `SUCCEEDED`, ne = `REVERTED`, D = `RECEIVED`, re = `CANDIDATE`, ie = `PRE_CONFIRMED`, ae = ie.toLowerCase(), oe = `DECLARE`, se = `DEPLOY`, O = `DEPLOY_ACCOUNT`, ce = `INVOKE`, le = `L1_HANDLER`, ue = `struct`, de = `event`, fe = `function`, pe = `constructor`, me = `l1_handler`, he = `enum`, ge = `view`, _e = `external`, ve = {
         BLOB: `BLOB`,
         CALLDATA: `CALLDATA`
     }, ye = {
@@ -8836,18 +8836,18 @@ Error generating stack: ` + e.message + `
         SKIP_VALIDATE: `SKIP_VALIDATE`,
         SKIP_FEE_CHARGE: `SKIP_FEE_CHARGE`
     }, Se = {
-        RECEIVED: ne,
+        RECEIVED: D,
         CANDIDATE: re,
         PRE_CONFIRMED: ie,
         ACCEPTED_ON_L2: E,
-        ACCEPTED_ON_L1: D
+        ACCEPTED_ON_L1: ee
     }, Ce = {
         PRE_CONFIRMED: ie,
         ACCEPTED_ON_L2: E,
-        ACCEPTED_ON_L1: D
+        ACCEPTED_ON_L1: ee
     }, we = {
-        SUCCEEDED: ee,
-        REVERTED: te
+        SUCCEEDED: te,
+        REVERTED: ne
     }, Te = {
         LATEST: `latest`,
         PRE_CONFIRMED: ae,
@@ -8855,7 +8855,7 @@ Error generating stack: ` + e.message + `
     }, Ee = {
         PRE_CONFIRMED: ie,
         ACCEPTED_ON_L2: E,
-        ACCEPTED_ON_L1: D
+        ACCEPTED_ON_L1: ee
     }, De = {
         L1: `L1`,
         L2: `L2`
@@ -8906,14 +8906,14 @@ Error generating stack: ` + e.message + `
         PRICE_UNIT_WEI: ()=>`WEI`,
         STATE_MUTABILITY_EXTERNAL: ()=>_e,
         STATE_MUTABILITY_VIEW: ()=>ge,
-        STATUS_ACCEPTED_ON_L1: ()=>D,
+        STATUS_ACCEPTED_ON_L1: ()=>ee,
         STATUS_ACCEPTED_ON_L2: ()=>E,
         STATUS_CANDIDATE: ()=>re,
         STATUS_PRE_CONFIRMED: ()=>ie,
         STATUS_PRE_CONFIRMED_LOWERCASE: ()=>ae,
-        STATUS_RECEIVED: ()=>ne,
-        STATUS_REVERTED: ()=>te,
-        STATUS_SUCCEEDED: ()=>ee,
+        STATUS_RECEIVED: ()=>D,
+        STATUS_REVERTED: ()=>ne,
+        STATUS_SUCCEEDED: ()=>te,
         STRUCT_ABI_TYPE: ()=>ue,
         TXN_TYPE_DECLARE: ()=>oe,
         TXN_TYPE_DEPLOY: ()=>se,
@@ -8956,14 +8956,14 @@ Error generating stack: ` + e.message + `
         Permission: ()=>Ne,
         STATE_MUTABILITY_EXTERNAL: ()=>_e,
         STATE_MUTABILITY_VIEW: ()=>ge,
-        STATUS_ACCEPTED_ON_L1: ()=>D,
+        STATUS_ACCEPTED_ON_L1: ()=>ee,
         STATUS_ACCEPTED_ON_L2: ()=>E,
         STATUS_CANDIDATE: ()=>re,
         STATUS_PRE_CONFIRMED: ()=>ie,
         STATUS_PRE_CONFIRMED_LOWERCASE: ()=>ae,
-        STATUS_RECEIVED: ()=>ne,
-        STATUS_REVERTED: ()=>te,
-        STATUS_SUCCEEDED: ()=>ee,
+        STATUS_RECEIVED: ()=>D,
+        STATUS_REVERTED: ()=>ne,
+        STATUS_SUCCEEDED: ()=>te,
         STRUCT_ABI_TYPE: ()=>ue,
         TXN_TYPE_DECLARE: ()=>oe,
         TXN_TYPE_DEPLOY: ()=>se,
@@ -8972,7 +8972,7 @@ Error generating stack: ` + e.message + `
         TXN_TYPE_L1_HANDLER: ()=>le,
         TypedDataRevision: ()=>Pe,
         WALLET_API: ()=>Fe
-    }), k = `ACCEPTED_ON_L2`, Re = `ACCEPTED_ON_L1`, ze = `SUCCEEDED`, Be = `REVERTED`, Ve = `RECEIVED`, He = `CANDIDATE`, Ue = `PRE_CONFIRMED`, We = Ue.toLowerCase(), Ge = `DECLARE`, Ke = `DEPLOY`, qe = `DEPLOY_ACCOUNT`, Je = `INVOKE`, Ye = `L1_HANDLER`, Xe = `struct`, Ze = `event`, Qe = `function`, $e = `constructor`, et = `l1_handler`, tt = `enum`, nt = `view`, rt = `external`, it = {
+    }), Re = `ACCEPTED_ON_L2`, ze = `ACCEPTED_ON_L1`, Be = `SUCCEEDED`, Ve = `REVERTED`, k = `RECEIVED`, He = `CANDIDATE`, Ue = `PRE_CONFIRMED`, We = Ue.toLowerCase(), Ge = `DECLARE`, Ke = `DEPLOY`, qe = `DEPLOY_ACCOUNT`, Je = `INVOKE`, Ye = `L1_HANDLER`, Xe = `struct`, Ze = `event`, Qe = `function`, $e = `constructor`, et = `l1_handler`, tt = `enum`, nt = `view`, rt = `external`, it = {
         BLOB: `BLOB`,
         CALLDATA: `CALLDATA`
     }, at = {
@@ -8998,26 +8998,26 @@ Error generating stack: ` + e.message + `
     }, dt = {
         INCLUDE_PROOF_FACTS: `INCLUDE_PROOF_FACTS`
     }, ft = {
-        RECEIVED: Ve,
+        RECEIVED: k,
         CANDIDATE: He,
         PRE_CONFIRMED: Ue,
-        ACCEPTED_ON_L2: k,
-        ACCEPTED_ON_L1: Re
+        ACCEPTED_ON_L2: Re,
+        ACCEPTED_ON_L1: ze
     }, pt = {
         PRE_CONFIRMED: Ue,
-        ACCEPTED_ON_L2: k,
-        ACCEPTED_ON_L1: Re
+        ACCEPTED_ON_L2: Re,
+        ACCEPTED_ON_L1: ze
     }, mt = {
-        SUCCEEDED: ze,
-        REVERTED: Be
+        SUCCEEDED: Be,
+        REVERTED: Ve
     }, ht = {
         LATEST: `latest`,
         PRE_CONFIRMED: We,
         L1_ACCEPTED: `l1_accepted`
     }, gt = {
         PRE_CONFIRMED: Ue,
-        ACCEPTED_ON_L2: k,
-        ACCEPTED_ON_L1: Re
+        ACCEPTED_ON_L2: Re,
+        ACCEPTED_ON_L1: ze
     }, _t = {
         L1: `L1`,
         L2: `L2`
@@ -9072,14 +9072,14 @@ Error generating stack: ` + e.message + `
         PRICE_UNIT_WEI: ()=>`WEI`,
         STATE_MUTABILITY_EXTERNAL: ()=>rt,
         STATE_MUTABILITY_VIEW: ()=>nt,
-        STATUS_ACCEPTED_ON_L1: ()=>Re,
-        STATUS_ACCEPTED_ON_L2: ()=>k,
+        STATUS_ACCEPTED_ON_L1: ()=>ze,
+        STATUS_ACCEPTED_ON_L2: ()=>Re,
         STATUS_CANDIDATE: ()=>He,
         STATUS_PRE_CONFIRMED: ()=>Ue,
         STATUS_PRE_CONFIRMED_LOWERCASE: ()=>We,
-        STATUS_RECEIVED: ()=>Ve,
-        STATUS_REVERTED: ()=>Be,
-        STATUS_SUCCEEDED: ()=>ze,
+        STATUS_RECEIVED: ()=>k,
+        STATUS_REVERTED: ()=>Ve,
+        STATUS_SUCCEEDED: ()=>Be,
         STRUCT_ABI_TYPE: ()=>Xe,
         TXN_TYPE_DECLARE: ()=>Ge,
         TXN_TYPE_DEPLOY: ()=>Ke,
@@ -9126,14 +9126,14 @@ Error generating stack: ` + e.message + `
         Permission: ()=>Tt,
         STATE_MUTABILITY_EXTERNAL: ()=>rt,
         STATE_MUTABILITY_VIEW: ()=>nt,
-        STATUS_ACCEPTED_ON_L1: ()=>Re,
-        STATUS_ACCEPTED_ON_L2: ()=>k,
+        STATUS_ACCEPTED_ON_L1: ()=>ze,
+        STATUS_ACCEPTED_ON_L2: ()=>Re,
         STATUS_CANDIDATE: ()=>He,
         STATUS_PRE_CONFIRMED: ()=>Ue,
         STATUS_PRE_CONFIRMED_LOWERCASE: ()=>We,
-        STATUS_RECEIVED: ()=>Ve,
-        STATUS_REVERTED: ()=>Be,
-        STATUS_SUCCEEDED: ()=>ze,
+        STATUS_RECEIVED: ()=>k,
+        STATUS_REVERTED: ()=>Ve,
+        STATUS_SUCCEEDED: ()=>Be,
         STRUCT_ABI_TYPE: ()=>Xe,
         TXN_TYPE_DECLARE: ()=>Ge,
         TXN_TYPE_DEPLOY: ()=>Ke,
@@ -9470,7 +9470,7 @@ Error generating stack: ` + e.message + `
                     f(), g();
                     let i = u();
                     if (i === void 0) {
-                        ee();
+                        te();
                         return;
                     }
                     if (Object.prototype.hasOwnProperty.call(t, r) && !Dn(i, t[r])) {
@@ -9516,7 +9516,7 @@ Error generating stack: ` + e.message + `
                 for(; o < e.length && e.charCodeAt(o) !== zn;){
                     if (e.charCodeAt(o) === An) {
                         let n = e[o + 1], r = kn[n];
-                        r === void 0 ? n === `u` ? Cn(e.charCodeAt(o + 2)) && Cn(e.charCodeAt(o + 3)) && Cn(e.charCodeAt(o + 4)) && Cn(e.charCodeAt(o + 5)) ? (t += String.fromCharCode(Number.parseInt(e.slice(o + 2, o + 6), 16)), o += 5) : te(o) : D(o) : (t += r, o++);
+                        r === void 0 ? n === `u` ? Cn(e.charCodeAt(o + 2)) && Cn(e.charCodeAt(o + 3)) && Cn(e.charCodeAt(o + 4)) && Cn(e.charCodeAt(o + 5)) ? (t += String.fromCharCode(Number.parseInt(e.slice(o + 2, o + 6), 16)), o += 5) : ne(o) : ee(o) : (t += r, o++);
                     } else En(e.charCodeAt(o)) ? t += e[o] : E(e[o]);
                     o++;
                 }
@@ -9571,27 +9571,27 @@ Error generating stack: ` + e.message + `
             throw SyntaxError(`Array item or end of array ']' expected ${ie()}`);
         }
         function E(e) {
-            throw SyntaxError(`Invalid character '${e}' ${ne()}`);
+            throw SyntaxError(`Invalid character '${e}' ${D()}`);
         }
-        function D(t) {
+        function ee(t) {
             let n = e.slice(t, t + 2);
-            throw SyntaxError(`Invalid escape character '${n}' ${ne()}`);
+            throw SyntaxError(`Invalid escape character '${n}' ${D()}`);
         }
-        function ee() {
-            throw SyntaxError(`Object value expected after ':' ${ne()}`);
+        function te() {
+            throw SyntaxError(`Object value expected after ':' ${D()}`);
         }
-        function te(t) {
+        function ne(t) {
             let n = e.slice(t, t + 6);
-            throw SyntaxError(`Invalid unicode character '${n}' ${ne()}`);
+            throw SyntaxError(`Invalid unicode character '${n}' ${D()}`);
         }
-        function ne() {
+        function D() {
             return `at position ${o}`;
         }
         function re() {
             return o < e.length ? `but got '${e[o]}'` : `but reached end of input`;
         }
         function ie() {
-            return `${re()} ${ne()}`;
+            return `${re()} ${D()}`;
         }
     }
     function Sn(e) {
@@ -11466,7 +11466,7 @@ Error generating stack: ` + e.message + `
                 b.push(va(`extraEntropy`, e));
             }
             let C = ya(...b), T = v;
-            function D(e) {
+            function ee(e) {
                 let t = x(e);
                 if (!d(t)) return;
                 let n = s(t), r = c.BASE.multiply(t).toAffine(), i = o(r.x);
@@ -11478,22 +11478,22 @@ Error generating stack: ` + e.message + `
             }
             return {
                 seed: C,
-                k2sig: D
+                k2sig: ee
             };
         }
         let E = {
             lowS: t.lowS,
             prehash: !1
-        }, D = {
+        }, ee = {
             lowS: t.lowS,
             prehash: !1
         };
-        function ee(e, n, r = E) {
+        function te(e, n, r = E) {
             let { seed: i, k2sig: a } = T(e, n, r), o = t;
             return ja(o.hash.outputLen, o.nByteLength, o.hmac)(i, a);
         }
         c.BASE._setWindowSize(8);
-        function te(e, n, r, i = D) {
+        function ne(e, n, r, i = ee) {
             let a = e;
             n = va(`msgHash`, n), r = va(`publicKey`, r);
             let { lowS: l, prehash: u, format: d } = i;
@@ -11524,8 +11524,8 @@ Error generating stack: ` + e.message + `
             CURVE: t,
             getPublicKey: v,
             getSharedSecret: b,
-            sign: ee,
-            verify: te,
+            sign: te,
+            verify: ne,
             ProjectivePoint: c,
             Signature: g,
             utils: _
@@ -12845,7 +12845,7 @@ Error generating stack: ` + e.message + `
                 b.push(hr(`extraEntropy`, e));
             }
             let C = gr(...b), T = v;
-            function D(e) {
+            function ee(e) {
                 let t = x(e);
                 if (!d(t)) return;
                 let n = s(t), r = c.BASE.multiply(t).toAffine(), i = o(r.x);
@@ -12857,22 +12857,22 @@ Error generating stack: ` + e.message + `
             }
             return {
                 seed: C,
-                k2sig: D
+                k2sig: ee
             };
         }
         let E = {
             lowS: t.lowS,
             prehash: !1
-        }, D = {
+        }, ee = {
             lowS: t.lowS,
             prehash: !1
         };
-        function ee(e, n, r = E) {
+        function te(e, n, r = E) {
             let { seed: i, k2sig: a } = T(e, n, r), o = t;
             return Or(o.hash.outputLen, o.nByteLength, o.hmac)(i, a);
         }
         c.BASE._setWindowSize(8);
-        function te(e, n, r, i = D) {
+        function ne(e, n, r, i = ee) {
             let a = e;
             n = hr(`msgHash`, n), r = hr(`publicKey`, r);
             let { lowS: l, prehash: u, format: d } = i;
@@ -12903,8 +12903,8 @@ Error generating stack: ` + e.message + `
             CURVE: t,
             getPublicKey: v,
             getSharedSecret: b,
-            sign: ee,
-            verify: te,
+            sign: te,
+            verify: ne,
             ProjectivePoint: c,
             Signature: g,
             utils: _
@@ -24836,7 +24836,7 @@ ${JSON.stringify(i, null, 2)}`;
                 b.push(Tx(`extraEntropy`, e));
             }
             let C = Ex(...b), T = v;
-            function D(e) {
+            function ee(e) {
                 let t = x(e);
                 if (!d(t)) return;
                 let n = s(t), r = c.BASE.multiply(t).toAffine(), i = o(r.x);
@@ -24848,22 +24848,22 @@ ${JSON.stringify(i, null, 2)}`;
             }
             return {
                 seed: C,
-                k2sig: D
+                k2sig: ee
             };
         }
         let E = {
             lowS: t.lowS,
             prehash: !1
-        }, D = {
+        }, ee = {
             lowS: t.lowS,
             prehash: !1
         };
-        function ee(e, n, r = E) {
+        function te(e, n, r = E) {
             let { seed: i, k2sig: a } = T(e, n, r), o = t;
             return Rx(o.hash.outputLen, o.nByteLength, o.hmac)(i, a);
         }
         c.BASE._setWindowSize(8);
-        function te(e, n, r, i = D) {
+        function ne(e, n, r, i = ee) {
             let a = e;
             n = Tx(`msgHash`, n), r = Tx(`publicKey`, r);
             let { lowS: l, prehash: u, format: d } = i;
@@ -24894,8 +24894,8 @@ ${JSON.stringify(i, null, 2)}`;
             CURVE: t,
             getPublicKey: v,
             getSharedSecret: b,
-            sign: ee,
-            verify: te,
+            sign: te,
+            verify: ne,
             ProjectivePoint: c,
             Signature: g,
             utils: _
@@ -26181,7 +26181,7 @@ ${JSON.stringify(i, null, 2)}`;
         64,
         64
     ]), FE = (e, t, n, r, i, a, o, s)=>{
-        let c = s.bits, l = 0, u = 0, d = 0, f = 0, p = 0, m = 0, h = 0, g = 0, _ = 0, v = 0, y, b, x, S, C, w = null, T, E = new Uint16Array(TE + 1), D = new Uint16Array(TE + 1), ee = null, te, ne, re;
+        let c = s.bits, l = 0, u = 0, d = 0, f = 0, p = 0, m = 0, h = 0, g = 0, _ = 0, v = 0, y, b, x, S, C, w = null, T, E = new Uint16Array(TE + 1), ee = new Uint16Array(TE + 1), te = null, ne, D, re;
         for(l = 0; l <= TE; l++)E[l] = 0;
         for(u = 0; u < r; u++)E[t[n + u]]++;
         for(p = c, f = TE; f >= 1 && E[f] === 0; f--);
@@ -26189,12 +26189,12 @@ ${JSON.stringify(i, null, 2)}`;
         for(d = 1; d < f && E[d] === 0; d++);
         for(p < d && (p = d), g = 1, l = 1; l <= TE; l++)if (g <<= 1, g -= E[l], g < 0) return -1;
         if (g > 0 && (e === OE || f !== 1)) return -1;
-        for(D[1] = 0, l = 1; l < TE; l++)D[l + 1] = D[l] + E[l];
-        for(u = 0; u < r; u++)t[n + u] !== 0 && (o[D[t[n + u]]++] = u);
-        if (e === OE ? (w = ee = o, T = 20) : e === kE ? (w = jE, ee = ME, T = 257) : (w = NE, ee = PE, T = 0), v = 0, u = 0, l = d, C = a, m = p, h = 0, x = -1, _ = 1 << p, S = _ - 1, e === kE && _ > EE || e === AE && _ > DE) return 1;
+        for(ee[1] = 0, l = 1; l < TE; l++)ee[l + 1] = ee[l] + E[l];
+        for(u = 0; u < r; u++)t[n + u] !== 0 && (o[ee[t[n + u]]++] = u);
+        if (e === OE ? (w = te = o, T = 20) : e === kE ? (w = jE, te = ME, T = 257) : (w = NE, te = PE, T = 0), v = 0, u = 0, l = d, C = a, m = p, h = 0, x = -1, _ = 1 << p, S = _ - 1, e === kE && _ > EE || e === AE && _ > DE) return 1;
         for(;;){
-            te = l - h, o[u] + 1 < T ? (ne = 0, re = o[u]) : o[u] >= T ? (ne = ee[o[u] - T], re = w[o[u] - T]) : (ne = 96, re = 0), y = 1 << l - h, b = 1 << m, d = b;
-            do b -= y, i[C + (v >> h) + b] = te << 24 | ne << 16 | re | 0;
+            ne = l - h, o[u] + 1 < T ? (D = 0, re = o[u]) : o[u] >= T ? (D = te[o[u] - T], re = w[o[u] - T]) : (D = 96, re = 0), y = 1 << l - h, b = 1 << m, d = b;
+            do b -= y, i[C + (v >> h) + b] = ne << 24 | D << 16 | re | 0;
             while (b !== 0);
             for(y = 1 << l - 1; v & y;)y >>= 1;
             if (y === 0 ? v = 0 : (v &= y - 1, v += y), u++, --E[l] === 0) {
@@ -26261,7 +26261,7 @@ ${JSON.stringify(i, null, 2)}`;
         inflateInit: RD,
         inflateInit2: LD,
         inflate: (e, t)=>{
-            let n, r, i, a, o, s, c, l, u, d, f, p, m, h, g = 0, _, v, y, b, x, S, C, w, T = new Uint8Array(4), E, D, ee = new Uint8Array([
+            let n, r, i, a, o, s, c, l, u, d, f, p, m, h, g = 0, _, v, y, b, x, S, C, w, T = new Uint8Array(4), E, ee, te = new Uint8Array([
                 16,
                 17,
                 18,
@@ -26456,9 +26456,9 @@ ${JSON.stringify(i, null, 2)}`;
                             if (s === 0) break inf_leave;
                             s--, l += r[a++] << u, u += 8;
                         }
-                        n.lens[ee[n.have++]] = l & 7, l >>>= 3, u -= 3;
+                        n.lens[te[n.have++]] = l & 7, l >>>= 3, u -= 3;
                     }
-                    for(; n.have < 19;)n.lens[ee[n.have++]] = 0;
+                    for(; n.have < 19;)n.lens[te[n.have++]] = 0;
                     if (n.lencode = n.lendyn, n.lenbits = 7, E = {
                         bits: n.lenbits
                     }, w = FE(IE, n.lens, 0, 19, n.lencode, 0, n.work, E), n.lenbits = E.bits, w) {
@@ -26475,7 +26475,7 @@ ${JSON.stringify(i, null, 2)}`;
                         if (y < 16) l >>>= _, u -= _, n.lens[n.have++] = y;
                         else {
                             if (y === 16) {
-                                for(D = _ + 2; u < D;){
+                                for(ee = _ + 2; u < ee;){
                                     if (s === 0) break inf_leave;
                                     s--, l += r[a++] << u, u += 8;
                                 }
@@ -26485,13 +26485,13 @@ ${JSON.stringify(i, null, 2)}`;
                                 }
                                 C = n.lens[n.have - 1], p = 3 + (l & 3), l >>>= 2, u -= 2;
                             } else if (y === 17) {
-                                for(D = _ + 3; u < D;){
+                                for(ee = _ + 3; u < ee;){
                                     if (s === 0) break inf_leave;
                                     s--, l += r[a++] << u, u += 8;
                                 }
                                 l >>>= _, u -= _, C = 0, p = 3 + (l & 7), l >>>= 3, u -= 3;
                             } else {
-                                for(D = _ + 7; u < D;){
+                                for(ee = _ + 7; u < ee;){
                                     if (s === 0) break inf_leave;
                                     s--, l += r[a++] << u, u += 8;
                                 }
@@ -26555,7 +26555,7 @@ ${JSON.stringify(i, null, 2)}`;
                     n.extra = v & 15, n.mode = _D;
                 case _D:
                     if (n.extra) {
-                        for(D = n.extra; u < D;){
+                        for(ee = n.extra; u < ee;){
                             if (s === 0) break inf_leave;
                             s--, l += r[a++] << u, u += 8;
                         }
@@ -26581,7 +26581,7 @@ ${JSON.stringify(i, null, 2)}`;
                     n.offset = y, n.extra = v & 15, n.mode = yD;
                 case yD:
                     if (n.extra) {
-                        for(D = n.extra; u < D;){
+                        for(ee = n.extra; u < ee;){
                             if (s === 0) break inf_leave;
                             s--, l += r[a++] << u, u += 8;
                         }
@@ -45563,12 +45563,12 @@ ${JSON.stringify(i, null, 2)}`;
                     ...d,
                     ...C
                 }), (r || i) && e.blockInitialAnimation && (b = !1);
-                let D = v && y;
-                b && (!D || x) && l.push(...S.map((t)=>{
+                let ee = v && y;
+                b && (!ee || x) && l.push(...S.map((t)=>{
                     let n = {
                         type: p
                     };
-                    if (typeof t == `string` && (r || i) && !D && e.manuallyAnimateOnMount && e.parent) {
+                    if (typeof t == `string` && (r || i) && !ee && e.manuallyAnimateOnMount && e.parent) {
                         let { parent: r } = e, i = c0(r, t);
                         if (r.enteringChildren && i) {
                             let { delayChildren: t } = i.transition || {};
@@ -56892,7 +56892,7 @@ Resources:`;
                     type: e.type === `treasure` || e.type === `port` ? `sea` : e.type
                 } : e)), E = {
             ...e.scoreBreakdown
-        }, D = (i = {})=>(a.hull = Math.max(0, a.hull), a.hull <= 0 && (u = !0), S = Math.min(S, a.hull), a.hull === 1 && !x.includes(`survival`) && (x.push(`survival`), o += 200, E = {
+        }, ee = (i = {})=>(a.hull = Math.max(0, a.hull), a.hull <= 0 && (u = !0), S = Math.min(S, a.hull), a.hull === 1 && !x.includes(`survival`) && (x.push(`survival`), o += 200, E = {
                 ...E,
                 achievements: E.achievements + 200
             }, l += ` Survived at 1 HP! +200pts`), a.upgrades.includes(`greed`) && (a.gold >= 800 && e.hunter?.active ? (w = {
@@ -56959,7 +56959,7 @@ Resources:`;
                     }, l = `Something ancient lurks in the hull. You fight it back. -${e} hull, +${n} gold.`;
                 } else a.hull -= e, l = `It drags you under before you can react. -${e} hull. You barely escape.`;
             }
-            return D();
+            return ee();
         }
         if (t === 0) switch(r){
             case `pirate`:
@@ -57029,7 +57029,7 @@ Resources:`;
                 ].sort(()=>n.next() - .5).slice(0, 2), l = `Welcome to port, Captain!`;
                 break;
             case `island`:
-                if (a.gold >= w9.port.islandRitualCost) return a.gold -= w9.port.islandRitualCost, l = `The old stones drink your gold. A cold wind sweeps the storm back. +${w9.port.islandRitualBonus} turns.`, D({
+                if (a.gold >= w9.port.islandRitualCost) return a.gold -= w9.port.islandRitualCost, l = `The old stones drink your gold. A cold wind sweeps the storm back. +${w9.port.islandRitualBonus} turns.`, ee({
                     stormDistance: d + w9.port.islandRitualBonus
                 });
                 l = `Not enough gold. (need 100g)`;
@@ -57051,7 +57051,7 @@ Resources:`;
                     }), l = s > 0 ? `The vortex spits you out on the far side of the sea. Fortune favors the mad. +50g +200pts.` : `The world spins. When it stops, you are somewhere else entirely. -${c} hull.`, e = {
                         ...e,
                         maelstromSurvived: !0
-                    }, D({
+                    }, ee({
                         grid: i
                     });
                 }
@@ -57112,19 +57112,19 @@ Resources:`;
                         searchTurns: 0,
                         frenzyTurns: 3,
                         awareness: 80
-                    }, l = `You offer your blood to the deep. The storm holds back... but something stirs in the dark. -20 hull.${t > 0 ? ` +200pts` : ``}`, D({
+                    }, l = `You offer your blood to the deep. The storm holds back... but something stirs in the dark. -20 hull.${t > 0 ? ` +200pts` : ``}`, ee({
                         stormDistance: d + w9.port.krakenPactStorm,
                         hunter: w
                     });
                 }
             case `storm`:
-                return l = `You change course, keeping the storm to your stern. It gains ground.`, D({
+                return l = `You change course, keeping the storm to your stern. It gains ground.`, ee({
                     stormDistance: Math.max(0, d - 1)
                 });
             case `portal`:
                 if (t === 0) {
                     let t = (e.currentZone ?? 1) + 1, n = T9[t], r = A9(e.rngState ? parseInt(e.rngState.toString()) : Date.now(), []);
-                    return l = n.transitionText.join(` `), D({
+                    return l = n.transitionText.join(` `), ee({
                         currentZone: t,
                         portalSpawned: !1,
                         portalHint: null,
@@ -57133,9 +57133,9 @@ Resources:`;
                         hunter: null
                     });
                 }
-                return l = `You turn back. The portal fades.`, D({});
+                return l = `You turn back. The portal fades.`, ee({});
             case `maelstrom`:
-                return l = `You resist the vortex.`, D({
+                return l = `You resist the vortex.`, ee({
                     stormDistance: Math.max(0, d - 1)
                 });
             case `treasure`:
@@ -57163,7 +57163,7 @@ Resources:`;
                 l = `You move on.`;
                 break;
         }
-        return D();
+        return ee();
     }
     function I9(e, t) {
         let n = e.upgradeToken ? 0 : {
@@ -57572,35 +57572,87 @@ Resources:`;
 ` + t);
             }
             return e;
-        }), [l, u] = (0, x.useState)(!1), [d, f] = (0, x.useState)([]), [p, m] = (0, x.useState)(!1), [h, g] = (0, x.useState)([]), [_, v] = (0, x.useState)(()=>parseInt(localStorage.getItem(`corsair_best_score`) || `0`)), [y, b] = (0, x.useState)(!1), [S, C] = (0, x.useState)(!1), [w, T] = (0, x.useState)(0), [E, D] = (0, x.useState)(window.innerWidth < 768), ee = o !== void 0;
+        }), [l, u] = (0, x.useState)(!1), [d, f] = (0, x.useState)([]), [p, m] = (0, x.useState)(!1), [h, g] = (0, x.useState)([]), [_, v] = (0, x.useState)(null), [y, b] = (0, x.useState)(0), [S, C] = (0, x.useState)(()=>parseInt(localStorage.getItem(`corsair_best_score`) || `0`)), [w, T] = (0, x.useState)(!1), [E, ee] = (0, x.useState)(!1), [te, ne] = (0, x.useState)(0), [D, re] = (0, x.useState)(window.innerWidth < 768), ie = o !== void 0;
         (0, x.useEffect)(()=>{
-            let e = ()=>D(window.innerWidth < 768);
+            let e = ()=>re(window.innerWidth < 768);
             return window.addEventListener(`resize`, e), ()=>window.removeEventListener(`resize`, e);
         }, []);
-        let [te, ne] = (0, x.useState)(!1), [re, ie] = (0, x.useState)(!1), [ae, oe] = (0, x.useState)(!1), [se, O] = (0, x.useState)(null), [ce, le] = (0, x.useState)(!1), [ue, de] = (0, x.useState)(!1), [fe, pe] = (0, x.useState)(!1), [me, he] = (0, x.useState)(!1), [ge, _e] = (0, x.useState)(!1), [ve, ye] = (0, x.useState)(!1), [be, xe] = (0, x.useState)(!1), [Se, Ce] = (0, x.useState)(!1), [we, Te] = (0, x.useState)(!1), [Ee, De] = (0, x.useState)(!1), [Oe, ke] = (0, x.useState)(!1), [Ae, je] = (0, x.useState)(!0), [Me, Ne] = (0, x.useState)(null), [Pe, Fe] = (0, x.useState)(0), Ie = ()=>{
+        let [ae, oe] = (0, x.useState)(!1), [se, O] = (0, x.useState)(!1), [ce, le] = (0, x.useState)(!1), [ue, de] = (0, x.useState)(null), [fe, pe] = (0, x.useState)(!1), [me, he] = (0, x.useState)(!1), [ge, _e] = (0, x.useState)(!1), [ve, ye] = (0, x.useState)(!1), [be, xe] = (0, x.useState)(!1), [Se, Ce] = (0, x.useState)(!1), [we, Te] = (0, x.useState)(!1), [Ee, De] = (0, x.useState)(!1), [Oe, ke] = (0, x.useState)(!1), [Ae, je] = (0, x.useState)(!1), [Me, Ne] = (0, x.useState)(!1), [Pe, Fe] = (0, x.useState)(!0), [Ie, Le] = (0, x.useState)(null), [Re, ze] = (0, x.useState)(0), Be = ()=>{
             u(!0), setTimeout(()=>u(!1), 400);
-        }, Le = (e)=>{
-            Ne(e), setTimeout(()=>Ne(null), 150);
-        }, k = s, Re = Math.min(100, (1 - k.stormDistance / 10) * 100), ze = k.ship.hull <= 5 ? `#ee4444` : k.ship.hull <= 10 ? `#ee8844` : `#44cc88`, Be = !k.escapeUsed && k.ship.upgrades.includes(`escape`) && k.event && k.event.choices[0].risk !== `safe`;
+        }, Ve = (e)=>{
+            Le(e), setTimeout(()=>Le(null), 150);
+        }, k = s, He = Math.min(100, (1 - k.stormDistance / 10) * 100), Ue = k.ship.hull <= 5 ? `#ee4444` : k.ship.hull <= 10 ? `#ee8844` : `#44cc88`, We = !k.escapeUsed && k.ship.upgrades.includes(`escape`) && k.event && k.event.choices[0].risk !== `safe`;
         (0, x.useEffect)(()=>{
             if (s.gameOver) {
-                ke(!1);
+                Ne(!1);
                 return;
             }
-            s.event?.cellType === `port` && !E && !i && (ke(!0), setTimeout(()=>ke(!1), 5e3));
+            s.event?.cellType === `port` && !D && !i && (Ne(!0), setTimeout(()=>Ne(!1), 5e3));
         }, [
             s.event,
             s.turn
         ]), (0, x.useEffect)(()=>{
             if (s.gameOver) {
-                xe(!1);
+                Te(!1);
                 return;
             }
+            if (s.gameOver) {
+                Te(!1);
+                return;
+            }
+            if (s.event?.cellType === `rocks` && !D) {
+                Te(!0);
+                let e = setTimeout(()=>Te(!1), 5e3);
+                return ()=>clearTimeout(e);
+            }
+        }, [
+            s.event,
+            s.gameOver
+        ]), (0, x.useEffect)(()=>{
+            if (s.gameOver) {
+                De(!1);
+                return;
+            }
+            if (s.event?.cellType === `treasure` && !D) {
+                De(!0);
+                let e = setTimeout(()=>De(!1), 5e3);
+                return ()=>clearTimeout(e);
+            }
+        }, [
+            s.event,
+            s.turn
+        ]), (0, x.useEffect)(()=>{
+            if (s.gameOver) {
+                ke(!1);
+                return;
+            }
+            if (s.event?.cellType === `cursed_treasure` && !D) {
+                ke(!0);
+                let e = setTimeout(()=>ke(!1), 5e3);
+                return ()=>clearTimeout(e);
+            }
+        }, [
+            s.event,
+            s.turn
+        ]), (0, x.useEffect)(()=>{
+            if (s.gameOver) {
+                je(!1);
+                return;
+            }
+            if (s.event?.cellType === `storm` && !D) {
+                je(!0);
+                let e = setTimeout(()=>je(!1), 5e3);
+                return ()=>clearTimeout(e);
+            }
+        }, [
+            s.event,
+            s.gameOver
+        ]), (0, x.useEffect)(()=>{
             if (s.gameOver) {
                 xe(!1);
                 return;
             }
-            if (s.event?.cellType === `rocks` && !E) {
+            if (s.event?.cellType === `ancient_kraken` && !D) {
                 xe(!0);
                 let e = setTimeout(()=>xe(!1), 5e3);
                 return ()=>clearTimeout(e);
@@ -57613,48 +57665,9 @@ Resources:`;
                 Ce(!1);
                 return;
             }
-            if (s.event?.cellType === `treasure` && !E) {
+            if (s.event?.cellType === `maelstrom` && !D) {
                 Ce(!0);
                 let e = setTimeout(()=>Ce(!1), 5e3);
-                return ()=>clearTimeout(e);
-            }
-        }, [
-            s.event,
-            s.turn
-        ]), (0, x.useEffect)(()=>{
-            if (s.gameOver) {
-                Te(!1);
-                return;
-            }
-            if (s.event?.cellType === `cursed_treasure` && !E) {
-                Te(!0);
-                let e = setTimeout(()=>Te(!1), 5e3);
-                return ()=>clearTimeout(e);
-            }
-        }, [
-            s.event,
-            s.turn
-        ]), (0, x.useEffect)(()=>{
-            if (s.gameOver) {
-                De(!1);
-                return;
-            }
-            if (s.event?.cellType === `storm` && !E) {
-                De(!0);
-                let e = setTimeout(()=>De(!1), 5e3);
-                return ()=>clearTimeout(e);
-            }
-        }, [
-            s.event,
-            s.gameOver
-        ]), (0, x.useEffect)(()=>{
-            if (s.gameOver) {
-                _e(!1);
-                return;
-            }
-            if (s.event?.cellType === `ancient_kraken` && !E) {
-                _e(!0);
-                let e = setTimeout(()=>_e(!1), 5e3);
                 return ()=>clearTimeout(e);
             }
         }, [
@@ -57665,7 +57678,7 @@ Resources:`;
                 ye(!1);
                 return;
             }
-            if (s.event?.cellType === `maelstrom` && !E) {
+            if (s.event?.cellType === `island` && !D) {
                 ye(!0);
                 let e = setTimeout(()=>ye(!1), 5e3);
                 return ()=>clearTimeout(e);
@@ -57675,102 +57688,118 @@ Resources:`;
             s.gameOver
         ]), (0, x.useEffect)(()=>{
             if (s.gameOver) {
+                _e(!1);
+                return;
+            }
+            if (s.gameOver) {
+                _e(!1);
+                return;
+            }
+            if (s.event?.cellType === `wreck` && !D) {
+                _e(!0);
+                let e = setTimeout(()=>_e(!1), 5e3);
+                return ()=>clearTimeout(e);
+            }
+        }, [
+            s.event,
+            s.turn
+        ]), (0, x.useEffect)(()=>{
+            if (s.gameOver) {
                 he(!1);
                 return;
             }
-            if (s.event?.cellType === `island` && !E) {
+            if (s.gameOver) {
+                he(!1);
+                return;
+            }
+            if (s.event?.cellType === `pirate` && !D && !i) {
                 he(!0);
                 let e = setTimeout(()=>he(!1), 5e3);
                 return ()=>clearTimeout(e);
             }
         }, [
             s.event,
-            s.gameOver
+            s.turn
         ]), (0, x.useEffect)(()=>{
             if (s.gameOver) {
                 pe(!1);
                 return;
             }
-            if (s.gameOver) {
-                pe(!1);
-                return;
-            }
-            if (s.event?.cellType === `wreck` && !E) {
+            if (s.event?.cellType === `kraken` && !D) {
                 pe(!0);
                 let e = setTimeout(()=>pe(!1), 5e3);
                 return ()=>clearTimeout(e);
             }
         }, [
             s.event,
-            s.turn
-        ]), (0, x.useEffect)(()=>{
-            if (s.gameOver) {
-                de(!1);
-                return;
-            }
-            if (s.gameOver) {
-                de(!1);
-                return;
-            }
-            if (s.event?.cellType === `pirate` && !E && !i) {
-                de(!0);
-                let e = setTimeout(()=>de(!1), 5e3);
-                return ()=>clearTimeout(e);
-            }
-        }, [
-            s.event,
-            s.turn
-        ]), (0, x.useEffect)(()=>{
-            if (s.gameOver) {
-                le(!1);
-                return;
-            }
-            if (s.event?.cellType === `kraken` && !E) {
-                le(!0);
-                let e = setTimeout(()=>le(!1), 5e3);
-                return ()=>clearTimeout(e);
+            s.gameOver
+        ]);
+        let Ge = (0, x.useRef)(1);
+        (0, x.useEffect)(()=>{
+            let e = s.currentZone ?? 1;
+            if (e > Ge.current) {
+                let t = T9[e];
+                v({
+                    lines: [
+                        ...t.transitionText,
+                        ``,
+                        `You have entered:`,
+                        t.name.toUpperCase()
+                    ],
+                    zone: e
+                }), b(0), Ge.current = e;
             }
         }, [
-            s.event,
+            s.currentZone
+        ]), (0, x.useEffect)(()=>{
+            if (!_) return;
+            if (y >= _.lines.length) {
+                setTimeout(()=>v(null), 1e3);
+                return;
+            }
+            let e = setTimeout(()=>b((e)=>e + 1), 800);
+            return ()=>clearTimeout(e);
+        }, [
+            _,
+            y
+        ]), (0, x.useEffect)(()=>{
+            s.gameOver && !i && s.score > 0 && s.score > S && (C(s.score), T(!0), localStorage.setItem(`corsair_best_score`, s.score.toString()));
+        }, [
             s.gameOver
         ]), (0, x.useEffect)(()=>{
-            s.gameOver && !i && s.score > 0 && s.score > _ && (v(s.score), b(!0), localStorage.setItem(`corsair_best_score`, s.score.toString()));
-        }, [
-            s.gameOver
-        ]), (0, x.useEffect)(()=>{
-            if (s.gameOver && !i) if (o !== void 0 && Ise(), E) ie(!0);
+            if (s.gameOver && !i) if (o !== void 0 && Ise(), D) O(!0);
             else {
-                let e = Ve.current ? 8e3 : 0;
+                let e = Ke.current ? 8e3 : 0;
                 setTimeout(()=>{
-                    oe(!1), ne(!0), setTimeout(()=>{
-                        ne(!1), ie(!0);
+                    le(!1), oe(!0), setTimeout(()=>{
+                        oe(!1), O(!0);
                     }, 5e3);
                 }, e);
             }
-            else ie(!1);
+            else O(!1);
         }, [
             s.gameOver
         ]);
-        let Ve = (0, x.useRef)(!1);
+        let Ke = (0, x.useRef)(!1);
         (0, x.useEffect)(()=>{
-            s.log?.includes(`Tentacles rake the hull`) && (Ve.current = !0, oe(!0), setTimeout(()=>{
-                Ve.current = !1, oe(!1);
+            s.log?.includes(`Tentacles rake the hull`) && (Ke.current = !0, le(!0), setTimeout(()=>{
+                Ke.current = !1, le(!1);
             }, 8e3));
         }, [
             s.log,
             s.turn
         ]), (0, x.useEffect)(()=>{
-            s.log?.includes(`⚡ Storm surge`) && Le(`rgba(100,150,255,0.35)`), (s.event?.cellType === `kraken` || s.event?.cellType === `ancient_kraken`) && Le(`rgba(150,0,255,0.3)`), s.event?.cellType === `ancient_kraken` && Le(`rgba(200,160,48,0.4)`);
+            s.log?.includes(`⚡ Storm surge`) && Ve(`rgba(100,150,255,0.35)`), (s.event?.cellType === `kraken` || s.event?.cellType === `ancient_kraken`) && Ve(`rgba(150,0,255,0.3)`), s.event?.cellType === `ancient_kraken` && Ve(`rgba(200,160,48,0.4)`);
             let e = s.hunter;
             if (e?.active) {
                 let t = Math.abs(e.x - s.ship.x) + Math.abs(e.y - s.ship.y);
-                Fe(t <= 2 ? .45 : t <= 4 ? .25 : 0);
-            } else Fe(0);
+                ze(t <= 2 ? .45 : t <= 4 ? .25 : 0);
+            } else ze(0);
         }, [
             s
         ]), (0, x.useEffect)(()=>{
             let e = (e)=>{
-                s.gameOver || s.event || s.showPort || (e.key === `ArrowLeft` && He(-1, 0), e.key === `ArrowUp` && He(0, -1), e.key === `ArrowRight` && He(1, 0));
+                s.gameOver || s.event || s.showPort || (e.key === `ArrowLeft` && qe(-1, 0), e.key === `ArrowUp` && qe(0, -1), e.key === `ArrowRight` && qe(1, 0));
             };
             return window.addEventListener(`keydown`, e), ()=>window.removeEventListener(`keydown`, e);
         }, [
@@ -57779,41 +57808,41 @@ Resources:`;
             s.showPort,
             s.turn
         ]);
-        let He = (e, t)=>{
+        let qe = (e, t)=>{
             if (i) {
-                let t = K9[Math.min(w, K9.length - 1)];
+                let t = K9[Math.min(te, K9.length - 1)];
                 if (!(t.waitFor === `ahead` || t.waitFor === `starboard`) || t.waitFor === `starboard` && e !== 1 || t.waitFor === `ahead` && e !== 0) return;
             }
             if (c((n)=>qse(n, e, t)), i) {
-                let e = K9[Math.min(w, K9.length - 1)];
+                let e = K9[Math.min(te, K9.length - 1)];
                 [
                     `pre_pirate`,
                     `pre_port2`
-                ].includes(e.id) || (T((e)=>e + 1), je(!0));
+                ].includes(e.id) || (ne((e)=>e + 1), Fe(!0));
             }
-        }, Ue = (e)=>{
+        }, Je = (e)=>{
             c((t)=>{
                 let n = Qse(t, e);
-                return n.ship.hull < t.ship.hull && Ie(), n;
-            }), i && K9[Math.min(w, K9.length - 1)].waitFor === `choice0` && e === 0 && (T((e)=>e + 1), je(!0));
-        }, We = ()=>c((e)=>$se(e)), Ge = (e)=>c((t)=>I9(t, e)), Ke = (e, t)=>{
-            c((n)=>R9(n, e, t)), i && K9[Math.min(w, K9.length - 1)].waitFor === `repair` && (T((e)=>e + 1), je(!0));
-        }, qe = ()=>{
+                return n.ship.hull < t.ship.hull && Be(), n;
+            }), i && K9[Math.min(te, K9.length - 1)].waitFor === `choice0` && e === 0 && (ne((e)=>e + 1), Fe(!0));
+        }, Ye = ()=>c((e)=>$se(e)), Xe = (e)=>c((t)=>I9(t, e)), Ze = (e, t)=>{
+            c((n)=>R9(n, e, t)), i && K9[Math.min(te, K9.length - 1)].waitFor === `repair` && (ne((e)=>e + 1), Fe(!0));
+        }, Qe = ()=>{
             f([]), c((e)=>B9(e));
-        }, Je = (e)=>c((t)=>L9(t, e)), Ye = ()=>c(F9()), Xe = (0, x.useRef)(null), [Ze, Qe] = (0, x.useState)(!1);
+        }, $e = (e)=>c((t)=>L9(t, e)), et = ()=>c(F9()), tt = (0, x.useRef)(null), [nt, rt] = (0, x.useState)(!1);
         return (0, x.useEffect)(()=>{
             let e = new Audio(`/corsair/sounds/ambient.mp3`);
-            return e.loop = !0, e.volume = .4, e.play().catch(()=>{}), Xe.current = e, ()=>{
+            return e.loop = !0, e.volume = .4, e.play().catch(()=>{}), tt.current = e, ()=>{
                 e.pause(), e.currentTime = 0;
             };
         }, []), (0, x.useEffect)(()=>{
-            Xe.current && (Xe.current.muted = Ze);
+            tt.current && (tt.current.muted = nt);
         }, [
-            Ze
+            nt
         ]), (0, x.useEffect)(()=>{
             if (!i) return;
-            let e = K9[Math.min(w, K9.length - 1)];
-            s.event && (s.event.cellType === `pirate` || s.event.cellType === `port`) && (e.waitFor === `ahead` || e.waitFor === `starboard`) && (T((e)=>e + 1), je(!0));
+            let e = K9[Math.min(te, K9.length - 1)];
+            s.event && (s.event.cellType === `pirate` || s.event.cellType === `port`) && (e.waitFor === `ahead` || e.waitFor === `starboard`) && (ne((e)=>e + 1), Fe(!0));
         }, [
             s.event,
             s.turn
@@ -57848,7 +57877,7 @@ Resources:`;
                 position: `relative`
             },
             children: [
-                Me && (0, I.jsx)(X.div, {
+                Ie && (0, I.jsx)(X.div, {
                     initial: {
                         opacity: 1
                     },
@@ -57861,17 +57890,17 @@ Resources:`;
                     style: {
                         position: `fixed`,
                         inset: 0,
-                        background: Me,
+                        background: Ie,
                         zIndex: 99,
                         pointerEvents: `none`
                     }
                 }),
-                Pe > 0 && (0, I.jsx)(X.div, {
+                Re > 0 && (0, I.jsx)(X.div, {
                     animate: {
                         opacity: [
-                            Pe,
-                            Pe * .6,
-                            Pe
+                            Re,
+                            Re * .6,
+                            Re
                         ]
                     },
                     transition: {
@@ -57912,7 +57941,7 @@ Resources:`;
                         display: `flex`,
                         justifyContent: `space-between`,
                         alignItems: `center`,
-                        padding: E ? `6px 8px` : `16px 28px`,
+                        padding: D ? `6px 8px` : `16px 28px`,
                         background: `rgba(0,0,0,0.5)`,
                         borderBottom: `1px solid rgba(255,255,255,0.06)`,
                         flexShrink: 0
@@ -57931,25 +57960,25 @@ Resources:`;
                                 (0, I.jsx)(`img`, {
                                     src: V9,
                                     style: {
-                                        width: E ? 28 : 56,
-                                        height: E ? 28 : 56,
+                                        width: D ? 28 : 56,
+                                        height: D ? 28 : 56,
                                         objectFit: `contain`
                                     }
                                 }),
-                                !E && ` CORSAIR`
+                                !D && ` CORSAIR`
                             ]
                         }),
                         (0, I.jsx)(`div`, {
                             style: {
                                 display: `flex`,
-                                gap: E ? 8 : 24
+                                gap: D ? 8 : 24
                             },
-                            children: (E ? [
+                            children: (D ? [
                                 {
                                     icon: `hull`,
                                     label: `HULL`,
                                     val: `${k.ship.hull}/${k.ship.maxHull}`,
-                                    color: ze
+                                    color: Ue
                                 },
                                 {
                                     icon: `gold`,
@@ -57968,7 +57997,7 @@ Resources:`;
                                     icon: `hull`,
                                     label: `HULL`,
                                     val: `${k.ship.hull}/${k.ship.maxHull}`,
-                                    color: ze
+                                    color: Ue
                                 },
                                 {
                                     icon: `gold`,
@@ -58007,7 +58036,7 @@ Resources:`;
                                     children: [
                                         (0, I.jsx)(`div`, {
                                             style: {
-                                                fontSize: E ? 10 : 17,
+                                                fontSize: D ? 10 : 17,
                                                 color: `rgba(255,255,255,0.7)`,
                                                 letterSpacing: 1,
                                                 fontFamily: `'Pirata One', cursive`
@@ -58032,14 +58061,14 @@ Resources:`;
                                                         turn: `/corsair/assets/turn-DNCAcEV1.png`
                                                     }[e.icon] || `/corsair/assets/hull-CJc3oxl2.png`,
                                                     style: {
-                                                        width: E ? 24 : 40,
-                                                        height: E ? 24 : 40,
+                                                        width: D ? 24 : 40,
+                                                        height: D ? 24 : 40,
                                                         objectFit: `contain`
                                                     }
                                                 }),
                                                 (0, I.jsx)(`span`, {
                                                     style: {
-                                                        fontSize: E ? 14 : 22,
+                                                        fontSize: D ? 14 : 22,
                                                         fontFamily: `'Cinzel', serif`
                                                     },
                                                     children: e.val
@@ -58049,7 +58078,7 @@ Resources:`;
                                     ]
                                 }, e.label))
                         }),
-                        !E && (0, I.jsxs)(`div`, {
+                        !D && (0, I.jsxs)(`div`, {
                             style: {
                                 display: `flex`,
                                 alignItems: `center`,
@@ -58084,7 +58113,7 @@ Resources:`;
                                     ]
                                 }),
                                 (0, I.jsx)(`button`, {
-                                    onClick: ()=>Qe((e)=>!e),
+                                    onClick: ()=>rt((e)=>!e),
                                     style: {
                                         background: `transparent`,
                                         border: `1px solid rgba(255,255,255,0.1)`,
@@ -58095,11 +58124,11 @@ Resources:`;
                                         padding: `6px 10px`,
                                         fontFamily: `'Cinzel', serif`
                                     },
-                                    children: Ze ? `🔇` : `🔊`
+                                    children: nt ? `🔇` : `🔊`
                                 })
                             ]
                         }),
-                        E && (0, I.jsxs)(`div`, {
+                        D && (0, I.jsxs)(`div`, {
                             style: {
                                 display: `flex`,
                                 alignItems: `center`,
@@ -58119,7 +58148,7 @@ Resources:`;
                                     ]
                                 }),
                                 (0, I.jsx)(`button`, {
-                                    onClick: ()=>Qe((e)=>!e),
+                                    onClick: ()=>rt((e)=>!e),
                                     style: {
                                         background: `transparent`,
                                         border: `none`,
@@ -58127,13 +58156,13 @@ Resources:`;
                                         fontSize: 14,
                                         cursor: `pointer`
                                     },
-                                    children: Ze ? `🔇` : `🔊`
+                                    children: nt ? `🔇` : `🔊`
                                 })
                             ]
                         })
                     ]
                 }),
-                E && k.hunter?.active && (0, I.jsxs)(`div`, {
+                D && k.hunter?.active && (0, I.jsxs)(`div`, {
                     style: {
                         display: `flex`,
                         alignItems: `center`,
@@ -58202,20 +58231,20 @@ Resources:`;
                     children: [
                         (0, I.jsxs)(`div`, {
                             style: {
-                                width: E ? 0 : 260,
-                                padding: E ? 0 : `16px 12px`,
+                                width: D ? 0 : 260,
+                                padding: D ? 0 : `16px 12px`,
                                 overflow: `hidden`,
                                 display: `flex`,
                                 flexDirection: `column`,
                                 gap: 10,
-                                borderRight: E ? `none` : `1px solid rgba(255,255,255,0.05)`,
+                                borderRight: D ? `none` : `1px solid rgba(255,255,255,0.05)`,
                                 transition: `width 0.3s`
                             },
                             children: [
                                 (0, I.jsxs)(`div`, {
                                     style: {
-                                        background: Re > 70 ? `rgba(180,30,30,0.2)` : `rgba(255,255,255,0.03)`,
-                                        border: `1px solid ${Re > 70 ? `rgba(220,50,50,0.5)` : `rgba(255,255,255,0.08)`}`,
+                                        background: He > 70 ? `rgba(180,30,30,0.2)` : `rgba(255,255,255,0.03)`,
+                                        border: `1px solid ${He > 70 ? `rgba(220,50,50,0.5)` : `rgba(255,255,255,0.08)`}`,
                                         borderRadius: 10,
                                         padding: `12px 10px`
                                     },
@@ -58223,7 +58252,7 @@ Resources:`;
                                         (0, I.jsx)(`div`, {
                                             style: {
                                                 fontSize: 14,
-                                                color: Re > 70 ? `#ee4444` : `rgba(255,255,255,0.3)`,
+                                                color: He > 70 ? `#ee4444` : `rgba(255,255,255,0.3)`,
                                                 letterSpacing: 2,
                                                 marginBottom: 6
                                             },
@@ -58233,7 +58262,7 @@ Resources:`;
                                             style: {
                                                 fontSize: 29,
                                                 fontWeight: 700,
-                                                color: Re > 70 ? `#ee4444` : `#ee8844`
+                                                color: He > 70 ? `#ee4444` : `#ee8844`
                                             },
                                             children: k.stormDistance
                                         }),
@@ -58255,7 +58284,7 @@ Resources:`;
                                             },
                                             children: (0, I.jsx)(X.div, {
                                                 animate: {
-                                                    width: `${Re}%`
+                                                    width: `${He}%`
                                                 },
                                                 transition: {
                                                     duration: .5
@@ -58604,12 +58633,12 @@ Resources:`;
                                 display: `flex`,
                                 flexDirection: `column`,
                                 alignItems: `center`,
-                                justifyContent: E ? `flex-start` : `center`,
-                                padding: E ? `6px 4px` : `10px`,
+                                justifyContent: D ? `flex-start` : `center`,
+                                padding: D ? `6px 4px` : `10px`,
                                 position: `relative`
                             },
                             children: [
-                                E && (0, I.jsxs)(`div`, {
+                                D && (0, I.jsxs)(`div`, {
                                     style: {
                                         display: `flex`,
                                         gap: 12,
@@ -58713,7 +58742,7 @@ Resources:`;
                                                             revealed: !1,
                                                             visited: !1,
                                                             value: 0
-                                                        }, s = k.ship.x + t, c = k.ship.y + e, l = k.hunter?.active && k.hunter.x === s && k.hunter.y === c, u = t === 0 && e === 0, d = o.revealed || o.visited, f = o.stormed, p = f ? `#cc2222` : vce[o.type], m = k.ship.vision * 2 + 1, h = E ? Math.floor((window.innerWidth - 16) / m) : Math.floor(Math.min(window.innerWidth * .5, window.innerHeight * .62) / m) - 4;
+                                                        }, s = k.ship.x + t, c = k.ship.y + e, l = k.hunter?.active && k.hunter.x === s && k.hunter.y === c, u = t === 0 && e === 0, d = o.revealed || o.visited, f = o.stormed, p = f ? `#cc2222` : vce[o.type], m = k.ship.vision * 2 + 1, h = D ? Math.floor((window.innerWidth - 16) / m) : Math.floor(Math.min(window.innerWidth * .5, window.innerHeight * .62) / m) - 4;
                                                         return (0, I.jsxs)(X.div, {
                                                             initial: d ? {
                                                                 opacity: 0,
@@ -59100,7 +59129,7 @@ Resources:`;
                                         textAlign: `center`,
                                         maxWidth: 420,
                                         lineHeight: 1.4,
-                                        paddingRight: E ? 80 : 0
+                                        paddingRight: D ? 80 : 0
                                     },
                                     children: k.log
                                 }),
@@ -59124,10 +59153,10 @@ Resources:`;
                         }),
                         (0, I.jsxs)(`div`, {
                             style: {
-                                width: E ? 0 : 260,
-                                minWidth: E ? 0 : 260,
-                                padding: E ? 0 : `16px 12px`,
-                                display: E ? `none` : `flex`,
+                                width: D ? 0 : 260,
+                                minWidth: D ? 0 : 260,
+                                padding: D ? 0 : `16px 12px`,
+                                display: D ? `none` : `flex`,
                                 flexDirection: `column`,
                                 gap: 10,
                                 borderLeft: `1px solid rgba(255,255,255,0.05)`,
@@ -59347,18 +59376,18 @@ Resources:`;
                                             (0, I.jsx)(`img`, {
                                                 src: `/corsair/assets/anchor-CHFYMem6.png`,
                                                 style: {
-                                                    width: E ? 24 : 36,
-                                                    height: E ? 24 : 36,
+                                                    width: D ? 24 : 36,
+                                                    height: D ? 24 : 36,
                                                     objectFit: `contain`
                                                 }
                                             }),
-                                            !E && ` CORSAIR`
+                                            !D && ` CORSAIR`
                                         ]
                                     }),
                                     (0, I.jsx)(`div`, {
                                         style: {
                                             display: `flex`,
-                                            gap: E ? 8 : 20
+                                            gap: D ? 8 : 20
                                         },
                                         children: [
                                             {
@@ -59407,13 +59436,13 @@ Resources:`;
                                     }),
                                     (0, I.jsxs)(`div`, {
                                         style: {
-                                            fontSize: E ? 13 : 18,
+                                            fontSize: D ? 13 : 18,
                                             fontWeight: 700,
                                             color: `#eedd44`
                                         },
                                         children: [
                                             k.score,
-                                            E ? `pts` : ` pts`
+                                            D ? `pts` : ` pts`
                                         ]
                                     })
                                 ]
@@ -59435,7 +59464,7 @@ Resources:`;
                                         },
                                         children: (0, I.jsx)(`div`, {
                                             style: {
-                                                fontSize: E ? 28 : 42,
+                                                fontSize: D ? 28 : 42,
                                                 fontWeight: 700,
                                                 color: `#e8e0d0`,
                                                 fontFamily: `'Pirata One', cursive`,
@@ -59462,7 +59491,7 @@ Resources:`;
                                                     scale: o ? .96 : 1
                                                 },
                                                 onClick: ()=>{
-                                                    o && (i && K9[Math.min(w, K9.length - 1)].waitFor === `choice0` && t !== 0 || Ue(t));
+                                                    o && (i && K9[Math.min(te, K9.length - 1)].waitFor === `choice0` && t !== 0 || Je(t));
                                                 },
                                                 style: {
                                                     flex: 1,
@@ -59598,7 +59627,7 @@ Resources:`;
                                                         scale: o ? .98 : 1
                                                     },
                                                     onClick: ()=>{
-                                                        o && (i && K9[Math.min(w, K9.length - 1)].waitFor === `choice0` && t !== 0 || Ue(t));
+                                                        o && (i && K9[Math.min(te, K9.length - 1)].waitFor === `choice0` && t !== 0 || Je(t));
                                                     },
                                                     style: {
                                                         flex: 1,
@@ -59652,8 +59681,8 @@ Resources:`;
                                                 }, t);
                                             })
                                         }),
-                                        Be && (0, I.jsx)(`button`, {
-                                            onClick: We,
+                                        We && (0, I.jsx)(`button`, {
+                                            onClick: Ye,
                                             style: {
                                                 marginTop: 8,
                                                 padding: `6px 16px`,
@@ -59766,7 +59795,7 @@ Resources:`;
                                             ].map((e)=>{
                                                 let t = k.ship.levels[e.key], n = t === 0 ? 50 : 110, r = t < 2 && k.ship.gold >= n && !(t === 1 && k.maxedComponents >= 2), i = t >= 2;
                                                 return (0, I.jsxs)(`div`, {
-                                                    onClick: ()=>r && Je(e.key),
+                                                    onClick: ()=>r && $e(e.key),
                                                     style: {
                                                         background: `${e.color}12`,
                                                         border: `1px solid ${e.color}${r ? `66` : `22`}`,
@@ -60009,13 +60038,13 @@ Resources:`;
                                                 label: `Rum Barrel`,
                                                 desc: `+8 hull`,
                                                 cost: 25,
-                                                fn: ()=>Ke(8, 25)
+                                                fn: ()=>Ze(8, 25)
                                             },
                                             {
                                                 label: `Full Repair`,
                                                 desc: `Restore all`,
                                                 cost: 55,
-                                                fn: ()=>Ke(k.ship.maxHull, 55)
+                                                fn: ()=>Ze(k.ship.maxHull, 55)
                                             }
                                         ].map((e)=>{
                                             let t = k.ship.gold >= e.cost;
@@ -60071,7 +60100,7 @@ Resources:`;
                                                 scale: 1.02
                                             },
                                             onClick: ()=>{
-                                                d.forEach((e)=>Ge(e)), f([]);
+                                                d.forEach((e)=>Xe(e)), f([]);
                                             },
                                             style: {
                                                 flex: 1,
@@ -60095,7 +60124,7 @@ Resources:`;
                                             whileHover: {
                                                 scale: 1.02
                                             },
-                                            onClick: qe,
+                                            onClick: Qe,
                                             style: {
                                                 flex: 1,
                                                 padding: `12px`,
@@ -60134,8 +60163,8 @@ Resources:`;
                     style: {
                         display: `flex`,
                         justifyContent: `center`,
-                        gap: E ? 4 : 12,
-                        padding: E ? `6px 4px` : `12px 20px`,
+                        gap: D ? 4 : 12,
+                        padding: D ? `6px 4px` : `12px 20px`,
                         background: `rgba(0,0,0,0.4)`,
                         borderTop: `1px solid rgba(255,255,255,0.05)`,
                         flexShrink: 0,
@@ -60160,7 +60189,7 @@ Resources:`;
                                 dy: 0
                             }
                         ].map((e)=>{
-                            let t = K9[Math.min(w, K9.length - 1)].waitFor, n = !i || t === `ahead` || t === `starboard`, r = e.dx === 0, a = e.dx === 1, o = !i || n && (t === `ahead` && r || t === `starboard` && a);
+                            let t = K9[Math.min(te, K9.length - 1)].waitFor, n = !i || t === `ahead` || t === `starboard`, r = e.dx === 0, a = e.dx === 1, o = !i || n && (t === `ahead` && r || t === `starboard` && a);
                             return (0, I.jsx)(X.button, {
                                 whileHover: o ? {
                                     scale: 1.05,
@@ -60169,17 +60198,17 @@ Resources:`;
                                 whileTap: o ? {
                                     scale: .95
                                 } : {},
-                                onClick: ()=>o && He(e.dx, e.dy),
+                                onClick: ()=>o && qe(e.dx, e.dy),
                                 style: {
-                                    padding: E ? `10px 0` : `12px 28px`,
-                                    flex: E ? 1 : `none`,
+                                    padding: D ? `10px 0` : `12px 28px`,
+                                    flex: D ? 1 : `none`,
                                     borderRadius: 10,
                                     border: i && o ? `2px solid rgba(200,160,48,0.8)` : `1px solid rgba(255,255,255,0.12)`,
                                     background: i && o ? `rgba(200,160,48,0.15)` : `rgba(255,255,255,0.05)`,
                                     cursor: o ? `pointer` : `not-allowed`,
                                     color: o ? `#e8e0d0` : `rgba(255,255,255,0.2)`,
                                     fontFamily: `'Pirata One', cursive`,
-                                    fontSize: E ? 13 : 17,
+                                    fontSize: D ? 13 : 17,
                                     fontWeight: 600,
                                     letterSpacing: 1,
                                     opacity: o ? 1 : .35,
@@ -60197,7 +60226,7 @@ Resources:`;
                             },
                             onClick: r,
                             style: {
-                                padding: E ? `10px 8px` : `12px 16px`,
+                                padding: D ? `10px 8px` : `12px 16px`,
                                 flex: `none`,
                                 borderRadius: 10,
                                 border: `1px solid rgba(255,80,80,0.2)`,
@@ -60205,7 +60234,7 @@ Resources:`;
                                 cursor: `pointer`,
                                 color: `rgba(255,100,100,0.6)`,
                                 fontFamily: `'Pirata One', cursive`,
-                                fontSize: E ? 11 : 13,
+                                fontSize: D ? 11 : 13,
                                 letterSpacing: 1
                             },
                             children: `⚑ SURRENDER`
@@ -60213,7 +60242,7 @@ Resources:`;
                     ]
                 }),
                 (0, I.jsx)(J6, {
-                    children: Oe && (0, I.jsxs)(X.div, {
+                    children: Me && (0, I.jsxs)(X.div, {
                         initial: {
                             opacity: 0
                         },
@@ -60279,7 +60308,7 @@ Resources:`;
                     })
                 }),
                 (0, I.jsx)(J6, {
-                    children: be && !s.gameOver && (0, I.jsxs)(X.div, {
+                    children: we && !s.gameOver && (0, I.jsxs)(X.div, {
                         initial: {
                             opacity: 0
                         },
@@ -60292,7 +60321,7 @@ Resources:`;
                         transition: {
                             duration: .6
                         },
-                        onClick: ()=>xe(!1),
+                        onClick: ()=>Te(!1),
                         style: {
                             position: `fixed`,
                             inset: 0,
@@ -60349,7 +60378,7 @@ Resources:`;
                 }),
                 (0, I.jsxs)(J6, {
                     children: [
-                        Se && !s.gameOver && (0, I.jsx)(X.div, {
+                        Ee && !s.gameOver && (0, I.jsx)(X.div, {
                             initial: {
                                 opacity: 0
                             },
@@ -60359,7 +60388,7 @@ Resources:`;
                             exit: {
                                 opacity: 0
                             },
-                            onClick: ()=>Ce(!1),
+                            onClick: ()=>De(!1),
                             style: {
                                 position: `fixed`,
                                 inset: 0,
@@ -60380,7 +60409,7 @@ Resources:`;
                                 }
                             })
                         }),
-                        we && !s.gameOver && (0, I.jsx)(X.div, {
+                        Oe && !s.gameOver && (0, I.jsx)(X.div, {
                             initial: {
                                 opacity: 0
                             },
@@ -60390,7 +60419,7 @@ Resources:`;
                             exit: {
                                 opacity: 0
                             },
-                            onClick: ()=>Te(!1),
+                            onClick: ()=>ke(!1),
                             style: {
                                 position: `fixed`,
                                 inset: 0,
@@ -60411,7 +60440,7 @@ Resources:`;
                                 }
                             })
                         }),
-                        Ee && !s.gameOver && (0, I.jsxs)(X.div, {
+                        Ae && !s.gameOver && (0, I.jsxs)(X.div, {
                             initial: {
                                 opacity: 0
                             },
@@ -60424,7 +60453,7 @@ Resources:`;
                             transition: {
                                 duration: .6
                             },
-                            onClick: ()=>De(!1),
+                            onClick: ()=>je(!1),
                             style: {
                                 position: `fixed`,
                                 inset: 0,
@@ -60483,7 +60512,7 @@ Resources:`;
                     ]
                 }),
                 (0, I.jsx)(J6, {
-                    children: ge && !s.gameOver && (0, I.jsxs)(X.div, {
+                    children: be && !s.gameOver && (0, I.jsxs)(X.div, {
                         initial: {
                             opacity: 0
                         },
@@ -60496,7 +60525,7 @@ Resources:`;
                         transition: {
                             duration: .6
                         },
-                        onClick: ()=>_e(!1),
+                        onClick: ()=>xe(!1),
                         style: {
                             position: `fixed`,
                             inset: 0,
@@ -60510,6 +60539,75 @@ Resources:`;
                         children: [
                             (0, I.jsx)(`video`, {
                                 src: `/corsair/scenes/ancient_kraken.mp4`,
+                                autoPlay: !0,
+                                muted: !0,
+                                playsInline: !0,
+                                preload: `auto`,
+                                style: {
+                                    width: `100%`,
+                                    height: `100%`,
+                                    objectFit: `cover`
+                                }
+                            }),
+                            (0, I.jsx)(X.div, {
+                                initial: {
+                                    opacity: 0
+                                },
+                                animate: {
+                                    opacity: [
+                                        0,
+                                        0,
+                                        .5,
+                                        1
+                                    ]
+                                },
+                                transition: {
+                                    duration: 4,
+                                    times: [
+                                        0,
+                                        .6,
+                                        .85,
+                                        1
+                                    ]
+                                },
+                                style: {
+                                    position: `absolute`,
+                                    inset: 0,
+                                    background: `#000`,
+                                    pointerEvents: `none`
+                                }
+                            })
+                        ]
+                    })
+                }),
+                (0, I.jsx)(J6, {
+                    children: Se && !s.gameOver && (0, I.jsxs)(X.div, {
+                        initial: {
+                            opacity: 0
+                        },
+                        animate: {
+                            opacity: 1
+                        },
+                        exit: {
+                            opacity: 0
+                        },
+                        transition: {
+                            duration: .6
+                        },
+                        onClick: ()=>Ce(!1),
+                        style: {
+                            position: `fixed`,
+                            inset: 0,
+                            zIndex: 99,
+                            background: `#000`,
+                            display: `flex`,
+                            alignItems: `center`,
+                            justifyContent: `center`,
+                            cursor: `pointer`
+                        },
+                        children: [
+                            (0, I.jsx)(`video`, {
+                                src: `/corsair/scenes/maelstrom.mp4`,
                                 autoPlay: !0,
                                 muted: !0,
                                 playsInline: !0,
@@ -60578,75 +60676,6 @@ Resources:`;
                         },
                         children: [
                             (0, I.jsx)(`video`, {
-                                src: `/corsair/scenes/maelstrom.mp4`,
-                                autoPlay: !0,
-                                muted: !0,
-                                playsInline: !0,
-                                preload: `auto`,
-                                style: {
-                                    width: `100%`,
-                                    height: `100%`,
-                                    objectFit: `cover`
-                                }
-                            }),
-                            (0, I.jsx)(X.div, {
-                                initial: {
-                                    opacity: 0
-                                },
-                                animate: {
-                                    opacity: [
-                                        0,
-                                        0,
-                                        .5,
-                                        1
-                                    ]
-                                },
-                                transition: {
-                                    duration: 4,
-                                    times: [
-                                        0,
-                                        .6,
-                                        .85,
-                                        1
-                                    ]
-                                },
-                                style: {
-                                    position: `absolute`,
-                                    inset: 0,
-                                    background: `#000`,
-                                    pointerEvents: `none`
-                                }
-                            })
-                        ]
-                    })
-                }),
-                (0, I.jsx)(J6, {
-                    children: me && !s.gameOver && (0, I.jsxs)(X.div, {
-                        initial: {
-                            opacity: 0
-                        },
-                        animate: {
-                            opacity: 1
-                        },
-                        exit: {
-                            opacity: 0
-                        },
-                        transition: {
-                            duration: .6
-                        },
-                        onClick: ()=>he(!1),
-                        style: {
-                            position: `fixed`,
-                            inset: 0,
-                            zIndex: 99,
-                            background: `#000`,
-                            display: `flex`,
-                            alignItems: `center`,
-                            justifyContent: `center`,
-                            cursor: `pointer`
-                        },
-                        children: [
-                            (0, I.jsx)(`video`, {
                                 src: `/corsair/scenes/island.mp4`,
                                 autoPlay: !0,
                                 muted: !0,
@@ -60692,7 +60721,7 @@ Resources:`;
                     })
                 }),
                 (0, I.jsx)(J6, {
-                    children: fe && !s.gameOver && (0, I.jsxs)(X.div, {
+                    children: ge && !s.gameOver && (0, I.jsxs)(X.div, {
                         initial: {
                             opacity: 0
                         },
@@ -60705,7 +60734,7 @@ Resources:`;
                         transition: {
                             duration: .6
                         },
-                        onClick: ()=>pe(!1),
+                        onClick: ()=>_e(!1),
                         style: {
                             position: `fixed`,
                             inset: 0,
@@ -60772,7 +60801,7 @@ Resources:`;
                     })
                 }),
                 (0, I.jsx)(J6, {
-                    children: ue && !s.gameOver && (0, I.jsxs)(X.div, {
+                    children: me && !s.gameOver && (0, I.jsxs)(X.div, {
                         initial: {
                             opacity: 0
                         },
@@ -60785,7 +60814,7 @@ Resources:`;
                         transition: {
                             duration: .6
                         },
-                        onClick: ()=>de(!1),
+                        onClick: ()=>he(!1),
                         style: {
                             position: `fixed`,
                             inset: 0,
@@ -60851,7 +60880,7 @@ Resources:`;
                     })
                 }),
                 (0, I.jsx)(J6, {
-                    children: ce && !s.gameOver && (0, I.jsxs)(X.div, {
+                    children: fe && !s.gameOver && (0, I.jsxs)(X.div, {
                         initial: {
                             opacity: 0
                         },
@@ -60864,7 +60893,7 @@ Resources:`;
                         transition: {
                             duration: .6
                         },
-                        onClick: ()=>le(!1),
+                        onClick: ()=>pe(!1),
                         style: {
                             position: `fixed`,
                             inset: 0,
@@ -60919,7 +60948,55 @@ Resources:`;
                     })
                 }),
                 (0, I.jsx)(J6, {
-                    children: te && (0, I.jsxs)(X.div, {
+                    children: _ && (0, I.jsx)(X.div, {
+                        initial: {
+                            opacity: 0
+                        },
+                        animate: {
+                            opacity: 1
+                        },
+                        exit: {
+                            opacity: 0
+                        },
+                        style: {
+                            position: `fixed`,
+                            inset: 0,
+                            zIndex: 200,
+                            background: `#000`,
+                            display: `flex`,
+                            flexDirection: `column`,
+                            alignItems: `center`,
+                            justifyContent: `center`,
+                            gap: 16
+                        },
+                        children: _.lines.slice(0, y).map((e, t)=>(0, I.jsx)(X.div, {
+                                initial: {
+                                    opacity: 0,
+                                    y: 10
+                                },
+                                animate: {
+                                    opacity: 1,
+                                    y: 0
+                                },
+                                transition: {
+                                    duration: .6
+                                },
+                                style: {
+                                    fontSize: t >= _.lines.length - 2 ? t === _.lines.length - 1 ? 32 : 16 : 20,
+                                    color: t === _.lines.length - 1 ? `#8866ff` : `rgba(255,255,255,0.7)`,
+                                    fontFamily: t === _.lines.length - 1 ? `'Pirata One', cursive` : `'IM Fell English', cursive`,
+                                    fontStyle: t < _.lines.length - 2 ? `italic` : `normal`,
+                                    letterSpacing: t === _.lines.length - 1 ? 4 : 1,
+                                    textAlign: `center`,
+                                    maxWidth: 500,
+                                    padding: `0 24px`
+                                },
+                                children: e
+                            }, t))
+                    })
+                }),
+                (0, I.jsx)(J6, {
+                    children: ae && (0, I.jsxs)(X.div, {
                         initial: {
                             opacity: 0
                         },
@@ -60984,7 +61061,7 @@ Resources:`;
                         ]
                     })
                 }),
-                k.showPort && E && (0, I.jsxs)(X.div, {
+                k.showPort && D && (0, I.jsxs)(X.div, {
                     initial: {
                         opacity: 0
                     },
@@ -61020,7 +61097,7 @@ Resources:`;
                                 (0, I.jsxs)(`div`, {
                                     style: {
                                         fontSize: 14,
-                                        color: ze,
+                                        color: Ue,
                                         fontFamily: `'Cinzel', serif`
                                     },
                                     children: [
@@ -61046,13 +61123,13 @@ Resources:`;
                                     label: `Rum Barrel`,
                                     desc: `+8 hull`,
                                     cost: 25,
-                                    fn: ()=>Ke(8, 25)
+                                    fn: ()=>Ze(8, 25)
                                 },
                                 {
                                     label: `Full Repair`,
                                     desc: `Restore all`,
                                     cost: 55,
-                                    fn: ()=>Ke(k.ship.maxHull, 55)
+                                    fn: ()=>Ze(k.ship.maxHull, 55)
                                 }
                             ].map((e)=>(0, I.jsxs)(X.button, {
                                     whileTap: {
@@ -61424,7 +61501,7 @@ Resources:`;
                     ]
                 }),
                 (0, I.jsx)(J6, {
-                    children: re && (0, I.jsxs)(X.div, {
+                    children: se && (0, I.jsxs)(X.div, {
                         initial: {
                             opacity: 0
                         },
@@ -61500,11 +61577,11 @@ Resources:`;
                                     delay: .5
                                 },
                                 style: {
-                                    fontSize: E ? 42 : 72,
+                                    fontSize: D ? 42 : 72,
                                     fontWeight: 700,
                                     color: `#ee4444`,
                                     fontFamily: `'Pirata One', cursive`,
-                                    letterSpacing: E ? 3 : 6,
+                                    letterSpacing: D ? 3 : 6,
                                     textShadow: `0 0 40px rgba(220,30,30,0.8), 0 0 80px rgba(220,30,30,0.4)`,
                                     marginBottom: 8
                                 },
@@ -61521,10 +61598,10 @@ Resources:`;
                                     delay: .7
                                 },
                                 style: {
-                                    fontSize: E ? 16 : 24,
+                                    fontSize: D ? 16 : 24,
                                     color: `rgba(200,160,48,0.8)`,
                                     fontFamily: `'Cinzel', serif`,
-                                    letterSpacing: E ? 2 : 4,
+                                    letterSpacing: D ? 2 : 4,
                                     marginBottom: 4,
                                     textAlign: `center`
                                 },
@@ -61541,14 +61618,14 @@ Resources:`;
                                     delay: .9
                                 },
                                 style: {
-                                    fontSize: E ? 15 : 20,
+                                    fontSize: D ? 15 : 20,
                                     color: `rgba(255,255,255,0.35)`,
                                     fontFamily: `'IM Fell English', cursive`,
                                     marginBottom: 16,
-                                    maxWidth: E ? `90vw` : 600,
+                                    maxWidth: D ? `90vw` : 600,
                                     textAlign: `center`,
                                     fontStyle: `italic`,
-                                    padding: E ? `0 16px` : 0
+                                    padding: D ? `0 16px` : 0
                                 },
                                 children: [
                                     `"`,
@@ -61570,11 +61647,11 @@ Resources:`;
                                 },
                                 style: {
                                     display: `flex`,
-                                    gap: E ? 16 : 32,
-                                    marginBottom: E ? 16 : 28,
-                                    flexWrap: E ? `wrap` : `nowrap`,
+                                    gap: D ? 16 : 32,
+                                    marginBottom: D ? 16 : 28,
+                                    flexWrap: D ? `wrap` : `nowrap`,
                                     justifyContent: `center`,
-                                    padding: E ? `0 16px` : 0
+                                    padding: D ? `0 16px` : 0
                                 },
                                 children: [
                                     {
@@ -61584,8 +61661,8 @@ Resources:`;
                                     },
                                     {
                                         label: `BEST`,
-                                        val: `${Math.max(_, k.score)} pts`,
-                                        color: y ? `#44ffaa` : `rgba(255,255,255,0.3)`
+                                        val: `${Math.max(S, k.score)} pts`,
+                                        color: w ? `#44ffaa` : `rgba(255,255,255,0.3)`
                                     },
                                     {
                                         label: `TURNS`,
@@ -61609,16 +61686,16 @@ Resources:`;
                                         children: [
                                             (0, I.jsx)(`div`, {
                                                 style: {
-                                                    fontSize: E ? 10 : 13,
+                                                    fontSize: D ? 10 : 13,
                                                     color: `rgba(255,255,255,0.3)`,
-                                                    letterSpacing: E ? 1 : 3,
+                                                    letterSpacing: D ? 1 : 3,
                                                     fontFamily: `'Cinzel', serif`
                                                 },
                                                 children: e.label
                                             }),
                                             (0, I.jsx)(`div`, {
                                                 style: {
-                                                    fontSize: E ? 20 : 28,
+                                                    fontSize: D ? 20 : 28,
                                                     color: e.color,
                                                     fontFamily: `'Cinzel', serif`,
                                                     fontWeight: 700
@@ -61751,10 +61828,10 @@ Resources:`;
                                             `Seed: `,
                                             k.seed,
                                             ` — `,
-                                            ee ? `Daily Key: ${P9()}` : `challenge your crew!`
+                                            ie ? `Daily Key: ${P9()}` : `challenge your crew!`
                                         ]
                                     }),
-                                    ee && (0, I.jsxs)(`div`, {
+                                    ie && (0, I.jsxs)(`div`, {
                                         style: {
                                             display: `inline-flex`,
                                             alignItems: `center`,
@@ -61802,9 +61879,9 @@ Resources:`;
                                         whileHover: {
                                             scale: 1.05
                                         },
-                                        disabled: S,
+                                        disabled: E,
                                         onClick: async ()=>{
-                                            if (C(!0), await Tse(e, k.score, k.runTitle, k.turn, k.zone, k.seed, n ?? void 0) && (m(!0), ee)) {
+                                            if (ee(!0), await Tse(e, k.score, k.runTitle, k.turn, k.zone, k.seed, n ?? void 0) && (m(!0), ie)) {
                                                 let t = new Date().toISOString().slice(0, 10);
                                                 await Dse(e, k.score, t, k.seed, n ?? void 0);
                                             }
@@ -61837,7 +61914,7 @@ Resources:`;
                                             } catch (e) {
                                                 console.warn(`NFT check failed:`, e);
                                             }
-                                            C(!1);
+                                            ee(!1);
                                         },
                                         style: {
                                             padding: `12px 32px`,
@@ -61850,7 +61927,7 @@ Resources:`;
                                             cursor: `pointer`,
                                             fontFamily: `'Pirata One', cursive`
                                         },
-                                        children: S ? `SUBMITTING...` : `⚓ SUBMIT SCORE`
+                                        children: E ? `SUBMITTING...` : `⚓ SUBMIT SCORE`
                                     }),
                                     p && (0, I.jsx)(`div`, {
                                         style: {
@@ -61966,7 +62043,7 @@ Resources:`;
                                                 let e = new Date().toLocaleDateString(`en-US`, {
                                                     month: `short`,
                                                     day: `numeric`
-                                                }), t = ee ? `☀️ Daily Challenge — ${e} — ${k.score} pts before the storm claimed me.\nSame seed for everyone today. Can you beat me?\n⚓ https://reemjie.github.io/corsair/` : `🏴\u200d☠️ ${k.runTitle} — ${k.score} pts before the storm claimed me.\n${k.turn} turns. ${k.ship.gold} gold. No mercy.\nDare to sail further? ⚓\nhttps://reemjie.github.io/corsair/`;
+                                                }), t = ie ? `☀️ Daily Challenge — ${e} — ${k.score} pts before the storm claimed me.\nSame seed for everyone today. Can you beat me?\n⚓ https://reemjie.github.io/corsair/` : `🏴\u200d☠️ ${k.runTitle} — ${k.score} pts before the storm claimed me.\n${k.turn} turns. ${k.ship.gold} gold. No mercy.\nDare to sail further? ⚓\nhttps://reemjie.github.io/corsair/`;
                                                 window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(t)}`, `_blank`);
                                             },
                                             style: {
@@ -61997,7 +62074,7 @@ Resources:`;
                                                 whileTap: {
                                                     scale: .97
                                                 },
-                                                onClick: Ye,
+                                                onClick: et,
                                                 style: {
                                                     padding: `14px 36px`,
                                                     borderRadius: 12,
@@ -62042,7 +62119,7 @@ Resources:`;
                     })
                 }),
                 (0, I.jsx)(J6, {
-                    children: ae && (0, I.jsxs)(X.div, {
+                    children: ce && (0, I.jsxs)(X.div, {
                         initial: {
                             opacity: 0
                         },
@@ -62125,7 +62202,7 @@ Resources:`;
                         ]
                     })
                 }),
-                E && (0, I.jsxs)(I.Fragment, {
+                D && (0, I.jsxs)(I.Fragment, {
                     children: [
                         !k.event && !k.showPort && !k.gameOver && (0, I.jsxs)(`div`, {
                             style: {
@@ -62142,14 +62219,14 @@ Resources:`;
                                     whileTap: {
                                         scale: .9
                                     },
-                                    onClick: ()=>O(se === `ship` ? null : `ship`),
+                                    onClick: ()=>de(ue === `ship` ? null : `ship`),
                                     style: {
                                         width: 44,
                                         height: 44,
                                         borderRadius: 10,
-                                        border: `1px solid ${se === `ship` ? `#44cc88` : `rgba(255,255,255,0.2)`}`,
-                                        background: se === `ship` ? `rgba(68,204,136,0.2)` : `rgba(0,0,0,0.7)`,
-                                        color: se === `ship` ? `#44cc88` : `rgba(255,255,255,0.6)`,
+                                        border: `1px solid ${ue === `ship` ? `#44cc88` : `rgba(255,255,255,0.2)`}`,
+                                        background: ue === `ship` ? `rgba(68,204,136,0.2)` : `rgba(0,0,0,0.7)`,
+                                        color: ue === `ship` ? `#44cc88` : `rgba(255,255,255,0.6)`,
                                         fontSize: 20,
                                         cursor: `pointer`,
                                         display: `flex`,
@@ -62162,14 +62239,14 @@ Resources:`;
                                     whileTap: {
                                         scale: .9
                                     },
-                                    onClick: ()=>O(se === `upgrades` ? null : `upgrades`),
+                                    onClick: ()=>de(ue === `upgrades` ? null : `upgrades`),
                                     style: {
                                         width: 44,
                                         height: 44,
                                         borderRadius: 10,
-                                        border: `1px solid ${se === `upgrades` ? `#c8a030` : `rgba(255,255,255,0.2)`}`,
-                                        background: se === `upgrades` ? `rgba(200,160,48,0.2)` : `rgba(0,0,0,0.7)`,
-                                        color: se === `upgrades` ? `#c8a030` : `rgba(255,255,255,0.6)`,
+                                        border: `1px solid ${ue === `upgrades` ? `#c8a030` : `rgba(255,255,255,0.2)`}`,
+                                        background: ue === `upgrades` ? `rgba(200,160,48,0.2)` : `rgba(0,0,0,0.7)`,
+                                        color: ue === `upgrades` ? `#c8a030` : `rgba(255,255,255,0.6)`,
                                         fontSize: 20,
                                         cursor: `pointer`,
                                         display: `flex`,
@@ -62181,7 +62258,7 @@ Resources:`;
                             ]
                         }),
                         (0, I.jsx)(J6, {
-                            children: se && (0, I.jsxs)(X.div, {
+                            children: ue && (0, I.jsxs)(X.div, {
                                 initial: {
                                     x: `100%`
                                 },
@@ -62210,7 +62287,7 @@ Resources:`;
                                 },
                                 onClick: (e)=>e.stopPropagation(),
                                 children: [
-                                    se === `ship` && (0, I.jsxs)(I.Fragment, {
+                                    ue === `ship` && (0, I.jsxs)(I.Fragment, {
                                         children: [
                                             (0, I.jsx)(`div`, {
                                                 style: {
@@ -62357,7 +62434,7 @@ Resources:`;
                                             })
                                         ]
                                     }),
-                                    se === `upgrades` && (0, I.jsxs)(I.Fragment, {
+                                    ue === `upgrades` && (0, I.jsxs)(I.Fragment, {
                                         children: [
                                             (0, I.jsx)(`div`, {
                                                 style: {
@@ -62427,18 +62504,18 @@ Resources:`;
                                 ]
                             })
                         }),
-                        se && (0, I.jsx)(`div`, {
+                        ue && (0, I.jsx)(`div`, {
                             style: {
                                 position: `fixed`,
                                 inset: 0,
                                 zIndex: 24
                             },
-                            onClick: ()=>O(null)
+                            onClick: ()=>de(null)
                         })
                     ]
                 }),
                 (0, I.jsx)(J6, {
-                    children: ae && (0, I.jsxs)(X.div, {
+                    children: ce && (0, I.jsxs)(X.div, {
                         initial: {
                             opacity: 0
                         },
@@ -62521,7 +62598,7 @@ Resources:`;
                         ]
                     })
                 }),
-                E && (0, I.jsxs)(I.Fragment, {
+                D && (0, I.jsxs)(I.Fragment, {
                     children: [
                         !k.event && !k.showPort && !k.gameOver && (0, I.jsxs)(`div`, {
                             style: {
@@ -62538,14 +62615,14 @@ Resources:`;
                                     whileTap: {
                                         scale: .9
                                     },
-                                    onClick: ()=>O(se === `ship` ? null : `ship`),
+                                    onClick: ()=>de(ue === `ship` ? null : `ship`),
                                     style: {
                                         width: 44,
                                         height: 44,
                                         borderRadius: 10,
-                                        border: `1px solid ${se === `ship` ? `#44cc88` : `rgba(255,255,255,0.2)`}`,
-                                        background: se === `ship` ? `rgba(68,204,136,0.2)` : `rgba(0,0,0,0.7)`,
-                                        color: se === `ship` ? `#44cc88` : `rgba(255,255,255,0.6)`,
+                                        border: `1px solid ${ue === `ship` ? `#44cc88` : `rgba(255,255,255,0.2)`}`,
+                                        background: ue === `ship` ? `rgba(68,204,136,0.2)` : `rgba(0,0,0,0.7)`,
+                                        color: ue === `ship` ? `#44cc88` : `rgba(255,255,255,0.6)`,
                                         fontSize: 20,
                                         cursor: `pointer`,
                                         display: `flex`,
@@ -62558,14 +62635,14 @@ Resources:`;
                                     whileTap: {
                                         scale: .9
                                     },
-                                    onClick: ()=>O(se === `upgrades` ? null : `upgrades`),
+                                    onClick: ()=>de(ue === `upgrades` ? null : `upgrades`),
                                     style: {
                                         width: 44,
                                         height: 44,
                                         borderRadius: 10,
-                                        border: `1px solid ${se === `upgrades` ? `#c8a030` : `rgba(255,255,255,0.2)`}`,
-                                        background: se === `upgrades` ? `rgba(200,160,48,0.2)` : `rgba(0,0,0,0.7)`,
-                                        color: se === `upgrades` ? `#c8a030` : `rgba(255,255,255,0.6)`,
+                                        border: `1px solid ${ue === `upgrades` ? `#c8a030` : `rgba(255,255,255,0.2)`}`,
+                                        background: ue === `upgrades` ? `rgba(200,160,48,0.2)` : `rgba(0,0,0,0.7)`,
+                                        color: ue === `upgrades` ? `#c8a030` : `rgba(255,255,255,0.6)`,
                                         fontSize: 20,
                                         cursor: `pointer`,
                                         display: `flex`,
@@ -62577,7 +62654,7 @@ Resources:`;
                             ]
                         }),
                         (0, I.jsx)(J6, {
-                            children: se && (0, I.jsxs)(X.div, {
+                            children: ue && (0, I.jsxs)(X.div, {
                                 initial: {
                                     x: `100%`
                                 },
@@ -62606,7 +62683,7 @@ Resources:`;
                                 },
                                 onClick: (e)=>e.stopPropagation(),
                                 children: [
-                                    se === `ship` && (0, I.jsxs)(I.Fragment, {
+                                    ue === `ship` && (0, I.jsxs)(I.Fragment, {
                                         children: [
                                             (0, I.jsx)(`div`, {
                                                 style: {
@@ -62753,7 +62830,7 @@ Resources:`;
                                             })
                                         ]
                                     }),
-                                    se === `upgrades` && (0, I.jsxs)(I.Fragment, {
+                                    ue === `upgrades` && (0, I.jsxs)(I.Fragment, {
                                         children: [
                                             (0, I.jsx)(`div`, {
                                                 style: {
@@ -62823,18 +62900,18 @@ Resources:`;
                                 ]
                             })
                         }),
-                        se && (0, I.jsx)(`div`, {
+                        ue && (0, I.jsx)(`div`, {
                             style: {
                                 position: `fixed`,
                                 inset: 0,
                                 zIndex: 24
                             },
-                            onClick: ()=>O(null)
+                            onClick: ()=>de(null)
                         })
                     ]
                 }),
-                i && Ae && (()=>{
-                    let e = K9[Math.min(w, K9.length - 1)], t = e.waitFor === `done`, n = e.waitFor === `none`;
+                i && Pe && (()=>{
+                    let e = K9[Math.min(te, K9.length - 1)], t = e.waitFor === `done`, n = e.waitFor === `none`;
                     return (0, I.jsxs)(X.div, {
                         initial: {
                             opacity: 0,
@@ -62846,16 +62923,16 @@ Resources:`;
                         },
                         style: {
                             position: `fixed`,
-                            bottom: E ? k.event ? void 0 : `110px` : k.showPort ? void 0 : k.event ? `320px` : `90px`,
-                            top: E && k.event ? `70px` : !E && k.showPort ? `80px` : void 0,
-                            left: E ? 8 : 0,
-                            right: E ? 8 : 0,
+                            bottom: D ? k.event ? void 0 : `110px` : k.showPort ? void 0 : k.event ? `320px` : `90px`,
+                            top: D && k.event ? `70px` : !D && k.showPort ? `80px` : void 0,
+                            left: D ? 8 : 0,
+                            right: D ? 8 : 0,
                             margin: `0 auto`,
                             background: `linear-gradient(135deg,#0a1422,#060e18)`,
                             border: `2px solid rgba(200,160,48,0.7)`,
                             borderRadius: 16,
-                            padding: E ? `16px` : `22px 28px`,
-                            width: E ? `auto` : 540,
+                            padding: D ? `16px` : `22px 28px`,
+                            width: D ? `auto` : 540,
                             zIndex: 50,
                             boxShadow: `0 8px 40px rgba(0,0,0,0.95)`
                         },
@@ -62871,7 +62948,7 @@ Resources:`;
                                             flex: 1,
                                             height: 3,
                                             borderRadius: 2,
-                                            background: t < w ? `#c8a030` : t === w ? `rgba(200,160,48,0.5)` : `rgba(255,255,255,0.1)`,
+                                            background: t < te ? `#c8a030` : t === te ? `rgba(200,160,48,0.5)` : `rgba(255,255,255,0.1)`,
                                             transition: `background 0.3s`
                                         }
                                     }, t))
@@ -62939,7 +63016,7 @@ Resources:`;
                                             scale: 1.05
                                         },
                                         onClick: ()=>{
-                                            T((e)=>e + 1), je(!0);
+                                            ne((e)=>e + 1), Fe(!0);
                                         },
                                         style: {
                                             padding: `10px 20px`,
@@ -62954,7 +63031,7 @@ Resources:`;
                                         },
                                         children: `NEXT →`
                                     }) : (0, I.jsx)(`button`, {
-                                        onClick: ()=>je(!1),
+                                        onClick: ()=>Fe(!1),
                                         style: {
                                             background: `transparent`,
                                             border: `none`,
@@ -62969,13 +63046,13 @@ Resources:`;
                                 ]
                             })
                         ]
-                    }, w);
+                    }, te);
                 })(),
-                i && !Ae && (0, I.jsx)(X.button, {
+                i && !Pe && (0, I.jsx)(X.button, {
                     whileHover: {
                         scale: 1.05
                     },
-                    onClick: ()=>je(!0),
+                    onClick: ()=>Fe(!0),
                     style: {
                         position: `fixed`,
                         bottom: 90,
