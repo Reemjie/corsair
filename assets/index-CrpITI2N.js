@@ -58839,6 +58839,26 @@ Resources:`;
                                                                         })
                                                                     ]
                                                                 }),
+                                                                !l && !u && !d && o.type === `portal` && (0, I.jsx)(X.div, {
+                                                                    animate: {
+                                                                        opacity: [
+                                                                            0,
+                                                                            .4,
+                                                                            0
+                                                                        ]
+                                                                    },
+                                                                    transition: {
+                                                                        repeat: 1 / 0,
+                                                                        duration: 2.5,
+                                                                        ease: `easeInOut`
+                                                                    },
+                                                                    style: {
+                                                                        position: `absolute`,
+                                                                        inset: 0,
+                                                                        background: `radial-gradient(circle, #8866ff 0%, transparent 70%)`,
+                                                                        borderRadius: 4
+                                                                    }
+                                                                }),
                                                                 !l && !u && d && (0, I.jsx)(`img`, {
                                                                     src: `/corsair/icons/${o.type}.png`,
                                                                     style: {
