@@ -56481,50 +56481,50 @@ Resources:`;
                 } : e)), e.grid[e.ny][e.nx].stormed && !e.ship.upgrades.includes(`rider`) && (e.log = `The storm engulfs your ship. There is no escape.`, e.gameOver = !0, e.log = `The storm engulfs your ship!`), t <= 0 && (e.gameOver = !0, e.log = `The storm consumes your ship...`), e;
     }
     function Vse(e) {
-        let { turn: t, state: n } = e;
-        if (n.portalSpawned || n.currentZone >= 3 || t - (n.zoneEntryTurn ?? 0) < 12) return e;
-        if (!n.portalSpawned) {
+        let { turn: t } = e;
+        if (e.state.currentZone >= 3) return e;
+        let n = t - (e.state.zoneEntryTurn ?? 0) >= 12;
+        if (!e.state.portalSpawned && n && e.rng.next() < .35) {
             let t = [];
-            for(let n = 1; n < 10; n++)for(let r = 0; r < 12; r++){
+            for(let n = 2; n < 10; n++)for(let r = 2; r < 10; r++){
                 let i = e.grid[n][r];
-                i.type === `sea` && !i.visited && !i.revealed && !i.stormed && !(r === e.nx && n === e.ny) && r > 1 && r < 10 && n > 1 && n < 10 && t.push({
+                i.type === `sea` && !i.visited && !i.stormed && !(r === e.nx && n === e.ny) && t.push({
                     x: r,
                     y: n
                 });
             }
             if (t.length > 0) {
-                let { x: r, y: i } = t[Math.floor(e.rng.next() * t.length)];
-                e.grid = e.grid.map((e, t)=>e.map((e, n)=>n === r && t === i ? {
+                let { x: n, y: r } = t[Math.floor(e.rng.next() * t.length)];
+                e.grid = e.grid.map((e, t)=>e.map((e, i)=>i === n && t === r ? {
                             ...e,
                             type: `portal`
                         } : e)), e.state = {
                     ...e.state,
                     portalSpawned: !0
-                }, e.log = (e.log ? e.log + ` ` : ``) + C9[n.currentZone].portalMessage;
+                };
+                let i = C9[e.state.currentZone]?.portalMessage;
+                i && (e.log = (e.log ? e.log + ` ` : ``) + i);
             }
         }
-        if (n.portalSpawned) {
+        if (e.state.portalSpawned) {
             let t = null;
-            for(let n = 0; n < 12; n++){
-                for(let r = 0; r < 12; r++)if (e.grid[n][r].type === `portal`) {
-                    t = {
-                        x: r,
-                        y: n
-                    };
-                    break;
-                }
-                if (t) break;
+            for(let n = 0; n < 12 && !t; n++)for(let r = 0; r < 12; r++)if (e.grid[n][r].type === `portal`) {
+                t = {
+                    x: r,
+                    y: n
+                };
+                break;
             }
             if (t) {
                 let n = Math.abs(t.x - e.nx) + Math.abs(t.y - e.ny), r = null;
-                n <= 2 ? r = `Reality itself seems distorted nearby...` : n <= 5 ? r = `A faint blue glow pulses through the fog.` : n <= 8 && (r = `The water vibrates strangely.`), r ? e.state = {
+                r = n <= 2 ? `Reality itself seems distorted nearby...` : n <= 5 ? `A faint blue glow pulses through the fog.` : n <= 9 ? `The water vibrates strangely.` : `A distant pull tugs at your compass.`, e.state = {
                     ...e.state,
                     portalHint: r
-                } : e.state = {
-                    ...e.state,
-                    portalHint: null
                 };
-            }
+            } else e.state = {
+                ...e.state,
+                portalHint: null
+            };
         }
         return e;
     }
