@@ -56566,40 +56566,32 @@ Resources:`;
             frenzyTurns: a
         };
     }
-    function Wse(e, t, n, r, i) {
-        let a = e.mode === `frenzy` ? 2 : 1;
+    function Wse(e, t, n, r, i, a) {
+        let o = e.mode === `frenzy` ? 2 : 1;
         if (e.mode === `searching`) {
-            let t = Math.floor(i.next() * 3) - 1, n = Math.floor(i.next() * 3) - 1;
+            let t = Math.floor(a.next() * 3) - 1, n = Math.floor(a.next() * 3) - 1;
             return {
                 ...e,
                 x: Math.max(0, Math.min(11, e.x + t)),
                 y: Math.max(0, Math.min(11, e.y + n))
             };
         }
-        let o = e.x, s = e.y;
-        if (e.mode === `stalking`) for(let e = 0; e < a; e++){
-            let e = Math.abs(n - o), t = Math.abs(r - s);
+        let s = e.mode === `frenzy` ? r : e.mode === `stalking` ? n.x : t.x, c = e.mode === `frenzy` ? i : e.mode === `stalking` ? n.y : t.y, l = e.x, u = e.y;
+        for(let e = 0; e < o; e++){
+            let e = Math.abs(s - l), t = Math.abs(c - u);
             if (e === 0 && t === 0) break;
-            e > t || e === t && i.next() < .5 ? o = Math.max(0, Math.min(11, o + (n > o ? 1 : -1))) : s = Math.max(0, Math.min(11, s + (r > s ? 1 : -1)));
-        }
-        else {
-            let c = e.mode === `frenzy` ? n : t.x, l = e.mode === `frenzy` ? r : t.y;
-            for(let e = 0; e < a; e++){
-                let e = Math.abs(c - o), t = Math.abs(l - s);
-                if (e === 0 && t === 0) break;
-                e > t || e === t && i.next() < .5 ? o = Math.max(0, Math.min(11, o + (c > o ? 1 : -1))) : s = Math.max(0, Math.min(11, s + (l > s ? 1 : -1)));
-            }
+            e > t || e === t && a.next() < .5 ? l = Math.max(0, Math.min(11, l + (s > l ? 1 : -1))) : u = Math.max(0, Math.min(11, u + (c > u ? 1 : -1)));
         }
         return {
             ...e,
-            x: o,
-            y: s
+            x: l,
+            y: u
         };
     }
     function Gse(e, t, n) {
         let r = Math.abs(t.x - e.nx) + Math.abs(t.y - e.ny);
         if (t.mode === `frenzy` && n !== `frenzy`) e.log = (e.log ? e.log + ` ` : ``) + `Something snaps. It knows exactly where you are.`;
-        else if (t.mode === `stalking` && n === `tracking`) e.log = (e.log ? e.log + ` ` : ``) + `It changes course. It seems to predict you.`;
+        else if (t.mode === `stalking` && n !== `stalking`) e.log = (e.log ? e.log + ` ` : ``) + `It changes course. It seems to predict you.`;
         else if (t.mode === `searching`) e.log = (e.log ? e.log + ` ` : ``) + `You lose it in the fog...`;
         else if (r <= 2) {
             let t = [
@@ -56625,22 +56617,23 @@ Resources:`;
             skipTurn: !1
         };
         else if (i && i.active) {
-            let r = Hse(e), a = e.state.hunterTarget, o = i.lastMoveDir ?? null, s = t - (a?.x ?? t), c = n - (a?.y ?? n), l = s === 0 ? c === 0 ? null : `v` : `h`, u = !!(o && l && o !== l), d = i.mode;
+            let r = Hse(e), a = e.state.hunterTarget, o = e.state.hunterTargetHistory ?? [], s = t - (a?.x ?? t), c = n - (a?.y ?? n), l = s === 0 ? c === 0 ? null : `v` : `h`, u = o.length >= 2 ? o[o.length - 1].x === o[o.length - 2].x ? o[o.length - 1].y === o[o.length - 2].y ? null : `v` : `h` : null, d = !!(u && l && u !== l), f = i.mode;
             i = {
-                ...Use(i, r, u),
+                ...Use(i, r, d),
                 awareness: r
             };
-            let f = e.state.hunterTargetHistory ?? [], p = f.length >= 2 ? f[f.length - 2] : e.state.hunterTarget ?? {
+            let p = o.length >= 2 ? o[o.length - 2] : a ?? {
                 x: t,
                 y: n
+            }, m = {
+                x: Math.max(0, Math.min(11, t + s)),
+                y: Math.max(0, Math.min(11, n + c))
             };
-            i.mode === `tracking` && (i.skipTurn ?? !1) || (i = Wse(i, p, t, n, e.rng));
-            let m = i.x - (e.hunter?.x ?? i.x), h = i.y - (e.hunter?.y ?? i.y), g = m === 0 ? h === 0 ? i.lastMoveDir ?? null : `v` : `h`;
-            i = {
+            i.mode === `tracking` && (i.skipTurn ?? !1) || (i = Wse(i, p, m, t, n, e.rng)), i = {
                 ...i,
                 skipTurn: i.mode === `tracking` ? !(i.skipTurn ?? !1) : !1,
-                lastMoveDir: g
-            }, Gse(e, i, d);
+                lastMoveDir: l
+            }, Gse(e, i, f);
         }
         if (i && i.active && i.x === t && i.y === n) {
             let t = Math.max(S9.hunter.minDamage, S9.hunter.baseDamage - e.ship.power);
