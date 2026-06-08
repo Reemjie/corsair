@@ -56382,6 +56382,7 @@ Resources:`;
             stormDistanceMin: 99,
             cursedTreasureTaken: !1,
             currentZone: 1,
+            zoneEntryTurn: 0,
             portalSpawned: !1,
             portalHint: null,
             runTitle: `Corsaire`,
@@ -56431,7 +56432,7 @@ Resources:`;
             ].join(`, `)}.`);
         }
         let x = ``, S = C9[e.currentZone ?? 1]?.hunterSpawnTurn ?? S9.hunter.spawnTurn;
-        e.turn + 1 === S && !e.hunter && (x = `Something surfaces from the deep... It has found your trail.`);
+        e.turn + 1 - (e.zoneEntryTurn ?? 0) === S && !e.hunter && (x = `Something surfaces from the deep... It has found your trail.`);
         let C = [
             b,
             x
@@ -56481,7 +56482,7 @@ Resources:`;
     }
     function Vse(e) {
         let { turn: t, state: n } = e;
-        if (n.portalSpawned || n.currentZone >= 3 || t < 12) return e;
+        if (n.portalSpawned || n.currentZone >= 3 || t - (n.zoneEntryTurn ?? 0) < 12) return e;
         if (!n.portalSpawned) {
             let t = [];
             for(let n = 1; n < 10; n++)for(let r = 0; r < 12; r++){
@@ -56605,8 +56606,8 @@ Resources:`;
         }
     }
     function Kse(e) {
-        let { nx: t, ny: n, turn: r } = e, i = e.hunter;
-        if (r === (C9[e.state.currentZone ?? 1]?.hunterSpawnTurn ?? S9.hunter.spawnTurn) && !i) i = {
+        let { nx: t, ny: n, turn: r } = e, i = e.hunter, a = C9[e.state.currentZone ?? 1]?.hunterSpawnTurn ?? S9.hunter.spawnTurn;
+        if (r - (e.state.zoneEntryTurn ?? 0) === a && !i) i = {
             x: t < 12 / 2 ? 11 : 0,
             y: 0,
             active: !0,
@@ -57031,8 +57032,31 @@ Resources:`;
                 l = `You navigate carefully through the reef. The hull holds.`;
                 break;
             case `portal`:
-                l = `A rift tears through reality. The next zone awaits...`;
-                break;
+                {
+                    let t = (e.currentZone ?? 1) + 1, n = C9[t];
+                    if (!n) {
+                        l = `The rift collapses. There is nowhere left to go.`;
+                        break;
+                    }
+                    let r = O9(e.seed * 31 + t * 100003, []);
+                    a.x = 6, a.y = 11;
+                    let i = k9(r, 6, 11, a.vision), s = t === 2 ? 100 : t === 3 ? 300 : 0;
+                    return o += s, E = {
+                        ...E,
+                        achievements: E.achievements + s
+                    }, l = `${n.transitionText.join(` `)} You have entered ${n.name}. +${s} pts.`, ee({
+                        currentZone: t,
+                        zone: t,
+                        zoneEntryTurn: e.turn,
+                        portalSpawned: !1,
+                        portalHint: null,
+                        grid: i,
+                        stormDistance: S9.storm.initial,
+                        hunter: null,
+                        hunterTarget: null,
+                        hunterTargetHistory: []
+                    });
+                }
             case `maelstrom`:
                 {
                     let t = n.int(0, 11), r = n.int(0, 11), i = k9(T, t, r, a.vision);
@@ -57115,20 +57139,6 @@ Resources:`;
                     stormDistance: Math.max(0, d - 1)
                 });
             case `portal`:
-                if (t === 0) {
-                    let t = (e.currentZone ?? 1) + 1, n = C9[t], r = O9(e.rngState ? parseInt(e.rngState.toString()) : Date.now(), []), i = t === 2 ? 100 : t === 3 ? 300 : 0;
-                    return o += i, E = {
-                        ...E,
-                        achievements: E.achievements + i
-                    }, l = `${n.transitionText.join(` `)} You have entered ${n.name}. +${i} pts.`, ee({
-                        currentZone: t,
-                        portalSpawned: !1,
-                        portalHint: null,
-                        grid: r,
-                        stormDistance: S9.storm.initial,
-                        hunter: null
-                    });
-                }
                 return l = `You turn back. The portal fades.`, ee({});
             case `maelstrom`:
                 return l = `You resist the vortex.`, ee({
@@ -61941,12 +61951,12 @@ Resources:`;
                                         },
                                         disabled: E,
                                         onClick: async ()=>{
-                                            if (ee(!0), await Dse(e, k.score, k.runTitle, k.turn, k.zone, k.seed, n ?? void 0) && (m(!0), ie)) {
+                                            if (ee(!0), await Dse(e, k.score, k.runTitle, k.turn, k.currentZone ?? 1, k.seed, n ?? void 0) && (m(!0), ie)) {
                                                 let t = new Date().toISOString().slice(0, 10);
                                                 await kse(e, k.score, t, k.seed, n ?? void 0);
                                             }
                                             if (t) try {
-                                                await Mse(t, k.score, k.seed, k.turn, k.zone, k.runTitle);
+                                                await Mse(t, k.score, k.seed, k.turn, k.currentZone ?? 1, k.runTitle);
                                             } catch (e) {
                                                 console.warn(`On-chain submit failed:`, e);
                                             }
