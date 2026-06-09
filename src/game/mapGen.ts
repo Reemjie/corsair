@@ -13,7 +13,7 @@ function getWeights(y: number, upgrades: string[] = []): { type: CellType; w: nu
   const greedPenalty = upgrades.includes('greed') ? 0.3 : 1;
   if (zone === 'early') return [
     { type: 'sea', w: 35 }, { type: 'storm', w: 8 }, { type: 'pirate', w: 10 },
-    { type: 'treasure', w: 14 }, { type: 'port', w: Math.floor(14 * greedPenalty) }, { type: 'kraken', w: 1 },
+    { type: 'treasure', w: 14 }, { type: 'port', w: Math.floor(10 * greedPenalty) }, { type: 'kraken', w: 1 },
     { type: 'wreck', w: 10 }, { type: 'island', w: 10 }, { type: 'rocks', w: 2 },
   ];
   if (zone === 'mid') return [
@@ -64,8 +64,45 @@ export function revealAround(grid: Cell[][], x: number, y: number, vision: numbe
       if (nx>=0&&nx<SIZE&&ny>=0&&ny<SIZE) g[ny][nx].revealed = true;
     }
   }
-  g[y][x].visited = true;
   return g;
 }
 
 export const GRID_SIZE = SIZE;
+
+export function generateTutorialGrid(): ReturnType<typeof generateGrid> {
+  const EMPTY = (): Cell => ({ type: 'sea' as CellType, revealed: false, visited: false, stormed: false, value: 0 });
+  const CELL = (type: CellType): Cell => ({ type, revealed: false, visited: false, stormed: false, value: 0 });
+  
+  const grid: Cell[][] = Array.from({ length: GRID_SIZE }, () =>
+    Array.from({ length: GRID_SIZE }, () => EMPTY())
+  );
+  
+  const cx = Math.floor(GRID_SIZE / 2);
+  const cy = GRID_SIZE - 2; // 10
+  
+  // Step 1+2: two sea cells ahead
+  grid[cy-1][cx] = CELL('sea');
+  grid[cy-1][cx-1] = CELL('sea');
+  grid[cy-1][cx+1] = CELL('sea');
+  
+  grid[cy-2][cx] = CELL('sea');
+  grid[cy-2][cx-1] = CELL('sea');
+  grid[cy-2][cx+1] = CELL('sea');
+  
+  // Step 3: pirates directly ahead
+  grid[cy-3][cx] = CELL('pirate');
+  grid[cy-3][cx-1] = CELL('sea');
+  grid[cy-3][cx+1] = CELL('sea');
+  
+  // Step 4: port to the right after pirates
+  grid[cy-4][cx] = CELL('sea');
+  grid[cy-4][cx-1] = CELL('sea');
+  grid[cy-4][cx+1] = CELL('port');
+  
+  // Beyond
+  grid[cy-5][cx] = CELL('sea');
+  grid[cy-5][cx-1] = CELL('sea');
+  grid[cy-5][cx+1] = CELL('sea');
+  
+  return grid;
+}

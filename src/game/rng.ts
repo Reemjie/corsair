@@ -1,19 +1,10 @@
-// Deterministic RNG from seed
-export function createRng(seed: number) {
-  let state = seed;
+export function seededRng(seed: number) {
+  let s = seed;
   return {
-    next(): number {
-      state = (state * 1664525 + 1013904223) & 0xffffffff;
-      return (state >>> 0) / 0xffffffff;
-    },
-    int(min: number, max: number): number {
-      return Math.floor(this.next() * (max - min + 1)) + min;
-    },
-    pick<T>(arr: T[]): T {
-      return arr[Math.floor(this.next() * arr.length)];
-    },
-    getState(): number { return state; },
+    next: () => { s = (s * 1664525 + 1013904223) & 0xffffffff; return (s >>> 0) / 0xffffffff; },
+    int:  (min: number, max: number) => { s = (s * 1664525 + 1013904223) & 0xffffffff; return Math.floor(((s >>> 0) / 0xffffffff) * (max - min + 1)) + min; },
+    getState: () => s,
   };
 }
 
-export type Rng = ReturnType<typeof createRng>;
+export type Rng = ReturnType<typeof seededRng>;

@@ -10,9 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@cartridge/connector": "^0.13.12",
+    "@starknet-react/core": "^5.0.3",
+    "@supabase/supabase-js": "^2.105.3",
+    "esbuild": "^0.28.0",
     "framer-motion": "^12.38.0",
     "react": "^19.2.5",
-    "react-dom": "^19.2.5"
+    "react-dom": "^19.2.5",
+    "starknet": "^10.0.2",
+    "vite-plugin-top-level-await": "^1.6.0",
+    "vite-plugin-wasm": "^3.6.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
