@@ -910,6 +910,12 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
         {s.event && SCENE_TITLES[s.event.cellType] && (
           <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} exit={{ opacity:0 }}
             style={{ position:'fixed', inset:0, zIndex:100, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', padding:'24px' }}>
+            {/* Fond de scène */}
+            {SCENE_BG[s.event.cellType] && (
+              <div style={{ position:'absolute', inset:0, zIndex:0, backgroundImage:`url(${SCENE_BG[s.event.cellType]})`, backgroundSize:'cover', backgroundPosition:'center' }} />
+            )}
+            {/* Voile sombre pour lisibilité */}
+            <div style={{ position:'absolute', inset:0, zIndex:0, background:'linear-gradient(to bottom, rgba(5,8,15,0.55) 0%, rgba(5,8,15,0.78) 60%, rgba(5,8,15,0.92) 100%)' }} />
             <div style={{ position:'absolute', top:16, right:24, display:'flex', alignItems:'center', gap:6, zIndex:2 }}>
               <div style={{ fontSize: isMobile ? 13 : 18, fontWeight:700, color:'#eedd44' }}>{s.score}{isMobile ? 'pts' : ' pts'}</div>
             </div>
