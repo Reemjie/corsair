@@ -30,20 +30,20 @@ function buildEvent(type: CellType, power: number): ActiveEvent {
       { label: 'Go around',    desc: 'Safe but storm gains 1 extra turn', icon: 'detour', risk: 'safe'  },
     ]};
     case 'treasure': return { cellType: type, choices: [
-      { label: 'Take it',  desc: 'Claim the gold!',     icon: 'take',  risk: 'safe' },
-      { label: 'Leave it', desc: 'The sea rewards restraint. Storm +1.', icon: 'leave', risk: 'safe' },
+      { label: 'Take it',  desc: 'Grab the gold (+score). Riches draw danger.', icon: 'take',  risk: 'safe' },
+      { label: 'Leave it', desc: 'Stay unseen: calm the Hunter, +restraint score.', icon: 'leave', risk: 'safe' },
     ]};
     case 'port': return { cellType: type, choices: [
       { label: 'Dock',    desc: 'Repair and upgrade', icon: 'dock', risk: 'safe' },
       { label: 'Sail on', desc: 'No time to stop',    icon: 'sail', risk: 'safe' },
     ]};
     case 'island': return { cellType: type, choices: [
-      { label: 'Ancient Ritual', desc: 'Offer 100 gold → storm +3 turns', icon: 'ritual', risk: 'safe'  },
-      { label: 'Explore freely', desc: 'Might find upgrade token',         icon: 'explore', risk: 'risky' },
+      { label: 'Ancient Ritual', desc: 'Pay 100g → push the storm back +3 turns, +score.', icon: 'ritual', risk: 'safe'  },
+      { label: 'Explore freely', desc: '50% chance of a free upgrade token.', icon: 'explore', risk: 'risky' },
     ]};
     case 'rocks': return { cellType: type, choices: [
-      { label: 'Navigate carefully', desc: 'Slow but safe',    icon: 'careful', risk: 'safe'  },
-      { label: 'Full speed',         desc: 'Risk hull damage', icon: 'speed', risk: 'risky' },
+      { label: 'Navigate carefully', desc: 'No damage, but the storm gains ground.', icon: 'careful', risk: 'safe'  },
+      { label: 'Full speed',         desc: 'Gain distance on the storm (+1). Risk hull damage.', icon: 'speed', risk: 'risky' },
     ]};
     case 'portal': return { cellType: type, choices: [
       { label: 'Enter the portal', desc: 'Cross into the next zone', icon: 'vortex', risk: 'bold' },
@@ -846,7 +846,14 @@ const rawG = navLvl2 >= 2 ? Math.floor(rng.int(30,90)*0.7) : rng.int(30,90);
         break;
       }
       case 'island': {
-        if (ship.gold >= BALANCE.port.islandRitualCost) { ship.gold -= BALANCE.port.islandRitualCost; log = `The old stones drink your gold. A cold wind sweeps the storm back. +${BALANCE.port.islandRitualBonus} turns.`; return done({ stormDistance: stormDistance + BALANCE.port.islandRitualBonus }); }
+        if (ship.gold >= BALANCE.port.islandRitualCost) {
+          ship.gold -= BALANCE.port.islandRitualCost;
+          const ritualScore = 120 * scoreMultiplier;
+          score += ritualScore;
+          sb = { ...sb, achievements: sb.achievements + ritualScore };
+          log = `The old stones drink your gold. A cold wind sweeps the storm back. +${BALANCE.port.islandRitualBonus} turns, +${ritualScore} pts.`;
+          return done({ stormDistance: stormDistance + BALANCE.port.islandRitualBonus });
+        }
         else log = 'Not enough gold. (need 100g)';
         break;
       }
@@ -935,14 +942,30 @@ const rawG = navLvl2 >= 2 ? Math.floor(rng.int(30,90)*0.7) : rng.int(30,90);
         return done({});
       }
       case 'maelstrom':      { log = 'You resist the vortex.'; return done({ stormDistance: Math.max(0, stormDistance - 1) }); }
-      case 'treasure':       { stormDistance = Math.min(stormDistance + 1, 99); log = 'You turn away. The sea acknowledges your restraint. Storm +1 turn.'; break; }
+      case 'treasure':       {
+        // Bonus "restraint" : plus fort si le hull est bas (rester discret = survie)
+        const lowHull = ship.hull <= Math.floor(ship.maxHull * 0.4);
+        const restraintScore = (lowHull ? 80 : 40) * scoreMultiplier;
+        score += restraintScore;
+        sb = { ...sb, achievements: sb.achievements + restraintScore };
+        notoriety = Math.max(0, notoriety - 2);
+        if (hunter?.active) hunter = { ...hunter, awareness: Math.max(0, (hunter.awareness ?? 0) - 20) };
+        dangerStreak = Math.max(0, dangerStreak - 1);
+        log = `You leave the gold to the sea. You slip away unnoticed. +${restraintScore} pts${hunter?.active ? ', the Hunter loses your trail' : ''}.`;
+        break;
+      }
       case 'port':           { log = 'No time to stop.'; break; }
       case 'island': {
         if (rng.next() < 0.5) { upgradeToken = true; log = 'Among the ruins, a strange artifact gleams. An upgrade token is yours.'; }
         else { log = 'You explore the island but find nothing of value.'; }
         break;
       }
-      case 'rocks':          { const d = rng.int(2, 6); ship.hull -= d; log = `Full speed! The reef tears the hull. -${d} hull.`; break; }
+      case 'rocks':          {
+        const d = rng.int(2, 6);
+        ship.hull -= d;
+        log = `Full speed through the reef! You gain ground on the storm (+1) but the hull scrapes. -${d} hull.`;
+        return done({ stormDistance: Math.min(99, stormDistance + 1) });
+      }
       case 'ancient_kraken': { ship.gold = Math.max(0, ship.gold - 50); log = 'You offer gold. It lets you pass.'; break; }
       case 'cursed_treasure':{ log = 'You leave the cursed gold.'; break; }
       default:               { log = 'You move on.'; break; }
