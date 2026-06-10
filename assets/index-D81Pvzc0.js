@@ -56158,13 +56158,13 @@ Resources:`;
                     choices: [
                         {
                             label: `Take it`,
-                            desc: `Claim the gold!`,
+                            desc: `Grab the gold (+score). Riches draw danger.`,
                             icon: `take`,
                             risk: `safe`
                         },
                         {
                             label: `Leave it`,
-                            desc: `The sea rewards restraint. Storm +1.`,
+                            desc: `Stay unseen: calm the Hunter, +restraint score.`,
                             icon: `leave`,
                             risk: `safe`
                         }
@@ -56194,13 +56194,13 @@ Resources:`;
                     choices: [
                         {
                             label: `Ancient Ritual`,
-                            desc: `Offer 100 gold → storm +3 turns`,
+                            desc: `Pay 100g → push the storm back +3 turns, +score.`,
                             icon: `ritual`,
                             risk: `safe`
                         },
                         {
                             label: `Explore freely`,
-                            desc: `Might find upgrade token`,
+                            desc: `50% chance of a free upgrade token.`,
                             icon: `explore`,
                             risk: `risky`
                         }
@@ -56212,13 +56212,13 @@ Resources:`;
                     choices: [
                         {
                             label: `Navigate carefully`,
-                            desc: `Slow but safe`,
+                            desc: `No damage, but the storm gains ground.`,
                             icon: `careful`,
                             risk: `safe`
                         },
                         {
                             label: `Full speed`,
-                            desc: `Risk hull damage`,
+                            desc: `Gain distance on the storm (+1). Risk hull damage.`,
                             icon: `speed`,
                             risk: `risky`
                         }
@@ -57023,10 +57023,16 @@ Resources:`;
                 ].sort(()=>n.next() - .5).slice(0, 2), l = `Welcome to port, Captain!`;
                 break;
             case `island`:
-                if (a.gold >= x9.port.islandRitualCost) return a.gold -= x9.port.islandRitualCost, l = `The old stones drink your gold. A cold wind sweeps the storm back. +${x9.port.islandRitualBonus} turns.`, ee({
-                    stormDistance: d + x9.port.islandRitualBonus
-                });
-                l = `Not enough gold. (need 100g)`;
+                if (a.gold >= x9.port.islandRitualCost) {
+                    a.gold -= x9.port.islandRitualCost;
+                    let e = 120 * v;
+                    return o += e, E = {
+                        ...E,
+                        achievements: E.achievements + e
+                    }, l = `The old stones drink your gold. A cold wind sweeps the storm back. +${x9.port.islandRitualBonus} turns, +${e} pts.`, ee({
+                        stormDistance: d + x9.port.islandRitualBonus
+                    });
+                } else l = `Not enough gold. (need 100g)`;
                 break;
             case `rocks`:
                 l = `You navigate carefully through the reef. The hull holds.`;
@@ -57145,8 +57151,17 @@ Resources:`;
                     stormDistance: Math.max(0, d - 1)
                 });
             case `treasure`:
-                d = Math.min(d + 1, 99), l = `You turn away. The sea acknowledges your restraint. Storm +1 turn.`;
-                break;
+                {
+                    let e = (a.hull <= Math.floor(a.maxHull * .4) ? 80 : 40) * v;
+                    o += e, E = {
+                        ...E,
+                        achievements: E.achievements + e
+                    }, y = Math.max(0, y - 2), w?.active && (w = {
+                        ...w,
+                        awareness: Math.max(0, (w.awareness ?? 0) - 20)
+                    }), _ = Math.max(0, _ - 1), l = `You leave the gold to the sea. You slip away unnoticed. +${e} pts${w?.active ? `, the Hunter loses your trail` : ``}.`;
+                    break;
+                }
             case `port`:
                 l = `No time to stop.`;
                 break;
@@ -57156,8 +57171,9 @@ Resources:`;
             case `rocks`:
                 {
                     let e = n.int(2, 6);
-                    a.hull -= e, l = `Full speed! The reef tears the hull. -${e} hull.`;
-                    break;
+                    return a.hull -= e, l = `Full speed through the reef! You gain ground on the storm (+1) but the hull scrapes. -${e} hull.`, ee({
+                        stormDistance: Math.min(99, d + 1)
+                    });
                 }
             case `ancient_kraken`:
                 a.gold = Math.max(0, a.gold - 50), l = `You offer gold. It lets you pass.`;
