@@ -63,6 +63,20 @@ const SCENE_BG: Record<string, string> = {
   maelstrom: import.meta.env.BASE_URL + 'scenes/maelstrom.jpg',
 };
 
+const SCENE_VIDEO: Record<string, string> = {
+  kraken: import.meta.env.BASE_URL + 'scenes/kraken.mp4',
+  ancient_kraken: import.meta.env.BASE_URL + 'scenes/ancient_kraken.mp4',
+  storm: import.meta.env.BASE_URL + 'scenes/storm.mp4',
+  island: import.meta.env.BASE_URL + 'scenes/island.mp4',
+  treasure: import.meta.env.BASE_URL + 'scenes/treasure.mp4',
+  cursed_treasure: import.meta.env.BASE_URL + 'scenes/cursed_treasure.mp4',
+  pirate: import.meta.env.BASE_URL + 'scenes/pirate.mp4',
+  port: import.meta.env.BASE_URL + 'scenes/port.mp4',
+  rocks: import.meta.env.BASE_URL + 'scenes/rocks.mp4',
+  wreck: import.meta.env.BASE_URL + 'scenes/wreck.mp4',
+  maelstrom: import.meta.env.BASE_URL + 'scenes/maelstrom.mp4',
+};
+
 const SCENE_TITLES: Record<string, string> = {
   kraken: 'The Kraken Rises',
   ancient_kraken: 'The Ancient One Awakens',
@@ -185,6 +199,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
     window.addEventListener('resize', fn);
     return () => window.removeEventListener('resize', fn);
   }, []);
+  const [cinematic, setCinematic] = useState<string | null>(null);
   const [_showDeathCinematic, _setShowDeathCinematic] = useState(false);
   const [showDeathScreen, setShowDeathScreen] = useState(false);
   const [showHunterAttack, setShowHunterAttack] = useState(false);
@@ -210,6 +225,17 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   const stormPct = Math.min(100,(1-s.stormDistance/10)*100);
   const hullColor = s.ship.hull<=5?'#ee4444':s.ship.hull<=10?'#ee8844':'#44cc88';
   const canEscape = !s.escapeUsed && s.ship.upgrades.includes('escape') && s.event && s.event.choices[0].risk !== 'safe';
+
+  // Cinematic unifiée : joue la vidéo d'intro 5s quand un événement à scène se déclenche
+  useEffect(() => {
+    if (state.gameOver || isMobile) { setCinematic(null); return; }
+    const ct = state.event?.cellType;
+    if (ct && SCENE_VIDEO[ct] && !tutorialMode) {
+      setCinematic(ct);
+      const t = setTimeout(() => setCinematic(null), 5000);
+      return () => clearTimeout(t);
+    }
+  }, [state.event, state.turn]);
 
   // Port cinematic trigger
   useEffect(() => {
@@ -904,6 +930,34 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
           </div>
         </div>
       </div>
+
+      {/* CINEMATIC INTRO (vidéo 5s, par-dessus la page d'événement) */}
+      <AnimatePresence>
+        {cinematic && SCENE_VIDEO[cinematic] && (
+          <motion.div
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            onClick={() => setCinematic(null)}
+            style={{ position:'fixed', inset:0, zIndex:140, cursor:'pointer', background:'#05080f' }}>
+            <video
+              key={cinematic}
+              src={SCENE_VIDEO[cinematic]}
+              autoPlay muted playsInline preload="auto"
+              onEnded={() => setCinematic(null)}
+              style={{ width:'100%', height:'100%', objectFit:'cover' }}
+            />
+            <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(5,8,15,0.1) 0%, rgba(5,8,15,0.35) 70%, rgba(5,8,15,0.7) 100%)', pointerEvents:'none' }}/>
+            <div style={{ position:'absolute', bottom:'12%', left:0, right:0, textAlign:'center', pointerEvents:'none' }}>
+              <div style={{ fontSize: 40, color:'#e8e0d0', fontFamily:"'Pirata One', cursive", letterSpacing:3, textShadow:'0 2px 30px rgba(0,0,0,0.95)' }}>
+                {SCENE_TITLES[cinematic] ?? ''}
+              </div>
+              <div style={{ marginTop:10, fontSize:13, color:'rgba(255,255,255,0.55)', fontFamily:"'IM Fell English', cursive", letterSpacing:1 }}>
+                tap to skip
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* EVENT SCENE OVERLAY */}
       <AnimatePresence>
