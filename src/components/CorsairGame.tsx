@@ -909,7 +909,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
       <AnimatePresence>
         {s.event && SCENE_TITLES[s.event.cellType] && (
           <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} exit={{ opacity:0 }}
-            style={{ position:'fixed', inset:0, zIndex:100, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', padding:'24px' }}>
+            style={{ position:'fixed', inset:0, zIndex:100, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'flex-end', padding:'24px', paddingBottom: isMobile ? 80 : 64 }}>
             {/* Fond de scène */}
             {SCENE_BG[s.event.cellType] && (
               <div style={{ position:'absolute', inset:0, zIndex:0, backgroundImage:`url(${SCENE_BG[s.event.cellType]})`, backgroundSize:'cover', backgroundPosition:'center' }} />
