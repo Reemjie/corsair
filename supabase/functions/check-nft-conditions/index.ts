@@ -36,7 +36,7 @@ interface RunData {
   cursed_treasure_taken: boolean
 }
 
-const TELEGRAM_BOT_TOKEN = '8221890035:AAGyxBLtupGfI15SOFWSdtDYr3qw55GPDwM'
+const TELEGRAM_BOT_TOKEN = Deno.env.get('TELEGRAM_BOT_TOKEN')!
 const TELEGRAM_CHAT_ID = '5846433874'
 
 async function sendTelegramNotification(nftName: string, walletAddress: string) {
