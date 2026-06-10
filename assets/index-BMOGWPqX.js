@@ -59460,8 +59460,9 @@ Resources:`;
                             display: `flex`,
                             flexDirection: `column`,
                             alignItems: `center`,
-                            justifyContent: `center`,
-                            padding: `24px`
+                            justifyContent: `flex-end`,
+                            padding: `24px`,
+                            paddingBottom: D ? 80 : 64
                         },
                         children: [
                             z9[k.event.cellType] && (0, I.jsx)(`div`, {
