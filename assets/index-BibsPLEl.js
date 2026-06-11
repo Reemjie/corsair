@@ -57901,8 +57901,8 @@ Resources:`;
                 let e = qe.current ? 8e3 : 0;
                 setTimeout(()=>{
                     ue(!1), ae(`death`), setTimeout(()=>{
-                        ae(null), ce(!0);
-                    }, 5e3);
+                        ce((e)=>e || !0);
+                    }, 9e3);
                 }, e);
             }
             else ce(!1);
@@ -59452,7 +59452,9 @@ Resources:`;
                         transition: {
                             duration: .4
                         },
-                        onClick: ()=>ae(null),
+                        onClick: ()=>{
+                            ie === `death` && ce(!0), ae(null);
+                        },
                         style: {
                             position: `fixed`,
                             inset: 0,
@@ -59467,7 +59469,9 @@ Resources:`;
                                 muted: !0,
                                 playsInline: !0,
                                 preload: `auto`,
-                                onEnded: ()=>ae(null),
+                                onEnded: ()=>{
+                                    ie === `death` && ce(!0), ae(null);
+                                },
                                 style: {
                                     width: `100%`,
                                     height: `100%`,
