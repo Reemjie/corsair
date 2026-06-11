@@ -57893,7 +57893,7 @@ Resources:`;
             s
         ]), (0, x.useEffect)(()=>{
             let e = (e)=>{
-                s.gameOver || s.event || s.showPort || (e.key === `ArrowLeft` && Je(-1, 0), e.key === `ArrowUp` && Je(0, -1), e.key === `ArrowRight` && Je(1, 0));
+                e.key.startsWith(`Arrow`) && console.log(`[TUTO key]`, e.key, `| gameOver=`, s.gameOver, `| event=`, s.event?.cellType ?? null, `| showPort=`, s.showPort, `| tutStep=`, ee), !(s.gameOver || s.event || s.showPort) && (e.key === `ArrowLeft` && Je(-1, 0), e.key === `ArrowUp` && Je(0, -1), e.key === `ArrowRight` && Je(1, 0));
             };
             return window.addEventListener(`keydown`, e), ()=>window.removeEventListener(`keydown`, e);
         }, [
