@@ -56454,7 +56454,7 @@ Resources:`;
                     portalSpawned: !0
                 };
                 let i = w9[e.state.currentZone]?.portalMessage;
-                i && (e.log = (e.log ? e.log + ` ` : ``) + i);
+                i && (e.log = (e.log ? e.log + ` ` : ``) + i), e.log = (e.log ? e.log + ` ` : ``) + `[DEBUG portail en x=${n}, y=${r}]`;
             }
         }
         if (e.state.portalSpawned) {
