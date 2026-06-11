@@ -154,7 +154,8 @@ const TUT_STEPS = [
   { id:'repair',      title:'🔧 Repair Your Hull',        bubble:'At port you can repair and buy upgrades. Press RUM BARREL to restore 8 HP for 25 gold.', waitFor:'repair' },
   { id:'upgrades',    title:'🛠 Components & Abilities',   bubble:'At port, upgrade your ship components: HULL for more HP, ARMEMENT for more power, NAVIGATION for better vision. Each has 3 levels but you can only max out 2 of them — choose your specialization. You can also equip up to 2 special abilities like Ghost Ship or Storm Rider.', waitFor:'none' },
   { id:'hunter',      title:'🐙 The Hunter',               bubble:'At turn 8, a creature spawns and tracks you. Watch the HUNTER bar on the left — it shows its mode (TRACKING → STALKING → ENRAGED) and awareness. Storms and ports reduce its awareness. Keep moving forward.', waitFor:'none' },
-  { id:'done',        title:'🎓 You Are Ready!',          bubble:'Well done, Captain! Move forward, chain dangers for combos, visit ports, and never let the storm catch you. Good luck!', waitFor:'done' },
+  { id:'portal',      title:'🌀 The Portal',               bubble:'After sailing deep enough into a zone, a glowing purple VORTEX appears ahead of you. Sail into it to cross into the next zone — The Storm Sea, then The Abyss. Each zone is deadlier but worth far more points, and entering one pushes the storm back. Watch the log for hints when reality starts to distort.', waitFor:'none' },
+  { id:'done',        title:'🎓 You Are Ready!',          bubble:'Well done, Captain! Move forward, chain dangers for combos, visit ports, cross the portals, and never let the storm catch you. Good luck!', waitFor:'done' },
 ];
 
 

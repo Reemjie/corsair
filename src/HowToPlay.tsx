@@ -105,6 +105,18 @@ export default function HowToPlay({ onClose, onPlay }: { onClose: () => void; on
           </div>
         </Section>
 
+        {/* Zones & Portals */}
+        <Section title="ZONES & PORTALS">
+          <p style={{ fontFamily: "'IM Fell English', cursive", fontSize: 18, color: 'rgba(255,255,255,0.75)', lineHeight: 1.9, marginBottom: 16 }}>
+            Your voyage spans three great zones, each more perilous and rewarding than the last: <span style={{ color: '#44cc88' }}>The Coasts</span>, then <span style={{ color: '#cc44ee' }}>The Storm Sea</span>, and finally <span style={{ color: '#ee4444' }}>The Abyss</span>. Storms grow fiercer and monsters deadlier with each crossing — but so do the points.
+          </p>
+          <div style={{ background: 'rgba(100,60,180,0.1)', border: '1px solid rgba(140,90,220,0.35)', borderRadius: 12, padding: 20 }}>
+            <p style={{ fontFamily: "'IM Fell English', cursive", fontSize: 18, color: 'rgba(255,255,255,0.75)', lineHeight: 1.9, margin: 0 }}>
+              After you have sailed deep enough into a zone, a glowing purple <span style={{ color: '#aa77ff' }}>VORTEX</span> appears somewhere ahead of you on the map. Watch the log — as you near it, reality begins to distort. Sail onto the vortex cell and choose <span style={{ color: '#aa77ff' }}>Enter the portal</span> to cross into the next zone. Crossing pushes the storm back and grants a large score bonus. The final zone, The Abyss, has no portal — it is the end of the line.
+            </p>
+          </div>
+        </Section>
+
         {/* Cells */}
         <Section title="THE CELLS — WHAT YOU WILL ENCOUNTER">
           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: 10 }}>
