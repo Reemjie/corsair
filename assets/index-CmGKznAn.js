@@ -56438,8 +56438,8 @@ Resources:`;
         if (!e.state.portalSpawned && n && e.rng.next() < .35) {
             let t = [];
             for(let n = 2; n < 10; n++)for(let r = 2; r < 10; r++){
-                let i = e.grid[n][r];
-                i.type === `sea` && !i.visited && !i.stormed && !(r === e.nx && n === e.ny) && t.push({
+                let i = e.grid[n][r], a = n < e.ny - 1, o = Math.abs(r - e.nx) <= e.ny - n;
+                i.type === `sea` && !i.visited && !i.stormed && a && o && !(r === e.nx && n === e.ny) && t.push({
                     x: r,
                     y: n
                 });
@@ -56454,7 +56454,7 @@ Resources:`;
                     portalSpawned: !0
                 };
                 let i = w9[e.state.currentZone]?.portalMessage;
-                i && (e.log = (e.log ? e.log + ` ` : ``) + i), e.log = (e.log ? e.log + ` ` : ``) + `[DEBUG portail en x=${n}, y=${r}]`;
+                i && (e.log = (e.log ? e.log + ` ` : ``) + i);
             }
         }
         if (e.state.portalSpawned) {
