@@ -59615,7 +59615,7 @@ Resources:`;
                                             justifyContent: `center`
                                         },
                                         children: A.event.choices.map((e, t)=>{
-                                            let n = e.risk === `safe` ? `#44cc88` : e.risk === `risky` ? `#eedd44` : `#ee6644`, r = e.desc.match(/(?<!\+)(\d+)\s*gold/i), a = r ? parseInt(r[1]) : 0, o = a === 0 || A.ship.gold >= a;
+                                            let n = e.risk === `safe` ? `#44cc88` : e.risk === `risky` ? `#eedd44` : `#ee6644`, r = e.desc.match(/(?<!\+)(\d+)\s*(?:gold\b|g\b)/i), a = r ? parseInt(r[1]) : 0, o = a === 0 || A.ship.gold >= a;
                                             return (0, I.jsxs)(X.button, {
                                                 whileHover: {
                                                     scale: o ? 1.04 : 1
@@ -59751,7 +59751,7 @@ Resources:`;
                                                 marginTop: 8
                                             },
                                             children: A.event.choices.map((e, t)=>{
-                                                let n = e.risk === `safe` ? `#44cc88` : e.risk === `risky` ? `#eedd44` : `#ee6644`, r = e.desc.match(/(?<!\+)(\d+)\s*gold/i), a = r ? parseInt(r[1]) : 0, o = a === 0 || A.ship.gold >= a;
+                                                let n = e.risk === `safe` ? `#44cc88` : e.risk === `risky` ? `#eedd44` : `#ee6644`, r = e.desc.match(/(?<!\+)(\d+)\s*(?:gold\b|g\b)/i), a = r ? parseInt(r[1]) : 0, o = a === 0 || A.ship.gold >= a;
                                                 return (0, I.jsxs)(X.button, {
                                                     whileHover: {
                                                         scale: o ? 1.02 : 1
