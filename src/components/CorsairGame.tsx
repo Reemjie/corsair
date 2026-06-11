@@ -459,7 +459,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
       const nextStep = TUT_STEPS[Math.min(tutStep, TUT_STEPS.length-1)];
       // Only advance immediately for non-event moves
       // Event moves are handled by useEffect watching state.event
-      const willTriggerEvent = ['pre_pirate', 'pre_port2'].includes(nextStep.id);
+      const willTriggerEvent = ['pre_pirate', 'pre_port'].includes(nextStep.id);
       if (!willTriggerEvent) {
         setTutStep(i => i + 1);
         setTutBubble(true);
