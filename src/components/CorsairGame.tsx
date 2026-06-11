@@ -4,7 +4,7 @@ import type { GameState, UpgradeId } from '../types/game';
 import { submitScore, submitDailyScore, checkNFTConditions } from '../supabase';
 import { ZONE_CONFIG } from '../game/balance';
 import { submitScoreOnChain } from '../starknet';
-import { initGame, moveShip, resolveEvent, buyUpgrade, repairHull, leavePort, skipEventFn, rerollPort, upgradeComponent, markDailyPlayed, getDailyKey } from '../game/engine';
+import { initGame, moveShip, resolveEvent, repairHull, leavePort, skipEventFn, rerollPort, upgradeComponent, markDailyPlayed, getDailyKey } from '../game/engine';
 import anchorImg from '../assets/anchor.png';
 
 import crownNestImg from '../assets/upgrades/crown_nest.png';
@@ -130,10 +130,6 @@ function UpgradeDesc({ pros, cons, fontSize = 11, opacity = 0.55 }: { pros: read
   </div>);
 }
 // Resume texte court d'un upgrade (sans emoji) — pour tooltips/aperçus
-function upgradeSummary(u: { pros: readonly string[]; cons: readonly string[] }): string {
-  return [...u.pros, ...u.cons].join(' ');
-}
-
 const UPGRADES = [
   { id:'ghost',    name:'Ghost Ship',      pros:['Pirates ignore you. +2 vision.'], cons:['Cannot dock at ports. Krakens attracted on sea cells.'],  cost:80,  icon:'ghost',    build:'combat' },
   { id:'rider',    name:'Storm Rider',     pros:['Storm immunity. Storm cells give gold+score.','Hull+Rider synergy heals on storm.'], cons:['-1 HP every 2 turns. Repairs -50%.'],              cost:90,  icon:'rider',    build:'escape' },
@@ -1138,65 +1134,6 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                 })}
               </div>
             </div>
-
-          {/* Components */}
-          <div style={{ fontSize:11, color:'rgba(255,255,255,0.4)', letterSpacing:3, fontFamily:"'Cinzel', serif", marginBottom:8 }}>SHIP COMPONENTS</div>
-          <div style={{ display:'flex', gap:8, marginBottom:16 }}>
-            {([
-              { key:'hull',   label:'HULL',       icon:'⚓', color:'#44cc88', effects:['Hull 20','Hull 28','Hull 38'] },
-              { key:'weapon', label:'WEAPON',      icon:'⚔️', color:'#ee6644', effects:['P2','P5','P9'] },
-              { key:'nav',    label:'NAV',         icon:'🔭', color:'#6aaccc', effects:['V1','V2','V3'] },
-            ] as const).map(comp => {
-              const lvl = s.ship.levels[comp.key];
-              const maxed = s.maxedComponents >= 2 && lvl < 2;
-              const cost = lvl === 0 ? 50 : 110;
-              const canUp = !maxed && lvl < 2 && s.ship.gold >= cost;
-              return (
-                <motion.button key={comp.key} whileTap={{scale:0.97}}
-                  onClick={() => !maxed && lvl < 2 && setState(st => upgradeComponent(st, comp.key))}
-                  disabled={!canUp}
-                  style={{ flex:1, padding:'8px 6px', borderRadius:10, border:`1px solid ${canUp ? comp.color+'66' : 'rgba(255,255,255,0.1)'}`, background: canUp ? `${comp.color}12` : 'rgba(255,255,255,0.03)', cursor: canUp ? 'pointer' : 'not-allowed', opacity: canUp ? 1 : 0.5, textAlign:'center' }}>
-                  <div style={{ fontSize:16 }}>{comp.icon}</div>
-                  <div style={{ fontSize:11, color:comp.color, fontFamily:"'Cinzel', serif" }}>{comp.label}</div>
-                  <div style={{ display:'flex', gap:2, justifyContent:'center', margin:'4px 0' }}>
-                    {[0,1,2].map(i => <div key={i} style={{ width:8, height:8, borderRadius:2, background: i<=lvl ? comp.color : 'rgba(255,255,255,0.1)' }}/>)}
-                  </div>
-                  <div style={{ fontSize:10, color:'rgba(255,255,255,0.4)' }}>{canUp ? `→ ${cost}g` : lvl >= 2 ? 'MAX' : 'locked'}</div>
-                </motion.button>
-              );
-            })}
-          </div>
-
-          {/* Upgrades */}
-          <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:8 }}>
-            <div style={{ fontSize:11, color:'rgba(255,255,255,0.4)', letterSpacing:3, fontFamily:"'Cinzel', serif" }}>UPGRADES</div>
-            <motion.button whileTap={{scale:0.97}} onClick={() => setState(st => rerollPort(st))}
-              style={{ padding:'6px 12px', borderRadius:8, border:'1px solid rgba(200,160,48,0.3)', background:'rgba(200,160,48,0.1)', color:'#c8a030', fontSize:12, cursor:'pointer', fontFamily:"'Cinzel', serif" }}>
-              Reroll (20g)
-            </motion.button>
-          </div>
-          <div style={{ display:'flex', flexDirection:'column', gap:8, marginBottom:16 }}>
-            {UPGRADES.filter(upg => s.portUpgrades.includes(upg.id as any) || s.ship.upgrades.includes(upg.id as UpgradeId)).map(upg => {
-              const owned = s.ship.upgrades.includes(upg.id as UpgradeId);
-              const free = s.upgradeToken;
-              const bc = BUILD_COLOR[upg.build];
-              const canBuy = !owned && (free || s.ship.gold >= upg.cost);
-              return (
-                <motion.button key={upg.id} whileTap={{scale:0.98}}
-                  onClick={() => !owned && canBuy && setState(st => buyUpgrade(st, upg.id as UpgradeId))}
-                  style={{ padding:'10px 12px', borderRadius:12, border:`1px solid ${owned ? '#44cc8866' : canBuy ? bc+'44' : 'rgba(255,255,255,0.08)'}`, background: owned ? 'rgba(68,204,136,0.05)' : 'rgba(0,0,0,0.3)', cursor: canBuy && !owned ? 'pointer' : 'default', opacity: canBuy || owned ? 1 : 0.5, textAlign:'left', display:'flex', gap:10, alignItems:'flex-start' }}>
-                  <img src={UPGRADE_ICONS[upg.id]} style={{width:36,height:36,objectFit:'contain',flexShrink:0}}/>
-                  <div style={{flex:1}}>
-                    <div style={{ display:'flex', justifyContent:'space-between' }}>
-                      <span style={{ fontSize:14, color: owned ? '#44cc88' : bc, fontFamily:"'Pirata One', cursive" }}>{upg.name}</span>
-                      <span style={{ fontSize:13, color: owned ? '#44cc88' : '#eedd44' }}>{owned ? '✓' : free ? 'FREE' : upg.cost+'g'}</span>
-                    </div>
-                    <div style={{ fontSize:11, color:'rgba(255,255,255,0.4)', marginTop:3, lineHeight:1.4 }}>{upgradeSummary(upg).slice(0,80)}...</div>
-                  </div>
-                </motion.button>
-              );
-            })}
-          </div>
 
           {/* Repair — shown first for visibility */}
           <div style={{ display:'flex', gap:8, marginBottom:16 }}>
