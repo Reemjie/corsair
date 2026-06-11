@@ -761,8 +761,10 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                       </>
                     )}
                     {!isHunter && !isShip && !isRevealed && cell.type === 'portal' && (
-                      <motion.div animate={{ opacity:[0,0.4,0] }} transition={{ repeat:Infinity, duration:2.5, ease:'easeInOut' }}
-                        style={{ position:'absolute', inset:0, background:'radial-gradient(circle, #8866ff 0%, transparent 70%)', borderRadius:4 }}/>
+                      <motion.div animate={{ opacity:[0.55,1,0.55], scale:[0.9,1.08,0.9] }} transition={{ repeat:Infinity, duration:1.6, ease:'easeInOut' }}
+                        style={{ position:'absolute', inset:0, display:'flex', alignItems:'center', justifyContent:'center', background:'radial-gradient(circle, #aa77ff 0%, #6644cc55 45%, transparent 75%)', borderRadius:4, boxShadow:'0 0 12px #8866ff' }}>
+                        <div style={{ fontSize: CELL_S*0.5, lineHeight:1, filter:'drop-shadow(0 0 6px #aa77ff)' }}>🌀</div>
+                      </motion.div>
                     )}
                     {!isHunter && !isShip && isRevealed && (
                       <img src={`${import.meta.env.BASE_URL}icons/${cell.type}.png`} style={{ width: CELL_S*0.82, height: CELL_S*0.82, opacity: cell.visited ? 0.35 : 1, objectFit:'contain', mixBlendMode:'screen' as const }}/>
