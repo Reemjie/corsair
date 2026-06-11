@@ -59861,15 +59861,33 @@ Resources:`;
                                     margin: `0 auto`
                                 },
                                 children: [
-                                    (0, I.jsx)(`div`, {
+                                    (0, I.jsxs)(`div`, {
                                         style: {
-                                            fontSize: 18,
-                                            fontWeight: 700,
-                                            color: `#44cc88`,
-                                            marginBottom: 12,
-                                            letterSpacing: 2
+                                            display: `flex`,
+                                            alignItems: `center`,
+                                            gap: 8,
+                                            marginBottom: 12
                                         },
-                                        children: `⚓ PORT OF CALL`
+                                        children: [
+                                            (0, I.jsx)(`img`, {
+                                                src: `/corsair/assets/anchor-CHFYMem6.png`,
+                                                style: {
+                                                    width: 40,
+                                                    height: 40,
+                                                    objectFit: `contain`
+                                                }
+                                            }),
+                                            (0, I.jsx)(`span`, {
+                                                style: {
+                                                    fontSize: 26,
+                                                    fontWeight: 700,
+                                                    color: `#44cc88`,
+                                                    letterSpacing: 2,
+                                                    fontFamily: `'Pirata One', cursive`
+                                                },
+                                                children: `SAFE HARBOR`
+                                            })
+                                        ]
                                     }),
                                     (0, I.jsxs)(`div`, {
                                         style: {
@@ -59896,7 +59914,7 @@ Resources:`;
                                                     {
                                                         key: `hull`,
                                                         label: `HULL`,
-                                                        icon: `⚓`,
+                                                        img: `/corsair/assets/hull-CJc3oxl2.png`,
                                                         color: `#44cc88`,
                                                         effects: [
                                                             `Hull 20`,
@@ -59907,7 +59925,7 @@ Resources:`;
                                                     {
                                                         key: `weapon`,
                                                         label: `ARMEMENT`,
-                                                        icon: `⚔️`,
+                                                        img: `/corsair/assets/power-wpJAf0dT.png`,
                                                         color: `#ee6644`,
                                                         effects: [
                                                             `Power 2`,
@@ -59918,7 +59936,7 @@ Resources:`;
                                                     {
                                                         key: `nav`,
                                                         label: `NAVIGATION`,
-                                                        icon: `🔭`,
+                                                        img: `/corsair/assets/vision-BCkESVMk.png`,
                                                         color: `#6aaccc`,
                                                         effects: [
                                                             `Vision 1`,
@@ -59950,13 +59968,22 @@ Resources:`;
                                                                 children: [
                                                                     (0, I.jsxs)(`div`, {
                                                                         style: {
+                                                                            display: `flex`,
+                                                                            alignItems: `center`,
+                                                                            gap: 6,
                                                                             fontSize: 13,
                                                                             color: e.color,
                                                                             fontFamily: `'Pirata One', cursive`
                                                                         },
                                                                         children: [
-                                                                            e.icon,
-                                                                            ` `,
+                                                                            (0, I.jsx)(`img`, {
+                                                                                src: e.img,
+                                                                                style: {
+                                                                                    width: 22,
+                                                                                    height: 22,
+                                                                                    objectFit: `contain`
+                                                                                }
+                                                                            }),
                                                                             e.label
                                                                         ]
                                                                     }),
