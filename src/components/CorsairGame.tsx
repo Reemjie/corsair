@@ -986,7 +986,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                 {s.event.choices.map((ch, i) => {
                   const rc = ch.risk==='safe'?'#44cc88':ch.risk==='risky'?'#eedd44':'#ee6644';
                   // Detect gold cost in description
-                  const goldMatch = ch.desc.match(/(?<!\+)(\d+)\s*gold/i);
+                  const goldMatch = ch.desc.match(/(?<!\+)(\d+)\s*(?:gold\b|g\b)/i);
                   const goldCost = goldMatch ? parseInt(goldMatch[1]) : 0;
                   const canAfford = goldCost === 0 || s.ship.gold >= goldCost;
                   return (
@@ -1027,7 +1027,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                 <div style={{ display:'flex', gap:10, marginTop:8 }}>
                   {s.event.choices.map((ch, i) => {
                     const rc = ch.risk==='safe'?'#44cc88':ch.risk==='risky'?'#eedd44':'#ee6644';
-                    const goldMatch2 = ch.desc.match(/(?<!\+)(\d+)\s*gold/i);
+                    const goldMatch2 = ch.desc.match(/(?<!\+)(\d+)\s*(?:gold\b|g\b)/i);
                     const goldCost2 = goldMatch2 ? parseInt(goldMatch2[1]) : 0;
                     const canAfford2 = goldCost2 === 0 || s.ship.gold >= goldCost2;
                     return (
