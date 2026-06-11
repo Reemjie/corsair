@@ -57599,9 +57599,15 @@ Resources:`;
             waitFor: `none`
         },
         {
+            id: `portal`,
+            title: `🌀 The Portal`,
+            bubble: `After sailing deep enough into a zone, a glowing purple VORTEX appears ahead of you. Sail into it to cross into the next zone — The Storm Sea, then The Abyss. Each zone is deadlier but worth far more points, and entering one pushes the storm back. Watch the log for hints when reality starts to distort.`,
+            waitFor: `none`
+        },
+        {
             id: `done`,
             title: `🎓 You Are Ready!`,
-            bubble: `Well done, Captain! Move forward, chain dangers for combos, visit ports, and never let the storm catch you. Good luck!`,
+            bubble: `Well done, Captain! Move forward, chain dangers for combos, visit ports, cross the portals, and never let the storm catch you. Good luck!`,
             waitFor: `done`
         }
     ], sce = (e, t)=>e ? e.startsWith(`http`) || e.startsWith(`/`) ? (0, I.jsx)(`img`, {
@@ -62218,6 +62224,78 @@ Resources:`;
                                 ]
                             })
                         })
+                    }),
+                    (0, I.jsxs)(Y9, {
+                        title: `ZONES & PORTALS`,
+                        children: [
+                            (0, I.jsxs)(`p`, {
+                                style: {
+                                    fontFamily: `'IM Fell English', cursive`,
+                                    fontSize: 18,
+                                    color: `rgba(255,255,255,0.75)`,
+                                    lineHeight: 1.9,
+                                    marginBottom: 16
+                                },
+                                children: [
+                                    `Your voyage spans three great zones, each more perilous and rewarding than the last: `,
+                                    (0, I.jsx)(`span`, {
+                                        style: {
+                                            color: `#44cc88`
+                                        },
+                                        children: `The Coasts`
+                                    }),
+                                    `, then `,
+                                    (0, I.jsx)(`span`, {
+                                        style: {
+                                            color: `#cc44ee`
+                                        },
+                                        children: `The Storm Sea`
+                                    }),
+                                    `, and finally `,
+                                    (0, I.jsx)(`span`, {
+                                        style: {
+                                            color: `#ee4444`
+                                        },
+                                        children: `The Abyss`
+                                    }),
+                                    `. Storms grow fiercer and monsters deadlier with each crossing — but so do the points.`
+                                ]
+                            }),
+                            (0, I.jsx)(`div`, {
+                                style: {
+                                    background: `rgba(100,60,180,0.1)`,
+                                    border: `1px solid rgba(140,90,220,0.35)`,
+                                    borderRadius: 12,
+                                    padding: 20
+                                },
+                                children: (0, I.jsxs)(`p`, {
+                                    style: {
+                                        fontFamily: `'IM Fell English', cursive`,
+                                        fontSize: 18,
+                                        color: `rgba(255,255,255,0.75)`,
+                                        lineHeight: 1.9,
+                                        margin: 0
+                                    },
+                                    children: [
+                                        `After you have sailed deep enough into a zone, a glowing purple `,
+                                        (0, I.jsx)(`span`, {
+                                            style: {
+                                                color: `#aa77ff`
+                                            },
+                                            children: `VORTEX`
+                                        }),
+                                        ` appears somewhere ahead of you on the map. Watch the log — as you near it, reality begins to distort. Sail onto the vortex cell and choose `,
+                                        (0, I.jsx)(`span`, {
+                                            style: {
+                                                color: `#aa77ff`
+                                            },
+                                            children: `Enter the portal`
+                                        }),
+                                        ` to cross into the next zone. Crossing pushes the storm back and grants a large score bonus. The final zone, The Abyss, has no portal — it is the end of the line.`
+                                    ]
+                                })
+                            })
+                        ]
                     }),
                     (0, I.jsx)(Y9, {
                         title: `THE CELLS — WHAT YOU WILL ENCOUNTER`,
