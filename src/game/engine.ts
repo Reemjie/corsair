@@ -270,7 +270,12 @@ function stepPortal(ctx: MoveContext): MoveContext {
     for (let y = 2; y < GRID_SIZE - 2; y++) {
       for (let x = 2; x < GRID_SIZE - 2; x++) {
         const cell = ctx.grid[y][x];
-        if (cell.type === 'sea' && !cell.visited && !cell.stormed && !(x === ctx.nx && y === ctx.ny)) {
+        // Le bateau avance vers le haut (y decroissant) et ne peut pas reculer.
+        // Le portail doit donc spawner DEVANT (au-dessus) et rester atteignable
+        // lateralement : le decalage horizontal ne doit pas depasser la distance verticale.
+        const ahead = y < ctx.ny - 1;
+        const reachable = Math.abs(x - ctx.nx) <= (ctx.ny - y);
+        if (cell.type === 'sea' && !cell.visited && !cell.stormed && ahead && reachable && !(x === ctx.nx && y === ctx.ny)) {
           candidates.push({x, y});
         }
       }
