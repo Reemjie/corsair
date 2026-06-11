@@ -75,6 +75,7 @@ const SCENE_VIDEO: Record<string, string> = {
   rocks: import.meta.env.BASE_URL + 'scenes/rocks.mp4',
   wreck: import.meta.env.BASE_URL + 'scenes/wreck.mp4',
   maelstrom: import.meta.env.BASE_URL + 'scenes/maelstrom.mp4',
+  death: import.meta.env.BASE_URL + 'scenes/death.mp4',
 };
 
 const SCENE_TITLES: Record<string, string> = {
@@ -88,6 +89,7 @@ const SCENE_TITLES: Record<string, string> = {
   port: 'Safe Harbor',
   rocks: 'Treacherous Reef',
   wreck: 'A Ghostly Wreck',
+  death: 'Your Voyage Ends',
   maelstrom: 'The Maelstrom',
 };
 
@@ -228,7 +230,8 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
 
   // Cinematic unifiée : joue la vidéo d'intro 5s quand un événement à scène se déclenche
   useEffect(() => {
-    if (state.gameOver || isMobile) { setCinematic(null); return; }
+    if (isMobile) { setCinematic(null); return; }
+    if (state.gameOver) return;  // la cinématique de mort est gérée par le death trigger
     const ct = state.event?.cellType;
     if (ct && SCENE_VIDEO[ct] && !tutorialMode) {
       setCinematic(ct);
@@ -391,8 +394,8 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
         const delay = hunterAttackRef.current ? 8000 : 0;
         setTimeout(() => {
           setShowHunterAttack(false);
-          _setShowDeathCinematic(true);
-          setTimeout(() => { _setShowDeathCinematic(false); setShowDeathScreen(true); }, 5000);
+          setCinematic('death');
+          setTimeout(() => { setCinematic(null); setShowDeathScreen(true); }, 5000);
         }, delay);
       } else {
         setShowDeathScreen(true);
@@ -1257,7 +1260,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                 { label:'BEST',     val:`${Math.max(personalBest, s.score)} pts`, color: isNewRecord ? '#44ffaa' : 'rgba(255,255,255,0.3)' },
                 { label:'TURNS',    val:s.turn,           color:'rgba(255,255,255,0.6)' },
                 { label:'GOLD',     val:s.ship.gold, color:'#eedd44' },
-                { label:'MAX HULL', val:`${s.ship.hull}/${s.ship.maxHull}`, color:'#44cc88' },
+                { label:'MAX HULL', val:`${s.ship.hull}/${s.ship.maxHull}`, color: s.ship.hull<=5?'#ee4444':s.ship.hull<=10?'#ee8844':'#44cc88' },
               ].map(st => (
                 <div key={st.label} style={{ textAlign:'center' }}>
                   <div style={{ fontSize: isMobile ? 10 : 13, color:'rgba(255,255,255,0.3)', letterSpacing: isMobile ? 1 : 3, fontFamily:"'Cinzel', serif" }}>{st.label}</div>
