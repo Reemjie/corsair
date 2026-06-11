@@ -1066,15 +1066,18 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
           <motion.div initial={{ y:100,opacity:0 }} animate={{ y:0,opacity:1 }} exit={{ y:100,opacity:0 }}
             style={{ background:'rgba(5,10,18,0.97)', borderTop:'1px solid rgba(68,204,136,0.2)', padding:'16px 24px', flexShrink:0 }}>
             <div style={{ maxWidth:700, margin:'0 auto' }}>
-              <div style={{ fontSize:18, fontWeight:700, color:'#44cc88', marginBottom:12, letterSpacing:2 }}>⚓ PORT OF CALL</div>
+              <div style={{ display:'flex', alignItems:'center', gap:8, marginBottom:12 }}>
+                <img src={anchorImg} style={{ width:40, height:40, objectFit:'contain' }}/>
+                <span style={{ fontSize:26, fontWeight:700, color:'#44cc88', letterSpacing:2, fontFamily:"'Pirata One', cursive" }}>SAFE HARBOR</span>
+              </div>
               {/* Composants du navire */}
               <div style={{ marginBottom:16 }}>
                 <div style={{ fontSize:14, letterSpacing:3, color:'rgba(255,255,255,0.5)', fontFamily:"'Cinzel', serif", marginBottom:10 }}>SHIP COMPONENTS</div>
                 <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:8 }}>
                   {([
-                    { key:'hull',   label:'HULL',       icon:'⚓', color:'#44cc88', effects:['Hull 20','Hull 28 −2 storm dmg','Hull 38 −3 env dmg'] },
-                    { key:'weapon', label:'ARMEMENT',   icon:'⚔️', color:'#ee6644', effects:['Power 2','Power 5 +min dmg','Power 9 −3 combat dmg'] },
-                    { key:'nav',    label:'NAVIGATION', icon:'🔭', color:'#6aaccc', effects:['Vision 1','Vision 2 +danger detect','Vision 3 +2 cases +minimap'] },
+                    { key:'hull',   label:'HULL',       img:hullImg,   color:'#44cc88', effects:['Hull 20','Hull 28 −2 storm dmg','Hull 38 −3 env dmg'] },
+                    { key:'weapon', label:'ARMEMENT',   img:powerImg,  color:'#ee6644', effects:['Power 2','Power 5 +min dmg','Power 9 −3 combat dmg'] },
+                    { key:'nav',    label:'NAVIGATION', img:visionImg, color:'#6aaccc', effects:['Vision 1','Vision 2 +danger detect','Vision 3 +2 cases +minimap'] },
                   ] as const).map(comp => {
                     const lvl = s.ship.levels[comp.key];
                     const cost = lvl === 0 ? 50 : 110;
@@ -1084,7 +1087,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                       <div key={comp.key} onClick={() => canUpgrade && upgradeComp(comp.key)}
                         style={{ background:`${comp.color}12`, border:`1px solid ${comp.color}${canUpgrade?'66':'22'}`, borderRadius:10, padding:'12px 10px', cursor:canUpgrade?'pointer':'default', opacity:canUpgrade||isMaxed?1:0.5, transition:'all 0.2s' }}>
                         <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:6 }}>
-                          <div style={{ fontSize:13, color:comp.color, fontFamily:"'Pirata One', cursive" }}>{comp.icon} {comp.label}</div>
+                          <div style={{ display:'flex', alignItems:'center', gap:6, fontSize:13, color:comp.color, fontFamily:"'Pirata One', cursive" }}><img src={comp.img} style={{ width:22, height:22, objectFit:'contain' }}/>{comp.label}</div>
                           <div style={{ display:'flex', gap:3 }}>
                             {[0,1,2].map(i => <div key={i} style={{ width:8, height:8, borderRadius:'50%', background: i <= lvl ? comp.color : 'rgba(255,255,255,0.1)' }}/>)}
                           </div>
