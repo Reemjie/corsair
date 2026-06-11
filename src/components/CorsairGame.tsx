@@ -395,7 +395,9 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
         setTimeout(() => {
           setShowHunterAttack(false);
           setCinematic('death');
-          setTimeout(() => { setCinematic(null); setShowDeathScreen(true); }, 5000);
+          // Filet de sécurité : si la vidéo ne se termine pas (erreur de chargement),
+          // on affiche quand même l'écran de mort après 9s (death.mp4 dure ~8s).
+          setTimeout(() => { setShowDeathScreen(s => s || true); }, 9000);
         }, delay);
       } else {
         setShowDeathScreen(true);
@@ -940,13 +942,13 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
           <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
-            onClick={() => setCinematic(null)}
+            onClick={() => { if (cinematic === 'death') setShowDeathScreen(true); setCinematic(null); }}
             style={{ position:'fixed', inset:0, zIndex:140, cursor:'pointer', background:'#05080f' }}>
             <video
               key={cinematic}
               src={SCENE_VIDEO[cinematic]}
               autoPlay muted playsInline preload="auto"
-              onEnded={() => setCinematic(null)}
+              onEnded={() => { if (cinematic === 'death') setShowDeathScreen(true); setCinematic(null); }}
               style={{ width:'100%', height:'100%', objectFit:'cover' }}
             />
             <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(5,8,15,0.1) 0%, rgba(5,8,15,0.35) 70%, rgba(5,8,15,0.7) 100%)', pointerEvents:'none' }}/>
