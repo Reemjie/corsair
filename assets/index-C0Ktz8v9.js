@@ -58923,22 +58923,39 @@ Resources:`;
                                                                 !l && !u && !d && o.type === `portal` && (0, I.jsx)(X.div, {
                                                                     animate: {
                                                                         opacity: [
-                                                                            0,
-                                                                            .4,
-                                                                            0
+                                                                            .55,
+                                                                            1,
+                                                                            .55
+                                                                        ],
+                                                                        scale: [
+                                                                            .9,
+                                                                            1.08,
+                                                                            .9
                                                                         ]
                                                                     },
                                                                     transition: {
                                                                         repeat: 1 / 0,
-                                                                        duration: 2.5,
+                                                                        duration: 1.6,
                                                                         ease: `easeInOut`
                                                                     },
                                                                     style: {
                                                                         position: `absolute`,
                                                                         inset: 0,
-                                                                        background: `radial-gradient(circle, #8866ff 0%, transparent 70%)`,
-                                                                        borderRadius: 4
-                                                                    }
+                                                                        display: `flex`,
+                                                                        alignItems: `center`,
+                                                                        justifyContent: `center`,
+                                                                        background: `radial-gradient(circle, #aa77ff 0%, #6644cc55 45%, transparent 75%)`,
+                                                                        borderRadius: 4,
+                                                                        boxShadow: `0 0 12px #8866ff`
+                                                                    },
+                                                                    children: (0, I.jsx)(`div`, {
+                                                                        style: {
+                                                                            fontSize: _ * .5,
+                                                                            lineHeight: 1,
+                                                                            filter: `drop-shadow(0 0 6px #aa77ff)`
+                                                                        },
+                                                                        children: `🌀`
+                                                                    })
                                                                 }),
                                                                 !l && !u && d && (0, I.jsx)(`img`, {
                                                                     src: `/corsair/icons/${o.type}.png`,
