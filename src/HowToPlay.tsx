@@ -264,10 +264,6 @@ export default function HowToPlay({ onClose, onPlay }: { onClose: () => void; on
             style={{ flex:1, padding: '18px', borderRadius: 12, border: '2px solid rgba(200,160,48,0.5)', background: 'rgba(200,160,48,0.1)', color: '#c8a030', fontSize: 24, letterSpacing: 4, cursor: 'pointer', fontFamily: "'Pirata One', cursive", marginTop: 8 }}>
             SET SAIL
           </motion.button>
-          <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} onClick={() => { localStorage.removeItem('corsair_tutorial_done'); onPlay(); }}
-            style={{ padding: '18px 28px', borderRadius: 12, border: '1px solid rgba(200,160,48,0.3)', background: 'rgba(200,160,48,0.06)', color: 'rgba(200,160,48,0.7)', fontSize: 16, letterSpacing: 3, cursor: 'pointer', fontFamily: "'Pirata One', cursive", marginTop: 8, whiteSpace:'nowrap' }}>
-            🎓 TUTORIAL
-          </motion.button>
         </div>
       </motion.div>
     </motion.div>
