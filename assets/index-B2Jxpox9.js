@@ -63224,21 +63224,31 @@ Resources:`;
         }
     ];
     function pce({ onPlay: e }) {
-        let [t, n] = (0, x.useState)(!1), [r, i] = (0, x.useState)([]), [a, o] = (0, x.useState)(``);
+        let [t, n] = (0, x.useState)(!1), [r, i] = (0, x.useState)([]), [a, o] = (0, x.useState)(``), [s, c] = (0, x.useState)(!1);
         (0, x.useEffect)(()=>{
             C9(new Date().toISOString().slice(0, 10)).then((e)=>i(e.slice(0, 3)));
-        }, []), (0, x.useEffect)(()=>{
+        }, []);
+        let l = Date.UTC(2026, 5, 22, 0, 0, 0);
+        (0, x.useEffect)(()=>{
             let e = ()=>{
-                let e = new Date, t = Date.UTC(e.getUTCFullYear(), e.getUTCMonth(), e.getUTCDate() + 1, 0, 0, 0), n = Math.max(0, t - e.getTime());
-                o(`${String(Math.floor(n / 36e5)).padStart(2, `0`)}:${String(Math.floor(n % 36e5 / 6e4)).padStart(2, `0`)}:${String(Math.floor(n % 6e4 / 1e3)).padStart(2, `0`)}`);
+                let e = Date.now(), t = e >= l;
+                c(t);
+                let n;
+                if (!t) n = l;
+                else {
+                    let t = new Date(e);
+                    n = Date.UTC(t.getUTCFullYear(), t.getUTCMonth(), t.getUTCDate() + 1, 0, 0, 0);
+                }
+                let r = Math.max(0, n - e);
+                o(`${String(Math.floor(r / 36e5)).padStart(2, `0`)}:${String(Math.floor(r % 36e5 / 6e4)).padStart(2, `0`)}:${String(Math.floor(r % 6e4 / 1e3)).padStart(2, `0`)}`);
             };
             e();
             let t = setInterval(e, 1e3);
             return ()=>clearInterval(t);
         }, []);
-        let [s, c] = (0, x.useState)(!1), { address: l, username: u, connecting: d, connect: f, disconnect: p } = _X(), [m, h] = (0, x.useState)(0);
+        let [u, d] = (0, x.useState)(!1), { address: f, username: p, connecting: m, connect: h, disconnect: g } = _X(), [_, v] = (0, x.useState)(0);
         return (0, x.useState)(()=>{
-            let e = setInterval(()=>h((e)=>(e + 1) % $9.length), 4e3);
+            let e = setInterval(()=>v((e)=>(e + 1) % $9.length), 4e3);
             return ()=>clearInterval(e);
         }), (0, I.jsxs)(`div`, {
             style: {
@@ -63252,7 +63262,7 @@ Resources:`;
             children: [
                 $9.map((e, t)=>(0, I.jsx)(X.div, {
                         animate: {
-                            opacity: +(t === m)
+                            opacity: +(t === _)
                         },
                         transition: {
                             duration: 1.5
@@ -63279,7 +63289,7 @@ Resources:`;
                         right: 24,
                         zIndex: 20
                     },
-                    children: l ? (0, I.jsxs)(`div`, {
+                    children: f ? (0, I.jsxs)(`div`, {
                         style: {
                             display: `flex`,
                             alignItems: `center`,
@@ -63298,10 +63308,10 @@ Resources:`;
                                     padding: `6px 14px`,
                                     cursor: `pointer`
                                 },
-                                children: u ?? `${l.slice(0, 6)}...${l.slice(-4)}`
+                                children: p ?? `${f.slice(0, 6)}...${f.slice(-4)}`
                             }),
                             (0, I.jsx)(`button`, {
-                                onClick: p,
+                                onClick: g,
                                 style: {
                                     background: `transparent`,
                                     border: `1px solid rgba(255,255,255,0.1)`,
@@ -63319,8 +63329,8 @@ Resources:`;
                         whileHover: {
                             scale: 1.05
                         },
-                        onClick: f,
-                        disabled: d,
+                        onClick: h,
+                        disabled: m,
                         style: {
                             padding: `8px 20px`,
                             borderRadius: 8,
@@ -63332,7 +63342,7 @@ Resources:`;
                             cursor: `pointer`,
                             fontFamily: `'Pirata One', cursive`
                         },
-                        children: d ? `CONNECTING...` : `CONNECT WALLET`
+                        children: m ? `CONNECTING...` : `CONNECT WALLET`
                     })
                 }),
                 (0, I.jsx)(`div`, {
@@ -63348,7 +63358,7 @@ Resources:`;
                         color: `rgba(255,255,255,0.6)`,
                         textShadow: `0 1px 4px rgba(0,0,0,0.8)`
                     },
-                    children: $9[m].label
+                    children: $9[_].label
                 }),
                 (0, I.jsxs)(`div`, {
                     style: {
@@ -63447,7 +63457,7 @@ Resources:`;
                                                         scale: .97
                                                     },
                                                     onClick: ()=>{
-                                                        l ? e(l, u) : f();
+                                                        f ? e(f, p) : h();
                                                     },
                                                     style: {
                                                         padding: `16px 48px`,
@@ -63469,7 +63479,7 @@ Resources:`;
                                                     whileTap: {
                                                         scale: .97
                                                     },
-                                                    onClick: ()=>c(!0),
+                                                    onClick: ()=>d(!0),
                                                     style: {
                                                         padding: `16px 32px`,
                                                         borderRadius: 12,
@@ -63567,7 +63577,7 @@ Resources:`;
                                                                 letterSpacing: 1
                                                             },
                                                             children: [
-                                                                `⏳ Ends in `,
+                                                                s ? `⏳ Ends in ` : `🚀 Day 1 starts in `,
                                                                 (0, I.jsx)(`span`, {
                                                                     style: {
                                                                         color: `#88ddff`,
@@ -63584,7 +63594,7 @@ Resources:`;
                                                                 })
                                                             ]
                                                         }),
-                                                        xse() ? (0, I.jsxs)(`div`, {
+                                                        s ? xse() ? (0, I.jsxs)(`div`, {
                                                             style: {
                                                                 fontSize: 11,
                                                                 color: `rgba(136,221,255,0.55)`,
@@ -63605,7 +63615,7 @@ Resources:`;
                                                                 scale: .96
                                                             },
                                                             onClick: ()=>{
-                                                                l ? e(l, u, bse()) : f();
+                                                                f ? e(f, p, bse()) : h();
                                                             },
                                                             style: {
                                                                 padding: `10px 20px`,
@@ -63621,6 +63631,30 @@ Resources:`;
                                                                 whiteSpace: `nowrap`
                                                             },
                                                             children: `PLAY · 1 TRY`
+                                                        }) : (0, I.jsx)(X.button, {
+                                                            whileHover: {
+                                                                scale: 1.04
+                                                            },
+                                                            whileTap: {
+                                                                scale: .96
+                                                            },
+                                                            onClick: ()=>{
+                                                                f ? e(f, p) : h();
+                                                            },
+                                                            style: {
+                                                                padding: `10px 18px`,
+                                                                borderRadius: 10,
+                                                                border: `2px solid rgba(136,221,255,0.6)`,
+                                                                background: `rgba(100,200,255,0.15)`,
+                                                                color: `#88ddff`,
+                                                                fontSize: 12,
+                                                                letterSpacing: 1,
+                                                                cursor: `pointer`,
+                                                                fontFamily: `'Pirata One', cursive`,
+                                                                fontWeight: 700,
+                                                                whiteSpace: `nowrap`
+                                                            },
+                                                            children: `🛟 PRACTICE NOW`
                                                         })
                                                     ]
                                                 }),
@@ -63735,12 +63769,12 @@ Resources:`;
                                 marginTop: 8
                             },
                             children: $9.map((e, t)=>(0, I.jsx)(`div`, {
-                                    onClick: ()=>h(t),
+                                    onClick: ()=>v(t),
                                     style: {
                                         width: 6,
                                         height: 6,
                                         borderRadius: `50%`,
-                                        background: t === m ? `rgba(200,160,48,0.8)` : `rgba(255,255,255,0.15)`,
+                                        background: t === _ ? `rgba(200,160,48,0.8)` : `rgba(255,255,255,0.15)`,
                                         cursor: `pointer`,
                                         transition: `background 0.3s`
                                     }
@@ -63756,8 +63790,8 @@ Resources:`;
                                 n(!1), e(null);
                             }
                         }),
-                        s && (0, I.jsx)(fce, {
-                            onClose: ()=>c(!1)
+                        u && (0, I.jsx)(fce, {
+                            onClose: ()=>d(!1)
                         })
                     ]
                 })
