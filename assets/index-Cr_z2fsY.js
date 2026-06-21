@@ -56272,7 +56272,7 @@ Resources:`;
     }
     function P9() {
         let e = new Date;
-        return `${e.getFullYear()}${String(e.getMonth() + 1).padStart(2, `0`)}${String(e.getDate()).padStart(2, `0`)}`;
+        return `${e.getUTCFullYear()}${String(e.getUTCMonth() + 1).padStart(2, `0`)}${String(e.getUTCDate()).padStart(2, `0`)}`;
     }
     function bse() {
         let e = P9(), t = 0;
@@ -63224,13 +63224,21 @@ Resources:`;
         }
     ];
     function pce({ onPlay: e }) {
-        let [t, n] = (0, x.useState)(!1), [r, i] = (0, x.useState)([]);
+        let [t, n] = (0, x.useState)(!1), [r, i] = (0, x.useState)([]), [a, o] = (0, x.useState)(``);
         (0, x.useEffect)(()=>{
             C9(new Date().toISOString().slice(0, 10)).then((e)=>i(e.slice(0, 3)));
+        }, []), (0, x.useEffect)(()=>{
+            let e = ()=>{
+                let e = new Date, t = Date.UTC(e.getUTCFullYear(), e.getUTCMonth(), e.getUTCDate() + 1, 0, 0, 0), n = Math.max(0, t - e.getTime());
+                o(`${String(Math.floor(n / 36e5)).padStart(2, `0`)}:${String(Math.floor(n % 36e5 / 6e4)).padStart(2, `0`)}:${String(Math.floor(n % 6e4 / 1e3)).padStart(2, `0`)}`);
+            };
+            e();
+            let t = setInterval(e, 1e3);
+            return ()=>clearInterval(t);
         }, []);
-        let [a, o] = (0, x.useState)(!1), { address: s, username: c, connecting: l, connect: u, disconnect: d } = _X(), [f, p] = (0, x.useState)(0);
+        let [s, c] = (0, x.useState)(!1), { address: l, username: u, connecting: d, connect: f, disconnect: p } = _X(), [m, h] = (0, x.useState)(0);
         return (0, x.useState)(()=>{
-            let e = setInterval(()=>p((e)=>(e + 1) % $9.length), 4e3);
+            let e = setInterval(()=>h((e)=>(e + 1) % $9.length), 4e3);
             return ()=>clearInterval(e);
         }), (0, I.jsxs)(`div`, {
             style: {
@@ -63244,7 +63252,7 @@ Resources:`;
             children: [
                 $9.map((e, t)=>(0, I.jsx)(X.div, {
                         animate: {
-                            opacity: +(t === f)
+                            opacity: +(t === m)
                         },
                         transition: {
                             duration: 1.5
@@ -63271,7 +63279,7 @@ Resources:`;
                         right: 24,
                         zIndex: 20
                     },
-                    children: s ? (0, I.jsxs)(`div`, {
+                    children: l ? (0, I.jsxs)(`div`, {
                         style: {
                             display: `flex`,
                             alignItems: `center`,
@@ -63290,10 +63298,10 @@ Resources:`;
                                     padding: `6px 14px`,
                                     cursor: `pointer`
                                 },
-                                children: c ?? `${s.slice(0, 6)}...${s.slice(-4)}`
+                                children: u ?? `${l.slice(0, 6)}...${l.slice(-4)}`
                             }),
                             (0, I.jsx)(`button`, {
-                                onClick: d,
+                                onClick: p,
                                 style: {
                                     background: `transparent`,
                                     border: `1px solid rgba(255,255,255,0.1)`,
@@ -63311,8 +63319,8 @@ Resources:`;
                         whileHover: {
                             scale: 1.05
                         },
-                        onClick: u,
-                        disabled: l,
+                        onClick: f,
+                        disabled: d,
                         style: {
                             padding: `8px 20px`,
                             borderRadius: 8,
@@ -63324,7 +63332,7 @@ Resources:`;
                             cursor: `pointer`,
                             fontFamily: `'Pirata One', cursive`
                         },
-                        children: l ? `CONNECTING...` : `CONNECT WALLET`
+                        children: d ? `CONNECTING...` : `CONNECT WALLET`
                     })
                 }),
                 (0, I.jsx)(`div`, {
@@ -63340,7 +63348,7 @@ Resources:`;
                         color: `rgba(255,255,255,0.6)`,
                         textShadow: `0 1px 4px rgba(0,0,0,0.8)`
                     },
-                    children: $9[f].label
+                    children: $9[m].label
                 }),
                 (0, I.jsxs)(`div`, {
                     style: {
@@ -63439,7 +63447,7 @@ Resources:`;
                                                         scale: .97
                                                     },
                                                     onClick: ()=>{
-                                                        s ? e(s, c) : u();
+                                                        l ? e(l, u) : f();
                                                     },
                                                     style: {
                                                         padding: `16px 48px`,
@@ -63461,7 +63469,7 @@ Resources:`;
                                                     whileTap: {
                                                         scale: .97
                                                     },
-                                                    onClick: ()=>o(!0),
+                                                    onClick: ()=>c(!0),
                                                     style: {
                                                         padding: `16px 32px`,
                                                         borderRadius: 12,
@@ -63477,65 +63485,156 @@ Resources:`;
                                                 })
                                             ]
                                         }),
-                                        xse() ? (0, I.jsxs)(`div`, {
+                                        (0, I.jsxs)(`div`, {
                                             style: {
-                                                padding: `12px 32px`,
-                                                borderRadius: 12,
-                                                border: `1px solid rgba(100,200,255,0.35)`,
-                                                background: `rgba(0,20,40,0.5)`,
-                                                color: `rgba(136,221,255,0.55)`,
-                                                fontSize: 13,
-                                                letterSpacing: 2,
-                                                fontFamily: `'Cinzel', serif`,
-                                                textAlign: `center`
+                                                padding: `16px 20px`,
+                                                borderRadius: 16,
+                                                border: `2px solid rgba(200,160,48,0.5)`,
+                                                background: `linear-gradient(135deg, rgba(30,20,5,0.9), rgba(10,15,25,0.9))`,
+                                                maxWidth: 380,
+                                                width: `100%`,
+                                                boxShadow: `0 0 24px rgba(200,160,48,0.15)`
                                             },
                                             children: [
                                                 (0, I.jsxs)(`div`, {
+                                                    style: {
+                                                        display: `flex`,
+                                                        alignItems: `center`,
+                                                        gap: 14
+                                                    },
                                                     children: [
-                                                        `☀ DAILY CHALLENGE — `,
-                                                        new Date().toLocaleDateString(`en-US`, {
-                                                            month: `short`,
-                                                            day: `numeric`
+                                                        (0, I.jsx)(`img`, {
+                                                            src: `/corsair/lil_ducky.png`,
+                                                            style: {
+                                                                width: 64,
+                                                                height: 64,
+                                                                objectFit: `contain`,
+                                                                borderRadius: 10,
+                                                                flexShrink: 0
+                                                            }
+                                                        }),
+                                                        (0, I.jsxs)(`div`, {
+                                                            style: {
+                                                                flex: 1,
+                                                                textAlign: `left`
+                                                            },
+                                                            children: [
+                                                                (0, I.jsx)(`div`, {
+                                                                    style: {
+                                                                        fontSize: 15,
+                                                                        color: `#c8a030`,
+                                                                        letterSpacing: 2,
+                                                                        fontFamily: `'Pirata One', cursive`
+                                                                    },
+                                                                    children: `🏆 DAILY TOURNAMENT`
+                                                                }),
+                                                                (0, I.jsxs)(`div`, {
+                                                                    style: {
+                                                                        fontSize: 12,
+                                                                        color: `rgba(255,255,255,0.65)`,
+                                                                        fontFamily: `'IM Fell English', cursive`,
+                                                                        marginTop: 2,
+                                                                        lineHeight: 1.4
+                                                                    },
+                                                                    children: [
+                                                                        `Today's top score wins a `,
+                                                                        (0, I.jsx)(`span`, {
+                                                                            style: {
+                                                                                color: `#eedd44`
+                                                                            },
+                                                                            children: `Lil Loot Survivor Ducky`
+                                                                        }),
+                                                                        ` 🦆`
+                                                                    ]
+                                                                })
+                                                            ]
+                                                        })
+                                                    ]
+                                                }),
+                                                (0, I.jsxs)(`div`, {
+                                                    style: {
+                                                        display: `flex`,
+                                                        alignItems: `center`,
+                                                        justifyContent: `space-between`,
+                                                        marginTop: 12,
+                                                        gap: 10
+                                                    },
+                                                    children: [
+                                                        (0, I.jsxs)(`div`, {
+                                                            style: {
+                                                                fontSize: 12,
+                                                                color: `rgba(136,221,255,0.8)`,
+                                                                fontFamily: `'Cinzel', serif`,
+                                                                letterSpacing: 1
+                                                            },
+                                                            children: [
+                                                                `⏳ Ends in `,
+                                                                (0, I.jsx)(`span`, {
+                                                                    style: {
+                                                                        color: `#88ddff`,
+                                                                        fontWeight: 700
+                                                                    },
+                                                                    children: a
+                                                                }),
+                                                                ` `,
+                                                                (0, I.jsx)(`span`, {
+                                                                    style: {
+                                                                        opacity: .5
+                                                                    },
+                                                                    children: `UTC`
+                                                                })
+                                                            ]
+                                                        }),
+                                                        xse() ? (0, I.jsxs)(`div`, {
+                                                            style: {
+                                                                fontSize: 11,
+                                                                color: `rgba(136,221,255,0.55)`,
+                                                                fontFamily: `'Cinzel', serif`,
+                                                                textAlign: `right`
+                                                            },
+                                                            children: [
+                                                                `Already played ·`,
+                                                                (0, I.jsx)(`br`, {}),
+                                                                `back at 00:00 UTC`
+                                                            ]
+                                                        }) : (0, I.jsx)(X.button, {
+                                                            whileHover: {
+                                                                scale: 1.04,
+                                                                boxShadow: `0 0 20px rgba(200,160,48,0.4)`
+                                                            },
+                                                            whileTap: {
+                                                                scale: .96
+                                                            },
+                                                            onClick: ()=>{
+                                                                l ? e(l, u, bse()) : f();
+                                                            },
+                                                            style: {
+                                                                padding: `10px 20px`,
+                                                                borderRadius: 10,
+                                                                border: `2px solid rgba(200,160,48,0.8)`,
+                                                                background: `rgba(200,160,48,0.2)`,
+                                                                color: `#c8a030`,
+                                                                fontSize: 13,
+                                                                letterSpacing: 2,
+                                                                cursor: `pointer`,
+                                                                fontFamily: `'Pirata One', cursive`,
+                                                                fontWeight: 700,
+                                                                whiteSpace: `nowrap`
+                                                            },
+                                                            children: `PLAY · 1 TRY`
                                                         })
                                                     ]
                                                 }),
                                                 (0, I.jsx)(`div`, {
                                                     style: {
-                                                        fontSize: 11,
-                                                        marginTop: 4,
-                                                        opacity: .7
+                                                        fontSize: 10,
+                                                        color: `rgba(255,255,255,0.35)`,
+                                                        fontFamily: `'Cinzel', serif`,
+                                                        marginTop: 10,
+                                                        textAlign: `center`,
+                                                        letterSpacing: 1
                                                     },
-                                                    children: `Already attempted. Come back tomorrow.`
-                                                })
-                                            ]
-                                        }) : (0, I.jsxs)(X.button, {
-                                            whileHover: {
-                                                scale: 1.02,
-                                                boxShadow: `0 0 20px rgba(100,200,255,0.3)`
-                                            },
-                                            whileTap: {
-                                                scale: .97
-                                            },
-                                            onClick: ()=>{
-                                                s ? e(s, c, bse()) : u();
-                                            },
-                                            style: {
-                                                padding: `12px 32px`,
-                                                borderRadius: 12,
-                                                border: `2px solid rgba(100,200,255,0.7)`,
-                                                background: `rgba(100,200,255,0.15)`,
-                                                color: `#88ddff`,
-                                                fontSize: 14,
-                                                letterSpacing: 2,
-                                                cursor: `pointer`,
-                                                fontFamily: `'Pirata One', cursive`,
-                                                fontWeight: 700
-                                            },
-                                            children: [
-                                                `☀ DAILY CHALLENGE — `,
-                                                new Date().toLocaleDateString(`en-US`, {
-                                                    month: `short`,
-                                                    day: `numeric`
+                                                    children: `Winner DM'd on X · prize sent within 24h`
                                                 })
                                             ]
                                         })
@@ -63637,12 +63736,12 @@ Resources:`;
                                 marginTop: 8
                             },
                             children: $9.map((e, t)=>(0, I.jsx)(`div`, {
-                                    onClick: ()=>p(t),
+                                    onClick: ()=>h(t),
                                     style: {
                                         width: 6,
                                         height: 6,
                                         borderRadius: `50%`,
-                                        background: t === f ? `rgba(200,160,48,0.8)` : `rgba(255,255,255,0.15)`,
+                                        background: t === m ? `rgba(200,160,48,0.8)` : `rgba(255,255,255,0.15)`,
                                         cursor: `pointer`,
                                         transition: `background 0.3s`
                                     }
@@ -63658,8 +63757,8 @@ Resources:`;
                                 n(!1), e(null);
                             }
                         }),
-                        a && (0, I.jsx)(fce, {
-                            onClose: ()=>o(!1)
+                        s && (0, I.jsx)(fce, {
+                            onClose: ()=>c(!1)
                         })
                     ]
                 })
