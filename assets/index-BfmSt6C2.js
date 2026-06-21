@@ -63577,7 +63577,7 @@ Resources:`;
                                                                 letterSpacing: 1
                                                             },
                                                             children: [
-                                                                s ? `⏳ Ends in ` : `🚀 Day 1 starts in `,
+                                                                s ? `⏳ Ends in ` : `🚀 Tournament starts in `,
                                                                 (0, I.jsx)(`span`, {
                                                                     style: {
                                                                         color: `#88ddff`,
