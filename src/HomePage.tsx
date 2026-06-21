@@ -142,7 +142,7 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
             </div>
             <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginTop:12, gap:10 }}>
               <div style={{ fontSize:12, color:'rgba(136,221,255,0.8)', fontFamily:"'Cinzel', serif", letterSpacing:1 }}>
-                {hasLaunched ? '⏳ Ends in ' : '🚀 Day 1 starts in '}<span style={{ color:'#88ddff', fontWeight:700 }}>{timeLeft}</span> <span style={{ opacity:0.5 }}>UTC</span>
+                {hasLaunched ? '⏳ Ends in ' : '🚀 Tournament starts in '}<span style={{ color:'#88ddff', fontWeight:700 }}>{timeLeft}</span> <span style={{ opacity:0.5 }}>UTC</span>
               </div>
               {!hasLaunched
                 ? <motion.button whileHover={{ scale:1.04 }} whileTap={{ scale:0.96 }}
