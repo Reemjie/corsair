@@ -125,7 +125,7 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
               <img src={`${import.meta.env.BASE_URL}lil_ducky.png`} style={{ width:64, height:64, objectFit:'contain', borderRadius:10, flexShrink:0 }}/>
               <div style={{ flex:1, textAlign:'left' }}>
                 <div style={{ fontSize:15, color:'#c8a030', letterSpacing:2, fontFamily:"'Pirata One', cursive" }}>🏆 DAILY TOURNAMENT</div>
-                <div style={{ fontSize:12, color:'rgba(255,255,255,0.65)', fontFamily:"'IM Fell English', cursive", marginTop:2, lineHeight:1.4 }}>Today's top score wins a <span style={{ color:'#eedd44' }}>Lil Loot Survivor Ducky</span> 🦆</div>
+                <div style={{ fontSize:12, color:'rgba(255,255,255,0.65)', fontFamily:"'IM Fell English', cursive", marginTop:2, lineHeight:1.4 }}>Today's top score wins a <span style={{ color:'#eedd44' }}>Lil Loot Survivor Ducky</span></div>
               </div>
             </div>
             <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginTop:12, gap:10 }}>
