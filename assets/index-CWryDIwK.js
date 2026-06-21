@@ -63543,8 +63543,7 @@ Resources:`;
                                                                                 color: `#eedd44`
                                                                             },
                                                                             children: `Lil Loot Survivor Ducky`
-                                                                        }),
-                                                                        ` 🦆`
+                                                                        })
                                                                     ]
                                                                 })
                                                             ]
