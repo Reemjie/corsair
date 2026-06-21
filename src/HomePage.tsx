@@ -21,10 +21,27 @@ const SLIDES = [
 export default function HomePage({ onPlay }: { onPlay: (address: string | null, username?: string | null, seed?: number) => void }) {
   const [showHowTo, setShowHowTo] = useState(false);
   const [top3, setTop3] = useState<{username:string|null,wallet_address:string,score:number}[]>([]);
+  const [timeLeft, setTimeLeft] = useState('');
 
   useEffect(() => {
     const today = new Date().toISOString().slice(0, 10);
     getDailyLeaderboard(today).then(data => setTop3((data as any[]).slice(0, 3)));
+  }, []);
+
+  // Compte a rebours vers minuit UTC (fin du tournoi du jour)
+  useEffect(() => {
+    const tick = () => {
+      const now = new Date();
+      const nextMidnightUTC = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1, 0, 0, 0);
+      const diff = Math.max(0, nextMidnightUTC - now.getTime());
+      const h = String(Math.floor(diff / 3600000)).padStart(2, '0');
+      const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+      const sec = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+      setTimeLeft(`${h}:${m}:${sec}`);
+    };
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
   }, []);
   const [showLeaderboard, setShowLeaderboard] = useState(false);
   const { address, username, connecting, connect, disconnect } = useWallet();
@@ -103,17 +120,31 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
               LEADERBOARD
             </motion.button>
           </div>
-          {hasDailyBeenPlayed()
-            ? <div style={{ padding:'12px 32px', borderRadius:12, border:'1px solid rgba(100,200,255,0.35)', background:'rgba(0,20,40,0.5)', color:'rgba(136,221,255,0.55)', fontSize:13, letterSpacing:2, fontFamily:"'Cinzel', serif", textAlign:'center' }}>
-                <div>☀ DAILY CHALLENGE — {new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'})}</div>
-                <div style={{ fontSize:11, marginTop:4, opacity:0.7 }}>Already attempted. Come back tomorrow.</div>
+          <div style={{ padding:'16px 20px', borderRadius:16, border:'2px solid rgba(200,160,48,0.5)', background:'linear-gradient(135deg, rgba(30,20,5,0.9), rgba(10,15,25,0.9))', maxWidth:380, width:'100%', boxShadow:'0 0 24px rgba(200,160,48,0.15)' }}>
+            <div style={{ display:'flex', alignItems:'center', gap:14 }}>
+              <img src={`${import.meta.env.BASE_URL}lil_ducky.png`} style={{ width:64, height:64, objectFit:'contain', borderRadius:10, flexShrink:0 }}/>
+              <div style={{ flex:1, textAlign:'left' }}>
+                <div style={{ fontSize:15, color:'#c8a030', letterSpacing:2, fontFamily:"'Pirata One', cursive" }}>🏆 DAILY TOURNAMENT</div>
+                <div style={{ fontSize:12, color:'rgba(255,255,255,0.65)', fontFamily:"'IM Fell English', cursive", marginTop:2, lineHeight:1.4 }}>Today's top score wins a <span style={{ color:'#eedd44' }}>Lil Loot Survivor Ducky</span> 🦆</div>
               </div>
-            : <motion.button whileHover={{ scale:1.02, boxShadow:'0 0 20px rgba(100,200,255,0.3)' }} whileTap={{ scale:0.97 }}
-                onClick={() => { if (!address) { connect(); } else { onPlay(address, username, getDailySeed()); } }}
-                style={{ padding:'12px 32px', borderRadius:12, border:'2px solid rgba(100,200,255,0.7)', background:'rgba(100,200,255,0.15)', color:'#88ddff', fontSize:14, letterSpacing:2, cursor:'pointer', fontFamily:"'Pirata One', cursive", fontWeight:700 }}>
-                ☀ DAILY CHALLENGE — {new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'})}
-              </motion.button>
-          }
+            </div>
+            <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginTop:12, gap:10 }}>
+              <div style={{ fontSize:12, color:'rgba(136,221,255,0.8)', fontFamily:"'Cinzel', serif", letterSpacing:1 }}>
+                ⏳ Ends in <span style={{ color:'#88ddff', fontWeight:700 }}>{timeLeft}</span> <span style={{ opacity:0.5 }}>UTC</span>
+              </div>
+              {hasDailyBeenPlayed()
+                ? <div style={{ fontSize:11, color:'rgba(136,221,255,0.55)', fontFamily:"'Cinzel', serif", textAlign:'right' }}>Already played ·<br/>back at 00:00 UTC</div>
+                : <motion.button whileHover={{ scale:1.04, boxShadow:'0 0 20px rgba(200,160,48,0.4)' }} whileTap={{ scale:0.96 }}
+                    onClick={() => { if (!address) { connect(); } else { onPlay(address, username, getDailySeed()); } }}
+                    style={{ padding:'10px 20px', borderRadius:10, border:'2px solid rgba(200,160,48,0.8)', background:'rgba(200,160,48,0.2)', color:'#c8a030', fontSize:13, letterSpacing:2, cursor:'pointer', fontFamily:"'Pirata One', cursive", fontWeight:700, whiteSpace:'nowrap' }}>
+                    PLAY · 1 TRY
+                  </motion.button>
+              }
+            </div>
+            <div style={{ fontSize:10, color:'rgba(255,255,255,0.35)', fontFamily:"'Cinzel', serif", marginTop:10, textAlign:'center', letterSpacing:1 }}>
+              Winner DM'd on X · prize sent within 24h
+            </div>
+          </div>
           </div>
 
           {top3.length > 0 && (
