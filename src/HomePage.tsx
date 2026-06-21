@@ -22,18 +22,30 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
   const [showHowTo, setShowHowTo] = useState(false);
   const [top3, setTop3] = useState<{username:string|null,wallet_address:string,score:number}[]>([]);
   const [timeLeft, setTimeLeft] = useState('');
+  const [hasLaunched, setHasLaunched] = useState(false);
 
   useEffect(() => {
     const today = new Date().toISOString().slice(0, 10);
     getDailyLeaderboard(today).then(data => setTop3((data as any[]).slice(0, 3)));
   }, []);
 
-  // Compte a rebours vers minuit UTC (fin du tournoi du jour)
+  // Lancement officiel du tournoi : Day 1 = 22 juin 2026, 00:00 UTC (mois 5 = juin)
+  const TOURNAMENT_LAUNCH = Date.UTC(2026, 5, 22, 0, 0, 0);
+
+  // Compte a rebours : avant le lancement -> vers le lancement ; apres -> vers la fin du jour UTC
   useEffect(() => {
     const tick = () => {
-      const now = new Date();
-      const nextMidnightUTC = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1, 0, 0, 0);
-      const diff = Math.max(0, nextMidnightUTC - now.getTime());
+      const now = Date.now();
+      const launched = now >= TOURNAMENT_LAUNCH;
+      setHasLaunched(launched);
+      let target: number;
+      if (!launched) {
+        target = TOURNAMENT_LAUNCH;
+      } else {
+        const d = new Date(now);
+        target = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() + 1, 0, 0, 0);
+      }
+      const diff = Math.max(0, target - now);
       const h = String(Math.floor(diff / 3600000)).padStart(2, '0');
       const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
       const sec = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
@@ -130,9 +142,15 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
             </div>
             <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginTop:12, gap:10 }}>
               <div style={{ fontSize:12, color:'rgba(136,221,255,0.8)', fontFamily:"'Cinzel', serif", letterSpacing:1 }}>
-                ⏳ Ends in <span style={{ color:'#88ddff', fontWeight:700 }}>{timeLeft}</span> <span style={{ opacity:0.5 }}>UTC</span>
+                {hasLaunched ? '⏳ Ends in ' : '🚀 Day 1 starts in '}<span style={{ color:'#88ddff', fontWeight:700 }}>{timeLeft}</span> <span style={{ opacity:0.5 }}>UTC</span>
               </div>
-              {hasDailyBeenPlayed()
+              {!hasLaunched
+                ? <motion.button whileHover={{ scale:1.04 }} whileTap={{ scale:0.96 }}
+                    onClick={() => { if (!address) { connect(); } else { onPlay(address, username); } }}
+                    style={{ padding:'10px 18px', borderRadius:10, border:'2px solid rgba(136,221,255,0.6)', background:'rgba(100,200,255,0.15)', color:'#88ddff', fontSize:12, letterSpacing:1, cursor:'pointer', fontFamily:"'Pirata One', cursive", fontWeight:700, whiteSpace:'nowrap' }}>
+                    🛟 PRACTICE NOW
+                  </motion.button>
+                : hasDailyBeenPlayed()
                 ? <div style={{ fontSize:11, color:'rgba(136,221,255,0.55)', fontFamily:"'Cinzel', serif", textAlign:'right' }}>Already played ·<br/>back at 00:00 UTC</div>
                 : <motion.button whileHover={{ scale:1.04, boxShadow:'0 0 20px rgba(200,160,48,0.4)' }} whileTap={{ scale:0.96 }}
                     onClick={() => { if (!address) { connect(); } else { onPlay(address, username, getDailySeed()); } }}
