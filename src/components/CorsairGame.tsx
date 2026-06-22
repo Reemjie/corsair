@@ -687,6 +687,21 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
 
         {/* CENTER — Map */}
         <div style={{ flex:1, display:'flex', flexDirection:'column', alignItems:'center', justifyContent: isMobile ? 'flex-start' : 'center', padding: isMobile ? '6px 4px' : '10px', position:'relative' }}>
+          {/* MOBILE — boutons de direction (le clavier n'existe pas sur mobile) */}
+          {isMobile && !s.event && !s.showPort && !s.gameOver && (
+            <div style={{ position:'fixed', left:0, right:0, bottom:0, zIndex:60, display:'flex', gap:8, padding:'10px 12px calc(10px + env(safe-area-inset-bottom))', background:'linear-gradient(to top, rgba(5,8,15,0.96), rgba(5,8,15,0.0))' }}>
+              {[
+                { label:'◀ PORT', dx:-1, dy:0 },
+                { label:'▲ AHEAD', dx:0, dy:-1 },
+                { label:'STARBOARD ▶', dx:1, dy:0 },
+              ].map(b => (
+                <button key={b.label} onClick={() => move(b.dx, b.dy)}
+                  style={{ flex: b.dy === -1 ? 1.3 : 1, padding:'16px 8px', borderRadius:12, border:'2px solid rgba(200,160,48,0.7)', background: b.dy === -1 ? 'rgba(200,160,48,0.28)' : 'rgba(200,160,48,0.14)', color:'#e8d8a8', fontSize:15, fontFamily:"'Pirata One', cursive", letterSpacing:1, cursor:'pointer', WebkitTapHighlightColor:'transparent' }}>
+                  {b.label}
+                </button>
+              ))}
+            </div>
+          )}
           {isMobile && (
             <div style={{ display:'flex', gap:12, marginBottom:6, fontSize:13, fontFamily:"'Cinzel', serif" }}>
               <span style={{ color: s.stormDistance <= 4 ? '#ee4444' : '#ee8844' }}>⛈ {s.stormDistance} turns</span>
