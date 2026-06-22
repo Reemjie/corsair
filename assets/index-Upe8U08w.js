@@ -58728,6 +58728,52 @@ Resources:`;
                                 position: `relative`
                             },
                             children: [
+                                O && !A.event && !A.showPort && !A.gameOver && (0, I.jsx)(`div`, {
+                                    style: {
+                                        position: `fixed`,
+                                        left: 0,
+                                        right: 0,
+                                        bottom: 0,
+                                        zIndex: 60,
+                                        display: `flex`,
+                                        gap: 8,
+                                        padding: `10px 12px calc(10px + env(safe-area-inset-bottom))`,
+                                        background: `linear-gradient(to top, rgba(5,8,15,0.96), rgba(5,8,15,0.0))`
+                                    },
+                                    children: [
+                                        {
+                                            label: `◀ PORT`,
+                                            dx: -1,
+                                            dy: 0
+                                        },
+                                        {
+                                            label: `▲ AHEAD`,
+                                            dx: 0,
+                                            dy: -1
+                                        },
+                                        {
+                                            label: `STARBOARD ▶`,
+                                            dx: 1,
+                                            dy: 0
+                                        }
+                                    ].map((e)=>(0, I.jsx)(`button`, {
+                                            onClick: ()=>Je(e.dx, e.dy),
+                                            style: {
+                                                flex: e.dy === -1 ? 1.3 : 1,
+                                                padding: `16px 8px`,
+                                                borderRadius: 12,
+                                                border: `2px solid rgba(200,160,48,0.7)`,
+                                                background: e.dy === -1 ? `rgba(200,160,48,0.28)` : `rgba(200,160,48,0.14)`,
+                                                color: `#e8d8a8`,
+                                                fontSize: 15,
+                                                fontFamily: `'Pirata One', cursive`,
+                                                letterSpacing: 1,
+                                                cursor: `pointer`,
+                                                WebkitTapHighlightColor: `transparent`
+                                            },
+                                            children: e.label
+                                        }, e.label))
+                                }),
                                 O && (0, I.jsxs)(`div`, {
                                     style: {
                                         display: `flex`,
