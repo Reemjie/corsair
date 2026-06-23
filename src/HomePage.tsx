@@ -23,6 +23,7 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
   const [top3, setTop3] = useState<{username:string|null,wallet_address:string,score:number}[]>([]);
   const [timeLeft, setTimeLeft] = useState('');
   const [hasLaunched, setHasLaunched] = useState(false);
+  const [tournamentEnded, setTournamentEnded] = useState(false);
 
   useEffect(() => {
     const today = new Date().toISOString().slice(0, 10);
@@ -31,6 +32,7 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
 
   // Lancement officiel du tournoi : Day 1 = 22 juin 2026, 00:00 UTC (mois 5 = juin)
   const TOURNAMENT_LAUNCH = Date.UTC(2026, 5, 22, 0, 0, 0);
+  const TOURNAMENT_END = Date.UTC(2026, 5, 24, 0, 0, 0);
 
   // Compte a rebours : avant le lancement -> vers le lancement ; apres -> vers la fin du jour UTC
   useEffect(() => {
@@ -38,6 +40,7 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
       const now = Date.now();
       const launched = now >= TOURNAMENT_LAUNCH;
       setHasLaunched(launched);
+      setTournamentEnded(now >= TOURNAMENT_END);
       let target: number;
       if (!launched) {
         target = TOURNAMENT_LAUNCH;
@@ -142,9 +145,14 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
             </div>
             <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginTop:12, gap:10 }}>
               <div style={{ fontSize:12, color:'rgba(136,221,255,0.8)', fontFamily:"'Cinzel', serif", letterSpacing:1 }}>
-                {hasLaunched ? '⏳ Ends in ' : '🚀 Tournament starts in '}<span style={{ color:'#88ddff', fontWeight:700 }}>{timeLeft}</span> <span style={{ opacity:0.5 }}>UTC</span>
+                {tournamentEnded
+                  ? <span style={{ color:'#c8a030', fontWeight:700 }}>🏁 Tournament ended</span>
+                  : <>{hasLaunched ? '⏳ Ends in ' : '🚀 Tournament starts in '}<span style={{ color:'#88ddff', fontWeight:700 }}>{timeLeft}</span> <span style={{ opacity:0.5 }}>UTC</span></>
+                }
               </div>
-              {!hasLaunched
+              {tournamentEnded
+                ? <div style={{ fontSize:11, color:'rgba(200,160,48,0.7)', fontFamily:"'Cinzel', serif", textAlign:'right' }}>Winner announced<br/>soon 🦆</div>
+                : !hasLaunched
                 ? <motion.button whileHover={{ scale:1.04 }} whileTap={{ scale:0.96 }}
                     onClick={() => { if (!address) { connect(); } else { onPlay(address, username); } }}
                     style={{ padding:'10px 18px', borderRadius:10, border:'2px solid rgba(136,221,255,0.6)', background:'rgba(100,200,255,0.15)', color:'#88ddff', fontSize:12, letterSpacing:1, cursor:'pointer', fontFamily:"'Pirata One', cursive", fontWeight:700, whiteSpace:'nowrap' }}>
