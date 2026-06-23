@@ -63270,17 +63270,17 @@ Resources:`;
         }
     ];
     function pce({ onPlay: e }) {
-        let [t, n] = (0, x.useState)(!1), [r, i] = (0, x.useState)([]), [a, o] = (0, x.useState)(``), [s, c] = (0, x.useState)(!1);
+        let [t, n] = (0, x.useState)(!1), [r, i] = (0, x.useState)([]), [a, o] = (0, x.useState)(``), [s, c] = (0, x.useState)(!1), [l, u] = (0, x.useState)(!1);
         (0, x.useEffect)(()=>{
             C9(new Date().toISOString().slice(0, 10)).then((e)=>i(e.slice(0, 3)));
         }, []);
-        let l = Date.UTC(2026, 5, 22, 0, 0, 0);
+        let d = Date.UTC(2026, 5, 22, 0, 0, 0), f = Date.UTC(2026, 5, 24, 0, 0, 0);
         (0, x.useEffect)(()=>{
             let e = ()=>{
-                let e = Date.now(), t = e >= l;
-                c(t);
+                let e = Date.now(), t = e >= d;
+                c(t), u(e >= f);
                 let n;
-                if (!t) n = l;
+                if (!t) n = d;
                 else {
                     let t = new Date(e);
                     n = Date.UTC(t.getUTCFullYear(), t.getUTCMonth(), t.getUTCDate() + 1, 0, 0, 0);
@@ -63292,9 +63292,9 @@ Resources:`;
             let t = setInterval(e, 1e3);
             return ()=>clearInterval(t);
         }, []);
-        let [u, d] = (0, x.useState)(!1), { address: f, username: p, connecting: m, connect: h, disconnect: g } = _X(), [_, v] = (0, x.useState)(0);
+        let [p, m] = (0, x.useState)(!1), { address: h, username: g, connecting: _, connect: v, disconnect: y } = _X(), [b, S] = (0, x.useState)(0);
         return (0, x.useState)(()=>{
-            let e = setInterval(()=>v((e)=>(e + 1) % $9.length), 4e3);
+            let e = setInterval(()=>S((e)=>(e + 1) % $9.length), 4e3);
             return ()=>clearInterval(e);
         }), (0, I.jsxs)(`div`, {
             style: {
@@ -63308,7 +63308,7 @@ Resources:`;
             children: [
                 $9.map((e, t)=>(0, I.jsx)(X.div, {
                         animate: {
-                            opacity: +(t === _)
+                            opacity: +(t === b)
                         },
                         transition: {
                             duration: 1.5
@@ -63335,7 +63335,7 @@ Resources:`;
                         right: 24,
                         zIndex: 20
                     },
-                    children: f ? (0, I.jsxs)(`div`, {
+                    children: h ? (0, I.jsxs)(`div`, {
                         style: {
                             display: `flex`,
                             alignItems: `center`,
@@ -63354,10 +63354,10 @@ Resources:`;
                                     padding: `6px 14px`,
                                     cursor: `pointer`
                                 },
-                                children: p ?? `${f.slice(0, 6)}...${f.slice(-4)}`
+                                children: g ?? `${h.slice(0, 6)}...${h.slice(-4)}`
                             }),
                             (0, I.jsx)(`button`, {
-                                onClick: g,
+                                onClick: y,
                                 style: {
                                     background: `transparent`,
                                     border: `1px solid rgba(255,255,255,0.1)`,
@@ -63375,8 +63375,8 @@ Resources:`;
                         whileHover: {
                             scale: 1.05
                         },
-                        onClick: h,
-                        disabled: m,
+                        onClick: v,
+                        disabled: _,
                         style: {
                             padding: `8px 20px`,
                             borderRadius: 8,
@@ -63388,7 +63388,7 @@ Resources:`;
                             cursor: `pointer`,
                             fontFamily: `'Pirata One', cursive`
                         },
-                        children: m ? `CONNECTING...` : `CONNECT WALLET`
+                        children: _ ? `CONNECTING...` : `CONNECT WALLET`
                     })
                 }),
                 (0, I.jsx)(`div`, {
@@ -63404,7 +63404,7 @@ Resources:`;
                         color: `rgba(255,255,255,0.6)`,
                         textShadow: `0 1px 4px rgba(0,0,0,0.8)`
                     },
-                    children: $9[_].label
+                    children: $9[b].label
                 }),
                 (0, I.jsxs)(`div`, {
                     style: {
@@ -63503,7 +63503,7 @@ Resources:`;
                                                         scale: .97
                                                     },
                                                     onClick: ()=>{
-                                                        f ? e(f, p) : h();
+                                                        h ? e(h, g) : v();
                                                     },
                                                     style: {
                                                         padding: `16px 48px`,
@@ -63525,7 +63525,7 @@ Resources:`;
                                                     whileTap: {
                                                         scale: .97
                                                     },
-                                                    onClick: ()=>d(!0),
+                                                    onClick: ()=>m(!0),
                                                     style: {
                                                         padding: `16px 32px`,
                                                         borderRadius: 12,
@@ -63615,32 +63615,52 @@ Resources:`;
                                                         gap: 10
                                                     },
                                                     children: [
-                                                        (0, I.jsxs)(`div`, {
+                                                        (0, I.jsx)(`div`, {
                                                             style: {
                                                                 fontSize: 12,
                                                                 color: `rgba(136,221,255,0.8)`,
                                                                 fontFamily: `'Cinzel', serif`,
                                                                 letterSpacing: 1
                                                             },
-                                                            children: [
-                                                                s ? `⏳ Ends in ` : `🚀 Tournament starts in `,
-                                                                (0, I.jsx)(`span`, {
-                                                                    style: {
-                                                                        color: `#88ddff`,
-                                                                        fontWeight: 700
-                                                                    },
-                                                                    children: a
-                                                                }),
-                                                                ` `,
-                                                                (0, I.jsx)(`span`, {
-                                                                    style: {
-                                                                        opacity: .5
-                                                                    },
-                                                                    children: `UTC`
-                                                                })
-                                                            ]
+                                                            children: l ? (0, I.jsx)(`span`, {
+                                                                style: {
+                                                                    color: `#c8a030`,
+                                                                    fontWeight: 700
+                                                                },
+                                                                children: `🏁 Tournament ended`
+                                                            }) : (0, I.jsxs)(I.Fragment, {
+                                                                children: [
+                                                                    s ? `⏳ Ends in ` : `🚀 Tournament starts in `,
+                                                                    (0, I.jsx)(`span`, {
+                                                                        style: {
+                                                                            color: `#88ddff`,
+                                                                            fontWeight: 700
+                                                                        },
+                                                                        children: a
+                                                                    }),
+                                                                    ` `,
+                                                                    (0, I.jsx)(`span`, {
+                                                                        style: {
+                                                                            opacity: .5
+                                                                        },
+                                                                        children: `UTC`
+                                                                    })
+                                                                ]
+                                                            })
                                                         }),
-                                                        s ? xse() ? (0, I.jsxs)(`div`, {
+                                                        l ? (0, I.jsxs)(`div`, {
+                                                            style: {
+                                                                fontSize: 11,
+                                                                color: `rgba(200,160,48,0.7)`,
+                                                                fontFamily: `'Cinzel', serif`,
+                                                                textAlign: `right`
+                                                            },
+                                                            children: [
+                                                                `Winner announced`,
+                                                                (0, I.jsx)(`br`, {}),
+                                                                `soon 🦆`
+                                                            ]
+                                                        }) : s ? xse() ? (0, I.jsxs)(`div`, {
                                                             style: {
                                                                 fontSize: 11,
                                                                 color: `rgba(136,221,255,0.55)`,
@@ -63661,7 +63681,7 @@ Resources:`;
                                                                 scale: .96
                                                             },
                                                             onClick: ()=>{
-                                                                f ? e(f, p, bse()) : h();
+                                                                h ? e(h, g, bse()) : v();
                                                             },
                                                             style: {
                                                                 padding: `10px 20px`,
@@ -63685,7 +63705,7 @@ Resources:`;
                                                                 scale: .96
                                                             },
                                                             onClick: ()=>{
-                                                                f ? e(f, p) : h();
+                                                                h ? e(h, g) : v();
                                                             },
                                                             style: {
                                                                 padding: `10px 18px`,
@@ -63815,12 +63835,12 @@ Resources:`;
                                 marginTop: 8
                             },
                             children: $9.map((e, t)=>(0, I.jsx)(`div`, {
-                                    onClick: ()=>v(t),
+                                    onClick: ()=>S(t),
                                     style: {
                                         width: 6,
                                         height: 6,
                                         borderRadius: `50%`,
-                                        background: t === _ ? `rgba(200,160,48,0.8)` : `rgba(255,255,255,0.15)`,
+                                        background: t === b ? `rgba(200,160,48,0.8)` : `rgba(255,255,255,0.15)`,
                                         cursor: `pointer`,
                                         transition: `background 0.3s`
                                     }
@@ -63836,8 +63856,8 @@ Resources:`;
                                 n(!1), e(null);
                             }
                         }),
-                        u && (0, I.jsx)(fce, {
-                            onClose: ()=>d(!1)
+                        p && (0, I.jsx)(fce, {
+                            onClose: ()=>m(!1)
                         })
                     ]
                 })
