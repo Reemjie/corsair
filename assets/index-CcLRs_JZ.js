@@ -56079,7 +56079,7 @@ Resources:`;
                         },
                         {
                             label: `Pact`,
-                            desc: `-20 HP, storm +5 turns. Hunter awakens!`,
+                            desc: `-20 HP, storm +6 turns. Hunter awakens!`,
                             icon: `pact`,
                             risk: `risky`
                         }
@@ -56145,7 +56145,7 @@ Resources:`;
                     choices: [
                         {
                             label: `Ancient Ritual`,
-                            desc: `Pay 100g → push the storm back +3 turns, +score.`,
+                            desc: `Pay 100g → push the storm back +4 turns, +score.`,
                             icon: `ritual`,
                             risk: `safe`
                         },
@@ -56754,7 +56754,6 @@ Resources:`;
             `streak5`
         ], n += 300, s = {
             ...s,
-            achievements: s.achievements + 300,
             streaks: s.streaks + 300
         }, a += ` 5 dangers streak! +300pts`, c = !0), t.gold === 0 && !r.includes(`brokebut`) && (r = [
             ...r,
@@ -56849,7 +56848,6 @@ Resources:`;
                 awareness: Math.min(100, (e.hunter?.awareness ?? 0) + 40)
             }, l += ` Your greed drives the Hunter into a frenzy!`) : a.gold >= 600 && n.next() < .15 && (b.push(`cursed_treasure`), a.vision = Math.max(1, a.vision - 1), l += ` Cursed by wealth. -1 vision.`)), _ >= 5 && !x.includes(`streak5`) && (x.push(`streak5`), o += 300, E = {
                 ...E,
-                achievements: E.achievements + 300,
                 streaks: E.streaks + 300
             }, l += ` 5 dangers streak! +300pts`), r === `kraken` && t === 0 && a.hull <= 5 && !x.includes(`krakenlow`) && (x.push(`krakenlow`), o += 500, E = {
                 ...E,
@@ -62266,7 +62264,7 @@ Resources:`;
                                         },
                                         children: `storm surge`
                                     }),
-                                    `, which advances it 2 turns instead of 1. This chance increases as you go deeper: 3% in the early zone, 12% in mid, and 25% in the late zone. When the storm is 4 turns away, the screen turns orange. At 2 turns, it turns red. You can delay the storm in three ways: spend 100 gold on an Ancient Ritual at an island (+4 turns), or make a Kraken Pact at the cost of 20 HP (+6 turns).`
+                                    `, which advances it 2 turns instead of 1. This chance increases as you go deeper: 3% in the early zone, 12% in mid, and 25% in the late zone. When the storm is 4 turns away, the screen turns orange. At 2 turns, it turns red. You can delay the storm in two ways: spend 100 gold on an Ancient Ritual at an island (+4 turns), or make a Kraken Pact at the cost of 20 HP (+6 turns).`
                                 ]
                             })
                         })
@@ -62828,7 +62826,7 @@ Resources:`;
                             },
                             children: [
                                 {
-                                    tip: `Always keep an eye on the storm counter. If it drops below 5, prioritize finding an island for a ritual (+3 turns) or making a Kraken Pact (-20 HP, +5 turns).`,
+                                    tip: `Always keep an eye on the storm counter. If it drops below 5, prioritize finding an island for a ritual (+4 turns) or making a Kraken Pact (-20 HP, +6 turns).`,
                                     color: `#ee4444`
                                 },
                                 {
@@ -62836,7 +62834,7 @@ Resources:`;
                                     color: `#44cc88`
                                 },
                                 {
-                                    tip: `The Kraken Pact is often underestimated. Trading 20 HP for 5 extra storm turns can be the difference between a short run and a legendary one.`,
+                                    tip: `The Kraken Pact is often underestimated. Trading 20 HP for 6 extra storm turns can be the difference between a short run and a legendary one.`,
                                     color: `#cc44ee`
                                 },
                                 {
@@ -63270,33 +63268,23 @@ Resources:`;
         }
     ];
     function pce({ onPlay: e }) {
-        let [t, n] = (0, x.useState)(!1), [r, i] = (0, x.useState)([]), [a, o] = (0, x.useState)(``), [s, c] = (0, x.useState)(!1), [l, u] = (0, x.useState)(!1);
+        let [t, n] = (0, x.useState)(!1), [r, i] = (0, x.useState)([]), [a, o] = (0, x.useState)(``);
         (0, x.useEffect)(()=>{
             C9(new Date().toISOString().slice(0, 10)).then((e)=>i(e.slice(0, 3)));
-        }, []);
-        let d = Date.UTC(2026, 5, 22, 0, 0, 0), f = Date.UTC(2026, 5, 24, 0, 0, 0);
-        (0, x.useEffect)(()=>{
+        }, []), (0, x.useEffect)(()=>{
             let e = ()=>{
-                let e = Date.now(), t = e >= d;
-                c(t), u(e >= f);
-                let n;
-                if (!t) n = d;
-                else {
-                    let t = new Date(e);
-                    n = Date.UTC(t.getUTCFullYear(), t.getUTCMonth(), t.getUTCDate() + 1, 0, 0, 0);
-                }
-                let r = Math.max(0, n - e);
+                let e = Date.now(), t = new Date(e), n = Date.UTC(t.getUTCFullYear(), t.getUTCMonth(), t.getUTCDate() + 1, 0, 0, 0), r = Math.max(0, n - e);
                 o(`${String(Math.floor(r / 36e5)).padStart(2, `0`)}:${String(Math.floor(r % 36e5 / 6e4)).padStart(2, `0`)}:${String(Math.floor(r % 6e4 / 1e3)).padStart(2, `0`)}`);
             };
             e();
             let t = setInterval(e, 1e3);
             return ()=>clearInterval(t);
         }, []);
-        let [p, m] = (0, x.useState)(!1), { address: h, username: g, connecting: _, connect: v, disconnect: y } = _X(), [b, S] = (0, x.useState)(0);
-        return (0, x.useState)(()=>{
-            let e = setInterval(()=>S((e)=>(e + 1) % $9.length), 4e3);
+        let [s, c] = (0, x.useState)(!1), { address: l, username: u, connecting: d, connect: f, disconnect: p } = _X(), [m, h] = (0, x.useState)(0);
+        return (0, x.useEffect)(()=>{
+            let e = setInterval(()=>h((e)=>(e + 1) % $9.length), 4e3);
             return ()=>clearInterval(e);
-        }), (0, I.jsxs)(`div`, {
+        }, []), (0, I.jsxs)(`div`, {
             style: {
                 height: `100vh`,
                 width: `100vw`,
@@ -63308,7 +63296,7 @@ Resources:`;
             children: [
                 $9.map((e, t)=>(0, I.jsx)(X.div, {
                         animate: {
-                            opacity: +(t === b)
+                            opacity: +(t === m)
                         },
                         transition: {
                             duration: 1.5
@@ -63335,7 +63323,7 @@ Resources:`;
                         right: 24,
                         zIndex: 20
                     },
-                    children: h ? (0, I.jsxs)(`div`, {
+                    children: l ? (0, I.jsxs)(`div`, {
                         style: {
                             display: `flex`,
                             alignItems: `center`,
@@ -63354,10 +63342,10 @@ Resources:`;
                                     padding: `6px 14px`,
                                     cursor: `pointer`
                                 },
-                                children: g ?? `${h.slice(0, 6)}...${h.slice(-4)}`
+                                children: u ?? `${l.slice(0, 6)}...${l.slice(-4)}`
                             }),
                             (0, I.jsx)(`button`, {
-                                onClick: y,
+                                onClick: p,
                                 style: {
                                     background: `transparent`,
                                     border: `1px solid rgba(255,255,255,0.1)`,
@@ -63375,8 +63363,8 @@ Resources:`;
                         whileHover: {
                             scale: 1.05
                         },
-                        onClick: v,
-                        disabled: _,
+                        onClick: f,
+                        disabled: d,
                         style: {
                             padding: `8px 20px`,
                             borderRadius: 8,
@@ -63388,7 +63376,7 @@ Resources:`;
                             cursor: `pointer`,
                             fontFamily: `'Pirata One', cursive`
                         },
-                        children: _ ? `CONNECTING...` : `CONNECT WALLET`
+                        children: d ? `CONNECTING...` : `CONNECT WALLET`
                     })
                 }),
                 (0, I.jsx)(`div`, {
@@ -63404,7 +63392,7 @@ Resources:`;
                         color: `rgba(255,255,255,0.6)`,
                         textShadow: `0 1px 4px rgba(0,0,0,0.8)`
                     },
-                    children: $9[b].label
+                    children: $9[m].label
                 }),
                 (0, I.jsxs)(`div`, {
                     style: {
@@ -63503,7 +63491,7 @@ Resources:`;
                                                         scale: .97
                                                     },
                                                     onClick: ()=>{
-                                                        h ? e(h, g) : v();
+                                                        l ? e(l, u) : f();
                                                     },
                                                     style: {
                                                         padding: `16px 48px`,
@@ -63525,7 +63513,7 @@ Resources:`;
                                                     whileTap: {
                                                         scale: .97
                                                     },
-                                                    onClick: ()=>m(!0),
+                                                    onClick: ()=>c(!0),
                                                     style: {
                                                         padding: `16px 32px`,
                                                         borderRadius: 12,
@@ -63552,59 +63540,39 @@ Resources:`;
                                                 boxShadow: `0 0 24px rgba(200,160,48,0.15)`
                                             },
                                             children: [
-                                                (0, I.jsxs)(`div`, {
+                                                (0, I.jsx)(`div`, {
                                                     style: {
                                                         display: `flex`,
                                                         alignItems: `center`,
                                                         gap: 14
                                                     },
-                                                    children: [
-                                                        (0, I.jsx)(`img`, {
-                                                            src: `/corsair/lil_ducky.png`,
-                                                            style: {
-                                                                width: 64,
-                                                                height: 64,
-                                                                objectFit: `contain`,
-                                                                borderRadius: 10,
-                                                                flexShrink: 0
-                                                            }
-                                                        }),
-                                                        (0, I.jsxs)(`div`, {
-                                                            style: {
-                                                                flex: 1,
-                                                                textAlign: `left`
-                                                            },
-                                                            children: [
-                                                                (0, I.jsx)(`div`, {
-                                                                    style: {
-                                                                        fontSize: 15,
-                                                                        color: `#c8a030`,
-                                                                        letterSpacing: 2,
-                                                                        fontFamily: `'Pirata One', cursive`
-                                                                    },
-                                                                    children: `🏆 DAILY TOURNAMENT`
-                                                                }),
-                                                                (0, I.jsxs)(`div`, {
-                                                                    style: {
-                                                                        fontSize: 12,
-                                                                        color: `rgba(255,255,255,0.65)`,
-                                                                        fontFamily: `'IM Fell English', cursive`,
-                                                                        marginTop: 2,
-                                                                        lineHeight: 1.4
-                                                                    },
-                                                                    children: [
-                                                                        `Today's top score wins a `,
-                                                                        (0, I.jsx)(`span`, {
-                                                                            style: {
-                                                                                color: `#eedd44`
-                                                                            },
-                                                                            children: `Lil Loot Survivor Ducky`
-                                                                        })
-                                                                    ]
-                                                                })
-                                                            ]
-                                                        })
-                                                    ]
+                                                    children: (0, I.jsxs)(`div`, {
+                                                        style: {
+                                                            flex: 1,
+                                                            textAlign: `left`
+                                                        },
+                                                        children: [
+                                                            (0, I.jsx)(`div`, {
+                                                                style: {
+                                                                    fontSize: 15,
+                                                                    color: `#c8a030`,
+                                                                    letterSpacing: 2,
+                                                                    fontFamily: `'Pirata One', cursive`
+                                                                },
+                                                                children: `☀ DAILY CHALLENGE`
+                                                            }),
+                                                            (0, I.jsx)(`div`, {
+                                                                style: {
+                                                                    fontSize: 12,
+                                                                    color: `rgba(255,255,255,0.65)`,
+                                                                    fontFamily: `'IM Fell English', cursive`,
+                                                                    marginTop: 2,
+                                                                    lineHeight: 1.4
+                                                                },
+                                                                children: `One run a day · same map for all · climb the board`
+                                                            })
+                                                        ]
+                                                    })
                                                 }),
                                                 (0, I.jsxs)(`div`, {
                                                     style: {
@@ -63615,52 +63583,32 @@ Resources:`;
                                                         gap: 10
                                                     },
                                                     children: [
-                                                        (0, I.jsx)(`div`, {
+                                                        (0, I.jsxs)(`div`, {
                                                             style: {
                                                                 fontSize: 12,
                                                                 color: `rgba(136,221,255,0.8)`,
                                                                 fontFamily: `'Cinzel', serif`,
                                                                 letterSpacing: 1
                                                             },
-                                                            children: l ? (0, I.jsx)(`span`, {
-                                                                style: {
-                                                                    color: `#c8a030`,
-                                                                    fontWeight: 700
-                                                                },
-                                                                children: `🏁 Tournament ended`
-                                                            }) : (0, I.jsxs)(I.Fragment, {
-                                                                children: [
-                                                                    s ? `⏳ Ends in ` : `🚀 Tournament starts in `,
-                                                                    (0, I.jsx)(`span`, {
-                                                                        style: {
-                                                                            color: `#88ddff`,
-                                                                            fontWeight: 700
-                                                                        },
-                                                                        children: a
-                                                                    }),
-                                                                    ` `,
-                                                                    (0, I.jsx)(`span`, {
-                                                                        style: {
-                                                                            opacity: .5
-                                                                        },
-                                                                        children: `UTC`
-                                                                    })
-                                                                ]
-                                                            })
-                                                        }),
-                                                        l ? (0, I.jsxs)(`div`, {
-                                                            style: {
-                                                                fontSize: 11,
-                                                                color: `rgba(200,160,48,0.7)`,
-                                                                fontFamily: `'Cinzel', serif`,
-                                                                textAlign: `right`
-                                                            },
                                                             children: [
-                                                                `Winner announced`,
-                                                                (0, I.jsx)(`br`, {}),
-                                                                `soon 🦆`
+                                                                `⏳ Resets in `,
+                                                                (0, I.jsx)(`span`, {
+                                                                    style: {
+                                                                        color: `#88ddff`,
+                                                                        fontWeight: 700
+                                                                    },
+                                                                    children: a
+                                                                }),
+                                                                ` `,
+                                                                (0, I.jsx)(`span`, {
+                                                                    style: {
+                                                                        opacity: .5
+                                                                    },
+                                                                    children: `UTC`
+                                                                })
                                                             ]
-                                                        }) : s ? xse() ? (0, I.jsxs)(`div`, {
+                                                        }),
+                                                        xse() ? (0, I.jsxs)(`div`, {
                                                             style: {
                                                                 fontSize: 11,
                                                                 color: `rgba(136,221,255,0.55)`,
@@ -63681,7 +63629,7 @@ Resources:`;
                                                                 scale: .96
                                                             },
                                                             onClick: ()=>{
-                                                                h ? e(h, g, bse()) : v();
+                                                                l ? e(l, u, bse()) : f();
                                                             },
                                                             style: {
                                                                 padding: `10px 20px`,
@@ -63697,43 +63645,19 @@ Resources:`;
                                                                 whiteSpace: `nowrap`
                                                             },
                                                             children: `PLAY · 1 TRY`
-                                                        }) : (0, I.jsx)(X.button, {
-                                                            whileHover: {
-                                                                scale: 1.04
-                                                            },
-                                                            whileTap: {
-                                                                scale: .96
-                                                            },
-                                                            onClick: ()=>{
-                                                                h ? e(h, g) : v();
-                                                            },
-                                                            style: {
-                                                                padding: `10px 18px`,
-                                                                borderRadius: 10,
-                                                                border: `2px solid rgba(136,221,255,0.6)`,
-                                                                background: `rgba(100,200,255,0.15)`,
-                                                                color: `#88ddff`,
-                                                                fontSize: 12,
-                                                                letterSpacing: 1,
-                                                                cursor: `pointer`,
-                                                                fontFamily: `'Pirata One', cursive`,
-                                                                fontWeight: 700,
-                                                                whiteSpace: `nowrap`
-                                                            },
-                                                            children: `🛟 PRACTICE NOW`
                                                         })
                                                     ]
                                                 }),
                                                 (0, I.jsx)(`div`, {
                                                     style: {
                                                         fontSize: 10,
-                                                        color: `rgba(255,255,255,0.35)`,
+                                                        color: `rgba(238,221,68,0.55)`,
                                                         fontFamily: `'Cinzel', serif`,
                                                         marginTop: 10,
                                                         textAlign: `center`,
                                                         letterSpacing: 1
                                                     },
-                                                    children: `Winner DM'd on X · prize sent within 24h`
+                                                    children: `🏆 Next NFT tournament coming soon — follow @CorsairGame`
                                                 })
                                             ]
                                         })
@@ -63835,12 +63759,12 @@ Resources:`;
                                 marginTop: 8
                             },
                             children: $9.map((e, t)=>(0, I.jsx)(`div`, {
-                                    onClick: ()=>S(t),
+                                    onClick: ()=>h(t),
                                     style: {
                                         width: 6,
                                         height: 6,
                                         borderRadius: `50%`,
-                                        background: t === b ? `rgba(200,160,48,0.8)` : `rgba(255,255,255,0.15)`,
+                                        background: t === m ? `rgba(200,160,48,0.8)` : `rgba(255,255,255,0.15)`,
                                         cursor: `pointer`,
                                         transition: `background 0.3s`
                                     }
@@ -63856,8 +63780,8 @@ Resources:`;
                                 n(!1), e(null);
                             }
                         }),
-                        p && (0, I.jsx)(fce, {
-                            onClose: ()=>m(!1)
+                        s && (0, I.jsx)(fce, {
+                            onClose: ()=>c(!1)
                         })
                     ]
                 })
