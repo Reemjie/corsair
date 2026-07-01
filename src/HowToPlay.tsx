@@ -100,7 +100,7 @@ export default function HowToPlay({ onClose, onPlay }: { onClose: () => void; on
         <Section title="THE STORM">
           <div style={{ background: 'rgba(180,30,30,0.1)', border: '1px solid rgba(220,50,50,0.3)', borderRadius: 12, padding: 20, marginBottom: 12 }}>
             <p style={{ fontFamily: "'IM Fell English', cursive", fontSize: 18, color: 'rgba(255,255,255,0.75)', lineHeight: 1.9, margin: 0 }}>
-              The storm advances from the bottom of the map every turn. When it reaches your position, you die instantly — unless you have the Storm Rider upgrade. Each turn, there is a small chance of a <span style={{ color: '#ee4444' }}>storm surge</span>, which advances it 2 turns instead of 1. This chance increases as you go deeper: 3% in the early zone, 12% in mid, and 25% in the late zone. When the storm is 4 turns away, the screen turns orange. At 2 turns, it turns red. You can delay the storm in three ways: spend 100 gold on an Ancient Ritual at an island (+4 turns), or make a Kraken Pact at the cost of 20 HP (+6 turns).
+              The storm advances from the bottom of the map every turn. When it reaches your position, you die instantly — unless you have the Storm Rider upgrade. Each turn, there is a small chance of a <span style={{ color: '#ee4444' }}>storm surge</span>, which advances it 2 turns instead of 1. This chance increases as you go deeper: 3% in the early zone, 12% in mid, and 25% in the late zone. When the storm is 4 turns away, the screen turns orange. At 2 turns, it turns red. You can delay the storm in two ways: spend 100 gold on an Ancient Ritual at an island (+4 turns), or make a Kraken Pact at the cost of 20 HP (+6 turns).
             </p>
           </div>
         </Section>
@@ -243,9 +243,9 @@ export default function HowToPlay({ onClose, onPlay }: { onClose: () => void; on
         <Section title="TIPS FOR BEGINNERS">
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             {[
-              { tip: 'Always keep an eye on the storm counter. If it drops below 5, prioritize finding an island for a ritual (+3 turns) or making a Kraken Pact (-20 HP, +5 turns).', color: '#ee4444' },
+              { tip: 'Always keep an eye on the storm counter. If it drops below 5, prioritize finding an island for a ritual (+4 turns) or making a Kraken Pact (-20 HP, +6 turns).', color: '#ee4444' },
               { tip: 'Visit ports early. A repaired hull and one good upgrade can completely change your run. Do not sail past ports unless you are in good shape.', color: '#44cc88' },
-              { tip: 'The Kraken Pact is often underestimated. Trading 20 HP for 5 extra storm turns can be the difference between a short run and a legendary one.', color: '#cc44ee' },
+              { tip: 'The Kraken Pact is often underestimated. Trading 20 HP for 6 extra storm turns can be the difference between a short run and a legendary one.', color: '#cc44ee' },
               { tip: 'Build your combo deliberately. Three dangerous cells in a row triples your score on everything — treasures, combat, and kraken rewards.', color: '#eedd44' },
               { tip: 'Power reduces all combat damage. Even 1 or 2 points of Power early makes a big difference over a long run against pirates and krakens.', color: '#ee8844' },
               { tip: 'Watch the Hunter awareness bar. Pass through storms or ports to reduce it. When it goes ENRAGED (80%+), it moves twice per turn — prioritize escaping over exploring.', color: '#6aaccc' },

@@ -22,32 +22,18 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
   const [showHowTo, setShowHowTo] = useState(false);
   const [top3, setTop3] = useState<{username:string|null,wallet_address:string,score:number}[]>([]);
   const [timeLeft, setTimeLeft] = useState('');
-  const [hasLaunched, setHasLaunched] = useState(false);
-  const [tournamentEnded, setTournamentEnded] = useState(false);
 
   useEffect(() => {
     const today = new Date().toISOString().slice(0, 10);
     getDailyLeaderboard(today).then(data => setTop3((data as any[]).slice(0, 3)));
   }, []);
 
-  // Lancement officiel du tournoi : Day 1 = 22 juin 2026, 00:00 UTC (mois 5 = juin)
-  const TOURNAMENT_LAUNCH = Date.UTC(2026, 5, 22, 0, 0, 0);
-  const TOURNAMENT_END = Date.UTC(2026, 5, 24, 0, 0, 0);
-
-  // Compte a rebours : avant le lancement -> vers le lancement ; apres -> vers la fin du jour UTC
+  // Compte a rebours vers minuit UTC (reset du Daily Challenge)
   useEffect(() => {
     const tick = () => {
       const now = Date.now();
-      const launched = now >= TOURNAMENT_LAUNCH;
-      setHasLaunched(launched);
-      setTournamentEnded(now >= TOURNAMENT_END);
-      let target: number;
-      if (!launched) {
-        target = TOURNAMENT_LAUNCH;
-      } else {
-        const d = new Date(now);
-        target = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() + 1, 0, 0, 0);
-      }
+      const d = new Date(now);
+      const target = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() + 1, 0, 0, 0);
       const diff = Math.max(0, target - now);
       const h = String(Math.floor(diff / 3600000)).padStart(2, '0');
       const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
@@ -63,10 +49,10 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
   const [slide, setSlide] = useState(0);
 
   // Auto-slide
-  useState(() => {
+  useEffect(() => {
     const t = setInterval(() => setSlide(s => (s + 1) % SLIDES.length), 4000);
     return () => clearInterval(t);
-  });
+  }, []);
 
   return (
     <div style={{ height:'100vh', width:'100vw', background:'#060e18', overflow:'hidden', position:'relative', fontFamily:"'Pirata One', cursive" }}>
@@ -137,28 +123,16 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
           </div>
           <div style={{ padding:'16px 20px', borderRadius:16, border:'2px solid rgba(200,160,48,0.5)', background:'linear-gradient(135deg, rgba(30,20,5,0.9), rgba(10,15,25,0.9))', maxWidth:380, width:'100%', boxShadow:'0 0 24px rgba(200,160,48,0.15)' }}>
             <div style={{ display:'flex', alignItems:'center', gap:14 }}>
-              <img src={`${import.meta.env.BASE_URL}lil_ducky.png`} style={{ width:64, height:64, objectFit:'contain', borderRadius:10, flexShrink:0 }}/>
               <div style={{ flex:1, textAlign:'left' }}>
-                <div style={{ fontSize:15, color:'#c8a030', letterSpacing:2, fontFamily:"'Pirata One', cursive" }}>🏆 DAILY TOURNAMENT</div>
-                <div style={{ fontSize:12, color:'rgba(255,255,255,0.65)', fontFamily:"'IM Fell English', cursive", marginTop:2, lineHeight:1.4 }}>Today's top score wins a <span style={{ color:'#eedd44' }}>Lil Loot Survivor Ducky</span></div>
+                <div style={{ fontSize:15, color:'#c8a030', letterSpacing:2, fontFamily:"'Pirata One', cursive" }}>☀ DAILY CHALLENGE</div>
+                <div style={{ fontSize:12, color:'rgba(255,255,255,0.65)', fontFamily:"'IM Fell English', cursive", marginTop:2, lineHeight:1.4 }}>One run a day · same map for all · climb the board</div>
               </div>
             </div>
             <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginTop:12, gap:10 }}>
               <div style={{ fontSize:12, color:'rgba(136,221,255,0.8)', fontFamily:"'Cinzel', serif", letterSpacing:1 }}>
-                {tournamentEnded
-                  ? <span style={{ color:'#c8a030', fontWeight:700 }}>🏁 Tournament ended</span>
-                  : <>{hasLaunched ? '⏳ Ends in ' : '🚀 Tournament starts in '}<span style={{ color:'#88ddff', fontWeight:700 }}>{timeLeft}</span> <span style={{ opacity:0.5 }}>UTC</span></>
-                }
+                ⏳ Resets in <span style={{ color:'#88ddff', fontWeight:700 }}>{timeLeft}</span> <span style={{ opacity:0.5 }}>UTC</span>
               </div>
-              {tournamentEnded
-                ? <div style={{ fontSize:11, color:'rgba(200,160,48,0.7)', fontFamily:"'Cinzel', serif", textAlign:'right' }}>Winner announced<br/>soon 🦆</div>
-                : !hasLaunched
-                ? <motion.button whileHover={{ scale:1.04 }} whileTap={{ scale:0.96 }}
-                    onClick={() => { if (!address) { connect(); } else { onPlay(address, username); } }}
-                    style={{ padding:'10px 18px', borderRadius:10, border:'2px solid rgba(136,221,255,0.6)', background:'rgba(100,200,255,0.15)', color:'#88ddff', fontSize:12, letterSpacing:1, cursor:'pointer', fontFamily:"'Pirata One', cursive", fontWeight:700, whiteSpace:'nowrap' }}>
-                    🛟 PRACTICE NOW
-                  </motion.button>
-                : hasDailyBeenPlayed()
+              {hasDailyBeenPlayed()
                 ? <div style={{ fontSize:11, color:'rgba(136,221,255,0.55)', fontFamily:"'Cinzel', serif", textAlign:'right' }}>Already played ·<br/>back at 00:00 UTC</div>
                 : <motion.button whileHover={{ scale:1.04, boxShadow:'0 0 20px rgba(200,160,48,0.4)' }} whileTap={{ scale:0.96 }}
                     onClick={() => { if (!address) { connect(); } else { onPlay(address, username, getDailySeed()); } }}
@@ -167,8 +141,8 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
                   </motion.button>
               }
             </div>
-            <div style={{ fontSize:10, color:'rgba(255,255,255,0.35)', fontFamily:"'Cinzel', serif", marginTop:10, textAlign:'center', letterSpacing:1 }}>
-              Winner DM'd on X · prize sent within 24h
+            <div style={{ fontSize:10, color:'rgba(238,221,68,0.55)', fontFamily:"'Cinzel', serif", marginTop:10, textAlign:'center', letterSpacing:1 }}>
+              🏆 Next NFT tournament coming soon — follow @CorsairGame
             </div>
           </div>
           </div>

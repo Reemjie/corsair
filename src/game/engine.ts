@@ -23,7 +23,7 @@ function buildEvent(type: CellType, power: number): ActiveEvent {
     ]};
     case 'kraken': return { cellType: type, choices: [
       { label: 'Attack', desc: 'High risk, massive reward',                   icon: 'fight', risk: 'bold'  },
-      { label: 'Pact',   desc: '-20 HP, storm +5 turns. Hunter awakens!',    icon: 'pact', risk: 'risky' },
+      { label: 'Pact',   desc: '-20 HP, storm +6 turns. Hunter awakens!',    icon: 'pact', risk: 'risky' },
     ]};
     case 'storm': return { cellType: type, choices: [
       { label: 'Push through', desc: 'No storm turn lost, hull risk',     icon: 'push', risk: 'risky' },
@@ -38,7 +38,7 @@ function buildEvent(type: CellType, power: number): ActiveEvent {
       { label: 'Sail on', desc: 'No time to stop',    icon: 'sail', risk: 'safe' },
     ]};
     case 'island': return { cellType: type, choices: [
-      { label: 'Ancient Ritual', desc: 'Pay 100g → push the storm back +3 turns, +score.', icon: 'ritual', risk: 'safe'  },
+      { label: 'Ancient Ritual', desc: 'Pay 100g → push the storm back +4 turns, +score.', icon: 'ritual', risk: 'safe'  },
       { label: 'Explore freely', desc: '50% chance of a free upgrade token.', icon: 'explore', risk: 'risky' },
     ]};
     case 'rocks': return { cellType: type, choices: [
@@ -647,7 +647,7 @@ function applyAchievements(s: GameState): GameState {
     log += ' Survived at 1 HP! +200pts'; changed = true;
   }
   if (dangerStreak >= 5 && !exploits.includes('streak5')) {
-    exploits = [...exploits, 'streak5']; score += 300; sb = { ...sb, achievements: sb.achievements + 300, streaks: sb.streaks + 300 };
+    exploits = [...exploits, 'streak5']; score += 300; sb = { ...sb, streaks: sb.streaks + 300 };
     log += ' 5 dangers streak! +300pts'; changed = true;
   }
   if (ship.gold === 0 && !exploits.includes('brokebut')) {
@@ -759,7 +759,7 @@ export function resolveEvent(state: GameState, choiceIdx: number): GameState {
         log += ' Cursed by wealth. -1 vision.';
       }
     }
-    if (dangerStreak >= 5 && !exploits.includes('streak5')) { exploits.push('streak5');   score += 300; sb = { ...sb, achievements: sb.achievements + 300, streaks: sb.streaks + 300 }; log += ' 5 dangers streak! +300pts'; }
+    if (dangerStreak >= 5 && !exploits.includes('streak5')) { exploits.push('streak5');   score += 300; sb = { ...sb, streaks: sb.streaks + 300 }; log += ' 5 dangers streak! +300pts'; }
 
     if (cellType === 'kraken' && choiceIdx === 0 && ship.hull <= 5 && !exploits.includes('krakenlow')) { exploits.push('krakenlow'); score += 500; sb = { ...sb, achievements: sb.achievements + 500 }; log += ' Kraken slain at deaths door! +500pts'; }
     if (ship.gold === 0 && !exploits.includes('brokebut'))  { exploits.push('brokebut');  score += 150; sb = { ...sb, achievements: sb.achievements + 150 }; log += ' Sailed penniless! +150pts'; }
