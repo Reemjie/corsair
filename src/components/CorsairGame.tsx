@@ -4,7 +4,7 @@ import type { GameState, UpgradeId } from '../types/game';
 import { submitScore, submitDailyScore, checkNFTConditions } from '../supabase';
 import { ZONE_CONFIG } from '../game/balance';
 import { submitScoreOnChain } from '../starknet';
-import { initGame, moveShip, resolveEvent, repairHull, leavePort, skipEventFn, rerollPort, upgradeComponent, markDailyPlayed, getDailyKey } from '../game/engine';
+import { initGame, moveShip, resolveEvent, repairHull, leavePort, skipEventFn, rerollPort, upgradeComponent, buyUpgrade, markDailyPlayed, getDailyKey } from '../game/engine';
 import anchorImg from '../assets/anchor.png';
 
 import crownNestImg from '../assets/upgrades/crown_nest.png';
@@ -141,44 +141,13 @@ const UPGRADES = [
 const BUILD_COLOR: Record<string,string> = { vision:'#6aaccc', gold:'#eedd44', combat:'#ee6644', escape:'#44cc88' };
 
 
-const TUT_STEPS = [
-  { id:'move1',       title:'Welcome, Captain!',         bubble:'You are a corsair fleeing a deadly storm. The storm advances every turn — never stop. Press AHEAD to sail north.', waitFor:'ahead' },
-  { id:'storm',       title:'⛈ The Storm Counter',       bubble:'The storm just advanced. See the counter on the left — it dropped from 22. If it hits 0, you die. Press AHEAD again.', waitFor:'ahead' },
-  { id:'pre_pirate',  title:'🗺 Something Ahead...',      bubble:'Pirates are on the next cell! Press AHEAD to engage them. Bold choices always reward more.', waitFor:'ahead' },
-  { id:'pirate_fight',title:'🏴\u200d☠️ Pirates Attack!', bubble:'Pirates! Choose FIGHT — you take damage but earn gold and notoriety. Never pay tribute when you are strong.', waitFor:'choice0' },
-  { id:'combo',       title:'🔥 Combo Multiplier',        bubble:'You fought and survived! Chaining dangers increases your score multiplier x1→x2→x3. Keep fighting to multiply all rewards. Press AHEAD.', waitFor:'ahead' },
-  { id:'streak',      title:'💀 The Streak System',         bubble:'Your STREAK also transforms the world: streak 2 = +25% gold. Streak 3 = Hunter gets aggressive. Streak 4 = storm surges more + elite encounters. Streak 5 = cursed waters. Streak 6 = legendary zone. High risk, insane reward.', waitFor:'none' },
-  { id:'pre_port',    title:'Port on Starboard!',        bubble:'There is a port to your right! Press STARBOARD to sail into it.', waitFor:'starboard' },
-  { id:'pre_pirates', title:'Pirates Ahead!',            bubble:'A pirate ship is on the next cell. Press AHEAD to engage them.', waitFor:'ahead' },
-  { id:'port_choice', title:'🏴 Enter the Port',          bubble:'You found a port! Choose DOCK to repair your hull and buy upgrades. Never skip a port with low hull.', waitFor:'choice0' },
-  { id:'repair',      title:'🔧 Repair Your Hull',        bubble:'At port you can repair and buy upgrades. Press RUM BARREL to restore 8 HP for 25 gold.', waitFor:'repair' },
-  { id:'upgrades',    title:'🛠 Components & Abilities',   bubble:'At port, upgrade your ship components: HULL for more HP, ARMEMENT for more power, NAVIGATION for better vision. Each has 3 levels but you can only max out 2 of them — choose your specialization. You can also equip up to 2 special abilities like Ghost Ship or Storm Rider.', waitFor:'none' },
-  { id:'hunter',      title:'🐙 The Hunter',               bubble:'At turn 8, a creature spawns and tracks you. Watch the HUNTER bar on the left — it shows its mode (TRACKING → STALKING → ENRAGED) and awareness. Storms and ports reduce its awareness. Keep moving forward.', waitFor:'none' },
-  { id:'portal',      title:'🌀 The Portal',               bubble:'After sailing deep enough into a zone, a glowing purple VORTEX appears ahead of you. Sail into it to cross into the next zone — The Storm Sea, then The Abyss. Each zone is deadlier but worth far more points, and entering one pushes the storm back. Watch the log for hints when reality starts to distort.', waitFor:'none' },
-  { id:'done',        title:'🎓 You Are Ready!',          bubble:'Well done, Captain! Move forward, chain dangers for combos, visit ports, cross the portals, and never let the storm catch you. Good luck!', waitFor:'done' },
-];
-
-
 const renderCellIcon = (icon: string | undefined, size: number) =>
   !icon ? null : (icon.startsWith('http') || icon.startsWith('/'))
     ? <img src={icon} style={{ width:size, height:size, objectFit:'contain', borderRadius:'50%', mixBlendMode:'lighten', filter:`drop-shadow(0 0 12px rgba(200,160,48,0.6))` }} />
     : <span style={{ fontSize:size }}>{icon}</span>;
 
-export default function CorsairGame({ walletAddress, account, username, onHome, tutorialMode, onTutorialDone, dailySeed }: { walletAddress: string | null; account?: any; username?: string | null; onHome: () => void; tutorialMode?: boolean; onTutorialDone?: () => void; dailySeed?: number }) {
-  const [state, setState] = useState<GameState>(() => {
-    const s = initGame(tutorialMode ? 'tutorial' : dailySeed);
-    if (tutorialMode) {
-      const cx = 6, cy = 10;
-      const map = [-3,-2,-1,0,1].map(dy =>
-        [-2,-1,0,1,2].map(dx => {
-          const cell = s.grid[cy+dy]?.[cx+dx];
-          return cell ? cell.type.substring(0,3) : '...';
-        }).join(' ')
-      ).join('\n');
-      console.log('Tutorial map around ship:\n' + map);
-    }
-    return s;
-  });
+export default function CorsairGame({ walletAddress, account, username, onHome, dailySeed }: { walletAddress: string | null; account?: any; username?: string | null; onHome: () => void; dailySeed?: number }) {
+  const [state, setState] = useState<GameState>(() => initGame(dailySeed));
   const [shake, setShake] = useState(false);
   const [cart, setCart] = useState<string[]>([]);
   const [scoreSubmitted, setScoreSubmitted] = useState(false);
@@ -190,7 +159,6 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   });
   const [isNewRecord, setIsNewRecord] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [tutStep, setTutStep] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const isDailyRun = dailySeed !== undefined;
   useEffect(() => {
@@ -214,7 +182,6 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   const [_showCursedTreasureCinematic, _setShowCursedTreasureCinematic] = useState(false);
   const [_showStormCinematic, _setShowStormCinematic] = useState(false);
   const [_showPortCinematic, _setShowPortCinematic] = useState(false);
-  const [tutBubble, setTutBubble] = useState(true);
   const [flashColor, setFlashColor] = useState<string | null>(null);
   const [vignetteIntensity, setVignetteIntensity] = useState(0);
 
@@ -230,7 +197,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
     if (isMobile) { setCinematic(null); return; }
     if (state.gameOver) return;  // la cinématique de mort est gérée par le death trigger
     const ct = state.event?.cellType;
-    if (ct && SCENE_VIDEO[ct] && !tutorialMode) {
+    if (ct && SCENE_VIDEO[ct]) {
       setCinematic(ct);
       const t = setTimeout(() => setCinematic(null), 5000);
       return () => clearTimeout(t);
@@ -240,7 +207,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   // Port cinematic trigger
   useEffect(() => {
     if (state.gameOver) { _setShowPortCinematic(false); return; }
-    if (state.event?.cellType === 'port' && !isMobile && !tutorialMode) {
+    if (state.event?.cellType === 'port' && !isMobile) {
       _setShowPortCinematic(true);
       setTimeout(() => _setShowPortCinematic(false), 5000);
     }
@@ -332,7 +299,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   useEffect(() => {
     if (state.gameOver) { _setShowPirateCinematic(false); return; }
     if (state.gameOver) { _setShowPirateCinematic(false); return; }
-    if (state.event?.cellType === 'pirate' && !isMobile && !tutorialMode) {
+    if (state.event?.cellType === 'pirate' && !isMobile) {
       _setShowPirateCinematic(true);
       const t = setTimeout(() => _setShowPirateCinematic(false), 5000);
       return () => clearTimeout(t);
@@ -373,7 +340,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
 
   // Personal best check
   useEffect(() => {
-    if (state.gameOver && !tutorialMode && state.score > 0) {
+    if (state.gameOver && state.score > 0) {
       if (state.score > personalBest) {
         setPersonalBest(state.score);
         setIsNewRecord(true);
@@ -384,7 +351,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
 
   // Death cinematic trigger
   useEffect(() => {
-    if (state.gameOver && !tutorialMode) {
+    if (state.gameOver) {
       if (dailySeed !== undefined) markDailyPlayed();
       if (!isMobile) {
         // Si le hunter attack est en cours, attendre qu'il se termine
@@ -447,24 +414,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   }, [state.gameOver, state.event, state.showPort, state.turn]);
 
   const move = (dx:number, dy:number) => {
-    if (tutorialMode) {
-      const step = TUT_STEPS[Math.min(tutStep, TUT_STEPS.length-1)];
-      const isMovStep = step.waitFor === 'ahead' || step.waitFor === 'starboard';
-      if (!isMovStep) return;
-      if (step.waitFor === 'starboard' && dx !== 1) return;
-      if (step.waitFor === 'ahead' && dx !== 0) return;
-    }
     setState(s => moveShip(s, dx, dy));
-    if (tutorialMode) {
-      const nextStep = TUT_STEPS[Math.min(tutStep, TUT_STEPS.length-1)];
-      // Only advance immediately for non-event moves
-      // Event moves are handled by useEffect watching state.event
-      const willTriggerEvent = ['pre_pirate', 'pre_port'].includes(nextStep.id);
-      if (!willTriggerEvent) {
-        setTutStep(i => i + 1);
-        setTutBubble(true);
-      }
-    }
   };
   const resolve = (i:number) => {
     setState(s => {
@@ -472,10 +422,6 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
       if (next.ship.hull < s.ship.hull) triggerShake();
       return next;
     });
-    if (tutorialMode) {
-      const step = TUT_STEPS[Math.min(tutStep, TUT_STEPS.length-1)];
-      if (step.waitFor === 'choice0' && i === 0) { setTutStep(idx => idx + 1); setTutBubble(true); }
-    }
   };
   const skip = () => setState(s => skipEventFn(s));
   const upgradeComp = (c: 'hull'|'weapon'|'nav') => setState(s => upgradeComponent(s, c));
@@ -498,16 +444,6 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   }, [muted]);
 
 
-
-  // Tutorial: auto-advance step when event appears
-  useEffect(() => {
-    if (!tutorialMode) return;
-    const step = TUT_STEPS[Math.min(tutStep, TUT_STEPS.length-1)];
-    if (state.event && (state.event.cellType === 'pirate' || state.event.cellType === 'port') && (step.waitFor === 'ahead' || step.waitFor === 'starboard')) {
-      setTutStep(i => i + 1);
-      setTutBubble(true);
-    }
-  }, [state.event, state.turn]);
 
   return (
     <motion.div
@@ -1009,16 +945,12 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                     <motion.button key={i} whileHover={{ scale: canAfford ? 1.04 : 1 }} whileTap={{ scale: canAfford ? 0.96 : 1 }}
                       onClick={() => {
                         if (!canAfford) return;
-                        if (tutorialMode) {
-                          const step = TUT_STEPS[Math.min(tutStep, TUT_STEPS.length-1)];
-                          if (step.waitFor === 'choice0' && i !== 0) return;
-                        }
                         resolve(i);
                       }}
                       style={{ flex:1, maxWidth:320, padding:'24px 28px', borderRadius:16, border:`1.5px solid ${canAfford ? rc : 'rgba(255,255,255,0.1)'}55`, background: canAfford ? `linear-gradient(135deg, rgba(0,0,0,0.85) 0%, ${rc}0f 100%)` : 'rgba(0,0,0,0.5)', cursor: canAfford ? 'pointer' : 'not-allowed', color: canAfford ? '#e8e0d0' : 'rgba(255,255,255,0.3)', fontFamily:"'Pirata One', cursive", textAlign:'left', backdropFilter:'blur(8px)', boxShadow: canAfford ? `0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 ${rc}22` : 'none', transition:'all 0.2s', opacity: canAfford ? 1 : 0.5 }}>
                       <div style={{ marginBottom:12, textAlign:'center' }}><img src={CHOICE_ICONS[ch.icon] || ''} style={{ width:72, height:72, objectFit:'contain' }}/></div>
                       <div style={{ fontSize:24, fontWeight:700, color:rc, textAlign:'center' }}>{ch.label}</div>
-                      <div style={{ fontSize:20, color:'rgba(255,255,255,0.8)', fontFamily:"'IM Fell English', cursive", marginTop:8, textAlign:'center' }}>{ch.label === 'Pact' && s.event?.cellType === 'kraken' ? `-${Math.min(20, s.ship.hull - 1)} HP → 1 HP, storm +5 turns. Hunter awakens!` : ch.desc}</div>
+                      <div style={{ fontSize:20, color:'rgba(255,255,255,0.8)', fontFamily:"'IM Fell English', cursive", marginTop:8, textAlign:'center' }}>{ch.label === 'Pact' && s.event?.cellType === 'kraken' ? `-${Math.min(20, s.ship.hull - 1)} HP → 1 HP, storm +6 turns. Hunter awakens!` : ch.desc}</div>
                       <div style={{ fontSize:13, color:rc, marginTop:10, letterSpacing:2, textAlign:'center' }}>{ch.risk.toUpperCase()}</div>
                     </motion.button>
                   );
@@ -1050,10 +982,6 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                       <motion.button key={i} whileHover={{ scale: canAfford2 ? 1.02 : 1 }} whileTap={{ scale: canAfford2 ? 0.98 : 1 }}
                         onClick={() => {
                           if (!canAfford2) return;
-                          if (tutorialMode) {
-                            const step = TUT_STEPS[Math.min(tutStep, TUT_STEPS.length-1)];
-                            if (step.waitFor === 'choice0' && i !== 0) return;
-                          }
                           resolve(i);
                         }}
                         style={{ flex:1, padding:'20px 24px', borderRadius:16, border:`1.5px solid ${canAfford2 ? rc : 'rgba(255,255,255,0.1)'}55`, background: canAfford2 ? `linear-gradient(135deg, rgba(0,0,0,0.85) 0%, ${rc}0f 100%)` : 'rgba(0,0,0,0.5)', cursor: canAfford2 ? 'pointer' : 'not-allowed', color: canAfford2 ? '#e8e0d0' : 'rgba(255,255,255,0.3)', fontFamily:"'Pirata One', cursive", textAlign:'left', backdropFilter:'blur(8px)', opacity: canAfford2 ? 1 : 0.5, transition:'all 0.2s' }}>
@@ -1167,7 +1095,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
           </div>
 
           {/* Set Sail */}
-          <motion.button whileHover={{scale:1.02}} whileTap={{scale:0.98}} onClick={() => setState(st => leavePort(st))}
+          <motion.button whileHover={{scale:1.02}} whileTap={{scale:0.98}} onClick={() => { setState(st => { let s2 = st; for (const id of cart) s2 = buyUpgrade(s2, id as UpgradeId); return leavePort(s2); }); setCart([]); }}
             style={{ width:'100%', padding:'14px', borderRadius:12, border:'2px solid rgba(200,160,48,0.5)', background:'rgba(200,160,48,0.1)', color:'#c8a030', fontSize:18, fontFamily:"'Pirata One', cursive", letterSpacing:3, cursor:'pointer' }}>
             ⚓ SET SAIL
           </motion.button>
@@ -1467,8 +1395,6 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
         </>
       )}
 
-      {/* TUTORIAL BUBBLE */}
-
       {/* HUNTER ATTACK NOTIFICATION */}
       <AnimatePresence>
         {showHunterAttack && (
@@ -1567,42 +1493,6 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
         </>
       )}
 
-      {/* TUTORIAL BUBBLE */}
-      {tutorialMode && tutBubble && (() => {
-        const step = TUT_STEPS[Math.min(tutStep, TUT_STEPS.length-1)];
-        const isDone = step.waitFor === 'done';
-        const isInfo = step.waitFor === 'none';
-        return (
-          <motion.div key={tutStep} initial={{opacity:0,y:20}} animate={{opacity:1,y:0}}
-            style={{ position:'fixed', bottom: isMobile ? (s.event ? undefined : '110px') : (s.showPort ? undefined : s.event ? '320px' : '90px'), top: (isMobile && s.event) ? '70px' : (!isMobile && s.showPort ? '80px' : undefined), left: isMobile ? 8 : 0, right: isMobile ? 8 : 0, margin:'0 auto', background:'linear-gradient(135deg,#0a1422,#060e18)', border:'2px solid rgba(200,160,48,0.7)', borderRadius:16, padding: isMobile ? '16px' : '22px 28px', width: isMobile ? 'auto' : 540, zIndex:50, boxShadow:'0 8px 40px rgba(0,0,0,0.95)' }}>
-            <div style={{ display:'flex', gap:5, marginBottom:14 }}>
-              {TUT_STEPS.filter(st=>st.waitFor!=='done').map((_,i)=>(
-                <div key={i} style={{ flex:1, height:3, borderRadius:2, background:i<tutStep?'#c8a030':i===tutStep?'rgba(200,160,48,0.5)':'rgba(255,255,255,0.1)', transition:'background 0.3s' }}/>
-              ))}
-            </div>
-            <div style={{ fontSize:19, color:'#c8a030', fontFamily:"'Pirata One', cursive", marginBottom:10 }}>{step.title}</div>
-            <div style={{ fontSize:14, color:'rgba(255,255,255,0.9)', fontFamily:"'Cinzel', serif", lineHeight:1.75, marginBottom:18 }}>{step.bubble}</div>
-            <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center' }}>
-              <button onClick={onHome} style={{ background:'transparent', border:'none', color:'rgba(255,255,255,0.2)', fontSize:12, cursor:'pointer', fontFamily:"'Cinzel', serif", letterSpacing:1 }}>QUIT TUTORIAL</button>
-              {isDone
-                ? <motion.button whileHover={{scale:1.05}} onClick={()=>{ localStorage.setItem('corsair_tutorial_done','1'); onTutorialDone?.(); }}
-                    style={{ padding:'11px 28px', borderRadius:10, border:'1px solid rgba(200,160,48,0.6)', background:'rgba(200,160,48,0.15)', color:'#c8a030', fontSize:15, cursor:'pointer', fontFamily:"'Pirata One', cursive", letterSpacing:2 }}>
-                    ⚓ START FOR REAL
-                  </motion.button>
-                : isInfo
-                  ? <motion.button whileHover={{scale:1.05}} onClick={()=>{ setTutStep(i => i+1); setTutBubble(true); }} style={{ padding:'10px 20px', borderRadius:10, border:'1px solid rgba(200,160,48,0.5)', background:'rgba(200,160,48,0.15)', color:'#c8a030', fontSize:14, cursor:'pointer', fontFamily:"'Pirata One', cursive", letterSpacing:2 }}>NEXT →</motion.button>
-                  : <button onClick={()=>setTutBubble(false)} style={{ background:'transparent', border:'none', color:'rgba(200,160,48,0.6)', fontSize:13, cursor:'pointer', fontFamily:"'Cinzel', serif", letterSpacing:1 }}>GOT IT →</button>
-              }
-            </div>
-          </motion.div>
-        );
-      })()}
-      {tutorialMode && !tutBubble && (
-        <motion.button whileHover={{scale:1.05}} onClick={()=>setTutBubble(true)}
-          style={{ position:'fixed', bottom:90, right:24, background:'rgba(200,160,48,0.15)', border:'1px solid rgba(200,160,48,0.4)', color:'#c8a030', borderRadius:10, padding:'8px 16px', cursor:'pointer', fontFamily:"'Cinzel', serif", fontSize:12, letterSpacing:1, zIndex:50 }}>
-          💬 HINT
-        </motion.button>
-      )}
     </motion.div>
   );
 }

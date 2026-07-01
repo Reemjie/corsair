@@ -2,7 +2,7 @@ import { seededRng, type Rng } from './rng';
 import { BALANCE, ZONE_CONFIG } from './balance';
 import { getStreakEffects, getSynergies } from './systems/streak';
 import type { GameState, Ship, ActiveEvent, UpgradeId, CellType } from '../types/game';
-import { generateGrid, revealAround, GRID_SIZE, generateTutorialGrid } from './mapGen';
+import { generateGrid, revealAround, GRID_SIZE } from './mapGen';
 
 
 // ─── STREAK EFFECTS ──────────────────────────────────────────────────────────
@@ -113,16 +113,15 @@ export function markDailyPlayed(): void {
 }
 
 // ─── INIT ────────────────────────────────────────────────────────────────────
-export function initGame(seed?: number | 'tutorial'): GameState {
-  const isTut = seed === 'tutorial';
-  const s = isTut ? 0 : ((seed as number) ?? (Date.now() % 999999));
+export function initGame(seed?: number): GameState {
+  const s = seed ?? (Date.now() % 999999);
   const cx = Math.floor(GRID_SIZE / 2), cy = GRID_SIZE - 1;
   const ship: Ship = { x: cx, y: cy, hull: BALANCE.ship.startHull, maxHull: BALANCE.ship.startHull, gold: BALANCE.ship.startGold, power: BALANCE.ship.startPower, vision: BALANCE.ship.startVision, upgrades: [], levels: { hull: 0, weapon: 0, nav: 0 } };
-  const grid = revealAround(isTut ? generateTutorialGrid() : generateGrid(s, []), cx, cy, 1);
+  const grid = revealAround(generateGrid(s, []), cx, cy, 1);
   return {
     grid, ship, event: null,
     turn: 0, score: 0, depth: 0,
-    seed: isTut ? 0 : s, rngState: s,
+    seed: s, rngState: s,
     log: 'The sea calls, Captain.',
     gameOver: false, showPort: false,
     stormDistance: BALANCE.storm.initial,

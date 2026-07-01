@@ -3,7 +3,7 @@ import { useWallet } from './useWallet';
 import CorsairGame from './components/CorsairGame';
 import HomePage from './HomePage';
 
-type Screen = 'home' | 'game' | 'tutorial';
+type Screen = 'home' | 'game';
 
 export default function App() {
   const { address, account, username: walletUsername } = useWallet();
