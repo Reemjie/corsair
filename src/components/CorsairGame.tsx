@@ -5,6 +5,7 @@ import { submitScore, submitDailyScore, checkNFTConditions } from '../supabase';
 import { ZONE_CONFIG } from '../game/balance';
 import { submitScoreOnChain } from '../starknet';
 import { initGame, moveShip, resolveEvent, repairHull, leavePort, skipEventFn, rerollPort, upgradeComponent, buyUpgrade, markDailyPlayed, getDailyKey } from '../game/engine';
+import { sfx, setSfxMuted } from '../sound';
 import anchorImg from '../assets/anchor.png';
 
 import crownNestImg from '../assets/upgrades/crown_nest.png';
@@ -140,6 +141,17 @@ const UPGRADES = [
 ] as const;
 const BUILD_COLOR: Record<string,string> = { vision:'#6aaccc', gold:'#eedd44', combat:'#ee6644', escape:'#44cc88' };
 
+
+function deriveDeathCause(log: string): { name: string; tip: string } {
+  const l = (log || '').toLowerCase();
+  if (l.includes('storm'))     return { name: 'The Storm',  tip: 'Rituals at islands (+4 turns) and Kraken Pacts (+6) push it back.' };
+  if (l.includes('tentacles')) return { name: 'The Hunter', tip: 'Ports (-15) and storms (-10) lower its awareness. Watch the bar.' };
+  if (l.includes('pirate'))    return { name: 'Pirates',    tip: 'Power wins fights — or swallow your pride and pay tribute.' };
+  if (l.includes('kraken'))    return { name: 'The Kraken', tip: 'Sometimes restraint is the better part of valor.' };
+  if (l.includes('reef') || l.includes('rock')) return { name: 'The Reefs', tip: 'Careful navigation costs a turn but spares the hull.' };
+  if (l.includes('curse'))     return { name: 'The Curse',  tip: 'Cursed gold always collects its price.' };
+  return { name: 'The Deep', tip: 'The sea keeps its secrets.' };
+}
 
 const renderCellIcon = (icon: string | undefined, size: number) =>
   !icon ? null : (icon.startsWith('http') || icon.startsWith('/'))
@@ -446,7 +458,30 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   }, []);
   useEffect(() => {
     if (audioRef.current) audioRef.current.muted = muted;
+    setSfxMuted(muted);
   }, [muted]);
+
+  // ─── SFX declenches par les changements d'etat (diff-based) ───
+  const prevSfx = useRef({ gold: state.ship.gold, hull: state.ship.hull, zone: state.currentZone ?? 1, over: state.gameOver, mult: state.scoreMultiplier ?? 1, hmode: state.hunter?.mode ?? '', front: -99 });
+  useEffect(() => {
+    const p = prevSfx.current;
+    const front = state.stormDistance <= 0 ? -1 : state.grid.length + 2 - Math.floor((10 - state.stormDistance) / 3);
+    const attacked = !!state.log?.includes('Tentacles rake');
+    if (state.gameOver && !p.over) {
+      sfx('death');
+    } else if (!state.gameOver) {
+      if (state.ship.gold > p.gold) sfx('gold');
+      if (state.ship.gold < p.gold && state.showPort) sfx('buy');
+      if (attacked) sfx('hunter_attack');
+      else if (state.ship.hull < p.hull) sfx('damage');
+      if ((state.currentZone ?? 1) !== p.zone) sfx('zone');
+      if ((state.scoreMultiplier ?? 1) > p.mult) sfx('streak');
+      const hm = state.hunter?.mode ?? '';
+      if (hm !== p.hmode && (hm === 'stalking' || hm === 'frenzy')) sfx('hunter_near');
+      if (p.front !== -99 && front >= 0 && front < p.front) { sfx('thunder'); triggerShake(); }
+    }
+    prevSfx.current = { gold: state.ship.gold, hull: state.ship.hull, zone: state.currentZone ?? 1, over: state.gameOver, mult: state.scoreMultiplier ?? 1, hmode: state.hunter?.mode ?? '', front };
+  }, [state]);
 
 
 
@@ -686,12 +721,14 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                 const isShip = dx===0 && dy===0;
                 const isRevealed = cell.revealed || cell.visited;
                 const isStormed = (cell as any).stormed;
+                const stormFrontRow = s.stormDistance <= 0 ? -1 : s.grid.length + 2 - Math.floor((10 - s.stormDistance) / 3);
+                const isStormFront = isStormed && y === stormFrontRow;
                 const zonePalette = CELL_COLOR_BY_ZONE[s.currentZone ?? 1] ?? CELL_COLOR_BY_ZONE[1];
                 const zoneGlow = CELL_GLOW_BY_ZONE[s.currentZone ?? 1] ?? CELL_GLOW_BY_ZONE[1];
                 const glow = isStormed ? '#cc2222' : zoneGlow[cell.type];
                 const vSize = s.ship.vision * 2 + 1; const CELL_S = isMobile ? Math.floor((window.innerWidth - 16) / vSize) : Math.floor(Math.min(window.innerWidth * 0.50, window.innerHeight * 0.62) / vSize) - 4;
                 return (
-                  <motion.div key={`${x}-${y}`}
+                  <motion.div key={`${x}-${y}`} className={isStormFront ? 'storm-front' : undefined}
                     initial={isRevealed ? { opacity:0, scale:0.8 } : false}
                     animate={{ opacity:1, scale:1 }}
                     style={{
@@ -1144,6 +1181,24 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
               style={{ fontSize: isMobile ? 15 : 20, color:'rgba(255,255,255,0.35)', fontFamily:"'IM Fell English', cursive", marginBottom:16, maxWidth: isMobile ? '90vw' : 600, textAlign:'center', fontStyle:'italic', padding: isMobile ? '0 16px' : 0 }}>
               "{s.log}"
             </motion.div>
+
+            {/* Cause + lesson */}
+            {(() => { const dc = deriveDeathCause(s.log); return (
+              <motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:1.0}}
+                style={{ display:'flex', flexDirection:'column', gap:4, alignItems:'center', marginBottom:16, padding:'10px 18px', borderRadius:12, background:'rgba(150,0,0,0.12)', border:'1px solid rgba(220,60,60,0.25)', maxWidth: isMobile ? '90vw' : 560 }}>
+                <div style={{ fontSize: isMobile ? 13 : 15, color:'#ee6655', fontFamily:"'Cinzel', serif", letterSpacing:2 }}>
+                  ⚓ Sunk by: {dc.name}
+                </div>
+                <div style={{ fontSize: isMobile ? 12 : 14, color:'rgba(255,255,255,0.55)', fontFamily:"'IM Fell English', cursive", textAlign:'center' }}>
+                  {dc.tip}
+                </div>
+                {s.score < personalBest && personalBest > 0 && (
+                  <div style={{ fontSize: isMobile ? 11 : 13, color:'rgba(238,221,68,0.7)', fontFamily:"'Cinzel', serif" }}>
+                    {personalBest - s.score} pts short of your best ({personalBest})
+                  </div>
+                )}
+              </motion.div>
+            ); })()}
 
             {/* Stats */}
             <motion.div initial={{opacity:0, y:10}} animate={{opacity:1, y:0}} transition={{delay:1.1}}
