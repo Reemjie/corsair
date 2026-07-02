@@ -59460,8 +59460,9 @@ Resources:`;
                             flexDirection: `column`,
                             alignItems: `center`,
                             justifyContent: `flex-end`,
-                            padding: `24px`,
-                            paddingBottom: E ? 80 : 64
+                            padding: E ? `12px` : `24px`,
+                            paddingBottom: E ? `calc(20px + env(safe-area-inset-bottom))` : 64,
+                            overflowY: `auto`
                         },
                         children: [
                             B9[A.event.cellType] && (0, I.jsx)(`div`, {
@@ -59535,7 +59536,10 @@ Resources:`;
                                     (0, I.jsx)(`div`, {
                                         style: {
                                             display: `flex`,
-                                            gap: 16,
+                                            flexDirection: E ? `column` : `row`,
+                                            alignItems: E ? `stretch` : void 0,
+                                            width: E ? `100%` : void 0,
+                                            gap: E ? 10 : 16,
                                             justifyContent: `center`
                                         },
                                         children: A.event.choices.map((e, t)=>{
@@ -59552,8 +59556,8 @@ Resources:`;
                                                 },
                                                 style: {
                                                     flex: 1,
-                                                    maxWidth: 320,
-                                                    padding: `24px 28px`,
+                                                    maxWidth: E ? `none` : 320,
+                                                    padding: E ? `14px 16px` : `24px 28px`,
                                                     borderRadius: 16,
                                                     border: `1.5px solid ${a ? n : `rgba(255,255,255,0.1)`}55`,
                                                     background: a ? `linear-gradient(135deg, rgba(0,0,0,0.85) 0%, ${n}0f 100%)` : `rgba(0,0,0,0.5)`,
@@ -59671,7 +59675,8 @@ Resources:`;
                                         (0, I.jsx)(`div`, {
                                             style: {
                                                 display: `flex`,
-                                                gap: 10,
+                                                flexDirection: E ? `column` : `row`,
+                                                gap: E ? 8 : 10,
                                                 marginTop: 8
                                             },
                                             children: A.event.choices.map((e, t)=>{
@@ -59775,8 +59780,10 @@ Resources:`;
                         style: {
                             background: `rgba(5,10,18,0.97)`,
                             borderTop: `1px solid rgba(68,204,136,0.2)`,
-                            padding: `16px 24px`,
-                            flexShrink: 0
+                            padding: E ? `12px 12px calc(12px + env(safe-area-inset-bottom))` : `16px 24px`,
+                            flexShrink: 0,
+                            maxHeight: E ? `62vh` : void 0,
+                            overflowY: E ? `auto` : void 0
                         },
                         children: [
                             (0, I.jsxs)(`div`, {
@@ -59831,7 +59838,7 @@ Resources:`;
                                             (0, I.jsx)(`div`, {
                                                 style: {
                                                     display: `grid`,
-                                                    gridTemplateColumns: `repeat(3,1fr)`,
+                                                    gridTemplateColumns: E ? `1fr` : `repeat(3,1fr)`,
                                                     gap: 8
                                                 },
                                                 children: [
@@ -60773,405 +60780,6 @@ Resources:`;
                             })
                         ]
                     })
-                }),
-                (0, I.jsx)(O6, {
-                    children: se && (0, I.jsxs)(X.div, {
-                        initial: {
-                            opacity: 0
-                        },
-                        animate: {
-                            opacity: 1
-                        },
-                        exit: {
-                            opacity: 0
-                        },
-                        transition: {
-                            duration: .3
-                        },
-                        style: {
-                            position: `fixed`,
-                            inset: 0,
-                            zIndex: 150,
-                            pointerEvents: `none`
-                        },
-                        children: [
-                            (0, I.jsx)(`video`, {
-                                src: `/corsair/scenes/hunter.mp4`,
-                                autoPlay: !0,
-                                muted: !0,
-                                playsInline: !0,
-                                preload: `auto`,
-                                style: {
-                                    width: `100%`,
-                                    height: `100%`,
-                                    objectFit: `cover`
-                                }
-                            }),
-                            (0, I.jsx)(`div`, {
-                                style: {
-                                    position: `absolute`,
-                                    inset: 0,
-                                    background: `rgba(0,0,0,0.3)`
-                                }
-                            }),
-                            (0, I.jsxs)(X.div, {
-                                initial: {
-                                    opacity: 0,
-                                    y: 20
-                                },
-                                animate: {
-                                    opacity: 1,
-                                    y: 0
-                                },
-                                transition: {
-                                    delay: .3
-                                },
-                                style: {
-                                    position: `absolute`,
-                                    bottom: `20%`,
-                                    left: 0,
-                                    right: 0,
-                                    textAlign: `center`
-                                },
-                                children: [
-                                    (0, I.jsx)(`div`, {
-                                        style: {
-                                            fontSize: 32,
-                                            color: `#cc44ee`,
-                                            fontFamily: `'Pirata One', cursive`,
-                                            letterSpacing: 3,
-                                            textShadow: `0 0 30px rgba(150,0,150,0.9)`
-                                        },
-                                        children: `THE HUNTER STRIKES!`
-                                    }),
-                                    (0, I.jsx)(`div`, {
-                                        style: {
-                                            fontSize: 16,
-                                            color: `rgba(255,255,255,0.7)`,
-                                            fontFamily: `'IM Fell English', cursive`,
-                                            marginTop: 6
-                                        },
-                                        children: `Tentacles rake the hull`
-                                    })
-                                ]
-                            })
-                        ]
-                    })
-                }),
-                E && (0, I.jsxs)(I.Fragment, {
-                    children: [
-                        !A.event && !A.showPort && !A.gameOver && (0, I.jsxs)(`div`, {
-                            style: {
-                                position: `fixed`,
-                                right: 8,
-                                bottom: 90,
-                                display: `flex`,
-                                flexDirection: `column`,
-                                gap: 6,
-                                zIndex: 30
-                            },
-                            children: [
-                                (0, I.jsx)(X.button, {
-                                    whileTap: {
-                                        scale: .9
-                                    },
-                                    onClick: ()=>ce(k === `ship` ? null : `ship`),
-                                    style: {
-                                        width: 44,
-                                        height: 44,
-                                        borderRadius: 10,
-                                        border: `1px solid ${k === `ship` ? `#44cc88` : `rgba(255,255,255,0.2)`}`,
-                                        background: k === `ship` ? `rgba(68,204,136,0.2)` : `rgba(0,0,0,0.7)`,
-                                        color: k === `ship` ? `#44cc88` : `rgba(255,255,255,0.6)`,
-                                        fontSize: 20,
-                                        cursor: `pointer`,
-                                        display: `flex`,
-                                        alignItems: `center`,
-                                        justifyContent: `center`
-                                    },
-                                    children: `⚓`
-                                }),
-                                (0, I.jsx)(X.button, {
-                                    whileTap: {
-                                        scale: .9
-                                    },
-                                    onClick: ()=>ce(k === `upgrades` ? null : `upgrades`),
-                                    style: {
-                                        width: 44,
-                                        height: 44,
-                                        borderRadius: 10,
-                                        border: `1px solid ${k === `upgrades` ? `#c8a030` : `rgba(255,255,255,0.2)`}`,
-                                        background: k === `upgrades` ? `rgba(200,160,48,0.2)` : `rgba(0,0,0,0.7)`,
-                                        color: k === `upgrades` ? `#c8a030` : `rgba(255,255,255,0.6)`,
-                                        fontSize: 20,
-                                        cursor: `pointer`,
-                                        display: `flex`,
-                                        alignItems: `center`,
-                                        justifyContent: `center`
-                                    },
-                                    children: `⚔️`
-                                })
-                            ]
-                        }),
-                        (0, I.jsx)(O6, {
-                            children: k && (0, I.jsxs)(X.div, {
-                                initial: {
-                                    x: `100%`
-                                },
-                                animate: {
-                                    x: 0
-                                },
-                                exit: {
-                                    x: `100%`
-                                },
-                                transition: {
-                                    type: `tween`,
-                                    duration: .25
-                                },
-                                style: {
-                                    position: `fixed`,
-                                    right: 0,
-                                    top: 60,
-                                    bottom: 70,
-                                    width: `75vw`,
-                                    maxWidth: 280,
-                                    background: `linear-gradient(135deg,#0a1422,#060e18)`,
-                                    borderLeft: `1px solid rgba(255,255,255,0.1)`,
-                                    zIndex: 25,
-                                    overflowY: `auto`,
-                                    padding: `12px 10px`
-                                },
-                                onClick: (e)=>e.stopPropagation(),
-                                children: [
-                                    k === `ship` && (0, I.jsxs)(I.Fragment, {
-                                        children: [
-                                            (0, I.jsx)(`div`, {
-                                                style: {
-                                                    fontSize: 13,
-                                                    color: `rgba(255,255,255,0.4)`,
-                                                    letterSpacing: 2,
-                                                    fontFamily: `'Cinzel', serif`,
-                                                    marginBottom: 8
-                                                },
-                                                children: `SHIP`
-                                            }),
-                                            (0, I.jsx)(`div`, {
-                                                style: {
-                                                    fontSize: 12,
-                                                    color: `rgba(255,255,255,0.5)`,
-                                                    marginBottom: 6
-                                                },
-                                                children: `EQUIPPED`
-                                            }),
-                                            A.ship.upgrades.length === 0 ? (0, I.jsx)(`div`, {
-                                                style: {
-                                                    fontSize: 13,
-                                                    color: `rgba(255,255,255,0.3)`,
-                                                    fontStyle: `italic`,
-                                                    marginBottom: 8
-                                                },
-                                                children: `None yet`
-                                            }) : A.ship.upgrades.map((e)=>{
-                                                let t = K9.find((t)=>t.id === e);
-                                                return (0, I.jsxs)(`div`, {
-                                                    style: {
-                                                        fontSize: 13,
-                                                        color: `#c8a030`,
-                                                        marginBottom: 4,
-                                                        display: `flex`,
-                                                        alignItems: `center`,
-                                                        gap: 6
-                                                    },
-                                                    children: [
-                                                        (0, I.jsx)(`img`, {
-                                                            src: z9[e],
-                                                            style: {
-                                                                width: 18,
-                                                                height: 18,
-                                                                objectFit: `contain`
-                                                            }
-                                                        }),
-                                                        t.name
-                                                    ]
-                                                }, e);
-                                            }),
-                                            (0, I.jsx)(`div`, {
-                                                style: {
-                                                    fontSize: 12,
-                                                    color: `rgba(255,255,255,0.5)`,
-                                                    marginTop: 10,
-                                                    marginBottom: 6
-                                                },
-                                                children: `COMPONENTS`
-                                            }),
-                                            [
-                                                {
-                                                    key: `hull`,
-                                                    label: `Hull`,
-                                                    icon: `⚓`,
-                                                    color: `#44cc88`,
-                                                    levels: [
-                                                        `20 HP`,
-                                                        `28 HP`,
-                                                        `38 HP`
-                                                    ]
-                                                },
-                                                {
-                                                    key: `weapon`,
-                                                    label: `Weapon`,
-                                                    icon: `⚔️`,
-                                                    color: `#ee6644`,
-                                                    levels: [
-                                                        `P2`,
-                                                        `P5`,
-                                                        `P9`
-                                                    ]
-                                                },
-                                                {
-                                                    key: `nav`,
-                                                    label: `Nav`,
-                                                    icon: `🔭`,
-                                                    color: `#6aaccc`,
-                                                    levels: [
-                                                        `V1`,
-                                                        `V2`,
-                                                        `V3`
-                                                    ]
-                                                }
-                                            ].map((e)=>{
-                                                let t = A.ship.levels[e.key];
-                                                return (0, I.jsxs)(`div`, {
-                                                    style: {
-                                                        display: `flex`,
-                                                        alignItems: `center`,
-                                                        gap: 8,
-                                                        marginBottom: 6
-                                                    },
-                                                    children: [
-                                                        (0, I.jsx)(`span`, {
-                                                            children: e.icon
-                                                        }),
-                                                        (0, I.jsx)(`span`, {
-                                                            style: {
-                                                                color: e.color,
-                                                                fontSize: 13,
-                                                                width: 50
-                                                            },
-                                                            children: e.label
-                                                        }),
-                                                        (0, I.jsx)(`div`, {
-                                                            style: {
-                                                                display: `flex`,
-                                                                gap: 3
-                                                            },
-                                                            children: [
-                                                                0,
-                                                                1,
-                                                                2
-                                                            ].map((n)=>(0, I.jsx)(`div`, {
-                                                                    style: {
-                                                                        width: 14,
-                                                                        height: 14,
-                                                                        borderRadius: 3,
-                                                                        background: n <= t ? e.color : `rgba(255,255,255,0.1)`,
-                                                                        border: `1px solid ${n <= t ? e.color + `88` : `rgba(255,255,255,0.05)`}`
-                                                                    }
-                                                                }, n))
-                                                        }),
-                                                        (0, I.jsx)(`span`, {
-                                                            style: {
-                                                                color: e.color,
-                                                                fontSize: 12
-                                                            },
-                                                            children: e.levels[t]
-                                                        })
-                                                    ]
-                                                }, e.key);
-                                            })
-                                        ]
-                                    }),
-                                    k === `upgrades` && (0, I.jsxs)(I.Fragment, {
-                                        children: [
-                                            (0, I.jsx)(`div`, {
-                                                style: {
-                                                    fontSize: 13,
-                                                    color: `rgba(255,255,255,0.4)`,
-                                                    letterSpacing: 2,
-                                                    fontFamily: `'Cinzel', serif`,
-                                                    marginBottom: 8
-                                                },
-                                                children: `UPGRADES`
-                                            }),
-                                            K9.map((e)=>{
-                                                let t = A.ship.upgrades.includes(e.id), n = q9[e.build];
-                                                return (0, I.jsxs)(`div`, {
-                                                    style: {
-                                                        marginBottom: 10,
-                                                        opacity: t ? 1 : .6
-                                                    },
-                                                    children: [
-                                                        (0, I.jsxs)(`div`, {
-                                                            style: {
-                                                                display: `flex`,
-                                                                alignItems: `center`,
-                                                                gap: 6,
-                                                                marginBottom: 3
-                                                            },
-                                                            children: [
-                                                                (0, I.jsx)(`img`, {
-                                                                    src: z9[e.id],
-                                                                    style: {
-                                                                        width: 20,
-                                                                        height: 20,
-                                                                        objectFit: `contain`
-                                                                    }
-                                                                }),
-                                                                (0, I.jsx)(`span`, {
-                                                                    style: {
-                                                                        fontSize: 13,
-                                                                        color: t ? n : `rgba(255,255,255,0.7)`,
-                                                                        fontFamily: `'Pirata One', cursive`
-                                                                    },
-                                                                    children: e.name
-                                                                }),
-                                                                t && (0, I.jsx)(`span`, {
-                                                                    style: {
-                                                                        fontSize: 10,
-                                                                        color: `#44cc88`,
-                                                                        marginLeft: `auto`
-                                                                    },
-                                                                    children: `✓`
-                                                                })
-                                                            ]
-                                                        }),
-                                                        (0, I.jsx)(`div`, {
-                                                            style: {
-                                                                lineHeight: 1.5
-                                                            },
-                                                            children: (0, I.jsx)(G9, {
-                                                                pros: e.pros,
-                                                                cons: e.cons,
-                                                                fontSize: 11,
-                                                                opacity: .4
-                                                            })
-                                                        })
-                                                    ]
-                                                }, e.id);
-                                            })
-                                        ]
-                                    })
-                                ]
-                            })
-                        }),
-                        k && (0, I.jsx)(`div`, {
-                            style: {
-                                position: `fixed`,
-                                inset: 0,
-                                zIndex: 24
-                            },
-                            onClick: ()=>ce(null)
-                        })
-                    ]
                 }),
                 (0, I.jsx)(O6, {
                     children: se && (0, I.jsxs)(X.div, {
