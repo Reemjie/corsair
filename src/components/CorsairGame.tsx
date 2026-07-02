@@ -678,7 +678,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                   }
                   return set;
                 })();
-                const isPredicted = s.hunter?.active && !s.hunter?.mode?.includes('tracking') && hunterPredictions.has(`${x}-${y}`) && x!==s.hunter.x && y!==s.hunter.y;
+                const isPredicted = s.hunter?.active && !s.hunter?.mode?.includes('tracking') && hunterPredictions.has(`${x}-${y}`) && !(x===s.hunter.x && y===s.hunter.y);
                 const cell = (x>=0&&x<GRID_SIZE&&y>=0&&y<GRID_SIZE) ? s.grid[y][x] : {type:'sea' as const,revealed:false,visited:false,value:0};
                 const absX = s.ship.x + dx;
                 const absY = s.ship.y + dy;
@@ -1300,7 +1300,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
       </AnimatePresence>
       {/* HUNTER ATTACK NOTIFICATION */}
       <AnimatePresence>
-        {showHunterAttack && (
+        {showHunterAttack && !isMobile && (
           <motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}
             transition={{duration:0.3}}
             style={{ position:'fixed', inset:0, zIndex:150, pointerEvents:'none' }}>

@@ -427,11 +427,9 @@ function emitHunterFeedback(ctx: MoveContext, h: NonNullable<MoveContext['hunter
     ctx.log = (ctx.log ? ctx.log + ' ' : '') + 'It changes course. It seems to predict you.';
   } else if (h.mode === 'searching') {
     ctx.log = (ctx.log ? ctx.log + ' ' : '') + 'You lose it in the fog...';
-  } else if (dist <= 2) {
+  } else if (dist <= 2 && ctx.rng.next() < 0.4) {
     const logs = ['The sea goes silent.','Something massive shifts beneath the fog.','You hear wood cracking behind you.','The water darkens.','A foul smell rises from the deep.'];
-    if (!ctx.log.includes('silence') && !ctx.log.includes('beneath') && !ctx.log.includes('creak') && !ctx.log.includes('darkens') && !ctx.log.includes('foul')) {
-      ctx.log = (ctx.log ? ctx.log + ' ' : '') + logs[Math.floor(ctx.rng.next() * logs.length)];
-    }
+    ctx.log = (ctx.log ? ctx.log + ' ' : '') + logs[Math.floor(ctx.rng.next() * logs.length)];
   }
 }
 
@@ -490,8 +488,8 @@ function stepHunter(ctx: MoveContext): MoveContext {
     const dmg = Math.max(BALANCE.hunter.minDamage, BALANCE.hunter.baseDamage - ctx.ship.power);
     ctx.ship = { ...ctx.ship, hull: Math.max(0, ctx.ship.hull - dmg) };
     ctx.log += ` It surfaces without warning. Tentacles rake the hull. -${dmg}.`;
-    ctx.state = { ...ctx.state, hunterAttacksSurvived: (ctx.state.hunterAttacksSurvived ?? 0) + 1 };
     if (ctx.ship.hull <= 0) ctx.gameOver = true;
+    else ctx.state = { ...ctx.state, hunterAttacksSurvived: (ctx.state.hunterAttacksSurvived ?? 0) + 1 };
   }
 
   ctx.hunter = h;
