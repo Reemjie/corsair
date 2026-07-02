@@ -56407,32 +56407,35 @@ Resources:`;
                     ...e,
                     stormed: !0,
                     revealed: !0
-                } : e)), e.grid[e.ny][e.nx].stormed && !e.ship.upgrades.includes(`rider`) && (e.log = `The storm engulfs your ship. There is no escape.`, e.gameOver = !0, e.log = `The storm engulfs your ship!`), t <= 0 && (e.gameOver = !0, e.log = `The storm consumes your ship...`), e;
+                } : e)), e.grid[e.ny][e.nx].stormed && !e.ship.upgrades.includes(`rider`) && (e.gameOver = !0, e.log = `The storm engulfs your ship. There is no escape.`), t <= 0 && (e.gameOver = !0, e.log = `The storm consumes your ship...`), e;
     }
     function Tse(e) {
         let { turn: t } = e;
         if (e.state.currentZone >= 3) return e;
-        let n = t - (e.state.zoneEntryTurn ?? 0) >= 12;
-        if (!e.state.portalSpawned && n && e.rng.next() < .35) {
-            let t = [];
-            for(let n = 2; n < 10; n++)for(let r = 2; r < 10; r++){
-                let i = e.grid[n][r], a = n < e.ny - 1, o = Math.abs(r - e.nx) <= e.ny - n;
-                i.type === `sea` && !i.visited && !i.stormed && a && o && !(r === e.nx && n === e.ny) && t.push({
-                    x: r,
-                    y: n
-                });
-            }
-            if (t.length > 0) {
-                let { x: n, y: r } = t[Math.floor(e.rng.next() * t.length)];
-                e.grid = e.grid.map((e, t)=>e.map((e, i)=>i === n && t === r ? {
+        let n = t - (e.state.zoneEntryTurn ?? 0) >= 12, r = n && t - (e.state.zoneEntryTurn ?? 0) >= 18;
+        if (!e.state.portalSpawned && n && (e.rng.next() < .35 || r)) {
+            let t = (t)=>{
+                let n = [];
+                for(let r = 0; r < 10; r++)for(let i = 1; i < 11; i++){
+                    let a = e.grid[r][i], o = r <= e.ny, s = !(i === e.nx && r === e.ny), c = Math.abs(i - e.nx) + (e.ny - r);
+                    a.type === `sea` && !a.visited && !a.stormed && o && s && c >= t && n.push({
+                        x: i,
+                        y: r
+                    });
+                }
+                return n;
+            }, n = t(3);
+            if (n.length === 0 && (n = t(1)), n.length > 0) {
+                let t = Math.floor(e.rng.next() * n.length), { x: r, y: i } = n[t];
+                e.grid = e.grid.map((e, t)=>e.map((e, n)=>n === r && t === i ? {
                             ...e,
                             type: `portal`
                         } : e)), e.state = {
                     ...e.state,
                     portalSpawned: !0
                 };
-                let i = E9[e.state.currentZone]?.portalMessage;
-                i && (e.log = (e.log ? e.log + ` ` : ``) + i);
+                let a = E9[e.state.currentZone]?.portalMessage;
+                a && (e.log = (e.log ? e.log + ` ` : ``) + a);
             }
         }
         if (e.state.portalSpawned) {
@@ -56558,8 +56561,8 @@ Resources:`;
             }, m = {
                 x: Math.max(0, Math.min(11, t + s)),
                 y: Math.max(0, Math.min(11, n + c))
-            };
-            i.mode === `tracking` && (i.skipTurn ?? !1) || (i = Ose(i, p, m, t, n, e.rng)), i = {
+            }, h = O9(e.state.dangerStreak).hunterAggro, g = e.ship.upgrades.includes(`greed`) && Math.floor(e.ship.gold / T9.greed.corruptionStep) >= T9.greed.corruptionHunterAt;
+            i.mode === `tracking` && (i.skipTurn ?? !1) && !h && !g || (i = Ose(i, p, m, t, n, e.rng)), i = {
                 ...i,
                 skipTurn: i.mode === `tracking` ? !(i.skipTurn ?? !1) : !1,
                 lastMoveDir: l
