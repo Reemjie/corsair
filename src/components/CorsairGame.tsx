@@ -923,7 +923,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
       <AnimatePresence>
         {s.event && SCENE_TITLES[s.event.cellType] && (
           <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} exit={{ opacity:0 }}
-            style={{ position:'fixed', inset:0, zIndex:100, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'flex-end', padding:'24px', paddingBottom: isMobile ? 80 : 64 }}>
+            style={{ position:'fixed', inset:0, zIndex:100, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'flex-end', padding: isMobile ? '12px' : '24px', paddingBottom: isMobile ? 'calc(20px + env(safe-area-inset-bottom))' : 64, overflowY:'auto' }}>
             {/* Fond de scène */}
             {SCENE_BG[s.event.cellType] && (
               <div style={{ position:'absolute', inset:0, zIndex:0, backgroundImage:`url(${SCENE_BG[s.event.cellType]})`, backgroundSize:'cover', backgroundPosition:'center' }} />
@@ -939,7 +939,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                   {SCENE_TITLES[s.event.cellType] ?? s.event.cellType}
                 </div>
               </div>
-              <div style={{ display:'flex', gap:16, justifyContent:'center' }}>
+              <div style={{ display:'flex', flexDirection: isMobile ? 'column' : 'row', alignItems: isMobile ? 'stretch' : undefined, width: isMobile ? '100%' : undefined, gap: isMobile ? 10 : 16, justifyContent:'center' }}>
                 {s.event.choices.map((ch, i) => {
                   const rc = ch.risk==='safe'?'#44cc88':ch.risk==='risky'?'#eedd44':'#ee6644';
                   // Detect gold cost in description
@@ -952,7 +952,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                         if (!canAfford) return;
                         resolve(i);
                       }}
-                      style={{ flex:1, maxWidth:320, padding:'24px 28px', borderRadius:16, border:`1.5px solid ${canAfford ? rc : 'rgba(255,255,255,0.1)'}55`, background: canAfford ? `linear-gradient(135deg, rgba(0,0,0,0.85) 0%, ${rc}0f 100%)` : 'rgba(0,0,0,0.5)', cursor: canAfford ? 'pointer' : 'not-allowed', color: canAfford ? '#e8e0d0' : 'rgba(255,255,255,0.3)', fontFamily:"'Pirata One', cursive", textAlign:'left', backdropFilter:'blur(8px)', boxShadow: canAfford ? `0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 ${rc}22` : 'none', transition:'all 0.2s', opacity: canAfford ? 1 : 0.5 }}>
+                      style={{ flex:1, maxWidth: isMobile ? 'none' : 320, padding: isMobile ? '14px 16px' : '24px 28px', borderRadius:16, border:`1.5px solid ${canAfford ? rc : 'rgba(255,255,255,0.1)'}55`, background: canAfford ? `linear-gradient(135deg, rgba(0,0,0,0.85) 0%, ${rc}0f 100%)` : 'rgba(0,0,0,0.5)', cursor: canAfford ? 'pointer' : 'not-allowed', color: canAfford ? '#e8e0d0' : 'rgba(255,255,255,0.3)', fontFamily:"'Pirata One', cursive", textAlign:'left', backdropFilter:'blur(8px)', boxShadow: canAfford ? `0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 ${rc}22` : 'none', transition:'all 0.2s', opacity: canAfford ? 1 : 0.5 }}>
                       <div style={{ marginBottom:12, textAlign:'center' }}><img src={CHOICE_ICONS[ch.icon] || ''} style={{ width:72, height:72, objectFit:'contain' }}/></div>
                       <div style={{ fontSize:24, fontWeight:700, color:rc, textAlign:'center' }}>{ch.label}</div>
                       <div style={{ fontSize:20, color:'rgba(255,255,255,0.8)', fontFamily:"'IM Fell English', cursive", marginTop:8, textAlign:'center' }}>{ch.label === 'Pact' && s.event?.cellType === 'kraken' ? `-${Math.min(20, s.ship.hull - 1)} HP → 1 HP, storm +6 turns. Hunter awakens!` : ch.desc}</div>
@@ -977,7 +977,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                 <div style={{ fontSize:21, fontWeight:700, marginBottom:4, color:'#e8e0d0' }}>
                   {s.event.cellType.charAt(0).toUpperCase()+s.event.cellType.slice(1).replace('_',' ')}
                 </div>
-                <div style={{ display:'flex', gap:10, marginTop:8 }}>
+                <div style={{ display:'flex', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 8 : 10, marginTop:8 }}>
                   {s.event.choices.map((ch, i) => {
                     const rc = ch.risk==='safe'?'#44cc88':ch.risk==='risky'?'#eedd44':'#ee6644';
                     const goldMatch2 = ch.desc.match(/(?<!\+)(\d+)\s*(?:gold\b|g\b)/i);
@@ -1013,7 +1013,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
       <AnimatePresence>
         {s.showPort && !s.gameOver && (
           <motion.div initial={{ y:100,opacity:0 }} animate={{ y:0,opacity:1 }} exit={{ y:100,opacity:0 }}
-            style={{ background:'rgba(5,10,18,0.97)', borderTop:'1px solid rgba(68,204,136,0.2)', padding:'16px 24px', flexShrink:0 }}>
+            style={{ background:'rgba(5,10,18,0.97)', borderTop:'1px solid rgba(68,204,136,0.2)', padding: isMobile ? '12px 12px calc(12px + env(safe-area-inset-bottom))' : '16px 24px', flexShrink:0, maxHeight: isMobile ? '62vh' : undefined, overflowY: isMobile ? 'auto' : undefined }}>
             <div style={{ maxWidth:700, margin:'0 auto' }}>
               <div style={{ display:'flex', alignItems:'center', gap:8, marginBottom:12 }}>
                 <img src={anchorImg} style={{ width:40, height:40, objectFit:'contain' }}/>
@@ -1022,7 +1022,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
               {/* Composants du navire */}
               <div style={{ marginBottom:16 }}>
                 <div style={{ fontSize:14, letterSpacing:3, color:'rgba(255,255,255,0.5)', fontFamily:"'Cinzel', serif", marginBottom:10 }}>SHIP COMPONENTS</div>
-                <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:8 }}>
+                <div style={{ display:'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3,1fr)', gap:8 }}>
                   {([
                     { key:'hull',   label:'HULL',       img:hullImg,   color:'#44cc88', effects:['Hull 20','Hull 28 −2 storm dmg','Hull 38 −3 env dmg'] },
                     { key:'weapon', label:'ARMEMENT',   img:powerImg,  color:'#ee6644', effects:['Power 2','Power 5 +min dmg','Power 9 −3 combat dmg'] },
@@ -1298,104 +1298,6 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
           </motion.div>
         )}
       </AnimatePresence>
-      {/* HUNTER ATTACK NOTIFICATION */}
-      <AnimatePresence>
-        {showHunterAttack && (
-          <motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}
-            transition={{duration:0.3}}
-            style={{ position:'fixed', inset:0, zIndex:150, pointerEvents:'none' }}>
-            <video src={`${import.meta.env.BASE_URL}scenes/hunter.mp4`} autoPlay muted playsInline preload="auto" style={{ width:'100%', height:'100%', objectFit:'cover' }}/>
-            <div style={{ position:'absolute', inset:0, background:'rgba(0,0,0,0.3)' }}/>
-            <motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{delay:0.3}}
-              style={{ position:'absolute', bottom:'20%', left:0, right:0, textAlign:'center' }}>
-              <div style={{ fontSize: 32, color:'#cc44ee', fontFamily:"'Pirata One', cursive", letterSpacing:3, textShadow:'0 0 30px rgba(150,0,150,0.9)' }}>THE HUNTER STRIKES!</div>
-              <div style={{ fontSize:16, color:'rgba(255,255,255,0.7)', fontFamily:"'IM Fell English', cursive", marginTop:6 }}>Tentacles rake the hull</div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* MOBILE DRAWER */}
-      {isMobile && (
-        <>
-          {/* Toggle buttons — hide during events */}
-          {!s.event && !s.showPort && !s.gameOver && <div style={{ position:'fixed', right:8, bottom:90, display:'flex', flexDirection:'column', gap:6, zIndex:30 }}>
-            <motion.button whileTap={{scale:0.9}}
-              onClick={() => setMobileDrawer(mobileDrawer === 'ship' ? null : 'ship')}
-              style={{ width:44, height:44, borderRadius:10, border:`1px solid ${mobileDrawer==='ship' ? '#44cc88' : 'rgba(255,255,255,0.2)'}`, background: mobileDrawer==='ship' ? 'rgba(68,204,136,0.2)' : 'rgba(0,0,0,0.7)', color: mobileDrawer==='ship' ? '#44cc88' : 'rgba(255,255,255,0.6)', fontSize:20, cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center' }}>⚓</motion.button>
-            <motion.button whileTap={{scale:0.9}}
-              onClick={() => setMobileDrawer(mobileDrawer === 'upgrades' ? null : 'upgrades')}
-              style={{ width:44, height:44, borderRadius:10, border:`1px solid ${mobileDrawer==='upgrades' ? '#c8a030' : 'rgba(255,255,255,0.2)'}`, background: mobileDrawer==='upgrades' ? 'rgba(200,160,48,0.2)' : 'rgba(0,0,0,0.7)', color: mobileDrawer==='upgrades' ? '#c8a030' : 'rgba(255,255,255,0.6)', fontSize:20, cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center' }}>⚔️</motion.button>
-          </div>}
-
-          {/* Drawer overlay */}
-          <AnimatePresence>
-            {mobileDrawer && (
-              <motion.div initial={{x:'100%'}} animate={{x:0}} exit={{x:'100%'}} transition={{type:'tween',duration:0.25}}
-                style={{ position:'fixed', right:0, top:60, bottom:70, width:'75vw', maxWidth:280, background:'linear-gradient(135deg,#0a1422,#060e18)', borderLeft:'1px solid rgba(255,255,255,0.1)', zIndex:25, overflowY:'auto', padding:'12px 10px' }}
-                onClick={e => e.stopPropagation()}>
-                {mobileDrawer === 'ship' && (
-                  <>
-                    <div style={{ fontSize:13, color:'rgba(255,255,255,0.4)', letterSpacing:2, fontFamily:"'Cinzel', serif", marginBottom:8 }}>SHIP</div>
-                    {/* Equipped upgrades */}
-                    <div style={{ fontSize:12, color:'rgba(255,255,255,0.5)', marginBottom:6 }}>EQUIPPED</div>
-                    {s.ship.upgrades.length === 0
-                      ? <div style={{ fontSize:13, color:'rgba(255,255,255,0.3)', fontStyle:'italic', marginBottom:8 }}>None yet</div>
-                      : s.ship.upgrades.map(id => {
-                          const u = UPGRADES.find(u=>u.id===id)!;
-                          return <div key={id} style={{ fontSize:13, color:'#c8a030', marginBottom:4, display:'flex', alignItems:'center', gap:6 }}><img src={UPGRADE_ICONS[id]} style={{width:18,height:18,objectFit:'contain'}}/>{u.name}</div>;
-                        })
-                    }
-                    {/* Components */}
-                    <div style={{ fontSize:12, color:'rgba(255,255,255,0.5)', marginTop:10, marginBottom:6 }}>COMPONENTS</div>
-                    {([
-                      { key:'hull', label:'Hull', icon:'⚓', color:'#44cc88', levels:['20 HP','28 HP','38 HP'] },
-                      { key:'weapon', label:'Weapon', icon:'⚔️', color:'#ee6644', levels:['P2','P5','P9'] },
-                      { key:'nav', label:'Nav', icon:'🔭', color:'#6aaccc', levels:['V1','V2','V3'] },
-                    ] as const).map(comp => {
-                      const lvl = s.ship.levels[comp.key];
-                      return (
-                        <div key={comp.key} style={{ display:'flex', alignItems:'center', gap:8, marginBottom:6 }}>
-                          <span>{comp.icon}</span>
-                          <span style={{ color:comp.color, fontSize:13, width:50 }}>{comp.label}</span>
-                          <div style={{ display:'flex', gap:3 }}>
-                            {[0,1,2].map(i => (
-                              <div key={i} style={{ width:14, height:14, borderRadius:3, background: i<=lvl ? comp.color : 'rgba(255,255,255,0.1)', border:`1px solid ${i<=lvl ? comp.color+'88' : 'rgba(255,255,255,0.05)'}` }}/>
-                            ))}
-                          </div>
-                          <span style={{ color:comp.color, fontSize:12 }}>{comp.levels[lvl]}</span>
-                        </div>
-                      );
-                    })}
-                  </>
-                )}
-                {mobileDrawer === 'upgrades' && (
-                  <>
-                    <div style={{ fontSize:13, color:'rgba(255,255,255,0.4)', letterSpacing:2, fontFamily:"'Cinzel', serif", marginBottom:8 }}>UPGRADES</div>
-                    {UPGRADES.map(upg => {
-                      const owned = s.ship.upgrades.includes(upg.id as UpgradeId);
-                      const bc = BUILD_COLOR[upg.build];
-                      return (
-                        <div key={upg.id} style={{ marginBottom:10, opacity: owned ? 1 : 0.6 }}>
-                          <div style={{ display:'flex', alignItems:'center', gap:6, marginBottom:3 }}>
-                            <img src={UPGRADE_ICONS[upg.id]} style={{width:20,height:20,objectFit:'contain'}}/>
-                            <span style={{ fontSize:13, color: owned ? bc : 'rgba(255,255,255,0.7)', fontFamily:"'Pirata One', cursive" }}>{upg.name}</span>
-                            {owned && <span style={{ fontSize:10, color:'#44cc88', marginLeft:'auto' }}>✓</span>}
-                          </div>
-                          <div style={{ lineHeight:1.5 }}><UpgradeDesc pros={upg.pros} cons={upg.cons} fontSize={11} opacity={0.4} /></div>
-                        </div>
-                      );
-                    })}
-                  </>
-                )}
-              </motion.div>
-            )}
-          </AnimatePresence>
-          {/* Backdrop */}
-          {mobileDrawer && <div style={{ position:'fixed', inset:0, zIndex:24 }} onClick={() => setMobileDrawer(null)}/>}
-        </>
-      )}
-
       {/* HUNTER ATTACK NOTIFICATION */}
       <AnimatePresence>
         {showHunterAttack && (
