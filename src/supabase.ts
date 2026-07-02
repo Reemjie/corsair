@@ -28,13 +28,15 @@ export async function getLeaderboard() {
 }
 
 export async function submitDailyScore(wallet: string, score: number, date: string, seed: number, username?: string) {
-  const { error } = await supabase.from('corsair_daily_scores').upsert({
+  // Insert simple : avec RLS INSERT-only, un seul score par joueur et par jour — personne ne peut le modifier.
+  const { error } = await supabase.from('corsair_daily_scores').insert({
     wallet_address: wallet,
     username: username ?? null,
     score,
     date,
     seed: String(seed),
-  }, { onConflict: 'wallet_address,date' });
+  });
+  if (error) console.warn('[supabase] submitDailyScore failed:', error.message);
   return !error;
 }
 
@@ -74,7 +76,7 @@ export async function checkNFTConditions(runData: {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5YWhib2VhZWtlam1jZ2tuc3R5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyNjQ2NDIsImV4cCI6MjA4ODg0MDY0Mn0.utkttOZq0ilQgpd-6Shl3aH7dscaTwygzpl1G1krOPk`,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
         },
         body: JSON.stringify(runData),
       }

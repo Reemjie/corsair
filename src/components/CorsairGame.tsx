@@ -161,6 +161,8 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   const [submitting, setSubmitting] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const isDailyRun = dailySeed !== undefined;
+  // Daily : la tentative est consommee au LANCEMENT de la run (equite tournoi — un refresh ne redonne pas d'essai)
+  useEffect(() => { if (isDailyRun) markDailyPlayed(); }, []);
   useEffect(() => {
     const fn = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener('resize', fn);
@@ -352,7 +354,10 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   // Death cinematic trigger
   useEffect(() => {
     if (state.gameOver) {
-      if (dailySeed !== undefined) markDailyPlayed();
+      if (isDailyRun && walletAddress && state.score > 0) {
+        const today = new Date().toISOString().slice(0, 10);
+        submitDailyScore(walletAddress, state.score, today, state.seed, username ?? undefined);
+      }
       if (!isMobile) {
         // Si le hunter attack est en cours, attendre qu'il se termine
         const delay = hunterAttackRef.current ? 8000 : 0;
@@ -1199,10 +1204,6 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                     const ok = await submitScore(walletAddress, s.score, s.runTitle, s.turn, s.currentZone ?? 1, s.seed, username ?? undefined);
                     if (ok) {
                       setScoreSubmitted(true);
-                      if (isDailyRun) {
-                        const today = new Date().toISOString().slice(0, 10);
-                        await submitDailyScore(walletAddress, s.score, today, s.seed, username ?? undefined);
-                      }
                     }
                     // On-chain submission
                     if (account) {
