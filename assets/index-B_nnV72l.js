@@ -63001,7 +63001,7 @@ Resources:`;
                                                         textAlign: `center`,
                                                         letterSpacing: 1
                                                     },
-                                                    children: `🏆 Next NFT tournament coming soon — follow @CorsairGame`
+                                                    children: `🏆 Next NFT tournament coming soon — follow @PlayCorsair`
                                                 })
                                             ]
                                         })
