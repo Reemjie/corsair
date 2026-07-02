@@ -142,7 +142,7 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
               }
             </div>
             <div style={{ fontSize:10, color:'rgba(238,221,68,0.55)', fontFamily:"'Cinzel', serif", marginTop:10, textAlign:'center', letterSpacing:1 }}>
-              🏆 Next NFT tournament coming soon — follow @CorsairGame
+              🏆 Next NFT tournament coming soon — follow @PlayCorsair
             </div>
           </div>
           </div>
