@@ -56523,7 +56523,7 @@ Resources:`;
         if (t.mode === `frenzy` && n !== `frenzy`) e.log = (e.log ? e.log + ` ` : ``) + `Something snaps. It knows exactly where you are.`;
         else if (t.mode === `stalking` && n !== `stalking`) e.log = (e.log ? e.log + ` ` : ``) + `It changes course. It seems to predict you.`;
         else if (t.mode === `searching`) e.log = (e.log ? e.log + ` ` : ``) + `You lose it in the fog...`;
-        else if (r <= 2) {
+        else if (r <= 2 && e.rng.next() < .4) {
             let t = [
                 `The sea goes silent.`,
                 `Something massive shifts beneath the fog.`,
@@ -56531,7 +56531,7 @@ Resources:`;
                 `The water darkens.`,
                 `A foul smell rises from the deep.`
             ];
-            !e.log.includes(`silence`) && !e.log.includes(`beneath`) && !e.log.includes(`creak`) && !e.log.includes(`darkens`) && !e.log.includes(`foul`) && (e.log = (e.log ? e.log + ` ` : ``) + t[Math.floor(e.rng.next() * t.length)]);
+            e.log = (e.log ? e.log + ` ` : ``) + t[Math.floor(e.rng.next() * t.length)];
         }
     }
     function Ase(e) {
@@ -56570,10 +56570,10 @@ Resources:`;
             e.ship = {
                 ...e.ship,
                 hull: Math.max(0, e.ship.hull - t)
-            }, e.log += ` It surfaces without warning. Tentacles rake the hull. -${t}.`, e.state = {
+            }, e.log += ` It surfaces without warning. Tentacles rake the hull. -${t}.`, e.ship.hull <= 0 ? e.gameOver = !0 : e.state = {
                 ...e.state,
                 hunterAttacksSurvived: (e.state.hunterAttacksSurvived ?? 0) + 1
-            }, e.ship.hull <= 0 && (e.gameOver = !0);
+            };
         }
         return e.hunter = i, e;
     }
@@ -58765,7 +58765,7 @@ Resources:`;
                                                                 a >= o && e.add(`${t + (r > t ? 1 : -1)}-${n}`), o >= a && e.add(`${t}-${n + (i > n ? 1 : -1)}`), a === o && (e.add(`${t + (r > t ? 1 : -1)}-${n}`), e.add(`${t}-${n + (i > n ? 1 : -1)}`));
                                                             }
                                                             return e;
-                                                        })(), a = A.hunter?.active && !A.hunter?.mode?.includes(`tracking`) && i.has(`${n}-${r}`) && n !== A.hunter.x && r !== A.hunter.y, o = n >= 0 && n < 12 && r >= 0 && r < 12 ? A.grid[r][n] : {
+                                                        })(), a = A.hunter?.active && !A.hunter?.mode?.includes(`tracking`) && i.has(`${n}-${r}`) && !(n === A.hunter.x && r === A.hunter.y), o = n >= 0 && n < 12 && r >= 0 && r < 12 ? A.grid[r][n] : {
                                                             type: `sea`,
                                                             revealed: !1,
                                                             visited: !1,
@@ -60782,7 +60782,7 @@ Resources:`;
                     })
                 }),
                 (0, I.jsx)(O6, {
-                    children: se && (0, I.jsxs)(X.div, {
+                    children: se && !E && (0, I.jsxs)(X.div, {
                         initial: {
                             opacity: 0
                         },
