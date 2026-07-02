@@ -244,9 +244,8 @@ function stepStorm(ctx: MoveContext): MoveContext {
     row.map(cell => sy >= stormFrontY ? { ...cell, stormed: true, revealed: true } : cell)
   );
   if (ctx.grid[ctx.ny][ctx.nx].stormed && !ctx.ship.upgrades.includes('rider')) {
-    ctx.log = 'The storm engulfs your ship. There is no escape.';
     ctx.gameOver = true;
-    ctx.log = 'The storm engulfs your ship!';
+    ctx.log = 'The storm engulfs your ship. There is no escape.';
   }
   if (stormDistance <= 0) {
     ctx.gameOver = true;
@@ -263,22 +262,30 @@ function stepPortal(ctx: MoveContext): MoveContext {
 
   const eligible = turn - (ctx.state.zoneEntryTurn ?? 0) >= 12;
 
-  // 1) SPAWN — une seule fois, après le délai d'éligibilité (35% / tour)
-  if (!ctx.state.portalSpawned && eligible && ctx.rng.next() < 0.35) {
-    const candidates: {x: number, y: number}[] = [];
-    for (let y = 2; y < GRID_SIZE - 2; y++) {
-      for (let x = 2; x < GRID_SIZE - 2; x++) {
-        const cell = ctx.grid[y][x];
-        // Le bateau avance vers le haut (y decroissant) et ne peut pas reculer.
-        // Le portail doit donc spawner DEVANT (au-dessus) et rester atteignable
-        // lateralement : le decalage horizontal ne doit pas depasser la distance verticale.
-        const ahead = y < ctx.ny - 1;
-        const reachable = Math.abs(x - ctx.nx) <= (ctx.ny - y);
-        if (cell.type === 'sea' && !cell.visited && !cell.stormed && ahead && reachable && !(x === ctx.nx && y === ctx.ny)) {
-          candidates.push({x, y});
+  // 1) SPAWN — une seule fois, après le délai d'éligibilité (35% / tour, garanti après 6 tours d'attente)
+  const pity = eligible && (turn - (ctx.state.zoneEntryTurn ?? 0)) >= 18;
+  if (!ctx.state.portalSpawned && eligible && (ctx.rng.next() < 0.35 || pity)) {
+    // Atteignable = "pas derriere" : le bateau ne recule jamais, mais peut combiner
+    // montees et pas lateraux librement -> toute case y <= ny est accessible.
+    // (L'ancien critere |dx| <= dy excluait a tort les cases laterales, et un
+    // joueur arrive en haut de carte n'avait plus AUCUN candidat -> soft-lock.)
+    const collect = (minDist: number) => {
+      const list: {x: number, y: number}[] = [];
+      for (let y = 0; y < GRID_SIZE - 2; y++) {
+        for (let x = 1; x < GRID_SIZE - 1; x++) {
+          const cell = ctx.grid[y][x];
+          const notBehind = y <= ctx.ny;
+          const notOnShip = !(x === ctx.nx && y === ctx.ny);
+          const dist = Math.abs(x - ctx.nx) + (ctx.ny - y);
+          if (cell.type === 'sea' && !cell.visited && !cell.stormed && notBehind && notOnShip && dist >= minDist) {
+            list.push({x, y});
+          }
         }
       }
-    }
+      return list;
+    };
+    let candidates = collect(3);
+    if (candidates.length === 0) candidates = collect(1); // joueur en haut de carte : accepter les cases proches
     if (candidates.length > 0) {
       const idx = Math.floor(ctx.rng.next() * candidates.length);
       const {x, y} = candidates[idx];
@@ -474,8 +481,13 @@ function stepHunter(ctx: MoveContext): MoveContext {
       y: Math.max(0, Math.min(GRID_SIZE - 1, ny + dy)),
     };
 
-    // Tracking = un tour sur deux ; stalking/frenzy = chaque tour
-    const shouldSkip = h.mode === 'tracking' && (h.skipTurn ?? false);
+    // Tracking = un tour sur deux ; stalking/frenzy = chaque tour.
+    // AGGRO (le hunter ne saute plus de tour) : streak >= 3 ("Hunter becomes aggressive — moves every turn")
+    // ou Cursed Greed a 800g+ ("Hunter doubles speed") — promesses du HowToPlay desormais implementees.
+    const streakAggro = getStreakEffects(ctx.state.dangerStreak).hunterAggro;
+    const greedAggro = ctx.ship.upgrades.includes('greed')
+      && Math.floor(ctx.ship.gold / BALANCE.greed.corruptionStep) >= BALANCE.greed.corruptionHunterAt;
+    const shouldSkip = h.mode === 'tracking' && (h.skipTurn ?? false) && !streakAggro && !greedAggro;
     if (!shouldSkip) {
       h = moveHunter(h, target, predicted, nx, ny, ctx.rng);
     }
