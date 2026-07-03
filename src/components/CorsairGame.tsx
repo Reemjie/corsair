@@ -939,7 +939,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
             <video
               key={cinematic}
               src={SCENE_VIDEO[cinematic]}
-              autoPlay muted playsInline preload="auto"
+              autoPlay muted={muted} playsInline preload="auto"
               onEnded={() => { if (cinematic === 'death') setShowDeathScreen(true); setCinematic(null); }}
               style={{ width:'100%', height:'100%', objectFit:'cover' }}
             />
@@ -1359,7 +1359,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
           <motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}
             transition={{duration:0.3}}
             style={{ position:'fixed', inset:0, zIndex:150, pointerEvents:'none' }}>
-            <video src={`${import.meta.env.BASE_URL}scenes/hunter.mp4`} autoPlay muted playsInline preload="auto" style={{ width:'100%', height:'100%', objectFit:'cover' }}/>
+            <video src={`${import.meta.env.BASE_URL}scenes/hunter.mp4`} autoPlay muted={muted} playsInline preload="auto" style={{ width:'100%', height:'100%', objectFit:'cover' }}/>
             <div style={{ position:'absolute', inset:0, background:'rgba(0,0,0,0.3)' }}/>
             <motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{delay:0.3}}
               style={{ position:'absolute', bottom:'20%', left:0, right:0, textAlign:'center' }}>
