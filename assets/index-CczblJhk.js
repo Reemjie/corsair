@@ -59465,7 +59465,7 @@ Resources:`;
                             (0, I.jsx)(`video`, {
                                 src: V9[te],
                                 autoPlay: !0,
-                                muted: !0,
+                                muted: Je,
                                 playsInline: !0,
                                 preload: `auto`,
                                 onEnded: ()=>{
@@ -60946,7 +60946,7 @@ Resources:`;
                             (0, I.jsx)(`video`, {
                                 src: `/corsair/scenes/hunter.mp4`,
                                 autoPlay: !0,
-                                muted: !0,
+                                muted: Je,
                                 playsInline: !0,
                                 preload: `auto`,
                                 style: {
