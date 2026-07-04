@@ -6,6 +6,7 @@ import { ZONE_CONFIG } from '../game/balance';
 import { submitScoreOnChain } from '../starknet';
 import { initGame, moveShip, resolveEvent, repairHull, leavePort, skipEventFn, rerollPort, upgradeComponent, buyUpgrade, markDailyPlayed, getDailyKey } from '../game/engine';
 import { sfx, setSfxMuted } from '../sound';
+import { checkAndUnlockFeats, type Feat } from '../game/feats';
 import anchorImg from '../assets/anchor.png';
 
 import crownNestImg from '../assets/upgrades/crown_nest.png';
@@ -162,6 +163,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   const [state, setState] = useState<GameState>(() => initGame(dailySeed));
   const [shake, setShake] = useState(false);
   const [cart, setCart] = useState<string[]>([]);
+  const [newFeats, setNewFeats] = useState<Feat[]>([]);
   const [scoreSubmitted, setScoreSubmitted] = useState(false);
   const [nftMinted, setNftMinted] = useState<string[]>([]);
   const [portalCinematic, setPortalCinematic] = useState<{lines: string[], zone: number} | null>(null);
@@ -366,6 +368,8 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   // Death cinematic trigger
   useEffect(() => {
     if (state.gameOver) {
+      const fresh = checkAndUnlockFeats(state);
+      if (fresh.length > 0) { setNewFeats(fresh); sfx('streak'); }
       if (isDailyRun && walletAddress && state.score > 0) {
         const today = new Date().toISOString().slice(0, 10);
         submitDailyScore(walletAddress, state.score, today, state.seed, username ?? undefined);
@@ -1199,6 +1203,22 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                 )}
               </motion.div>
             ); })()}
+
+            {/* New feats unlocked */}
+            {newFeats.length > 0 && (
+              <motion.div initial={{ opacity:0, scale:0.9 }} animate={{ opacity:1, scale:1 }} transition={{ delay:1.4, type:'spring' }}
+                style={{ display:'flex', flexDirection:'column', gap:6, alignItems:'center', marginBottom:16, padding:'12px 22px', borderRadius:12, background:'rgba(200,160,48,0.12)', border:'1px solid rgba(238,221,68,0.55)', boxShadow:'0 0 24px rgba(238,221,68,0.15)', maxWidth: isMobile ? '90vw' : 560 }}>
+                {newFeats.map(nf => (
+                  <div key={nf.id} style={{ display:'flex', alignItems:'center', gap:10 }}>
+                    <span style={{ fontSize:22 }}>{nf.icon}</span>
+                    <div style={{ textAlign:'left' }}>
+                      <div style={{ fontFamily:"'Pirata One', cursive", fontSize: isMobile ? 15 : 17, color:'#eedd44', letterSpacing:1 }}>NEW FEAT: {nf.name}</div>
+                      <div style={{ fontFamily:"'Cinzel', serif", fontSize: isMobile ? 10 : 11, color:'rgba(238,221,68,0.75)', letterSpacing:1.5 }}>TITLE UNLOCKED: {nf.title}</div>
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
+            )}
 
             {/* Stats */}
             <motion.div initial={{opacity:0, y:10}} animate={{opacity:1, y:0}} transition={{delay:1.1}}

@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useWallet } from './useWallet';
 import { cartridgeConnector } from './cartridge';
 import HowToPlay from './HowToPlay';
+import FeatsPanel from './FeatsPanel';
 import Leaderboard from './Leaderboard';
 
 const SLIDES = [
@@ -20,6 +21,7 @@ const SLIDES = [
 
 export default function HomePage({ onPlay }: { onPlay: (address: string | null, username?: string | null, seed?: number) => void }) {
   const [showHowTo, setShowHowTo] = useState(false);
+  const [showFeats, setShowFeats] = useState(false);
   const [top3, setTop3] = useState<{username:string|null,wallet_address:string,score:number}[]>([]);
   const [timeLeft, setTimeLeft] = useState('');
 
@@ -167,6 +169,10 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
             style={{ padding:'12px 32px', borderRadius:12, border:'1px solid rgba(255,255,255,0.5)', background:'rgba(255,255,255,0.12)', color:'rgba(255,255,255,0.85)', fontSize:14, letterSpacing:3, cursor:'pointer', fontFamily:"'Pirata One', cursive" }}>
             HOW TO PLAY
           </motion.button>
+          <motion.button whileHover={{ scale:1.04 }} whileTap={{ scale:0.96 }} onClick={() => setShowFeats(true)}
+            style={{ padding:'12px 26px', borderRadius:12, border:'1px solid rgba(238,221,68,0.45)', background:'rgba(238,221,68,0.07)', color:'rgba(238,221,68,0.9)', fontSize:14, letterSpacing:3, cursor:'pointer', fontFamily:"'Pirata One', cursive", marginLeft:10 }}>
+            ⚜ FEATS
+          </motion.button>
 
         </motion.div>
 
@@ -181,6 +187,7 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
       {/* How To Play modal */}
       <AnimatePresence>
         {showHowTo && <HowToPlay onClose={() => setShowHowTo(false)} onPlay={() => { setShowHowTo(false); onPlay(null); }} />}
+        {showFeats && <FeatsPanel onClose={() => setShowFeats(false)} />}
         {showLeaderboard && <Leaderboard onClose={() => setShowLeaderboard(false)} />}
       </AnimatePresence>
     </div>
