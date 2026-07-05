@@ -62484,6 +62484,89 @@ Resources:`;
                             ]
                         })
                     }),
+                    (0, I.jsxs)(G9, {
+                        title: `PROGRESSION & SHIPS`,
+                        children: [
+                            (0, I.jsxs)(`div`, {
+                                style: {
+                                    fontFamily: `'IM Fell English', cursive`,
+                                    fontSize: 17,
+                                    color: `rgba(255,255,255,0.7)`,
+                                    lineHeight: 1.7,
+                                    marginBottom: 14
+                                },
+                                children: [
+                                    `Every run counts, even a short one. Reaching milestones — surviving Hunter attacks, hoarding gold, reaching deeper zones — unlocks `,
+                                    (0, I.jsx)(`span`, {
+                                        style: {
+                                            color: `#eedd44`
+                                        },
+                                        children: `Feats`
+                                    }),
+                                    `, each granting a captain title and often a new `,
+                                    (0, I.jsx)(`span`, {
+                                        style: {
+                                            color: `#88ddff`
+                                        },
+                                        children: `ship`
+                                    }),
+                                    `.`
+                                ]
+                            }),
+                            (0, I.jsx)(`div`, {
+                                style: {
+                                    display: `flex`,
+                                    flexDirection: `column`,
+                                    gap: 10
+                                },
+                                children: [
+                                    {
+                                        c: `#eedd44`,
+                                        t: `FEATS`,
+                                        d: `Accomplishments that persist across runs. Check the ⚜ FEATS menu to see what you have earned and what is still out there.`
+                                    },
+                                    {
+                                        c: `#88ddff`,
+                                        t: `SHIPS`,
+                                        d: `Unlock new vessels from the ⛵ SHIPS menu. The Merchant sails on gold, the Specter sees far but is easily sensed, the Breakwater shrugs off reefs. Each rewrites how a run plays.`
+                                    },
+                                    {
+                                        c: `#c8a030`,
+                                        t: `THE DAILY`,
+                                        d: `The daily tournament always uses the standard ship — same map, same rules for everyone. Pure skill.`
+                                    }
+                                ].map((e, t)=>(0, I.jsxs)(`div`, {
+                                        style: {
+                                            display: `flex`,
+                                            gap: 12,
+                                            alignItems: `flex-start`
+                                        },
+                                        children: [
+                                            (0, I.jsx)(`div`, {
+                                                style: {
+                                                    color: e.c,
+                                                    fontFamily: `'Pirata One', cursive`,
+                                                    fontSize: 15,
+                                                    letterSpacing: 1,
+                                                    flexShrink: 0,
+                                                    width: 74
+                                                },
+                                                children: e.t
+                                            }),
+                                            (0, I.jsx)(`div`, {
+                                                style: {
+                                                    fontFamily: `'IM Fell English', cursive`,
+                                                    fontSize: 16,
+                                                    color: `rgba(255,255,255,0.7)`,
+                                                    lineHeight: 1.6
+                                                },
+                                                children: e.d
+                                            })
+                                        ]
+                                    }, t))
+                            })
+                        ]
+                    }),
                     (0, I.jsx)(G9, {
                         title: `TIPS FOR BEGINNERS`,
                         children: (0, I.jsx)(`div`, {
