@@ -30,7 +30,7 @@ export default function FeatsPanel({ onClose }: { onClose: () => void }) {
             const isEq = equipped === f.title;
             return (
               <div key={f.id} style={{ display:'flex', alignItems:'center', gap:14, padding:'12px 14px', borderRadius:12, border: isUn ? '1px solid rgba(200,160,48,0.5)' : '1px solid rgba(255,255,255,0.08)', background: isUn ? 'rgba(200,160,48,0.08)' : 'rgba(255,255,255,0.02)', opacity: isUn ? 1 : 0.55 }}>
-                <div style={{ fontSize:26, width:34, textAlign:'center', filter: isUn ? 'none' : 'grayscale(1)' }}>{isUn ? f.icon : '🔒'}</div>
+                <div style={{ width:34, textAlign:'center', filter: isUn ? 'none' : 'grayscale(1)', opacity: isUn ? 1 : 0.5 }}>{isUn ? <Icon name={f.icon as any} size={28}/> : <span style={{fontSize:22}}>🔒</span>}</div>
                 <div style={{ flex:1, minWidth:0 }}>
                   <div style={{ fontFamily:"'Pirata One', cursive", fontSize:17, color: isUn ? '#eedd88' : 'rgba(255,255,255,0.55)', letterSpacing:1 }}>{f.name}</div>
                   <div style={{ fontFamily:"'IM Fell English', cursive", fontSize:12.5, color:'rgba(255,255,255,0.55)', lineHeight:1.35 }}>{f.desc}</div>

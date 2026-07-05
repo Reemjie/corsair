@@ -97,8 +97,8 @@ const SCENE_TITLES: Record<string, string> = {
 };
 
 const CELL_ICONS: Record<string, string> = {
-  sea:'〰', storm:'⛈', pirate:'☠', treasure:'✦',
-  port: import.meta.env.BASE_URL + 'icons/port.png', kraken: import.meta.env.BASE_URL + 'icons/kraken.png', wreck: import.meta.env.BASE_URL + 'icons/wreck.png', island: import.meta.env.BASE_URL + 'icons/island.png', rocks: import.meta.env.BASE_URL + 'icons/rocks.png',
+  sea:'〰', storm: import.meta.env.BASE_URL + 'icons_ui/storm.png', pirate: import.meta.env.BASE_URL + 'icons_ui/swords.png', treasure: import.meta.env.BASE_URL + 'icons_ui/treasure.png',
+  port: import.meta.env.BASE_URL + 'icons/port.png', kraken: import.meta.env.BASE_URL + 'icons_ui/kraken.png', wreck: import.meta.env.BASE_URL + 'icons/wreck.png', island: import.meta.env.BASE_URL + 'icons/island.png', rocks: import.meta.env.BASE_URL + 'icons/rocks.png',
 };
 const CELL_COLOR_BY_ZONE: Record<number, Record<string, string>> = {
   1: { sea:'#1a3a4a', storm:'#2a1a4a', pirate:'#3a1010', treasure:'#2a2a00', port:'#0a2a2a', kraken:'#2a0a3a', wreck:'#2a1a0a', island:'#0a2a0a', rocks:'#1a1a1a', portal:'#1a0a3a' },
@@ -834,13 +834,13 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
               {s.dangerStreak >= 5 && (
                 <motion.div animate={{ opacity:[1,0.3,1] }} transition={{ repeat:Infinity, duration:0.7 }}
                   style={{ fontSize:11, color:'#cc44ee', fontFamily:"'Cinzel', serif", letterSpacing:1, marginTop:2 }}>
-                  💀 CURSED WATERS
+                  <Icon name="skull" size={18} style={{ marginRight:6 }} />CURSED WATERS
                 </motion.div>
               )}
               {s.dangerStreak >= 6 && (
                 <motion.div animate={{ opacity:[1,0.2,1] }} transition={{ repeat:Infinity, duration:0.5 }}
                   style={{ fontSize:11, color:'#ff2222', fontFamily:"'Cinzel', serif", letterSpacing:1, marginTop:2 }}>
-                  ☠️ LEGENDARY ZONE
+                  <Icon name="skull" size={18} style={{ marginRight:6 }} />LEGENDARY ZONE
                 </motion.div>
               )}
             </motion.div>
@@ -1211,7 +1211,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                 style={{ display:'flex', flexDirection:'column', gap:6, alignItems:'center', marginBottom:16, padding:'12px 22px', borderRadius:12, background:'rgba(200,160,48,0.12)', border:'1px solid rgba(238,221,68,0.55)', boxShadow:'0 0 24px rgba(238,221,68,0.15)', maxWidth: isMobile ? '90vw' : 560 }}>
                 {newFeats.map(nf => (
                   <div key={nf.id} style={{ display:'flex', alignItems:'center', gap:10 }}>
-                    <span style={{ fontSize:22 }}>{nf.icon}</span>
+                    <Icon name={nf.icon as any} size={26} />
                     <div style={{ textAlign:'left' }}>
                       <div style={{ fontFamily:"'Pirata One', cursive", fontSize: isMobile ? 15 : 17, color:'#eedd44', letterSpacing:1 }}>NEW FEAT: {nf.name}</div>
                       <div style={{ fontFamily:"'Cinzel', serif", fontSize: isMobile ? 10 : 11, color:'rgba(238,221,68,0.75)', letterSpacing:1.5 }}>TITLE UNLOCKED: {nf.title}</div>

@@ -129,7 +129,7 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
           <div style={{ padding:'16px 20px', borderRadius:16, border:'2px solid rgba(200,160,48,0.5)', background:'linear-gradient(135deg, rgba(30,20,5,0.9), rgba(10,15,25,0.9))', maxWidth:380, width:'100%', boxShadow:'0 0 24px rgba(200,160,48,0.15)' }}>
             <div style={{ display:'flex', alignItems:'center', gap:14 }}>
               <div style={{ flex:1, textAlign:'left' }}>
-                <div style={{ fontSize:15, color:'#c8a030', letterSpacing:2, fontFamily:"'Pirata One', cursive" }}>☀ DAILY CHALLENGE</div>
+                <div style={{ fontSize:15, color:'#c8a030', letterSpacing:2, fontFamily:"'Pirata One', cursive", display:'flex', alignItems:'center', gap:7 }}><Icon name="sun" size={19}/>DAILY CHALLENGE</div>
                 <div style={{ fontSize:12, color:'rgba(255,255,255,0.65)', fontFamily:"'IM Fell English', cursive", marginTop:2, lineHeight:1.4 }}>One run a day · same map for all · climb the board</div>
               </div>
             </div>
@@ -154,7 +154,7 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
 
           {top3.length > 0 && (
             <div style={{ padding:'10px 20px', borderRadius:12, border:'1px solid rgba(200,160,48,0.2)', background:'rgba(0,0,0,0.4)', width:'100%', maxWidth:360 }}>
-              <div style={{ fontSize:11, color:'rgba(200,160,48,0.6)', fontFamily:"'Cinzel', serif", letterSpacing:3, marginBottom:8, textAlign:'center' }}>☀ TODAY'S TOP</div>
+              <div style={{ fontSize:11, color:'rgba(200,160,48,0.6)', fontFamily:"'Cinzel', serif", letterSpacing:3, marginBottom:8, textAlign:'center', display:'flex', alignItems:'center', justifyContent:'center', gap:6 }}><Icon name="sun" size={14}/>TODAY'S TOP</div>
               {top3.map((s, i) => (
                 <div key={i} style={{ display:'flex', alignItems:'center', gap:8, marginBottom:4 }}>
                   <div style={{ fontSize:13, color: i===0?'#FFD700':i===1?'#C0C0C0':'#CD7F32', width:16, textAlign:'center' }}>{i===0 ? <Icon name="crown" size={19}/> : ['','⚔️','🏴‍☠️'][i]}</div>
