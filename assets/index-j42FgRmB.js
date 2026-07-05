@@ -62739,9 +62739,9 @@ Resources:`;
                                 children: [
                                     (0, I.jsx)(G9, {
                                         name: `fleurdelys`,
-                                        size: 26,
+                                        size: 30,
                                         style: {
-                                            marginRight: 8
+                                            marginRight: 10
                                         }
                                     }),
                                     `FEATS`
@@ -62999,9 +62999,9 @@ Resources:`;
                                 children: [
                                     (0, I.jsx)(G9, {
                                         name: `ship`,
-                                        size: 26,
+                                        size: 30,
                                         style: {
-                                            marginRight: 8
+                                            marginRight: 10
                                         }
                                     }),
                                     `SHIPYARD`
@@ -63887,9 +63887,9 @@ Resources:`;
                                                     children: [
                                                         (0, I.jsx)(G9, {
                                                             name: `trophy`,
-                                                            size: 13,
+                                                            size: 17,
                                                             style: {
-                                                                marginRight: 5
+                                                                marginRight: 7
                                                             }
                                                         }),
                                                         `Next NFT tournament coming soon — follow @PlayCorsair`
@@ -63937,7 +63937,7 @@ Resources:`;
                                                         },
                                                         children: t === 0 ? (0, I.jsx)(G9, {
                                                             name: `crown`,
-                                                            size: 16
+                                                            size: 19
                                                         }) : [
                                                             ``,
                                                             `⚔️`,
@@ -64012,9 +64012,9 @@ Resources:`;
                                     children: [
                                         (0, I.jsx)(G9, {
                                             name: `fleurdelys`,
-                                            size: 16,
+                                            size: 22,
                                             style: {
-                                                marginRight: 6
+                                                marginRight: 8
                                             }
                                         }),
                                         `FEATS`
@@ -64043,9 +64043,9 @@ Resources:`;
                                     children: [
                                         (0, I.jsx)(G9, {
                                             name: `ship`,
-                                            size: 16,
+                                            size: 22,
                                             style: {
-                                                marginRight: 6
+                                                marginRight: 8
                                             }
                                         }),
                                         `SHIPS`
