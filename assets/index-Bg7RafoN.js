@@ -57271,7 +57271,7 @@ Resources:`;
     var O9 = [
         {
             id: `first_voyage`,
-            icon: `⚓`,
+            icon: `anchor`,
             name: `First Voyage`,
             title: `Deckhand`,
             desc: `Complete your first run.`,
@@ -57279,7 +57279,7 @@ Resources:`;
         },
         {
             id: `sea_legs`,
-            icon: `🌊`,
+            icon: `wave`,
             name: `Sea Legs`,
             title: `Sailor`,
             desc: `Survive 15 turns in a single run.`,
@@ -57287,7 +57287,7 @@ Resources:`;
         },
         {
             id: `storm_sea`,
-            icon: `🌀`,
+            icon: `vortex`,
             name: `Into the Storm Sea`,
             title: `Storm Chaser`,
             desc: `Reach The Storm Sea (Zone 2).`,
@@ -57295,7 +57295,7 @@ Resources:`;
         },
         {
             id: `the_abyss`,
-            icon: `🕳️`,
+            icon: `abyss`,
             name: `The Abyss Beckons`,
             title: `Abysswalker`,
             desc: `Reach The Abyss (Zone 3).`,
@@ -57303,7 +57303,7 @@ Resources:`;
         },
         {
             id: `prey_no_more`,
-            icon: `🐙`,
+            icon: `kraken`,
             name: `Prey No More`,
             title: `Hunted`,
             desc: `Survive 2 Hunter attacks in one run.`,
@@ -57311,7 +57311,7 @@ Resources:`;
         },
         {
             id: `gold_hoarder`,
-            icon: `💰`,
+            icon: `treasure`,
             name: `Gold Hoarder`,
             title: `Merchant Prince`,
             desc: `Hold 300 gold at the end of a run.`,
@@ -57319,7 +57319,7 @@ Resources:`;
         },
         {
             id: `legend_coast`,
-            icon: `✦`,
+            icon: `star`,
             name: `Legend of the Coast`,
             title: `Corsair`,
             desc: `Score 1,000 points in a single run.`,
@@ -57327,7 +57327,7 @@ Resources:`;
         },
         {
             id: `storm_legend`,
-            icon: `⚡`,
+            icon: `lightning`,
             name: `Storm Legend`,
             title: `Storm Legend`,
             desc: `Score 2,000 points in a single run.`,
@@ -57335,7 +57335,7 @@ Resources:`;
         },
         {
             id: `daredevil`,
-            icon: `🔥`,
+            icon: `fire`,
             name: `Daredevil`,
             title: `Daredevil`,
             desc: `Chain 5 dangerous encounters in a row.`,
@@ -57343,7 +57343,7 @@ Resources:`;
         },
         {
             id: `full_rig`,
-            icon: `🏴‍☠️`,
+            icon: `flag`,
             name: `Full Rig`,
             title: `Dread Captain`,
             desc: `Own 2 special abilities at the same time.`,
@@ -57485,11 +57485,11 @@ Resources:`;
         maelstrom: `The Maelstrom`
     }, Cce = {
         sea: `〰`,
-        storm: `⛈`,
-        pirate: `☠`,
-        treasure: `✦`,
+        storm: `/corsair/icons_ui/storm.png`,
+        pirate: `/corsair/icons_ui/swords.png`,
+        treasure: `/corsair/icons_ui/treasure.png`,
         port: `/corsair/icons/port.png`,
-        kraken: `/corsair/icons/kraken.png`,
+        kraken: `/corsair/icons_ui/kraken.png`,
         wreck: `/corsair/icons/wreck.png`,
         island: `/corsair/icons/island.png`,
         rocks: `/corsair/icons/rocks.png`
@@ -59297,7 +59297,7 @@ Resources:`;
                                             },
                                             children: `⛈ STORM SURGE +8%`
                                         }),
-                                        A.dangerStreak >= 5 && (0, I.jsx)(X.div, {
+                                        A.dangerStreak >= 5 && (0, I.jsxs)(X.div, {
                                             animate: {
                                                 opacity: [
                                                     1,
@@ -59316,9 +59316,18 @@ Resources:`;
                                                 letterSpacing: 1,
                                                 marginTop: 2
                                             },
-                                            children: `💀 CURSED WATERS`
+                                            children: [
+                                                (0, I.jsx)(M9, {
+                                                    name: `skull`,
+                                                    size: 18,
+                                                    style: {
+                                                        marginRight: 6
+                                                    }
+                                                }),
+                                                `CURSED WATERS`
+                                            ]
                                         }),
-                                        A.dangerStreak >= 6 && (0, I.jsx)(X.div, {
+                                        A.dangerStreak >= 6 && (0, I.jsxs)(X.div, {
                                             animate: {
                                                 opacity: [
                                                     1,
@@ -59337,7 +59346,16 @@ Resources:`;
                                                 letterSpacing: 1,
                                                 marginTop: 2
                                             },
-                                            children: `☠️ LEGENDARY ZONE`
+                                            children: [
+                                                (0, I.jsx)(M9, {
+                                                    name: `skull`,
+                                                    size: 18,
+                                                    style: {
+                                                        marginRight: 6
+                                                    }
+                                                }),
+                                                `LEGENDARY ZONE`
+                                            ]
                                         })
                                     ]
                                 }, A.dangerStreak),
@@ -60617,11 +60635,9 @@ Resources:`;
                                             gap: 10
                                         },
                                         children: [
-                                            (0, I.jsx)(`span`, {
-                                                style: {
-                                                    fontSize: 22
-                                                },
-                                                children: e.icon
+                                            (0, I.jsx)(M9, {
+                                                name: e.icon,
+                                                size: 26
                                             }),
                                             (0, I.jsxs)(`div`, {
                                                 style: {
@@ -62828,12 +62844,20 @@ Resources:`;
                                 children: [
                                     (0, I.jsx)(`div`, {
                                         style: {
-                                            fontSize: 26,
                                             width: 34,
                                             textAlign: `center`,
-                                            filter: i ? `none` : `grayscale(1)`
+                                            filter: i ? `none` : `grayscale(1)`,
+                                            opacity: i ? 1 : .5
                                         },
-                                        children: i ? e.icon : `🔒`
+                                        children: i ? (0, I.jsx)(M9, {
+                                            name: e.icon,
+                                            size: 28
+                                        }) : (0, I.jsx)(`span`, {
+                                            style: {
+                                                fontSize: 22
+                                            },
+                                            children: `🔒`
+                                        })
                                     }),
                                     (0, I.jsxs)(`div`, {
                                         style: {
@@ -63823,14 +63847,23 @@ Resources:`;
                                                             textAlign: `left`
                                                         },
                                                         children: [
-                                                            (0, I.jsx)(`div`, {
+                                                            (0, I.jsxs)(`div`, {
                                                                 style: {
                                                                     fontSize: 15,
                                                                     color: `#c8a030`,
                                                                     letterSpacing: 2,
-                                                                    fontFamily: `'Pirata One', cursive`
+                                                                    fontFamily: `'Pirata One', cursive`,
+                                                                    display: `flex`,
+                                                                    alignItems: `center`,
+                                                                    gap: 7
                                                                 },
-                                                                children: `☀ DAILY CHALLENGE`
+                                                                children: [
+                                                                    (0, I.jsx)(M9, {
+                                                                        name: `sun`,
+                                                                        size: 19
+                                                                    }),
+                                                                    `DAILY CHALLENGE`
+                                                                ]
                                                             }),
                                                             (0, I.jsx)(`div`, {
                                                                 style: {
@@ -63953,16 +63986,26 @@ Resources:`;
                                         maxWidth: 360
                                     },
                                     children: [
-                                        (0, I.jsx)(`div`, {
+                                        (0, I.jsxs)(`div`, {
                                             style: {
                                                 fontSize: 11,
                                                 color: `rgba(200,160,48,0.6)`,
                                                 fontFamily: `'Cinzel', serif`,
                                                 letterSpacing: 3,
                                                 marginBottom: 8,
-                                                textAlign: `center`
+                                                textAlign: `center`,
+                                                display: `flex`,
+                                                alignItems: `center`,
+                                                justifyContent: `center`,
+                                                gap: 6
                                             },
-                                            children: `☀ TODAY'S TOP`
+                                            children: [
+                                                (0, I.jsx)(M9, {
+                                                    name: `sun`,
+                                                    size: 14
+                                                }),
+                                                `TODAY'S TOP`
+                                            ]
                                         }),
                                         s.map((e, t)=>(0, I.jsxs)(`div`, {
                                                 style: {
