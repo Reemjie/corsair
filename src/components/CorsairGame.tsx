@@ -159,8 +159,8 @@ const renderCellIcon = (icon: string | undefined, size: number) =>
     ? <img src={icon} style={{ width:size, height:size, objectFit:'contain', borderRadius:'50%', mixBlendMode:'lighten', filter:`drop-shadow(0 0 12px rgba(200,160,48,0.6))` }} />
     : <span style={{ fontSize:size }}>{icon}</span>;
 
-export default function CorsairGame({ walletAddress, account, username, onHome, dailySeed }: { walletAddress: string | null; account?: any; username?: string | null; onHome: () => void; dailySeed?: number }) {
-  const [state, setState] = useState<GameState>(() => initGame(dailySeed));
+export default function CorsairGame({ walletAddress, account, username, onHome, dailySeed, shipId }: { walletAddress: string | null; account?: any; username?: string | null; onHome: () => void; dailySeed?: number; shipId?: string }) {
+  const [state, setState] = useState<GameState>(() => initGame(dailySeed, dailySeed !== undefined ? 'default' : (shipId ?? 'default')));
   const [shake, setShake] = useState(false);
   const [cart, setCart] = useState<string[]>([]);
   const [newFeats, setNewFeats] = useState<Feat[]>([]);

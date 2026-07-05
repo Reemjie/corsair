@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useWallet } from './useWallet';
 import CorsairGame from './components/CorsairGame';
 import HomePage from './HomePage';
+import { getSelectedShip } from './game/ships';
 
 type Screen = 'home' | 'game';
 
@@ -19,6 +20,8 @@ export default function App() {
 
   const username = overrideUsername ?? walletUsername;
 
-  if (screen === 'game') return <CorsairGame walletAddress={address} account={account} username={username} onHome={() => setScreen('home')} dailySeed={dailySeed} />;
+  // Le Daily force le navire par defaut (equite du tournoi) ; sinon le navire choisi.
+  const shipId = dailySeed !== undefined ? 'default' : getSelectedShip();
+  if (screen === 'game') return <CorsairGame walletAddress={address} account={account} username={username} onHome={() => setScreen('home')} dailySeed={dailySeed} shipId={shipId} />;
   return <HomePage onPlay={handlePlay} />;
 }

@@ -63,6 +63,7 @@ export interface GameState {
   curses: CurseId[];
   exploits: ExploitId[];
   lowestHull: number;
+  shipType?: string;
   runTitle: string;
   treasuresFound: number;
   portsVisited: number;

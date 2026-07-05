@@ -113,18 +113,23 @@ export function markDailyPlayed(): void {
 }
 
 // ─── INIT ────────────────────────────────────────────────────────────────────
-export function initGame(seed?: number): GameState {
+export function initGame(seed?: number, shipId: string = 'default'): GameState {
   const s = seed ?? (Date.now() % 999999);
   const cx = Math.floor(GRID_SIZE / 2), cy = GRID_SIZE - 1;
   const ship: Ship = { x: cx, y: cy, hull: BALANCE.ship.startHull, maxHull: BALANCE.ship.startHull, gold: BALANCE.ship.startGold, power: BALANCE.ship.startPower, vision: BALANCE.ship.startVision, upgrades: [], levels: { hull: 0, weapon: 0, nav: 0 } };
+  // Modificateurs de navire (le Daily force 'default' en amont pour l'equite)
+  if (shipId === 'merchant')   { ship.gold += 80; ship.maxHull -= 5; ship.hull -= 5; }
+  if (shipId === 'specter')    { ship.vision += 1; }
+  if (shipId === 'breakwater') { ship.vision = Math.max(1, ship.vision - 1); ship.gold = Math.max(0, ship.gold - 25); }
+  const stormStart = BALANCE.storm.initial + (shipId === 'breakwater' ? 3 : 0);
   const grid = revealAround(generateGrid(s, []), cx, cy, 1);
   return {
     grid, ship, event: null,
     turn: 0, score: 0, depth: 0,
-    seed: s, rngState: s,
+    seed: s, rngState: s, shipType: shipId,
     log: 'The sea calls, Captain.',
     gameOver: false, showPort: false,
-    stormDistance: BALANCE.storm.initial,
+    stormDistance: stormStart,
     upgradeToken: false, escapeUsed: false,
     dangerStreak: 0, scoreMultiplier: 1, notoriety: 0,
     curses: [], exploits: [], lowestHull: 20,
@@ -326,7 +331,8 @@ function stepPortal(ctx: MoveContext): MoveContext {
 
 // ─── HUNTER AWARENESS ────────────────────────────────────────────────────────
 function updateHunterAwareness(ctx: MoveContext): number {
-  let a = ctx.hunter?.awareness ?? 0;
+  const before = ctx.hunter?.awareness ?? 0;
+  let a = before;
   const ship = ctx.ship;
   const h = ctx.hunter!;
   const dist = Math.abs(h.x - ctx.nx) + Math.abs(h.y - ctx.ny);
@@ -352,6 +358,10 @@ function updateHunterAwareness(ctx: MoveContext): number {
   if (cell?.type === 'storm') a -= 10;
   if (cell?.type === 'port') a -= 15;
 
+  // The Specter voit plus loin, mais se fait reperer 50% plus vite.
+  if (ctx.state.shipType === 'specter' && a > before) {
+    a = before + (a - before) * 1.5;
+  }
   return Math.max(0, Math.min(100, a));
 }
 
@@ -784,6 +794,7 @@ export function resolveEvent(state: GameState, choiceIdx: number): GameState {
   if (cellType === 'wreck') {
     if (choiceIdx === 0) {
       if (rng.next() < 0.6) { const g = rng.int(40,100); ship.gold += g; score += g; sb = { ...sb, treasure: sb.treasure + g }; log = `The wreck yields its secrets. Waterlogged gold, but gold nonetheless. +${g} gold.`; }
+      else if (state.shipType === 'breakwater') { log = `Full speed! The reinforced prow of the Breakwater shatters the reef. Not a scratch.`; }
       else { const d = Math.max(1, rng.int(6,12)); ship.hull -= d; log = `A hidden trap springs from the darkness. The explosion rocks your hull. -${d} hull.`; }
     } else {
       const d = Math.max(1, rng.int(8,15) - ship.power);
@@ -934,7 +945,8 @@ const rawG = navLvl2 >= 2 ? Math.floor(rng.int(30,90)*0.7) : rng.int(30,90);
   } else {
     switch(cellType) {
       case 'pirate': {
-        const cost = rng.int(15,35) + Math.floor(notoriety*2);
+        let cost = rng.int(15,35) + Math.floor(notoriety*2);
+        if (state.shipType === 'merchant') cost = Math.ceil(cost / 2);
         ship.gold = Math.max(0, ship.gold - cost);
         notoriety = Math.max(0, notoriety - 1);
         log = `You toss the gold overboard. The pirates let you pass in silence. -${cost} gold.`;
