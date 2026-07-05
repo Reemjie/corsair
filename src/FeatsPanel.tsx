@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { FEATS, getUnlockedFeats, getEquippedTitle, setEquippedTitle } from './game/feats';
 import { useState } from 'react';
+import { Icon } from './Icon';
 
 export default function FeatsPanel({ onClose }: { onClose: () => void }) {
   const unlocked = new Set(getUnlockedFeats());
@@ -16,7 +17,7 @@ export default function FeatsPanel({ onClose }: { onClose: () => void }) {
         style={{ width:'100%', maxWidth:560, maxHeight:'86vh', overflowY:'auto', borderRadius:18, border:'2px solid rgba(200,160,48,0.45)', background:'linear-gradient(160deg, rgba(24,18,6,0.98), rgba(8,12,20,0.98))', padding:'22px 20px calc(20px + env(safe-area-inset-bottom))' }}>
 
         <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:6 }}>
-          <div style={{ fontFamily:"'Pirata One', cursive", fontSize:28, color:'#d4a531', letterSpacing:3 }}>⚜ FEATS</div>
+          <div style={{ fontFamily:"'Pirata One', cursive", fontSize:28, color:'#d4a531', letterSpacing:3 }}><Icon name="fleurdelys" size={26} style={{ marginRight:8 }} />FEATS</div>
           <button onClick={onClose} style={{ background:'none', border:'none', color:'rgba(255,255,255,0.5)', fontSize:22, cursor:'pointer' }}>✕</button>
         </div>
         <div style={{ fontFamily:"'Cinzel', serif", fontSize:12, color:'rgba(136,221,255,0.75)', letterSpacing:2, marginBottom:16 }}>
