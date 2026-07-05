@@ -7,6 +7,7 @@ import { submitScoreOnChain } from '../starknet';
 import { initGame, moveShip, resolveEvent, repairHull, leavePort, skipEventFn, rerollPort, upgradeComponent, buyUpgrade, markDailyPlayed, getDailyKey } from '../game/engine';
 import { sfx, setSfxMuted } from '../sound';
 import { checkAndUnlockFeats, type Feat } from '../game/feats';
+import { Icon } from '../Icon';
 import anchorImg from '../assets/anchor.png';
 
 import crownNestImg from '../assets/upgrades/crown_nest.png';
@@ -1143,7 +1144,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
           {/* Set Sail */}
           <motion.button whileHover={{scale:1.02}} whileTap={{scale:0.98}} onClick={() => { setState(st => { let s2 = st; for (const id of cart) s2 = buyUpgrade(s2, id as UpgradeId); return leavePort(s2); }); setCart([]); }}
             style={{ width:'100%', padding:'14px', borderRadius:12, border:'2px solid rgba(200,160,48,0.5)', background:'rgba(200,160,48,0.1)', color:'#c8a030', fontSize:18, fontFamily:"'Pirata One', cursive", letterSpacing:3, cursor:'pointer' }}>
-            ⚓ SET SAIL
+            <Icon name="anchor" size={22} style={{ marginRight:8 }} />SET SAIL
           </motion.button>
         </motion.div>
       )}
@@ -1163,8 +1164,8 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
 
             {/* Skull */}
             <motion.div initial={{scale:0, rotate:-20}} animate={{scale:1, rotate:0}} transition={{type:'spring', stiffness:120, delay:0.2}}
-              style={{ fontSize:130, marginBottom:8, filter:'drop-shadow(0 0 30px rgba(220,30,30,0.8))' }}>
-              ☠
+              style={{ marginBottom:8, filter:'drop-shadow(0 0 30px rgba(220,30,30,0.8))' }}>
+              <Icon name="skull" size={130} />
             </motion.div>
 
             {/* Title */}
@@ -1191,7 +1192,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
               <motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:1.0}}
                 style={{ display:'flex', flexDirection:'column', gap:4, alignItems:'center', marginBottom:16, padding:'10px 18px', borderRadius:12, background:'rgba(150,0,0,0.12)', border:'1px solid rgba(220,60,60,0.25)', maxWidth: isMobile ? '90vw' : 560 }}>
                 <div style={{ fontSize: isMobile ? 13 : 15, color:'#ee6655', fontFamily:"'Cinzel', serif", letterSpacing:2 }}>
-                  ⚓ Sunk by: {dc.name}
+                  <Icon name="anchor" size={16} style={{ marginRight:6 }} />Sunk by: {dc.name}
                 </div>
                 <div style={{ fontSize: isMobile ? 12 : 14, color:'rgba(255,255,255,0.55)', fontFamily:"'IM Fell English', cursive", textAlign:'center' }}>
                   {dc.tip}
@@ -1320,14 +1321,14 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                     setSubmitting(false);
                   }}
                   style={{ padding:'12px 32px', borderRadius:10, border:'1px solid rgba(200,160,48,0.4)', background:'rgba(200,160,48,0.1)', color:'#c8a030', fontSize:16, letterSpacing:3, cursor:'pointer', fontFamily:"'Pirata One', cursive" }}>
-                  {submitting ? 'SUBMITTING...' : '⚓ SUBMIT SCORE'}
+                  {submitting ? 'SUBMITTING...' : <><Icon name="anchor" size={16} style={{ marginRight:6 }} />SUBMIT SCORE</>}
                 </motion.button>
               )}
               {scoreSubmitted && <div style={{ fontSize:14, color:'#44cc88', letterSpacing:2, fontFamily:"'Pirata One', cursive" }}>✓ SCORE SUBMITTED</div>}
               {nftMinted.length > 0 && (
                 <motion.div initial={{opacity:0, scale:0.8}} animate={{opacity:1, scale:1}}
                   style={{ padding:'12px 24px', borderRadius:12, border:'1px solid rgba(200,160,48,0.6)', background:'rgba(0,0,0,0.8)', textAlign:'center' }}>
-                  <div style={{ fontSize:20, marginBottom:4 }}>🏴‍☠️</div>
+                  <div style={{ marginBottom:4 }}><Icon name="flag" size={24} /></div>
                   <div style={{ fontSize:16, color:'#FFD700', fontFamily:"'Pirata One', cursive", letterSpacing:2 }}>NFT EARNED!</div>
                   {nftMinted.map(n => (
                     <div key={n} style={{ fontSize:13, color:'rgba(255,255,255,0.8)', fontFamily:"'Cinzel', serif", marginTop:4 }}>{n.replace(/_/g,' ').toUpperCase()}</div>

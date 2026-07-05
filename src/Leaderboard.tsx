@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Icon } from './Icon';
 import { motion } from 'framer-motion';
 import { getLeaderboard, getDailyLeaderboard } from './supabase';
 import anchorImg from './assets/anchor.png';
@@ -16,7 +17,7 @@ type Score = {
 };
 
 const RANK_COLORS = ['#FFD700', '#C0C0C0', '#CD7F32'];
-const RANK_ICONS = ['👑', '⚔️', '🏴‍☠️'];
+const rankIcon = (i: number) => i===0 ? <Icon name="crown" size={18}/> : i===2 ? <Icon name="skull" size={16}/> : '⚔️';
 
 type DailyScore = {
   id: string;
@@ -72,7 +73,7 @@ export default function Leaderboard({ onClose }: { onClose: () => void }) {
           {(['daily', 'all'] as const).map(t => (
             <button key={t} onClick={() => setTab(t)}
               style={{ flex: 1, padding: '10px 0', borderRadius: 10, border: `1px solid ${tab === t ? 'rgba(200,160,48,0.6)' : 'rgba(255,255,255,0.1)'}`, background: tab === t ? 'rgba(200,160,48,0.12)' : 'transparent', color: tab === t ? '#c8a030' : 'rgba(255,255,255,0.35)', fontSize: 13, letterSpacing: 3, cursor: 'pointer', fontFamily: "'Pirata One', cursive" }}>
-              {t === 'daily' ? '☀ DAILY' : '⚓ ALL TIME'}
+              {t === 'daily' ? '☀ DAILY' : <><Icon name="anchor" size={14} style={{marginRight:5}}/>ALL TIME</>}
             </button>
           ))}
         </div>
@@ -103,7 +104,7 @@ export default function Leaderboard({ onClose }: { onClose: () => void }) {
                   borderRadius: 12, padding: isMobile ? '10px 12px' : '14px 18px',
                 }}>
                 <div style={{ width: 32, textAlign: 'center', fontSize: i < 3 ? 22 : 15, color: i < 3 ? RANK_COLORS[i] : 'rgba(255,255,255,0.25)' }}>
-                  {i < 3 ? RANK_ICONS[i] : `#${i + 1}`}
+                  {i < 3 ? rankIcon(i) : `#${i + 1}`}
                 </div>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: isMobile ? 13 : 15, color: i < 3 ? RANK_COLORS[i] : '#e8e0d0' }}>
@@ -134,7 +135,7 @@ export default function Leaderboard({ onClose }: { onClose: () => void }) {
                 }}>
                 {/* Rank */}
                 <div style={{ width: 32, textAlign: 'center', fontSize: i < 3 ? 22 : 15, color: i < 3 ? RANK_COLORS[i] : 'rgba(255,255,255,0.25)' }}>
-                  {i < 3 ? RANK_ICONS[i] : `#${i + 1}`}
+                  {i < 3 ? rankIcon(i) : `#${i + 1}`}
                 </div>
                 {/* Info */}
                 <div style={{ flex: 1 }}>
