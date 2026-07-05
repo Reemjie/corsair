@@ -147,7 +147,7 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
               }
             </div>
             <div style={{ fontSize:10, color:'rgba(238,221,68,0.55)', fontFamily:"'Cinzel', serif", marginTop:10, textAlign:'center', letterSpacing:1 }}>
-              <Icon name="trophy" size={13} style={{ marginRight:5 }} />Next NFT tournament coming soon — follow @PlayCorsair
+              <Icon name="trophy" size={17} style={{ marginRight:7 }} />Next NFT tournament coming soon — follow @PlayCorsair
             </div>
           </div>
           </div>
@@ -157,7 +157,7 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
               <div style={{ fontSize:11, color:'rgba(200,160,48,0.6)', fontFamily:"'Cinzel', serif", letterSpacing:3, marginBottom:8, textAlign:'center' }}>☀ TODAY'S TOP</div>
               {top3.map((s, i) => (
                 <div key={i} style={{ display:'flex', alignItems:'center', gap:8, marginBottom:4 }}>
-                  <div style={{ fontSize:13, color: i===0?'#FFD700':i===1?'#C0C0C0':'#CD7F32', width:16, textAlign:'center' }}>{i===0 ? <Icon name="crown" size={16}/> : ['','⚔️','🏴‍☠️'][i]}</div>
+                  <div style={{ fontSize:13, color: i===0?'#FFD700':i===1?'#C0C0C0':'#CD7F32', width:16, textAlign:'center' }}>{i===0 ? <Icon name="crown" size={19}/> : ['','⚔️','🏴‍☠️'][i]}</div>
                   <div style={{ flex:1, fontSize:13, color:'rgba(255,255,255,0.7)', fontFamily:"'Cinzel', serif", overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>
                     {s.username ?? `${s.wallet_address.slice(0,6)}...${s.wallet_address.slice(-4)}`}
                   </div>
@@ -174,11 +174,11 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
           </motion.button>
           <motion.button whileHover={{ scale:1.04 }} whileTap={{ scale:0.96 }} onClick={() => setShowFeats(true)}
             style={{ padding:'12px 26px', borderRadius:12, border:'1px solid rgba(238,221,68,0.45)', background:'rgba(238,221,68,0.07)', color:'rgba(238,221,68,0.9)', fontSize:14, letterSpacing:3, cursor:'pointer', fontFamily:"'Pirata One', cursive", marginLeft:10 }}>
-            <Icon name="fleurdelys" size={16} style={{ marginRight:6 }} />FEATS
+            <Icon name="fleurdelys" size={22} style={{ marginRight:8 }} />FEATS
           </motion.button>
           <motion.button whileHover={{ scale:1.04 }} whileTap={{ scale:0.96 }} onClick={() => setShowShips(true)}
             style={{ padding:'12px 26px', borderRadius:12, border:'1px solid rgba(136,221,255,0.45)', background:'rgba(136,221,255,0.07)', color:'rgba(136,221,255,0.9)', fontSize:14, letterSpacing:3, cursor:'pointer', fontFamily:"'Pirata One', cursive", marginLeft:10 }}>
-            <Icon name="ship" size={16} style={{ marginRight:6 }} />SHIPS
+            <Icon name="ship" size={22} style={{ marginRight:8 }} />SHIPS
           </motion.button>
 
         </motion.div>
