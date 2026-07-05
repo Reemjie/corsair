@@ -57373,7 +57373,22 @@ Resources:`;
     function sce(e) {
         e ? localStorage.setItem(A9, e) : localStorage.removeItem(A9);
     }
-    var M9 = `/corsair/assets/anchor-Bx3zJViJ.png`, cce = `/corsair/assets/crown_nest-CWMGGW2l.png`, lce = `/corsair/assets/dark_compass-dsQlZw-d.png`, uce = `/corsair/assets/gold_detector-BtOXALOo.png`, dce = `/corsair/assets/heavy_cannons-DgKgcb-q.png`, fce = `/corsair/assets/iron_hull-Cy_K0tjJ.png`, pce = `/corsair/assets/swift_sails-YMobDX4v.png`, mce = `/corsair/assets/ghost_ship-4jaVs07k.png`, hce = `/corsair/assets/treasure_hunter-C9jnAyZy.png`, gce = `/corsair/assets/storm_rider-BjRGnDwr.png`, _ce = `/corsair/assets/stormbreaker-B4gPlSXk.png`, vce = `/corsair/assets/cursed_greed-BlVfcQDt.png`, yce = `/corsair/assets/berserker-B9haxHEY.png`, bce = `/corsair/assets/explorer-41WmVqQt.png`, xce = Object.fromEntries([
+    var cce = `/corsair/icons_ui/`;
+    function M9({ name: e, size: t = 20, style: n }) {
+        return (0, I.jsx)(`img`, {
+            src: `${cce}${e}.png`,
+            width: t,
+            height: t,
+            alt: ``,
+            style: {
+                objectFit: `contain`,
+                verticalAlign: `middle`,
+                display: `inline-block`,
+                ...n
+            }
+        });
+    }
+    var N9 = `/corsair/assets/anchor-Bx3zJViJ.png`, lce = `/corsair/assets/crown_nest-CWMGGW2l.png`, uce = `/corsair/assets/dark_compass-dsQlZw-d.png`, dce = `/corsair/assets/gold_detector-BtOXALOo.png`, fce = `/corsair/assets/heavy_cannons-DgKgcb-q.png`, pce = `/corsair/assets/iron_hull-Cy_K0tjJ.png`, mce = `/corsair/assets/swift_sails-YMobDX4v.png`, hce = `/corsair/assets/ghost_ship-4jaVs07k.png`, gce = `/corsair/assets/treasure_hunter-C9jnAyZy.png`, _ce = `/corsair/assets/storm_rider-BjRGnDwr.png`, vce = `/corsair/assets/stormbreaker-B4gPlSXk.png`, yce = `/corsair/assets/cursed_greed-BlVfcQDt.png`, bce = `/corsair/assets/berserker-B9haxHEY.png`, xce = `/corsair/assets/explorer-41WmVqQt.png`, P9 = Object.fromEntries([
         `search`,
         `lurks`,
         `fight`,
@@ -57416,21 +57431,21 @@ Resources:`;
                 "../assets/choices/tribute.png": SX,
                 "../assets/choices/vortex.png": CX
             })[`../assets/choices/${e}.png`], import.meta.url).href
-        ])), N9 = {
-        vision: cce,
-        compass: lce,
-        detector: uce,
-        power: dce,
-        armor: fce,
-        escape: pce,
-        ghost: mce,
-        hunter: hce,
-        rider: gce,
-        stormbreaker: _ce,
-        greed: vce,
-        berserker: yce,
-        explorer: bce
-    }, P9 = `/corsair/icons/gold.png`, F9 = {
+        ])), F9 = {
+        vision: lce,
+        compass: uce,
+        detector: dce,
+        power: fce,
+        armor: pce,
+        escape: mce,
+        ghost: hce,
+        hunter: gce,
+        rider: _ce,
+        stormbreaker: vce,
+        greed: yce,
+        berserker: bce,
+        explorer: xce
+    }, Sce = `/corsair/icons/gold.png`, I9 = {
         kraken: `/corsair/scenes/kraken.jpg`,
         ancient_kraken: `/corsair/scenes/ancient-kraken.jpg`,
         storm: `/corsair/scenes/storm.jpg`,
@@ -57442,7 +57457,7 @@ Resources:`;
         rocks: `/corsair/scenes/rocks.jpg`,
         wreck: `/corsair/scenes/wreck.jpg`,
         maelstrom: `/corsair/scenes/maelstrom.jpg`
-    }, I9 = {
+    }, L9 = {
         kraken: `/corsair/scenes/kraken.mp4`,
         ancient_kraken: `/corsair/scenes/ancient_kraken.mp4`,
         storm: `/corsair/scenes/storm.mp4`,
@@ -57455,7 +57470,7 @@ Resources:`;
         wreck: `/corsair/scenes/wreck.mp4`,
         maelstrom: `/corsair/scenes/maelstrom.mp4`,
         death: `/corsair/scenes/death.mp4`
-    }, L9 = {
+    }, R9 = {
         kraken: `The Kraken Rises`,
         ancient_kraken: `The Ancient One Awakens`,
         storm: `Into the Storm`,
@@ -57468,7 +57483,7 @@ Resources:`;
         wreck: `A Ghostly Wreck`,
         death: `Your Voyage Ends`,
         maelstrom: `The Maelstrom`
-    }, Sce = {
+    }, Cce = {
         sea: `〰`,
         storm: `⛈`,
         pirate: `☠`,
@@ -57478,7 +57493,7 @@ Resources:`;
         wreck: `/corsair/icons/wreck.png`,
         island: `/corsair/icons/island.png`,
         rocks: `/corsair/icons/rocks.png`
-    }, R9 = {
+    }, z9 = {
         1: {
             sea: `#1a3a4a`,
             storm: `#2a1a4a`,
@@ -57515,7 +57530,7 @@ Resources:`;
             rocks: `#050508`,
             portal: `#150020`
         }
-    }, z9 = {
+    }, B9 = {
         1: {
             treasure: `#eedd44`,
             port: `#44cccc`,
@@ -57538,7 +57553,7 @@ Resources:`;
             portal: `#440088`
         }
     };
-    function Cce({ ok: e }) {
+    function wce({ ok: e }) {
         return (0, I.jsx)(`span`, {
             style: {
                 display: `inline-block`,
@@ -57553,7 +57568,7 @@ Resources:`;
             }
         });
     }
-    function B9({ pros: e, cons: t, fontSize: n = 11, opacity: r = .55 }) {
+    function V9({ pros: e, cons: t, fontSize: n = 11, opacity: r = .55 }) {
         let i = (e, t, n)=>(0, I.jsxs)(`div`, {
                 style: {
                     display: `flex`,
@@ -57561,7 +57576,7 @@ Resources:`;
                     lineHeight: 1.45
                 },
                 children: [
-                    (0, I.jsx)(Cce, {
+                    (0, I.jsx)(wce, {
                         ok: t
                     }),
                     (0, I.jsx)(`span`, {
@@ -57585,7 +57600,7 @@ Resources:`;
             ]
         });
     }
-    var V9 = [
+    var H9 = [
         {
             id: `ghost`,
             name: `Ghost Ship`,
@@ -57663,13 +57678,13 @@ Resources:`;
             icon: `escape`,
             build: `escape`
         }
-    ], H9 = {
+    ], U9 = {
         vision: `#6aaccc`,
         gold: `#eedd44`,
         combat: `#ee6644`,
         escape: `#44cc88`
     };
-    function wce(e) {
+    function Tce(e) {
         let t = (e || ``).toLowerCase();
         return t.includes(`storm`) ? {
             name: `The Storm`,
@@ -57694,7 +57709,7 @@ Resources:`;
             tip: `The sea keeps its secrets.`
         };
     }
-    var Tce = (e, t)=>e ? e.startsWith(`http`) || e.startsWith(`/`) ? (0, I.jsx)(`img`, {
+    var Ece = (e, t)=>e ? e.startsWith(`http`) || e.startsWith(`/`) ? (0, I.jsx)(`img`, {
             src: e,
             style: {
                 width: t,
@@ -57710,7 +57725,7 @@ Resources:`;
             },
             children: e
         }) : null;
-    function Ece({ walletAddress: e, account: t, username: n, onHome: r, dailySeed: i, shipId: a }) {
+    function Dce({ walletAddress: e, account: t, username: n, onHome: r, dailySeed: i, shipId: a }) {
         let [o, s] = (0, x.useState)(()=>C9(i, i === void 0 ? a ?? `default` : `default`)), [c, l] = (0, x.useState)(!1), [u, d] = (0, x.useState)([]), [f, p] = (0, x.useState)([]), [m, h] = (0, x.useState)(!1), [g, _] = (0, x.useState)([]), [v, y] = (0, x.useState)(null), [b, S] = (0, x.useState)(0), [C, w] = (0, x.useState)(()=>parseInt(localStorage.getItem(`corsair_best_score`) || `0`)), [T, E] = (0, x.useState)(!1), [D, ee] = (0, x.useState)(!1), [O, te] = (0, x.useState)(window.innerWidth < 768), ne = i !== void 0;
         (0, x.useEffect)(()=>{
             ne && Fse();
@@ -57730,7 +57745,7 @@ Resources:`;
             }
             if (o.gameOver) return;
             let e = o.event?.cellType;
-            if (e && I9[e]) {
+            if (e && L9[e]) {
                 ie(e);
                 let t = setTimeout(()=>ie(null), 5e3);
                 return ()=>clearTimeout(t);
@@ -58128,7 +58143,7 @@ Resources:`;
                             },
                             children: [
                                 (0, I.jsx)(`img`, {
-                                    src: M9,
+                                    src: N9,
                                     style: {
                                         width: O ? 28 : 56,
                                         height: O ? 28 : 56,
@@ -58225,7 +58240,7 @@ Resources:`;
                                                 (0, I.jsx)(`img`, {
                                                     src: {
                                                         hull: `/corsair/assets/hull-CGmPGbU0.png`,
-                                                        gold: P9,
+                                                        gold: Sce,
                                                         vision: `/corsair/assets/vision-3Q65Za4i.png`,
                                                         power: `/corsair/assets/power-CBX9SU5d.png`,
                                                         turn: `/corsair/assets/turn-Wvx6vBym.png`
@@ -58553,18 +58568,18 @@ Resources:`;
                                     },
                                     children: `None yet`
                                 }) : A.ship.upgrades.map((e)=>{
-                                    let t = V9.find((t)=>t.id === e);
+                                    let t = H9.find((t)=>t.id === e);
                                     return (0, I.jsxs)(`div`, {
                                         style: {
                                             fontSize: 14,
-                                            color: H9[t.build],
+                                            color: U9[t.build],
                                             display: `flex`,
                                             alignItems: `center`,
                                             gap: 6
                                         },
                                         children: [
                                             (0, I.jsx)(`img`, {
-                                                src: N9[e],
+                                                src: F9[e],
                                                 style: {
                                                     width: 20,
                                                     height: 20,
@@ -58958,7 +58973,7 @@ Resources:`;
                                                             revealed: !1,
                                                             visited: !1,
                                                             value: 0
-                                                        }, s = A.ship.x + t, c = A.ship.y + e, l = A.hunter?.active && A.hunter.x === s && A.hunter.y === c, u = t === 0 && e === 0, d = o.revealed || o.visited, f = o.stormed, p = A.stormDistance <= 0 ? -1 : A.grid.length + 2 - Math.floor((10 - A.stormDistance) / 3), m = f && r === p, h = R9[A.currentZone ?? 1] ?? R9[1], g = z9[A.currentZone ?? 1] ?? z9[1], _ = f ? `#cc2222` : g[o.type], v = A.ship.vision * 2 + 1, y = O ? Math.floor((window.innerWidth - 16) / v) : Math.floor(Math.min(window.innerWidth * .5, window.innerHeight * .62) / v) - 4;
+                                                        }, s = A.ship.x + t, c = A.ship.y + e, l = A.hunter?.active && A.hunter.x === s && A.hunter.y === c, u = t === 0 && e === 0, d = o.revealed || o.visited, f = o.stormed, p = A.stormDistance <= 0 ? -1 : A.grid.length + 2 - Math.floor((10 - A.stormDistance) / 3), m = f && r === p, h = z9[A.currentZone ?? 1] ?? z9[1], g = B9[A.currentZone ?? 1] ?? B9[1], _ = f ? `#cc2222` : g[o.type], v = A.ship.vision * 2 + 1, y = O ? Math.floor((window.innerWidth - 16) / v) : Math.floor(Math.min(window.innerWidth * .5, window.innerHeight * .62) / v) - 4;
                                                         return (0, I.jsxs)(X.div, {
                                                             className: m ? `storm-front` : void 0,
                                                             initial: d ? {
@@ -59461,8 +59476,8 @@ Resources:`;
                                         gap: 5,
                                         overflowY: `auto`
                                     },
-                                    children: V9.map((e)=>{
-                                        let t = A.ship.upgrades.includes(e.id), n = u.includes(e.id), r = A.upgradeToken && A.showPort, i = r ? 0 : e.cost, a = !t && !n && A.ship.gold >= i && A.showPort, o = H9[e.build];
+                                    children: H9.map((e)=>{
+                                        let t = A.ship.upgrades.includes(e.id), n = u.includes(e.id), r = A.upgradeToken && A.showPort, i = r ? 0 : e.cost, a = !t && !n && A.ship.gold >= i && A.showPort, o = U9[e.build];
                                         return (0, I.jsxs)(`div`, {
                                             onClick: ()=>{
                                                 A.showPort && (n ? d((t)=>t.filter((t)=>t !== e.id)) : a && d((t)=>[
@@ -59497,7 +59512,7 @@ Resources:`;
                                                             },
                                                             children: [
                                                                 (0, I.jsx)(`img`, {
-                                                                    src: N9[e.id],
+                                                                    src: F9[e.id],
                                                                     style: {
                                                                         width: 24,
                                                                         height: 24,
@@ -59532,7 +59547,7 @@ Resources:`;
                                                     style: {
                                                         marginTop: 3
                                                     },
-                                                    children: (0, I.jsx)(B9, {
+                                                    children: (0, I.jsx)(V9, {
                                                         pros: e.pros,
                                                         cons: e.cons,
                                                         fontSize: 11,
@@ -59548,7 +59563,7 @@ Resources:`;
                     ]
                 }),
                 (0, I.jsx)(h6, {
-                    children: re && I9[re] && (0, I.jsxs)(X.div, {
+                    children: re && L9[re] && (0, I.jsxs)(X.div, {
                         initial: {
                             opacity: 0
                         },
@@ -59573,7 +59588,7 @@ Resources:`;
                         },
                         children: [
                             (0, I.jsx)(`video`, {
-                                src: I9[re],
+                                src: L9[re],
                                 autoPlay: !0,
                                 muted: Ze,
                                 playsInline: !0,
@@ -59613,7 +59628,7 @@ Resources:`;
                                             letterSpacing: 3,
                                             textShadow: `0 2px 30px rgba(0,0,0,0.95)`
                                         },
-                                        children: L9[re] ?? ``
+                                        children: R9[re] ?? ``
                                     }),
                                     (0, I.jsx)(`div`, {
                                         style: {
@@ -59631,7 +59646,7 @@ Resources:`;
                     })
                 }),
                 (0, I.jsx)(h6, {
-                    children: A.event && L9[A.event.cellType] && (0, I.jsxs)(X.div, {
+                    children: A.event && R9[A.event.cellType] && (0, I.jsxs)(X.div, {
                         initial: {
                             opacity: 0
                         },
@@ -59654,12 +59669,12 @@ Resources:`;
                             overflowY: `auto`
                         },
                         children: [
-                            F9[A.event.cellType] && (0, I.jsx)(`div`, {
+                            I9[A.event.cellType] && (0, I.jsx)(`div`, {
                                 style: {
                                     position: `absolute`,
                                     inset: 0,
                                     zIndex: 0,
-                                    backgroundImage: `url(${F9[A.event.cellType]})`,
+                                    backgroundImage: `url(${I9[A.event.cellType]})`,
                                     backgroundSize: `cover`,
                                     backgroundPosition: `center`
                                 }
@@ -59719,7 +59734,7 @@ Resources:`;
                                                 textShadow: `0 2px 20px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.7)`,
                                                 lineHeight: 1.1
                                             },
-                                            children: L9[A.event.cellType] ?? A.event.cellType
+                                            children: R9[A.event.cellType] ?? A.event.cellType
                                         })
                                     }),
                                     (0, I.jsx)(`div`, {
@@ -59766,7 +59781,7 @@ Resources:`;
                                                             textAlign: `center`
                                                         },
                                                         children: (0, I.jsx)(`img`, {
-                                                            src: xce[e.icon] || ``,
+                                                            src: P9[e.icon] || ``,
                                                             style: {
                                                                 width: 72,
                                                                 height: 72,
@@ -59813,7 +59828,7 @@ Resources:`;
                     })
                 }),
                 (0, I.jsx)(h6, {
-                    children: A.event && !o.gameOver && !A.showPort && A.event.cellType && !F9[A.event.cellType] && (0, I.jsx)(X.div, {
+                    children: A.event && !o.gameOver && !A.showPort && A.event.cellType && !I9[A.event.cellType] && (0, I.jsx)(X.div, {
                         initial: {
                             y: 100,
                             opacity: 0
@@ -59845,7 +59860,7 @@ Resources:`;
                                     style: {
                                         flexShrink: 0
                                     },
-                                    children: Tce(Sce[A.event.cellType], 55)
+                                    children: Ece(Cce[A.event.cellType], 55)
                                 }),
                                 (0, I.jsxs)(`div`, {
                                     style: {
@@ -60200,8 +60215,8 @@ Resources:`;
                                             gap: 10,
                                             marginBottom: 12
                                         },
-                                        children: V9.filter((e)=>A.portUpgrades.includes(e.id) || A.ship.upgrades.includes(e.id)).map((e)=>{
-                                            let t = A.ship.upgrades.includes(e.id), n = u.includes(e.id), r = A.upgradeToken ? 0 : e.cost, i = !t && !n && A.ship.gold >= r, a = H9[e.build];
+                                        children: H9.filter((e)=>A.portUpgrades.includes(e.id) || A.ship.upgrades.includes(e.id)).map((e)=>{
+                                            let t = A.ship.upgrades.includes(e.id), n = u.includes(e.id), r = A.upgradeToken ? 0 : e.cost, i = !t && !n && A.ship.gold >= r, a = U9[e.build];
                                             return (0, I.jsxs)(`div`, {
                                                 onClick: ()=>{
                                                     n ? d((t)=>t.filter((t)=>t !== e.id)) : i && d((t)=>[
@@ -60222,7 +60237,7 @@ Resources:`;
                                                 },
                                                 children: [
                                                     (0, I.jsx)(`img`, {
-                                                        src: N9[e.id],
+                                                        src: F9[e.id],
                                                         style: {
                                                             width: 44,
                                                             height: 44,
@@ -60244,7 +60259,7 @@ Resources:`;
                                                                 style: {
                                                                     marginTop: 3
                                                                 },
-                                                                children: (0, I.jsx)(B9, {
+                                                                children: (0, I.jsx)(V9, {
                                                                     pros: e.pros,
                                                                     cons: e.cons,
                                                                     fontSize: 12,
@@ -60325,7 +60340,7 @@ Resources:`;
                                         ]
                                     }, e.label))
                             }),
-                            (0, I.jsx)(X.button, {
+                            (0, I.jsxs)(X.button, {
                                 whileHover: {
                                     scale: 1.02
                                 },
@@ -60351,7 +60366,16 @@ Resources:`;
                                     letterSpacing: 3,
                                     cursor: `pointer`
                                 },
-                                children: `⚓ SET SAIL`
+                                children: [
+                                    (0, I.jsx)(M9, {
+                                        name: `anchor`,
+                                        size: 22,
+                                        style: {
+                                            marginRight: 8
+                                        }
+                                    }),
+                                    `SET SAIL`
+                                ]
                             })
                         ]
                     })
@@ -60414,11 +60438,13 @@ Resources:`;
                                     delay: .2
                                 },
                                 style: {
-                                    fontSize: 130,
                                     marginBottom: 8,
                                     filter: `drop-shadow(0 0 30px rgba(220,30,30,0.8))`
                                 },
-                                children: `☠`
+                                children: (0, I.jsx)(M9, {
+                                    name: `skull`,
+                                    size: 130
+                                })
                             }),
                             (0, I.jsx)(X.div, {
                                 initial: {
@@ -60490,7 +60516,7 @@ Resources:`;
                                 ]
                             }),
                             (()=>{
-                                let e = wce(A.log);
+                                let e = Tce(A.log);
                                 return (0, I.jsxs)(X.div, {
                                     initial: {
                                         opacity: 0
@@ -60522,7 +60548,14 @@ Resources:`;
                                                 letterSpacing: 2
                                             },
                                             children: [
-                                                `⚓ Sunk by: `,
+                                                (0, I.jsx)(M9, {
+                                                    name: `anchor`,
+                                                    size: 16,
+                                                    style: {
+                                                        marginRight: 6
+                                                    }
+                                                }),
+                                                `Sunk by: `,
                                                 e.name
                                             ]
                                         }),
@@ -60914,7 +60947,18 @@ Resources:`;
                                             cursor: `pointer`,
                                             fontFamily: `'Pirata One', cursive`
                                         },
-                                        children: D ? `SUBMITTING...` : `⚓ SUBMIT SCORE`
+                                        children: D ? `SUBMITTING...` : (0, I.jsxs)(I.Fragment, {
+                                            children: [
+                                                (0, I.jsx)(M9, {
+                                                    name: `anchor`,
+                                                    size: 16,
+                                                    style: {
+                                                        marginRight: 6
+                                                    }
+                                                }),
+                                                `SUBMIT SCORE`
+                                            ]
+                                        })
                                     }),
                                     m && (0, I.jsx)(`div`, {
                                         style: {
@@ -60944,10 +60988,12 @@ Resources:`;
                                         children: [
                                             (0, I.jsx)(`div`, {
                                                 style: {
-                                                    fontSize: 20,
                                                     marginBottom: 4
                                                 },
-                                                children: `🏴‍☠️`
+                                                children: (0, I.jsx)(M9, {
+                                                    name: `flag`,
+                                                    size: 24
+                                                })
                                             }),
                                             (0, I.jsx)(`div`, {
                                                 style: {
@@ -61303,7 +61349,7 @@ Resources:`;
                                                 },
                                                 children: `None yet`
                                             }) : A.ship.upgrades.map((e)=>{
-                                                let t = V9.find((t)=>t.id === e);
+                                                let t = H9.find((t)=>t.id === e);
                                                 return (0, I.jsxs)(`div`, {
                                                     style: {
                                                         fontSize: 13,
@@ -61315,7 +61361,7 @@ Resources:`;
                                                     },
                                                     children: [
                                                         (0, I.jsx)(`img`, {
-                                                            src: N9[e],
+                                                            src: F9[e],
                                                             style: {
                                                                 width: 18,
                                                                 height: 18,
@@ -61433,8 +61479,8 @@ Resources:`;
                                                 },
                                                 children: `UPGRADES`
                                             }),
-                                            V9.map((e)=>{
-                                                let t = A.ship.upgrades.includes(e.id), n = H9[e.build];
+                                            H9.map((e)=>{
+                                                let t = A.ship.upgrades.includes(e.id), n = U9[e.build];
                                                 return (0, I.jsxs)(`div`, {
                                                     style: {
                                                         marginBottom: 10,
@@ -61450,7 +61496,7 @@ Resources:`;
                                                             },
                                                             children: [
                                                                 (0, I.jsx)(`img`, {
-                                                                    src: N9[e.id],
+                                                                    src: F9[e.id],
                                                                     style: {
                                                                         width: 20,
                                                                         height: 20,
@@ -61479,7 +61525,7 @@ Resources:`;
                                                             style: {
                                                                 lineHeight: 1.5
                                                             },
-                                                            children: (0, I.jsx)(B9, {
+                                                            children: (0, I.jsx)(V9, {
                                                                 pros: e.pros,
                                                                 cons: e.cons,
                                                                 fontSize: 11,
@@ -61507,7 +61553,7 @@ Resources:`;
             ]
         });
     }
-    var U9 = `/corsair/`, Dce = [
+    var W9 = `/corsair/`, Oce = [
         {
             icon: `sea`,
             label: `Calm Sea`,
@@ -61583,7 +61629,7 @@ Resources:`;
             color: `#003a5a`,
             legendary: !0
         }
-    ], Oce = [
+    ], kce = [
         {
             id: `ghost`,
             name: `Ghost Ship`,
@@ -61626,7 +61672,7 @@ Resources:`;
             cost: `65g`,
             color: `#44cc88`
         }
-    ], kce = {
+    ], Ace = {
         ghost: `upgrades/ghost_ship.png`,
         rider: `upgrades/storm_rider.png`,
         greed: `upgrades/cursed_greed.png`,
@@ -61634,7 +61680,7 @@ Resources:`;
         hunter: `upgrades/treasure_hunter.png`,
         escape: `upgrades/swift_sails.png`
     };
-    function W9({ title: e, children: t }) {
+    function G9({ title: e, children: t }) {
         return (0, I.jsxs)(`div`, {
             style: {
                 marginBottom: 36
@@ -61656,7 +61702,7 @@ Resources:`;
             ]
         });
     }
-    function Ace({ onClose: e, onPlay: t }) {
+    function jce({ onClose: e, onPlay: t }) {
         let n = window.innerWidth < 768;
         return (0, I.jsx)(X.div, {
             initial: {
@@ -61739,7 +61785,7 @@ Resources:`;
                             })
                         ]
                     }),
-                    (0, I.jsx)(W9, {
+                    (0, I.jsx)(G9, {
                         title: `THE GOAL`,
                         children: (0, I.jsx)(`p`, {
                             style: {
@@ -61751,7 +61797,7 @@ Resources:`;
                             children: `You are a lone corsair sailing the northern seas. A deadly storm is chasing you from the south — and it never stops advancing. Your goal is to survive as long as possible, explore the fog-covered map, make smart decisions, and accumulate the highest score. There is no finish line. Every run ends in death. The only question is how far you can go before the sea claims you.`
                         })
                     }),
-                    (0, I.jsxs)(W9, {
+                    (0, I.jsxs)(G9, {
                         title: `MOVEMENT & NAVIGATION`,
                         children: [
                             (0, I.jsxs)(`p`, {
@@ -61821,7 +61867,7 @@ Resources:`;
                             })
                         ]
                     }),
-                    (0, I.jsx)(W9, {
+                    (0, I.jsx)(G9, {
                         title: `YOUR STATS`,
                         children: (0, I.jsx)(`div`, {
                             style: {
@@ -61906,7 +61952,7 @@ Resources:`;
                                 }, e.label))
                         })
                     }),
-                    (0, I.jsx)(W9, {
+                    (0, I.jsx)(G9, {
                         title: `THE STORM`,
                         children: (0, I.jsx)(`div`, {
                             style: {
@@ -61937,7 +61983,7 @@ Resources:`;
                             })
                         })
                     }),
-                    (0, I.jsxs)(W9, {
+                    (0, I.jsxs)(G9, {
                         title: `ZONES & PORTALS`,
                         children: [
                             (0, I.jsxs)(`p`, {
@@ -62009,7 +62055,7 @@ Resources:`;
                             })
                         ]
                     }),
-                    (0, I.jsx)(W9, {
+                    (0, I.jsx)(G9, {
                         title: `THE CELLS — WHAT YOU WILL ENCOUNTER`,
                         children: (0, I.jsx)(`div`, {
                             style: {
@@ -62017,7 +62063,7 @@ Resources:`;
                                 gridTemplateColumns: n ? `1fr` : `repeat(2, 1fr)`,
                                 gap: 10
                             },
-                            children: Dce.map((e)=>(0, I.jsxs)(`div`, {
+                            children: Oce.map((e)=>(0, I.jsxs)(`div`, {
                                     style: {
                                         background: `${e.color}18`,
                                         border: `1px solid ${e.color}44`,
@@ -62044,7 +62090,7 @@ Resources:`;
                                             children: `LEGENDARY`
                                         }),
                                         (0, I.jsx)(`img`, {
-                                            src: `${U9}icons/${e.icon}.png`,
+                                            src: `${W9}icons/${e.icon}.png`,
                                             style: {
                                                 width: 44,
                                                 height: 44,
@@ -62078,7 +62124,7 @@ Resources:`;
                                 }, e.icon))
                         })
                     }),
-                    (0, I.jsxs)(W9, {
+                    (0, I.jsxs)(G9, {
                         title: `SCORE & COMBO SYSTEM`,
                         children: [
                             (0, I.jsxs)(`p`, {
@@ -62208,7 +62254,7 @@ Resources:`;
                             })
                         ]
                     }),
-                    (0, I.jsx)(W9, {
+                    (0, I.jsx)(G9, {
                         title: `THE PORT — YOUR LIFELINE`,
                         children: (0, I.jsx)(`p`, {
                             style: {
@@ -62220,7 +62266,7 @@ Resources:`;
                             children: `Whenever you land on a port cell and choose to dock, you enter the port. Here you can repair your hull with a Rum Barrel (+8 hull for 25 gold) or a Full Repair (restore all hull for 55 gold). You also see 4 randomly selected upgrades — each port offers a different selection. Click an upgrade to add it to your cart, then press Confirm to purchase. If the selection does not suit your build, you can reroll it for 20 gold. You can only own one of each upgrade per run, so choose wisely. Occasionally, exploring an island grants you an Upgrade Token — your next upgrade at port costs 0 gold, so save it for the most expensive ability.`
                         })
                     }),
-                    (0, I.jsxs)(W9, {
+                    (0, I.jsxs)(G9, {
                         title: `SHIP COMPONENTS`,
                         children: [
                             (0, I.jsx)(`p`, {
@@ -62310,7 +62356,7 @@ Resources:`;
                             })
                         ]
                     }),
-                    (0, I.jsxs)(W9, {
+                    (0, I.jsxs)(G9, {
                         title: `SPECIAL ABILITIES (MAX 2 PER RUN)`,
                         children: [
                             (0, I.jsx)(`p`, {
@@ -62329,7 +62375,7 @@ Resources:`;
                                     gridTemplateColumns: n ? `1fr` : `repeat(2, 1fr)`,
                                     gap: 10
                                 },
-                                children: Oce.map((e)=>(0, I.jsxs)(`div`, {
+                                children: kce.map((e)=>(0, I.jsxs)(`div`, {
                                         style: {
                                             background: `rgba(255,255,255,0.02)`,
                                             border: `1px solid ${e.color}33`,
@@ -62341,7 +62387,7 @@ Resources:`;
                                         },
                                         children: [
                                             (0, I.jsx)(`img`, {
-                                                src: `${U9}${kce[e.id]}`,
+                                                src: `${W9}${Ace[e.id]}`,
                                                 style: {
                                                     width: 44,
                                                     height: 44,
@@ -62394,7 +62440,7 @@ Resources:`;
                             })
                         ]
                     }),
-                    (0, I.jsx)(W9, {
+                    (0, I.jsx)(G9, {
                         title: `THE HUNTER — SOMETHING IS FOLLOWING YOU`,
                         children: (0, I.jsxs)(`div`, {
                             style: {
@@ -62484,7 +62530,7 @@ Resources:`;
                             ]
                         })
                     }),
-                    (0, I.jsxs)(W9, {
+                    (0, I.jsxs)(G9, {
                         title: `PROGRESSION & SHIPS`,
                         children: [
                             (0, I.jsxs)(`div`, {
@@ -62567,7 +62613,7 @@ Resources:`;
                             })
                         ]
                     }),
-                    (0, I.jsx)(W9, {
+                    (0, I.jsx)(G9, {
                         title: `TIPS FOR BEGINNERS`,
                         children: (0, I.jsx)(`div`, {
                             style: {
@@ -62662,21 +62708,6 @@ Resources:`;
             })
         });
     }
-    var jce = `/corsair/icons_ui/`;
-    function G9({ name: e, size: t = 20, style: n }) {
-        return (0, I.jsx)(`img`, {
-            src: `${jce}${e}.png`,
-            width: t,
-            height: t,
-            alt: ``,
-            style: {
-                objectFit: `contain`,
-                verticalAlign: `middle`,
-                display: `inline-block`,
-                ...n
-            }
-        });
-    }
     function Mce({ onClose: e }) {
         let t = new Set(j9()), [n, r] = (0, x.useState)(oce()), i = O9.filter((e)=>t.has(e.id)).length;
         return (0, I.jsx)(X.div, {
@@ -62737,7 +62768,7 @@ Resources:`;
                                     letterSpacing: 3
                                 },
                                 children: [
-                                    (0, I.jsx)(G9, {
+                                    (0, I.jsx)(M9, {
                                         name: `fleurdelys`,
                                         size: 30,
                                         style: {
@@ -62997,7 +63028,7 @@ Resources:`;
                                     letterSpacing: 3
                                 },
                                 children: [
-                                    (0, I.jsx)(G9, {
+                                    (0, I.jsx)(M9, {
                                         name: `ship`,
                                         size: 30,
                                         style: {
@@ -63142,11 +63173,13 @@ Resources:`;
         `#FFD700`,
         `#C0C0C0`,
         `#CD7F32`
-    ], Z9 = [
-        `👑`,
-        `⚔️`,
-        `🏴‍☠️`
-    ], Q9 = window.innerWidth < 768;
+    ], Z9 = (e)=>e === 0 ? (0, I.jsx)(M9, {
+            name: `crown`,
+            size: 18
+        }) : e === 2 ? (0, I.jsx)(M9, {
+            name: `skull`,
+            size: 16
+        }) : `⚔️`, Q9 = window.innerWidth < 768;
     function Fce({ onClose: e }) {
         let [t, n] = (0, x.useState)(`daily`), [r, i] = (0, x.useState)([]), [a, o] = (0, x.useState)([]), [s, c] = (0, x.useState)(!0);
         (0, x.useEffect)(()=>{
@@ -63221,7 +63254,7 @@ Resources:`;
                                 },
                                 children: [
                                     (0, I.jsx)(`img`, {
-                                        src: M9,
+                                        src: N9,
                                         style: {
                                             width: 36,
                                             height: 36,
@@ -63277,7 +63310,18 @@ Resources:`;
                                     cursor: `pointer`,
                                     fontFamily: `'Pirata One', cursive`
                                 },
-                                children: e === `daily` ? `☀ DAILY` : `⚓ ALL TIME`
+                                children: e === `daily` ? `☀ DAILY` : (0, I.jsxs)(I.Fragment, {
+                                    children: [
+                                        (0, I.jsx)(M9, {
+                                            name: `anchor`,
+                                            size: 14,
+                                            style: {
+                                                marginRight: 5
+                                            }
+                                        }),
+                                        `ALL TIME`
+                                    ]
+                                })
                             }, e))
                     }),
                     s ? (0, I.jsx)(`div`, {
@@ -63342,7 +63386,7 @@ Resources:`;
                                             fontSize: t < 3 ? 22 : 15,
                                             color: t < 3 ? X9[t] : `rgba(255,255,255,0.25)`
                                         },
-                                        children: t < 3 ? Z9[t] : `#${t + 1}`
+                                        children: t < 3 ? Z9(t) : `#${t + 1}`
                                     }),
                                     (0, I.jsxs)(`div`, {
                                         style: {
@@ -63418,7 +63462,7 @@ Resources:`;
                                             fontSize: t < 3 ? 22 : 15,
                                             color: t < 3 ? X9[t] : `rgba(255,255,255,0.25)`
                                         },
-                                        children: t < 3 ? Z9[t] : `#${t + 1}`
+                                        children: t < 3 ? Z9(t) : `#${t + 1}`
                                     }),
                                     (0, I.jsxs)(`div`, {
                                         style: {
@@ -63885,7 +63929,7 @@ Resources:`;
                                                         letterSpacing: 1
                                                     },
                                                     children: [
-                                                        (0, I.jsx)(G9, {
+                                                        (0, I.jsx)(M9, {
                                                             name: `trophy`,
                                                             size: 17,
                                                             style: {
@@ -63935,7 +63979,7 @@ Resources:`;
                                                             width: 16,
                                                             textAlign: `center`
                                                         },
-                                                        children: t === 0 ? (0, I.jsx)(G9, {
+                                                        children: t === 0 ? (0, I.jsx)(M9, {
                                                             name: `crown`,
                                                             size: 19
                                                         }) : [
@@ -64010,7 +64054,7 @@ Resources:`;
                                         marginLeft: 10
                                     },
                                     children: [
-                                        (0, I.jsx)(G9, {
+                                        (0, I.jsx)(M9, {
                                             name: `fleurdelys`,
                                             size: 22,
                                             style: {
@@ -64041,7 +64085,7 @@ Resources:`;
                                         marginLeft: 10
                                     },
                                     children: [
-                                        (0, I.jsx)(G9, {
+                                        (0, I.jsx)(M9, {
                                             name: `ship`,
                                             size: 22,
                                             style: {
@@ -64075,7 +64119,7 @@ Resources:`;
                 }),
                 (0, I.jsxs)(h6, {
                     children: [
-                        t && (0, I.jsx)(Ace, {
+                        t && (0, I.jsx)(jce, {
                             onClose: ()=>n(!1),
                             onPlay: ()=>{
                                 n(!1), e(null);
@@ -64099,7 +64143,7 @@ Resources:`;
         let { address: e, account: t, username: n } = iX(), [r, i] = (0, x.useState)(`home`), [a, o] = (0, x.useState)(void 0), [s, c] = (0, x.useState)(null), l = (e, t, n)=>{
             c(t ?? null), o(n), i(`game`);
         }, u = s ?? n, d = a === void 0 ? Y9() : `default`;
-        return r === `game` ? (0, I.jsx)(Ece, {
+        return r === `game` ? (0, I.jsx)(Dce, {
             walletAddress: e,
             account: t,
             username: u,
