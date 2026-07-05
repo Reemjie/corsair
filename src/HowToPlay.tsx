@@ -239,6 +239,25 @@ export default function HowToPlay({ onClose, onPlay }: { onClose: () => void; on
           </div>
         </Section>
 
+        {/* Progression */}
+        <Section title="PROGRESSION & SHIPS">
+          <div style={{ fontFamily: "'IM Fell English', cursive", fontSize: 17, color: 'rgba(255,255,255,0.7)', lineHeight: 1.7, marginBottom: 14 }}>
+            Every run counts, even a short one. Reaching milestones — surviving Hunter attacks, hoarding gold, reaching deeper zones — unlocks <span style={{ color:'#eedd44' }}>Feats</span>, each granting a captain title and often a new <span style={{ color:'#88ddff' }}>ship</span>.
+          </div>
+          <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
+            {[
+              { c:'#eedd44', t:'FEATS', d:'Accomplishments that persist across runs. Check the ⚜ FEATS menu to see what you have earned and what is still out there.' },
+              { c:'#88ddff', t:'SHIPS', d:'Unlock new vessels from the ⛵ SHIPS menu. The Merchant sails on gold, the Specter sees far but is easily sensed, the Breakwater shrugs off reefs. Each rewrites how a run plays.' },
+              { c:'#c8a030', t:'THE DAILY', d:'The daily tournament always uses the standard ship — same map, same rules for everyone. Pure skill.' },
+            ].map((r,i) => (
+              <div key={i} style={{ display:'flex', gap:12, alignItems:'flex-start' }}>
+                <div style={{ color:r.c, fontFamily:"'Pirata One', cursive", fontSize:15, letterSpacing:1, flexShrink:0, width:74 }}>{r.t}</div>
+                <div style={{ fontFamily:"'IM Fell English', cursive", fontSize:16, color:'rgba(255,255,255,0.7)', lineHeight:1.6 }}>{r.d}</div>
+              </div>
+            ))}
+          </div>
+        </Section>
+
         {/* Tips */}
         <Section title="TIPS FOR BEGINNERS">
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
