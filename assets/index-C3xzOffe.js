@@ -57686,10 +57686,10 @@ Resources:`;
     };
     function Dce(e) {
         let t = (e || ``).toLowerCase();
-        return t.includes(`storm`) ? {
+        return t.includes(`storm`) || t.includes(`lightning`) || t.includes(`splits the deck`) || t.includes(`waves`) || t.includes(`surge`) ? {
             name: `The Storm`,
             tip: `Rituals at islands (+4 turns) and Kraken Pacts (+6) push it back.`
-        } : t.includes(`tentacles`) ? {
+        } : t.includes(`tentacles`) || t.includes(`surfaces`) || t.includes(`hunter`) ? {
             name: `The Hunter`,
             tip: `Ports (-15) and storms (-10) lower its awareness. Watch the bar.`
         } : t.includes(`pirate`) ? {
@@ -60725,7 +60725,7 @@ Resources:`;
                                         color: `#eedd44`
                                     },
                                     {
-                                        label: `MAX HULL`,
+                                        label: `HULL`,
                                         val: `${A.ship.hull}/${A.ship.maxHull}`,
                                         color: A.ship.hull <= 5 ? `#ee4444` : A.ship.hull <= 10 ? `#ee8844` : `#44cc88`
                                     }
