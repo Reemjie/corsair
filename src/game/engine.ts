@@ -3,6 +3,7 @@ import { BALANCE, ZONE_CONFIG } from './balance';
 import { getStreakEffects, getSynergies } from './systems/streak';
 import type { GameState, Ship, ActiveEvent, UpgradeId, CellType } from '../types/game';
 import { generateGrid, revealAround, GRID_SIZE } from './mapGen';
+import { getEquippedTitle } from './feats';
 
 
 // ─── STREAK EFFECTS ──────────────────────────────────────────────────────────
@@ -70,6 +71,9 @@ function buildEvent(type: CellType, power: number): ActiveEvent {
 
 // ─── COMPUTE TITLE ───────────────────────────────────────────────────────────
 function computeTitle(s: GameState): string {
+  // Titre porte manuellement (feat equipe) -> priorite absolue, c'est l'identite choisie par le joueur
+  const worn = getEquippedTitle();
+  if (worn) return worn;
   if (s.exploits.includes('ancient'))                              return 'Legend of the Seas';
   if (s.exploits.includes('krakenlow'))                            return 'Scourge of the Abyss';
   if (s.ship.upgrades.includes('greed') && s.ship.gold > 500)     return 'Cursed Merchant';

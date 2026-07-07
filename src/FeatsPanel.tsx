@@ -20,8 +20,11 @@ export default function FeatsPanel({ onClose }: { onClose: () => void }) {
           <div style={{ fontFamily:"'Pirata One', cursive", fontSize:28, color:'#d4a531', letterSpacing:3 }}><Icon name="fleurdelys" size={30} style={{ marginRight:10 }} />FEATS</div>
           <button onClick={onClose} style={{ background:'none', border:'none', color:'rgba(255,255,255,0.5)', fontSize:22, cursor:'pointer' }}>✕</button>
         </div>
-        <div style={{ fontFamily:"'Cinzel', serif", fontSize:12, color:'rgba(136,221,255,0.75)', letterSpacing:2, marginBottom:16 }}>
-          {count} / {FEATS.length} UNLOCKED · each feat grants a captain title
+        <div style={{ fontFamily:"'Cinzel', serif", fontSize:12, color:'rgba(136,221,255,0.75)', letterSpacing:2, marginBottom:6 }}>
+          {count} / {FEATS.length} UNLOCKED
+        </div>
+        <div style={{ fontFamily:"'IM Fell English', cursive", fontSize:13, color:'rgba(255,255,255,0.6)', marginBottom:14, lineHeight:1.45 }}>
+          Wear a title to sail under it — it appears on the leaderboard, in your shared runs and on-chain. {equipped ? <span style={{ color:'#eedd44' }}>Currently: {equipped}</span> : <span style={{ opacity:0.6 }}>No title worn.</span>}
         </div>
 
         <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
