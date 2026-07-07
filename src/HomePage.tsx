@@ -22,6 +22,7 @@ const SLIDES = [
 
 
 export default function HomePage({ onPlay }: { onPlay: (address: string | null, username?: string | null, seed?: number) => void }) {
+  const [isMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
   const [showHowTo, setShowHowTo] = useState(false);
   const [showFeats, setShowFeats] = useState(false);
   const [showShips, setShowShips] = useState(false);
@@ -92,7 +93,7 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
       </div>
 
       {/* Slide label */}
-      <div style={{ position:'absolute', bottom:100, left:0, right:0, textAlign:'center', fontFamily:"'Cinzel', serif", fontSize:13, letterSpacing:6, color:'rgba(255,255,255,0.6)', textShadow:'0 1px 4px rgba(0,0,0,0.8)' }}>
+      <div style={{ position:'absolute', bottom:100, left:0, right:0, textAlign:'center', fontFamily:"'Cinzel', serif", fontSize:13, letterSpacing:6, color:'rgba(255,255,255,0.6)', textShadow:'0 1px 4px rgba(0,0,0,0.8)', display: isMobile ? 'none' : 'block' }}>
         {SLIDES[slide].label}
       </div>
 
@@ -172,14 +173,16 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
             style={{ padding:'12px 32px', borderRadius:12, border:'1px solid rgba(255,255,255,0.5)', background:'rgba(255,255,255,0.12)', color:'rgba(255,255,255,0.85)', fontSize:14, letterSpacing:3, cursor:'pointer', fontFamily:"'Pirata One', cursive" }}>
             HOW TO PLAY
           </motion.button>
+          <div style={{ display:'flex', gap:12, justifyContent:'center', flexWrap:'wrap' }}>
           <motion.button whileHover={{ scale:1.04 }} whileTap={{ scale:0.96 }} onClick={() => setShowFeats(true)}
-            style={{ padding:'12px 26px', borderRadius:12, border:'1px solid rgba(238,221,68,0.45)', background:'rgba(238,221,68,0.07)', color:'rgba(238,221,68,0.9)', fontSize:14, letterSpacing:3, cursor:'pointer', fontFamily:"'Pirata One', cursive", marginLeft:10 }}>
+            style={{ padding:'12px 26px', borderRadius:12, border:'1px solid rgba(238,221,68,0.45)', background:'rgba(238,221,68,0.07)', color:'rgba(238,221,68,0.9)', fontSize:14, letterSpacing:3, cursor:'pointer', fontFamily:"'Pirata One', cursive", display:'flex', alignItems:'center' }}>
             <Icon name="fleurdelys" size={22} style={{ marginRight:8 }} />FEATS
           </motion.button>
           <motion.button whileHover={{ scale:1.04 }} whileTap={{ scale:0.96 }} onClick={() => setShowShips(true)}
-            style={{ padding:'12px 26px', borderRadius:12, border:'1px solid rgba(136,221,255,0.45)', background:'rgba(136,221,255,0.07)', color:'rgba(136,221,255,0.9)', fontSize:14, letterSpacing:3, cursor:'pointer', fontFamily:"'Pirata One', cursive", marginLeft:10 }}>
+            style={{ padding:'12px 26px', borderRadius:12, border:'1px solid rgba(136,221,255,0.45)', background:'rgba(136,221,255,0.07)', color:'rgba(136,221,255,0.9)', fontSize:14, letterSpacing:3, cursor:'pointer', fontFamily:"'Pirata One', cursive", display:'flex', alignItems:'center' }}>
             <Icon name="ship" size={22} style={{ marginRight:8 }} />SHIPS
           </motion.button>
+          </div>
 
         </motion.div>
 
