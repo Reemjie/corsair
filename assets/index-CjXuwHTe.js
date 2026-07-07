@@ -58016,15 +58016,15 @@ Resources:`;
             over: o.gameOver,
             mult: o.scoreMultiplier ?? 1,
             hmode: o.hunter?.mode ?? ``,
-            front: -99
+            storm: o.stormDistance
         });
         return (0, x.useEffect)(()=>{
-            let e = $e.current, t = o.stormDistance <= 0 ? -1 : o.grid.length + 2 - Math.floor((10 - o.stormDistance) / 3), n = !!o.log?.includes(`Tentacles rake`);
+            let e = $e.current, t = !!o.log?.includes(`Tentacles rake`);
             if (o.gameOver && !e.over) k9(`death`);
             else if (!o.gameOver) {
-                o.ship.gold > e.gold && k9(`gold`), o.ship.gold < e.gold && o.showPort && k9(`buy`), n ? k9(`hunter_attack`) : o.ship.hull < e.hull && k9(`damage`), (o.currentZone ?? 1) !== e.zone && k9(`zone`), (o.scoreMultiplier ?? 1) > e.mult && k9(`streak`);
-                let r = o.hunter?.mode ?? ``;
-                r !== e.hmode && (r === `stalking` || r === `frenzy`) && k9(`hunter_near`), e.front !== -99 && t >= 0 && t < e.front && (k9(`thunder`), Re());
+                o.ship.gold > e.gold && k9(`gold`), o.ship.gold < e.gold && o.showPort && k9(`buy`), t ? k9(`hunter_attack`) : o.ship.hull < e.hull && k9(`damage`), (o.currentZone ?? 1) !== e.zone && k9(`zone`), (o.scoreMultiplier ?? 1) > e.mult && k9(`streak`);
+                let n = o.hunter?.mode ?? ``;
+                n !== e.hmode && (n === `stalking` || n === `frenzy`) && k9(`hunter_near`), o.stormDistance < e.storm && o.stormDistance <= 4 && o.stormDistance > 0 && (k9(`thunder`), Re());
             }
             $e.current = {
                 gold: o.ship.gold,
@@ -58033,7 +58033,7 @@ Resources:`;
                 over: o.gameOver,
                 mult: o.scoreMultiplier ?? 1,
                 hmode: o.hunter?.mode ?? ``,
-                front: t
+                storm: o.stormDistance
             };
         }, [
             o
