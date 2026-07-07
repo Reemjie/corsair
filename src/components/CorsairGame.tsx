@@ -474,10 +474,9 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   }, [muted]);
 
   // ─── SFX declenches par les changements d'etat (diff-based) ───
-  const prevSfx = useRef({ gold: state.ship.gold, hull: state.ship.hull, zone: state.currentZone ?? 1, over: state.gameOver, mult: state.scoreMultiplier ?? 1, hmode: state.hunter?.mode ?? '', front: -99 });
+  const prevSfx = useRef({ gold: state.ship.gold, hull: state.ship.hull, zone: state.currentZone ?? 1, over: state.gameOver, mult: state.scoreMultiplier ?? 1, hmode: state.hunter?.mode ?? '', storm: state.stormDistance });
   useEffect(() => {
     const p = prevSfx.current;
-    const front = state.stormDistance <= 0 ? -1 : state.grid.length + 2 - Math.floor((10 - state.stormDistance) / 3);
     const attacked = !!state.log?.includes('Tentacles rake');
     if (state.gameOver && !p.over) {
       sfx('death');
@@ -490,9 +489,11 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
       if ((state.scoreMultiplier ?? 1) > p.mult) sfx('streak');
       const hm = state.hunter?.mode ?? '';
       if (hm !== p.hmode && (hm === 'stalking' || hm === 'frenzy')) sfx('hunter_near');
-      if (p.front !== -99 && front >= 0 && front < p.front) { sfx('thunder'); triggerShake(); }
+      // Tonnerre + secousse uniquement quand la tempete se rapproche ET est dangereuse (<=4),
+      // pas a chaque tour. Evite les vibrations intempestives.
+      if (state.stormDistance < p.storm && state.stormDistance <= 4 && state.stormDistance > 0) { sfx('thunder'); triggerShake(); }
     }
-    prevSfx.current = { gold: state.ship.gold, hull: state.ship.hull, zone: state.currentZone ?? 1, over: state.gameOver, mult: state.scoreMultiplier ?? 1, hmode: state.hunter?.mode ?? '', front };
+    prevSfx.current = { gold: state.ship.gold, hull: state.ship.hull, zone: state.currentZone ?? 1, over: state.gameOver, mult: state.scoreMultiplier ?? 1, hmode: state.hunter?.mode ?? '', storm: state.stormDistance };
   }, [state]);
 
 
