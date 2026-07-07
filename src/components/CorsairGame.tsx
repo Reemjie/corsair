@@ -146,8 +146,8 @@ const BUILD_COLOR: Record<string,string> = { vision:'#6aaccc', gold:'#eedd44', c
 
 function deriveDeathCause(log: string): { name: string; tip: string } {
   const l = (log || '').toLowerCase();
-  if (l.includes('storm'))     return { name: 'The Storm',  tip: 'Rituals at islands (+4 turns) and Kraken Pacts (+6) push it back.' };
-  if (l.includes('tentacles')) return { name: 'The Hunter', tip: 'Ports (-15) and storms (-10) lower its awareness. Watch the bar.' };
+  if (l.includes('storm') || l.includes('lightning') || l.includes('splits the deck') || l.includes('waves') || l.includes('surge')) return { name: 'The Storm',  tip: 'Rituals at islands (+4 turns) and Kraken Pacts (+6) push it back.' };
+  if (l.includes('tentacles') || l.includes('surfaces') || l.includes('hunter')) return { name: 'The Hunter', tip: 'Ports (-15) and storms (-10) lower its awareness. Watch the bar.' };
   if (l.includes('pirate'))    return { name: 'Pirates',    tip: 'Power wins fights — or swallow your pride and pay tribute.' };
   if (l.includes('kraken'))    return { name: 'The Kraken', tip: 'Sometimes restraint is the better part of valor.' };
   if (l.includes('reef') || l.includes('rock')) return { name: 'The Reefs', tip: 'Careful navigation costs a turn but spares the hull.' };
@@ -1236,7 +1236,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                 { label:'BEST',     val:`${Math.max(personalBest, s.score)} pts`, color: isNewRecord ? '#44ffaa' : 'rgba(255,255,255,0.3)' },
                 { label:'TURNS',    val:s.turn,           color:'rgba(255,255,255,0.6)' },
                 { label:'GOLD',     val:s.ship.gold, color:'#eedd44' },
-                { label:'MAX HULL', val:`${s.ship.hull}/${s.ship.maxHull}`, color: s.ship.hull<=5?'#ee4444':s.ship.hull<=10?'#ee8844':'#44cc88' },
+                { label:'HULL', val:`${s.ship.hull}/${s.ship.maxHull}`, color: s.ship.hull<=5?'#ee4444':s.ship.hull<=10?'#ee8844':'#44cc88' },
               ].map(st => (
                 <div key={st.label} style={{ textAlign:'center' }}>
                   <div style={{ fontSize: isMobile ? 10 : 13, color:'rgba(255,255,255,0.3)', letterSpacing: isMobile ? 1 : 3, fontFamily:"'Cinzel', serif" }}>{st.label}</div>
