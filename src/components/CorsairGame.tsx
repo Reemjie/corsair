@@ -6,6 +6,7 @@ import { ZONE_CONFIG } from '../game/balance';
 import { submitScoreOnChain } from '../starknet';
 import { initGame, moveShip, resolveEvent, repairHull, leavePort, skipEventFn, rerollPort, upgradeComponent, buyUpgrade, markDailyPlayed, getDailyKey } from '../game/engine';
 import { sfx, setSfxMuted } from '../sound';
+import { getRelicDef } from '../game/relics';
 import { checkAndUnlockFeats, type Feat } from '../game/feats';
 import { Icon } from '../Icon';
 import anchorImg from '../assets/anchor.png';
@@ -726,7 +727,8 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                   }
                   return set;
                 })();
-                const isPredicted = s.hunter?.active && !s.hunter?.mode?.includes('tracking') && hunterPredictions.has(`${x}-${y}`) && !(x===s.hunter.x && y===s.hunter.y);
+                const seesTracking = (s.relics ?? []).includes('kraken_eye');
+                const isPredicted = s.hunter?.active && (seesTracking || !s.hunter?.mode?.includes('tracking')) && hunterPredictions.has(`${x}-${y}`) && !(x===s.hunter.x && y===s.hunter.y);
                 const cell = (x>=0&&x<GRID_SIZE&&y>=0&&y<GRID_SIZE) ? s.grid[y][x] : {type:'sea' as const,revealed:false,visited:false,value:0};
                 const absX = s.ship.x + dx;
                 const absY = s.ship.y + dy;
@@ -906,6 +908,17 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
           {s.portalHint && (
             <div style={{ marginTop:6, fontSize:14, color:'#8866ff', fontFamily:"'IM Fell English', cursive", textAlign:'center', fontStyle:'italic', animation:'pulse 2s infinite' }}>
               ✦ {s.portalHint} ✦
+            </div>
+          )}
+          {(s.relics ?? []).length > 0 && (
+            <div style={{ marginTop:8, display:'flex', gap:6, justifyContent:'center', flexWrap:'wrap' }}>
+              {(s.relics ?? []).map(rid => { const r = getRelicDef(rid); if (!r) return null; return (
+                <div key={rid} title={`${r.name} — ${r.desc}`}
+                  style={{ display:'flex', alignItems:'center', gap:4, padding:'3px 8px', borderRadius:8, background:'rgba(200,160,48,0.12)', border:'1px solid rgba(200,160,48,0.35)' }}>
+                  <Icon name={r.icon as any} size={16} />
+                  <span style={{ fontSize:10, color:'#eedd88', fontFamily:"'Cinzel', serif", letterSpacing:0.5 }}>{r.name}</span>
+                </div>
+              ); })}
             </div>
           )}
         </div>

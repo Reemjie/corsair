@@ -61,6 +61,7 @@ export interface GameState {
   scoreMultiplier: number;
   notoriety: number;
   curses: CurseId[];
+  relics: string[];
   exploits: ExploitId[];
   lowestHull: number;
   shipType?: string;

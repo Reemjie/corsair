@@ -4,6 +4,7 @@ import { getStreakEffects, getSynergies } from './systems/streak';
 import type { GameState, Ship, ActiveEvent, UpgradeId, CellType } from '../types/game';
 import { generateGrid, revealAround, GRID_SIZE } from './mapGen';
 import { getEquippedTitle } from './feats';
+import { rollRelic } from './relics';
 
 
 // ─── STREAK EFFECTS ──────────────────────────────────────────────────────────
@@ -142,7 +143,7 @@ export function initGame(seed?: number, shipId: string = 'default'): GameState {
     hunterAttacksSurvived: 0, maelstromSurvived: false,
     comboTurn: 999, stormDistanceMin: 99, cursedTreasureTaken: false,
     currentZone: 1, zoneEntryTurn: 0, portalSpawned: false, portalHint: null,
-    runTitle: 'Corsaire', hunter: null, hunterTarget: null, hunterTargetHistory: [],
+    runTitle: 'Corsaire', relics: [], hunter: null, hunterTarget: null, hunterTargetHistory: [],
     scoreBreakdown: { movement: 0, combat: 0, treasure: 0, streaks: 0, achievements: 0, other: 0 },
     zone: 1, portUpgrades: [], maxedComponents: 0,
   };
@@ -269,7 +270,7 @@ function stepPortal(ctx: MoveContext): MoveContext {
   // Pas de portail en zone finale
   if (ctx.state.currentZone >= 3) return ctx;
 
-  const eligible = turn - (ctx.state.zoneEntryTurn ?? 0) >= 12;
+  const eligible = turn - (ctx.state.zoneEntryTurn ?? 0) >= ((ctx.state.relics ?? []).includes('bone_compass') ? 9 : 12);
 
   // 1) SPAWN — une seule fois, après le délai d'éligibilité (35% / tour, garanti après 6 tours d'attente)
   const pity = eligible && (turn - (ctx.state.zoneEntryTurn ?? 0)) >= 18;
@@ -459,7 +460,7 @@ function stepHunter(ctx: MoveContext): MoveContext {
   let h = ctx.hunter;
 
   // Spawn
-  const zoneSpawnTurn = ZONE_CONFIG[ctx.state.currentZone ?? 1]?.hunterSpawnTurn ?? BALANCE.hunter.spawnTurn;
+  const zoneSpawnTurn = (ZONE_CONFIG[ctx.state.currentZone ?? 1]?.hunterSpawnTurn ?? BALANCE.hunter.spawnTurn) + ((ctx.state.relics ?? []).includes('black_flag') ? 6 : 0);
   if (turn - (ctx.state.zoneEntryTurn ?? 0) === zoneSpawnTurn && !h) {
     h = { x: nx < GRID_SIZE / 2 ? GRID_SIZE - 1 : 0, y: 0, active: true, mode: 'tracking' as const, searchTurns: 0, frenzyTurns: 0, awareness: 0, skipTurn: false };
 
@@ -511,7 +512,7 @@ function stepHunter(ctx: MoveContext): MoveContext {
   }
 
   if (h && h.active && h.x === nx && h.y === ny) {
-    const dmg = Math.max(BALANCE.hunter.minDamage, BALANCE.hunter.baseDamage - ctx.ship.power);
+    const dmg = Math.max(BALANCE.hunter.minDamage, BALANCE.hunter.baseDamage - ctx.ship.power) + ((ctx.state.relics ?? []).includes('black_flag') ? 2 : 0);
     ctx.ship = { ...ctx.ship, hull: Math.max(0, ctx.ship.hull - dmg) };
     ctx.log += ` It surfaces without warning. Tentacles rake the hull. -${dmg}.`;
     if (ctx.ship.hull <= 0) ctx.gameOver = true;
@@ -725,6 +726,8 @@ export function resolveEvent(state: GameState, choiceIdx: number): GameState {
   let log           = '';
   let gameOver      = false;
   let stormDistance = state.stormDistance;
+  let relics        = state.relics ?? [];
+  const hasRelicLocal = (id: string) => relics.includes(id);
   const hullLevel = state.ship.levels.hull;
   const envDmgReduction = hullLevel >= 2 ? 3 : hullLevel >= 1 ? 2 : 0;
   const hullPassive = hullLevel >= 2 && ship.hull > Math.floor(ship.maxHull * 0.5) ? 1 : 0;
@@ -790,14 +793,22 @@ export function resolveEvent(state: GameState, choiceIdx: number): GameState {
       ...state, grid, ship, event: null, log, score, showPort, upgradeToken, gameOver,
       rngState: rng.getState(), dangerStreak, scoreMultiplier, notoriety, curses,
       exploits, lowestHull, hunter, zone: state.zone, portUpgrades,
-      runTitle: state.runTitle, stormDistance, scoreBreakdown: sb, ...overrides,
+      runTitle: state.runTitle, stormDistance, relics, scoreBreakdown: sb, ...overrides,
     };
     return applyPostTurnEffects(result, rng);
   };
 
   if (cellType === 'wreck') {
     if (choiceIdx === 0) {
-      if (rng.next() < 0.6) { const g = rng.int(40,100); ship.gold += g; score += g; sb = { ...sb, treasure: sb.treasure + g }; log = `The wreck yields its secrets. Waterlogged gold, but gold nonetheless. +${g} gold.`; }
+      // 35% : une relique dort dans l'epave (si toutes ne sont pas deja trouvees)
+      const foundRelic = rng.next() < 0.35 ? rollRelic(state.relics ?? [], () => rng.next()) : null;
+      if (foundRelic) {
+        relics = [...(state.relics ?? []), foundRelic.id];
+        if (foundRelic.id === 'cracked_spyglass') ship.vision += 1;
+        score += 30; sb = { ...sb, treasure: sb.treasure + 30 };
+        log = `Among the wreckage, something gleams. You found a relic: ${foundRelic.name}! ${foundRelic.desc}`;
+      }
+      else if (rng.next() < 0.6) { let g = rng.int(40,100); if (hasRelicLocal('weighted_net')) g = Math.round(g*1.5); ship.gold += g; score += g; sb = { ...sb, treasure: sb.treasure + g }; log = `The wreck yields its secrets. Waterlogged gold, but gold nonetheless. +${g} gold.`; }
       else if (state.shipType === 'breakwater') { log = `Full speed! The reinforced prow of the Breakwater shatters the reef. Not a scratch.`; }
       else { const d = Math.max(1, rng.int(6,12)); ship.hull -= d; log = `A hidden trap springs from the darkness. The explosion rocks your hull. -${d} hull.`; }
     } else {
@@ -949,6 +960,12 @@ const rawG = navLvl2 >= 2 ? Math.floor(rng.int(30,90)*0.7) : rng.int(30,90);
   } else {
     switch(cellType) {
       case 'pirate': {
+        if (hasRelicLocal('gold_tooth')) {
+          const bounty = rng.int(20,45);
+          ship.gold += bounty; score += bounty; sb = { ...sb, treasure: sb.treasure + bounty };
+          log = `They recognize the Gold Tooth. The pirates bow and pay YOU tribute. +${bounty} gold.`;
+          break;
+        }
         let cost = rng.int(15,35) + Math.floor(notoriety*2);
         if (state.shipType === 'merchant') cost = Math.ceil(cost / 2);
         ship.gold = Math.max(0, ship.gold - cost);
@@ -957,7 +974,8 @@ const rawG = navLvl2 >= 2 ? Math.floor(rng.int(30,90)*0.7) : rng.int(30,90);
         break;
       }
       case 'kraken': {
-        ship.hull = Math.max(1, ship.hull - BALANCE.port.krakenPactHull);
+        const pactCost = hasRelicLocal('storm_heart') ? Math.floor(BALANCE.port.krakenPactHull / 2) : BALANCE.port.krakenPactHull;
+        ship.hull = Math.max(1, ship.hull - pactCost);
         const riderBonus = state.ship.upgrades.includes('rider') ? 200 : 0;
         if (riderBonus > 0) { score += riderBonus; sb = { ...sb, achievements: sb.achievements + riderBonus }; }
         hunter = state.hunter
