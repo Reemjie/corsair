@@ -155,6 +155,13 @@ function deriveDeathCause(log: string): { name: string; tip: string } {
   return { name: 'The Deep', tip: 'The sea keeps its secrets.' };
 }
 
+const hunterModeIcon = (mode: string, size = 14) => {
+  const n = mode === 'frenzy' ? 'lightning' : mode === 'stalking' ? 'eye' : mode === 'searching' ? 'mist' : 'compass';
+  return <Icon name={n as any} size={size} style={{ marginRight:5 }} />;
+};
+const hunterModeLabel = (mode: string) =>
+  mode === 'frenzy' ? 'ENRAGED' : mode === 'stalking' ? 'STALKING' : mode === 'searching' ? 'SEARCHING' : 'TRACKING';
+
 const renderCellIcon = (icon: string | undefined, size: number) =>
   !icon ? null : (icon.startsWith('http') || icon.startsWith('/'))
     ? <img src={icon} style={{ width:size, height:size, objectFit:'contain', borderRadius:'50%', mixBlendMode:'lighten', filter:`drop-shadow(0 0 12px rgba(200,160,48,0.6))` }} />
@@ -545,9 +552,9 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
       {/* Mobile Hunter Bar */}
       {isMobile && s.hunter?.active && (
         <div style={{ display:'flex', alignItems:'center', gap:8, padding:'4px 10px', background:'rgba(80,0,80,0.3)', borderBottom:'1px solid rgba(180,30,180,0.3)' }}>
-          <span style={{ fontSize:11, color:'rgba(200,100,220,0.9)', fontFamily:"'Cinzel', serif", letterSpacing:1 }}>🐙</span>
+          <Icon name="kraken" size={15} style={{ marginRight:2 }} />
           <div style={{ fontSize:11, color: s.hunter.mode==='frenzy'?'#ff6666':s.hunter.mode==='stalking'?'#dd88ff':'rgba(255,255,255,0.4)', fontFamily:"'Cinzel', serif", letterSpacing:1, minWidth:70 }}>
-            {s.hunter.mode === 'frenzy' ? '⚡ ENRAGED' : s.hunter.mode === 'stalking' ? '👁 STALKING' : s.hunter.mode === 'searching' ? '🌫 SEARCHING' : '🧭 TRACKING'}
+            {hunterModeIcon(s.hunter.mode)}{hunterModeLabel(s.hunter.mode)}
           </div>
           <div style={{ flex:1, height:3, background:'rgba(255,255,255,0.1)', borderRadius:2 }}>
             <div style={{ height:3, borderRadius:2, width:`${s.hunter.awareness}%`, background: s.hunter.awareness>=80?'#ee4444':s.hunter.awareness>=50?'#cc44ee':'#7744aa', transition:'width 0.5s' }}/>
@@ -581,7 +588,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                 color: s.hunter.mode==='frenzy' ? '#ff6666' : s.hunter.mode==='stalking' ? '#dd88ff' : s.hunter.mode==='searching' ? '#66aaff' : 'rgba(255,255,255,0.4)',
                 border: `1px solid ${s.hunter.mode==='frenzy'?'rgba(220,30,30,0.6)':s.hunter.mode==='stalking'?'rgba(180,30,180,0.5)':'rgba(255,255,255,0.1)'}`,
               }}>
-                {s.hunter.mode === 'frenzy' ? '⚡ ENRAGED' : s.hunter.mode === 'stalking' ? '👁 STALKING' : s.hunter.mode === 'searching' ? '🌫 SEARCHING' : '🧭 TRACKING'}
+                {hunterModeIcon(s.hunter.mode)}{hunterModeLabel(s.hunter.mode)}
               </div>
               {/* Awareness bar */}
               <div style={{ fontSize:11, color:'rgba(255,255,255,0.3)', letterSpacing:1, marginBottom:4 }}>AWARENESS {s.hunter.awareness}%</div>
@@ -822,7 +829,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
               {s.dangerStreak >= 3 && (
                 <motion.div animate={{ opacity:[1,0.4,1] }} transition={{ repeat:Infinity, duration:1.2 }}
                   style={{ fontSize:11, color:'#ee8844', fontFamily:"'Cinzel', serif", letterSpacing:1, marginTop:2 }}>
-                  🐙 HUNTER ALERT
+                  HUNTER ALERT
                 </motion.div>
               )}
               {s.dangerStreak >= 4 && (

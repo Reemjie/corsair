@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Icon } from './Icon';
 
 const BASE = import.meta.env.BASE_URL;
 
@@ -222,13 +223,13 @@ export default function HowToPlay({ onClose, onPlay }: { onClose: () => void; on
             </p>
             <div style={{ display:'flex', flexDirection:'column', gap:8, marginBottom:12 }}>
               {[
-                { mode:'🧭 TRACKING', desc:'Moves every other turn. Low threat — you have time to breathe.', color:'rgba(255,255,255,0.4)' },
-                { mode:'👁 STALKING', desc:'Moves every turn, following you directly. Awareness 50%+. Start worrying.', color:'#dd88ff' },
-                { mode:'⚡ ENRAGED', desc:'Moves twice per turn. Awareness 80%+. Run.', color:'#ff6666' },
-                { mode:'🌫 SEARCHING', desc:'Lost your trail — wanders randomly for 2 turns. Use this window.', color:'#66aaff' },
+                { icon:'compass', mode:'TRACKING', desc:'Moves every other turn. Low threat — you have time to breathe.', color:'rgba(255,255,255,0.4)' },
+                { icon:'eye', mode:'STALKING', desc:'Moves every turn, following you directly. Awareness 50%+. Start worrying.', color:'#dd88ff' },
+                { icon:'lightning', mode:'ENRAGED', desc:'Moves twice per turn. Awareness 80%+. Run.', color:'#ff6666' },
+                { icon:'mist', mode:'SEARCHING', desc:'Lost your trail — wanders randomly for 2 turns. Use this window.', color:'#66aaff' },
               ].map(m => (
                 <div key={m.mode} style={{ display:'flex', gap:10, alignItems:'flex-start' }}>
-                  <div style={{ color:m.color, fontFamily:"'Cinzel', serif", fontSize:13, minWidth:120, flexShrink:0 }}>{m.mode}</div>
+                  <div style={{ color:m.color, fontFamily:"'Cinzel', serif", fontSize:13, minWidth:120, flexShrink:0, display:'flex', alignItems:'center', gap:6 }}><Icon name={m.icon as any} size={16}/>{m.mode}</div>
                   <div style={{ fontFamily:"'IM Fell English', cursive", fontSize:16, color:'rgba(255,255,255,0.6)', lineHeight:1.5 }}>{m.desc}</div>
                 </div>
               ))}
