@@ -56160,7 +56160,7 @@ Resources:`;
             name: `Gold Tooth`,
             icon: `skull`,
             rarity: `legendary`,
-            desc: `Pirates pay YOU tribute instead of the other way around.`
+            desc: `Pirates pay YOU tribute — but your growing notoriety draws the Hunter.`
         },
         {
             id: `black_flag`,
@@ -57239,7 +57239,7 @@ Resources:`;
                         a.gold += e, o += e, D = {
                             ...D,
                             treasure: D.treasure + e
-                        }, l = `They recognize the Gold Tooth. The pirates bow and pay YOU tribute. +${e} gold.`;
+                        }, x += 2, l = `They recognize the Gold Tooth. The pirates bow and pay YOU tribute. +${e} gold — but word spreads. Notoriety rises.`;
                         break;
                     }
                     let t = n.int(15, 35) + Math.floor(x * 2);
