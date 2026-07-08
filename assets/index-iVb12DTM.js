@@ -60135,7 +60135,7 @@ Resources:`;
                                                             marginTop: 8,
                                                             textAlign: `center`
                                                         },
-                                                        children: e.label === `Pact` && A.event?.cellType === `kraken` ? `-${Math.min(20, A.ship.hull - 1)} HP → 1 HP, storm +6 turns. Hunter awakens!` : e.desc
+                                                        children: e.label === `Pact` && A.event?.cellType === `kraken` ? `-${Math.min((A.relics ?? []).includes(`storm_heart`) ? 10 : 20, A.ship.hull - 1)} HP, storm +6 turns. Hunter awakens!${(A.relics ?? []).includes(`storm_heart`) ? ` (Heart of the Storm)` : ``}` : e.desc
                                                     }),
                                                     (0, I.jsx)(`div`, {
                                                         style: {
