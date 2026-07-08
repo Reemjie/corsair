@@ -62615,7 +62615,8 @@ Resources:`;
                                 },
                                 children: [
                                     {
-                                        label: `⚓ HULL`,
+                                        icon: `anchor`,
+                                        label: `HULL`,
                                         color: `#44cc88`,
                                         levels: [
                                             `N1 — Hull 20`,
@@ -62625,7 +62626,8 @@ Resources:`;
                                         cost: `50g → 110g`
                                     },
                                     {
-                                        label: `⚔️ ARMEMENT`,
+                                        icon: `swords`,
+                                        label: `ARMEMENT`,
                                         color: `#ee6644`,
                                         levels: [
                                             `N1 — Power 2`,
@@ -62635,7 +62637,8 @@ Resources:`;
                                         cost: `50g → 110g`
                                     },
                                     {
-                                        label: `🔭 NAVIGATION`,
+                                        icon: `spyglass`,
+                                        label: `NAVIGATION`,
                                         color: `#6aaccc`,
                                         levels: [
                                             `N1 — Vision 1`,
@@ -62652,13 +62655,22 @@ Resources:`;
                                             padding: `14px 16px`
                                         },
                                         children: [
-                                            (0, I.jsx)(`div`, {
+                                            (0, I.jsxs)(`div`, {
                                                 style: {
                                                     fontSize: 15,
                                                     color: e.color,
-                                                    marginBottom: 10
+                                                    marginBottom: 10,
+                                                    display: `flex`,
+                                                    alignItems: `center`,
+                                                    gap: 8
                                                 },
-                                                children: e.label
+                                                children: [
+                                                    (0, I.jsx)(A9, {
+                                                        name: e.icon,
+                                                        size: 20
+                                                    }),
+                                                    e.label
+                                                ]
                                             }),
                                             e.levels.map((e, t)=>(0, I.jsx)(`div`, {
                                                     style: {
@@ -62953,6 +62965,90 @@ Resources:`;
                             })
                         ]
                     }),
+                    (0, I.jsxs)(G9, {
+                        title: `RELICS — TREASURES OF THE DEEP`,
+                        children: [
+                            (0, I.jsxs)(`div`, {
+                                style: {
+                                    fontFamily: `'IM Fell English', cursive`,
+                                    fontSize: 17,
+                                    color: `rgba(255,255,255,0.7)`,
+                                    lineHeight: 1.7,
+                                    marginBottom: 14
+                                },
+                                children: [
+                                    `When you `,
+                                    (0, I.jsx)(`span`, {
+                                        style: {
+                                            color: `#88ddff`
+                                        },
+                                        children: `search a wreck`
+                                    }),
+                                    `, you may uncover a `,
+                                    (0, I.jsx)(`span`, {
+                                        style: {
+                                            color: `#eedd44`
+                                        },
+                                        children: `relic`
+                                    }),
+                                    ` — a unique artifact that bends one rule for the rest of your run. Unlike abilities you buy at port, relics are found by chance. You keep every relic you find until you die.`
+                                ]
+                            }),
+                            (0, I.jsx)(`div`, {
+                                style: {
+                                    display: `flex`,
+                                    flexDirection: `column`,
+                                    gap: 8
+                                },
+                                children: [
+                                    {
+                                        c: `#88ddbb`,
+                                        t: `COMMON`,
+                                        d: `Bone Compass (portal sooner), Weighted Net (+50% wreck gold), Cracked Spyglass (+1 vision).`
+                                    },
+                                    {
+                                        c: `#c88aff`,
+                                        t: `RARE`,
+                                        d: `Eye of the Kraken (always see the Hunter's next move), Ghost Anchor (ports calm the Hunter far more), Heart of the Storm (Kraken Pacts cost half).`
+                                    },
+                                    {
+                                        c: `#eedd44`,
+                                        t: `LEGENDARY`,
+                                        d: `Gold Tooth (pirates pay YOU — but notoriety draws the Hunter), Black Flag (the Hunter appears later but hits harder).`
+                                    }
+                                ].map((e, t)=>(0, I.jsxs)(`div`, {
+                                        style: {
+                                            display: `flex`,
+                                            gap: 12,
+                                            alignItems: `flex-start`
+                                        },
+                                        children: [
+                                            (0, I.jsx)(`div`, {
+                                                style: {
+                                                    color: e.c,
+                                                    fontFamily: `'Cinzel', serif`,
+                                                    fontSize: 12,
+                                                    letterSpacing: 1,
+                                                    flexShrink: 0,
+                                                    width: 92,
+                                                    paddingTop: 2
+                                                },
+                                                children: e.t
+                                            }),
+                                            (0, I.jsx)(`div`, {
+                                                style: {
+                                                    fontFamily: `'IM Fell English', cursive`,
+                                                    fontSize: 15.5,
+                                                    color: `rgba(255,255,255,0.7)`,
+                                                    lineHeight: 1.6
+                                                },
+                                                children: e.d
+                                            })
+                                        ]
+                                    }, t))
+                            })
+                        ]
+                    }),
                     (0, I.jsx)(G9, {
                         title: `TIPS FOR BEGINNERS`,
                         children: (0, I.jsx)(`div`, {
@@ -62963,7 +63059,7 @@ Resources:`;
                             },
                             children: [
                                 {
-                                    tip: `Always keep an eye on the storm counter. If it drops below 5, prioritize finding an island for a ritual (+4 turns) or making a Kraken Pact (-20 HP, +6 turns).`,
+                                    tip: `Always keep an eye on the storm counter. If it drops below 5, prioritize finding an island for a ritual (+4 turns) or making a Kraken Pact (-20 HP, +6 turns — halved with Heart of the Storm).`,
                                     color: `#ee4444`
                                 },
                                 {
