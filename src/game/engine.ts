@@ -361,7 +361,7 @@ function updateHunterAwareness(ctx: MoveContext): number {
   // Awareness falls
   const cell = ctx.grid[ctx.ny]?.[ctx.nx];
   if (cell?.type === 'storm') a -= 10;
-  if (cell?.type === 'port') a -= 15;
+  if (cell?.type === 'port') { a -= 15; if ((ctx.state.relics ?? []).includes('ghost_anchor')) a -= 20; }
 
   // The Specter voit plus loin, mais se fait reperer 50% plus vite.
   if (ctx.state.shipType === 'specter' && a > before) {
