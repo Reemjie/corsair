@@ -56648,7 +56648,7 @@ Resources:`;
         let t = e.hunter?.awareness ?? 0, n = t, r = e.ship, i = e.hunter, a = Math.abs(i.x - e.nx) + Math.abs(i.y - e.ny);
         n += 1, e.hunter?.mode === `frenzy` && (n -= 8), a <= 3 ? n += 3 : a <= 6 && (n += 1), e.state.dangerStreak >= 3 && (n += 2), r.upgrades.includes(`greed`) && (n += Math.floor(r.gold / 400));
         let o = e.grid[e.ny]?.[e.nx];
-        return o?.type === `storm` && (n -= 10), o?.type === `port` && (n -= 15), e.state.shipType === `specter` && n > t && (n = t + (n - t) * 1.5), Math.max(0, Math.min(100, n));
+        return o?.type === `storm` && (n -= 10), o?.type === `port` && (n -= 15, (e.state.relics ?? []).includes(`ghost_anchor`) && (n -= 20)), e.state.shipType === `specter` && n > t && (n = t + (n - t) * 1.5), Math.max(0, Math.min(100, n));
     }
     function Yse(e, t, n) {
         let { mode: r, searchTurns: i, frenzyTurns: a } = e;
