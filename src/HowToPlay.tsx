@@ -178,12 +178,12 @@ export default function HowToPlay({ onClose, onPlay }: { onClose: () => void; on
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)', gap: 12, marginBottom: 8 }}>
             {[
-              { label: '⚓ HULL', color: '#44cc88', levels: ['N1 — Hull 20', 'N2 — Hull 28, -2 storm dmg', 'N3 — Hull 38, -3 env dmg'], cost: '50g → 110g' },
-              { label: '⚔️ ARMEMENT', color: '#ee6644', levels: ['N1 — Power 2', 'N2 — Power 5, min dmg 2', 'N3 — Power 9, -3 combat dmg'], cost: '50g → 110g' },
-              { label: '🔭 NAVIGATION', color: '#6aaccc', levels: ['N1 — Vision 1', 'N2 — Vision 2 + danger detect', 'N3 — Vision 3 + detects nearby dangers in log'], cost: '50g → 110g' },
+              { icon: 'anchor', label: 'HULL', color: '#44cc88', levels: ['N1 — Hull 20', 'N2 — Hull 28, -2 storm dmg', 'N3 — Hull 38, -3 env dmg'], cost: '50g → 110g' },
+              { icon: 'swords', label: 'ARMEMENT', color: '#ee6644', levels: ['N1 — Power 2', 'N2 — Power 5, min dmg 2', 'N3 — Power 9, -3 combat dmg'], cost: '50g → 110g' },
+              { icon: 'spyglass', label: 'NAVIGATION', color: '#6aaccc', levels: ['N1 — Vision 1', 'N2 — Vision 2 + danger detect', 'N3 — Vision 3 + detects nearby dangers in log'], cost: '50g → 110g' },
             ].map(comp => (
               <div key={comp.label} style={{ background: `${comp.color}12`, border: `1px solid ${comp.color}44`, borderRadius: 12, padding: '14px 16px' }}>
-                <div style={{ fontSize: 15, color: comp.color, marginBottom: 10 }}>{comp.label}</div>
+                <div style={{ fontSize: 15, color: comp.color, marginBottom: 10, display:'flex', alignItems:'center', gap:8 }}><Icon name={comp.icon as any} size={20}/>{comp.label}</div>
                 {comp.levels.map((l, i) => (
                   <div key={i} style={{ fontSize: 13, color: 'rgba(255,255,255,0.55)', fontFamily: "'IM Fell English', cursive", lineHeight: 1.7 }}>
                     {l}
@@ -260,10 +260,28 @@ export default function HowToPlay({ onClose, onPlay }: { onClose: () => void; on
         </Section>
 
         {/* Tips */}
+        <Section title="RELICS — TREASURES OF THE DEEP">
+          <div style={{ fontFamily: "'IM Fell English', cursive", fontSize: 17, color: 'rgba(255,255,255,0.7)', lineHeight: 1.7, marginBottom: 14 }}>
+            When you <span style={{ color:'#88ddff' }}>search a wreck</span>, you may uncover a <span style={{ color:'#eedd44' }}>relic</span> — a unique artifact that bends one rule for the rest of your run. Unlike abilities you buy at port, relics are found by chance. You keep every relic you find until you die.
+          </div>
+          <div style={{ display:'flex', flexDirection:'column', gap:8 }}>
+            {[
+              { c:'#88ddbb', t:'COMMON', d:'Bone Compass (portal sooner), Weighted Net (+50% wreck gold), Cracked Spyglass (+1 vision).' },
+              { c:'#c88aff', t:'RARE', d:'Eye of the Kraken (always see the Hunter\'s next move), Ghost Anchor (ports calm the Hunter far more), Heart of the Storm (Kraken Pacts cost half).' },
+              { c:'#eedd44', t:'LEGENDARY', d:'Gold Tooth (pirates pay YOU — but notoriety draws the Hunter), Black Flag (the Hunter appears later but hits harder).' },
+            ].map((r,i) => (
+              <div key={i} style={{ display:'flex', gap:12, alignItems:'flex-start' }}>
+                <div style={{ color:r.c, fontFamily:"'Cinzel', serif", fontSize:12, letterSpacing:1, flexShrink:0, width:92, paddingTop:2 }}>{r.t}</div>
+                <div style={{ fontFamily:"'IM Fell English', cursive", fontSize:15.5, color:'rgba(255,255,255,0.7)', lineHeight:1.6 }}>{r.d}</div>
+              </div>
+            ))}
+          </div>
+        </Section>
+
         <Section title="TIPS FOR BEGINNERS">
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             {[
-              { tip: 'Always keep an eye on the storm counter. If it drops below 5, prioritize finding an island for a ritual (+4 turns) or making a Kraken Pact (-20 HP, +6 turns).', color: '#ee4444' },
+              { tip: 'Always keep an eye on the storm counter. If it drops below 5, prioritize finding an island for a ritual (+4 turns) or making a Kraken Pact (-20 HP, +6 turns — halved with Heart of the Storm).', color: '#ee4444' },
               { tip: 'Visit ports early. A repaired hull and one good upgrade can completely change your run. Do not sail past ports unless you are in good shape.', color: '#44cc88' },
               { tip: 'The Kraken Pact is often underestimated. Trading 20 HP for 6 extra storm turns can be the difference between a short run and a legendary one.', color: '#cc44ee' },
               { tip: 'Build your combo deliberately. Three dangerous cells in a row triples your score on everything — treasures, combat, and kraken rewards.', color: '#eedd44' },
