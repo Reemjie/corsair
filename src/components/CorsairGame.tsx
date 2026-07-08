@@ -6,7 +6,7 @@ import { ZONE_CONFIG } from '../game/balance';
 import { submitScoreOnChain } from '../starknet';
 import { initGame, moveShip, resolveEvent, repairHull, leavePort, skipEventFn, rerollPort, upgradeComponent, buyUpgrade, markDailyPlayed, getDailyKey } from '../game/engine';
 import { sfx, setSfxMuted } from '../sound';
-import { getRelicDef } from '../game/relics';
+import { getRelicDef, type RelicDef } from '../game/relics';
 import { checkAndUnlockFeats, type Feat } from '../game/feats';
 import { Icon } from '../Icon';
 import anchorImg from '../assets/anchor.png';
@@ -173,6 +173,8 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   const [shake, setShake] = useState(false);
   const [cart, setCart] = useState<string[]>([]);
   const [newFeats, setNewFeats] = useState<Feat[]>([]);
+  const [foundRelic, setFoundRelic] = useState<RelicDef | null>(null);
+  const prevRelicCount = useRef((state.relics ?? []).length);
   const [scoreSubmitted, setScoreSubmitted] = useState(false);
   const [nftMinted, setNftMinted] = useState<string[]>([]);
   const [portalCinematic, setPortalCinematic] = useState<{lines: string[], zone: number} | null>(null);
@@ -495,6 +497,14 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
       if (state.stormDistance < p.storm && state.stormDistance <= 4 && state.stormDistance > 0) { sfx('thunder'); triggerShake(); }
     }
     prevSfx.current = { gold: state.ship.gold, hull: state.ship.hull, zone: state.currentZone ?? 1, over: state.gameOver, mult: state.scoreMultiplier ?? 1, hmode: state.hunter?.mode ?? '', storm: state.stormDistance };
+    // Decouverte de relique -> overlay dramatique
+    const rc = (state.relics ?? []).length;
+    if (rc > prevRelicCount.current) {
+      const newestId = (state.relics ?? [])[rc - 1];
+      const def = getRelicDef(newestId);
+      if (def) { setFoundRelic(def); sfx('streak'); }
+    }
+    prevRelicCount.current = rc;
   }, [state]);
 
 
@@ -980,6 +990,47 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
             </div>
           </motion.div>
         )}
+      </AnimatePresence>
+
+      {/* RELIC DISCOVERY OVERLAY */}
+      <AnimatePresence>
+        {foundRelic && (() => {
+          const rarityColor = foundRelic.rarity === 'legendary' ? '#eedd44' : foundRelic.rarity === 'rare' ? '#c88aff' : '#88ddbb';
+          const rarityLabel = foundRelic.rarity.toUpperCase();
+          return (
+            <motion.div
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              onClick={() => setFoundRelic(null)}
+              style={{ position:'fixed', inset:0, zIndex:150, cursor:'pointer', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', background:'radial-gradient(ellipse at center, rgba(20,15,5,0.92) 0%, rgba(3,5,10,0.97) 100%)' }}>
+              <motion.div initial={{ opacity:0, y:-10 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.1 }}
+                style={{ fontFamily:"'Cinzel', serif", fontSize:13, letterSpacing:6, color:'rgba(255,255,255,0.5)', marginBottom:24 }}>
+                A RELIC SURFACES FROM THE DEEP
+              </motion.div>
+              <motion.div
+                initial={{ scale:0, rotate:-30 }} animate={{ scale:1, rotate:0 }}
+                transition={{ type:'spring', stiffness:130, damping:12, delay:0.2 }}
+                style={{ filter:`drop-shadow(0 0 40px ${rarityColor})`, marginBottom:20 }}>
+                <Icon name={foundRelic.icon as any} size={140} />
+              </motion.div>
+              <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:0.5 }}
+                style={{ fontFamily:"'Cinzel', serif", fontSize:12, letterSpacing:4, color:rarityColor, marginBottom:8 }}>
+                {rarityLabel} RELIC
+              </motion.div>
+              <motion.div initial={{ opacity:0, y:10 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.55 }}
+                style={{ fontFamily:"'Pirata One', cursive", fontSize: isMobile ? 30 : 40, color:rarityColor, letterSpacing:2, textShadow:`0 0 30px ${rarityColor}66`, marginBottom:14, textAlign:'center', padding:'0 20px' }}>
+                {foundRelic.name}
+              </motion.div>
+              <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:0.7 }}
+                style={{ fontFamily:"'IM Fell English', cursive", fontSize: isMobile ? 15 : 17, color:'rgba(255,255,255,0.75)', maxWidth:440, textAlign:'center', lineHeight:1.5, padding:'0 24px', marginBottom:32 }}>
+                {foundRelic.desc}
+              </motion.div>
+              <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:1 }}
+                style={{ fontFamily:"'Cinzel', serif", fontSize:12, letterSpacing:3, color:'rgba(255,255,255,0.4)' }}>
+                tap to continue
+              </motion.div>
+            </motion.div>
+          );
+        })()}
       </AnimatePresence>
 
       {/* EVENT SCENE OVERLAY */}
