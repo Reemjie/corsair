@@ -963,7 +963,8 @@ const rawG = navLvl2 >= 2 ? Math.floor(rng.int(30,90)*0.7) : rng.int(30,90);
         if (hasRelicLocal('gold_tooth')) {
           const bounty = rng.int(20,45);
           ship.gold += bounty; score += bounty; sb = { ...sb, treasure: sb.treasure + bounty };
-          log = `They recognize the Gold Tooth. The pirates bow and pay YOU tribute. +${bounty} gold.`;
+          notoriety += 2; // la reputation d'extorqueur se paie : le Hunter s'interesse a toi
+          log = `They recognize the Gold Tooth. The pirates bow and pay YOU tribute. +${bounty} gold — but word spreads. Notoriety rises.`;
           break;
         }
         let cost = rng.int(15,35) + Math.floor(notoriety*2);

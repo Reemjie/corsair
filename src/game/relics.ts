@@ -29,7 +29,7 @@ export const RELICS: RelicDef[] = [
 
   // — Legendaires —
   { id: 'gold_tooth', name: 'Gold Tooth', icon: 'skull', rarity: 'legendary',
-    desc: 'Pirates pay YOU tribute instead of the other way around.' },
+    desc: 'Pirates pay YOU tribute — but your growing notoriety draws the Hunter.' },
   { id: 'black_flag', name: 'Black Flag', icon: 'flag', rarity: 'legendary',
     desc: 'The Hunter takes one extra zone to appear — but strikes harder.' },
 ];
