@@ -11,38 +11,24 @@ import { checkAndUnlockFeats, type Feat } from '../game/feats';
 import { Icon } from '../Icon';
 import anchorImg from '../assets/anchor.png';
 
-import crownNestImg from '../assets/upgrades/crown_nest.png';
 const CHOICE_ICONS: Record<string, string> = Object.fromEntries(
   ['search','lurks','fight','tribute','pact','push','detour','take','leave','dock','sail','ritual','explore','careful','speed','vortex','cursed','sacrifice','cover']
   .map(name => [name, new URL(`../assets/choices/${name}.png`, import.meta.url).href])
 );
-import darkCompassImg from '../assets/upgrades/dark_compass.png';
-import goldDetectorImg from '../assets/upgrades/gold_detector.png';
-import heavyCannonsImg from '../assets/upgrades/heavy_cannons.png';
-import ironHullImg from '../assets/upgrades/iron_hull.png';
 import swiftSailsImg from '../assets/upgrades/swift_sails.png';
 import ghostShipImg from '../assets/upgrades/ghost_ship.png';
 import treasureHunterImg from '../assets/upgrades/treasure_hunter.png';
 import stormRiderImg from '../assets/upgrades/storm_rider.png';
-import stormbreakerImg from '../assets/upgrades/stormbreaker.png';
 import cursedGreedImg from '../assets/upgrades/cursed_greed.png';
 import berserkerImg from '../assets/upgrades/berserker.png';
-import explorerImg from '../assets/upgrades/explorer.png';
 
 const UPGRADE_ICONS: Record<string, string> = {
-  vision: crownNestImg,
-  compass: darkCompassImg,
-  detector: goldDetectorImg,
-  power: heavyCannonsImg,
-  armor: ironHullImg,
   escape: swiftSailsImg,
   ghost: ghostShipImg,
   hunter: treasureHunterImg,
   rider: stormRiderImg,
-  stormbreaker: stormbreakerImg,
   greed: cursedGreedImg,
   berserker: berserkerImg,
-  explorer: explorerImg,
 };
 import hullImg from '../assets/hull.png';
 const goldImg = `${import.meta.env.BASE_URL}icons/gold.png`;
@@ -561,6 +547,18 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
         </div>}
       </div>
 
+      {/* Mobile relics strip (icones seules, compact) */}
+      {isMobile && (s.relics ?? []).length > 0 && (
+        <div style={{ display:'flex', gap:5, justifyContent:'center', padding:'4px 8px', background:'rgba(5,10,18,0.6)', flexWrap:'wrap' }}>
+          {(s.relics ?? []).map(rid => { const r = getRelicDef(rid); if (!r) return null; return (
+            <div key={rid} title={`${r.name} — ${r.desc}`}
+              style={{ display:'flex', alignItems:'center', padding:'2px 5px', borderRadius:6, background:'rgba(200,160,48,0.14)', border:'1px solid rgba(200,160,48,0.35)' }}>
+              <Icon name={r.icon as any} size={15} />
+            </div>
+          ); })}
+        </div>
+      )}
+
       {/* Mobile Hunter Bar */}
       {isMobile && s.hunter?.active && (
         <div style={{ display:'flex', alignItems:'center', gap:8, padding:'4px 10px', background:'rgba(80,0,80,0.3)', borderBottom:'1px solid rgba(180,30,180,0.3)' }}>
@@ -920,7 +918,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
               ✦ {s.portalHint} ✦
             </div>
           )}
-          {(s.relics ?? []).length > 0 && (
+          {(s.relics ?? []).length > 0 && !isMobile && (
             <div style={{ marginTop:8, display:'flex', gap:6, justifyContent:'center', flexWrap:'wrap' }}>
               {(s.relics ?? []).map(rid => { const r = getRelicDef(rid); if (!r) return null; return (
                 <div key={rid} title={`${r.name} — ${r.desc}`}
