@@ -61424,8 +61424,12 @@ Resources:`;
                                                 let e = new Date().toLocaleDateString(`en-US`, {
                                                     month: `short`,
                                                     day: `numeric`
-                                                }), t = ae ? `☀️ Daily Challenge — ${e} — ${A.score} pts before the storm claimed me.\nSame seed for everyone today. Can you beat me?\n⚓ https://reemjie.github.io/corsair/` : `🏴\u200d☠️ ${A.runTitle} — ${A.score} pts before the storm claimed me.\n${A.turn} turns. ${A.ship.gold} gold. No mercy.\nDare to sail further? ⚓\nhttps://reemjie.github.io/corsair/`;
-                                                window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(t)}`, `_blank`);
+                                                }), t = {
+                                                    legendary: 3,
+                                                    rare: 2,
+                                                    common: 1
+                                                }, n = (A.relics ?? []).map((e)=>x9(e)).filter((e)=>!!e).sort((e, n)=>(t[n.rarity] ?? 0) - (t[e.rarity] ?? 0))[0], r = n ? `\nFound the ${n.name} relic along the way.` : ``, i = ae ? `☀️ Daily Challenge — ${e} — ${A.score} pts before the storm claimed me.\nSame seed for everyone today. Can you beat me?${r}\n⚓ @PlayCorsair https://reemjie.github.io/corsair/ #Starknet` : `🏴\u200d☠️ ${A.runTitle} — ${A.score} pts before the storm claimed me.\n${A.turn} turns · ${A.ship.gold} gold · No mercy.${r}\nDare to sail further? ⚓ @PlayCorsair\nhttps://reemjie.github.io/corsair/ #Starknet`;
+                                                window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(i)}`, `_blank`);
                                             },
                                             style: {
                                                 padding: `14px 24px`,
