@@ -1420,9 +1420,16 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                 <motion.button whileHover={{ scale:1.05 }} whileTap={{ scale:0.97 }}
                   onClick={() => {
                     const today = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'});
+                    // Met en avant la relique la plus rare trouvee pendant la run
+                    const rarityRank: Record<string, number> = { legendary: 3, rare: 2, common: 1 };
+                    const bestRelic = (s.relics ?? [])
+                      .map(id => getRelicDef(id))
+                      .filter((r): r is RelicDef => !!r)
+                      .sort((a, b) => (rarityRank[b.rarity] ?? 0) - (rarityRank[a.rarity] ?? 0))[0];
+                    const relicLine = bestRelic ? `\nFound the ${bestRelic.name} relic along the way.` : '';
                     const text = isDailyRun
-                      ? `☀️ Daily Challenge — ${today} — ${s.score} pts before the storm claimed me.\nSame seed for everyone today. Can you beat me?\n⚓ https://reemjie.github.io/corsair/`
-                      : `🏴\u200d☠️ ${s.runTitle} — ${s.score} pts before the storm claimed me.\n${s.turn} turns. ${s.ship.gold} gold. No mercy.\nDare to sail further? ⚓\nhttps://reemjie.github.io/corsair/`;
+                      ? `☀️ Daily Challenge — ${today} — ${s.score} pts before the storm claimed me.\nSame seed for everyone today. Can you beat me?${relicLine}\n⚓ @PlayCorsair https://reemjie.github.io/corsair/ #Starknet`
+                      : `🏴\u200d☠️ ${s.runTitle} — ${s.score} pts before the storm claimed me.\n${s.turn} turns · ${s.ship.gold} gold · No mercy.${relicLine}\nDare to sail further? ⚓ @PlayCorsair\nhttps://reemjie.github.io/corsair/ #Starknet`;
                     window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank');
                   }}
                   style={{ padding:'14px 24px', borderRadius:12, border:'1px solid rgba(255,255,255,0.3)', background:'rgba(0,0,0,0.4)', color:'#ffffff', cursor:'pointer', fontSize:16, fontWeight:700, letterSpacing:1, fontFamily:"'Pirata One', cursive" }}>
