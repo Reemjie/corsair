@@ -56213,13 +56213,13 @@ Resources:`;
                     choices: [
                         {
                             label: `Fight`,
-                            desc: t >= 6 ? `Your cannons help` : `Dangerous but rewarding`,
+                            desc: t >= 6 ? `Your cannons help: light damage, +20-60 gold` : `Risky: take hull damage, +20-60 gold`,
                             icon: `fight`,
                             risk: t >= 6 ? `risky` : `bold`
                         },
                         {
                             label: `Pay tribute`,
-                            desc: `Lose gold, stay safe`,
+                            desc: `Lose some gold, no damage, stay safe`,
                             icon: `tribute`,
                             risk: `safe`
                         }
@@ -56231,7 +56231,7 @@ Resources:`;
                     choices: [
                         {
                             label: `Attack`,
-                            desc: `High risk, massive reward`,
+                            desc: `Risk 8-15 hull damage, +150 pts`,
                             icon: `fight`,
                             risk: `bold`
                         },
@@ -56309,7 +56309,7 @@ Resources:`;
                         },
                         {
                             label: `Explore freely`,
-                            desc: `50% chance of a free upgrade token.`,
+                            desc: `Free: 50% chance of an upgrade token, else nothing`,
                             icon: `explore`,
                             risk: `risky`
                         }
@@ -56357,7 +56357,7 @@ Resources:`;
                     choices: [
                         {
                             label: `Enter the vortex`,
-                            desc: `Teleport — insane risk/reward`,
+                            desc: `Teleport: 50% +50g +200pts, 50% -5 to -15 hull`,
                             icon: `vortex`,
                             risk: `bold`
                         },
@@ -56375,7 +56375,7 @@ Resources:`;
                     choices: [
                         {
                             label: `Take the gold`,
-                            desc: `+300 gold but receive a curse`,
+                            desc: `+300 gold, but -1 vision (cursed)`,
                             icon: `cursed`,
                             risk: `bold`
                         },
@@ -56393,7 +56393,7 @@ Resources:`;
                     choices: [
                         {
                             label: `Face the Ancient`,
-                            desc: `Legendary fight — massive reward`,
+                            desc: `Legendary: -15-25 hull, +800+ pts, +3 power, cursed`,
                             icon: `fight`,
                             risk: `bold`
                         },
