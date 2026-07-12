@@ -163,6 +163,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   const prevRelicCount = useRef((state.relics ?? []).length);
   const [scoreSubmitted, setScoreSubmitted] = useState(false);
   const [nftMinted, setNftMinted] = useState<string[]>([]);
+  const [nftDebug, setNftDebug] = useState<string>('');
   const [portalCinematic, setPortalCinematic] = useState<{lines: string[], zone: number} | null>(null);
   const [portalLineIndex, setPortalLineIndex] = useState(0);
   const [personalBest, setPersonalBest] = useState<number>(() => {
@@ -1381,11 +1382,15 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                           storm_distance_min: s.stormDistanceMin ?? 99,
                           cursed_treasure_taken: s.cursedTreasureTaken ?? false,
                         });
-                        if (nftResult.minted.length > 0) {
-                          setNftMinted(nftResult.minted.map((m: any) => m.nft));
+                        console.log('[NFT] sent cursed_treasure_taken:', s.cursedTreasureTaken, 'gold:', s.ship.gold, 'pirates_fought:', s.piratesFought, 'result:', nftResult);
+                        if (nftResult.minted && nftResult.minted.length > 0) {
+                          setNftMinted(nftResult.minted.map((m: any) => typeof m === 'string' ? m : m.nft));
+                        } else {
+                          setNftDebug(`No NFT unlocked this run. (cursed_treasure=${s.cursedTreasureTaken ? 'yes' : 'no'}, gold=${s.ship.gold}, pirates=${s.piratesFought ?? 0})`);
                         }
-                      } catch(e) {
+                      } catch(e: any) {
                         console.warn('NFT check failed:', e);
+                        setNftDebug('NFT check failed to reach the server. ' + (e?.message ?? ''));
                       }
                     }
                     setSubmitting(false);
@@ -1414,6 +1419,9 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                     𝕏 Share your find
                   </motion.button>
                 </motion.div>
+              )}
+              {nftMinted.length === 0 && nftDebug && (
+                <div style={{ fontSize:11, color:'rgba(255,255,255,0.35)', fontFamily:"'Cinzel', serif", letterSpacing:1, textAlign:'center', maxWidth:360, margin:'4px auto' }}>{nftDebug}</div>
               )}
               {!walletAddress && <div style={{ fontSize:12, color:'rgba(255,255,255,0.2)', fontFamily:"'Cinzel', serif", letterSpacing:2 }}>Connect wallet to submit your score</div>}
               <div style={{ display:'flex', gap:12, marginBottom:8 }}>
