@@ -20,11 +20,11 @@ function buildEvent(type: CellType, power: number): ActiveEvent {
       { label: 'Something lurks', desc: 'Kraken nearby — flee or fight', icon: 'lurks', risk: 'bold'  },
     ]};
     case 'pirate': return { cellType: type, choices: [
-      { label: 'Fight',       desc: power >= 6 ? 'Your cannons help' : 'Dangerous but rewarding', icon: 'fight', risk: power >= 6 ? 'risky' : 'bold' },
-      { label: 'Pay tribute', desc: 'Lose gold, stay safe',                                        icon: 'tribute', risk: 'safe' },
+      { label: 'Fight',       desc: power >= 6 ? 'Your cannons help: light damage, +20-60 gold' : 'Risky: take hull damage, +20-60 gold', icon: 'fight', risk: power >= 6 ? 'risky' : 'bold' },
+      { label: 'Pay tribute', desc: 'Lose some gold, no damage, stay safe', icon: 'tribute', risk: 'safe' },
     ]};
     case 'kraken': return { cellType: type, choices: [
-      { label: 'Attack', desc: 'High risk, massive reward',                   icon: 'fight', risk: 'bold'  },
+      { label: 'Attack', desc: 'Risk 8-15 hull damage, +150 pts', icon: 'fight', risk: 'bold'  },
       { label: 'Pact',   desc: '-20 HP, storm +6 turns. Hunter awakens!',    icon: 'pact', risk: 'risky' },
     ]};
     case 'storm': return { cellType: type, choices: [
@@ -41,7 +41,7 @@ function buildEvent(type: CellType, power: number): ActiveEvent {
     ]};
     case 'island': return { cellType: type, choices: [
       { label: 'Ancient Ritual', desc: 'Pay 100g → push the storm back +4 turns, +score.', icon: 'ritual', risk: 'safe'  },
-      { label: 'Explore freely', desc: '50% chance of a free upgrade token.', icon: 'explore', risk: 'risky' },
+      { label: 'Explore freely', desc: 'Free: 50% chance of an upgrade token, else nothing', icon: 'explore', risk: 'risky' },
     ]};
     case 'rocks': return { cellType: type, choices: [
       { label: 'Navigate carefully', desc: 'No damage, but the storm gains ground.', icon: 'careful', risk: 'safe'  },
@@ -52,15 +52,15 @@ function buildEvent(type: CellType, power: number): ActiveEvent {
       { label: 'Turn back',        desc: 'Stay in this zone',        icon: 'leave',  risk: 'safe' },
     ]};
     case 'maelstrom': return { cellType: type, choices: [
-      { label: 'Enter the vortex',  desc: 'Teleport — insane risk/reward', icon: 'vortex', risk: 'bold' },
+      { label: 'Enter the vortex',  desc: 'Teleport: 50% +50g +200pts, 50% -5 to -15 hull', icon: 'vortex', risk: 'bold' },
       { label: 'Fight the current', desc: 'Lose 1 storm turn, stay safe',  icon: 'dock', risk: 'safe' },
     ]};
     case 'cursed_treasure': return { cellType: type, choices: [
-      { label: 'Take the gold', desc: '+300 gold but receive a curse', icon: 'cursed', risk: 'bold' },
+      { label: 'Take the gold', desc: '+300 gold, but -1 vision (cursed)', icon: 'cursed', risk: 'bold' },
       { label: 'Leave it',      desc: 'Walk away clean',               icon: 'leave', risk: 'safe' },
     ]};
     case 'ancient_kraken': return { cellType: type, choices: [
-      { label: 'Face the Ancient', desc: 'Legendary fight — massive reward', icon: 'fight', risk: 'bold'  },
+      { label: 'Face the Ancient', desc: 'Legendary: -15-25 hull, +800+ pts, +3 power, cursed', icon: 'fight', risk: 'bold'  },
       { label: 'Offer sacrifice',  desc: '-50 gold, it lets you pass',        icon: 'sacrifice', risk: 'risky' },
     ]};
     default: return { cellType: type, choices: [
