@@ -253,11 +253,12 @@ function stepStorm(ctx: MoveContext): MoveContext {
   ctx.grid = ctx.grid.map((row, sy) =>
     row.map(cell => sy >= stormFrontY ? { ...cell, stormed: true, revealed: true } : cell)
   );
-  if (ctx.grid[ctx.ny][ctx.nx].stormed && !ctx.ship.upgrades.includes('rider')) {
+  const landedOnPortal = ctx.grid[ctx.ny][ctx.nx].type === 'portal';
+  if (ctx.grid[ctx.ny][ctx.nx].stormed && !ctx.ship.upgrades.includes('rider') && !landedOnPortal) {
     ctx.gameOver = true;
     ctx.log = 'The storm engulfs your ship. There is no escape.';
   }
-  if (stormDistance <= 0) {
+  if (stormDistance <= 0 && !landedOnPortal) {
     ctx.gameOver = true;
     ctx.log = 'The storm consumes your ship...';
   }
