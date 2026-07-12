@@ -32,8 +32,8 @@ function buildEvent(type: CellType, power: number): ActiveEvent {
       { label: 'Go around',    desc: 'Safe but storm gains 1 extra turn', icon: 'detour', risk: 'safe'  },
     ]};
     case 'treasure': return { cellType: type, choices: [
-      { label: 'Take it',  desc: 'Grab the gold (+score). Riches draw danger.', icon: 'take',  risk: 'safe' },
-      { label: 'Leave it', desc: 'Stay unseen: calm the Hunter, +restraint score.', icon: 'leave', risk: 'safe' },
+      { label: 'Take it',  desc: 'Grab the gold (+score). The Hunter grows aware (+15).', icon: 'take',  risk: 'risky' },
+      { label: 'Leave it', desc: 'Slip away: Hunter −20 awareness, +restraint score.', icon: 'leave', risk: 'safe' },
     ]};
     case 'port': return { cellType: type, choices: [
       { label: 'Dock',    desc: 'Repair and upgrade', icon: 'dock', risk: 'safe' },
@@ -870,7 +870,10 @@ const rawG = navLvl2 >= 2 ? Math.floor(rng.int(30,90)*0.7) : rng.int(30,90);
         ship.gold += total; const treasureGain = total * scoreMultiplier; score += treasureGain;
         state = { ...state, treasuresFound: (state.treasuresFound ?? 0) + 1 };
         sb = { ...sb, treasure: sb.treasure + treasureGain };
-        log = bonus > 1 ? `The chest overflows with cursed riches! +${total} gold! JACKPOT! ${scoreMultiplier > 1 ? `[x${scoreMultiplier}]` : ''}` : scoreMultiplier > 1 ? `Ancient gold spills from the chest... +${total} gold! [x${scoreMultiplier}]` : `The chest reveals its fortune. +${total} gold.`;
+        // "Riches draw danger" — la description le promettait, on l'applique enfin :
+        notoriety += 1;
+        if (hunter?.active) hunter = { ...hunter, awareness: Math.min(100, (hunter.awareness ?? 0) + 15) };
+        log = bonus > 1 ? `The chest overflows with cursed riches! +${total} gold! JACKPOT! ${scoreMultiplier > 1 ? `[x${scoreMultiplier}]` : ''}` : scoreMultiplier > 1 ? `Ancient gold spills from the chest... +${total} gold! [x${scoreMultiplier}]` : `The chest reveals its fortune. +${total} gold.${hunter?.active ? ' The Hunter stirs.' : ''}`;
         break;
       }
       case 'port': {
