@@ -56587,11 +56587,13 @@ Resources:`;
     }
     function Kse(e) {
         let { stormDistance: t } = e, n = t <= 0 ? -1 : 14 - Math.floor((10 - t) / 3);
-        return e.grid = e.grid.map((e, t)=>e.map((e)=>t >= n ? {
+        e.grid = e.grid.map((e, t)=>e.map((e)=>t >= n ? {
                     ...e,
                     stormed: !0,
                     revealed: !0
-                } : e)), e.grid[e.ny][e.nx].stormed && !e.ship.upgrades.includes(`rider`) && (e.gameOver = !0, e.log = `The storm engulfs your ship. There is no escape.`), t <= 0 && (e.gameOver = !0, e.log = `The storm consumes your ship...`), e;
+                } : e));
+        let r = e.grid[e.ny][e.nx].type === `portal`;
+        return e.grid[e.ny][e.nx].stormed && !e.ship.upgrades.includes(`rider`) && !r && (e.gameOver = !0, e.log = `The storm engulfs your ship. There is no escape.`), t <= 0 && !r && (e.gameOver = !0, e.log = `The storm consumes your ship...`), e;
     }
     function qse(e) {
         let { turn: t } = e;
