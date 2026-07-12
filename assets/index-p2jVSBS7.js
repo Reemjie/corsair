@@ -56267,13 +56267,13 @@ Resources:`;
                     choices: [
                         {
                             label: `Take it`,
-                            desc: `Grab the gold (+score). Riches draw danger.`,
+                            desc: `Grab the gold (+score). The Hunter grows aware (+15).`,
                             icon: `take`,
-                            risk: `safe`
+                            risk: `risky`
                         },
                         {
                             label: `Leave it`,
-                            desc: `Stay unseen: calm the Hunter, +restraint score.`,
+                            desc: `Slip away: Hunter −20 awareness, +restraint score.`,
                             icon: `leave`,
                             risk: `safe`
                         }
@@ -57127,7 +57127,10 @@ Resources:`;
                     }, D = {
                         ...D,
                         treasure: D.treasure + u
-                    }, l = s > 1 ? `The chest overflows with cursed riches! +${c} gold! JACKPOT! ${b > 1 ? `[x${b}]` : ``}` : b > 1 ? `Ancient gold spills from the chest... +${c} gold! [x${b}]` : `The chest reveals its fortune. +${c} gold.`;
+                    }, x += 1, E?.active && (E = {
+                        ...E,
+                        awareness: Math.min(100, (E.awareness ?? 0) + 15)
+                    }), l = s > 1 ? `The chest overflows with cursed riches! +${c} gold! JACKPOT! ${b > 1 ? `[x${b}]` : ``}` : b > 1 ? `Ancient gold spills from the chest... +${c} gold! [x${b}]` : `The chest reveals its fortune. +${c} gold.${E?.active ? ` The Hunter stirs.` : ``}`;
                     break;
                 }
             case `port`:
