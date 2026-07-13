@@ -55638,42 +55638,31 @@ Resources:`;
             };
         }
     }
-    var Rse = {
-        kraken_eye: `ipfs://QmVnXgMYLnyMdUSbDXPqrFmWZJBNke7wPWvpn3ou86fKAX`,
-        ancient_chart: `ipfs://QmbXeEXsfmgrfi1SoWvKJmcLhXqCZH4fCg5LNbYX7c1zLh`,
-        storm_caller: `ipfs://Qmb54sRo5vJydXJ9m3L23fSCYMbqGkJkHsMfVD9bce1Pmv`,
-        ghost_corsair: `ipfs://QmQXuYjxb99HrTmHSZWnTg2tTktiHd2o4yTdTrSbRXsQFG`,
-        maelstrom_heart: `ipfs://QmXDXm9cAQ3g5bkYQyqKpnRG1uN7tndvjtfobcyDgD2pQa`,
-        cursed_doubloon: `ipfs://QmRGSBiu4exYzt8hbQMGK5g4AEvSi23KJpaoog9MV9cHBe`,
-        hunters_mark: `ipfs://QmNTmrM9GAeAtPY8jJcQ8FSLrSEfbovnmv7yxQbxn1bEi6`,
-        last_port: `ipfs://QmPnXkYVFQqVKJcY87dQkSte8bKWQiYVY8KTfDBPMGB1wA`,
-        blood_moon_tide: `ipfs://QmRQMW4ybuayF4S4yRwKzHHEpQWLbbJXtrYroAAB3rjx2M`,
-        leviathan: `ipfs://QmNnwHkhNawMF1K2cEzfitNUAzWRoAaqAF3hxheULKxj19`
-    }, zse = `0x0118cd8563220da12fd0214da6141a665f83ef5ceee8376faa59334ab64dedcd`;
-    async function Bse() {
+    var Rse = `0x06c8b06fb6a94f3ae9b26c87b1baacc4a7a1f2e0184870c957728b5d17bd0202`;
+    async function zse() {
         let { data: e, error: t } = await t9.from(`nft_mints`).select(`id, wallet_address, nft_name, nft_id, status, tx_hash`).order(`id`, {
             ascending: !1
         });
         return t ? (console.warn(`[admin] getPendingMints:`, t.message), []) : e ?? [];
     }
-    async function Vse() {
+    async function Bse() {
         let { data: e, error: t } = await t9.from(`nft_conditions`).select(`name, minted, max_supply`).order(`name`, {
             ascending: !0
         });
         return t ? (console.warn(`[admin] getSupply:`, t.message), []) : e ?? [];
     }
-    async function Hse(e, t) {
+    async function Vse(e, t) {
         let { error: n } = await t9.from(`nft_mints`).update({
             status: `minted`,
             tx_hash: t
         }).eq(`id`, e);
         return n ? (console.warn(`[admin] markMinted:`, n.message), !1) : !0;
     }
-    function Use(e, t) {
+    function Hse(e, t) {
         return `sncast --account corsair_deployer_mainnet invoke \\
-  --contract-address ${zse} \\
+  --contract-address ${Rse} \\
   --function mint \\
-  --arguments '${e}, "${Rse[t] ?? `ipfs://UNKNOWN`}"' \\
+  --arguments '${e}' \\
   --network mainnet`;
     }
     var r9 = {
@@ -55799,15 +55788,15 @@ Resources:`;
             portalMessage: ``,
             transitionText: []
         }
-    }, Wse = `0x01396d5df31922799610a9710bc69c5cb59c3427b400403d43c198de5d0003e3`;
+    }, Use = `0x01396d5df31922799610a9710bc69c5cb59c3427b400403d43c198de5d0003e3`;
     new Z_({
         nodeUrl: `https://api.cartridge.gg/x/starknet/mainnet`
     });
-    async function Gse(e, t, n, r, i, a) {
+    async function Wse(e, t, n, r, i, a) {
         let o = new TextEncoder().encode(a.slice(0, 31)), s = `0x` + (Array.from(o).map((e)=>e.toString(16).padStart(2, `0`)).join(``) || `00`);
         return await e.execute([
             {
-                contractAddress: Wse,
+                contractAddress: Use,
                 entrypoint: `submit_score`,
                 calldata: [
                     t.toString(),
@@ -55848,11 +55837,11 @@ Resources:`;
         };
     }
     var c9 = 12;
-    function Kse(e) {
+    function Gse(e) {
         let t = e;
         return ()=>(t = t * 1664525 + 1013904223 & 4294967295, (t >>> 0) / 4294967295);
     }
-    function qse(e, t = []) {
+    function Kse(e, t = []) {
         let n = e >= 5 ? `early` : e >= 3 ? `mid` : `late`, r = t.includes(`greed`) ? .3 : 1;
         return n === `early` ? [
             {
@@ -55988,10 +55977,10 @@ Resources:`;
         ];
     }
     function l9(e, t = []) {
-        let n = Kse(e), r = [];
+        let n = Gse(e), r = [];
         for(let e = 0; e < c9; e++){
             r[e] = [];
-            let i = qse(e, t), a = i.reduce((e, t)=>e + t.w, 0);
+            let i = Kse(e, t), a = i.reduce((e, t)=>e + t.w, 0);
             for(let t = 0; t < c9; t++){
                 let o = n() * a, s = `sea`;
                 for (let e of i)if (o -= e.w, o <= 0) {
@@ -56134,7 +56123,7 @@ Resources:`;
             return [];
         }
     }
-    function Jse(e) {
+    function qse(e) {
         let t = new Set(m9()), n = [];
         for (let r of d9)!t.has(r.id) && r.check(e) && (t.add(r.id), n.push(r));
         if (n.length > 0) try {
@@ -56147,7 +56136,7 @@ Resources:`;
     function h9() {
         return localStorage.getItem(p9);
     }
-    function Yse(e) {
+    function Jse(e) {
         e ? localStorage.setItem(p9, e) : localStorage.removeItem(p9);
     }
     var g9 = [
@@ -56207,7 +56196,7 @@ Resources:`;
             rarity: `legendary`,
             desc: `The Hunter takes one extra zone to appear — but strikes harder.`
         }
-    ], Xse = {
+    ], Yse = {
         common: 6,
         rare: 3,
         legendary: 1
@@ -56215,12 +56204,12 @@ Resources:`;
     function _9(e) {
         return g9.find((t)=>t.id === e);
     }
-    function Zse(e, t) {
+    function Xse(e, t) {
         let n = g9.filter((t)=>!e.includes(t.id));
         if (n.length === 0) return null;
         let r = [];
         for (let e of n){
-            let t = Xse[e.rarity] ?? 1;
+            let t = Yse[e.rarity] ?? 1;
             for(let n = 0; n < t; n++)r.push(e);
         }
         return r[Math.floor(t() * r.length)];
@@ -56470,15 +56459,15 @@ Resources:`;
         let e = new Date;
         return `${e.getUTCFullYear()}${String(e.getUTCMonth() + 1).padStart(2, `0`)}${String(e.getUTCDate()).padStart(2, `0`)}`;
     }
-    function Qse() {
+    function Zse() {
         let e = b9(), t = 0;
         for(let n = 0; n < e.length; n++)t = (t << 5) - t + e.charCodeAt(n), t |= 0;
         return Math.abs(t) % 999999;
     }
-    function $se() {
+    function Qse() {
         return localStorage.getItem(`corsair_daily_${b9()}`) === `done`;
     }
-    function ece() {
+    function $se() {
         localStorage.setItem(`corsair_daily_${b9()}`, `done`);
     }
     function x9(e, t = `default`) {
@@ -56553,7 +56542,7 @@ Resources:`;
             maxedComponents: 0
         };
     }
-    function tce(e, t, n, r) {
+    function ece(e, t, n, r) {
         let i = e.ship.x + t, a = e.ship.y + n;
         if (i < 0 || i >= 12 || a < 0 || a >= 12) return null;
         let o = a >= 8 ? `early` : a >= 4 ? `mid` : `late`, s = {
@@ -56623,7 +56612,7 @@ Resources:`;
             scoreMultiplier: E
         };
     }
-    function nce(e) {
+    function tce(e) {
         let { stormDistance: t } = e, n = t <= 0 ? -1 : 14 - Math.floor((10 - t) / 3);
         e.grid = e.grid.map((e, t)=>e.map((e)=>t >= n ? {
                     ...e,
@@ -56633,7 +56622,7 @@ Resources:`;
         let r = e.grid[e.ny][e.nx].type === `portal`;
         return e.grid[e.ny][e.nx].stormed && !e.ship.upgrades.includes(`rider`) && !r && (e.gameOver = !0, e.log = `The storm engulfs your ship. There is no escape.`), t <= 0 && !r && (e.gameOver = !0, e.log = `The storm consumes your ship...`), e;
     }
-    function rce(e) {
+    function nce(e) {
         let { turn: t } = e;
         if (e.state.currentZone >= 3) return e;
         let n = t - (e.state.zoneEntryTurn ?? 0) >= ((e.state.relics ?? []).includes(`bone_compass`) ? 9 : 12), r = n && t - (e.state.zoneEntryTurn ?? 0) >= 18;
@@ -56684,13 +56673,13 @@ Resources:`;
         }
         return e;
     }
-    function ice(e) {
+    function rce(e) {
         let t = e.hunter?.awareness ?? 0, n = t, r = e.ship, i = e.hunter, a = Math.abs(i.x - e.nx) + Math.abs(i.y - e.ny);
         n += 1, e.hunter?.mode === `frenzy` && (n -= 8), a <= 3 ? n += 3 : a <= 6 && (n += 1), e.state.dangerStreak >= 3 && (n += 2), r.upgrades.includes(`greed`) && (n += Math.floor(r.gold / 400));
         let o = e.grid[e.ny]?.[e.nx];
         return o?.type === `storm` && (n -= 10), o?.type === `port` && (n -= 15, (e.state.relics ?? []).includes(`ghost_anchor`) && (n -= 20)), e.state.shipType === `specter` && n > t && (n = t + (n - t) * 1.5), Math.max(0, Math.min(100, n));
     }
-    function ace(e, t, n) {
+    function ice(e, t, n) {
         let { mode: r, searchTurns: i, frenzyTurns: a } = e;
         return n && r === `tracking` ? {
             ...e,
@@ -56723,7 +56712,7 @@ Resources:`;
             frenzyTurns: a
         };
     }
-    function oce(e, t, n, r, i, a) {
+    function ace(e, t, n, r, i, a) {
         let o = e.mode === `frenzy` ? 2 : 1;
         if (e.mode === `searching`) {
             let t = Math.floor(a.next() * 3) - 1, n = Math.floor(a.next() * 3) - 1;
@@ -56745,7 +56734,7 @@ Resources:`;
             y: u
         };
     }
-    function sce(e, t, n) {
+    function oce(e, t, n) {
         let r = Math.abs(t.x - e.nx) + Math.abs(t.y - e.ny);
         if (t.mode === `frenzy` && n !== `frenzy`) e.log = (e.log ? e.log + ` ` : ``) + `Something snaps. It knows exactly where you are.`;
         else if (t.mode === `stalking` && n !== `stalking`) e.log = (e.log ? e.log + ` ` : ``) + `It changes course. It seems to predict you.`;
@@ -56761,7 +56750,7 @@ Resources:`;
             e.log = (e.log ? e.log + ` ` : ``) + t[Math.floor(e.rng.next() * t.length)];
         }
     }
-    function cce(e) {
+    function sce(e) {
         let { nx: t, ny: n, turn: r } = e, i = e.hunter, a = (i9[e.state.currentZone ?? 1]?.hunterSpawnTurn ?? r9.hunter.spawnTurn) + ((e.state.relics ?? []).includes(`black_flag`) ? 6 : 0);
         if (r - (e.state.zoneEntryTurn ?? 0) === a && !i) i = {
             x: t < 12 / 2 ? 11 : 0,
@@ -56774,9 +56763,9 @@ Resources:`;
             skipTurn: !1
         };
         else if (i && i.active) {
-            let r = ice(e), a = e.state.hunterTarget, o = e.state.hunterTargetHistory ?? [], s = t - (a?.x ?? t), c = n - (a?.y ?? n), l = s === 0 ? c === 0 ? null : `v` : `h`, u = o.length >= 2 ? o[o.length - 1].x === o[o.length - 2].x ? o[o.length - 1].y === o[o.length - 2].y ? null : `v` : `h` : null, d = !!(u && l && u !== l), f = i.mode;
+            let r = rce(e), a = e.state.hunterTarget, o = e.state.hunterTargetHistory ?? [], s = t - (a?.x ?? t), c = n - (a?.y ?? n), l = s === 0 ? c === 0 ? null : `v` : `h`, u = o.length >= 2 ? o[o.length - 1].x === o[o.length - 2].x ? o[o.length - 1].y === o[o.length - 2].y ? null : `v` : `h` : null, d = !!(u && l && u !== l), f = i.mode;
             i = {
-                ...ace(i, r, d),
+                ...ice(i, r, d),
                 awareness: r
             };
             let p = o.length >= 2 ? o[o.length - 2] : a ?? {
@@ -56786,11 +56775,11 @@ Resources:`;
                 x: Math.max(0, Math.min(11, t + s)),
                 y: Math.max(0, Math.min(11, n + c))
             }, h = o9(e.state.dangerStreak).hunterAggro, g = e.ship.upgrades.includes(`greed`) && Math.floor(e.ship.gold / r9.greed.corruptionStep) >= r9.greed.corruptionHunterAt;
-            i.mode === `tracking` && (i.skipTurn ?? !1) && !h && !g || (i = oce(i, p, m, t, n, e.rng)), i = {
+            i.mode === `tracking` && (i.skipTurn ?? !1) && !h && !g || (i = ace(i, p, m, t, n, e.rng)), i = {
                 ...i,
                 skipTurn: i.mode === `tracking` ? !(i.skipTurn ?? !1) : !1,
                 lastMoveDir: l
-            }, sce(e, i, f);
+            }, oce(e, i, f);
         }
         if (i && i.active && i.x === t && i.y === n) {
             let t = Math.max(r9.hunter.minDamage, r9.hunter.baseDamage - e.ship.power) + ((e.state.relics ?? []).includes(`black_flag`) ? 2 : 0);
@@ -56804,7 +56793,7 @@ Resources:`;
         }
         return e.hunter = i, e;
     }
-    function lce(e) {
+    function cce(e) {
         if (e.gameOver) return e;
         let { nx: t, ny: n, ship: r, rng: i, zoneLabel: a } = e, o = e.grid[n][t];
         if (o.type === `sea`) {
@@ -56889,7 +56878,7 @@ Resources:`;
             ]
         }, e.log = `Pirates attack under the storm!` + (e.log ? ` ` + e.log : ``), e) : (e.event = v9(o.type, e.ship.power), e);
     }
-    function uce(e) {
+    function lce(e) {
         e.hunter?.active && (e = {
             ...e
         });
@@ -56939,12 +56928,12 @@ Resources:`;
             runTitle: y9(m)
         } : m;
     }
-    function dce(e, t, n) {
+    function uce(e, t, n) {
         if (e.gameOver || e.showPort || e.event) return e;
-        let r = tce(e, t, n, a9(e.rngState));
-        return r ? uce(lce(cce(rce(nce(r))))) : e;
+        let r = ece(e, t, n, a9(e.rngState));
+        return r ? lce(cce(sce(nce(tce(r))))) : e;
     }
-    function fce(e) {
+    function dce(e) {
         let { ship: t, score: n, exploits: r, curses: i, log: a, dangerStreak: o } = e, s = {
             ...e.scoreBreakdown
         }, c = !1;
@@ -56976,7 +56965,7 @@ Resources:`;
             scoreBreakdown: s
         } : e;
     }
-    function pce(e, t) {
+    function fce(e, t) {
         if (!e.ship.upgrades.includes(`greed`)) return e;
         let { ship: n, curses: r, log: i } = e, a = o9(e.dangerStreak);
         if (n.gold >= r9.greed.curseThreshold && a.curseChance > 0 && t.next() < a.curseChance && r.length < 3) {
@@ -56999,14 +56988,14 @@ Resources:`;
             log: i
         };
     }
-    function mce(e) {
+    function pce(e) {
         return e.ship.hull <= 0 ? {
             ...e,
             gameOver: !0,
             runTitle: y9(e)
         } : e;
     }
-    function hce(e, t) {
+    function mce(e, t) {
         let n = {
             ...e,
             ship: {
@@ -57014,12 +57003,12 @@ Resources:`;
                 hull: Math.max(0, e.ship.hull)
             }
         };
-        return n = fce(n), n = pce(n, t), n = mce(n), n.gameOver && (n = {
+        return n = dce(n), n = fce(n, t), n = pce(n), n.gameOver && (n = {
             ...n,
             runTitle: y9(n)
         }), n;
     }
-    function gce(e, t) {
+    function hce(e, t) {
         if (!e.event) return e;
         let n = a9(e.rngState), { cellType: r } = e.event, i = e.ship.upgrades.includes(`greed`), a = {
             ...e.ship
@@ -57060,7 +57049,7 @@ Resources:`;
             }, l += ` Kraken slain at deaths door! +500pts`), a.gold === 0 && !C.includes(`brokebut`) && (C.push(`brokebut`), o += 150, D = {
                 ...D,
                 achievements: D.achievements + 150
-            }, l += ` Sailed penniless! +150pts`), hce({
+            }, l += ` Sailed penniless! +150pts`), mce({
                 ...e,
                 grid: ee,
                 ship: a,
@@ -57088,7 +57077,7 @@ Resources:`;
             }, n));
         if (r === `wreck`) {
             if (t === 0) {
-                let t = n.next() < .35 ? Zse(e.relics ?? [], ()=>n.next()) : null;
+                let t = n.next() < .35 ? Xse(e.relics ?? [], ()=>n.next()) : null;
                 if (t) f = [
                     ...e.relics ?? [],
                     t.id
@@ -57364,7 +57353,7 @@ Resources:`;
         }
         return te();
     }
-    function _ce(e, t) {
+    function gce(e, t) {
         let n = e.upgradeToken ? 0 : {
             ghost: 80,
             rider: 90,
@@ -57399,7 +57388,7 @@ Resources:`;
             log: `${t} equipped!`
         };
     }
-    function vce(e, t) {
+    function _ce(e, t) {
         let n = {
             0: 50,
             1: 110
@@ -57445,7 +57434,7 @@ Resources:`;
             ship: a
         };
     }
-    function yce(e) {
+    function vce(e) {
         if (e.ship.gold < 20) return {
             ...e,
             log: `Not enough gold to reroll. (need 20g)`
@@ -57470,14 +57459,14 @@ Resources:`;
             log: `Rerolled! -20g`
         };
     }
-    function bce(e) {
+    function yce(e) {
         return {
             ...e,
             showPort: !1,
             log: `Back to sea!`
         };
     }
-    function xce(e) {
+    function bce(e) {
         if (e.escapeUsed || !e.event) return e;
         let t = e.grid.map((t, n)=>t.map((t, r)=>r === e.ship.x && n === e.ship.y ? {
                     ...t,
@@ -57491,7 +57480,7 @@ Resources:`;
             log: `⛵ Swift Sails — escaped!`
         };
     }
-    var Sce = {
+    var xce = {
         gold: .5,
         buy: .5,
         damage: .6,
@@ -57502,19 +57491,19 @@ Resources:`;
         hunter_attack: .7,
         thunder: .55
     }, C9 = {}, w9 = !1;
-    function Cce(e) {
+    function Sce(e) {
         w9 = e;
     }
     function T9(e) {
         if (!w9) try {
             let t = C9[e];
-            t || (t = new Audio(`/corsair/sounds/${e}.wav`), C9[e] = t), t.volume = Sce[e], t.currentTime = 0, t.play().catch(()=>{});
+            t || (t = new Audio(`/corsair/sounds/${e}.wav`), C9[e] = t), t.volume = xce[e], t.currentTime = 0, t.play().catch(()=>{});
         } catch  {}
     }
-    var wce = `/corsair/icons_ui/`;
+    var Cce = `/corsair/icons_ui/`;
     function E9({ name: e, size: t = 20, style: n }) {
         return (0, I.jsx)(`img`, {
-            src: `${wce}${e}.png`,
+            src: `${Cce}${e}.png`,
             width: t,
             height: t,
             alt: ``,
@@ -57526,7 +57515,7 @@ Resources:`;
             }
         });
     }
-    var D9 = `/corsair/assets/anchor-Bx3zJViJ.png`, Tce = `/corsair/assets/swift_sails-YMobDX4v.png`, Ece = `/corsair/assets/ghost_ship-4jaVs07k.png`, Dce = `/corsair/assets/treasure_hunter-C9jnAyZy.png`, Oce = `/corsair/assets/storm_rider-BjRGnDwr.png`, kce = `/corsair/assets/cursed_greed-BlVfcQDt.png`, Ace = `/corsair/assets/berserker-B9haxHEY.png`, jce = Object.fromEntries([
+    var D9 = `/corsair/assets/anchor-Bx3zJViJ.png`, wce = `/corsair/assets/swift_sails-YMobDX4v.png`, Tce = `/corsair/assets/ghost_ship-4jaVs07k.png`, Ece = `/corsair/assets/treasure_hunter-C9jnAyZy.png`, Dce = `/corsair/assets/storm_rider-BjRGnDwr.png`, Oce = `/corsair/assets/cursed_greed-BlVfcQDt.png`, kce = `/corsair/assets/berserker-B9haxHEY.png`, Ace = Object.fromEntries([
         `search`,
         `lurks`,
         `fight`,
@@ -57570,13 +57559,13 @@ Resources:`;
                 "../assets/choices/vortex.png": fX
             })[`../assets/choices/${e}.png`], import.meta.url).href
         ])), O9 = {
-        escape: Tce,
-        ghost: Ece,
-        hunter: Dce,
-        rider: Oce,
-        greed: kce,
-        berserker: Ace
-    }, Mce = `/corsair/icons/gold.png`, k9 = {
+        escape: wce,
+        ghost: Tce,
+        hunter: Ece,
+        rider: Dce,
+        greed: Oce,
+        berserker: kce
+    }, jce = `/corsair/icons/gold.png`, k9 = {
         kraken: `/corsair/scenes/kraken.jpg`,
         ancient_kraken: `/corsair/scenes/ancient-kraken.jpg`,
         storm: `/corsair/scenes/storm.jpg`,
@@ -57614,7 +57603,7 @@ Resources:`;
         wreck: `A Ghostly Wreck`,
         death: `Your Voyage Ends`,
         maelstrom: `The Maelstrom`
-    }, Nce = {
+    }, Mce = {
         sea: `〰`,
         storm: `/corsair/icons_ui/storm.png`,
         pirate: `/corsair/icons_ui/swords.png`,
@@ -57684,7 +57673,7 @@ Resources:`;
             portal: `#440088`
         }
     };
-    function Pce({ ok: e }) {
+    function Nce({ ok: e }) {
         return (0, I.jsx)(`span`, {
             style: {
                 display: `inline-block`,
@@ -57707,7 +57696,7 @@ Resources:`;
                     lineHeight: 1.45
                 },
                 children: [
-                    (0, I.jsx)(Pce, {
+                    (0, I.jsx)(Nce, {
                         ok: t
                     }),
                     (0, I.jsx)(`span`, {
@@ -57815,7 +57804,7 @@ Resources:`;
         combat: `#ee6644`,
         escape: `#44cc88`
     };
-    function Fce(e) {
+    function Pce(e) {
         let t = (e || ``).toLowerCase();
         return t.includes(`storm`) || t.includes(`lightning`) || t.includes(`splits the deck`) || t.includes(`waves`) || t.includes(`surge`) ? {
             name: `The Storm`,
@@ -57846,7 +57835,7 @@ Resources:`;
             style: {
                 marginRight: 5
             }
-        }), R9 = (e)=>e === `frenzy` ? `ENRAGED` : e === `stalking` ? `STALKING` : e === `searching` ? `SEARCHING` : `TRACKING`, Ice = (e, t)=>e ? e.startsWith(`http`) || e.startsWith(`/`) ? (0, I.jsx)(`img`, {
+        }), R9 = (e)=>e === `frenzy` ? `ENRAGED` : e === `stalking` ? `STALKING` : e === `searching` ? `SEARCHING` : `TRACKING`, Fce = (e, t)=>e ? e.startsWith(`http`) || e.startsWith(`/`) ? (0, I.jsx)(`img`, {
             src: e,
             style: {
                 width: t,
@@ -57862,10 +57851,10 @@ Resources:`;
             },
             children: e
         }) : null;
-    function Lce({ walletAddress: e, account: t, username: n, onHome: r, dailySeed: i, shipId: a }) {
+    function Ice({ walletAddress: e, account: t, username: n, onHome: r, dailySeed: i, shipId: a }) {
         let [o, s] = (0, x.useState)(()=>x9(i, i === void 0 ? a ?? `default` : `default`)), [c, l] = (0, x.useState)(!1), [u, d] = (0, x.useState)([]), [f, p] = (0, x.useState)([]), [m, h] = (0, x.useState)(null), g = (0, x.useRef)((o.relics ?? []).length), [_, v] = (0, x.useState)(!1), [y, b] = (0, x.useState)([]), [S, C] = (0, x.useState)(null), [w, T] = (0, x.useState)(0), [E, ee] = (0, x.useState)(()=>parseInt(localStorage.getItem(`corsair_best_score`) || `0`)), [D, te] = (0, x.useState)(!1), [ne, re] = (0, x.useState)(!1), [O, ie] = (0, x.useState)(window.innerWidth < 768), ae = i !== void 0;
         (0, x.useEffect)(()=>{
-            ae && ece();
+            ae && $se();
         }, []), (0, x.useEffect)(()=>{
             let e = ()=>ie(window.innerWidth < 768);
             return window.addEventListener(`resize`, e), ()=>window.removeEventListener(`resize`, e);
@@ -58076,7 +58065,7 @@ Resources:`;
             o.gameOver
         ]), (0, x.useEffect)(()=>{
             if (o.gameOver) {
-                let t = Jse(o);
+                let t = qse(o);
                 if (t.length > 0 && (p(t), T9(`streak`)), ae && e && o.score > 0) {
                     let t = new Date().toISOString().slice(0, 10);
                     Ise(e, o.score, t, o.seed, n ?? void 0);
@@ -58123,20 +58112,20 @@ Resources:`;
             o.turn
         ]);
         let Je = (e, t)=>{
-            s((n)=>dce(n, e, t));
+            s((n)=>uce(n, e, t));
         }, Ye = (e)=>{
             s((t)=>{
-                let n = gce(t, e);
+                let n = hce(t, e);
                 return n.ship.hull < t.ship.hull && Ve(), n;
             });
-        }, Xe = ()=>s((e)=>xce(e)), Ze = (e)=>s((t)=>vce(t, e)), Qe = ()=>s(x9()), $e = (0, x.useRef)(null), [et, tt] = (0, x.useState)(!1);
+        }, Xe = ()=>s((e)=>bce(e)), Ze = (e)=>s((t)=>_ce(t, e)), Qe = ()=>s(x9()), $e = (0, x.useRef)(null), [et, tt] = (0, x.useState)(!1);
         (0, x.useEffect)(()=>{
             let e = new Audio(`/corsair/sounds/ambient.mp3`);
             return e.loop = !0, e.volume = .4, e.play().catch(()=>{}), $e.current = e, ()=>{
                 e.pause(), e.currentTime = 0;
             };
         }, []), (0, x.useEffect)(()=>{
-            $e.current && ($e.current.muted = et), Cce(et);
+            $e.current && ($e.current.muted = et), Sce(et);
         }, [
             et
         ]);
@@ -58383,7 +58372,7 @@ Resources:`;
                                                 (0, I.jsx)(`img`, {
                                                     src: {
                                                         hull: `/corsair/assets/hull-CGmPGbU0.png`,
-                                                        gold: Mce,
+                                                        gold: jce,
                                                         vision: `/corsair/assets/vision-3Q65Za4i.png`,
                                                         power: `/corsair/assets/power-CBX9SU5d.png`,
                                                         turn: `/corsair/assets/turn-Wvx6vBym.png`
@@ -60174,7 +60163,7 @@ Resources:`;
                                                             textAlign: `center`
                                                         },
                                                         children: (0, I.jsx)(`img`, {
-                                                            src: jce[e.icon] || ``,
+                                                            src: Ace[e.icon] || ``,
                                                             style: {
                                                                 width: 72,
                                                                 height: 72,
@@ -60253,7 +60242,7 @@ Resources:`;
                                     style: {
                                         flexShrink: 0
                                     },
-                                    children: Ice(Nce[A.event.cellType], 55)
+                                    children: Fce(Mce[A.event.cellType], 55)
                                 }),
                                 (0, I.jsxs)(`div`, {
                                     style: {
@@ -60586,7 +60575,7 @@ Resources:`;
                                                 whileHover: {
                                                     scale: 1.05
                                                 },
-                                                onClick: ()=>s((e)=>yce(e)),
+                                                onClick: ()=>s((e)=>vce(e)),
                                                 style: {
                                                     padding: `4px 12px`,
                                                     borderRadius: 6,
@@ -60743,8 +60732,8 @@ Resources:`;
                                 onClick: ()=>{
                                     s((e)=>{
                                         let t = e;
-                                        for (let e of u)t = _ce(t, e);
-                                        return bce(t);
+                                        for (let e of u)t = gce(t, e);
+                                        return yce(t);
                                     }), d([]);
                                 },
                                 style: {
@@ -60909,7 +60898,7 @@ Resources:`;
                                 ]
                             }),
                             (()=>{
-                                let e = Fce(A.log);
+                                let e = Pce(A.log);
                                 return (0, I.jsxs)(X.div, {
                                     initial: {
                                         opacity: 0
@@ -61297,7 +61286,7 @@ Resources:`;
                                         disabled: ne,
                                         onClick: async ()=>{
                                             if (re(!0), await Pse(e, A.score, A.runTitle, A.turn, A.currentZone ?? 1, A.seed, n ?? void 0) && v(!0), t) try {
-                                                await Gse(t, A.score, A.seed, A.turn, A.currentZone ?? 1, A.runTitle);
+                                                await Wse(t, A.score, A.seed, A.turn, A.currentZone ?? 1, A.runTitle);
                                             } catch (e) {
                                                 console.warn(`On-chain submit failed:`, e);
                                             }
@@ -61948,7 +61937,7 @@ Resources:`;
             ]
         });
     }
-    var z9 = `/corsair/`, Rce = [
+    var z9 = `/corsair/`, Lce = [
         {
             icon: `sea`,
             label: `Calm Sea`,
@@ -62024,7 +62013,7 @@ Resources:`;
             color: `#003a5a`,
             legendary: !0
         }
-    ], zce = [
+    ], Rce = [
         {
             id: `ghost`,
             name: `Ghost Ship`,
@@ -62067,7 +62056,7 @@ Resources:`;
             cost: `65g`,
             color: `#44cc88`
         }
-    ], Bce = {
+    ], zce = {
         ghost: `upgrades/ghost_ship.png`,
         rider: `upgrades/storm_rider.png`,
         greed: `upgrades/cursed_greed.png`,
@@ -62097,7 +62086,7 @@ Resources:`;
             ]
         });
     }
-    function Vce({ onClose: e, onPlay: t }) {
+    function Bce({ onClose: e, onPlay: t }) {
         let n = window.innerWidth < 768;
         return (0, I.jsx)(X.div, {
             initial: {
@@ -62458,7 +62447,7 @@ Resources:`;
                                 gridTemplateColumns: n ? `1fr` : `repeat(2, 1fr)`,
                                 gap: 10
                             },
-                            children: Rce.map((e)=>(0, I.jsxs)(`div`, {
+                            children: Lce.map((e)=>(0, I.jsxs)(`div`, {
                                     style: {
                                         background: `${e.color}18`,
                                         border: `1px solid ${e.color}44`,
@@ -62782,7 +62771,7 @@ Resources:`;
                                     gridTemplateColumns: n ? `1fr` : `repeat(2, 1fr)`,
                                     gap: 10
                                 },
-                                children: zce.map((e)=>(0, I.jsxs)(`div`, {
+                                children: Rce.map((e)=>(0, I.jsxs)(`div`, {
                                         style: {
                                             background: `rgba(255,255,255,0.02)`,
                                             border: `1px solid ${e.color}33`,
@@ -62794,7 +62783,7 @@ Resources:`;
                                         },
                                         children: [
                                             (0, I.jsx)(`img`, {
-                                                src: `${z9}${Bce[e.id]}`,
+                                                src: `${z9}${zce[e.id]}`,
                                                 style: {
                                                     width: 44,
                                                     height: 44,
@@ -63212,7 +63201,7 @@ Resources:`;
             })
         });
     }
-    function Hce({ onClose: e }) {
+    function Vce({ onClose: e }) {
         let t = new Set(m9()), [n, r] = (0, x.useState)(h9()), i = d9.filter((e)=>t.has(e.id)).length;
         return (0, I.jsx)(X.div, {
             initial: {
@@ -63415,7 +63404,7 @@ Resources:`;
                                     i && (0, I.jsx)(`button`, {
                                         onClick: ()=>{
                                             let t = a ? null : e.title;
-                                            Yse(t), r(t);
+                                            Jse(t), r(t);
                                         },
                                         style: {
                                             padding: `7px 12px`,
@@ -63503,10 +63492,10 @@ Resources:`;
         let e = localStorage.getItem(U9);
         return e && V9.some((t)=>t.id === e) && H9(e) ? e : `default`;
     }
-    function Uce(e) {
+    function Hce(e) {
         V9.some((t)=>t.id === e) && H9(e) && localStorage.setItem(U9, e);
     }
-    function Wce({ onClose: e }) {
+    function Uce({ onClose: e }) {
         let [t, n] = (0, x.useState)(W9());
         return (0, I.jsx)(X.div, {
             initial: {
@@ -63609,7 +63598,7 @@ Resources:`;
                             let r = H9(e.id), i = t === e.id;
                             return (0, I.jsxs)(`div`, {
                                 onClick: ()=>{
-                                    r && (Uce(e.id), n(e.id));
+                                    r && (Hce(e.id), n(e.id));
                                 },
                                 style: {
                                     padding: `14px 16px`,
@@ -63718,7 +63707,7 @@ Resources:`;
             name: `skull`,
             size: 16
         }) : `⚔️`, q9 = window.innerWidth < 768;
-    function Gce({ onClose: e }) {
+    function Wce({ onClose: e }) {
         let [t, n] = (0, x.useState)(`daily`), [r, i] = (0, x.useState)([]), [a, o] = (0, x.useState)([]), [s, c] = (0, x.useState)(!0);
         (0, x.useEffect)(()=>{
             let e = new Date().toISOString().slice(0, 10);
@@ -64076,7 +64065,7 @@ Resources:`;
             label: `DANGER AT EVERY TURN`
         }
     ];
-    function Kce({ onPlay: e }) {
+    function Gce({ onPlay: e }) {
         let [t] = (0, x.useState)(()=>typeof window < `u` && window.innerWidth < 768), [n, r] = (0, x.useState)(!1), [i, a] = (0, x.useState)(!1), [o, s] = (0, x.useState)(!1), [c, l] = (0, x.useState)([]), [u, d] = (0, x.useState)(``);
         (0, x.useEffect)(()=>{
             n9(new Date().toISOString().slice(0, 10)).then((e)=>l(e.slice(0, 3)));
@@ -64427,7 +64416,7 @@ Resources:`;
                                                                 })
                                                             ]
                                                         }),
-                                                        $se() ? (0, I.jsxs)(`div`, {
+                                                        Qse() ? (0, I.jsxs)(`div`, {
                                                             style: {
                                                                 fontSize: 11,
                                                                 color: `rgba(136,221,255,0.55)`,
@@ -64448,7 +64437,7 @@ Resources:`;
                                                                 scale: .96
                                                             },
                                                             onClick: ()=>{
-                                                                m ? e(m, h, Qse()) : _();
+                                                                m ? e(m, h, Zse()) : _();
                                                             },
                                                             style: {
                                                                 padding: `10px 20px`,
@@ -64689,19 +64678,19 @@ Resources:`;
                 }),
                 (0, I.jsxs)(i6, {
                     children: [
-                        n && (0, I.jsx)(Vce, {
+                        n && (0, I.jsx)(Bce, {
                             onClose: ()=>r(!1),
                             onPlay: ()=>{
                                 r(!1), e(null);
                             }
                         }),
-                        i && (0, I.jsx)(Hce, {
+                        i && (0, I.jsx)(Vce, {
                             onClose: ()=>a(!1)
                         }),
-                        o && (0, I.jsx)(Wce, {
+                        o && (0, I.jsx)(Uce, {
                             onClose: ()=>s(!1)
                         }),
-                        f && (0, I.jsx)(Gce, {
+                        f && (0, I.jsx)(Wce, {
                             onClose: ()=>p(!1)
                         })
                     ]
@@ -64710,12 +64699,12 @@ Resources:`;
         });
     }
     var Y9 = `corsair-admin`;
-    function qce({ onHome: e }) {
+    function Kce({ onHome: e }) {
         let [t, n] = (0, x.useState)([]), [r, i] = (0, x.useState)([]), [a, o] = (0, x.useState)(!0), [s, c] = (0, x.useState)(null), [l, u] = (0, x.useState)({}), [d, f] = (0, x.useState)(!1), [p, m] = (0, x.useState)(``), h = async ()=>{
             o(!0);
             let [e, t] = await Promise.all([
-                Bse(),
-                Vse()
+                zse(),
+                Bse()
             ]);
             n(e), i(t), o(!1);
         };
@@ -64781,7 +64770,7 @@ Resources:`;
             ]
         });
         let g = t.filter((e)=>e.status === `pending`), _ = async (e)=>{
-            let t = Use(e.wallet_address, e.nft_name);
+            let t = Hse(e.wallet_address, e.nft_name);
             try {
                 await navigator.clipboard.writeText(t), c(e.id), setTimeout(()=>c(null), 1500);
             } catch  {
@@ -64793,7 +64782,7 @@ Resources:`;
                 alert(`Paste the transaction hash first.`);
                 return;
             }
-            await Hse(e, t) && h();
+            await Vse(e, t) && h();
         };
         return (0, I.jsxs)(X9, {
             onHome: e,
@@ -65048,7 +65037,7 @@ Resources:`;
         letterSpacing: 1,
         whiteSpace: `nowrap`
     };
-    function Jce() {
+    function qce() {
         let { address: e, account: t, username: n } = qY(), [r, i] = (0, x.useState)(`home`), [a, o] = (0, x.useState)(void 0), [s, c] = (0, x.useState)(null);
         (0, x.useEffect)(()=>{
             let e = ()=>{
@@ -65059,24 +65048,24 @@ Resources:`;
         let l = (e, t, n)=>{
             c(t ?? null), o(n), i(`game`);
         }, u = s ?? n, d = a === void 0 ? W9() : `default`;
-        return r === `admin` ? (0, I.jsx)(qce, {
+        return r === `admin` ? (0, I.jsx)(Kce, {
             onHome: ()=>{
                 window.location.hash = ``, i(`home`);
             }
-        }) : r === `game` ? (0, I.jsx)(Lce, {
+        }) : r === `game` ? (0, I.jsx)(Ice, {
             walletAddress: e,
             account: t,
             username: u,
             onHome: ()=>i(`home`),
             dailySeed: a,
             shipId: d
-        }) : (0, I.jsx)(Kce, {
+        }) : (0, I.jsx)(Gce, {
             onPlay: l
         });
     }
     S.createRoot(document.getElementById(`root`)).render((0, I.jsx)(x.StrictMode, {
         children: (0, I.jsx)(KY, {
-            children: (0, I.jsx)(Jce, {})
+            children: (0, I.jsx)(qce, {})
         })
     }));
 })();
