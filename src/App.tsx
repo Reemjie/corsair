@@ -1,16 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useWallet } from './useWallet';
 import CorsairGame from './components/CorsairGame';
 import HomePage from './HomePage';
+import AdminPanel from './AdminPanel';
 import { getSelectedShip } from './game/ships';
 
-type Screen = 'home' | 'game';
+type Screen = 'home' | 'game' | 'admin';
 
 export default function App() {
   const { address, account, username: walletUsername } = useWallet();
   const [screen, setScreen] = useState<Screen>('home');
   const [dailySeed, setDailySeed] = useState<number | undefined>(undefined);
   const [overrideUsername, setOverrideUsername] = useState<string | null>(null);
+
+  useEffect(() => {
+    const check = () => { if (window.location.hash.replace('#','') === 'admin') setScreen('admin'); };
+    check();
+    window.addEventListener('hashchange', check);
+    return () => window.removeEventListener('hashchange', check);
+  }, []);
 
   const handlePlay = (_address: string | null, uname?: string | null, seed?: number) => {
     setOverrideUsername(uname ?? null);
@@ -22,6 +30,7 @@ export default function App() {
 
   // Le Daily force le navire par defaut (equite du tournoi) ; sinon le navire choisi.
   const shipId = dailySeed !== undefined ? 'default' : getSelectedShip();
+  if (screen === 'admin') return <AdminPanel walletAddress={address} onHome={() => { window.location.hash = ''; setScreen('home'); }} />;
   if (screen === 'game') return <CorsairGame walletAddress={address} account={account} username={username} onHome={() => setScreen('home')} dailySeed={dailySeed} shipId={shipId} />;
   return <HomePage onPlay={handlePlay} />;
 }
