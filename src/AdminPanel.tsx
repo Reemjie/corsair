@@ -11,7 +11,7 @@ function norm(a: string | null | undefined) {
   return (a ?? '').toLowerCase().replace(/^0x0*/, '0x');
 }
 
-export default function AdminPanel({ walletAddress, onHome }: { walletAddress: string | null; onHome: () => void }) {
+export default function AdminPanel({ walletAddress, onConnect, onHome }: { walletAddress: string | null; onConnect: () => void; onHome: () => void }) {
   const [mints, setMints] = useState<PendingMint[]>([]);
   const [supply, setSupply] = useState<SupplyRow[]>([]);
   const [loading, setLoading] = useState(true);
@@ -29,7 +29,10 @@ export default function AdminPanel({ walletAddress, onHome }: { walletAddress: s
   useEffect(() => { if (isAdmin) load(); }, [isAdmin]);
 
   if (!walletAddress) {
-    return <Shell onHome={onHome}><p style={msg}>Connect your wallet to access the admin panel.</p></Shell>;
+    return <Shell onHome={onHome}>
+      <p style={msg}>Connect your wallet to access the admin panel.</p>
+      <button onClick={onConnect} style={{ ...btn, marginTop: 14, fontSize: 14, padding: '10px 22px' }}>Connect wallet</button>
+    </Shell>;
   }
   if (!isAdmin) {
     return <Shell onHome={onHome}><p style={msg}>Access denied. This wallet is not an admin.</p></Shell>;
