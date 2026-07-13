@@ -1,24 +1,18 @@
 import { useState, useEffect } from 'react';
 import { getPendingMints, getSupply, markMinted, buildMintCommand, type PendingMint, type SupplyRow } from './supabase';
 
-// Adresses owner autorisees (wallet Braavos + deployer mainnet)
-const ADMIN_WALLETS = [
-  '0x3734654812ca9b65a5cfd94d1001dcdacbe9fb77a583e11433d2e51efd2ebd4',
-  '0x2c8e147fb42fa2e27e47f766fe54e27c1b0cf629ddf31b53df8920ecbd29075',
-];
+// Code d'acces admin (le dashboard ne fait aucune transaction on-chain,
+// un code suffit — le mint reel se fait via sncast au terminal).
+const ADMIN_CODE = 'corsair-admin';
 
-function norm(a: string | null | undefined) {
-  return (a ?? '').toLowerCase().replace(/^0x0*/, '0x');
-}
-
-export default function AdminPanel({ walletAddress, onConnect, onHome }: { walletAddress: string | null; onConnect: () => void; onHome: () => void }) {
+export default function AdminPanel({ onHome }: { onHome: () => void }) {
   const [mints, setMints] = useState<PendingMint[]>([]);
   const [supply, setSupply] = useState<SupplyRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [copiedId, setCopiedId] = useState<number | null>(null);
   const [txInputs, setTxInputs] = useState<Record<number, string>>({});
-
-  const isAdmin = ADMIN_WALLETS.some(w => norm(w) === norm(walletAddress));
+  const [authed, setAuthed] = useState(false);
+  const [codeInput, setCodeInput] = useState('');
 
   const load = async () => {
     setLoading(true);
@@ -26,16 +20,24 @@ export default function AdminPanel({ walletAddress, onConnect, onHome }: { walle
     setMints(m); setSupply(s); setLoading(false);
   };
 
-  useEffect(() => { if (isAdmin) load(); }, [isAdmin]);
+  useEffect(() => { if (authed) load(); }, [authed]);
 
-  if (!walletAddress) {
+  if (!authed) {
     return <Shell onHome={onHome}>
-      <p style={msg}>Connect your wallet to access the admin panel.</p>
-      <button onClick={onConnect} style={{ ...btn, marginTop: 14, fontSize: 14, padding: '10px 22px' }}>Connect wallet</button>
+      <p style={msg}>Enter the admin code to continue.</p>
+      <div style={{ display: 'flex', gap: 8, marginTop: 14, maxWidth: 340 }}>
+        <input
+          type="password"
+          placeholder="Admin code"
+          value={codeInput}
+          onChange={e => setCodeInput(e.target.value)}
+          onKeyDown={e => { if (e.key === 'Enter' && codeInput === ADMIN_CODE) setAuthed(true); }}
+          style={{ flex: 1, padding: '9px 12px', borderRadius: 8, border: '1px solid rgba(255,255,255,0.15)', background: 'rgba(0,0,0,0.3)', color: '#fff', fontSize: 14 }}
+        />
+        <button onClick={() => { if (codeInput === ADMIN_CODE) setAuthed(true); }} style={{ ...btn, fontSize: 14, padding: '9px 18px' }}>Enter</button>
+      </div>
+      {codeInput && codeInput !== ADMIN_CODE && <p style={{ ...msg, marginTop: 8, fontSize: 12, color: 'rgba(238,102,85,0.7)' }}>Wrong code.</p>}
     </Shell>;
-  }
-  if (!isAdmin) {
-    return <Shell onHome={onHome}><p style={msg}>Access denied. This wallet is not an admin.</p></Shell>;
   }
 
   const pending = mints.filter(m => m.status === 'pending');
