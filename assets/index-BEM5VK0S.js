@@ -55651,12 +55651,18 @@ Resources:`;
         });
         return t ? (console.warn(`[admin] getSupply:`, t.message), []) : e ?? [];
     }
-    async function Vse(e, t) {
-        let { error: n } = await t9.from(`nft_mints`).update({
+    async function Vse(e, t, n, r) {
+        let { error: i } = await t9.from(`nft_mints`).update({
             status: `minted`,
-            tx_hash: t
+            tx_hash: t,
+            token_id: n
         }).eq(`id`, e);
-        return n ? (console.warn(`[admin] markMinted:`, n.message), !1) : !0;
+        if (i) return console.warn(`[admin] markMinted:`, i.message), !1;
+        let { error: a } = await t9.from(`nft_token_metadata`).insert({
+            token_id: n,
+            nft_name: r
+        });
+        return a ? (console.warn(`[admin] metadata insert:`, a.message), !1) : !0;
     }
     function Hse(e, t) {
         return `sncast --account corsair_deployer_mainnet invoke \\
@@ -64700,7 +64706,7 @@ Resources:`;
     }
     var Y9 = `corsair-admin`;
     function Kce({ onHome: e }) {
-        let [t, n] = (0, x.useState)([]), [r, i] = (0, x.useState)([]), [a, o] = (0, x.useState)(!0), [s, c] = (0, x.useState)(null), [l, u] = (0, x.useState)({}), [d, f] = (0, x.useState)(!1), [p, m] = (0, x.useState)(``), h = async ()=>{
+        let [t, n] = (0, x.useState)([]), [r, i] = (0, x.useState)([]), [a, o] = (0, x.useState)(!0), [s, c] = (0, x.useState)(null), [l, u] = (0, x.useState)({}), [d, f] = (0, x.useState)({}), [p, m] = (0, x.useState)(!1), [h, g] = (0, x.useState)(``), _ = async ()=>{
             o(!0);
             let [e, t] = await Promise.all([
                 zse(),
@@ -64709,10 +64715,10 @@ Resources:`;
             n(e), i(t), o(!1);
         };
         if ((0, x.useEffect)(()=>{
-            d && h();
+            p && _();
         }, [
-            d
-        ]), !d) return (0, I.jsxs)(X9, {
+            p
+        ]), !p) return (0, I.jsxs)(X9, {
             onHome: e,
             children: [
                 (0, I.jsx)(`p`, {
@@ -64730,10 +64736,10 @@ Resources:`;
                         (0, I.jsx)(`input`, {
                             type: `password`,
                             placeholder: `Admin code`,
-                            value: p,
-                            onChange: (e)=>m(e.target.value),
+                            value: h,
+                            onChange: (e)=>g(e.target.value),
                             onKeyDown: (e)=>{
-                                e.key === `Enter` && p === Y9 && f(!0);
+                                e.key === `Enter` && h === Y9 && m(!0);
                             },
                             style: {
                                 flex: 1,
@@ -64747,7 +64753,7 @@ Resources:`;
                         }),
                         (0, I.jsx)(`button`, {
                             onClick: ()=>{
-                                p === Y9 && f(!0);
+                                h === Y9 && m(!0);
                             },
                             style: {
                                 ...$9,
@@ -64758,7 +64764,7 @@ Resources:`;
                         })
                     ]
                 }),
-                p && p !== Y9 && (0, I.jsx)(`p`, {
+                h && h !== Y9 && (0, I.jsx)(`p`, {
                     style: {
                         ...Q9,
                         marginTop: 8,
@@ -64769,20 +64775,25 @@ Resources:`;
                 })
             ]
         });
-        let g = t.filter((e)=>e.status === `pending`), _ = async (e)=>{
+        let v = t.filter((e)=>e.status === `pending`), y = async (e)=>{
             let t = Hse(e.wallet_address, e.nft_name);
             try {
                 await navigator.clipboard.writeText(t), c(e.id), setTimeout(()=>c(null), 1500);
             } catch  {
                 alert(t);
             }
-        }, v = async (e)=>{
-            let t = l[e]?.trim();
+        }, b = async (e)=>{
+            let t = l[e.id]?.trim();
             if (!t) {
                 alert(`Paste the transaction hash first.`);
                 return;
             }
-            await Vse(e, t) && h();
+            let n = parseInt(d[e.id]?.trim() || ``);
+            if (!n || n < 1) {
+                alert(`Enter the token ID (from the tx events on Voyager).`);
+                return;
+            }
+            await Vse(e.id, t, n, e.nft_name) ? _() : alert(`Something went wrong — check the console. (Token ID already used?)`);
         };
         return (0, I.jsxs)(X9, {
             onHome: e,
@@ -64853,7 +64864,7 @@ Resources:`;
                     style: Z9,
                     children: [
                         `Pending mints (`,
-                        g.length,
+                        v.length,
                         `)`
                     ]
                 }),
@@ -64861,7 +64872,7 @@ Resources:`;
                     style: Q9,
                     children: `Loading…`
                 }),
-                !a && g.length === 0 && (0, I.jsx)(`p`, {
+                !a && v.length === 0 && (0, I.jsx)(`p`, {
                     style: Q9,
                     children: `No pending mints. All caught up. ⚓`
                 }),
@@ -64871,7 +64882,7 @@ Resources:`;
                         flexDirection: `column`,
                         gap: 10
                     },
-                    children: g.map((e)=>(0, I.jsxs)(`div`, {
+                    children: v.map((e)=>(0, I.jsxs)(`div`, {
                             style: {
                                 padding: 14,
                                 borderRadius: 12,
@@ -64913,7 +64924,7 @@ Resources:`;
                                             ]
                                         }),
                                         (0, I.jsx)(`button`, {
-                                            onClick: ()=>_(e),
+                                            onClick: ()=>y(e),
                                             style: $9,
                                             children: s === e.id ? `✓ Copied!` : `Copy mint command`
                                         })
@@ -64924,7 +64935,8 @@ Resources:`;
                                         display: `flex`,
                                         gap: 8,
                                         marginTop: 10,
-                                        alignItems: `center`
+                                        alignItems: `center`,
+                                        flexWrap: `wrap`
                                     },
                                     children: [
                                         (0, I.jsx)(`input`, {
@@ -64936,6 +64948,7 @@ Resources:`;
                                                 }),
                                             style: {
                                                 flex: 1,
+                                                minWidth: 200,
                                                 padding: `7px 10px`,
                                                 borderRadius: 8,
                                                 border: `1px solid rgba(255,255,255,0.15)`,
@@ -64944,8 +64957,26 @@ Resources:`;
                                                 fontSize: 12
                                             }
                                         }),
+                                        (0, I.jsx)(`input`, {
+                                            placeholder: `Token ID`,
+                                            value: d[e.id] ?? ``,
+                                            onChange: (t)=>f({
+                                                    ...d,
+                                                    [e.id]: t.target.value
+                                                }),
+                                            style: {
+                                                width: 80,
+                                                padding: `7px 10px`,
+                                                borderRadius: 8,
+                                                border: `1px solid rgba(238,221,136,0.3)`,
+                                                background: `rgba(0,0,0,0.3)`,
+                                                color: `#eedd88`,
+                                                fontSize: 12,
+                                                textAlign: `center`
+                                            }
+                                        }),
                                         (0, I.jsx)(`button`, {
-                                            onClick: ()=>v(e.id),
+                                            onClick: ()=>b(e),
                                             style: {
                                                 ...$9,
                                                 borderColor: `rgba(68,204,136,0.5)`,
