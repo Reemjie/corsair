@@ -61425,7 +61425,7 @@ Resources:`;
                                                     scale: .97
                                                 },
                                                 onClick: ()=>{
-                                                    let e = `🏴‍☠️ I just found "${y[0].replace(/_/g, ` `).replace(/\b\w/g, (e)=>e.toUpperCase())}" — a hidden NFT inside Corsair.\nNo mint button. No whitelist. Just playing.\nDare to find yours? ⚓\nhttps://reemjie.github.io/corsair/`;
+                                                    let e = `🏴‍☠️ I just found "${y[0].replace(/_/g, ` `).replace(/\b\w/g, (e)=>e.toUpperCase())}" — a hidden NFT inside Corsair.\nNo mint button. No whitelist. Just playing.\nDare to find yours? ⚓\nhttps://playcorsair.xyz/`;
                                                     window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(e)}`, `_blank`);
                                                 },
                                                 style: {
@@ -61474,7 +61474,7 @@ Resources:`;
                                                     legendary: 3,
                                                     rare: 2,
                                                     common: 1
-                                                }, n = (A.relics ?? []).map((e)=>_9(e)).filter((e)=>!!e).sort((e, n)=>(t[n.rarity] ?? 0) - (t[e.rarity] ?? 0))[0], r = n ? `\nFound the ${n.name} relic along the way.` : ``, i = ae ? `☀️ Daily Challenge — ${e} — ${A.score} pts before the storm claimed me.\nSame seed for everyone today. Can you beat me?${r}\n⚓ @PlayCorsair https://reemjie.github.io/corsair/ #Starknet` : `🏴\u200d☠️ ${A.runTitle} — ${A.score} pts before the storm claimed me.\n${A.turn} turns · ${A.ship.gold} gold · No mercy.${r}\nDare to sail further? ⚓ @PlayCorsair\nhttps://reemjie.github.io/corsair/ #Starknet`;
+                                                }, n = (A.relics ?? []).map((e)=>_9(e)).filter((e)=>!!e).sort((e, n)=>(t[n.rarity] ?? 0) - (t[e.rarity] ?? 0))[0], r = n ? `\nFound the ${n.name} relic along the way.` : ``, i = ae ? `☀️ Daily Challenge — ${e} — ${A.score} pts before the storm claimed me.\nSame seed for everyone today. Can you beat me?${r}\n⚓ @PlayCorsair https://playcorsair.xyz/ #Starknet` : `🏴\u200d☠️ ${A.runTitle} — ${A.score} pts before the storm claimed me.\n${A.turn} turns · ${A.ship.gold} gold · No mercy.${r}\nDare to sail further? ⚓ @PlayCorsair\nhttps://playcorsair.xyz/ #Starknet`;
                                                 window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(i)}`, `_blank`);
                                             },
                                             style: {
