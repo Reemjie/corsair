@@ -22646,7 +22646,7 @@ ${JSON.stringify(i, null, 2)}`;
         };
     }
     var By = `modulepreload`, Vy = function(e) {
-        return `/corsair/` + e;
+        return `/` + e;
     }, Hy = {}, Uy = function(e, t, n) {
         let r = Promise.resolve();
         if (t && t.length > 0) {
@@ -39722,7 +39722,7 @@ ${JSON.stringify(i, null, 2)}`;
         toast: pV
     }, Symbol.toStringTag, {
         value: `Module`
-    })), hV = `/corsair/assets/account_wasm_bg-BxZmkXRq.wasm`, gV = async (e = {}, t)=>{
+    })), hV = `/assets/account_wasm_bg-BxZmkXRq.wasm`, gV = async (e = {}, t)=>{
         let n;
         if (t.startsWith(`data:`)) {
             let r = t.replace(/^data:.*?base64,/, ``), i;
@@ -41418,7 +41418,7 @@ ${JSON.stringify(i, null, 2)}`;
         }
     }, hV);
     GW(KW);
-    var AK = `/corsair/assets/session_wasm_bg-CKKKgxuy.wasm`;
+    var AK = `/assets/session_wasm_bg-CKKKgxuy.wasm`;
     function jK() {}
     var MK = class {
         lastPromise = Promise.resolve();
@@ -42573,7 +42573,7 @@ ${JSON.stringify(i, null, 2)}`;
             disconnect: ()=>i()
         };
     }
-    var YY = `/corsair/assets/careful-Cp7BVX84.png`, XY = `/corsair/assets/cover-B_e5YbfY.png`, ZY = `/corsair/assets/cursed-DmavkUs_.png`, QY = `/corsair/assets/detour-D8HBkeuW.png`, $Y = `/corsair/assets/dock-ePamt-Sr.png`, eX = `/corsair/assets/explore-CNxn52P4.png`, tX = `/corsair/assets/fight-g8Kc5AC3.png`, nX = `/corsair/assets/leave-CeE9NwgD.png`, rX = `/corsair/assets/lurks-BB0IX5ES.png`, iX = `/corsair/assets/pact-DCE16eF-.png`, aX = `/corsair/assets/push-DcLNLHxV.png`, oX = `/corsair/assets/ritual-B5bqWt-6.png`, sX = `/corsair/assets/sacrifice-KlI9xYLE.png`, cX = `/corsair/assets/sail-yGR6Adzb.png`, lX = `/corsair/assets/search-CSNg3Ko5.png`, uX = `/corsair/assets/speed-BTjZicNY.png`, dX = `/corsair/assets/take-CO53AH6i.png`, fX = `/corsair/assets/tribute-CcshN1U0.png`, pX = `/corsair/assets/vortex-l5f1oTMj.png`, mX = (0, x.createContext)({});
+    var YY = `/assets/careful-Cp7BVX84.png`, XY = `/assets/cover-B_e5YbfY.png`, ZY = `/assets/cursed-DmavkUs_.png`, QY = `/assets/detour-D8HBkeuW.png`, $Y = `/assets/dock-ePamt-Sr.png`, eX = `/assets/explore-CNxn52P4.png`, tX = `/assets/fight-g8Kc5AC3.png`, nX = `/assets/leave-CeE9NwgD.png`, rX = `/assets/lurks-BB0IX5ES.png`, iX = `/assets/pact-DCE16eF-.png`, aX = `/assets/push-DcLNLHxV.png`, oX = `/assets/ritual-B5bqWt-6.png`, sX = `/assets/sacrifice-KlI9xYLE.png`, cX = `/assets/sail-yGR6Adzb.png`, lX = `/assets/search-CSNg3Ko5.png`, uX = `/assets/speed-BTjZicNY.png`, dX = `/assets/take-CO53AH6i.png`, fX = `/assets/tribute-CcshN1U0.png`, pX = `/assets/vortex-l5f1oTMj.png`, mX = (0, x.createContext)({});
     function hX(e) {
         let t = (0, x.useRef)(null);
         return t.current === null && (t.current = e()), t.current;
@@ -57509,10 +57509,10 @@ Resources:`;
     function T9(e) {
         if (!w9) try {
             let t = C9[e];
-            t || (t = new Audio(`/corsair/sounds/${e}.wav`), C9[e] = t), t.volume = Sce[e], t.currentTime = 0, t.play().catch(()=>{});
+            t || (t = new Audio(`/sounds/${e}.wav`), C9[e] = t), t.volume = Sce[e], t.currentTime = 0, t.play().catch(()=>{});
         } catch  {}
     }
-    var wce = `/corsair/icons_ui/`;
+    var wce = `/icons_ui/`;
     function E9({ name: e, size: t = 20, style: n }) {
         return (0, I.jsx)(`img`, {
             src: `${wce}${e}.png`,
@@ -57527,7 +57527,7 @@ Resources:`;
             }
         });
     }
-    var D9 = `/corsair/assets/anchor-Bx3zJViJ.png`, Tce = `/corsair/assets/swift_sails-YMobDX4v.png`, Ece = `/corsair/assets/ghost_ship-4jaVs07k.png`, Dce = `/corsair/assets/treasure_hunter-C9jnAyZy.png`, Oce = `/corsair/assets/storm_rider-BjRGnDwr.png`, kce = `/corsair/assets/cursed_greed-BlVfcQDt.png`, Ace = `/corsair/assets/berserker-B9haxHEY.png`, jce = Object.fromEntries([
+    var D9 = `/assets/anchor-Bx3zJViJ.png`, Tce = `/assets/swift_sails-YMobDX4v.png`, Ece = `/assets/ghost_ship-4jaVs07k.png`, Dce = `/assets/treasure_hunter-C9jnAyZy.png`, Oce = `/assets/storm_rider-BjRGnDwr.png`, kce = `/assets/cursed_greed-BlVfcQDt.png`, Ace = `/assets/berserker-B9haxHEY.png`, jce = Object.fromEntries([
         `search`,
         `lurks`,
         `fight`,
@@ -57577,31 +57577,31 @@ Resources:`;
         rider: Oce,
         greed: kce,
         berserker: Ace
-    }, Mce = `/corsair/icons/gold.png`, k9 = {
-        kraken: `/corsair/scenes/kraken.jpg`,
-        ancient_kraken: `/corsair/scenes/ancient-kraken.jpg`,
-        storm: `/corsair/scenes/storm.jpg`,
-        island: `/corsair/scenes/island.jpg`,
-        treasure: `/corsair/scenes/treasure.jpg`,
-        cursed_treasure: `/corsair/scenes/cursed_treasure.jpg`,
-        pirate: `/corsair/scenes/pirate.jpg`,
-        port: `/corsair/scenes/port.jpg`,
-        rocks: `/corsair/scenes/rocks.jpg`,
-        wreck: `/corsair/scenes/wreck.jpg`,
-        maelstrom: `/corsair/scenes/maelstrom.jpg`
+    }, Mce = `/icons/gold.png`, k9 = {
+        kraken: `/scenes/kraken.jpg`,
+        ancient_kraken: `/scenes/ancient-kraken.jpg`,
+        storm: `/scenes/storm.jpg`,
+        island: `/scenes/island.jpg`,
+        treasure: `/scenes/treasure.jpg`,
+        cursed_treasure: `/scenes/cursed_treasure.jpg`,
+        pirate: `/scenes/pirate.jpg`,
+        port: `/scenes/port.jpg`,
+        rocks: `/scenes/rocks.jpg`,
+        wreck: `/scenes/wreck.jpg`,
+        maelstrom: `/scenes/maelstrom.jpg`
     }, A9 = {
-        kraken: `/corsair/scenes/kraken.mp4`,
-        ancient_kraken: `/corsair/scenes/ancient_kraken.mp4`,
-        storm: `/corsair/scenes/storm.mp4`,
-        island: `/corsair/scenes/island.mp4`,
-        treasure: `/corsair/scenes/treasure.mp4`,
-        cursed_treasure: `/corsair/scenes/cursed_treasure.mp4`,
-        pirate: `/corsair/scenes/pirate.mp4`,
-        port: `/corsair/scenes/port.mp4`,
-        rocks: `/corsair/scenes/rocks.mp4`,
-        wreck: `/corsair/scenes/wreck.mp4`,
-        maelstrom: `/corsair/scenes/maelstrom.mp4`,
-        death: `/corsair/scenes/death.mp4`
+        kraken: `/scenes/kraken.mp4`,
+        ancient_kraken: `/scenes/ancient_kraken.mp4`,
+        storm: `/scenes/storm.mp4`,
+        island: `/scenes/island.mp4`,
+        treasure: `/scenes/treasure.mp4`,
+        cursed_treasure: `/scenes/cursed_treasure.mp4`,
+        pirate: `/scenes/pirate.mp4`,
+        port: `/scenes/port.mp4`,
+        rocks: `/scenes/rocks.mp4`,
+        wreck: `/scenes/wreck.mp4`,
+        maelstrom: `/scenes/maelstrom.mp4`,
+        death: `/scenes/death.mp4`
     }, j9 = {
         kraken: `The Kraken Rises`,
         ancient_kraken: `The Ancient One Awakens`,
@@ -57617,14 +57617,14 @@ Resources:`;
         maelstrom: `The Maelstrom`
     }, Nce = {
         sea: `〰`,
-        storm: `/corsair/icons_ui/storm.png`,
-        pirate: `/corsair/icons_ui/swords.png`,
-        treasure: `/corsair/icons_ui/treasure.png`,
-        port: `/corsair/icons/port.png`,
-        kraken: `/corsair/icons_ui/kraken.png`,
-        wreck: `/corsair/icons/wreck.png`,
-        island: `/corsair/icons/island.png`,
-        rocks: `/corsair/icons/rocks.png`
+        storm: `/icons_ui/storm.png`,
+        pirate: `/icons_ui/swords.png`,
+        treasure: `/icons_ui/treasure.png`,
+        port: `/icons/port.png`,
+        kraken: `/icons_ui/kraken.png`,
+        wreck: `/icons/wreck.png`,
+        island: `/icons/island.png`,
+        rocks: `/icons/rocks.png`
     }, M9 = {
         1: {
             sea: `#1a3a4a`,
@@ -58134,7 +58134,7 @@ Resources:`;
             });
         }, Xe = ()=>s((e)=>xce(e)), Ze = (e)=>s((t)=>vce(t, e)), Qe = ()=>s(x9()), $e = (0, x.useRef)(null), [et, tt] = (0, x.useState)(!1);
         (0, x.useEffect)(()=>{
-            let e = new Audio(`/corsair/sounds/ambient.mp3`);
+            let e = new Audio(`/sounds/ambient.mp3`);
             return e.loop = !0, e.volume = .4, e.play().catch(()=>{}), $e.current = e, ()=>{
                 e.pause(), e.currentTime = 0;
             };
@@ -58385,12 +58385,12 @@ Resources:`;
                                             children: [
                                                 (0, I.jsx)(`img`, {
                                                     src: {
-                                                        hull: `/corsair/assets/hull-CGmPGbU0.png`,
+                                                        hull: `/assets/hull-CGmPGbU0.png`,
                                                         gold: Mce,
-                                                        vision: `/corsair/assets/vision-3Q65Za4i.png`,
-                                                        power: `/corsair/assets/power-CBX9SU5d.png`,
-                                                        turn: `/corsair/assets/turn-Wvx6vBym.png`
-                                                    }[e.icon] || `/corsair/assets/hull-CGmPGbU0.png`,
+                                                        vision: `/assets/vision-3Q65Za4i.png`,
+                                                        power: `/assets/power-CBX9SU5d.png`,
+                                                        turn: `/assets/turn-Wvx6vBym.png`
+                                                    }[e.icon] || `/assets/hull-CGmPGbU0.png`,
                                                     style: {
                                                         width: O ? 24 : 40,
                                                         height: O ? 24 : 40,
@@ -58427,7 +58427,7 @@ Resources:`;
                                     },
                                     children: [
                                         (0, I.jsx)(`img`, {
-                                            src: `/corsair/assets/score-DnnSqbJU.png`,
+                                            src: `/assets/score-DnnSqbJU.png`,
                                             style: {
                                                 width: 56,
                                                 height: 56,
@@ -59193,7 +59193,7 @@ Resources:`;
                                                                                 ease: `easeInOut`
                                                                             },
                                                                             children: (0, I.jsx)(`img`, {
-                                                                                src: `/corsair/icons/ship.png`,
+                                                                                src: `/icons/ship.png`,
                                                                                 style: {
                                                                                     width: b * .82,
                                                                                     height: b * .82,
@@ -59284,7 +59284,7 @@ Resources:`;
                                                                     })
                                                                 }),
                                                                 !u && !d && f && (0, I.jsx)(`img`, {
-                                                                    src: `/corsair/icons/${s.type}.png`,
+                                                                    src: `/icons/${s.type}.png`,
                                                                     style: {
                                                                         width: b * .82,
                                                                         height: b * .82,
@@ -59314,7 +59314,7 @@ Resources:`;
                                                                         filter: `drop-shadow(0 0 12px #cc44ee)`
                                                                     },
                                                                     children: (0, I.jsx)(`img`, {
-                                                                        src: `/corsair/icons/hunter.png`,
+                                                                        src: `/icons/hunter.png`,
                                                                         style: {
                                                                             width: b * .82,
                                                                             height: b * .82,
@@ -59360,7 +59360,7 @@ Resources:`;
                                                                         filter: `drop-shadow(0 0 8px #aa22cc)`
                                                                     },
                                                                     children: (0, I.jsx)(`img`, {
-                                                                        src: `/corsair/icons/hunter.png`,
+                                                                        src: `/icons/hunter.png`,
                                                                         style: {
                                                                             width: b * .82,
                                                                             height: b * .82,
@@ -60401,7 +60401,7 @@ Resources:`;
                                         },
                                         children: [
                                             (0, I.jsx)(`img`, {
-                                                src: `/corsair/assets/anchor-Bx3zJViJ.png`,
+                                                src: `/assets/anchor-Bx3zJViJ.png`,
                                                 style: {
                                                     width: 40,
                                                     height: 40,
@@ -60445,7 +60445,7 @@ Resources:`;
                                                     {
                                                         key: `hull`,
                                                         label: `HULL`,
-                                                        img: `/corsair/assets/hull-CGmPGbU0.png`,
+                                                        img: `/assets/hull-CGmPGbU0.png`,
                                                         color: `#44cc88`,
                                                         effects: [
                                                             `Hull 20`,
@@ -60456,7 +60456,7 @@ Resources:`;
                                                     {
                                                         key: `weapon`,
                                                         label: `ARMEMENT`,
-                                                        img: `/corsair/assets/power-CBX9SU5d.png`,
+                                                        img: `/assets/power-CBX9SU5d.png`,
                                                         color: `#ee6644`,
                                                         effects: [
                                                             `Power 2`,
@@ -60467,7 +60467,7 @@ Resources:`;
                                                     {
                                                         key: `nav`,
                                                         label: `NAVIGATION`,
-                                                        img: `/corsair/assets/vision-3Q65Za4i.png`,
+                                                        img: `/assets/vision-3Q65Za4i.png`,
                                                         color: `#6aaccc`,
                                                         effects: [
                                                             `Vision 1`,
@@ -61571,7 +61571,7 @@ Resources:`;
                         },
                         children: [
                             (0, I.jsx)(`video`, {
-                                src: `/corsair/scenes/hunter.mp4`,
+                                src: `/scenes/hunter.mp4`,
                                 autoPlay: !0,
                                 muted: et,
                                 playsInline: !0,
@@ -61951,7 +61951,7 @@ Resources:`;
             ]
         });
     }
-    var z9 = `/corsair/`, Rce = [
+    var z9 = `/`, Rce = [
         {
             icon: `sea`,
             label: `Calm Sea`,
@@ -64467,7 +64467,7 @@ Resources:`;
                         style: {
                             position: `absolute`,
                             inset: 0,
-                            backgroundImage: `url(/corsair/${e.bg})`,
+                            backgroundImage: `url(/${e.bg})`,
                             backgroundSize: `cover`,
                             backgroundPosition: `center`
                         }
