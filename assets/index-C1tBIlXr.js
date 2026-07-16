@@ -58114,7 +58114,9 @@ Resources:`;
             o
         ]), (0, x.useEffect)(()=>{
             let e = (e)=>{
-                o.gameOver || o.event || o.showPort || (e.key === `ArrowLeft` && Je(-1, 0), e.key === `ArrowUp` && Je(0, -1), e.key === `ArrowRight` && Je(1, 0));
+                if (o.gameOver || o.event || o.showPort) return;
+                let t = e.target;
+                t && (t.tagName === `INPUT` || t.tagName === `TEXTAREA`) || ((e.key === `ArrowLeft` || e.code === `KeyA`) && Je(-1, 0), (e.key === `ArrowUp` || e.code === `KeyW`) && Je(0, -1), (e.key === `ArrowRight` || e.code === `KeyD`) && Je(1, 0));
             };
             return window.addEventListener(`keydown`, e), ()=>window.removeEventListener(`keydown`, e);
         }, [
