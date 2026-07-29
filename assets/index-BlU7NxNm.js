@@ -56910,6 +56910,8 @@ Resources:`;
             event: u,
             showPort: d,
             hunter: f,
+            stormDistanceMin: Math.min(t.stormDistanceMin ?? 99, s),
+            comboTurn: (e.dangerStreak ?? t.dangerStreak) >= 3 && (t.comboTurn ?? 999) === 999 ? i : t.comboTurn ?? 999,
             hunterTargetHistory: [
                 ...t.hunterTargetHistory ?? [],
                 {
@@ -57076,6 +57078,8 @@ Resources:`;
                 scoreMultiplier: b,
                 notoriety: x,
                 curses: S,
+                stormDistanceMin: Math.min(e.stormDistanceMin ?? 99, d),
+                comboTurn: y >= 3 && (e.comboTurn ?? 999) === 999 ? e.turn : e.comboTurn ?? 999,
                 exploits: C,
                 lowestHull: w,
                 hunter: E,
