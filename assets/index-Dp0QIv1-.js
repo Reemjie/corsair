@@ -56734,16 +56734,16 @@ Resources:`;
                 y: Math.max(0, Math.min(11, e.y + n))
             };
         }
-        let s = e.mode === `frenzy` ? r : e.mode === `stalking` ? n.x : t.x, c = e.mode === `frenzy` ? i : e.mode === `stalking` ? n.y : t.y, l = e.x, u = e.y;
+        let s = Math.abs(e.x - r) + Math.abs(e.y - i), c = e.mode === `frenzy` || e.mode === `stalking` && s <= 2, l = c ? r : e.mode === `stalking` ? n.x : t.x, u = c ? i : e.mode === `stalking` ? n.y : t.y, d = e.x, f = e.y;
         for(let e = 0; e < o; e++){
-            let e = Math.abs(s - l), t = Math.abs(c - u);
+            let e = Math.abs(l - d), t = Math.abs(u - f);
             if (e === 0 && t === 0) break;
-            e > t || e === t && a.next() < .5 ? l = Math.max(0, Math.min(11, l + (s > l ? 1 : -1))) : u = Math.max(0, Math.min(11, u + (c > u ? 1 : -1)));
+            e > t || e === t && a.next() < .5 ? d = Math.max(0, Math.min(11, d + (l > d ? 1 : -1))) : f = Math.max(0, Math.min(11, f + (u > f ? 1 : -1)));
         }
         return {
             ...e,
-            x: l,
-            y: u
+            x: d,
+            y: f
         };
     }
     function sce(e, t, n) {
