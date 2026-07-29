@@ -103,7 +103,7 @@ export const NFT_URIS: Record<string, string> = {
   leviathan: 'ipfs://QmNnwHkhNawMF1K2cEzfitNUAzWRoAaqAF3hxheULKxj19',
 };
 
-export const NFT_CONTRACT = '0x0118cd8563220da12fd0214da6141a665f83ef5ceee8376faa59334ab64dedcd';
+export const NFT_CONTRACT = '0x06c8b06fb6a94f3ae9b26c87b1baacc4a7a1f2e0184870c957728b5d17bd0202';
 
 export interface PendingMint {
   id: number;
@@ -134,21 +134,88 @@ export async function getSupply(): Promise<SupplyRow[]> {
   return data ?? [];
 }
 
-export async function markMinted(id: number, txHash: string): Promise<boolean> {
-  const { error } = await supabase
-    .from('nft_mints')
-    .update({ status: 'minted', tx_hash: txHash })
+export async function markMinted(id: number, txHash: string, tokenId: number, nftName: string): Promise<boolean> {
+  const { error } = await supabase.from('nft_mints')
+    .update({ status: 'minted', tx_hash: txHash, token_id: tokenId })
     .eq('id', id);
   if (error) { console.warn('[admin] markMinted:', error.message); return false; }
+  const { error: metaError } = await supabase.from('nft_token_metadata')
+    .insert({ token_id: tokenId, nft_name: nftName });
+  if (metaError) { console.warn('[admin] metadata insert:', metaError.message); return false; }
   return true;
 }
 
 // Genere la commande sncast prete a copier
-export function buildMintCommand(walletAddress: string, nftName: string): string {
-  const uri = NFT_URIS[nftName] ?? 'ipfs://UNKNOWN';
+export function buildMintCommand(walletAddress: string, _nftName: string): string {
   return `sncast --account corsair_deployer_mainnet invoke \\
   --contract-address ${NFT_CONTRACT} \\
   --function mint \\
-  --arguments '${walletAddress}, "${uri}"' \\
+  --arguments '${walletAddress}' \\
   --network mainnet`;
+}
+
+
+export async function getClaimedNFTs(wallet: string): Promise<string[]> {
+  const { data, error } = await supabase.from('nft_mints').select('nft_name, wallet_address');
+  if (error || !data) return [];
+  const norm = (a: string) => '0x' + a.toLowerCase().replace(/^0x0*/, '');
+  const w = norm(wallet);
+  return data.filter(r => norm(r.wallet_address) === w).map(r => r.nft_name);
+}
+
+
+// ─── RUN TRACKING (live) ──────────────────────────────────────────────
+// Suit une partie du debut a la fin. Lisible par les partenaires (Cudokan)
+// via l'API REST Supabase ou Realtime.
+
+export interface RunSnapshot {
+  score: number;
+  turn: number;
+  zone: number;
+  gold: number;
+  hull: number;
+  run_title?: string;
+}
+
+export async function startRun(r: {
+  run_id: string;
+  wallet_address: string;
+  username?: string | null;
+  seed: number;
+  is_daily: boolean;
+}): Promise<void> {
+  const { error } = await supabase.from('corsair_runs').insert({
+    run_id: r.run_id,
+    wallet_address: r.wallet_address,
+    username: r.username ?? null,
+    seed: r.seed,
+    is_daily: r.is_daily,
+    status: 'playing',
+    score: 0,
+    turn: 0,
+  });
+  if (error) console.warn('[runs] start:', error.message);
+}
+
+export async function heartbeatRun(runId: string, s: RunSnapshot): Promise<void> {
+  const { error } = await supabase.from('corsair_runs')
+    .update({
+      score: s.score, turn: s.turn, zone: s.zone, gold: s.gold, hull: s.hull,
+      updated_at: new Date().toISOString(),
+    })
+    .eq('run_id', runId);
+  if (error) console.warn('[runs] heartbeat:', error.message);
+}
+
+export async function finishRun(runId: string, s: RunSnapshot): Promise<void> {
+  const now = new Date().toISOString();
+  const { error } = await supabase.from('corsair_runs')
+    .update({
+      status: 'finished',
+      score: s.score, turn: s.turn, zone: s.zone, gold: s.gold, hull: s.hull,
+      run_title: s.run_title ?? null,
+      updated_at: now, finished_at: now,
+    })
+    .eq('run_id', runId);
+  if (error) console.warn('[runs] finish:', error.message);
 }

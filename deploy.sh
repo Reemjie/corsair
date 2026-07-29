@@ -1,11 +1,12 @@
 #!/bin/bash
-echo "Building..."
-npm run build
-echo "Deploying to GitHub Pages..."
+set -e
+MSG="${1:-Deploy}"
+cd ~/Desktop/Corsair/tortuga
+NODE_OPTIONS="--max-old-space-size=4096" npm run build
+echo "playcorsair.xyz" > dist/CNAME
 cd dist
-git init
-git add .
-git commit -m "deploy"
-git push -f git@github.com:Reemjie/tortuga.git main:gh-pages
+git add -A
+git commit -m "$MSG" || echo "Rien à committer"
+git push -f origin main:gh-pages
 cd ..
-echo "Done!"
+echo "✅ Déployé sur https://playcorsair.xyz"

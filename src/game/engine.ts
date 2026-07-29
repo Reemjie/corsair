@@ -423,8 +423,12 @@ function moveHunter(
   //  - frenzy   : position EXACTE du joueur (acharnement)
   //  - stalking : position PRÉDITE (coupe la route au joueur)
   //  - tracking : dernière position connue, avec retard (laggy)
-  const tx = h.mode === 'frenzy' ? nx : h.mode === 'stalking' ? predicted.x : target.x;
-  const ty = h.mode === 'frenzy' ? ny : h.mode === 'stalking' ? predicted.y : target.y;
+  // A courte portee le stalking vise la position reelle : la prediction envoyait
+  // le Hunter derriere lui quand le joueur foncait dessus (deplacement avant only).
+  const distToPlayer = Math.abs(h.x - nx) + Math.abs(h.y - ny);
+  const useExact = h.mode === 'frenzy' || (h.mode === 'stalking' && distToPlayer <= 2);
+  const tx = useExact ? nx : h.mode === 'stalking' ? predicted.x : target.x;
+  const ty = useExact ? ny : h.mode === 'stalking' ? predicted.y : target.y;
 
   let hx = h.x, hy = h.y;
   for (let i = 0; i < moves; i++) {
@@ -632,6 +636,9 @@ function ctxToState(ctx: MoveContext): GameState {
   const next: GameState = {
     ...state, ship, grid: visitedGrid, turn, depth, score, stormDistance, gameOver, log,
     event, showPort, hunter,
+    stormDistanceMin: Math.min(state.stormDistanceMin ?? 99, stormDistance),
+    comboTurn: ((ctx.dangerStreak ?? state.dangerStreak) >= 3 && (state.comboTurn ?? 999) === 999)
+      ? turn : (state.comboTurn ?? 999),
     hunterTargetHistory: [...(state.hunterTargetHistory ?? []), { x: ship.x, y: ship.y }].slice(-3),
     hunterTarget: { x: ship.x, y: ship.y }, scoreBreakdown: ctx.scoreBreakdown, rngState: ctx.rng.getState(),
     dangerStreak: ctx.dangerStreak ?? state.dangerStreak,
@@ -793,6 +800,9 @@ export function resolveEvent(state: GameState, choiceIdx: number): GameState {
     const result: GameState = {
       ...state, grid, ship, event: null, log, score, showPort, upgradeToken, gameOver,
       rngState: rng.getState(), dangerStreak, scoreMultiplier, notoriety, curses,
+      stormDistanceMin: Math.min(state.stormDistanceMin ?? 99, stormDistance),
+      comboTurn: (dangerStreak >= 3 && (state.comboTurn ?? 999) === 999)
+        ? state.turn : (state.comboTurn ?? 999),
       exploits, lowestHull, hunter, zone: state.zone, portUpgrades,
       runTitle: state.runTitle, stormDistance, relics, scoreBreakdown: sb, ...overrides,
     };

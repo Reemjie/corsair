@@ -7,6 +7,7 @@ import { useWallet } from './useWallet';
 import { cartridgeConnector } from './cartridge';
 import HowToPlay from './HowToPlay';
 import FeatsPanel from './FeatsPanel';
+import NFTPanel from './NFTPanel';
 import ShipsPanel from './ShipsPanel';
 import { Icon } from './Icon';
 import Leaderboard from './Leaderboard';
@@ -25,6 +26,7 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
   const [isMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
   const [showHowTo, setShowHowTo] = useState(false);
   const [showFeats, setShowFeats] = useState(false);
+  const [showNFTs, setShowNFTs] = useState(false);
   const [showShips, setShowShips] = useState(false);
   const [top3, setTop3] = useState<{username:string|null,wallet_address:string,score:number}[]>([]);
   const [timeLeft, setTimeLeft] = useState('');
@@ -182,6 +184,10 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
             style={{ padding:'12px 26px', borderRadius:12, border:'1px solid rgba(136,221,255,0.45)', background:'rgba(136,221,255,0.07)', color:'rgba(136,221,255,0.9)', fontSize:14, letterSpacing:3, cursor:'pointer', fontFamily:"'Pirata One', cursive", display:'flex', alignItems:'center' }}>
             <Icon name="ship" size={22} style={{ marginRight:8 }} />SHIPS
           </motion.button>
+          <motion.button whileHover={{ scale:1.04 }} whileTap={{ scale:0.96 }} onClick={() => setShowNFTs(true)}
+            style={{ padding:'12px 26px', borderRadius:12, border:'1px solid rgba(170,102,238,0.45)', background:'rgba(170,102,238,0.07)', color:'rgba(200,150,255,0.9)', fontSize:14, letterSpacing:3, cursor:'pointer', fontFamily:"'Pirata One', cursive", display:'flex', alignItems:'center' }}>
+            <Icon name="fleurdelys" size={22} style={{ marginRight:8 }} />NFTS
+          </motion.button>
           </div>
 
         </motion.div>
@@ -199,6 +205,7 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
         {showHowTo && <HowToPlay onClose={() => setShowHowTo(false)} onPlay={() => { setShowHowTo(false); onPlay(null); }} />}
         {showFeats && <FeatsPanel onClose={() => setShowFeats(false)} />}
         {showShips && <ShipsPanel onClose={() => setShowShips(false)} />}
+        {showNFTs && <NFTPanel onClose={() => setShowNFTs(false)} />}
         {showLeaderboard && <Leaderboard onClose={() => setShowLeaderboard(false)} />}
       </AnimatePresence>
     </div>

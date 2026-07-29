@@ -6,7 +6,7 @@ import path from 'path'
 
 export default defineConfig({
   plugins: [react(), wasm(), topLevelAwait()],
-  base: '/corsair/',
+  base: '/',
   build: {
     target: 'esnext',
   },

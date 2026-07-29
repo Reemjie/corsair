@@ -3,6 +3,12 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!
 const SUPABASE_SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
 
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+}
+
 const METADATA_URIS: Record<string, string> = {
   kraken_eye: 'ipfs://QmVnXgMYLnyMdUSbDXPqrFmWZJBNke7wPWvpn3ou86fKAX',
   ancient_chart: 'ipfs://QmbXeEXsfmgrfi1SoWvKJmcLhXqCZH4fCg5LNbYX7c1zLh',
@@ -39,18 +45,42 @@ interface RunData {
 const TELEGRAM_BOT_TOKEN = Deno.env.get('TELEGRAM_BOT_TOKEN')!
 const TELEGRAM_CHAT_ID = '5846433874'
 
+// Resout l'adresse Starknet -> pseudo Cartridge (renvoie null si introuvable)
+async function getCartridgeUsername(walletAddress: string): Promise<string | null> {
+  try {
+    // Cartridge attend l'adresse sans les zeros de tete apres 0x
+    const addr = '0x' + walletAddress.toLowerCase().replace(/^0x0*/, '')
+    const res = await fetch('https://api.cartridge.gg/query', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query: `{ accounts(where: { hasControllersWith: [{ address: "${addr}" }] }) { edges { node { username } } } }`,
+      }),
+      signal: AbortSignal.timeout(5000),
+    })
+    const json = await res.json()
+    return json?.data?.accounts?.edges?.[0]?.node?.username ?? null
+  } catch {
+    return null
+  }
+}
+
 async function sendTelegramNotification(nftName: string, walletAddress: string) {
-  const msg = `🏴‍☠️ NFT EARNED!\n\nNFT: ${nftName}\nWallet: ${walletAddress.slice(0,10)}...${walletAddress.slice(-6)}\n\nMint it manually with sncast!`
+  const username = await getCartridgeUsername(walletAddress)
+  const shortAddr = `${walletAddress.slice(0, 10)}...${walletAddress.slice(-6)}`
+  const player = username ? `${username} (${shortAddr})` : shortAddr
+  const msg = `🏴‍☠️ NFT EARNED!\n\nNFT: ${nftName}\nPlayer: ${player}\n\nMint it manually with sncast!`
   await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(msg)}`)
 }
 
 Deno.serve(async (req) => {
-  if (req.method !== 'POST') return new Response('Method not allowed', { status: 405 })
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders })
+  if (req.method !== 'POST') return new Response('Method not allowed', { status: 405, headers: corsHeaders })
 
   const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY)
-  
+
   let run: RunData
-  try { run = await req.json() } catch { return new Response('Invalid JSON', { status: 400 }) }
+  try { run = await req.json() } catch { return new Response('Invalid JSON', { status: 400, headers: corsHeaders }) }
 
   const nftsToMint: string[] = []
 
@@ -75,7 +105,7 @@ Deno.serve(async (req) => {
     else if (n === 'leviathan' && run.score >= 3000 && run.kraken_killed) nftsToMint.push(n)
   }
 
-  if (nftsToMint.length === 0) return new Response(JSON.stringify({ minted: [] }), { headers: { 'Content-Type': 'application/json' } })
+  if (nftsToMint.length === 0) return new Response(JSON.stringify({ minted: [] }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } })
 
   const queued = []
 
@@ -103,5 +133,5 @@ Deno.serve(async (req) => {
     queued.push(nftName)
   }
 
-  return new Response(JSON.stringify({ minted: queued }), { headers: { 'Content-Type': 'application/json' } })
+  return new Response(JSON.stringify({ minted: queued }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } })
 })

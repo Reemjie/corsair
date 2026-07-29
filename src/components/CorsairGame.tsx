@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { GameState, UpgradeId } from '../types/game';
-import { submitScore, submitDailyScore, checkNFTConditions } from '../supabase';
+import { submitScore, submitDailyScore, checkNFTConditions, startRun, heartbeatRun, finishRun } from '../supabase';
 import { ZONE_CONFIG } from '../game/balance';
 import { submitScoreOnChain } from '../starknet';
 import { initGame, moveShip, resolveEvent, repairHull, leavePort, skipEventFn, rerollPort, upgradeComponent, buyUpgrade, markDailyPlayed, getDailyKey } from '../game/engine';
@@ -174,6 +174,45 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   const isDailyRun = dailySeed !== undefined;
   // Daily : la tentative est consommee au LANCEMENT de la run (equite tournoi — un refresh ne redonne pas d'essai)
   useEffect(() => { if (isDailyRun) markDailyPlayed(); }, []);
+
+  // ─── RUN TRACKING (partenaires / live) ───────────────────────────
+  const runIdRef = useRef<string>(crypto.randomUUID());
+  const lastBeatRef = useRef<number>(0);
+
+  // Debut de partie
+  useEffect(() => {
+    if (!walletAddress) return;
+    startRun({
+      run_id: runIdRef.current,
+      wallet_address: walletAddress,
+      username: username ?? null,
+      seed: state.seed,
+      is_daily: isDailyRun,
+    });
+  }, []);
+
+  // Battement de coeur (tous les 3 tours) pour le score live
+  useEffect(() => {
+    if (!walletAddress || state.gameOver) return;
+    if (state.turn - lastBeatRef.current < 3) return;
+    lastBeatRef.current = state.turn;
+    heartbeatRun(runIdRef.current, {
+      score: state.score, turn: state.turn,
+      zone: state.currentZone ?? 1,
+      gold: state.ship.gold, hull: state.ship.hull,
+    });
+  }, [state.turn]);
+
+  // Fin de partie
+  useEffect(() => {
+    if (!walletAddress || !state.gameOver) return;
+    finishRun(runIdRef.current, {
+      score: state.score, turn: state.turn,
+      zone: state.currentZone ?? 1,
+      gold: state.ship.gold, hull: state.ship.hull,
+      run_title: state.runTitle,
+    });
+  }, [state.gameOver]);
   useEffect(() => {
     const fn = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener('resize', fn);
@@ -423,9 +462,11 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (state.gameOver || state.event || state.showPort) return;
-      if (e.key === 'ArrowLeft')  move(-1, 0);
-      if (e.key === 'ArrowUp')    move(0, -1);
-      if (e.key === 'ArrowRight') move(1, 0);
+      const t = e.target as HTMLElement | null;
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA')) return;
+      if (e.key === 'ArrowLeft'  || e.code === 'KeyA') move(-1, 0);
+      if (e.key === 'ArrowUp'    || e.code === 'KeyW') move(0, -1);
+      if (e.key === 'ArrowRight' || e.code === 'KeyD') move(1, 0);
     };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
@@ -1408,7 +1449,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                   <motion.button whileHover={{ scale:1.05 }} whileTap={{ scale:0.97 }}
                     onClick={() => {
                       const nftName = nftMinted[0].replace(/_/g,' ').replace(/\b\w/g, c => c.toUpperCase());
-                      const text = `🏴‍☠️ I just found "${nftName}" — a hidden NFT inside Corsair.\nNo mint button. No whitelist. Just playing.\nDare to find yours? ⚓\nhttps://reemjie.github.io/corsair/`;
+                      const text = `🏴‍☠️ I just found "${nftName}" — a hidden NFT inside Corsair.\nNo mint button. No whitelist. Just playing.\nDare to find yours? ⚓\nhttps://playcorsair.xyz/`;
                       window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank');
                     }}
                     style={{ marginTop:10, padding:'8px 20px', borderRadius:8, border:'1px solid rgba(255,255,255,0.3)', background:'rgba(0,0,0,0.5)', color:'#ffffff', cursor:'pointer', fontSize:13, fontFamily:"'Pirata One', cursive", letterSpacing:1 }}>
@@ -1429,8 +1470,8 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                       .sort((a, b) => (rarityRank[b.rarity] ?? 0) - (rarityRank[a.rarity] ?? 0))[0];
                     const relicLine = bestRelic ? `\nFound the ${bestRelic.name} relic along the way.` : '';
                     const text = isDailyRun
-                      ? `☀️ Daily Challenge — ${today} — ${s.score} pts before the storm claimed me.\nSame seed for everyone today. Can you beat me?${relicLine}\n⚓ @PlayCorsair https://reemjie.github.io/corsair/ #Starknet`
-                      : `🏴\u200d☠️ ${s.runTitle} — ${s.score} pts before the storm claimed me.\n${s.turn} turns · ${s.ship.gold} gold · No mercy.${relicLine}\nDare to sail further? ⚓ @PlayCorsair\nhttps://reemjie.github.io/corsair/ #Starknet`;
+                      ? `☀️ Daily Challenge — ${today} — ${s.score} pts before the storm claimed me.\nSame seed for everyone today. Can you beat me?${relicLine}\n⚓ @PlayCorsair https://playcorsair.xyz/ #Starknet`
+                      : `🏴\u200d☠️ ${s.runTitle} — ${s.score} pts before the storm claimed me.\n${s.turn} turns · ${s.ship.gold} gold · No mercy.${relicLine}\nDare to sail further? ⚓ @PlayCorsair\nhttps://playcorsair.xyz/ #Starknet`;
                     window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank');
                   }}
                   style={{ padding:'14px 24px', borderRadius:12, border:'1px solid rgba(255,255,255,0.3)', background:'rgba(0,0,0,0.4)', color:'#ffffff', cursor:'pointer', fontSize:16, fontWeight:700, letterSpacing:1, fontFamily:"'Pirata One', cursive" }}>

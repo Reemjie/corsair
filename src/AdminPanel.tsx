@@ -11,6 +11,7 @@ export default function AdminPanel({ onHome }: { onHome: () => void }) {
   const [loading, setLoading] = useState(true);
   const [copiedId, setCopiedId] = useState<number | null>(null);
   const [txInputs, setTxInputs] = useState<Record<number, string>>({});
+  const [tokenIdInputs, setTokenIdInputs] = useState<Record<number, string>>({});
   const [authed, setAuthed] = useState(false);
   const [codeInput, setCodeInput] = useState('');
 
@@ -48,11 +49,14 @@ export default function AdminPanel({ onHome }: { onHome: () => void }) {
     catch { alert(cmd); }
   };
 
-  const doMark = async (id: number) => {
-    const tx = txInputs[id]?.trim();
+  const doMark = async (m: PendingMint) => {
+    const tx = txInputs[m.id]?.trim();
     if (!tx) { alert('Paste the transaction hash first.'); return; }
-    const ok = await markMinted(id, tx);
+    const tokenId = parseInt(tokenIdInputs[m.id]?.trim() || '');
+    if (!tokenId || tokenId < 1) { alert('Enter the token ID (from the tx events on Voyager).'); return; }
+    const ok = await markMinted(m.id, tx, tokenId, m.nft_name);
     if (ok) load();
+    else alert('Something went wrong — check the console. (Token ID already used?)');
   };
 
   return (
@@ -93,14 +97,20 @@ export default function AdminPanel({ onHome }: { onHome: () => void }) {
                 {copiedId === m.id ? '✓ Copied!' : 'Copy mint command'}
               </button>
             </div>
-            <div style={{ display: 'flex', gap: 8, marginTop: 10, alignItems: 'center' }}>
+            <div style={{ display: 'flex', gap: 8, marginTop: 10, alignItems: 'center', flexWrap: 'wrap' }}>
               <input
                 placeholder="Paste tx hash after minting…"
                 value={txInputs[m.id] ?? ''}
                 onChange={e => setTxInputs({ ...txInputs, [m.id]: e.target.value })}
-                style={{ flex: 1, padding: '7px 10px', borderRadius: 8, border: '1px solid rgba(255,255,255,0.15)', background: 'rgba(0,0,0,0.3)', color: '#fff', fontSize: 12 }}
+                style={{ flex: 1, minWidth: 200, padding: '7px 10px', borderRadius: 8, border: '1px solid rgba(255,255,255,0.15)', background: 'rgba(0,0,0,0.3)', color: '#fff', fontSize: 12 }}
               />
-              <button onClick={() => doMark(m.id)} style={{ ...btn, borderColor: 'rgba(68,204,136,0.5)', color: '#44cc88' }}>
+              <input
+                placeholder="Token ID"
+                value={tokenIdInputs[m.id] ?? ''}
+                onChange={e => setTokenIdInputs({ ...tokenIdInputs, [m.id]: e.target.value })}
+                style={{ width: 80, padding: '7px 10px', borderRadius: 8, border: '1px solid rgba(238,221,136,0.3)', background: 'rgba(0,0,0,0.3)', color: '#eedd88', fontSize: 12, textAlign: 'center' }}
+              />
+              <button onClick={() => doMark(m)} style={{ ...btn, borderColor: 'rgba(68,204,136,0.5)', color: '#44cc88' }}>
                 Mark as minted
               </button>
             </div>
