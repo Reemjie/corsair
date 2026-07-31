@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { GameState, UpgradeId } from '../types/game';
-import { submitScore, submitDailyScore, checkNFTConditions, startRun, heartbeatRun, finishRun } from '../supabase';
+import { submitScore, submitDailyScore, checkNFTConditions, startRun, heartbeatRun, finishRun, saveRunLog } from '../supabase';
 import { ZONE_CONFIG } from '../game/balance';
 import { submitScoreOnChain } from '../starknet';
 import { initGame, moveShip, resolveEvent, repairHull, leavePort, skipEventFn, rerollPort, upgradeComponent, buyUpgrade, markDailyPlayed, getDailyKey } from '../game/engine';
@@ -120,6 +120,9 @@ function UpgradeDesc({ pros, cons, fontSize = 11, opacity = 0.55 }: { pros: read
   </div>);
 }
 // Resume texte court d'un upgrade (sans emoji) — pour tooltips/aperçus
+// Codes stables des ameliorations pour le log de coups (ne jamais reordonner)
+const UPGRADE_CODES: string[] = ['ghost','hunter','rider','greed','berserker','escape','vision','compass','detector','power','armor','explorer','stormbreaker'];
+
 const UPGRADES = [
   { id:'ghost',    name:'Ghost Ship',      pros:['Pirates ignore you. +2 vision.'], cons:['Cannot dock at ports. Krakens attracted on sea cells.'],  cost:80,  icon:'ghost',    build:'combat' },
   { id:'rider',    name:'Storm Rider',     pros:['Storm immunity. Storm cells give gold+score.','Hull+Rider synergy heals on storm.'], cons:['-1 HP every 2 turns. Repairs -50%.'],              cost:90,  icon:'rider',    build:'escape' },
@@ -177,6 +180,8 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
 
   // ─── RUN TRACKING (partenaires / live) ───────────────────────────
   const runIdRef = useRef<string>(crypto.randomUUID());
+  const actionLogRef = useRef<number[]>([]);
+  const logAction = (code: number) => { actionLogRef.current.push(code); };
   const lastBeatRef = useRef<number>(0);
 
   // Debut de partie
@@ -211,6 +216,16 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
       zone: state.currentZone ?? 1,
       gold: state.ship.gold, hull: state.ship.hull,
       run_title: state.runTitle,
+    });
+    saveRunLog({
+      run_id: runIdRef.current,
+      wallet_address: walletAddress,
+      seed: state.seed,
+      ship_id: shipId ?? 'default',
+      is_daily: isDailyRun,
+      actions: actionLogRef.current,
+      final_score: state.score,
+      final_turn: state.turn,
     });
   }, [state.gameOver]);
   useEffect(() => {
@@ -473,19 +488,31 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   }, [state.gameOver, state.event, state.showPort, state.turn]);
 
   const move = (dx:number, dy:number) => {
+    logAction(dx === -1 ? 0 : dx === 1 ? 2 : 1);
     setState(s => moveShip(s, dx, dy));
   };
   const resolve = (i:number) => {
+    logAction(10 + i);
     setState(s => {
       const next = resolveEvent(s, i);
       if (next.ship.hull < s.ship.hull) triggerShake();
       return next;
     });
   };
-  const skip = () => setState(s => skipEventFn(s));
-  const upgradeComp = (c: 'hull'|'weapon'|'nav') => setState(s => upgradeComponent(s, c));
+  const skip = () => { logAction(20); setState(s => skipEventFn(s)); };
+  const upgradeComp = (c: 'hull'|'weapon'|'nav') => { logAction(c === 'hull' ? 30 : c === 'weapon' ? 31 : 32); setState(s => upgradeComponent(s, c)); };
 
-  const restart = () => setState(initGame());
+  const restart = () => {
+    const fresh = initGame();
+    actionLogRef.current = [];
+    lastBeatRef.current = 0;
+    runIdRef.current = crypto.randomUUID();
+    if (walletAddress) startRun({
+      run_id: runIdRef.current, wallet_address: walletAddress,
+      username: username ?? null, seed: fresh.seed, is_daily: false,
+    });
+    setState(fresh);
+  };
 
   // Ambient music
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -1210,7 +1237,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
               {/* Upgrades dans le port */}
               <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:8 }}>
                 <div style={{ fontSize:16, color:'rgba(255,255,255,0.6)', fontFamily:"'Pirata One', cursive" }}>Available upgrades</div>
-                <motion.button whileHover={{scale:1.05}} onClick={() => setState(s => rerollPort(s))}
+                <motion.button whileHover={{scale:1.05}} onClick={() => { logAction(40); setState(s => rerollPort(s)); }}
                   style={{ padding:'4px 12px', borderRadius:6, border:'1px solid rgba(255,200,50,0.3)', background:'rgba(255,200,50,0.08)', cursor:'pointer', color:'#eedd44', fontSize:13, fontFamily:"'Pirata One', cursive" }}>
                   🎲 Reroll (20g)
                 </motion.button>
@@ -1241,7 +1268,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
 
           {/* Repair — shown first for visibility */}
           <div style={{ display:'flex', gap:8, marginBottom:16 }}>
-            {[{label:'Rum Barrel',desc:'+8 hull',cost:25,fn:()=>setState(st=>repairHull(st,8,25))},{label:'Full Repair',desc:'Restore all',cost:55,fn:()=>setState(st=>repairHull(st,s.ship.maxHull,55))}].map(item => (
+            {[{label:'Rum Barrel',desc:'+8 hull',cost:25,fn:()=>{ logAction(60); setState(st=>repairHull(st,8,25)); }},{label:'Full Repair',desc:'Restore all',cost:55,fn:()=>{ logAction(61); setState(st=>repairHull(st,s.ship.maxHull,55)); }}].map(item => (
               <motion.button key={item.label} whileTap={{scale:0.97}} onClick={item.fn}
                 disabled={s.ship.gold < item.cost}
                 style={{ flex:1, padding:'10px 8px', borderRadius:10, border:'1px solid rgba(68,204,136,0.3)', background:'rgba(68,204,136,0.08)', cursor: s.ship.gold >= item.cost ? 'pointer' : 'not-allowed', opacity: s.ship.gold >= item.cost ? 1 : 0.4, textAlign:'center' }}>
@@ -1253,7 +1280,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
           </div>
 
           {/* Set Sail */}
-          <motion.button whileHover={{scale:1.02}} whileTap={{scale:0.98}} onClick={() => { setState(st => { let s2 = st; for (const id of cart) s2 = buyUpgrade(s2, id as UpgradeId); return leavePort(s2); }); setCart([]); }}
+          <motion.button whileHover={{scale:1.02}} whileTap={{scale:0.98}} onClick={() => { for (const id of cart) logAction(50 + UPGRADE_CODES.indexOf(id as string)); logAction(70); setState(st => { let s2 = st; for (const id of cart) s2 = buyUpgrade(s2, id as UpgradeId); return leavePort(s2); }); setCart([]); }}
             style={{ width:'100%', padding:'14px', borderRadius:12, border:'2px solid rgba(200,160,48,0.5)', background:'rgba(200,160,48,0.1)', color:'#c8a030', fontSize:18, fontFamily:"'Pirata One', cursive", letterSpacing:3, cursor:'pointer' }}>
             <Icon name="anchor" size={22} style={{ marginRight:8 }} />SET SAIL
           </motion.button>

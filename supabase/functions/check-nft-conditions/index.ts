@@ -23,6 +23,7 @@ const METADATA_URIS: Record<string, string> = {
 }
 
 interface RunData {
+  run_id?: string
   wallet_address: string
   score: number
   seed: number
@@ -122,6 +123,7 @@ Deno.serve(async (req) => {
       nft_name: nftName,
       nft_id: Object.keys(METADATA_URIS).indexOf(nftName) + 1,
       status: 'pending',
+      run_id: run.run_id ?? null,
     })
 
     if (seedData?.nft_name === nftName) {

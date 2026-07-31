@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getPendingMints, getSupply, markMinted, buildMintCommand, type PendingMint, type SupplyRow } from './supabase';
+import { getPendingMints, getSupply, markMinted, buildMintCommand, getRunVerdicts, type PendingMint, type SupplyRow } from './supabase';
 
 // Code d'acces admin (le dashboard ne fait aucune transaction on-chain,
 // un code suffit — le mint reel se fait via sncast au terminal).
@@ -12,6 +12,7 @@ export default function AdminPanel({ onHome }: { onHome: () => void }) {
   const [copiedId, setCopiedId] = useState<number | null>(null);
   const [txInputs, setTxInputs] = useState<Record<number, string>>({});
   const [tokenIdInputs, setTokenIdInputs] = useState<Record<number, string>>({});
+  const [verdicts, setVerdicts] = useState<Record<string, { verified: boolean | null; replay_score: number | null; final_score: number }>>({});
   const [authed, setAuthed] = useState(false);
   const [codeInput, setCodeInput] = useState('');
 
@@ -19,6 +20,8 @@ export default function AdminPanel({ onHome }: { onHome: () => void }) {
     setLoading(true);
     const [m, s] = await Promise.all([getPendingMints(), getSupply()]);
     setMints(m); setSupply(s); setLoading(false);
+    const ids = m.map(x => (x as any).run_id).filter(Boolean) as string[];
+    if (ids.length > 0) setVerdicts(await getRunVerdicts(ids));
   };
 
   useEffect(() => { if (authed) load(); }, [authed]);
@@ -92,6 +95,15 @@ export default function AdminPanel({ onHome }: { onHome: () => void }) {
                 <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)', marginLeft: 10 }}>
                   {m.wallet_address.slice(0, 10)}…{m.wallet_address.slice(-6)}
                 </span>
+                {(() => {
+                  const rid = (m as any).run_id as string | undefined;
+                  if (!rid) return <span style={badge('rgba(255,255,255,0.3)')}>NO LOG</span>;
+                  const v = verdicts[rid];
+                  if (!v) return <span style={badge('rgba(255,255,255,0.3)')}>NO LOG</span>;
+                  if (v.verified === true) return <span style={badge('#44cc88')}>✓ VERIFIED</span>;
+                  if (v.verified === false) return <span style={badge('#ee6655')}>✗ {v.replay_score} vs {v.final_score}</span>;
+                  return <span style={badge('rgba(238,221,136,0.7)')}>NOT CHECKED</span>;
+                })()}
               </div>
               <button onClick={() => copyCmd(m)} style={btn}>
                 {copiedId === m.id ? '✓ Copied!' : 'Copy mint command'}
@@ -139,6 +151,12 @@ function Shell({ children, onHome }: { children: React.ReactNode; onHome: () => 
     </div>
   );
 }
+
+const badge = (color: string): React.CSSProperties => ({
+  marginLeft: 10, padding: '2px 8px', borderRadius: 6, fontSize: 10,
+  fontFamily: "'Cinzel', serif", letterSpacing: 1, color, border: `1px solid ${color}`,
+  whiteSpace: 'nowrap',
+});
 
 const h2: React.CSSProperties = { fontFamily: "'Cinzel', serif", fontSize: 14, letterSpacing: 3, color: 'rgba(136,221,255,0.8)', marginBottom: 12 };
 const msg: React.CSSProperties = { fontFamily: "'IM Fell English', cursive", fontSize: 15, color: 'rgba(255,255,255,0.5)' };

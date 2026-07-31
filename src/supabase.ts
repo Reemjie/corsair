@@ -65,6 +65,7 @@ export async function checkNFTConditions(runData: {
   hunter_attacks_survived: number;
   maelstrom_survived: boolean;
   min_hull_during_run: number;
+  run_id?: string;
   combo_turn: number;
   storm_distance_min: number;
   cursed_treasure_taken: boolean;
@@ -218,4 +219,43 @@ export async function finishRun(runId: string, s: RunSnapshot): Promise<void> {
     })
     .eq('run_id', runId);
   if (error) console.warn('[runs] finish:', error.message);
+}
+
+
+// ─── LOG DE COUPS (runs verifiables) ──────────────────────────────────
+// Table en ecriture seule : la cle anon peut inserer, pas relire.
+// Encodage : 0/1/2 deplacement PORT/AHEAD/STARBOARD · 10+i choix d'evenement
+// 20 skip · 30/31/32 upgrade hull/weapon/nav · 40 reroll port
+// 50+n achat d'amelioration · 60 rum barrel · 61 full repair · 70 quitter le port
+
+export async function saveRunLog(r: {
+  run_id: string;
+  wallet_address: string;
+  seed: number;
+  ship_id: string;
+  is_daily: boolean;
+  actions: number[];
+  final_score: number;
+  final_turn: number;
+}): Promise<void> {
+  const { error } = await supabase.from('corsair_run_logs').insert(r);
+  if (error) console.warn('[runlog]', error.message);
+}
+
+
+// ─── VERDICTS DE VERIFICATION ─────────────────────────────────────────
+// Lit la vue corsair_run_verdicts : le verdict est public, le log de coups non.
+
+export async function getRunVerdicts(runIds: string[]): Promise<
+  Record<string, { verified: boolean | null; replay_score: number | null; final_score: number }>
+> {
+  if (runIds.length === 0) return {};
+  const { data, error } = await supabase
+    .from('corsair_run_verdicts')
+    .select('run_id, verified, replay_score, final_score')
+    .in('run_id', runIds);
+  if (error || !data) { console.warn('[verdicts]', error?.message); return {}; }
+  const out: Record<string, any> = {};
+  for (const r of data as any[]) out[r.run_id] = r;
+  return out;
 }

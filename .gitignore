@@ -23,3 +23,4 @@ dist-ssr
 *.sln
 *.sw?
 corsair_src.zip
+supabase/.temp/
