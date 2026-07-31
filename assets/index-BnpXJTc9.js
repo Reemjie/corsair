@@ -57948,7 +57948,7 @@ Resources:`;
             children: e
         }) : null;
     function Gce({ walletAddress: e, account: t, username: n, onHome: r, dailySeed: i, isDaily: a, seedToken: o, shipId: s }) {
-        let [c, l] = (0, x.useState)(()=>b9(i, i === void 0 ? s ?? `default` : `default`)), [u, d] = (0, x.useState)(!1), [f, p] = (0, x.useState)([]), [m, h] = (0, x.useState)([]), [g, _] = (0, x.useState)(null), v = (0, x.useRef)((c.relics ?? []).length), [y, b] = (0, x.useState)(!1), [S, C] = (0, x.useState)([]), [w, T] = (0, x.useState)(null), [E, ee] = (0, x.useState)(0), [D, te] = (0, x.useState)(()=>parseInt(localStorage.getItem(`corsair_best_score`) || `0`)), [ne, re] = (0, x.useState)(!1), [ie, ae] = (0, x.useState)(!1), [O, oe] = (0, x.useState)(window.innerWidth < 768), k = a === !0;
+        let [c, l] = (0, x.useState)(()=>b9(i, s ?? `default`)), [u, d] = (0, x.useState)(!1), [f, p] = (0, x.useState)([]), [m, h] = (0, x.useState)([]), [g, _] = (0, x.useState)(null), v = (0, x.useRef)((c.relics ?? []).length), [y, b] = (0, x.useState)(!1), [S, C] = (0, x.useState)([]), [w, T] = (0, x.useState)(null), [E, ee] = (0, x.useState)(0), [D, te] = (0, x.useState)(()=>parseInt(localStorage.getItem(`corsair_best_score`) || `0`)), [ne, re] = (0, x.useState)(!1), [ie, ae] = (0, x.useState)(!1), [O, oe] = (0, x.useState)(window.innerWidth < 768), k = a === !0;
         (0, x.useEffect)(()=>{
             k && sce();
         }, []);
