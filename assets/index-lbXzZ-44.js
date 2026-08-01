@@ -60776,10 +60776,10 @@ Resources:`;
                                             marginBottom: 12
                                         },
                                         children: P9.filter((e)=>A.portUpgrades.includes(e.id) || A.ship.upgrades.includes(e.id)).map((e)=>{
-                                            let t = A.ship.upgrades.includes(e.id), n = f.includes(e.id), r = A.upgradeToken ? 0 : e.cost, i = !t && !n && A.ship.gold >= r, a = F9[e.build];
+                                            let t = A.ship.upgrades.includes(e.id), n = f.includes(e.id), r = A.upgradeToken ? 0 : e.cost, i = A.ship.upgrades.length + f.length >= 2, a = !t && !n && A.ship.gold >= r && !i, o = F9[e.build];
                                             return (0, I.jsxs)(`div`, {
                                                 onClick: ()=>{
-                                                    n ? p((t)=>t.filter((t)=>t !== e.id)) : i && p((t)=>[
+                                                    n ? p((t)=>t.filter((t)=>t !== e.id)) : a && p((t)=>[
                                                             ...t,
                                                             e.id
                                                         ]);
@@ -60787,10 +60787,10 @@ Resources:`;
                                                 style: {
                                                     padding: `14px 18px`,
                                                     borderRadius: 10,
-                                                    border: `1px solid ${t ? a + `66` : n ? `#44cc8866` : i ? a + `33` : `rgba(255,255,255,0.05)`}`,
-                                                    background: t ? `${a}18` : n ? `rgba(68,204,136,0.15)` : i ? `rgba(255,255,255,0.04)` : `rgba(255,255,255,0.01)`,
-                                                    cursor: i || n ? `pointer` : `default`,
-                                                    opacity: t || i || n ? 1 : .35,
+                                                    border: `1px solid ${t ? o + `66` : n ? `#44cc8866` : a ? o + `33` : `rgba(255,255,255,0.05)`}`,
+                                                    background: t ? `${o}18` : n ? `rgba(68,204,136,0.15)` : a ? `rgba(255,255,255,0.04)` : `rgba(255,255,255,0.01)`,
+                                                    cursor: a || n ? `pointer` : `default`,
+                                                    opacity: t || a || n ? 1 : .35,
                                                     display: `flex`,
                                                     alignItems: `center`,
                                                     gap: 12
@@ -60810,7 +60810,7 @@ Resources:`;
                                                                 style: {
                                                                     fontSize: 17,
                                                                     fontWeight: 700,
-                                                                    color: t ? a : n ? `#44cc88` : `#e8e0d0`,
+                                                                    color: t ? o : n ? `#44cc88` : `#e8e0d0`,
                                                                     fontFamily: `'Pirata One', cursive`
                                                                 },
                                                                 children: e.name
@@ -60831,6 +60831,17 @@ Resources:`;
                                                 ]
                                             }, e.id);
                                         })
+                                    }),
+                                    A.ship.upgrades.length + f.length >= 2 && (0, I.jsx)(`div`, {
+                                        style: {
+                                            fontSize: 12,
+                                            color: `rgba(238,102,85,0.8)`,
+                                            fontFamily: `'Cinzel', serif`,
+                                            letterSpacing: 1,
+                                            textAlign: `center`,
+                                            marginBottom: 8
+                                        },
+                                        children: `MAX 2 SPECIAL ABILITIES`
                                     })
                                 ]
                             }),
