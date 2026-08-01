@@ -57957,7 +57957,7 @@ Resources:`;
         }, ue = (0, x.useRef)([]);
         (0, x.useEffect)(()=>{
             let e = ce.current.length - 1;
-            e < 0 || (ue.current[e * 2] = c.score, ue.current[e * 2 + 1] = c.ship.hull);
+            e < 0 || (ue.current[e * 3] = c.score, ue.current[e * 3 + 1] = c.ship.hull, ue.current[e * 3 + 2] = c.rngState ?? -1);
         }, [
             c
         ]);
@@ -57997,8 +57997,9 @@ Resources:`;
                 is_daily: k,
                 actions: ce.current,
                 checks: ce.current.flatMap((e, t)=>[
-                        ue.current[t * 2] ?? -1,
-                        ue.current[t * 2 + 1] ?? -1
+                        ue.current[t * 3] ?? -1,
+                        ue.current[t * 3 + 1] ?? -1,
+                        ue.current[t * 3 + 2] ?? -1
                     ]),
                 final_score: c.score,
                 final_turn: c.turn
