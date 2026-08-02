@@ -65329,8 +65329,13 @@ Resources:`;
                     children: [
                         n && (0, I.jsx)(nle, {
                             onClose: ()=>r(!1),
-                            onPlay: ()=>{
-                                r(!1), e(null);
+                            onPlay: async ()=>{
+                                if (r(!1), !g) {
+                                    y();
+                                    return;
+                                }
+                                let t = await Q7(g);
+                                e(g, _, t?.seed, !1, t?.seed_token);
                             }
                         }),
                         i && (0, I.jsx)(rle, {
