@@ -61487,6 +61487,7 @@ Resources:`;
                                             if (e) try {
                                                 let t = await Hse({
                                                     wallet_address: e,
+                                                    run_id: se.current,
                                                     score: A.score,
                                                     seed: A.seed,
                                                     turn: A.turn,
