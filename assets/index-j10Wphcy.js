@@ -58073,10 +58073,14 @@ Resources:`;
         }, []);
         let pe = (0, x.useRef)(l ?? crypto.randomUUID()), me = (0, x.useRef)(u ? [
             ...u
-        ] : []), he = (t)=>{
-            me.current.push(t), e && Wce({
+        ] : []), he = (e)=>{
+            me.current.push(e);
+        }, ge = (0, x.useRef)([]);
+        (0, x.useEffect)(()=>{
+            let t = e;
+            !t || d.gameOver || me.current.length !== 0 && Wce({
                 run_id: pe.current,
-                wallet_address: e,
+                wallet_address: t,
                 seed: d.seed,
                 ship_id: s ?? `default`,
                 is_daily: fe,
@@ -58085,8 +58089,9 @@ Resources:`;
                 score: d.score,
                 saved_at: Date.now()
             });
-        }, ge = (0, x.useRef)([]);
-        (0, x.useEffect)(()=>{
+        }, [
+            d
+        ]), (0, x.useEffect)(()=>{
             let e = me.current.length - 1;
             e < 0 || (ge.current[e * 3] = d.score, ge.current[e * 3 + 1] = d.ship.hull, ge.current[e * 3 + 2] = d.rngState ?? -1);
         }, [
@@ -58348,7 +58353,7 @@ Resources:`;
         ]), (0, x.useEffect)(()=>{
             if (d.gameOver) {
                 let t = bce(d);
-                if (t.length > 0 && (v(t), v9(`streak`)), fe && e && d.score > 0) {
+                if (t.length > 0 && (v(t), v9(`streak`)), x9(), fe && e && d.score > 0) {
                     let t = new Date().toISOString().slice(0, 10);
                     rce(e, d.score, t, d.seed, n ?? void 0);
                 }
@@ -61706,7 +61711,7 @@ Resources:`;
                                             letterSpacing: 2,
                                             fontFamily: `'Pirata One', cursive`
                                         },
-                                        children: `✓ SCORE SUBMITTED`
+                                        children: `✓ SCORE SAVED — YOU'RE ON THE LEADERBOARD`
                                     }),
                                     D.length > 0 && (0, I.jsxs)(X.div, {
                                         initial: {
@@ -65944,8 +65949,13 @@ Resources:`;
             onPlay: h,
             onResume: (e)=>{
                 try {
+                    let t = Ele(e.seed, e.ship_id, e.actions);
+                    if (t.gameOver) {
+                        x9();
+                        return;
+                    }
                     f({
-                        state: Ele(e.seed, e.ship_id, e.actions),
+                        state: t,
                         run: e
                     }), c(e.is_daily), o(e.is_daily ? e.seed : void 0), i(`game`);
                 } catch (e) {
