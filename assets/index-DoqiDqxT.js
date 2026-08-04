@@ -58421,6 +58421,16 @@ Resources:`;
             d.log,
             d.turn
         ]), (0, x.useEffect)(()=>{
+            if (!we) return;
+            let e = ()=>{
+                ot.current = !1, Te(!1);
+            };
+            return window.addEventListener(`mousedown`, e), window.addEventListener(`keydown`, e), window.addEventListener(`touchstart`, e), ()=>{
+                window.removeEventListener(`mousedown`, e), window.removeEventListener(`keydown`, e), window.removeEventListener(`touchstart`, e);
+            };
+        }, [
+            we
+        ]), (0, x.useEffect)(()=>{
             d.log?.includes(`⚡ Storm surge`) && tt(`rgba(100,150,255,0.35)`), (d.event?.cellType === `kraken` || d.event?.cellType === `ancient_kraken`) && tt(`rgba(150,0,255,0.3)`), d.event?.cellType === `ancient_kraken` && tt(`rgba(200,160,48,0.4)`);
             let e = d.hunter;
             if (e?.active) {
@@ -61977,6 +61987,16 @@ Resources:`;
                                             marginTop: 6
                                         },
                                         children: `Tentacles rake the hull`
+                                    }),
+                                    (0, I.jsx)(`div`, {
+                                        style: {
+                                            fontSize: 11,
+                                            color: `rgba(255,255,255,0.35)`,
+                                            fontFamily: `'Cinzel', serif`,
+                                            letterSpacing: 2,
+                                            marginTop: 14
+                                        },
+                                        children: `CLICK TO SKIP`
                                     })
                                 ]
                             })
