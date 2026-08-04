@@ -58412,11 +58412,11 @@ Resources:`;
         }, [
             d.gameOver
         ]);
-        let ot = (0, x.useRef)(!1);
+        let ot = (0, x.useRef)(!1), st = (0, x.useRef)(-99), ct = (0, x.useRef)(null);
         (0, x.useEffect)(()=>{
-            d.log?.includes(`Tentacles rake the hull`) && (ot.current = !0, Te(!0), setTimeout(()=>{
+            d.log?.includes(`Tentacles rake the hull`) && (d.turn - st.current < 3 || (st.current = d.turn, ct.current && clearTimeout(ct.current), ot.current = !0, Te(!0), ct.current = setTimeout(()=>{
                 ot.current = !1, Te(!1);
-            }, 8e3));
+            }, 3500)));
         }, [
             d.log,
             d.turn
@@ -58443,7 +58443,7 @@ Resources:`;
             let e = (e)=>{
                 if (d.gameOver || d.event || d.showPort) return;
                 let t = e.target;
-                t && (t.tagName === `INPUT` || t.tagName === `TEXTAREA`) || ((e.key === `ArrowLeft` || e.code === `KeyA`) && st(-1, 0), (e.key === `ArrowUp` || e.code === `KeyW`) && st(0, -1), (e.key === `ArrowRight` || e.code === `KeyD`) && st(1, 0));
+                t && (t.tagName === `INPUT` || t.tagName === `TEXTAREA`) || ((e.key === `ArrowLeft` || e.code === `KeyA`) && lt(-1, 0), (e.key === `ArrowUp` || e.code === `KeyW`) && lt(0, -1), (e.key === `ArrowRight` || e.code === `KeyD`) && lt(1, 0));
             };
             return window.addEventListener(`keydown`, e), ()=>window.removeEventListener(`keydown`, e);
         }, [
@@ -58452,18 +58452,18 @@ Resources:`;
             d.showPort,
             d.turn
         ]);
-        let st = (e, t)=>{
+        let lt = (e, t)=>{
             he(e === -1 ? 0 : e === 1 ? 2 : 1), f((n)=>s9(n, e, t));
-        }, ct = (e)=>{
+        }, ut = (e)=>{
             he(10 + e), f((t)=>{
                 let n = l9(t, e);
                 return n.ship.hull < t.ship.hull && et(), n;
             });
-        }, lt = ()=>{
+        }, dt = ()=>{
             he(20), f((e)=>h9(e));
-        }, ut = (e)=>{
+        }, ft = (e)=>{
             he(e === `hull` ? 30 : e === `weapon` ? 31 : 32), f((t)=>d9(t, e));
-        }, dt = async ()=>{
+        }, pt = async ()=>{
             let t = e ? await z7(e) : null, r = o9(t?.seed);
             me.current = [], ge.current = [], _e.current = 0, pe.current = crypto.randomUUID(), e && R7({
                 run_id: pe.current,
@@ -58473,18 +58473,18 @@ Resources:`;
                 is_daily: !1,
                 seed_token: t?.seed_token ?? null
             }), f(r);
-        }, ft = (0, x.useRef)(null), [pt, mt] = (0, x.useState)(!1);
+        }, mt = (0, x.useRef)(null), [ht, gt] = (0, x.useState)(!1);
         (0, x.useEffect)(()=>{
             let e = new Audio(`/sounds/ambient.mp3`);
-            return e.loop = !0, e.volume = .4, e.play().catch(()=>{}), ft.current = e, ()=>{
+            return e.loop = !0, e.volume = .4, e.play().catch(()=>{}), mt.current = e, ()=>{
                 e.pause(), e.currentTime = 0;
             };
         }, []), (0, x.useEffect)(()=>{
-            ft.current && (ft.current.muted = pt), Uce(pt);
+            mt.current && (mt.current.muted = ht), Uce(ht);
         }, [
-            pt
+            ht
         ]);
-        let ht = (0, x.useRef)({
+        let _t = (0, x.useRef)({
             gold: d.ship.gold,
             hull: d.ship.hull,
             zone: d.currentZone ?? 1,
@@ -58494,14 +58494,14 @@ Resources:`;
             storm: d.stormDistance
         });
         return (0, x.useEffect)(()=>{
-            let e = ht.current, t = !!d.log?.includes(`Tentacles rake`);
+            let e = _t.current, t = !!d.log?.includes(`Tentacles rake`);
             if (d.gameOver && !e.over) v9(`death`);
             else if (!d.gameOver) {
                 d.ship.gold > e.gold && v9(`gold`), d.ship.gold < e.gold && d.showPort && v9(`buy`), t ? v9(`hunter_attack`) : d.ship.hull < e.hull && v9(`damage`), (d.currentZone ?? 1) !== e.zone && v9(`zone`), (d.scoreMultiplier ?? 1) > e.mult && v9(`streak`);
                 let n = d.hunter?.mode ?? ``;
                 n !== e.hmode && (n === `stalking` || n === `frenzy`) && v9(`hunter_near`), d.stormDistance < e.storm && d.stormDistance <= 4 && d.stormDistance > 0 && (v9(`thunder`), et());
             }
-            ht.current = {
+            _t.current = {
                 gold: d.ship.gold,
                 hull: d.ship.hull,
                 zone: d.currentZone ?? 1,
@@ -58785,7 +58785,7 @@ Resources:`;
                                     ]
                                 }),
                                 (0, I.jsx)(`button`, {
-                                    onClick: ()=>mt((e)=>!e),
+                                    onClick: ()=>gt((e)=>!e),
                                     style: {
                                         background: `transparent`,
                                         border: `1px solid rgba(255,255,255,0.1)`,
@@ -58796,7 +58796,7 @@ Resources:`;
                                         padding: `6px 10px`,
                                         fontFamily: `'Cinzel', serif`
                                     },
-                                    children: pt ? `🔇` : `🔊`
+                                    children: ht ? `🔇` : `🔊`
                                 })
                             ]
                         }),
@@ -58820,7 +58820,7 @@ Resources:`;
                                     ]
                                 }),
                                 (0, I.jsx)(`button`, {
-                                    onClick: ()=>mt((e)=>!e),
+                                    onClick: ()=>gt((e)=>!e),
                                     style: {
                                         background: `transparent`,
                                         border: `none`,
@@ -58828,7 +58828,7 @@ Resources:`;
                                         fontSize: 14,
                                         cursor: `pointer`
                                     },
-                                    children: pt ? `🔇` : `🔊`
+                                    children: ht ? `🔇` : `🔊`
                                 })
                             ]
                         })
@@ -59371,7 +59371,7 @@ Resources:`;
                                             dy: 0
                                         }
                                     ].map((e)=>(0, I.jsx)(`button`, {
-                                            onClick: ()=>st(e.dx, e.dy),
+                                            onClick: ()=>lt(e.dx, e.dy),
                                             style: {
                                                 flex: e.dy === -1 ? 1.3 : 1,
                                                 padding: `16px 8px`,
@@ -60166,7 +60166,7 @@ Resources:`;
                             (0, I.jsx)(`video`, {
                                 src: O9[ve],
                                 autoPlay: !0,
-                                muted: pt,
+                                muted: ht,
                                 playsInline: !0,
                                 preload: `auto`,
                                 onEnded: ()=>{
@@ -60493,7 +60493,7 @@ Resources:`;
                                                     scale: a ? .96 : 1
                                                 },
                                                 onClick: ()=>{
-                                                    a && ct(t);
+                                                    a && ut(t);
                                                 },
                                                 style: {
                                                     flex: 1,
@@ -60630,7 +60630,7 @@ Resources:`;
                                                         scale: a ? .98 : 1
                                                     },
                                                     onClick: ()=>{
-                                                        a && ct(t);
+                                                        a && ut(t);
                                                     },
                                                     style: {
                                                         flex: 1,
@@ -60685,7 +60685,7 @@ Resources:`;
                                             })
                                         }),
                                         it && (0, I.jsx)(`button`, {
-                                            onClick: lt,
+                                            onClick: dt,
                                             style: {
                                                 marginTop: 8,
                                                 padding: `6px 16px`,
@@ -60819,7 +60819,7 @@ Resources:`;
                                                 ].map((e)=>{
                                                     let t = A.ship.levels[e.key], n = t === 0 ? 50 : 110, r = t < 2 && A.ship.gold >= n && !(t === 1 && A.maxedComponents >= 2), i = t >= 2;
                                                     return (0, I.jsxs)(`div`, {
-                                                        onClick: ()=>r && ut(e.key),
+                                                        onClick: ()=>r && ft(e.key),
                                                         style: {
                                                             background: `${e.color}12`,
                                                             border: `1px solid ${e.color}${r ? `66` : `22`}`,
@@ -61865,7 +61865,7 @@ Resources:`;
                                                 whileTap: {
                                                     scale: .97
                                                 },
-                                                onClick: dt,
+                                                onClick: pt,
                                                 style: {
                                                     padding: `14px 36px`,
                                                     borderRadius: 12,
@@ -61933,7 +61933,7 @@ Resources:`;
                             (0, I.jsx)(`video`, {
                                 src: `/scenes/hunter.mp4`,
                                 autoPlay: !0,
-                                muted: pt,
+                                muted: ht,
                                 playsInline: !0,
                                 preload: `auto`,
                                 style: {
