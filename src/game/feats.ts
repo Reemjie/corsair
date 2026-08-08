@@ -36,6 +36,13 @@ export const FEATS: Feat[] = [
     desc: 'Own 2 special abilities at the same time.',   check: s => (s.ship.upgrades ?? []).length >= 2 },
 ];
 
+import { fetchPlayerFeats, pushFeatUnlock, pushPlayerTitle } from '../supabase';
+
+// Wallet courant : permet de remonter les deblocages au serveur sans
+// changer la signature des fonctions lues par le moteur.
+let currentWallet: string | null = null;
+export function setFeatsWallet(w: string | null) { currentWallet = w; }
+
 const KEY = 'corsair_feats';
 const TITLE_KEY = 'corsair_title';
 
@@ -52,6 +59,7 @@ export function checkAndUnlockFeats(s: GameState): Feat[] {
   }
   if (fresh.length > 0) {
     try { localStorage.setItem(KEY, JSON.stringify([...unlocked])); } catch { /* quota */ }
+    if (currentWallet) for (const f of fresh) pushFeatUnlock(currentWallet, f.id);
   }
   return fresh;
 }
@@ -63,4 +71,18 @@ export function getEquippedTitle(): string | null {
 export function setEquippedTitle(title: string | null) {
   if (title) localStorage.setItem(TITLE_KEY, title);
   else localStorage.removeItem(TITLE_KEY);
+  if (currentWallet) pushPlayerTitle(currentWallet, title);
+}
+
+// Fusionne les feats du serveur avec le cache local, dans les deux sens :
+// ce qui a ete debloque hors ligne remonte, ce qui manque localement descend.
+export async function syncFeatsFromServer(wallet: string): Promise<void> {
+  try {
+    const { feats, title } = await fetchPlayerFeats(wallet);
+    const local = new Set(getUnlockedFeats());
+    for (const f of feats) local.add(f);
+    localStorage.setItem(KEY, JSON.stringify([...local]));
+    for (const f of local) if (!feats.includes(f)) pushFeatUnlock(wallet, f);
+    if (title && !localStorage.getItem(TITLE_KEY)) localStorage.setItem(TITLE_KEY, title);
+  } catch { /* hors ligne : le cache local fait foi */ }
 }

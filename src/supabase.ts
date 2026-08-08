@@ -184,6 +184,7 @@ export async function startRun(r: {
   username?: string | null;
   seed: number;
   is_daily: boolean;
+  seed_token?: string | null;
 }): Promise<void> {
   const { error } = await supabase.from('corsair_runs').insert({
     run_id: r.run_id,
@@ -191,6 +192,7 @@ export async function startRun(r: {
     username: r.username ?? null,
     seed: r.seed,
     is_daily: r.is_daily,
+    seed_token: r.seed_token ?? null,
     status: 'playing',
     score: 0,
     turn: 0,
@@ -235,6 +237,7 @@ export async function saveRunLog(r: {
   ship_id: string;
   is_daily: boolean;
   actions: number[];
+  checks?: number[];
   final_score: number;
   final_turn: number;
 }): Promise<void> {
@@ -258,4 +261,70 @@ export async function getRunVerdicts(runIds: string[]): Promise<
   const out: Record<string, any> = {};
   for (const r of data as any[]) out[r.run_id] = r;
   return out;
+}
+
+
+// ─── SEED EMIS PAR LE SERVEUR ─────────────────────────────────────────
+// Le client ne choisit jamais son seed. En cas d'echec, on renvoie null et
+// le jeu retombe sur un seed local : une partie ne doit jamais etre bloquee.
+
+export async function issueSeed(wallet: string): Promise<{ seed: number; seed_token: string } | null> {
+  try {
+    const { data, error } = await supabase.functions.invoke('issue-seed', {
+      body: { wallet_address: wallet },
+    });
+    if (error || typeof data?.seed !== 'number') {
+      console.warn('[seed] emission impossible, seed local utilise');
+      return null;
+    }
+    return { seed: data.seed, seed_token: data.seed_token };
+  } catch {
+    console.warn('[seed] emission impossible, seed local utilise');
+    return null;
+  }
+}
+
+
+// ─── FEATS ET TITRES (lies au wallet) ─────────────────────────────────
+// localStorage reste le cache synchrone lu par le moteur ; ces fonctions
+// le synchronisent avec le serveur pour que rien ne soit perdu.
+
+export async function fetchPlayerFeats(wallet: string): Promise<{ feats: string[]; title: string | null }> {
+  const [f, t] = await Promise.all([
+    supabase.from('player_feats').select('feat_id').eq('wallet_address', wallet),
+    supabase.from('player_titles').select('title').eq('wallet_address', wallet).maybeSingle(),
+  ]);
+  return {
+    feats: (f.data ?? []).map((r: any) => r.feat_id),
+    title: (t.data as any)?.title ?? null,
+  };
+}
+
+export async function pushFeatUnlock(wallet: string, featId: string): Promise<void> {
+  const { error } = await supabase.from('player_feats')
+    .insert({ wallet_address: wallet, feat_id: featId });
+  if (error && !error.message.toLowerCase().includes('duplicate')) console.warn('[feats]', error.message);
+}
+
+export async function pushPlayerTitle(wallet: string, title: string | null): Promise<void> {
+  const { error } = await supabase.from('player_titles')
+    .upsert({ wallet_address: wallet, title, updated_at: new Date().toISOString() });
+  if (error) console.warn('[title]', error.message);
+}
+
+
+// ─── DAILY : tentative consommee cote serveur ─────────────────────────
+// localStorage seul se contournait avec une fenetre privee.
+
+export async function hasPlayedDailyOnServer(wallet: string, key: string): Promise<boolean> {
+  const { data, error } = await supabase.from('daily_plays')
+    .select('daily_key').eq('wallet_address', wallet).eq('daily_key', key).maybeSingle();
+  if (error) return false; // hors ligne : on ne bloque pas le joueur
+  return !!data;
+}
+
+export async function markDailyPlayedOnServer(wallet: string, key: string): Promise<void> {
+  const { error } = await supabase.from('daily_plays')
+    .insert({ wallet_address: wallet, daily_key: key });
+  if (error && !error.message.toLowerCase().includes('duplicate')) console.warn('[daily]', error.message);
 }

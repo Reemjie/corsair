@@ -1,5 +1,6 @@
-import { getDailySeed, hasDailyBeenPlayed } from './game/engine';
-import { getDailyLeaderboard } from './supabase';
+import { getDailySeed, hasDailyBeenPlayed, getDailyKey } from './game/engine';
+import { getDailyLeaderboard, issueSeed, hasPlayedDailyOnServer } from './supabase';
+import { loadActiveRun, type ActiveRun } from './game/crashRecovery';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -22,7 +23,9 @@ const SLIDES = [
 
 
 
-export default function HomePage({ onPlay }: { onPlay: (address: string | null, username?: string | null, seed?: number) => void }) {
+export default function HomePage({ onPlay, onResume }: { onPlay: (address: string | null, username?: string | null, seed?: number, isDaily?: boolean, seedToken?: string) => void; onResume?: (run: ActiveRun) => void }) {
+  const [saved, setSaved] = useState<ActiveRun | null>(null);
+  const [dailyDone, setDailyDone] = useState(() => hasDailyBeenPlayed());
   const [isMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
   const [showHowTo, setShowHowTo] = useState(false);
   const [showFeats, setShowFeats] = useState(false);
@@ -54,6 +57,18 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
   }, []);
   const [showLeaderboard, setShowLeaderboard] = useState(false);
   const { address, username, connecting, connect, disconnect } = useWallet();
+  // La tentative quotidienne est verifiee cote serveur : localStorage seul
+  // se contournait avec une fenetre privee.
+  useEffect(() => {
+    if (!address) { setDailyDone(hasDailyBeenPlayed()); return; }
+    hasPlayedDailyOnServer(address, getDailyKey())
+      .then(done => setDailyDone(done || hasDailyBeenPlayed()));
+  }, [address]);
+  useEffect(() => {
+    const r = loadActiveRun();
+    if (r && address && r.wallet_address === address) setSaved(r); else setSaved(null);
+  }, [address]);
+
   const [slide, setSlide] = useState(0);
 
   // Auto-slide
@@ -117,7 +132,7 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
           <div style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:10 }}>
           <div style={{ display:'flex', gap:16 }}>
             <motion.button whileHover={{ scale:1.05, boxShadow:'0 0 30px rgba(200,160,48,0.4)' }} whileTap={{ scale:0.97 }}
-              onClick={() => { if (!address) { connect(); } else { onPlay(address, username); } }}
+              onClick={async () => { if (!address) { connect(); return; } const issued = await issueSeed(address); onPlay(address, username, issued?.seed, false, issued?.seed_token); }}
               style={{ padding:'16px 48px', borderRadius:12, border:'2px solid rgba(200,160,48,0.9)', background:'rgba(200,160,48,0.25)', color:'#c8a030', fontSize:22, letterSpacing:4, cursor:'pointer', fontFamily:"'Pirata One', cursive" }}>
               PLAY
             </motion.button>
@@ -140,10 +155,10 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
               <div style={{ fontSize:12, color:'rgba(136,221,255,0.8)', fontFamily:"'Cinzel', serif", letterSpacing:1 }}>
                 ⏳ Resets in <span style={{ color:'#88ddff', fontWeight:700 }}>{timeLeft}</span> <span style={{ opacity:0.5 }}>UTC</span>
               </div>
-              {hasDailyBeenPlayed()
+              {dailyDone
                 ? <div style={{ fontSize:11, color:'rgba(136,221,255,0.55)', fontFamily:"'Cinzel', serif", textAlign:'right' }}>Already played ·<br/>back at 00:00 UTC</div>
                 : <motion.button whileHover={{ scale:1.04, boxShadow:'0 0 20px rgba(200,160,48,0.4)' }} whileTap={{ scale:0.96 }}
-                    onClick={() => { if (!address) { connect(); } else { onPlay(address, username, getDailySeed()); } }}
+                    onClick={() => { if (!address) { connect(); } else { onPlay(address, username, getDailySeed(), true); } }}
                     style={{ padding:'10px 20px', borderRadius:10, border:'2px solid rgba(200,160,48,0.8)', background:'rgba(200,160,48,0.2)', color:'#c8a030', fontSize:13, letterSpacing:2, cursor:'pointer', fontFamily:"'Pirata One', cursive", fontWeight:700, whiteSpace:'nowrap' }}>
                     PLAY · 1 TRY
                   </motion.button>
@@ -170,6 +185,13 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
             </div>
           )}
 
+          {saved && saved.actions.length > 0 && onResume && (
+            <motion.button whileHover={{ scale:1.05 }} whileTap={{ scale:0.97 }}
+              onClick={() => onResume(saved)}
+              style={{ padding:'12px 32px', borderRadius:12, border:'1px solid rgba(68,204,136,0.6)', background:'rgba(68,204,136,0.12)', color:'#44cc88', fontSize:14, letterSpacing:3, cursor:'pointer', fontFamily:"'Pirata One', cursive" }}>
+              ⚓ RESUME VOYAGE — {saved.score} pts, turn {saved.turn}
+            </motion.button>
+          )}
           <motion.button whileHover={{ scale:1.05 }} whileTap={{ scale:0.97 }}
             onClick={() => setShowHowTo(true)}
             style={{ padding:'12px 32px', borderRadius:12, border:'1px solid rgba(255,255,255,0.5)', background:'rgba(255,255,255,0.12)', color:'rgba(255,255,255,0.85)', fontSize:14, letterSpacing:3, cursor:'pointer', fontFamily:"'Pirata One', cursive" }}>
@@ -202,7 +224,12 @@ export default function HomePage({ onPlay }: { onPlay: (address: string | null, 
 
       {/* How To Play modal */}
       <AnimatePresence>
-        {showHowTo && <HowToPlay onClose={() => setShowHowTo(false)} onPlay={() => { setShowHowTo(false); onPlay(null); }} />}
+        {showHowTo && <HowToPlay onClose={() => setShowHowTo(false)} onPlay={async () => {
+          setShowHowTo(false);
+          if (!address) { connect(); return; }
+          const issued = await issueSeed(address);
+          onPlay(address, username, issued?.seed, false, issued?.seed_token);
+        }} />}
         {showFeats && <FeatsPanel onClose={() => setShowFeats(false)} />}
         {showShips && <ShipsPanel onClose={() => setShowShips(false)} />}
         {showNFTs && <NFTPanel onClose={() => setShowNFTs(false)} />}

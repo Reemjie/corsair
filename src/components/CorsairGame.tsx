@@ -1,13 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { GameState, UpgradeId } from '../types/game';
-import { submitScore, submitDailyScore, checkNFTConditions, startRun, heartbeatRun, finishRun, saveRunLog } from '../supabase';
+import { markDailyPlayedOnServer, submitScore, submitDailyScore, checkNFTConditions, startRun, heartbeatRun, finishRun, saveRunLog, issueSeed } from '../supabase';
 import { ZONE_CONFIG } from '../game/balance';
 import { submitScoreOnChain } from '../starknet';
 import { initGame, moveShip, resolveEvent, repairHull, leavePort, skipEventFn, rerollPort, upgradeComponent, buyUpgrade, markDailyPlayed, getDailyKey } from '../game/engine';
 import { sfx, setSfxMuted } from '../sound';
 import { getRelicDef, type RelicDef } from '../game/relics';
 import { checkAndUnlockFeats, type Feat } from '../game/feats';
+import { saveActiveRun, clearActiveRun, queuePending } from '../game/crashRecovery';
 import { Icon } from '../Icon';
 import anchorImg from '../assets/anchor.png';
 
@@ -157,14 +158,16 @@ const renderCellIcon = (icon: string | undefined, size: number) =>
     ? <img src={icon} style={{ width:size, height:size, objectFit:'contain', borderRadius:'50%', mixBlendMode:'lighten', filter:`drop-shadow(0 0 12px rgba(200,160,48,0.6))` }} />
     : <span style={{ fontSize:size }}>{icon}</span>;
 
-export default function CorsairGame({ walletAddress, account, username, onHome, dailySeed, shipId }: { walletAddress: string | null; account?: any; username?: string | null; onHome: () => void; dailySeed?: number; shipId?: string }) {
-  const [state, setState] = useState<GameState>(() => initGame(dailySeed, dailySeed !== undefined ? 'default' : (shipId ?? 'default')));
+export default function CorsairGame({ walletAddress, account, username, onHome, dailySeed, isDaily, seedToken, shipId, resumeState, resumeRunId, resumeActions }: { walletAddress: string | null; account?: any; username?: string | null; onHome: () => void; dailySeed?: number; isDaily?: boolean; seedToken?: string; shipId?: string; resumeState?: GameState; resumeRunId?: string; resumeActions?: number[] }) {
+  const [state, setState] = useState<GameState>(() => resumeState ?? initGame(dailySeed, shipId ?? 'default'));
   const [shake, setShake] = useState(false);
   const [cart, setCart] = useState<string[]>([]);
   const [newFeats, setNewFeats] = useState<Feat[]>([]);
   const [foundRelic, setFoundRelic] = useState<RelicDef | null>(null);
   const prevRelicCount = useRef((state.relics ?? []).length);
   const [scoreSubmitted, setScoreSubmitted] = useState(false);
+  const [onChainDone, setOnChainDone] = useState(false);
+  const autoSentRef = useRef(false);
   const [nftMinted, setNftMinted] = useState<string[]>([]);
   const [portalCinematic, setPortalCinematic] = useState<{lines: string[], zone: number} | null>(null);
   const [portalLineIndex, setPortalLineIndex] = useState(0);
@@ -174,25 +177,66 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   const [isNewRecord, setIsNewRecord] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  const isDailyRun = dailySeed !== undefined;
+  const isDailyRun = isDaily === true;
   // Daily : la tentative est consommee au LANCEMENT de la run (equite tournoi — un refresh ne redonne pas d'essai)
-  useEffect(() => { if (isDailyRun) markDailyPlayed(); }, []);
+  useEffect(() => {
+    if (!isDailyRun) return;
+    markDailyPlayed();
+    if (walletAddress) markDailyPlayedOnServer(walletAddress, getDailyKey());
+  }, []);
 
   // ─── RUN TRACKING (partenaires / live) ───────────────────────────
-  const runIdRef = useRef<string>(crypto.randomUUID());
-  const actionLogRef = useRef<number[]>([]);
-  const logAction = (code: number) => { actionLogRef.current.push(code); };
+  const runIdRef = useRef<string>(resumeRunId ?? crypto.randomUUID());
+  const actionLogRef = useRef<number[]>(resumeActions ? [...resumeActions] : []);
+  const logAction = (code: number) => {
+    actionLogRef.current.push(code);
+    // La sauvegarde disque se fait dans l'effet ci-dessous, une fois l'etat
+    // recalcule : sinon le tour et le score enregistres seraient en retard
+    // d'une action.
+  };
+  const checksRef = useRef<number[]>([]);
+
+  // Sauvegarde disque apres chaque changement d'etat : le score et le tour
+  // enregistres correspondent ainsi a l'action qui vient d'etre appliquee.
+  useEffect(() => {
+    const w = walletAddress;
+    if (!w || state.gameOver) return;
+    if (actionLogRef.current.length === 0) return;
+    saveActiveRun({
+      run_id: runIdRef.current,
+      wallet_address: w,
+      seed: state.seed,
+      ship_id: shipId ?? 'default',
+      is_daily: isDailyRun,
+      actions: actionLogRef.current,
+      turn: state.turn,
+      score: state.score,
+      saved_at: Date.now(),
+    });
+  }, [state]);
+
+  // Releve de controle : score et coque apres chaque action. Sert a localiser
+  // precisement ou un rejeu diverge de la partie reelle.
+  useEffect(() => {
+    const i = actionLogRef.current.length - 1;
+    if (i < 0) return;
+    checksRef.current[i * 3] = state.score;
+    checksRef.current[i * 3 + 1] = state.ship.hull;
+    checksRef.current[i * 3 + 2] = state.rngState ?? -1;
+  }, [state]);
   const lastBeatRef = useRef<number>(0);
 
   // Debut de partie
   useEffect(() => {
     if (!walletAddress) return;
+    if (resumeRunId) return; // la ligne existe deja pour cette partie
     startRun({
       run_id: runIdRef.current,
       wallet_address: walletAddress,
       username: username ?? null,
       seed: state.seed,
       is_daily: isDailyRun,
+      seed_token: seedToken ?? null,
     });
   }, []);
 
@@ -224,6 +268,11 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
       ship_id: shipId ?? 'default',
       is_daily: isDailyRun,
       actions: actionLogRef.current,
+      checks: actionLogRef.current.flatMap((_, i) => [
+        checksRef.current[i * 3] ?? -1,
+        checksRef.current[i * 3 + 1] ?? -1,
+        checksRef.current[i * 3 + 2] ?? -1,
+      ]),
       final_score: state.score,
       final_turn: state.turn,
     });
@@ -421,9 +470,52 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
     if (state.gameOver) {
       const fresh = checkAndUnlockFeats(state);
       if (fresh.length > 0) { setNewFeats(fresh); sfx('streak'); }
+      clearActiveRun();
       if (isDailyRun && walletAddress && state.score > 0) {
         const today = new Date().toISOString().slice(0, 10);
         submitDailyScore(walletAddress, state.score, today, state.seed, username ?? undefined);
+      }
+
+      // Envoi automatique du score et des conditions NFT : ils ne doivent plus
+      // dependre d'un clic, sinon un joueur qui ferme l'onglet disparait du
+      // classement et perd ses reliques. La soumission on-chain, elle, coute
+      // du gas et reste sur le bouton.
+      if (walletAddress && state.score > 0 && !autoSentRef.current) {
+        autoSentRef.current = true;
+        const scorePayload = {
+          wallet: walletAddress, score: state.score, run_title: state.runTitle,
+          turn: state.turn, zone: state.currentZone ?? 1, seed: state.seed,
+          username: username ?? undefined,
+        };
+        submitScore(walletAddress, state.score, state.runTitle, state.turn, state.currentZone ?? 1, state.seed, username ?? undefined)
+          .then(ok => { if (ok) setScoreSubmitted(true); else queuePending('score', scorePayload); })
+          .catch((e: any) => { console.warn('Auto submit failed:', e); queuePending('score', scorePayload); });
+        const nftPayload = {
+          wallet_address: walletAddress,
+          run_id: runIdRef.current,
+          score: state.score,
+          seed: state.seed,
+          turn: state.turn,
+          gold: state.ship.gold,
+          hull: state.ship.hull,
+          ports_visited: state.portsVisited ?? 0,
+          treasures_found: state.treasuresFound ?? 0,
+          pirates_fought: state.piratesFought ?? 0,
+          kraken_killed: state.krakenKilled ?? false,
+          ancient_kraken_killed: state.ancientKrakenKilled ?? false,
+          hunter_attacks_survived: state.hunterAttacksSurvived ?? 0,
+          maelstrom_survived: state.maelstromSurvived ?? false,
+          min_hull_during_run: state.lowestHull ?? state.ship.hull,
+          combo_turn: state.comboTurn ?? 999,
+          storm_distance_min: state.stormDistanceMin ?? 99,
+          cursed_treasure_taken: state.cursedTreasureTaken ?? false,
+        };
+        checkNFTConditions(nftPayload).then((r: any) => {
+          if (r?.minted && r.minted.length > 0) {
+            setNftMinted(r.minted.map((m: any) => typeof m === 'string' ? m : m.nft));
+          }
+        }).catch((e: any) => { console.warn('NFT check failed:', e); queuePending('nft', nftPayload); });
+        clearActiveRun();
       }
       if (!isMobile) {
         // Si le hunter attack est en cours, attendre qu'il se termine
@@ -445,16 +537,37 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
 
   // Hunter attack detection
   const hunterAttackRef = useRef(false);
+  const hunterCineTurnRef = useRef<number>(-99);
+  const hunterCineTimerRef = useRef<any>(null);
   useEffect(() => {
-    if (state.log?.includes('Tentacles rake the hull')) {
-      hunterAttackRef.current = true;
-      setShowHunterAttack(true);
-      setTimeout(() => {
-        hunterAttackRef.current = false;
-        setShowHunterAttack(false);
-      }, 8000);
-    }
+    if (!state.log?.includes('Tentacles rake the hull')) return;
+    // Un Hunter en frenesie frappe a chaque tour : sans garde, l'animation
+    // ne s'arretait plus. On la rejoue au plus une fois tous les 3 tours.
+    if (state.turn - hunterCineTurnRef.current < 3) return;
+    hunterCineTurnRef.current = state.turn;
+
+    if (hunterCineTimerRef.current) clearTimeout(hunterCineTimerRef.current);
+    hunterAttackRef.current = true;
+    setShowHunterAttack(true);
+    hunterCineTimerRef.current = setTimeout(() => {
+      hunterAttackRef.current = false;
+      setShowHunterAttack(false);
+    }, 3500);
   }, [state.log, state.turn]);
+
+  // Passer l'animation du Hunter : un clic, une touche ou un appui suffit.
+  useEffect(() => {
+    if (!showHunterAttack) return;
+    const skip = () => { hunterAttackRef.current = false; setShowHunterAttack(false); };
+    window.addEventListener('mousedown', skip);
+    window.addEventListener('keydown', skip);
+    window.addEventListener('touchstart', skip);
+    return () => {
+      window.removeEventListener('mousedown', skip);
+      window.removeEventListener('keydown', skip);
+      window.removeEventListener('touchstart', skip);
+    };
+  }, [showHunterAttack]);
 
   // Visual feedback effects
   useEffect(() => {
@@ -502,14 +615,18 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   const skip = () => { logAction(20); setState(s => skipEventFn(s)); };
   const upgradeComp = (c: 'hull'|'weapon'|'nav') => { logAction(c === 'hull' ? 30 : c === 'weapon' ? 31 : 32); setState(s => upgradeComponent(s, c)); };
 
-  const restart = () => {
-    const fresh = initGame();
+  const restart = async () => {
+    // Nouvelle partie = nouveau seed serveur, sinon la relance serait une faille.
+    const issued = walletAddress ? await issueSeed(walletAddress) : null;
+    const fresh = initGame(issued?.seed);
     actionLogRef.current = [];
+    checksRef.current = [];
     lastBeatRef.current = 0;
     runIdRef.current = crypto.randomUUID();
     if (walletAddress) startRun({
       run_id: runIdRef.current, wallet_address: walletAddress,
       username: username ?? null, seed: fresh.seed, is_daily: false,
+      seed_token: issued?.seed_token ?? null,
     });
     setState(fresh);
   };
@@ -1248,7 +1365,8 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                   const inCart = cart.includes(upg.id);
                   const free = s.upgradeToken;
                   const cost = free ? 0 : upg.cost;
-                  const canAdd = !owned && !inCart && s.ship.gold >= cost;
+                  const atMax = (s.ship.upgrades.length + cart.length) >= 2;
+                  const canAdd = !owned && !inCart && s.ship.gold >= cost && !atMax;
                   const bc = BUILD_COLOR[upg.build];
                   return (
                     <div key={upg.id} onClick={() => { if (inCart) { setCart(c => c.filter(x => x !== upg.id)); } else if (canAdd) { setCart(c => [...c, upg.id]); } }}
@@ -1264,6 +1382,11 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                   );
                 })}
               </div>
+              {(s.ship.upgrades.length + cart.length) >= 2 && (
+                <div style={{ fontSize:12, color:'rgba(238,102,85,0.8)', fontFamily:"'Cinzel', serif", letterSpacing:1, textAlign:'center', marginBottom:8 }}>
+                  MAX 2 SPECIAL ABILITIES
+                </div>
+              )}
             </div>
 
           {/* Repair — shown first for visibility */}
@@ -1411,14 +1534,10 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
             {/* Actions */}
             <motion.div initial={{opacity:0, y:10}} animate={{opacity:1, y:0}} transition={{delay:1.5}}
               style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:12 }}>
-              {walletAddress && !scoreSubmitted && (
+              {account && !onChainDone && (
                 <motion.button whileHover={{ scale:1.05 }} disabled={submitting}
                   onClick={async () => {
                     setSubmitting(true);
-                    const ok = await submitScore(walletAddress, s.score, s.runTitle, s.turn, s.currentZone ?? 1, s.seed, username ?? undefined);
-                    if (ok) {
-                      setScoreSubmitted(true);
-                    }
                     // On-chain submission
                     if (account) {
                       try {
@@ -1432,6 +1551,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                       try {
                         const nftResult = await checkNFTConditions({
                           wallet_address: walletAddress,
+                          run_id: runIdRef.current,
                           score: s.score,
                           seed: s.seed,
                           turn: s.turn,
@@ -1457,13 +1577,14 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                         console.warn('NFT check failed:', e);
                       }
                     }
+                    setOnChainDone(true);
                     setSubmitting(false);
                   }}
                   style={{ padding:'12px 32px', borderRadius:10, border:'1px solid rgba(200,160,48,0.4)', background:'rgba(200,160,48,0.1)', color:'#c8a030', fontSize:16, letterSpacing:3, cursor:'pointer', fontFamily:"'Pirata One', cursive" }}>
-                  {submitting ? 'SUBMITTING...' : <><Icon name="anchor" size={16} style={{ marginRight:6 }} />SUBMIT SCORE</>}
+                  {submitting ? 'SUBMITTING...' : <><Icon name="anchor" size={16} style={{ marginRight:6 }} />SUBMIT ON-CHAIN</>}
                 </motion.button>
               )}
-              {scoreSubmitted && <div style={{ fontSize:14, color:'#44cc88', letterSpacing:2, fontFamily:"'Pirata One', cursive" }}>✓ SCORE SUBMITTED</div>}
+              {scoreSubmitted && <div style={{ fontSize:14, color:'#44cc88', letterSpacing:2, fontFamily:"'Pirata One', cursive" }}>✓ SCORE SAVED — YOU'RE ON THE LEADERBOARD</div>}
               {nftMinted.length > 0 && (
                 <motion.div initial={{opacity:0, scale:0.8}} animate={{opacity:1, scale:1}}
                   style={{ padding:'12px 24px', borderRadius:12, border:'1px solid rgba(200,160,48,0.6)', background:'rgba(0,0,0,0.8)', textAlign:'center' }}>
@@ -1532,6 +1653,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
               style={{ position:'absolute', bottom:'20%', left:0, right:0, textAlign:'center' }}>
               <div style={{ fontSize: 32, color:'#cc44ee', fontFamily:"'Pirata One', cursive", letterSpacing:3, textShadow:'0 0 30px rgba(150,0,150,0.9)' }}>THE HUNTER STRIKES!</div>
               <div style={{ fontSize:16, color:'rgba(255,255,255,0.7)', fontFamily:"'IM Fell English', cursive", marginTop:6 }}>Tentacles rake the hull</div>
+              <div style={{ fontSize:11, color:'rgba(255,255,255,0.35)', fontFamily:"'Cinzel', serif", letterSpacing:2, marginTop:14 }}>CLICK TO SKIP</div>
             </motion.div>
           </motion.div>
         )}

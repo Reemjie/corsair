@@ -710,6 +710,18 @@ function applyDeathCheck(s: GameState): GameState {
   return s;
 }
 
+// Melange deterministe (Fisher-Yates). Remplace sort(() => rng.next() - 0.5),
+// dont le nombre d'appels au comparateur varie selon le moteur JS : le rejeu
+// serveur ne consommait alors pas le meme nombre de tirages que le navigateur.
+function shuffleWithRng<T>(arr: T[], rng: Rng): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(rng.next() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
 function applyPostTurnEffects(state: GameState, rng: Rng): GameState {
   let s = { ...state, ship: { ...state.ship, hull: Math.max(0, state.ship.hull) } };
   s = applyAchievements(s);
@@ -895,7 +907,7 @@ const rawG = navLvl2 >= 2 ? Math.floor(rng.int(30,90)*0.7) : rng.int(30,90);
         showPort = true;
         const all = ['ghost','rider','greed','berserker','hunter','escape'];
         const avail = all.filter(u => !ship.upgrades.includes(u as UpgradeId));
-        portUpgrades = ([...avail].sort(() => rng.next() - 0.5).slice(0, 2)) as UpgradeId[];
+        portUpgrades = (shuffleWithRng(avail as any[], rng).slice(0, 2)) as UpgradeId[];
         log = 'Welcome to port, Captain!';
         break;
       }
@@ -1107,7 +1119,7 @@ export function rerollPort(state: GameState): GameState {
   const rng = seededRng(state.rngState + state.turn);
   const all = ['escape','ghost','hunter','rider','greed','berserker'];
   const avail = all.filter(u => !state.ship.upgrades.includes(u as UpgradeId));
-  const portUpgrades = [...avail].sort(() => rng.next() - 0.5).slice(0, 4);
+  const portUpgrades = shuffleWithRng(avail as any[], rng).slice(0, 4);
   return { ...state, ship: { ...state.ship, gold: state.ship.gold - 20 }, portUpgrades: portUpgrades as UpgradeId[], log: 'Rerolled! -20g' };
 }
 
