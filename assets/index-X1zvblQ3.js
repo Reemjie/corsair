@@ -58129,20 +58129,6 @@ Resources:`;
         }, [
             d.turn
         ]), (0, x.useEffect)(()=>{
-            d.gameOver && console.log(`[MORT]`, {
-                tour: d.turn,
-                score: d.score,
-                coque: d.ship.hull + `/` + d.ship.maxHull,
-                tempete: d.stormDistance,
-                position: d.ship.x + `,` + d.ship.y,
-                hunter: d.hunter ? d.hunter.mode + ` (` + d.hunter.x + `,` + d.hunter.y + `)` : `absent`,
-                journal: d.log,
-                seed: d.seed,
-                navire: d.shipType
-            });
-        }, [
-            d.gameOver
-        ]), (0, x.useEffect)(()=>{
             !e || !d.gameOver || (uce(pe.current, {
                 score: d.score,
                 turn: d.turn,
