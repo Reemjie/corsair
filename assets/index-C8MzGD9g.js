@@ -58129,6 +58129,20 @@ Resources:`;
         }, [
             d.turn
         ]), (0, x.useEffect)(()=>{
+            d.gameOver && console.log(`[MORT]`, {
+                tour: d.turn,
+                score: d.score,
+                coque: d.ship.hull + `/` + d.ship.maxHull,
+                tempete: d.stormDistance,
+                position: d.ship.x + `,` + d.ship.y,
+                hunter: d.hunter ? d.hunter.mode + ` (` + d.hunter.x + `,` + d.hunter.y + `)` : `absent`,
+                journal: d.log,
+                seed: d.seed,
+                navire: d.shipType
+            });
+        }, [
+            d.gameOver
+        ]), (0, x.useEffect)(()=>{
             !e || !d.gameOver || (uce(pe.current, {
                 score: d.score,
                 turn: d.turn,
@@ -58475,8 +58489,8 @@ Resources:`;
         }, ft = (e)=>{
             he(e === `hull` ? 30 : e === `weapon` ? 31 : 32), f((t)=>f9(t, e));
         }, pt = async ()=>{
-            let t = e ? await z7(e) : null, r = s9(t?.seed);
-            me.current = [], ge.current = [], _e.current = 0, pe.current = crypto.randomUUID(), e && R7({
+            let t = e ? await z7(e) : null, r = s9(t?.seed, s ?? `default`);
+            me.current = [], ge.current = [], _e.current = 0, pe.current = crypto.randomUUID(), ee.current = !1, w(!1), E(!1), te([]), e && R7({
                 run_id: pe.current,
                 wallet_address: e,
                 username: n ?? null,
