@@ -57519,6 +57519,7 @@ Resources:`;
         return ne();
     }
     function d9(e, t) {
+        if (!e.showPort) return e;
         let n = e.upgradeToken ? 0 : {
             ghost: 80,
             rider: 90,
@@ -57554,6 +57555,7 @@ Resources:`;
         };
     }
     function f9(e, t) {
+        if (!e.showPort) return e;
         let n = {
             0: 50,
             1: 110
@@ -57584,6 +57586,7 @@ Resources:`;
         };
     }
     function p9(e, t, n) {
+        if (!e.showPort) return e;
         if (e.ship.upgrades.includes(`greed`)) return {
             ...e,
             log: `Cursed Greed prevents repairs!`
@@ -57600,6 +57603,7 @@ Resources:`;
         };
     }
     function m9(e) {
+        if (!e.showPort) return e;
         if (e.ship.gold < 20) return {
             ...e,
             log: `Not enough gold to reroll. (need 20g)`
