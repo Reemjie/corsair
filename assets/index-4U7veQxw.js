@@ -55642,17 +55642,25 @@ Resources:`;
         return t ? (console.warn(`[admin] getSupply:`, t.message), []) : e ?? [];
     }
     async function ace(e, t, n, r) {
-        let { error: i } = await F7.from(`nft_mints`).update({
-            status: `minted`,
-            tx_hash: t,
-            token_id: n
-        }).eq(`id`, e);
-        if (i) return console.warn(`[admin] markMinted:`, i.message), !1;
-        let { error: a } = await F7.from(`nft_token_metadata`).insert({
-            token_id: n,
-            nft_name: r
+        let i = localStorage.getItem(`corsair_admin_secret`);
+        if (!i) {
+            if (i = window.prompt(`Cle admin :`), !i) return !1;
+            localStorage.setItem(`corsair_admin_secret`, i);
+        }
+        let { data: a, error: o } = await F7.functions.invoke(`admin-mint`, {
+            body: {
+                secret: i,
+                id: e,
+                tx_hash: t,
+                token_id: n,
+                nft_name: r
+            }
         });
-        return a ? (console.warn(`[admin] metadata insert:`, a.message), !1) : !0;
+        if (o || !a?.ok) {
+            let e = a?.error ?? o?.message;
+            return e === `unauthorized` && (localStorage.removeItem(`corsair_admin_secret`), alert(`Cle admin refusee — reessaie.`)), console.warn(`[admin] markMinted:`, e), !1;
+        }
+        return !0;
     }
     function oce(e, t) {
         return `sncast --account corsair_deployer_mainnet invoke \\
