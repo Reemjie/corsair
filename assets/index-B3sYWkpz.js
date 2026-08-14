@@ -55643,10 +55643,7 @@ Resources:`;
     }
     async function ace(e, t, n, r) {
         let i = localStorage.getItem(`corsair_admin_secret`);
-        if (!i) {
-            if (i = window.prompt(`Cle admin :`), !i) return !1;
-            localStorage.setItem(`corsair_admin_secret`, i);
-        }
+        if (!i) return console.warn(`[admin] cle admin absente`), !1;
         let { data: a, error: o } = await F7.functions.invoke(`admin-mint`, {
             body: {
                 secret: i,
@@ -55658,7 +55655,7 @@ Resources:`;
         });
         if (o || !a?.ok) {
             let e = a?.error ?? o?.message;
-            return e === `unauthorized` && (localStorage.removeItem(`corsair_admin_secret`), alert(`Cle admin refusee — reessaie.`)), console.warn(`[admin] markMinted:`, e), !1;
+            return e === `unauthorized` && localStorage.removeItem(`corsair_admin_secret`), console.warn(`[admin] markMinted:`, e), !1;
         }
         return !0;
     }
