@@ -61653,7 +61653,7 @@ Resources:`;
                                             cursor: `pointer`,
                                             fontFamily: `'Pirata One', cursive`
                                         },
-                                        children: le ? `SUBMITTING...` : (0, I.jsxs)(I.Fragment, {
+                                        children: le ? `ENGRAVING...` : (0, I.jsxs)(I.Fragment, {
                                             children: [
                                                 (0, I.jsx)(T9, {
                                                     name: `anchor`,
@@ -61662,9 +61662,20 @@ Resources:`;
                                                         marginRight: 6
                                                     }
                                                 }),
-                                                `SUBMIT ON-CHAIN`
+                                                `ENGRAVE ON STARKNET`
                                             ]
                                         })
+                                    }),
+                                    (0, I.jsx)(`div`, {
+                                        style: {
+                                            fontSize: 11,
+                                            color: `rgba(255,255,255,0.35)`,
+                                            letterSpacing: 2,
+                                            fontFamily: `'Cinzel', serif`,
+                                            textAlign: `center`,
+                                            marginTop: -4
+                                        },
+                                        children: `OPTIONAL — CARVES THIS VOYAGE INTO STARKNET FOREVER`
                                     }),
                                     C && (0, I.jsx)(`div`, {
                                         style: {
