@@ -65022,8 +65022,8 @@ Resources:`;
                                 delay: .3
                             },
                             style: {
-                                fontSize: o ? 42 : 72,
-                                letterSpacing: o ? 7 : 16,
+                                fontSize: o ? 58 : 72,
+                                letterSpacing: o ? 10 : 16,
                                 marginTop: o ? 32 : 0,
                                 color: `#c8a030`,
                                 textShadow: `0 0 40px rgba(200,160,48,0.6), 0 2px 8px rgba(0,0,0,0.9)`
