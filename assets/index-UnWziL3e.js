@@ -64921,8 +64921,8 @@ Resources:`;
                 (0, I.jsx)(`div`, {
                     style: {
                         position: `absolute`,
-                        top: 20,
-                        right: 24,
+                        top: o ? 8 : 20,
+                        right: o ? 8 : 24,
                         zIndex: 20
                     },
                     children: S ? (0, I.jsxs)(`div`, {
@@ -64936,12 +64936,12 @@ Resources:`;
                                 onClick: ()=>EY.controller.openProfile(),
                                 style: {
                                     fontFamily: `'Cinzel', serif`,
-                                    fontSize: 11,
+                                    fontSize: o ? 9 : 11,
                                     color: `rgba(200,160,48,0.8)`,
-                                    letterSpacing: 2,
+                                    letterSpacing: o ? 1 : 2,
                                     border: `1px solid rgba(200,160,48,0.3)`,
                                     borderRadius: 8,
-                                    padding: `6px 14px`,
+                                    padding: o ? `3px 8px` : `6px 14px`,
                                     cursor: `pointer`
                                 },
                                 children: C ?? `${S.slice(0, 6)}...${S.slice(-4)}`
@@ -64952,10 +64952,10 @@ Resources:`;
                                     background: `transparent`,
                                     border: `1px solid rgba(255,255,255,0.1)`,
                                     color: `rgba(255,255,255,0.3)`,
-                                    fontSize: 11,
+                                    fontSize: o ? 9 : 11,
                                     cursor: `pointer`,
                                     borderRadius: 6,
-                                    padding: `6px 10px`,
+                                    padding: o ? `3px 6px` : `6px 10px`,
                                     fontFamily: `'Cinzel', serif`
                                 },
                                 children: `DISCONNECT`
@@ -65006,7 +65006,7 @@ Resources:`;
                         flexDirection: `column`,
                         alignItems: `center`,
                         justifyContent: `center`,
-                        gap: 24
+                        gap: o ? 12 : 24
                     },
                     children: [
                         (0, I.jsx)(X.div, {
@@ -65022,8 +65022,9 @@ Resources:`;
                                 delay: .3
                             },
                             style: {
-                                fontSize: 72,
-                                letterSpacing: 16,
+                                fontSize: o ? 42 : 72,
+                                letterSpacing: o ? 7 : 16,
+                                marginTop: o ? 32 : 0,
                                 color: `#c8a030`,
                                 textShadow: `0 0 40px rgba(200,160,48,0.6), 0 2px 8px rgba(0,0,0,0.9)`
                             },
@@ -65041,10 +65042,10 @@ Resources:`;
                             },
                             style: {
                                 fontFamily: `'Cinzel', serif`,
-                                fontSize: 13,
-                                letterSpacing: 6,
+                                fontSize: o ? 10 : 13,
+                                letterSpacing: o ? 3 : 6,
                                 color: `rgba(255,255,255,0.7)`,
-                                marginTop: -16,
+                                marginTop: o ? -6 : -16,
                                 textShadow: `0 1px 4px rgba(0,0,0,0.9)`,
                                 textAlign: `center`,
                                 width: `100%`
@@ -65082,7 +65083,8 @@ Resources:`;
                                         (0, I.jsxs)(`div`, {
                                             style: {
                                                 display: `flex`,
-                                                gap: 16
+                                                gap: 16,
+                                                width: o ? `88%` : `auto`
                                             },
                                             children: [
                                                 (0, I.jsx)(X.button, {
@@ -65102,12 +65104,13 @@ Resources:`;
                                                         e(S, C, t?.seed, !1, t?.seed_token);
                                                     },
                                                     style: {
-                                                        padding: `16px 48px`,
+                                                        padding: o ? `20px 0` : `16px 48px`,
+                                                        width: o ? `100%` : `auto`,
                                                         borderRadius: 12,
                                                         border: `2px solid rgba(200,160,48,0.9)`,
-                                                        background: `rgba(200,160,48,0.25)`,
-                                                        color: `#c8a030`,
-                                                        fontSize: 22,
+                                                        background: o ? `rgba(200,160,48,0.38)` : `rgba(200,160,48,0.25)`,
+                                                        color: o ? `#e8c250` : `#c8a030`,
+                                                        fontSize: o ? 28 : 22,
                                                         letterSpacing: 4,
                                                         cursor: `pointer`,
                                                         fontFamily: `'Pirata One', cursive`
@@ -65123,6 +65126,7 @@ Resources:`;
                                                     },
                                                     onClick: ()=>b(!0),
                                                     style: {
+                                                        display: o ? `none` : `block`,
                                                         padding: `16px 32px`,
                                                         borderRadius: 12,
                                                         border: `1px solid rgba(200,160,48,0.7)`,
@@ -65139,7 +65143,7 @@ Resources:`;
                                         }),
                                         (0, I.jsxs)(`div`, {
                                             style: {
-                                                padding: `16px 20px`,
+                                                padding: o ? `12px 14px` : `16px 20px`,
                                                 borderRadius: 16,
                                                 border: `2px solid rgba(200,160,48,0.5)`,
                                                 background: `linear-gradient(135deg, rgba(30,20,5,0.9), rgba(10,15,25,0.9))`,
@@ -65180,6 +65184,7 @@ Resources:`;
                                                             }),
                                                             (0, I.jsx)(`div`, {
                                                                 style: {
+                                                                    display: o ? `none` : `block`,
                                                                     fontSize: 12,
                                                                     color: `rgba(255,255,255,0.65)`,
                                                                     fontFamily: `'IM Fell English', cursive`,
@@ -65267,6 +65272,7 @@ Resources:`;
                                                 }),
                                                 (0, I.jsxs)(`div`, {
                                                     style: {
+                                                        display: o ? `none` : `block`,
                                                         fontSize: 10,
                                                         color: `rgba(238,221,68,0.55)`,
                                                         fontFamily: `'Cinzel', serif`,
@@ -65403,12 +65409,12 @@ Resources:`;
                                     },
                                     onClick: ()=>c(!0),
                                     style: {
-                                        padding: `12px 32px`,
+                                        padding: o ? `4px 10px` : `12px 32px`,
                                         borderRadius: 12,
-                                        border: `1px solid rgba(255,255,255,0.5)`,
-                                        background: `rgba(255,255,255,0.12)`,
-                                        color: `rgba(255,255,255,0.85)`,
-                                        fontSize: 14,
+                                        border: o ? `none` : `1px solid rgba(255,255,255,0.5)`,
+                                        background: o ? `transparent` : `rgba(255,255,255,0.12)`,
+                                        color: o ? `rgba(255,255,255,0.5)` : `rgba(255,255,255,0.85)`,
+                                        fontSize: o ? 12 : 14,
                                         letterSpacing: 3,
                                         cursor: `pointer`,
                                         fontFamily: `'Pirata One', cursive`
@@ -65423,6 +65429,35 @@ Resources:`;
                                         flexWrap: `wrap`
                                     },
                                     children: [
+                                        o && (0, I.jsxs)(X.button, {
+                                            whileTap: {
+                                                scale: .96
+                                            },
+                                            onClick: ()=>b(!0),
+                                            style: {
+                                                padding: `9px 12px`,
+                                                borderRadius: 12,
+                                                border: `1px solid rgba(200,160,48,0.45)`,
+                                                background: `rgba(200,160,48,0.07)`,
+                                                color: `rgba(200,160,48,0.9)`,
+                                                fontSize: 11,
+                                                letterSpacing: 1,
+                                                cursor: `pointer`,
+                                                fontFamily: `'Pirata One', cursive`,
+                                                display: `flex`,
+                                                alignItems: `center`
+                                            },
+                                            children: [
+                                                (0, I.jsx)(T9, {
+                                                    name: `crown`,
+                                                    size: 16,
+                                                    style: {
+                                                        marginRight: 5
+                                                    }
+                                                }),
+                                                `BOARD`
+                                            ]
+                                        }),
                                         (0, I.jsxs)(X.button, {
                                             whileHover: {
                                                 scale: 1.04
@@ -65432,13 +65467,13 @@ Resources:`;
                                             },
                                             onClick: ()=>u(!0),
                                             style: {
-                                                padding: `12px 26px`,
+                                                padding: o ? `9px 12px` : `12px 26px`,
                                                 borderRadius: 12,
                                                 border: `1px solid rgba(238,221,68,0.45)`,
                                                 background: `rgba(238,221,68,0.07)`,
                                                 color: `rgba(238,221,68,0.9)`,
-                                                fontSize: 14,
-                                                letterSpacing: 3,
+                                                fontSize: o ? 11 : 14,
+                                                letterSpacing: o ? 1 : 3,
                                                 cursor: `pointer`,
                                                 fontFamily: `'Pirata One', cursive`,
                                                 display: `flex`,
@@ -65447,9 +65482,9 @@ Resources:`;
                                             children: [
                                                 (0, I.jsx)(T9, {
                                                     name: `fleurdelys`,
-                                                    size: 22,
+                                                    size: o ? 16 : 22,
                                                     style: {
-                                                        marginRight: 8
+                                                        marginRight: o ? 5 : 8
                                                     }
                                                 }),
                                                 `FEATS`
@@ -65464,13 +65499,13 @@ Resources:`;
                                             },
                                             onClick: ()=>m(!0),
                                             style: {
-                                                padding: `12px 26px`,
+                                                padding: o ? `9px 12px` : `12px 26px`,
                                                 borderRadius: 12,
                                                 border: `1px solid rgba(136,221,255,0.45)`,
                                                 background: `rgba(136,221,255,0.07)`,
                                                 color: `rgba(136,221,255,0.9)`,
-                                                fontSize: 14,
-                                                letterSpacing: 3,
+                                                fontSize: o ? 11 : 14,
+                                                letterSpacing: o ? 1 : 3,
                                                 cursor: `pointer`,
                                                 fontFamily: `'Pirata One', cursive`,
                                                 display: `flex`,
@@ -65479,9 +65514,9 @@ Resources:`;
                                             children: [
                                                 (0, I.jsx)(T9, {
                                                     name: `ship`,
-                                                    size: 22,
+                                                    size: o ? 16 : 22,
                                                     style: {
-                                                        marginRight: 8
+                                                        marginRight: o ? 5 : 8
                                                     }
                                                 }),
                                                 `SHIPS`
@@ -65496,13 +65531,13 @@ Resources:`;
                                             },
                                             onClick: ()=>f(!0),
                                             style: {
-                                                padding: `12px 26px`,
+                                                padding: o ? `9px 12px` : `12px 26px`,
                                                 borderRadius: 12,
                                                 border: `1px solid rgba(170,102,238,0.45)`,
                                                 background: `rgba(170,102,238,0.07)`,
                                                 color: `rgba(200,150,255,0.9)`,
-                                                fontSize: 14,
-                                                letterSpacing: 3,
+                                                fontSize: o ? 11 : 14,
+                                                letterSpacing: o ? 1 : 3,
                                                 cursor: `pointer`,
                                                 fontFamily: `'Pirata One', cursive`,
                                                 display: `flex`,
@@ -65511,9 +65546,9 @@ Resources:`;
                                             children: [
                                                 (0, I.jsx)(T9, {
                                                     name: `fleurdelys`,
-                                                    size: 22,
+                                                    size: o ? 16 : 22,
                                                     style: {
-                                                        marginRight: 8
+                                                        marginRight: o ? 5 : 8
                                                     }
                                                 }),
                                                 `NFTS`
