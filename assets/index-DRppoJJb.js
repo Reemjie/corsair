@@ -60426,13 +60426,25 @@ Resources:`;
                 (0, I.jsx)(B3, {
                     children: A.event && A9[A.event.cellType] && (0, I.jsxs)(X.div, {
                         initial: {
-                            opacity: 0
+                            opacity: 0,
+                            scale: 1.05
                         },
                         animate: {
-                            opacity: 1
+                            opacity: 1,
+                            scale: 1
                         },
                         exit: {
                             opacity: 0
+                        },
+                        transition: {
+                            delay: .26,
+                            duration: .5,
+                            ease: [
+                                .22,
+                                1,
+                                .36,
+                                1
+                            ]
                         },
                         style: {
                             position: `fixed`,
