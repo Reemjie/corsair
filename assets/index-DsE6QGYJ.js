@@ -60439,7 +60439,7 @@ Resources:`;
                     })()
                 }),
                 (0, I.jsx)(B3, {
-                    children: A.event && A9[A.event.cellType] && (0, I.jsxs)(X.div, {
+                    children: A.event && !ve && A9[A.event.cellType] && (0, I.jsxs)(X.div, {
                         initial: {
                             opacity: 0,
                             scale: 1.05
