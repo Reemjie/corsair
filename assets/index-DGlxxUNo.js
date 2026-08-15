@@ -60191,7 +60191,8 @@ Resources:`;
                             opacity: 0
                         },
                         transition: {
-                            duration: .4
+                            delay: .2,
+                            duration: .3
                         },
                         onClick: ()=>{
                             ve === `death` && Ce(!0), ye(null);
@@ -60204,7 +60205,7 @@ Resources:`;
                             background: `#05080f`
                         },
                         children: [
-                            (0, I.jsx)(`video`, {
+                            (0, I.jsx)(X.video, {
                                 src: k9[ve],
                                 autoPlay: !0,
                                 muted: xt,
@@ -60212,6 +60213,19 @@ Resources:`;
                                 preload: `auto`,
                                 onEnded: ()=>{
                                     ve === `death` && Ce(!0), ye(null);
+                                },
+                                initial: {
+                                    opacity: 0,
+                                    scale: 1.07
+                                },
+                                animate: {
+                                    opacity: 1,
+                                    scale: 1
+                                },
+                                transition: {
+                                    delay: .42,
+                                    duration: .75,
+                                    ease: `easeOut`
                                 },
                                 style: {
                                     width: `100%`,
