@@ -63942,6 +63942,13 @@ Resources:`;
             seedBound: !0
         },
         {
+            key: `starktember_tide`,
+            name: `The Starktember Tide`,
+            rarity: `Mythic`,
+            image: `https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/11-starktember_tide.jpg`,
+            condition: `September only — highest total across the month's dailies. One month, one winner.`
+        },
+        {
             key: `leviathan`,
             name: `???`,
             rarity: `Mythic`,
