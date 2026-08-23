@@ -63874,42 +63874,42 @@ Resources:`;
             key: `last_port`,
             name: `The Last Port`,
             rarity: `Rare`,
-            image: `ipfs://bafybeiagwhp7b5if5affgcbivuw5yxpek3dkjlrsvvxaugzifx44ayj6jy`,
+            image: `https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/08-last_port.jpg`,
             condition: `Visit 2 ports and finish above 500 points.`
         },
         {
             key: `cursed_doubloon`,
             name: `The Cursed Doubloon`,
             rarity: `Rare`,
-            image: `ipfs://bafybeid56dnunq3wu5ad6eveuve4k23duy6bxreelt32mr4bbygmfydpra`,
+            image: `https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/06-cursed_doubloon.jpg`,
             condition: `Take the cursed treasure and end the run with 300+ gold.`
         },
         {
             key: `ancient_chart`,
             name: `The Ancient Chart`,
             rarity: `Epic`,
-            image: `ipfs://bafybeid576kkatsdsjvyldarwiybwq2hqibf7cd7dvdtidtizluvem5apm`,
+            image: `https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/02-ancient_chart.jpg`,
             condition: `Find 3 treasures and kill a Kraken in the same voyage.`
         },
         {
             key: `ghost_corsair`,
             name: `The Ghost Corsair`,
             rarity: `Epic`,
-            image: `ipfs://bafybeih5se4lzkn5s3u52raqp6hgg77syijm4buyb5upq5y7zlfshrfbha`,
+            image: `https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/04-ghost_corsair.jpg`,
             condition: `Finish above 400 points without fighting a single pirate.`
         },
         {
             key: `blood_moon_tide`,
             name: `The Blood Moon Tide`,
             rarity: `Epic`,
-            image: `ipfs://bafybeibttmnchyiy4ypet6yuodsg3xkxqzcem5kf3zoymi7pu64i3rgjn4`,
+            image: `https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/09-blood_moon_tide.jpg`,
             condition: `Reach a 3-danger streak by turn 8, then survive to turn 20.`
         },
         {
             key: `storm_caller`,
             name: `The Storm Caller`,
             rarity: `Legendary`,
-            image: `ipfs://bafybeieyiw5elinspkna3yua3thqqxsg5tldvm3ezospxm4azporrkvki4`,
+            image: `https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/03-storm_caller.jpg`,
             condition: `Let the storm close to within 2 tiles, and still be afloat on turn 10.`,
             seedBound: !0
         },
@@ -63917,7 +63917,7 @@ Resources:`;
             key: `kraken_eye`,
             name: `The Kraken's Eye`,
             rarity: `Legendary`,
-            image: `ipfs://bafybeic3suyc2sklp2ypx7nvfmj4fhayqu2fqd3xalq257jhthpx5wr4se`,
+            image: `https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/01-kraken_eye.jpg`,
             condition: `Kill the Ancient Kraken — the one that only stirs in the deepest water.`,
             seedBound: !0
         },
@@ -63925,7 +63925,7 @@ Resources:`;
             key: `maelstrom_heart`,
             name: `The Maelstrom Heart`,
             rarity: `Legendary`,
-            image: `ipfs://bafybeiepk3zxbacpf4ngormvc5kcgglvh46judpdfh7rkln2cenbveh3iy`,
+            image: `https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/05-maelstrom_heart.jpg`,
             condition: `Be swallowed by a maelstrom and come back out.`,
             seedBound: !0
         },
@@ -63933,7 +63933,7 @@ Resources:`;
             key: `hunters_mark`,
             name: `The Hunter's Mark`,
             rarity: `Legendary`,
-            image: `ipfs://bafybeibmsy6qmz4wlxoyqqxk2jbvvjl7cgqkx23ts4dczhjed7jnnc4pdm`,
+            image: `https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/07-hunters_mark.jpg`,
             condition: `Survive 2 attacks from the Hunter in a single voyage.`,
             seedBound: !0
         },
@@ -63941,7 +63941,7 @@ Resources:`;
             key: `leviathan`,
             name: `???`,
             rarity: `Mythic`,
-            image: `ipfs://bafybeicsvnwhzz5wkn2geq3vnds2a56ko4w2fnojnqtsr6k5iafmidnprq`,
+            image: `https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/10-leviathan.jpg`,
             condition: `Finish above 3,000 points, with a Kraken dead in your wake.`,
             seedBound: !0,
             hidden: !0
