@@ -55613,7 +55613,7 @@ Resources:`;
         return n ? [] : t;
     }
     async function I7() {
-        let { data: e, error: t } = await P7.from(`starktember_board`).select(`wallet_address, username, total, days_played, best_day`).limit(10);
+        let { data: e, error: t } = await P7.from(`starktember_board`).select(`rank, wallet_address, username, total, days_played, best_day`).limit(50);
         return t ? (console.warn(`[starktember]`, t.message), []) : e ?? [];
     }
     async function rce(e) {
@@ -65506,7 +65506,77 @@ Resources:`;
                                                         children: e.total.toLocaleString()
                                                     })
                                                 ]
-                                            }, e.wallet_address))
+                                            }, e.wallet_address)),
+                                        (()=>{
+                                            if (!T) return null;
+                                            let e = (e)=>e.toLowerCase().replace(/^0x0*/, ``), t = i.find((t)=>e(t.wallet_address) === e(T));
+                                            if (!t || t.rank <= 5) return null;
+                                            let n = i[0];
+                                            return (0, L.jsxs)(`div`, {
+                                                style: {
+                                                    display: `flex`,
+                                                    alignItems: `center`,
+                                                    gap: 8,
+                                                    marginTop: 8,
+                                                    paddingTop: 8,
+                                                    borderTop: `1px solid rgba(238,170,68,0.18)`
+                                                },
+                                                children: [
+                                                    (0, L.jsx)(`div`, {
+                                                        style: {
+                                                            fontSize: 12,
+                                                            color: `rgba(238,170,68,0.9)`,
+                                                            width: 16,
+                                                            textAlign: `center`
+                                                        },
+                                                        children: t.rank
+                                                    }),
+                                                    (0, L.jsx)(`div`, {
+                                                        style: {
+                                                            flex: 1,
+                                                            fontSize: 12,
+                                                            color: `rgba(255,255,255,0.9)`,
+                                                            fontFamily: `'Cinzel', serif`
+                                                        },
+                                                        children: `You`
+                                                    }),
+                                                    (0, L.jsxs)(`div`, {
+                                                        style: {
+                                                            fontSize: 10,
+                                                            color: `rgba(255,255,255,0.3)`,
+                                                            fontFamily: `'Cinzel', serif`
+                                                        },
+                                                        children: [
+                                                            t.days_played,
+                                                            `d`
+                                                        ]
+                                                    }),
+                                                    (0, L.jsx)(`div`, {
+                                                        style: {
+                                                            fontSize: 12,
+                                                            color: `#eeaa44`,
+                                                            fontFamily: `'Cinzel', serif`,
+                                                            minWidth: 52,
+                                                            textAlign: `right`
+                                                        },
+                                                        children: t.total.toLocaleString()
+                                                    }),
+                                                    (0, L.jsxs)(`div`, {
+                                                        style: {
+                                                            fontSize: 10,
+                                                            color: `rgba(255,255,255,0.35)`,
+                                                            fontFamily: `'Cinzel', serif`,
+                                                            minWidth: 56,
+                                                            textAlign: `right`
+                                                        },
+                                                        children: [
+                                                            `-`,
+                                                            (n.total - t.total).toLocaleString()
+                                                        ]
+                                                    })
+                                                ]
+                                            });
+                                        })()
                                     ]
                                 }),
                                 n && n.actions.length > 0 && t && (0, L.jsxs)(X.button, {
