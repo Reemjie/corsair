@@ -58619,6 +58619,16 @@ Resources:`;
                                 inset: 0,
                                 background: `radial-gradient(ellipse at 50% 45%, rgba(8,15,24,0.35) 0%, rgba(8,15,24,0.82) 55%, rgba(8,15,24,0.97) 100%)`
                             }
+                        }),
+                        (0, L.jsx)(`div`, {
+                            style: {
+                                position: `absolute`,
+                                top: 0,
+                                left: 0,
+                                right: 0,
+                                height: 150,
+                                background: `linear-gradient(to bottom, rgba(8,15,24,0.94) 0%, rgba(8,15,24,0.7) 60%, transparent 100%)`
+                            }
                         })
                     ]
                 }),
