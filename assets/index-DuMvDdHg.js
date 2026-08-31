@@ -58619,16 +58619,6 @@ Resources:`;
                                 inset: 0,
                                 background: `radial-gradient(ellipse at 50% 45%, rgba(8,15,24,0.35) 0%, rgba(8,15,24,0.82) 55%, rgba(8,15,24,0.97) 100%)`
                             }
-                        }),
-                        (0, L.jsx)(`div`, {
-                            style: {
-                                position: `absolute`,
-                                top: 0,
-                                left: 0,
-                                right: 0,
-                                height: 150,
-                                background: `linear-gradient(to bottom, rgba(8,15,24,0.94) 0%, rgba(8,15,24,0.7) 60%, transparent 100%)`
-                            }
                         })
                     ]
                 }),
@@ -58697,9 +58687,11 @@ Resources:`;
                         justifyContent: `space-between`,
                         alignItems: `center`,
                         padding: A ? `6px 8px` : `16px 28px`,
-                        background: `rgba(0,0,0,0.5)`,
+                        background: `rgba(6,11,18,0.92)`,
                         borderBottom: `1px solid rgba(255,255,255,0.06)`,
-                        flexShrink: 0
+                        flexShrink: 0,
+                        position: `relative`,
+                        zIndex: 5
                     },
                     children: [
                         (0, L.jsxs)(`div`, {
