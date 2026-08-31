@@ -65432,6 +65432,17 @@ Resources:`;
                                             },
                                             children: `Highest total across the month · one relic, one winner`
                                         }),
+                                        (0, L.jsx)(`div`, {
+                                            style: {
+                                                fontSize: l ? 9 : 10,
+                                                color: `rgba(238,170,68,0.7)`,
+                                                fontFamily: `'Cinzel', serif`,
+                                                letterSpacing: 1,
+                                                textAlign: `center`,
+                                                marginBottom: 8
+                                            },
+                                            children: `ONLY THE DAILY CHALLENGE COUNTS`
+                                        }),
                                         i.length === 0 ? (0, L.jsx)(`div`, {
                                             style: {
                                                 fontSize: 11,
