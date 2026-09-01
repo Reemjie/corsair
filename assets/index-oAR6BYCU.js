@@ -60603,7 +60603,7 @@ Resources:`;
                                             justifyContent: `center`
                                         },
                                         children: j.event.choices.map((e, t)=>{
-                                            let n = e.risk === `safe` ? `#44cc88` : e.risk === `risky` ? `#eedd44` : `#ee6644`, r = e.desc.match(/(?:lose|pay|costs?|spend)\s*(\d+)\s*(?:gold\b|g\b)/i), i = r ? parseInt(r[1]) : 0, a = i === 0 || j.ship.gold >= i;
+                                            let n = e.risk === `safe` ? `#44cc88` : e.risk === `risky` ? `#eedd44` : `#ee6644`, r = e.desc.match(/(?:lose|pay|costs?|spend)\s*(\d+)\s*(?:gold\b|g\b)|-(\d+)\s*gold\b/i), i = r ? parseInt(r[1] ?? r[2]) : 0, a = i === 0 || j.ship.gold >= i;
                                             return (0, L.jsxs)(X.button, {
                                                 whileHover: {
                                                     scale: a ? 1.04 : 1
