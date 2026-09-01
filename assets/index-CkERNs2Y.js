@@ -60838,10 +60838,12 @@ Resources:`;
                             opacity: 0
                         },
                         style: {
-                            background: `rgba(5,10,18,0.97)`,
+                            background: `rgba(5,10,18,0.985)`,
                             borderTop: `1px solid rgba(68,204,136,0.2)`,
                             padding: A ? `12px 12px calc(12px + env(safe-area-inset-bottom))` : `16px 24px`,
                             flexShrink: 0,
+                            position: `relative`,
+                            zIndex: 5,
                             maxHeight: A ? `62vh` : void 0,
                             overflowY: A ? `auto` : void 0
                         },
