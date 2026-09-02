@@ -65080,7 +65080,7 @@ Resources:`;
                         letterSpacing: 6,
                         color: `rgba(255,255,255,0.6)`,
                         textShadow: `0 1px 4px rgba(0,0,0,0.8)`,
-                        display: l ? `none` : `block`
+                        display: l || o ? `none` : `block`
                     },
                     children: q9[O].label
                 }),
@@ -65375,7 +65375,7 @@ Resources:`;
                                                                 marginRight: 7
                                                             }
                                                         }),
-                                                        `Next NFT tournament coming soon — follow @PlayCorsair`
+                                                        `Starktember is live — the Daily decides who takes the Tide`
                                                     ]
                                                 })
                                             ]
