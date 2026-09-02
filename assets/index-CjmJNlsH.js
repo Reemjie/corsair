@@ -65092,8 +65092,11 @@ Resources:`;
                         display: `flex`,
                         flexDirection: `column`,
                         alignItems: `center`,
-                        justifyContent: `center`,
-                        gap: l ? 12 : 24
+                        justifyContent: l ? `flex-start` : `center`,
+                        gap: l ? 12 : 24,
+                        overflowY: l ? `auto` : `visible`,
+                        paddingTop: l ? 44 : 0,
+                        paddingBottom: l ? 32 : 0
                     },
                     children: [
                         (0, L.jsx)(X.div, {
