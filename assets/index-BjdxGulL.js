@@ -59427,8 +59427,9 @@ Resources:`;
                                 flexDirection: `column`,
                                 alignItems: `center`,
                                 justifyContent: A ? `flex-start` : `center`,
-                                padding: A ? `6px 4px` : `10px`,
-                                position: `relative`
+                                padding: A ? `6px 4px calc(96px + env(safe-area-inset-bottom))` : `10px`,
+                                position: `relative`,
+                                overflowY: A ? `auto` : `visible`
                             },
                             children: [
                                 A && !j.event && !j.showPort && !j.gameOver && (0, L.jsx)(`div`, {
@@ -59854,11 +59855,11 @@ Resources:`;
                                     children: [
                                         j.scoreMultiplier > 1 && (0, L.jsxs)(`div`, {
                                             style: {
-                                                fontSize: j.scoreMultiplier >= 3 ? 42 : 32,
+                                                fontSize: A ? 17 : j.scoreMultiplier >= 3 ? 42 : 32,
                                                 fontWeight: 700,
                                                 color: j.scoreMultiplier >= 3 ? `#ee4444` : `#eedd44`,
-                                                letterSpacing: 4,
-                                                textShadow: j.scoreMultiplier >= 3 ? `0 0 30px #ee4444, 0 0 60px #ee444466` : `0 0 20px #eedd44, 0 0 40px #eedd4466`,
+                                                letterSpacing: A ? 2 : 4,
+                                                textShadow: A ? `none` : j.scoreMultiplier >= 3 ? `0 0 30px #ee4444, 0 0 60px #ee444466` : `0 0 20px #eedd44, 0 0 40px #eedd4466`,
                                                 filter: j.scoreMultiplier >= 3 ? `brightness(1.3)` : `brightness(1.1)`
                                             },
                                             children: [
@@ -59870,6 +59871,7 @@ Resources:`;
                                         }),
                                         (0, L.jsxs)(`div`, {
                                             style: {
+                                                display: A ? `none` : `block`,
                                                 fontSize: 13,
                                                 color: `rgba(255,255,255,0.4)`,
                                                 fontFamily: `'Cinzel', serif`,
