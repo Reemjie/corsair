@@ -60040,7 +60040,8 @@ Resources:`;
                                         marginTop: 10,
                                         textAlign: `center`,
                                         maxWidth: 420,
-                                        paddingRight: A ? 80 : 0
+                                        paddingRight: A ? 80 : 0,
+                                        marginBottom: A ? `calc(104px + env(safe-area-inset-bottom))` : 0
                                     },
                                     children: (()=>{
                                         let e = (j.log ?? ``).split(`. `).map((e)=>e.trim()).filter(Boolean), t = e[0] ? e[0].replace(/\.+$/, ``) : ``, n = e.slice(1).join(`. `);
