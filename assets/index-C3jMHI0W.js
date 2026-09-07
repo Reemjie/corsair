@@ -66316,7 +66316,11 @@ Resources:`;
         }, []);
         let h = (e, t, n, r, a)=>{
             m(t ?? null), f(void 0), o(n), c(!!r), u(a), i(`game`);
-        }, g = p ?? n, _ = s ? `default` : U9();
+        };
+        (0, x.useEffect)(()=>{
+            new URLSearchParams(window.location.search).has(`guest`) && h(null, `Guest`, Math.floor(Math.random() * 999999), !1, void 0);
+        }, []);
+        let g = p ?? n, _ = s ? `default` : U9();
         return r === `admin` ? (0, L.jsx)(Ole, {
             onHome: ()=>{
                 window.location.hash = ``, i(`home`);
