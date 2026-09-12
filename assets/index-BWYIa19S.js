@@ -58875,6 +58875,8 @@ Resources:`;
                                 }),
                                 (0, L.jsx)(`button`, {
                                     onClick: ()=>wt((e)=>!e),
+                                    "aria-label": Ct ? `Unmute sound` : `Mute sound`,
+                                    title: Ct ? `Unmute sound` : `Mute sound`,
                                     style: {
                                         background: `transparent`,
                                         border: `1px solid rgba(255,255,255,0.1)`,
@@ -58910,6 +58912,8 @@ Resources:`;
                                 }),
                                 (0, L.jsx)(`button`, {
                                     onClick: ()=>wt((e)=>!e),
+                                    "aria-label": Ct ? `Unmute sound` : `Mute sound`,
+                                    title: Ct ? `Unmute sound` : `Mute sound`,
                                     style: {
                                         background: `transparent`,
                                         border: `none`,
@@ -59204,7 +59208,7 @@ Resources:`;
                                         color: `#eedd44`,
                                         marginTop: 4
                                     },
-                                    children: `✦ Free upgrade!`
+                                    children: `✦ Free upgrade — claim it at a port`
                                 }),
                                 (0, L.jsxs)(`div`, {
                                     style: {
@@ -59462,6 +59466,7 @@ Resources:`;
                                         }
                                     ].map((e)=>(0, L.jsx)(`button`, {
                                             onClick: ()=>_t(e.dx, e.dy),
+                                            "aria-label": `Sail ${e.label.replace(/[▲◀▶]/g, ``).trim().toLowerCase()}`,
                                             style: {
                                                 flex: e.dy === -1 ? 1.3 : 1,
                                                 padding: `16px 8px`,
@@ -59513,6 +59518,94 @@ Resources:`;
                                                 ` pts`
                                             ]
                                         })
+                                    ]
+                                }),
+                                !A && !j.event && !j.showPort && !j.gameOver && (0, L.jsxs)(`div`, {
+                                    "aria-label": `Sailing controls`,
+                                    style: {
+                                        display: `flex`,
+                                        alignItems: `center`,
+                                        gap: 8,
+                                        marginBottom: 10
+                                    },
+                                    children: [
+                                        (0, L.jsx)(`span`, {
+                                            style: {
+                                                fontSize: 11,
+                                                color: `rgba(255,255,255,0.38)`,
+                                                fontFamily: `'Cinzel', serif`,
+                                                letterSpacing: 1.5
+                                            },
+                                            children: `SAIL`
+                                        }),
+                                        [
+                                            {
+                                                label: `← PORT`,
+                                                keyHint: `A`,
+                                                dx: -1,
+                                                dy: 0
+                                            },
+                                            {
+                                                label: `↑ AHEAD`,
+                                                keyHint: `W`,
+                                                dx: 0,
+                                                dy: -1
+                                            },
+                                            {
+                                                label: `STARBOARD →`,
+                                                keyHint: `D`,
+                                                dx: 1,
+                                                dy: 0
+                                            }
+                                        ].map((e)=>(0, L.jsxs)(`button`, {
+                                                onClick: ()=>_t(e.dx, e.dy),
+                                                title: `${e.label} (${e.keyHint} / arrow key)`,
+                                                style: {
+                                                    padding: `8px 11px`,
+                                                    borderRadius: 8,
+                                                    border: `1px solid rgba(200,160,48,0.46)`,
+                                                    background: e.dy === -1 ? `rgba(200,160,48,0.2)` : `rgba(200,160,48,0.08)`,
+                                                    color: `#e8d8a8`,
+                                                    fontSize: 13,
+                                                    fontFamily: `'Pirata One', cursive`,
+                                                    letterSpacing: 1,
+                                                    cursor: `pointer`
+                                                },
+                                                children: [
+                                                    e.label,
+                                                    ` `,
+                                                    (0, L.jsx)(`span`, {
+                                                        style: {
+                                                            marginLeft: 4,
+                                                            color: `rgba(255,255,255,0.42)`,
+                                                            fontFamily: `'Cinzel', serif`,
+                                                            fontSize: 10
+                                                        },
+                                                        children: e.keyHint
+                                                    })
+                                                ]
+                                            }, e.label))
+                                    ]
+                                }),
+                                j.turn === 0 && !j.event && !j.showPort && !j.gameOver && (0, L.jsxs)(`div`, {
+                                    role: `status`,
+                                    "aria-live": `polite`,
+                                    style: {
+                                        maxWidth: 440,
+                                        margin: `0 12px 10px`,
+                                        padding: `8px 12px`,
+                                        border: `1px solid rgba(200,160,48,0.22)`,
+                                        borderRadius: 8,
+                                        background: `rgba(5,10,18,0.52)`,
+                                        color: `rgba(255,255,255,0.72)`,
+                                        textAlign: `center`,
+                                        fontSize: A ? 13 : 15,
+                                        fontFamily: `'IM Fell English', cursive`,
+                                        lineHeight: 1.35
+                                    },
+                                    children: [
+                                        `Sail north, uncover the sea, and build your score before the storm catches you.`,
+                                        !A && ` Use A/W/D or the arrow keys to set course.`
                                     ]
                                 }),
                                 (0, L.jsxs)(`div`, {
@@ -60036,12 +60129,14 @@ Resources:`;
                                 }),
                                 !1,
                                 (0, L.jsx)(`div`, {
+                                    "aria-live": `polite`,
+                                    "aria-atomic": `true`,
                                     style: {
                                         marginTop: 10,
                                         textAlign: `center`,
                                         maxWidth: 420,
                                         paddingRight: A ? 80 : 0,
-                                        marginBottom: A ? `calc(104px + env(safe-area-inset-bottom))` : 0
+                                        marginBottom: 0
                                     },
                                     children: (()=>{
                                         let e = (j.log ?? ``).split(`. `).map((e)=>e.trim()).filter(Boolean), t = e[0] ? e[0].replace(/\.+$/, ``) : ``, n = e.slice(1).join(`. `);
@@ -60130,6 +60225,13 @@ Resources:`;
                                             ]
                                         }, e) : null;
                                     })
+                                }),
+                                A && (0, L.jsx)(`div`, {
+                                    "aria-hidden": !0,
+                                    style: {
+                                        flexShrink: 0,
+                                        height: `calc(112px + env(safe-area-inset-bottom))`
+                                    }
                                 })
                             ]
                         }),
@@ -62145,6 +62247,8 @@ Resources:`;
                                         scale: .9
                                     },
                                     onClick: ()=>Fe(Pe === `ship` ? null : `ship`),
+                                    "aria-label": `Show ship status`,
+                                    "aria-expanded": Pe === `ship`,
                                     style: {
                                         width: 44,
                                         height: 44,
@@ -62165,6 +62269,8 @@ Resources:`;
                                         scale: .9
                                     },
                                     onClick: ()=>Fe(Pe === `upgrades` ? null : `upgrades`),
+                                    "aria-label": `Show upgrades`,
+                                    "aria-expanded": Pe === `upgrades`,
                                     style: {
                                         width: 44,
                                         height: 44,
@@ -62263,6 +62369,14 @@ Resources:`;
                                                         t.name
                                                     ]
                                                 }, e);
+                                            }),
+                                            j.upgradeToken && (0, L.jsx)(`div`, {
+                                                style: {
+                                                    fontSize: 12,
+                                                    color: `#eedd44`,
+                                                    marginBottom: 8
+                                                },
+                                                children: `✦ Free upgrade — claim it at a port`
                                             }),
                                             (0, L.jsx)(`div`, {
                                                 style: {
