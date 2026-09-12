@@ -767,6 +767,13 @@ export function resolveEvent(state: GameState, choiceIdx: number): GameState {
     (cellType === 'rocks'         && choiceIdx === 1);
 
   const escapedDanger = isDangerCell && choiceIdx === 1;
+  // Fuir doit rapporter quelque chose, sinon la reponse est connue d'avance.
+  // On echange des points contre du temps : place ici, le gain s'ajoute AVANT
+  // les branches tempete et maelstrom qui retirent 1, donc fuir une tempete
+  // reste moins payant que fuir un pirate.
+  if (escapedDanger) {
+    stormDistance = Math.min(99, stormDistance + ((BALANCE.streak as any).fleeStormGain ?? 0));
+  }
 
   let dangerStreak = tookRisk
     ? state.dangerStreak + 1

@@ -28,6 +28,11 @@ export const BALANCE = {
     corruptionPirateAt: 2,     // pirate damage +1 at corruption 2+
   },
   streak: {
+    // Leviers d'equilibrage. Valeurs par defaut = comportement historique.
+    fleePenalty: 2,
+    fleeStormGain: 0,      // distance gagnee sur la tempete en fuyant (0 = historique)          // serie perdue en fuyant un danger
+    riskBoostsOwnEvent: true, // le risque booste-t-il le gain du meme evenement ?
+    minHullForStreak: 0,      // coque minimale pour que le risque compte (0 = desactive)
     goldBonusAt: 2,
     goldBonus: 1.25,
     hunterAggroAt: 3,
@@ -41,6 +46,9 @@ export const BALANCE = {
     rareChance: 0.25,
   },
   combat: {
+    // Degats des combats multiplies selon la rangee : le nord doit etre
+    // aussi dangereux qu'il est riche. 1.0 = comportement historique.
+    zoneDamageMult: { mid: 1.0, late: 1.0 },
     pirateDmgMin: 3,
     pirateDmgMax: 10,
     pirateGoldMin: 20,

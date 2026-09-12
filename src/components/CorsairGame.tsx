@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { GameState, UpgradeId } from '../types/game';
-import { markDailyPlayedOnServer, submitScore, submitDailyScore, checkNFTConditions, startRun, heartbeatRun, finishRun, saveRunLog, issueSeed } from '../supabase';
+import { markDailyPlayedOnServer, startRun, heartbeatRun, finishRun, saveRunLog, issueSeed, approveRun, getStarktemberBoard, type StarktemberRow } from '../supabase';
 import { ZONE_CONFIG } from '../game/balance';
 import { submitScoreOnChain } from '../starknet';
 import { initGame, moveShip, resolveEvent, repairHull, leavePort, skipEventFn, rerollPort, upgradeComponent, buyUpgrade, markDailyPlayed, getDailyKey } from '../game/engine';
@@ -38,6 +38,14 @@ import powerImg from '../assets/power.png';
 import turnImg from '../assets/turn.png';
 import scoreImg from '../assets/score.png';
 import { GRID_SIZE } from '../game/mapGen';
+
+// Fond de mer selon la zone : la progression doit se voir. Franchir un
+// portail change l'horizon, pas seulement un compteur.
+const ZONE_BG: Record<number, string> = {
+  1: import.meta.env.BASE_URL + 'scenes/island.jpg',
+  2: import.meta.env.BASE_URL + 'scenes/storm.jpg',
+  3: import.meta.env.BASE_URL + 'scenes/ancient-kraken.jpg',
+};
 
 const SCENE_BG: Record<string, string> = {
   kraken: import.meta.env.BASE_URL + 'scenes/kraken.jpg',
@@ -255,6 +263,8 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   // Fin de partie
   useEffect(() => {
     if (!walletAddress || !state.gameOver) return;
+    if (autoSentRef.current) return;
+    autoSentRef.current = true;
     finishRun(runIdRef.current, {
       score: state.score, turn: state.turn,
       zone: state.currentZone ?? 1,
@@ -275,7 +285,24 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
       ]),
       final_score: state.score,
       final_turn: state.turn,
-    });
+    })
+      // Le log doit etre en base avant que le serveur puisse le rejouer.
+      .then(() => approveRun(runIdRef.current))
+      .then((r: any) => {
+        if (r?.approved) {
+          setScoreSubmitted(true);
+          if (r.nft?.minted?.length) {
+            setNftMinted(r.nft.minted.map((m: any) => (typeof m === 'string' ? m : m.nft)));
+          }
+        } else {
+          console.warn('[approve] refuse :', r?.raison ?? r);
+        }
+      })
+      .catch((e: any) => {
+        console.warn('[approve]', e);
+        queuePending('approve', { run_id: runIdRef.current });
+      });
+    clearActiveRun();
   }, [state.gameOver]);
   useEffect(() => {
     const fn = () => setIsMobile(window.innerWidth < 768);
@@ -285,6 +312,53 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   const [cinematic, setCinematic] = useState<string | null>(null);
   const [_showDeathCinematic, _setShowDeathCinematic] = useState(false);
   const [showDeathScreen, setShowDeathScreen] = useState(false);
+  const deathTimerRef = useRef<any>(null);
+  // Une cinematique par type et par partie : vue dix fois, elle devient un peage.
+  const seenCineRef = useRef<Set<string>>(new Set());
+
+  // Rang Starktember, prepare pendant l'ecran de mort pour que le partage
+  // soit instantane. On attend l'approbation serveur : annoncer un rang qui
+  // change deux secondes plus tard ferait mauvais effet.
+  const [rangMois, setRangMois] = useState<{ rank: number; total: number } | null>(null);
+  useEffect(() => {
+    const n = new Date();
+    const enSeptembre = n.getUTCFullYear() === 2026 && n.getUTCMonth() === 8;
+    if (!state.gameOver || !isDailyRun || !walletAddress || !enSeptembre) return;
+    if (!scoreSubmitted) return;
+    getStarktemberBoard()
+      .then((b: StarktemberRow[]) => {
+        const norm = (a: string) => a.toLowerCase().replace(/^0x0*/, '');
+        const moi = b.find((r: StarktemberRow) => norm(r.wallet_address) === norm(walletAddress));
+        if (moi) setRangMois({ rank: moi.rank, total: moi.total });
+      })
+      .catch(() => {});
+  }, [state.gameOver, scoreSubmitted]);
+
+  // Travelling : la grille est un viewport centre sur le navire, donc c'est le
+  // monde qui glisse sous la coque. Sans ca, le plateau saute d'un coup.
+  const prevPosRef = useRef({ x: state.ship.x, y: state.ship.y });
+  const [slide, setSlide] = useState({ x: 0, y: 0, instant: false });
+  const [lurch, setLurch] = useState({ x: 0, y: 0 });
+  useEffect(() => {
+    const p = prevPosRef.current;
+    const ddx = state.ship.x - p.x;
+    const ddy = state.ship.y - p.y;
+    prevPosRef.current = { x: state.ship.x, y: state.ship.y };
+    if (ddx === 0 && ddy === 0) return;
+    // Teleportation (maelstrom, changement de zone) : pas de travelling.
+    if (Math.abs(ddx) > 1 || Math.abs(ddy) > 1) return;
+    const v = state.ship.vision * 2 + 1;
+    const cs = (isMobile
+      ? Math.floor((window.innerWidth - 16) / v)
+      : Math.floor(Math.min(window.innerWidth * 0.50, window.innerHeight * 0.62) / v) - 4) + 4;
+    const amp = 0.8; // amplitude : 1 = une case pleine, plus bas = plus discret
+    setSlide({ x: ddx * cs * amp, y: ddy * cs * amp, instant: true });
+    setLurch({ x: ddx, y: ddy });
+    const t = setTimeout(() => setLurch({ x: 0, y: 0 }), 380);
+    const id = requestAnimationFrame(() =>
+      setSlide({ x: 0, y: 0, instant: false }));
+    return () => { cancelAnimationFrame(id); clearTimeout(t); };
+  }, [state.ship.x, state.ship.y]);
   const [showHunterAttack, setShowHunterAttack] = useState(false);
   const [mobileDrawer, setMobileDrawer] = useState<'ship'|'upgrades'|null>(null);
   const [_showKrakenCinematic, _setShowKrakenCinematic] = useState(false);
@@ -314,6 +388,8 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
     if (state.gameOver) return;  // la cinématique de mort est gérée par le death trigger
     const ct = state.event?.cellType;
     if (ct && SCENE_VIDEO[ct]) {
+      if (seenCineRef.current.has(ct)) return;
+      seenCineRef.current.add(ct);
       setCinematic(ct);
       const t = setTimeout(() => setCinematic(null), 5000);
       return () => clearTimeout(t);
@@ -471,52 +547,15 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
       const fresh = checkAndUnlockFeats(state);
       if (fresh.length > 0) { setNewFeats(fresh); sfx('streak'); }
       clearActiveRun();
-      if (isDailyRun && walletAddress && state.score > 0) {
-        const today = new Date().toISOString().slice(0, 10);
-        submitDailyScore(walletAddress, state.score, today, state.seed, username ?? undefined);
-      }
+      // Le score quotidien est desormais ecrit par le serveur.
+
 
       // Envoi automatique du score et des conditions NFT : ils ne doivent plus
       // dependre d'un clic, sinon un joueur qui ferme l'onglet disparait du
       // classement et perd ses reliques. La soumission on-chain, elle, coute
       // du gas et reste sur le bouton.
-      if (walletAddress && state.score > 0 && !autoSentRef.current) {
-        autoSentRef.current = true;
-        const scorePayload = {
-          wallet: walletAddress, score: state.score, run_title: state.runTitle,
-          turn: state.turn, zone: state.currentZone ?? 1, seed: state.seed,
-          username: username ?? undefined,
-        };
-        submitScore(walletAddress, state.score, state.runTitle, state.turn, state.currentZone ?? 1, state.seed, username ?? undefined)
-          .then(ok => { if (ok) setScoreSubmitted(true); else queuePending('score', scorePayload); })
-          .catch((e: any) => { console.warn('Auto submit failed:', e); queuePending('score', scorePayload); });
-        const nftPayload = {
-          wallet_address: walletAddress,
-          run_id: runIdRef.current,
-          score: state.score,
-          seed: state.seed,
-          turn: state.turn,
-          gold: state.ship.gold,
-          hull: state.ship.hull,
-          ports_visited: state.portsVisited ?? 0,
-          treasures_found: state.treasuresFound ?? 0,
-          pirates_fought: state.piratesFought ?? 0,
-          kraken_killed: state.krakenKilled ?? false,
-          ancient_kraken_killed: state.ancientKrakenKilled ?? false,
-          hunter_attacks_survived: state.hunterAttacksSurvived ?? 0,
-          maelstrom_survived: state.maelstromSurvived ?? false,
-          min_hull_during_run: state.lowestHull ?? state.ship.hull,
-          combo_turn: state.comboTurn ?? 999,
-          storm_distance_min: state.stormDistanceMin ?? 99,
-          cursed_treasure_taken: state.cursedTreasureTaken ?? false,
-        };
-        checkNFTConditions(nftPayload).then((r: any) => {
-          if (r?.minted && r.minted.length > 0) {
-            setNftMinted(r.minted.map((m: any) => typeof m === 'string' ? m : m.nft));
-          }
-        }).catch((e: any) => { console.warn('NFT check failed:', e); queuePending('nft', nftPayload); });
-        clearActiveRun();
-      }
+      // L'envoi du score et des NFT est desormais fait par le serveur.
+
       if (!isMobile) {
         // Si le hunter attack est en cours, attendre qu'il se termine
         const delay = hunterAttackRef.current ? 8000 : 0;
@@ -525,13 +564,16 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
           setCinematic('death');
           // Filet de sécurité : si la vidéo ne se termine pas (erreur de chargement),
           // on affiche quand même l'écran de mort après 9s (death.mp4 dure ~8s).
-          setTimeout(() => { setShowDeathScreen(s => s || true); }, 9000);
+          deathTimerRef.current = setTimeout(() => { setShowDeathScreen(s => s || true); }, 9000);
         }, delay);
       } else {
         setShowDeathScreen(true);
       }
     } else {
-      setShowDeathScreen(false);
+      if (deathTimerRef.current) { clearTimeout(deathTimerRef.current); deathTimerRef.current = null; }
+    setShowDeathScreen(false);
+    setCinematic(null);
+    seenCineRef.current.clear();
     }
   }, [state.gameOver]);
 
@@ -618,11 +660,15 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   const restart = async () => {
     // Nouvelle partie = nouveau seed serveur, sinon la relance serait une faille.
     const issued = walletAddress ? await issueSeed(walletAddress) : null;
-    const fresh = initGame(issued?.seed);
+    const fresh = initGame(issued?.seed, shipId ?? 'default');
     actionLogRef.current = [];
     checksRef.current = [];
     lastBeatRef.current = 0;
     runIdRef.current = crypto.randomUUID();
+    autoSentRef.current = false;
+    setScoreSubmitted(false);
+    setOnChainDone(false);
+    setNftMinted([]);
     if (walletAddress) startRun({
       run_id: runIdRef.current, wallet_address: walletAddress,
       username: username ?? null, seed: fresh.seed, is_daily: false,
@@ -687,6 +733,21 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
       style={{ height:'100dvh', width:'100vw', background:'#080f18',
         boxShadow: s.stormDistance <= 2 ? 'inset 0 0 80px rgba(220,30,30,0.6)' : s.stormDistance <= 4 ? 'inset 0 0 50px rgba(220,100,30,0.3)' : 'none', color:'#e8e0d0', fontFamily:"'Pirata One', cursive", display:'flex', flexDirection:'column', overflow:'hidden', position:'relative' }}>
 
+      {/* Mer de fond — tres assombrie pour ne pas gener la lecture des tuiles */}
+      <div style={{ position:'absolute', inset:0, zIndex:0, pointerEvents:'none', overflow:'hidden' }}>
+        <motion.div
+          key={s.currentZone ?? 1}
+          initial={{ opacity:0 }} animate={{ opacity:0.22 }}
+          transition={{ duration:1.6, ease:'easeOut' }}
+          style={{ position:'absolute', inset:0,
+            backgroundImage:`url(${ZONE_BG[s.currentZone ?? 1] ?? ZONE_BG[1]})`,
+            backgroundSize:'cover', backgroundPosition:'center',
+            filter:'saturate(0.7) brightness(0.8)' }} />
+        <div style={{ position:'absolute', inset:0,
+          background:'radial-gradient(ellipse at 50% 45%, rgba(8,15,24,0.35) 0%, rgba(8,15,24,0.82) 55%, rgba(8,15,24,0.97) 100%)' }} />
+
+      </div>
+
       {/* Flash overlay */}
       {flashColor && (
         <motion.div initial={{ opacity:1 }} animate={{ opacity:0 }} transition={{ duration:0.15 }}
@@ -707,7 +768,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
       )}
 
       {/* TOP BAR */}
-      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding: isMobile ? '6px 8px' : '16px 28px', background:'rgba(0,0,0,0.5)', borderBottom:'1px solid rgba(255,255,255,0.06)', flexShrink:0 }}>
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding: isMobile ? '6px 8px' : '16px 28px', background:'rgba(6,11,18,0.92)', borderBottom:'1px solid rgba(255,255,255,0.06)', flexShrink:0, position:'relative', zIndex:5 }}>
         <div style={{ fontWeight:700, color:'#c8a030', fontFamily:"'Pirata One', cursive", display:'flex', alignItems:'center', gap:4 }}><img src={anchorImg} style={{ width: isMobile ? 28 : 56, height: isMobile ? 28 : 56, objectFit:'contain' }}/>{!isMobile && ' CORSAIR'}</div>
         <div style={{ display:'flex', gap: isMobile ? 8 : 24 }}>
           {(isMobile
@@ -722,13 +783,13 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
         </div>
         {!isMobile && <div style={{ display:'flex', alignItems:'center', gap:16 }}>
           <div style={{ fontSize:26, fontWeight:700, color:'#eedd44', display:'flex', alignItems:'center', gap:6 }}><img src={scoreImg} style={{ width:56, height:56, objectFit:'contain' }}/><span style={{ fontFamily:"'Cinzel', serif" }}>{s.score}</span> pts</div>
-          <button onClick={() => setMuted(m => !m)} style={{ background:'transparent', border:'1px solid rgba(255,255,255,0.1)', color:'rgba(255,255,255,0.5)', fontSize:18, cursor:'pointer', borderRadius:8, padding:'6px 10px', fontFamily:"'Cinzel', serif" }}>
+          <button onClick={() => setMuted(m => !m)} aria-label={muted ? 'Unmute sound' : 'Mute sound'} title={muted ? 'Unmute sound' : 'Mute sound'} style={{ background:'transparent', border:'1px solid rgba(255,255,255,0.1)', color:'rgba(255,255,255,0.5)', fontSize:18, cursor:'pointer', borderRadius:8, padding:'6px 10px', fontFamily:"'Cinzel', serif" }}>
             {muted ? '🔇' : '🔊'}
           </button>
         </div>}
         {isMobile && <div style={{ display:'flex', alignItems:'center', gap:6 }}>
           <span style={{ fontSize:13, fontWeight:700, color:'#eedd44', fontFamily:"'Cinzel', serif" }}>{s.score}pts</span>
-          <button onClick={() => setMuted(m => !m)} style={{ background:'transparent', border:'none', color:'rgba(255,255,255,0.4)', fontSize:14, cursor:'pointer' }}>{muted ? '🔇' : '🔊'}</button>
+          <button onClick={() => setMuted(m => !m)} aria-label={muted ? 'Unmute sound' : 'Mute sound'} title={muted ? 'Unmute sound' : 'Mute sound'} style={{ background:'transparent', border:'none', color:'rgba(255,255,255,0.4)', fontSize:14, cursor:'pointer' }}>{muted ? '🔇' : '🔊'}</button>
         </div>}
       </div>
 
@@ -803,7 +864,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
               return <div key={id} style={{ fontSize:14, color:BUILD_COLOR[u.build], display:'flex', alignItems:'center', gap:6 }}><img src={UPGRADE_ICONS[id]} style={{width:20,height:20,objectFit:'contain'}}/>{u.name}</div>;
             })
           }
-          {s.upgradeToken && <div style={{ fontSize:14, color:'#eedd44', marginTop:4 }}>✦ Free upgrade!</div>}
+          {s.upgradeToken && <div style={{ fontSize:14, color:'#eedd44', marginTop:4 }}>✦ Free upgrade — claim it at a port</div>}
 
           {/* Composants navire */}
           <div style={{ marginTop:12 }}>
@@ -869,7 +930,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
         </div>
 
         {/* CENTER — Map */}
-        <div style={{ flex:1, display:'flex', flexDirection:'column', alignItems:'center', justifyContent: isMobile ? 'flex-start' : 'center', padding: isMobile ? '6px 4px' : '10px', position:'relative' }}>
+        <div style={{ flex:1, display:'flex', flexDirection:'column', alignItems:'center', justifyContent: isMobile ? 'flex-start' : 'center', padding: isMobile ? '6px 4px calc(96px + env(safe-area-inset-bottom))' : '10px', position:'relative', overflowY: isMobile ? 'auto' : 'visible' }}>
           {/* MOBILE — boutons de direction (le clavier n'existe pas sur mobile) */}
           {isMobile && !s.event && !s.showPort && !s.gameOver && (
             <div style={{ position:'fixed', left:0, right:0, bottom:0, zIndex:60, display:'flex', gap:8, padding:'10px 12px calc(10px + env(safe-area-inset-bottom))', background:'linear-gradient(to top, rgba(5,8,15,0.96), rgba(5,8,15,0.0))' }}>
@@ -878,7 +939,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                 { label:'▲ AHEAD', dx:0, dy:-1 },
                 { label:'STARBOARD ▶', dx:1, dy:0 },
               ].map(b => (
-                <button key={b.label} onClick={() => move(b.dx, b.dy)}
+                <button key={b.label} onClick={() => move(b.dx, b.dy)} aria-label={`Sail ${b.label.replace(/[▲◀▶]/g, '').trim().toLowerCase()}`}
                   style={{ flex: b.dy === -1 ? 1.3 : 1, padding:'16px 8px', borderRadius:12, border:'2px solid rgba(200,160,48,0.7)', background: b.dy === -1 ? 'rgba(200,160,48,0.28)' : 'rgba(200,160,48,0.14)', color:'#e8d8a8', fontSize:15, fontFamily:"'Pirata One', cursive", letterSpacing:1, cursor:'pointer', WebkitTapHighlightColor:'transparent' }}>
                   {b.label}
                 </button>
@@ -893,12 +954,39 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
             </div>
           )}
 
+          {!isMobile && !s.event && !s.showPort && !s.gameOver && (
+            <div aria-label="Sailing controls" style={{ display:'flex', alignItems:'center', gap:8, marginBottom:10 }}>
+              <span style={{ fontSize:11, color:'rgba(255,255,255,0.38)', fontFamily:"'Cinzel', serif", letterSpacing:1.5 }}>SAIL</span>
+              {[
+                { label:'← PORT', keyHint:'A', dx:-1, dy:0 },
+                { label:'↑ AHEAD', keyHint:'W', dx:0, dy:-1 },
+                { label:'STARBOARD →', keyHint:'D', dx:1, dy:0 },
+              ].map(b => (
+                <button key={b.label} onClick={() => move(b.dx, b.dy)} title={`${b.label} (${b.keyHint} / arrow key)`}
+                  style={{ padding:'8px 11px', borderRadius:8, border:'1px solid rgba(200,160,48,0.46)', background:b.dy === -1 ? 'rgba(200,160,48,0.2)' : 'rgba(200,160,48,0.08)', color:'#e8d8a8', fontSize:13, fontFamily:"'Pirata One', cursive", letterSpacing:1, cursor:'pointer' }}>
+                  {b.label} <span style={{ marginLeft:4, color:'rgba(255,255,255,0.42)', fontFamily:"'Cinzel', serif", fontSize:10 }}>{b.keyHint}</span>
+                </button>
+              ))}
+            </div>
+          )}
+
+          {s.turn === 0 && !s.event && !s.showPort && !s.gameOver && (
+            <div role="status" aria-live="polite" style={{ maxWidth:440, margin:'0 12px 10px', padding:'8px 12px', border:'1px solid rgba(200,160,48,0.22)', borderRadius:8, background:'rgba(5,10,18,0.52)', color:'rgba(255,255,255,0.72)', textAlign:'center', fontSize:isMobile ? 13 : 15, fontFamily:"'IM Fell English', cursive", lineHeight:1.35 }}>
+              Sail north, uncover the sea, and build your score before the storm catches you.{!isMobile && ' Use A/W/D or the arrow keys to set course.'}
+            </div>
+          )}
+
           {/* Grid */}
           <div style={{ position:'relative' }}>
             {/* Fog overlay */}
             <div style={{ position:'absolute', inset:0, background:'radial-gradient(circle at 50% 65%, transparent 20%, rgba(8,15,24,0.6) 45%, rgba(8,15,24,0.95) 70%)', pointerEvents:'none', zIndex:2, borderRadius:8 }}/>
 
-            <div style={{ display:'grid', gridTemplateColumns:`repeat(${s.ship.vision*2+1},1fr)`, gap:4 }}>
+            <div style={{
+              display:'grid', gridTemplateColumns:`repeat(${s.ship.vision*2+1},1fr)`, gap:4,
+              transform: `translate(${slide.x}px, ${slide.y}px)`,
+              transition: slide.instant ? 'none' : 'transform 420ms cubic-bezier(0.22, 1, 0.36, 1)',
+              willChange: 'transform',
+            }}>
               {Array.from({length: s.ship.vision*2+1}, (_,i) => i - s.ship.vision).flatMap(dy =>
                 Array.from({length: s.ship.vision*2+1}, (_,i) => i - s.ship.vision).map(dx => {
                 const x = s.ship.x+dx, y = s.ship.y+dy;
@@ -951,8 +1039,13 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                     }}>
                     {isShip && (
                       <>
+                        <motion.div
+                          animate={{ rotate: lurch.x * 10, y: lurch.y * 5, scale: (lurch.x || lurch.y) ? 1.06 : 1 }}
+                          transition={{ type:'spring', stiffness:200, damping:11 }}
+                          style={{ transformOrigin:'50% 75%' }}>
                         <motion.div animate={{ y:[0,-3,0] }} transition={{ repeat:Infinity, duration:2, ease:'easeInOut' }}>
                           <img src={`${import.meta.env.BASE_URL}icons/ship.png`} style={{ width: CELL_S*0.82, height: CELL_S*0.82, objectFit:'contain', filter:'drop-shadow(0 0 10px rgba(74,138,204,0.9))' }}/>
+                        </motion.div>
                         </motion.div>
                         <div style={{ position:'absolute', bottom:3, left:'5%', width:'90%', display:'flex', alignItems:'center', gap:3 }}>
                           <div style={{ flex:1, height:3, background:'rgba(0,0,0,0.5)', borderRadius:2 }}>
@@ -1007,11 +1100,11 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
               }}>
               {s.scoreMultiplier > 1 && (
                 <div style={{
-                  fontSize: s.scoreMultiplier >= 3 ? 42 : 32,
+                  fontSize: isMobile ? 17 : (s.scoreMultiplier >= 3 ? 42 : 32),
                   fontWeight:700,
                   color: s.scoreMultiplier >= 3 ? '#ee4444' : '#eedd44',
-                  letterSpacing:4,
-                  textShadow: s.scoreMultiplier >= 3
+                  letterSpacing: isMobile ? 2 : 4,
+                  textShadow: isMobile ? 'none' : s.scoreMultiplier >= 3
                     ? '0 0 30px #ee4444, 0 0 60px #ee444466'
                     : '0 0 20px #eedd44, 0 0 40px #eedd4466',
                   filter: s.scoreMultiplier >= 3 ? 'brightness(1.3)' : 'brightness(1.1)',
@@ -1019,7 +1112,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                   {s.scoreMultiplier >= 3 ? '🔥🔥🔥' : '🔥'} ×{s.scoreMultiplier} COMBO
                 </div>
               )}
-              <div style={{ fontSize:13, color:'rgba(255,255,255,0.4)', fontFamily:"'Cinzel', serif", letterSpacing:2, marginTop:4 }}>
+              <div style={{ display: isMobile ? 'none' : 'block', fontSize:13, color:'rgba(255,255,255,0.4)', fontFamily:"'Cinzel', serif", letterSpacing:2, marginTop:4 }}>
                 STREAK {s.dangerStreak}
               </div>
               {s.dangerStreak >= 3 && (
@@ -1087,7 +1180,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
             );
           })()}
           {/* Log */}
-          <div style={{ marginTop:10, textAlign:'center', maxWidth:420, paddingRight: isMobile ? 80 : 0 }}>
+          <div aria-live="polite" aria-atomic="true" style={{ marginTop:10, textAlign:'center', maxWidth:420, paddingRight: isMobile ? 80 : 0, marginBottom: 0 }}>
             {(() => {
               const parts = (s.log ?? '').split('. ').map(p => p.trim()).filter(Boolean);
               const head = parts[0] ? parts[0].replace(/\.+$/, '') : '';
@@ -1114,6 +1207,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
               ); })}
             </div>
           )}
+          {isMobile && <div aria-hidden style={{ flexShrink:0, height:'calc(112px + env(safe-area-inset-bottom))' }}/>}
         </div>
 
         {/* RIGHT — Next zone hints + upgrades shop */}
@@ -1152,14 +1246,17 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
         {cinematic && SCENE_VIDEO[cinematic] && (
           <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
+            transition={{ delay: 0.2, duration: 0.3 }}
             onClick={() => { if (cinematic === 'death') setShowDeathScreen(true); setCinematic(null); }}
             style={{ position:'fixed', inset:0, zIndex:140, cursor:'pointer', background:'#05080f' }}>
-            <video
+            <motion.video
               key={cinematic}
               src={SCENE_VIDEO[cinematic]}
               autoPlay muted={muted} playsInline preload="auto"
               onEnded={() => { if (cinematic === 'death') setShowDeathScreen(true); setCinematic(null); }}
+              initial={{ opacity: 0, scale: 1.07 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.42, duration: 0.75, ease: 'easeOut' }}
               style={{ width:'100%', height:'100%', objectFit:'cover' }}
             />
             <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(5,8,15,0.1) 0%, rgba(5,8,15,0.35) 70%, rgba(5,8,15,0.7) 100%)', pointerEvents:'none' }}/>
@@ -1218,8 +1315,9 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
 
       {/* EVENT SCENE OVERLAY */}
       <AnimatePresence>
-        {s.event && SCENE_TITLES[s.event.cellType] && (
-          <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} exit={{ opacity:0 }}
+        {s.event && !cinematic && SCENE_TITLES[s.event.cellType] && (
+          <motion.div initial={{ opacity:0, scale:1.05 }} animate={{ opacity:1, scale:1 }} exit={{ opacity:0 }}
+            transition={{ delay:0.26, duration:0.5, ease:[0.22, 1, 0.36, 1] }}
             style={{ position:'fixed', inset:0, zIndex:100, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'flex-end', padding: isMobile ? '12px' : '24px', paddingBottom: isMobile ? 'calc(20px + env(safe-area-inset-bottom))' : 64, overflowY:'auto' }}>
             {/* Fond de scène */}
             {SCENE_BG[s.event.cellType] && (
@@ -1240,8 +1338,10 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                 {s.event.choices.map((ch, i) => {
                   const rc = ch.risk==='safe'?'#44cc88':ch.risk==='risky'?'#eedd44':'#ee6644';
                   // Detect gold cost in description
-                  const goldMatch = ch.desc.match(/(?<!\+)(\d+)\s*(?:gold\b|g\b)/i);
-                  const goldCost = goldMatch ? parseInt(goldMatch[1]) : 0;
+                  // Ne desactiver que sur un COUT explicite. « +20-60 gold » est un gain :
+                  // l'ancienne regex y voyait un cout de 60 et bloquait le combat.
+                  const goldMatch = ch.desc.match(/(?:lose|pay|costs?|spend)\s*(\d+)\s*(?:gold\b|g\b)|(?:^|\s)-(\d+)\s*gold\b/i);
+                  const goldCost = goldMatch ? parseInt(goldMatch[1] ?? goldMatch[2]) : 0;
                   const canAfford = goldCost === 0 || s.ship.gold >= goldCost;
                   return (
                     <motion.button key={i} whileHover={{ scale: canAfford ? 1.04 : 1 }} whileTap={{ scale: canAfford ? 0.96 : 1 }}
@@ -1277,8 +1377,8 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                 <div style={{ display:'flex', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 8 : 10, marginTop:8 }}>
                   {s.event.choices.map((ch, i) => {
                     const rc = ch.risk==='safe'?'#44cc88':ch.risk==='risky'?'#eedd44':'#ee6644';
-                    const goldMatch2 = ch.desc.match(/(?<!\+)(\d+)\s*(?:gold\b|g\b)/i);
-                    const goldCost2 = goldMatch2 ? parseInt(goldMatch2[1]) : 0;
+                    const goldMatch2 = ch.desc.match(/(?:lose|pay|costs?|spend)\s*(\d+)\s*(?:gold\b|g\b)|(?:^|\s)-(\d+)\s*gold\b/i);
+                    const goldCost2 = goldMatch2 ? parseInt(goldMatch2[1] ?? goldMatch2[2]) : 0;
                     const canAfford2 = goldCost2 === 0 || s.ship.gold >= goldCost2;
                     return (
                       <motion.button key={i} whileHover={{ scale: canAfford2 ? 1.02 : 1 }} whileTap={{ scale: canAfford2 ? 0.98 : 1 }}
@@ -1310,7 +1410,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
       <AnimatePresence>
         {s.showPort && !s.gameOver && (
           <motion.div initial={{ y:100,opacity:0 }} animate={{ y:0,opacity:1 }} exit={{ y:100,opacity:0 }}
-            style={{ background:'rgba(5,10,18,0.97)', borderTop:'1px solid rgba(68,204,136,0.2)', padding: isMobile ? '12px 12px calc(12px + env(safe-area-inset-bottom))' : '16px 24px', flexShrink:0, maxHeight: isMobile ? '62vh' : undefined, overflowY: isMobile ? 'auto' : undefined }}>
+            style={{ background:'rgba(5,10,18,0.985)', borderTop:'1px solid rgba(68,204,136,0.2)', padding: isMobile ? '12px 12px calc(12px + env(safe-area-inset-bottom))' : '16px 24px', flexShrink:0, position:'relative', zIndex:5, maxHeight: isMobile ? '62vh' : undefined, overflowY: isMobile ? 'auto' : undefined }}>
             <div style={{ maxWidth:700, margin:'0 auto' }}>
               <div style={{ display:'flex', alignItems:'center', gap:8, marginBottom:12 }}>
                 <img src={anchorImg} style={{ width:40, height:40, objectFit:'contain' }}/>
@@ -1546,44 +1646,14 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                         console.warn('On-chain submit failed:', e);
                       }
                     }
-                    // NFT conditions check
-                    if (walletAddress) {
-                      try {
-                        const nftResult = await checkNFTConditions({
-                          wallet_address: walletAddress,
-                          run_id: runIdRef.current,
-                          score: s.score,
-                          seed: s.seed,
-                          turn: s.turn,
-                          gold: s.ship.gold,
-                          hull: s.ship.hull,
-                          ports_visited: s.portsVisited ?? 0,
-                          treasures_found: s.treasuresFound ?? 0,
-                          pirates_fought: s.piratesFought ?? 0,
-                          kraken_killed: s.krakenKilled ?? false,
-                          ancient_kraken_killed: s.ancientKrakenKilled ?? false,
-                          hunter_attacks_survived: s.hunterAttacksSurvived ?? 0,
-                          maelstrom_survived: s.maelstromSurvived ?? false,
-                          min_hull_during_run: s.lowestHull ?? s.ship.hull,
-                          combo_turn: s.comboTurn ?? 999,
-                          storm_distance_min: s.stormDistanceMin ?? 99,
-                          cursed_treasure_taken: s.cursedTreasureTaken ?? false,
-                        });
-                        console.log('[NFT] sent cursed_treasure_taken:', s.cursedTreasureTaken, 'gold:', s.ship.gold, 'pirates_fought:', s.piratesFought, 'result:', nftResult);
-                        if (nftResult.minted && nftResult.minted.length > 0) {
-                          setNftMinted(nftResult.minted.map((m: any) => typeof m === 'string' ? m : m.nft));
-                        }
-                      } catch(e: any) {
-                        console.warn('NFT check failed:', e);
-                      }
-                    }
                     setOnChainDone(true);
                     setSubmitting(false);
                   }}
                   style={{ padding:'12px 32px', borderRadius:10, border:'1px solid rgba(200,160,48,0.4)', background:'rgba(200,160,48,0.1)', color:'#c8a030', fontSize:16, letterSpacing:3, cursor:'pointer', fontFamily:"'Pirata One', cursive" }}>
-                  {submitting ? 'SUBMITTING...' : <><Icon name="anchor" size={16} style={{ marginRight:6 }} />SUBMIT ON-CHAIN</>}
+                  {submitting ? 'ENGRAVING...' : <><Icon name="anchor" size={16} style={{ marginRight:6 }} />ENGRAVE ON STARKNET</>}
                 </motion.button>
               )}
+              <div style={{ fontSize:11, color:'rgba(255,255,255,0.35)', letterSpacing:2, fontFamily:"'Cinzel', serif", textAlign:'center', marginTop:-4 }}>OPTIONAL — CARVES THIS VOYAGE INTO STARKNET FOREVER</div>
               {scoreSubmitted && <div style={{ fontSize:14, color:'#44cc88', letterSpacing:2, fontFamily:"'Pirata One', cursive" }}>✓ SCORE SAVED — YOU'RE ON THE LEADERBOARD</div>}
               {nftMinted.length > 0 && (
                 <motion.div initial={{opacity:0, scale:0.8}} animate={{opacity:1, scale:1}}
@@ -1617,9 +1687,12 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                       .filter((r): r is RelicDef => !!r)
                       .sort((a, b) => (rarityRank[b.rarity] ?? 0) - (rarityRank[a.rarity] ?? 0))[0];
                     const relicLine = bestRelic ? `\nFound the ${bestRelic.name} relic along the way.` : '';
+                    const rankLine = rangMois
+                      ? `\n⚔️ #${rangMois.rank} in Starktember — ${rangMois.total.toLocaleString()} pts across the month.`
+                      : '';
                     const text = isDailyRun
-                      ? `☀️ Daily Challenge — ${today} — ${s.score} pts before the storm claimed me.\nSame seed for everyone today. Can you beat me?${relicLine}\n⚓ @PlayCorsair https://playcorsair.xyz/ #Starknet`
-                      : `🏴\u200d☠️ ${s.runTitle} — ${s.score} pts before the storm claimed me.\n${s.turn} turns · ${s.ship.gold} gold · No mercy.${relicLine}\nDare to sail further? ⚓ @PlayCorsair\nhttps://playcorsair.xyz/ #Starknet`;
+                      ? `☀️ Daily Challenge — ${today} — ${s.score} pts before the storm claimed me.\nSame sea for every captain today. Can you beat me?${rankLine}${relicLine}\n⚓ @PlayCorsair https://playcorsair.xyz/ #Starktember #Starknet`
+                      : `🏴\u200d☠️ ${s.runTitle} — ${s.score} pts before the storm claimed me.\n${s.turn} turns · ${s.ship.gold} gold · No mercy.${relicLine}\nSame waters, seed ${s.seed}. Dare to sail further? ⚓ @PlayCorsair\nhttps://playcorsair.xyz/ #Starknet`;
                     window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank');
                   }}
                   style={{ padding:'14px 24px', borderRadius:12, border:'1px solid rgba(255,255,255,0.3)', background:'rgba(0,0,0,0.4)', color:'#ffffff', cursor:'pointer', fontSize:16, fontWeight:700, letterSpacing:1, fontFamily:"'Pirata One', cursive" }}>
@@ -1666,9 +1739,11 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
           {!s.event && !s.showPort && !s.gameOver && <div style={{ position:'fixed', right:8, bottom:90, display:'flex', flexDirection:'column', gap:6, zIndex:30 }}>
             <motion.button whileTap={{scale:0.9}}
               onClick={() => setMobileDrawer(mobileDrawer === 'ship' ? null : 'ship')}
+              aria-label="Show ship status" aria-expanded={mobileDrawer === 'ship'}
               style={{ width:44, height:44, borderRadius:10, border:`1px solid ${mobileDrawer==='ship' ? '#44cc88' : 'rgba(255,255,255,0.2)'}`, background: mobileDrawer==='ship' ? 'rgba(68,204,136,0.2)' : 'rgba(0,0,0,0.7)', color: mobileDrawer==='ship' ? '#44cc88' : 'rgba(255,255,255,0.6)', fontSize:20, cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center' }}>⚓</motion.button>
             <motion.button whileTap={{scale:0.9}}
               onClick={() => setMobileDrawer(mobileDrawer === 'upgrades' ? null : 'upgrades')}
+              aria-label="Show upgrades" aria-expanded={mobileDrawer === 'upgrades'}
               style={{ width:44, height:44, borderRadius:10, border:`1px solid ${mobileDrawer==='upgrades' ? '#c8a030' : 'rgba(255,255,255,0.2)'}`, background: mobileDrawer==='upgrades' ? 'rgba(200,160,48,0.2)' : 'rgba(0,0,0,0.7)', color: mobileDrawer==='upgrades' ? '#c8a030' : 'rgba(255,255,255,0.6)', fontSize:20, cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center' }}>⚔️</motion.button>
           </div>}
 
@@ -1690,6 +1765,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                           return <div key={id} style={{ fontSize:13, color:'#c8a030', marginBottom:4, display:'flex', alignItems:'center', gap:6 }}><img src={UPGRADE_ICONS[id]} style={{width:18,height:18,objectFit:'contain'}}/>{u.name}</div>;
                         })
                     }
+                    {s.upgradeToken && <div style={{ fontSize:12, color:'#eedd44', marginBottom:8 }}>✦ Free upgrade — claim it at a port</div>}
                     {/* Components */}
                     <div style={{ fontSize:12, color:'rgba(255,255,255,0.5)', marginTop:10, marginBottom:6 }}>COMPONENTS</div>
                     {([

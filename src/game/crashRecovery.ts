@@ -47,7 +47,7 @@ export function clearActiveRun(): void {
 
 // ─── File de reessai ─────────────────────────────────────────────────────
 
-export type PendingKind = 'score' | 'nft';
+export type PendingKind = 'score' | 'nft' | 'approve';
 
 export interface PendingItem {
   id: string;
