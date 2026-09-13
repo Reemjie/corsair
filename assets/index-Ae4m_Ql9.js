@@ -58453,7 +58453,7 @@ Resources:`;
                     let e = mt.current ? 8e3 : 0;
                     setTimeout(()=>{
                         Ne(!1), ve(`death`), Ce.current = setTimeout(()=>{
-                            Se((e)=>e || !0);
+                            Se((e)=>e || !0), ve(null);
                         }, 9e3);
                     }, e);
                 }
@@ -61292,15 +61292,15 @@ Resources:`;
                                             scale: .97
                                         },
                                         onClick: e.fn,
-                                        disabled: j.ship.gold < e.cost,
+                                        disabled: j.ship.gold < e.cost || j.ship.hull >= j.ship.maxHull,
                                         style: {
                                             flex: 1,
                                             padding: `10px 8px`,
                                             borderRadius: 10,
                                             border: `1px solid rgba(68,204,136,0.3)`,
                                             background: `rgba(68,204,136,0.08)`,
-                                            cursor: j.ship.gold >= e.cost ? `pointer` : `not-allowed`,
-                                            opacity: j.ship.gold >= e.cost ? 1 : .4,
+                                            cursor: j.ship.gold >= e.cost && j.ship.hull < j.ship.maxHull ? `pointer` : `not-allowed`,
+                                            opacity: j.ship.gold >= e.cost && j.ship.hull < j.ship.maxHull ? 1 : .4,
                                             textAlign: `center`
                                         },
                                         children: [
