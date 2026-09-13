@@ -564,7 +564,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
           setCinematic('death');
           // Filet de sécurité : si la vidéo ne se termine pas (erreur de chargement),
           // on affiche quand même l'écran de mort après 9s (death.mp4 dure ~8s).
-          deathTimerRef.current = setTimeout(() => { setShowDeathScreen(s => s || true); }, 9000);
+          deathTimerRef.current = setTimeout(() => { setShowDeathScreen(s => s || true); setCinematic(null); }, 9000);
         }, delay);
       } else {
         setShowDeathScreen(true);
@@ -1493,8 +1493,8 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
           <div style={{ display:'flex', gap:8, marginBottom:16 }}>
             {[{label:'Rum Barrel',desc:'+8 hull',cost:25,fn:()=>{ logAction(60); setState(st=>repairHull(st,8,25)); }},{label:'Full Repair',desc:'Restore all',cost:55,fn:()=>{ logAction(61); setState(st=>repairHull(st,s.ship.maxHull,55)); }}].map(item => (
               <motion.button key={item.label} whileTap={{scale:0.97}} onClick={item.fn}
-                disabled={s.ship.gold < item.cost}
-                style={{ flex:1, padding:'10px 8px', borderRadius:10, border:'1px solid rgba(68,204,136,0.3)', background:'rgba(68,204,136,0.08)', cursor: s.ship.gold >= item.cost ? 'pointer' : 'not-allowed', opacity: s.ship.gold >= item.cost ? 1 : 0.4, textAlign:'center' }}>
+                disabled={s.ship.gold < item.cost || s.ship.hull >= s.ship.maxHull}
+                style={{ flex:1, padding:'10px 8px', borderRadius:10, border:'1px solid rgba(68,204,136,0.3)', background:'rgba(68,204,136,0.08)', cursor: (s.ship.gold >= item.cost && s.ship.hull < s.ship.maxHull) ? 'pointer' : 'not-allowed', opacity: (s.ship.gold >= item.cost && s.ship.hull < s.ship.maxHull) ? 1 : 0.4, textAlign:'center' }}>
                 <div style={{ fontSize:13, color:'#44cc88', fontFamily:"'Pirata One', cursive" }}>{item.label}</div>
                 <div style={{ fontSize:11, color:'rgba(255,255,255,0.5)' }}>{item.desc}</div>
                 <div style={{ fontSize:12, color:'#eedd44', marginTop:4 }}>◆ {item.cost}g</div>
