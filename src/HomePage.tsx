@@ -31,12 +31,20 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
     const n = new Date();
     return n.getUTCFullYear() === 2026 && n.getUTCMonth() === 8;
   })();
+  // Apres le tournoi : bandeau de cloture du 1er au 14 octobre (UTC).
+  // ?fin dans l'adresse permet de le previsualiser avant l'heure.
+  const tournoiTermine = (() => {
+    const t = Date.now();
+    const apercu = typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('fin');
+    return apercu || (t >= Date.UTC(2026, 9, 1) && t < Date.UTC(2026, 9, 15));
+  })();
   useEffect(() => {
-    if (!enSeptembre) return;
+    if (!enSeptembre && !tournoiTermine) return;
     getStarktemberBoard().then(setBoard);
+    if (!enSeptembre) return; // classement fige : inutile de le rafraichir
     const id = setInterval(() => getStarktemberBoard().then(setBoard), 120000);
     return () => clearInterval(id);
-  }, [enSeptembre]);
+  }, [enSeptembre, tournoiTermine]);
   const [dailyDone, setDailyDone] = useState(() => hasDailyBeenPlayed());
   const [isMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
   const [showHowTo, setShowHowTo] = useState(false);
@@ -177,7 +185,7 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
               }
             </div>
             <div style={{ display: isMobile ? 'none' : 'block', fontSize:10, color:'rgba(238,221,68,0.55)', fontFamily:"'Cinzel', serif", marginTop:10, textAlign:'center', letterSpacing:1 }}>
-              <Icon name="trophy" size={17} style={{ marginRight:7 }} />Starktember is live — the Daily decides who takes the Tide
+              {(enSeptembre || tournoiTermine) && <><Icon name="trophy" size={17} style={{ marginRight:7 }} />{enSeptembre ? 'Starktember is live — the Daily decides who takes the Tide' : 'Starktember is over — the Tide has found its captain'}</>}
             </div>
           </div>
           </div>
@@ -239,6 +247,37 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
                   </div>
                 );
               })()}
+            </div>
+          )}
+
+          {tournoiTermine && (
+            <div style={{ padding:'14px 20px', borderRadius:12, border:'1px solid rgba(238,170,68,0.5)', background:'linear-gradient(135deg, rgba(40,24,4,0.9), rgba(8,10,18,0.9))', width:'100%', maxWidth:360, textAlign:'center' }}>
+              <div style={{ fontSize:11, color:'rgba(238,170,68,0.8)', fontFamily:"'Cinzel', serif", letterSpacing:3, marginBottom:6 }}>
+                STARKTEMBER IS OVER
+              </div>
+              {board[0] ? (
+                <>
+                  <div style={{ fontSize: isMobile ? 10 : 11, color:'rgba(255,255,255,0.5)', fontFamily:"'IM Fell English', cursive", marginBottom:8 }}>
+                    The Starktember Tide goes to
+                  </div>
+                  <div style={{ display:'flex', alignItems:'center', justifyContent:'center', gap:8, marginBottom:4 }}>
+                    <Icon name="crown" size={22}/>
+                    <div style={{ fontSize:22, color:'#FFD700', fontFamily:"'Pirata One', cursive", letterSpacing:1 }}>
+                      {board[0].username ?? `${board[0].wallet_address.slice(0,6)}...${board[0].wallet_address.slice(-4)}`}
+                    </div>
+                  </div>
+                  <div style={{ fontSize:12, color:'#eeaa44', fontFamily:"'Cinzel', serif", marginBottom:10 }}>
+                    {board[0].total.toLocaleString()} pts across {board[0].days_played} Dailies
+                  </div>
+                  <div style={{ fontSize: isMobile ? 11 : 12, color:'rgba(255,255,255,0.65)', fontFamily:"'IM Fell English', cursive", lineHeight:1.4 }}>
+                    Congratulations, captain. Well sailed.<br/>Thank you to every captain who took part.
+                  </div>
+                </>
+              ) : (
+                <div style={{ fontSize:12, color:'rgba(255,255,255,0.65)', fontFamily:"'IM Fell English', cursive", lineHeight:1.4 }}>
+                  Thank you to every captain who took part.
+                </div>
+              )}
             </div>
           )}
 
