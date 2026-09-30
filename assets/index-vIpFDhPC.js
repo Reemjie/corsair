@@ -65050,45 +65050,48 @@ Resources:`;
         let [n, r] = (0, x.useState)(null), [i, a] = (0, x.useState)([]), o = (()=>{
             let e = new Date;
             return e.getUTCFullYear() === 2026 && e.getUTCMonth() === 8;
+        })(), s = (()=>{
+            let e = Date.now();
+            return typeof window < `u` && new URLSearchParams(window.location.search).has(`fin`) || e >= Date.UTC(2026, 9, 1) && e < Date.UTC(2026, 9, 15);
         })();
         (0, x.useEffect)(()=>{
-            if (!o) return;
-            F7().then(a);
+            if (!o && !s || (F7().then(a), !o)) return;
             let e = setInterval(()=>F7().then(a), 12e4);
             return ()=>clearInterval(e);
         }, [
-            o
+            o,
+            s
         ]);
-        let [s, c] = (0, x.useState)(()=>o9()), [l] = (0, x.useState)(()=>typeof window < `u` && window.innerWidth < 768), [u, d] = (0, x.useState)(!1), [f, p] = (0, x.useState)(!1), [m, h] = (0, x.useState)(!1), [g, _] = (0, x.useState)(!1), [v, y] = (0, x.useState)([]), [b, S] = (0, x.useState)(``);
+        let [c, l] = (0, x.useState)(()=>o9()), [u] = (0, x.useState)(()=>typeof window < `u` && window.innerWidth < 768), [d, f] = (0, x.useState)(!1), [p, m] = (0, x.useState)(!1), [h, g] = (0, x.useState)(!1), [_, v] = (0, x.useState)(!1), [y, b] = (0, x.useState)([]), [S, C] = (0, x.useState)(``);
         (0, x.useEffect)(()=>{
-            P7(new Date().toISOString().slice(0, 10)).then((e)=>y(e.slice(0, 3)));
+            P7(new Date().toISOString().slice(0, 10)).then((e)=>b(e.slice(0, 3)));
         }, []), (0, x.useEffect)(()=>{
             let e = ()=>{
                 let e = Date.now(), t = new Date(e), n = Date.UTC(t.getUTCFullYear(), t.getUTCMonth(), t.getUTCDate() + 1, 0, 0, 0), r = Math.max(0, n - e);
-                S(`${String(Math.floor(r / 36e5)).padStart(2, `0`)}:${String(Math.floor(r % 36e5 / 6e4)).padStart(2, `0`)}:${String(Math.floor(r % 6e4 / 1e3)).padStart(2, `0`)}`);
+                C(`${String(Math.floor(r / 36e5)).padStart(2, `0`)}:${String(Math.floor(r % 36e5 / 6e4)).padStart(2, `0`)}:${String(Math.floor(r % 6e4 / 1e3)).padStart(2, `0`)}`);
             };
             e();
             let t = setInterval(e, 1e3);
             return ()=>clearInterval(t);
         }, []);
-        let [C, w] = (0, x.useState)(!1), { address: T, username: E, connecting: ee, connect: D, disconnect: te } = EY();
+        let [w, T] = (0, x.useState)(!1), { address: E, username: ee, connecting: D, connect: te, disconnect: O } = EY();
         (0, x.useEffect)(()=>{
-            if (!T) {
-                c(o9());
+            if (!E) {
+                l(o9());
                 return;
             }
-            gce(T, a9()).then((e)=>c(e || o9()));
+            gce(E, a9()).then((e)=>l(e || o9()));
         }, [
-            T
+            E
         ]), (0, x.useEffect)(()=>{
             let e = qce();
-            e && T && e.wallet_address === T ? r(e) : r(null);
+            e && E && e.wallet_address === E ? r(e) : r(null);
         }, [
-            T
+            E
         ]);
-        let [O, ne] = (0, x.useState)(0);
+        let [ne, re] = (0, x.useState)(0);
         return (0, x.useEffect)(()=>{
-            let e = setInterval(()=>ne((e)=>(e + 1) % q9.length), 4e3);
+            let e = setInterval(()=>re((e)=>(e + 1) % q9.length), 4e3);
             return ()=>clearInterval(e);
         }, []), (0, L.jsxs)(`div`, {
             style: {
@@ -65102,7 +65105,7 @@ Resources:`;
             children: [
                 q9.map((e, t)=>(0, L.jsx)(X.div, {
                         animate: {
-                            opacity: +(t === O)
+                            opacity: +(t === ne)
                         },
                         transition: {
                             duration: 1.5
@@ -65125,11 +65128,11 @@ Resources:`;
                 (0, L.jsx)(`div`, {
                     style: {
                         position: `absolute`,
-                        top: l ? 8 : 20,
-                        right: l ? 8 : 24,
+                        top: u ? 8 : 20,
+                        right: u ? 8 : 24,
                         zIndex: 20
                     },
-                    children: T ? (0, L.jsxs)(`div`, {
+                    children: E ? (0, L.jsxs)(`div`, {
                         style: {
                             display: `flex`,
                             alignItems: `center`,
@@ -65140,26 +65143,26 @@ Resources:`;
                                 onClick: ()=>CY.controller.openProfile(),
                                 style: {
                                     fontFamily: `'Cinzel', serif`,
-                                    fontSize: l ? 9 : 11,
+                                    fontSize: u ? 9 : 11,
                                     color: `rgba(200,160,48,0.8)`,
-                                    letterSpacing: l ? 1 : 2,
+                                    letterSpacing: u ? 1 : 2,
                                     border: `1px solid rgba(200,160,48,0.3)`,
                                     borderRadius: 8,
-                                    padding: l ? `3px 8px` : `6px 14px`,
+                                    padding: u ? `3px 8px` : `6px 14px`,
                                     cursor: `pointer`
                                 },
-                                children: E ?? `${T.slice(0, 6)}...${T.slice(-4)}`
+                                children: ee ?? `${E.slice(0, 6)}...${E.slice(-4)}`
                             }),
                             (0, L.jsx)(`button`, {
-                                onClick: te,
+                                onClick: O,
                                 style: {
                                     background: `transparent`,
                                     border: `1px solid rgba(255,255,255,0.1)`,
                                     color: `rgba(255,255,255,0.3)`,
-                                    fontSize: l ? 9 : 11,
+                                    fontSize: u ? 9 : 11,
                                     cursor: `pointer`,
                                     borderRadius: 6,
-                                    padding: l ? `3px 6px` : `6px 10px`,
+                                    padding: u ? `3px 6px` : `6px 10px`,
                                     fontFamily: `'Cinzel', serif`
                                 },
                                 children: `DISCONNECT`
@@ -65169,8 +65172,8 @@ Resources:`;
                         whileHover: {
                             scale: 1.05
                         },
-                        onClick: D,
-                        disabled: ee,
+                        onClick: te,
+                        disabled: D,
                         style: {
                             padding: `8px 20px`,
                             borderRadius: 8,
@@ -65182,7 +65185,7 @@ Resources:`;
                             cursor: `pointer`,
                             fontFamily: `'Pirata One', cursive`
                         },
-                        children: ee ? `CONNECTING...` : `CONNECT WALLET`
+                        children: D ? `CONNECTING...` : `CONNECT WALLET`
                     })
                 }),
                 (0, L.jsx)(`div`, {
@@ -65197,9 +65200,9 @@ Resources:`;
                         letterSpacing: 6,
                         color: `rgba(255,255,255,0.6)`,
                         textShadow: `0 1px 4px rgba(0,0,0,0.8)`,
-                        display: l || o ? `none` : `block`
+                        display: u || o ? `none` : `block`
                     },
-                    children: q9[O].label
+                    children: q9[ne].label
                 }),
                 (0, L.jsxs)(`div`, {
                     style: {
@@ -65209,11 +65212,11 @@ Resources:`;
                         display: `flex`,
                         flexDirection: `column`,
                         alignItems: `center`,
-                        justifyContent: l ? `flex-start` : `center`,
-                        gap: l ? 12 : 24,
-                        overflowY: l ? `auto` : `visible`,
-                        paddingTop: l ? 44 : 0,
-                        paddingBottom: l ? 32 : 0
+                        justifyContent: u ? `flex-start` : `center`,
+                        gap: u ? 12 : 24,
+                        overflowY: u ? `auto` : `visible`,
+                        paddingTop: u ? 44 : 0,
+                        paddingBottom: u ? 32 : 0
                     },
                     children: [
                         (0, L.jsx)(X.div, {
@@ -65229,9 +65232,9 @@ Resources:`;
                                 delay: .3
                             },
                             style: {
-                                fontSize: l ? 58 : 72,
-                                letterSpacing: l ? 10 : 16,
-                                marginTop: l ? 32 : 0,
+                                fontSize: u ? 58 : 72,
+                                letterSpacing: u ? 10 : 16,
+                                marginTop: u ? 32 : 0,
                                 color: `#c8a030`,
                                 textShadow: `0 0 40px rgba(200,160,48,0.6), 0 2px 8px rgba(0,0,0,0.9)`
                             },
@@ -65249,10 +65252,10 @@ Resources:`;
                             },
                             style: {
                                 fontFamily: `'Cinzel', serif`,
-                                fontSize: l ? 10 : 13,
-                                letterSpacing: l ? 3 : 6,
+                                fontSize: u ? 10 : 13,
+                                letterSpacing: u ? 3 : 6,
                                 color: `rgba(255,255,255,0.7)`,
-                                marginTop: l ? -6 : -16,
+                                marginTop: u ? -6 : -16,
                                 textShadow: `0 1px 4px rgba(0,0,0,0.9)`,
                                 textAlign: `center`,
                                 width: `100%`
@@ -65291,7 +65294,7 @@ Resources:`;
                                             style: {
                                                 display: `flex`,
                                                 gap: 16,
-                                                width: l ? `88%` : `auto`
+                                                width: u ? `88%` : `auto`
                                             },
                                             children: [
                                                 (0, L.jsx)(X.button, {
@@ -65303,21 +65306,21 @@ Resources:`;
                                                         scale: .97
                                                     },
                                                     onClick: async ()=>{
-                                                        if (!T) {
-                                                            D();
+                                                        if (!E) {
+                                                            te();
                                                             return;
                                                         }
-                                                        let t = await R7(T);
-                                                        e(T, E, t?.seed, !1, t?.seed_token);
+                                                        let t = await R7(E);
+                                                        e(E, ee, t?.seed, !1, t?.seed_token);
                                                     },
                                                     style: {
-                                                        padding: l ? `20px 0` : `16px 48px`,
-                                                        width: l ? `100%` : `auto`,
+                                                        padding: u ? `20px 0` : `16px 48px`,
+                                                        width: u ? `100%` : `auto`,
                                                         borderRadius: 12,
                                                         border: `2px solid rgba(200,160,48,0.9)`,
-                                                        background: l ? `rgba(200,160,48,0.38)` : `rgba(200,160,48,0.25)`,
-                                                        color: l ? `#e8c250` : `#c8a030`,
-                                                        fontSize: l ? 28 : 22,
+                                                        background: u ? `rgba(200,160,48,0.38)` : `rgba(200,160,48,0.25)`,
+                                                        color: u ? `#e8c250` : `#c8a030`,
+                                                        fontSize: u ? 28 : 22,
                                                         letterSpacing: 4,
                                                         cursor: `pointer`,
                                                         fontFamily: `'Pirata One', cursive`
@@ -65331,9 +65334,9 @@ Resources:`;
                                                     whileTap: {
                                                         scale: .97
                                                     },
-                                                    onClick: ()=>w(!0),
+                                                    onClick: ()=>T(!0),
                                                     style: {
-                                                        display: l ? `none` : `block`,
+                                                        display: u ? `none` : `block`,
                                                         padding: `16px 32px`,
                                                         borderRadius: 12,
                                                         border: `1px solid rgba(200,160,48,0.7)`,
@@ -65350,7 +65353,7 @@ Resources:`;
                                         }),
                                         (0, L.jsxs)(`div`, {
                                             style: {
-                                                padding: l ? `12px 14px` : `16px 20px`,
+                                                padding: u ? `12px 14px` : `16px 20px`,
                                                 borderRadius: 16,
                                                 border: `2px solid rgba(200,160,48,0.5)`,
                                                 background: `linear-gradient(135deg, rgba(30,20,5,0.9), rgba(10,15,25,0.9))`,
@@ -65391,7 +65394,7 @@ Resources:`;
                                                             }),
                                                             (0, L.jsx)(`div`, {
                                                                 style: {
-                                                                    display: l ? `none` : `block`,
+                                                                    display: u ? `none` : `block`,
                                                                     fontSize: 12,
                                                                     color: `rgba(255,255,255,0.65)`,
                                                                     fontFamily: `'IM Fell English', cursive`,
@@ -65426,7 +65429,7 @@ Resources:`;
                                                                         color: `#88ddff`,
                                                                         fontWeight: 700
                                                                     },
-                                                                    children: b
+                                                                    children: S
                                                                 }),
                                                                 ` `,
                                                                 (0, L.jsx)(`span`, {
@@ -65437,7 +65440,7 @@ Resources:`;
                                                                 })
                                                             ]
                                                         }),
-                                                        s ? (0, L.jsxs)(`div`, {
+                                                        c ? (0, L.jsxs)(`div`, {
                                                             style: {
                                                                 fontSize: 11,
                                                                 color: `rgba(136,221,255,0.55)`,
@@ -65458,7 +65461,7 @@ Resources:`;
                                                                 scale: .96
                                                             },
                                                             onClick: ()=>{
-                                                                T ? e(T, E, Oce(), !0) : D();
+                                                                E ? e(E, ee, Oce(), !0) : te();
                                                             },
                                                             style: {
                                                                 padding: `10px 20px`,
@@ -65477,9 +65480,9 @@ Resources:`;
                                                         })
                                                     ]
                                                 }),
-                                                (0, L.jsxs)(`div`, {
+                                                (0, L.jsx)(`div`, {
                                                     style: {
-                                                        display: l ? `none` : `block`,
+                                                        display: u ? `none` : `block`,
                                                         fontSize: 10,
                                                         color: `rgba(238,221,68,0.55)`,
                                                         fontFamily: `'Cinzel', serif`,
@@ -65487,22 +65490,24 @@ Resources:`;
                                                         textAlign: `center`,
                                                         letterSpacing: 1
                                                     },
-                                                    children: [
-                                                        (0, L.jsx)(w9, {
-                                                            name: `trophy`,
-                                                            size: 17,
-                                                            style: {
-                                                                marginRight: 7
-                                                            }
-                                                        }),
-                                                        `Starktember is live — the Daily decides who takes the Tide`
-                                                    ]
+                                                    children: (o || s) && (0, L.jsxs)(L.Fragment, {
+                                                        children: [
+                                                            (0, L.jsx)(w9, {
+                                                                name: `trophy`,
+                                                                size: 17,
+                                                                style: {
+                                                                    marginRight: 7
+                                                                }
+                                                            }),
+                                                            o ? `Starktember is live — the Daily decides who takes the Tide` : `Starktember is over — the Tide has found its captain`
+                                                        ]
+                                                    })
                                                 })
                                             ]
                                         })
                                     ]
                                 }),
-                                v.length > 0 && (0, L.jsxs)(`div`, {
+                                y.length > 0 && (0, L.jsxs)(`div`, {
                                     style: {
                                         padding: `10px 20px`,
                                         borderRadius: 12,
@@ -65533,7 +65538,7 @@ Resources:`;
                                                 `TODAY'S TOP`
                                             ]
                                         }),
-                                        v.map((e, t)=>(0, L.jsxs)(`div`, {
+                                        y.map((e, t)=>(0, L.jsxs)(`div`, {
                                                 style: {
                                                     display: `flex`,
                                                     alignItems: `center`,
@@ -65604,7 +65609,7 @@ Resources:`;
                                         }),
                                         (0, L.jsx)(`div`, {
                                             style: {
-                                                fontSize: l ? 9 : 10,
+                                                fontSize: u ? 9 : 10,
                                                 color: `rgba(255,255,255,0.45)`,
                                                 fontFamily: `'IM Fell English', cursive`,
                                                 textAlign: `center`,
@@ -65614,7 +65619,7 @@ Resources:`;
                                         }),
                                         (0, L.jsx)(`div`, {
                                             style: {
-                                                fontSize: l ? 9 : 10,
+                                                fontSize: u ? 9 : 10,
                                                 color: `rgba(238,170,68,0.7)`,
                                                 fontFamily: `'Cinzel', serif`,
                                                 letterSpacing: 1,
@@ -65688,8 +65693,8 @@ Resources:`;
                                                 ]
                                             }, e.wallet_address)),
                                         (()=>{
-                                            if (!T) return null;
-                                            let e = (e)=>e.toLowerCase().replace(/^0x0*/, ``), t = i.find((t)=>e(t.wallet_address) === e(T));
+                                            if (!E) return null;
+                                            let e = (e)=>e.toLowerCase().replace(/^0x0*/, ``), t = i.find((t)=>e(t.wallet_address) === e(E));
                                             if (!t || t.rank <= 5) return null;
                                             let n = i[0];
                                             return (0, L.jsxs)(`div`, {
@@ -65759,6 +65764,101 @@ Resources:`;
                                         })()
                                     ]
                                 }),
+                                s && (0, L.jsxs)(`div`, {
+                                    style: {
+                                        padding: `14px 20px`,
+                                        borderRadius: 12,
+                                        border: `1px solid rgba(238,170,68,0.5)`,
+                                        background: `linear-gradient(135deg, rgba(40,24,4,0.9), rgba(8,10,18,0.9))`,
+                                        width: `100%`,
+                                        maxWidth: 360,
+                                        textAlign: `center`
+                                    },
+                                    children: [
+                                        (0, L.jsx)(`div`, {
+                                            style: {
+                                                fontSize: 11,
+                                                color: `rgba(238,170,68,0.8)`,
+                                                fontFamily: `'Cinzel', serif`,
+                                                letterSpacing: 3,
+                                                marginBottom: 6
+                                            },
+                                            children: `STARKTEMBER IS OVER`
+                                        }),
+                                        i[0] ? (0, L.jsxs)(L.Fragment, {
+                                            children: [
+                                                (0, L.jsx)(`div`, {
+                                                    style: {
+                                                        fontSize: u ? 10 : 11,
+                                                        color: `rgba(255,255,255,0.5)`,
+                                                        fontFamily: `'IM Fell English', cursive`,
+                                                        marginBottom: 8
+                                                    },
+                                                    children: `The Starktember Tide goes to`
+                                                }),
+                                                (0, L.jsxs)(`div`, {
+                                                    style: {
+                                                        display: `flex`,
+                                                        alignItems: `center`,
+                                                        justifyContent: `center`,
+                                                        gap: 8,
+                                                        marginBottom: 4
+                                                    },
+                                                    children: [
+                                                        (0, L.jsx)(w9, {
+                                                            name: `crown`,
+                                                            size: 22
+                                                        }),
+                                                        (0, L.jsx)(`div`, {
+                                                            style: {
+                                                                fontSize: 22,
+                                                                color: `#FFD700`,
+                                                                fontFamily: `'Pirata One', cursive`,
+                                                                letterSpacing: 1
+                                                            },
+                                                            children: i[0].username ?? `${i[0].wallet_address.slice(0, 6)}...${i[0].wallet_address.slice(-4)}`
+                                                        })
+                                                    ]
+                                                }),
+                                                (0, L.jsxs)(`div`, {
+                                                    style: {
+                                                        fontSize: 12,
+                                                        color: `#eeaa44`,
+                                                        fontFamily: `'Cinzel', serif`,
+                                                        marginBottom: 10
+                                                    },
+                                                    children: [
+                                                        i[0].total.toLocaleString(),
+                                                        ` pts across `,
+                                                        i[0].days_played,
+                                                        ` Dailies`
+                                                    ]
+                                                }),
+                                                (0, L.jsxs)(`div`, {
+                                                    style: {
+                                                        fontSize: u ? 11 : 12,
+                                                        color: `rgba(255,255,255,0.65)`,
+                                                        fontFamily: `'IM Fell English', cursive`,
+                                                        lineHeight: 1.4
+                                                    },
+                                                    children: [
+                                                        `Congratulations, captain. Well sailed.`,
+                                                        (0, L.jsx)(`br`, {}),
+                                                        `Thank you to every captain who took part.`
+                                                    ]
+                                                })
+                                            ]
+                                        }) : (0, L.jsx)(`div`, {
+                                            style: {
+                                                fontSize: 12,
+                                                color: `rgba(255,255,255,0.65)`,
+                                                fontFamily: `'IM Fell English', cursive`,
+                                                lineHeight: 1.4
+                                            },
+                                            children: `Thank you to every captain who took part.`
+                                        })
+                                    ]
+                                }),
                                 n && n.actions.length > 0 && t && (0, L.jsxs)(X.button, {
                                     whileHover: {
                                         scale: 1.05
@@ -65792,14 +65892,14 @@ Resources:`;
                                     whileTap: {
                                         scale: .97
                                     },
-                                    onClick: ()=>d(!0),
+                                    onClick: ()=>f(!0),
                                     style: {
-                                        padding: l ? `4px 10px` : `12px 32px`,
+                                        padding: u ? `4px 10px` : `12px 32px`,
                                         borderRadius: 12,
-                                        border: l ? `none` : `1px solid rgba(255,255,255,0.5)`,
-                                        background: l ? `transparent` : `rgba(255,255,255,0.12)`,
-                                        color: l ? `rgba(255,255,255,0.5)` : `rgba(255,255,255,0.85)`,
-                                        fontSize: l ? 12 : 14,
+                                        border: u ? `none` : `1px solid rgba(255,255,255,0.5)`,
+                                        background: u ? `transparent` : `rgba(255,255,255,0.12)`,
+                                        color: u ? `rgba(255,255,255,0.5)` : `rgba(255,255,255,0.85)`,
+                                        fontSize: u ? 12 : 14,
                                         letterSpacing: 3,
                                         cursor: `pointer`,
                                         fontFamily: `'Pirata One', cursive`
@@ -65814,11 +65914,11 @@ Resources:`;
                                         flexWrap: `wrap`
                                     },
                                     children: [
-                                        l && (0, L.jsxs)(X.button, {
+                                        u && (0, L.jsxs)(X.button, {
                                             whileTap: {
                                                 scale: .96
                                             },
-                                            onClick: ()=>w(!0),
+                                            onClick: ()=>T(!0),
                                             style: {
                                                 padding: `9px 12px`,
                                                 borderRadius: 12,
@@ -65850,15 +65950,15 @@ Resources:`;
                                             whileTap: {
                                                 scale: .96
                                             },
-                                            onClick: ()=>p(!0),
+                                            onClick: ()=>m(!0),
                                             style: {
-                                                padding: l ? `9px 12px` : `12px 26px`,
+                                                padding: u ? `9px 12px` : `12px 26px`,
                                                 borderRadius: 12,
                                                 border: `1px solid rgba(238,221,68,0.45)`,
                                                 background: `rgba(238,221,68,0.07)`,
                                                 color: `rgba(238,221,68,0.9)`,
-                                                fontSize: l ? 11 : 14,
-                                                letterSpacing: l ? 1 : 3,
+                                                fontSize: u ? 11 : 14,
+                                                letterSpacing: u ? 1 : 3,
                                                 cursor: `pointer`,
                                                 fontFamily: `'Pirata One', cursive`,
                                                 display: `flex`,
@@ -65867,9 +65967,9 @@ Resources:`;
                                             children: [
                                                 (0, L.jsx)(w9, {
                                                     name: `fleurdelys`,
-                                                    size: l ? 16 : 22,
+                                                    size: u ? 16 : 22,
                                                     style: {
-                                                        marginRight: l ? 5 : 8
+                                                        marginRight: u ? 5 : 8
                                                     }
                                                 }),
                                                 `FEATS`
@@ -65882,15 +65982,15 @@ Resources:`;
                                             whileTap: {
                                                 scale: .96
                                             },
-                                            onClick: ()=>_(!0),
+                                            onClick: ()=>v(!0),
                                             style: {
-                                                padding: l ? `9px 12px` : `12px 26px`,
+                                                padding: u ? `9px 12px` : `12px 26px`,
                                                 borderRadius: 12,
                                                 border: `1px solid rgba(136,221,255,0.45)`,
                                                 background: `rgba(136,221,255,0.07)`,
                                                 color: `rgba(136,221,255,0.9)`,
-                                                fontSize: l ? 11 : 14,
-                                                letterSpacing: l ? 1 : 3,
+                                                fontSize: u ? 11 : 14,
+                                                letterSpacing: u ? 1 : 3,
                                                 cursor: `pointer`,
                                                 fontFamily: `'Pirata One', cursive`,
                                                 display: `flex`,
@@ -65899,9 +65999,9 @@ Resources:`;
                                             children: [
                                                 (0, L.jsx)(w9, {
                                                     name: `ship`,
-                                                    size: l ? 16 : 22,
+                                                    size: u ? 16 : 22,
                                                     style: {
-                                                        marginRight: l ? 5 : 8
+                                                        marginRight: u ? 5 : 8
                                                     }
                                                 }),
                                                 `SHIPS`
@@ -65914,15 +66014,15 @@ Resources:`;
                                             whileTap: {
                                                 scale: .96
                                             },
-                                            onClick: ()=>h(!0),
+                                            onClick: ()=>g(!0),
                                             style: {
-                                                padding: l ? `9px 12px` : `12px 26px`,
+                                                padding: u ? `9px 12px` : `12px 26px`,
                                                 borderRadius: 12,
                                                 border: `1px solid rgba(170,102,238,0.45)`,
                                                 background: `rgba(170,102,238,0.07)`,
                                                 color: `rgba(200,150,255,0.9)`,
-                                                fontSize: l ? 11 : 14,
-                                                letterSpacing: l ? 1 : 3,
+                                                fontSize: u ? 11 : 14,
+                                                letterSpacing: u ? 1 : 3,
                                                 cursor: `pointer`,
                                                 fontFamily: `'Pirata One', cursive`,
                                                 display: `flex`,
@@ -65931,9 +66031,9 @@ Resources:`;
                                             children: [
                                                 (0, L.jsx)(w9, {
                                                     name: `fleurdelys`,
-                                                    size: l ? 16 : 22,
+                                                    size: u ? 16 : 22,
                                                     style: {
-                                                        marginRight: l ? 5 : 8
+                                                        marginRight: u ? 5 : 8
                                                     }
                                                 }),
                                                 `NFTS`
@@ -65950,12 +66050,12 @@ Resources:`;
                                 marginTop: 8
                             },
                             children: q9.map((e, t)=>(0, L.jsx)(`div`, {
-                                    onClick: ()=>ne(t),
+                                    onClick: ()=>re(t),
                                     style: {
                                         width: 6,
                                         height: 6,
                                         borderRadius: `50%`,
-                                        background: t === O ? `rgba(200,160,48,0.8)` : `rgba(255,255,255,0.15)`,
+                                        background: t === ne ? `rgba(200,160,48,0.8)` : `rgba(255,255,255,0.15)`,
                                         cursor: `pointer`,
                                         transition: `background 0.3s`
                                     }
@@ -65965,28 +66065,28 @@ Resources:`;
                 }),
                 (0, L.jsxs)(L3, {
                     children: [
-                        u && (0, L.jsx)(hle, {
-                            onClose: ()=>d(!1),
+                        d && (0, L.jsx)(hle, {
+                            onClose: ()=>f(!1),
                             onPlay: async ()=>{
-                                if (d(!1), !T) {
-                                    D();
+                                if (f(!1), !E) {
+                                    te();
                                     return;
                                 }
-                                let t = await R7(T);
-                                e(T, E, t?.seed, !1, t?.seed_token);
+                                let t = await R7(E);
+                                e(E, ee, t?.seed, !1, t?.seed_token);
                             }
                         }),
-                        f && (0, L.jsx)(gle, {
-                            onClose: ()=>p(!1)
+                        p && (0, L.jsx)(gle, {
+                            onClose: ()=>m(!1)
                         }),
-                        g && (0, L.jsx)(Tle, {
-                            onClose: ()=>_(!1)
+                        _ && (0, L.jsx)(Tle, {
+                            onClose: ()=>v(!1)
                         }),
-                        m && (0, L.jsx)(ble, {
-                            onClose: ()=>h(!1)
+                        h && (0, L.jsx)(ble, {
+                            onClose: ()=>g(!1)
                         }),
-                        C && (0, L.jsx)(Ele, {
-                            onClose: ()=>w(!1)
+                        w && (0, L.jsx)(Ele, {
+                            onClose: ()=>T(!1)
                         })
                     ]
                 })
