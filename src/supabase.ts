@@ -50,6 +50,22 @@ export async function getDailyLeaderboard(date: string) {
   return error ? [] : data;
 }
 
+// Classement Starktember : cumul des scores quotidiens sur septembre.
+// La vue fait le regroupement, que PostgREST ne sait pas faire seul.
+export interface StarktemberRow {
+  wallet_address: string; username: string | null;
+  rank: number; total: number; days_played: number; best_day: number;
+}
+
+export async function getStarktemberBoard(): Promise<StarktemberRow[]> {
+  const { data, error } = await supabase
+    .from('starktember_board')
+    .select('rank, wallet_address, username, total, days_played, best_day')
+    .limit(50);
+  if (error) { console.warn('[starktember]', error.message); return []; }
+  return (data ?? []) as StarktemberRow[];
+}
+
 export async function checkNFTConditions(runData: {
   wallet_address: string;
   score: number;
@@ -135,14 +151,24 @@ export async function getSupply(): Promise<SupplyRow[]> {
   return data ?? [];
 }
 
+// L'ecriture passe par une Edge Function protegee : la cle anon n'a plus
+// aucun droit sur les tables NFT. Le secret est demande une fois puis garde
+// en local.
 export async function markMinted(id: number, txHash: string, tokenId: number, nftName: string): Promise<boolean> {
-  const { error } = await supabase.from('nft_mints')
-    .update({ status: 'minted', tx_hash: txHash, token_id: tokenId })
-    .eq('id', id);
-  if (error) { console.warn('[admin] markMinted:', error.message); return false; }
-  const { error: metaError } = await supabase.from('nft_token_metadata')
-    .insert({ token_id: tokenId, nft_name: nftName });
-  if (metaError) { console.warn('[admin] metadata insert:', metaError.message); return false; }
+  // Pas de prompt() : il bloque la page entiere et les fenetres s'empilent.
+  // La cle se pose une fois depuis la console :
+  //   localStorage.setItem('corsair_admin_secret', '...')
+  const secret = localStorage.getItem('corsair_admin_secret');
+  if (!secret) { console.warn('[admin] cle admin absente'); return false; }
+  const { data, error } = await supabase.functions.invoke('admin-mint', {
+    body: { secret, id, tx_hash: txHash, token_id: tokenId, nft_name: nftName },
+  });
+  if (error || !(data as any)?.ok) {
+    const raison = (data as any)?.error ?? error?.message;
+    if (raison === 'unauthorized') localStorage.removeItem('corsair_admin_secret');
+    console.warn('[admin] markMinted:', raison);
+    return false;
+  }
   return true;
 }
 
@@ -327,4 +353,17 @@ export async function markDailyPlayedOnServer(wallet: string, key: string): Prom
   const { error } = await supabase.from('daily_plays')
     .insert({ wallet_address: wallet, daily_key: key });
   if (error && !error.message.toLowerCase().includes('duplicate')) console.warn('[daily]', error.message);
+}
+
+
+// ─── APPROBATION SERVEUR ──────────────────────────────────────────────
+// Le client n'annonce plus son score : il demande au serveur de rejouer la
+// partie depuis son log et d'approuver (ou non) le resultat.
+
+export async function approveRun(runId: string): Promise<any> {
+  const { data, error } = await supabase.functions.invoke('approve-run', {
+    body: { run_id: runId },
+  });
+  if (error) throw error;
+  return data;
 }

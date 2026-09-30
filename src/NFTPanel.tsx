@@ -15,16 +15,17 @@ interface NFTDef {
 }
 
 const NFTS: NFTDef[] = [
-  { key: 'last_port', name: 'The Last Port', rarity: 'Rare', image: 'ipfs://bafybeiagwhp7b5if5affgcbivuw5yxpek3dkjlrsvvxaugzifx44ayj6jy', condition: 'Visit 2 ports and score over 500 in a single run.' },
-  { key: 'cursed_doubloon', name: 'The Cursed Doubloon', rarity: 'Rare', image: 'ipfs://bafybeid56dnunq3wu5ad6eveuve4k23duy6bxreelt32mr4bbygmfydpra', condition: 'Take the cursed treasure and end the run with 300+ gold.' },
-  { key: 'ancient_chart', name: 'The Ancient Chart', rarity: 'Epic', image: 'ipfs://bafybeid576kkatsdsjvyldarwiybwq2hqibf7cd7dvdtidtizluvem5apm', condition: 'Find 3 treasures and slay the Kraken in one run.' },
-  { key: 'ghost_corsair', name: 'The Ghost Corsair', rarity: 'Epic', image: 'ipfs://bafybeih5se4lzkn5s3u52raqp6hgg77syijm4buyb5upq5y7zlfshrfbha', condition: 'Score over 400 without fighting a single pirate.' },
-  { key: 'blood_moon_tide', name: 'The Blood Moon Tide', rarity: 'Epic', image: 'ipfs://bafybeibttmnchyiy4ypet6yuodsg3xkxqzcem5kf3zoymi7pu64i3rgjn4', condition: 'Land a combo by turn 8, then survive past turn 20.' },
-  { key: 'storm_caller', name: 'The Storm Caller', rarity: 'Legendary', image: 'ipfs://bafybeieyiw5elinspkna3yua3thqqxsg5tldvm3ezospxm4azporrkvki4', condition: '“Sail where the storm can taste your wake, and do not flinch.”', seedBound: true },
-  { key: 'kraken_eye', name: "The Kraken's Eye", rarity: 'Legendary', image: 'ipfs://bafybeic3suyc2sklp2ypx7nvfmj4fhayqu2fqd3xalq257jhthpx5wr4se', condition: '“Stare into the oldest abyss until it blinks first.”', seedBound: true },
-  { key: 'maelstrom_heart', name: 'The Maelstrom Heart', rarity: 'Legendary', image: 'ipfs://bafybeiepk3zxbacpf4ngormvc5kcgglvh46judpdfh7rkln2cenbveh3iy', condition: '“What the whirlpool swallows, it sometimes spits back — changed.”', seedBound: true },
-  { key: 'hunters_mark', name: "The Hunter's Mark", rarity: 'Legendary', image: 'ipfs://bafybeibmsy6qmz4wlxoyqqxk2jbvvjl7cgqkx23ts4dczhjed7jnnc4pdm', condition: '“Wear his blows like medals. Twice.”', seedBound: true },
-  { key: 'leviathan', name: '???', rarity: 'Mythic', image: 'ipfs://bafybeicsvnwhzz5wkn2geq3vnds2a56ko4w2fnojnqtsr6k5iafmidnprq', condition: 'No one has ever seen it. No one knows how.', hidden: true },
+  { key: 'last_port', name: 'The Last Port', rarity: 'Rare', image: 'https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/08-last_port.jpg', condition: 'Visit 2 ports and finish above 500 points.' },
+  { key: 'cursed_doubloon', name: 'The Cursed Doubloon', rarity: 'Rare', image: 'https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/06-cursed_doubloon.jpg', condition: 'Take the cursed treasure and end the run with 300+ gold.' },
+  { key: 'ancient_chart', name: 'The Ancient Chart', rarity: 'Epic', image: 'https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/02-ancient_chart.jpg', condition: 'Find 3 treasures and kill a Kraken in the same voyage.' },
+  { key: 'ghost_corsair', name: 'The Ghost Corsair', rarity: 'Epic', image: 'https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/04-ghost_corsair.jpg', condition: 'Finish above 400 points without fighting a single pirate.' },
+  { key: 'blood_moon_tide', name: 'The Blood Moon Tide', rarity: 'Epic', image: 'https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/09-blood_moon_tide.jpg', condition: 'Reach a 3-danger streak by turn 8, then survive to turn 20.' },
+  { key: 'storm_caller', name: 'The Storm Caller', rarity: 'Legendary', image: 'https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/03-storm_caller.jpg', condition: 'Let the storm close to within 2 tiles, and still be afloat on turn 10.', seedBound: true },
+  { key: 'kraken_eye', name: "The Kraken's Eye", rarity: 'Legendary', image: 'https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/01-kraken_eye.jpg', condition: 'Kill the Ancient Kraken — the one that only stirs in the deepest water.', seedBound: true },
+  { key: 'maelstrom_heart', name: 'The Maelstrom Heart', rarity: 'Legendary', image: 'https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/05-maelstrom_heart.jpg', condition: 'Be swallowed by a maelstrom and come back out.', seedBound: true },
+  { key: 'hunters_mark', name: "The Hunter's Mark", rarity: 'Legendary', image: 'https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/07-hunters_mark.jpg', condition: 'Survive 2 attacks from the Hunter in a single voyage.', seedBound: true },
+  { key: 'starktember_tide', name: 'The Starktember Tide', rarity: 'Mythic', image: 'https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/11-starktember_tide.jpg', condition: 'September only — highest total across the month\'s dailies. One month, one winner.' },
+  { key: 'leviathan', name: '???', rarity: 'Mythic', image: 'https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/10-leviathan.jpg', condition: 'Finish above 3,000 points, with a Kraken dead in your wake.', seedBound: true, hidden: true },
 ];
 
 const RARITY_COLOR: Record<string, string> = {
@@ -97,7 +98,7 @@ export default function NFTPanel({ onClose }: { onClose: () => void }) {
                       <div style={{ width: `${s.max_supply > 0 ? (s.minted / s.max_supply) * 100 : 0}%`, height: '100%', borderRadius: 2, background: full ? '#ee6655' : color }} />
                     </div>
                   )}
-                  <p style={{ fontFamily: "'IM Fell English', cursive", fontSize: 12, color: nft.seedBound ? 'rgba(238,221,136,0.75)' : 'rgba(255,255,255,0.55)', fontStyle: nft.seedBound || nft.hidden ? 'italic' : 'normal', margin: '8px 0 0', lineHeight: 1.35 }}>
+                  <p style={{ fontFamily: "'IM Fell English', cursive", fontSize: 12, color: nft.seedBound ? 'rgba(238,221,136,0.75)' : 'rgba(255,255,255,0.55)', fontStyle: 'normal', margin: '8px 0 0', lineHeight: 1.35 }}>
                     {nft.condition}
                   </p>
                   {nft.seedBound && (

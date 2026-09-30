@@ -8,7 +8,7 @@ import { setFeatsWallet, syncFeatsFromServer } from './game/feats';
 import { flushQueue, clearActiveRun, type ActiveRun } from './game/crashRecovery';
 import { replayRun } from './game/replay';
 import type { GameState } from './types/game';
-import { submitScore, checkNFTConditions } from './supabase';
+import { submitScore, checkNFTConditions, approveRun } from './supabase';
 
 type Screen = 'home' | 'game' | 'admin';
 
@@ -30,6 +30,7 @@ export default function App() {
   // Envois restes en attente lors d'une session precedente.
   useEffect(() => {
     flushQueue(async (kind, p) => {
+      if (kind === 'approve') { await approveRun(p.run_id); return true; }
       if (kind === 'score') {
         return await submitScore(p.wallet, p.score, p.run_title, p.turn, p.zone, p.seed, p.username);
       }
@@ -53,6 +54,14 @@ export default function App() {
     setSeedToken(token);
     setScreen('game');
   };
+
+  // Mode invite : ?guest=1 lance une partie sans wallet. Rien n'est enregistre,
+  // puisque le serveur n'approuve que les runs liees a un wallet — l'ecran de
+  // mort le dit deja au joueur.
+  useEffect(() => {
+    if (!new URLSearchParams(window.location.search).has('guest')) return;
+    handlePlay(null, 'Guest', Math.floor(Math.random() * 999999), false, undefined);
+  }, []);
 
   const username = overrideUsername ?? walletUsername;
 
