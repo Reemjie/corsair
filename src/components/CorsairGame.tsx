@@ -16,22 +16,9 @@ import { Icon } from '../Icon';
 import anchorImg from '../assets/anchor.png';
 import OnboardCard from './corsair/OnboardCard';
 import EventChoicePanel from './corsair/EventChoicePanel';
+import PortPanel from './corsair/PortPanel';
 import { ZONE_BG, SCENE_BG, SCENE_VIDEO, SCENE_TITLES } from './corsair/scenes';
-import swiftSailsImg from '../assets/upgrades/swift_sails.png';
-import ghostShipImg from '../assets/upgrades/ghost_ship.png';
-import treasureHunterImg from '../assets/upgrades/treasure_hunter.png';
-import stormRiderImg from '../assets/upgrades/storm_rider.png';
-import cursedGreedImg from '../assets/upgrades/cursed_greed.png';
-import berserkerImg from '../assets/upgrades/berserker.png';
-
-const UPGRADE_ICONS: Record<string, string> = {
-  escape: swiftSailsImg,
-  ghost: ghostShipImg,
-  hunter: treasureHunterImg,
-  rider: stormRiderImg,
-  greed: cursedGreedImg,
-  berserker: berserkerImg,
-};
+import { UPGRADES, UPGRADE_ICONS, UPGRADE_CODES, BUILD_COLOR, UpgradeDesc } from './corsair/upgrades';
 import hullImg from '../assets/hull.png';
 const goldImg = `${import.meta.env.BASE_URL}icons/gold.png`;
 import visionImg from '../assets/vision.png';
@@ -54,42 +41,6 @@ const CELL_GLOW_BY_ZONE: Record<number, Record<string, string>> = {
   2: { treasure:'#cc9922', port:'#2299aa', kraken:'#aa22cc', pirate:'#cc2222', portal:'#6644cc' },
   3: { treasure:'#aa7700', port:'#116677', kraken:'#880099', pirate:'#aa0000', portal:'#440088' },
 };
-
-// Pastilles pros/cons stylees (remplace les emojis bruts)
-function Pip({ ok }: { ok: boolean }) {
-  return (<span style={{
-    display:'inline-block', width:7, height:7, borderRadius:'50%', flexShrink:0,
-    marginTop:6, marginRight:7,
-    background: ok ? '#4ccf7e' : '#d9534f',
-    boxShadow: ok ? '0 0 5px rgba(76,207,126,0.6)' : '0 0 5px rgba(217,83,79,0.6)',
-  }} />);
-}
-function UpgradeDesc({ pros, cons, fontSize = 11, opacity = 0.55 }: { pros: readonly string[]; cons: readonly string[]; fontSize?: number; opacity?: number }) {
-  const Row = (text: string, ok: boolean, key: string) => (
-    <div key={key} style={{ display:'flex', alignItems:'flex-start', lineHeight:1.45 }}>
-      <Pip ok={ok} />
-      <span style={{ color:`rgba(255,255,255,${opacity})` }}>{text}</span>
-    </div>
-  );
-  return (<div style={{ fontSize, display:'flex', flexDirection:'column', gap:3 }}>
-    {pros.map((p, i) => Row(p, true, 'p'+i))}
-    {cons.map((c, i) => Row(c, false, 'c'+i))}
-  </div>);
-}
-// Resume texte court d'un upgrade (sans emoji) — pour tooltips/aperçus
-// Codes stables des ameliorations pour le log de coups (ne jamais reordonner)
-const UPGRADE_CODES: string[] = ['ghost','hunter','rider','greed','berserker','escape','vision','compass','detector','power','armor','explorer','stormbreaker'];
-
-const UPGRADES = [
-  { id:'ghost',    name:'Ghost Ship',      pros:['Pirates ignore you. +2 vision.'], cons:['Cannot dock at ports. Krakens attracted on sea cells.'],  cost:80,  icon:'ghost',    build:'combat' },
-  { id:'rider',    name:'Storm Rider',     pros:['Storm immunity. Storm cells give gold+score.','Hull+Rider synergy heals on storm.'], cons:['-1 HP every 2 turns. Repairs -50%.'],              cost:90,  icon:'rider',    build:'escape' },
-  { id:'greed',    name:'Cursed Greed',    pros:['Gold x1.5 on combat.'], cons:['Cannot repair at port. Storm gets worse every 200g. Hunter speeds up at 800g.'],                           cost:60,  icon:'greed',    build:'gold'   },
-  { id:'berserker',name:'Berserker',       pros:['Power x2. Weapon3 synergy = 15% crit chance.'], cons:['All damage received x2.'],                             cost:60,  icon:'berserker',build:'combat' },
-  { id:'hunter',   name:'Treasure Hunter', pros:['All treasures revealed on map. x3 combo = treasure reward x2.'], cons:['Storm surges +10% more frequent.'],    cost:75,  icon:'hunter',   build:'gold'   },
-  { id:'escape',   name:'Swift Sails',     pros:['Skip any dangerous event twice per run with no consequences. Save for the worst moments.'], cons:[],                                   cost:65,  icon:'escape',   build:'escape' },
-] as const;
-const BUILD_COLOR: Record<string,string> = { vision:'#6aaccc', gold:'#eedd44', combat:'#ee6644', escape:'#44cc88' };
-
 
 function deriveDeathCause(log: string): { name: string; tip: string } {
   const l = (log || '').toLowerCase();
@@ -1377,112 +1328,31 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
       </AnimatePresence>
 
       {/* PORT PANEL */}
-      <AnimatePresence>
-        {s.showPort && !s.gameOver && (
-          <motion.div initial={{ y:100,opacity:0 }} animate={{ y:0,opacity:1 }} exit={{ y:100,opacity:0 }}
-            style={{ background:'rgba(5,10,18,0.985)', borderTop:'1px solid rgba(68,204,136,0.2)', padding: isMobile ? '12px 12px calc(12px + env(safe-area-inset-bottom))' : '16px 24px', flexShrink:0, position:'relative', zIndex:5, maxHeight: isMobile ? '62vh' : undefined, overflowY: isMobile ? 'auto' : undefined }}>
-            <div style={{ maxWidth:700, margin:'0 auto' }}>
-              <div style={{ display:'flex', alignItems:'center', gap:8, marginBottom:12 }}>
-                <img src={anchorImg} style={{ width:40, height:40, objectFit:'contain' }}/>
-                <span style={{ fontSize:26, fontWeight:700, color:'#44cc88', letterSpacing:2, fontFamily:"'Pirata One', cursive" }}>SAFE HARBOR</span>
-              </div>
-              {onboard && (
-                <OnboardCard tip={onboard} isMobile={isMobile} onDismiss={dismissOnboard} />
-              )}
-              {/* Composants du navire */}
-              <div style={{ marginBottom:16 }}>
-                <div style={{ fontSize:14, letterSpacing:3, color:'rgba(255,255,255,0.5)', fontFamily:"'Cinzel', serif", marginBottom:10 }}>SHIP COMPONENTS</div>
-                <div style={{ display:'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3,1fr)', gap:8 }}>
-                  {([
-                    { key:'hull',   label:'HULL',       img:hullImg,   color:'#44cc88', effects:['Hull 20','Hull 28 −2 storm dmg','Hull 38 −3 env dmg'] },
-                    { key:'weapon', label:'ARMEMENT',   img:powerImg,  color:'#ee6644', effects:['Power 2','Power 5 +min dmg','Power 9 −3 combat dmg'] },
-                    { key:'nav',    label:'NAVIGATION', img:visionImg, color:'#6aaccc', effects:['Vision 1','Vision 2 +danger detect','Vision 3 +2 cases +minimap'] },
-                  ] as const).map(comp => {
-                    const lvl = s.ship.levels[comp.key];
-                    const cost = lvl === 0 ? 50 : 110;
-                    const canUpgrade = lvl < 2 && s.ship.gold >= cost && !(lvl === 1 && s.maxedComponents >= 2);
-                    const isMaxed = lvl >= 2;
-                    return (
-                      <div key={comp.key} onClick={() => canUpgrade && upgradeComp(comp.key)}
-                        style={{ background:`${comp.color}12`, border:`1px solid ${comp.color}${canUpgrade?'66':'22'}`, borderRadius:10, padding:'12px 10px', cursor:canUpgrade?'pointer':'default', opacity:canUpgrade||isMaxed?1:0.5, transition:'all 0.2s' }}>
-                        <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:6 }}>
-                          <div style={{ display:'flex', alignItems:'center', gap:6, fontSize:13, color:comp.color, fontFamily:"'Pirata One', cursive" }}><img src={comp.img} style={{ width:22, height:22, objectFit:'contain' }}/>{comp.label}</div>
-                          <div style={{ display:'flex', gap:3 }}>
-                            {[0,1,2].map(i => <div key={i} style={{ width:8, height:8, borderRadius:'50%', background: i <= lvl ? comp.color : 'rgba(255,255,255,0.1)' }}/>)}
-                          </div>
-                        </div>
-                        <div style={{ fontSize:12, color:'rgba(255,255,255,0.6)', fontFamily:"'IM Fell English', cursive", marginBottom:6 }}>{comp.effects[lvl]}</div>
-                        {!isMaxed && (
-                          <div style={{ fontSize:11, color: canUpgrade ? '#eedd44' : 'rgba(255,255,255,0.2)', fontFamily:"'Cinzel', serif" }}>
-                            {lvl === 1 && s.maxedComponents >= 2 ? 'MAX 2 N3' : `→ N${lvl+2} · ${cost}g`}
-                          </div>
-                        )}
-                        {isMaxed && <div style={{ fontSize:11, color:comp.color, fontFamily:"'Cinzel', serif" }}>✓ MAX</div>}
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Upgrades dans le port */}
-              <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:8 }}>
-                <div style={{ fontSize:16, color:'rgba(255,255,255,0.6)', fontFamily:"'Pirata One', cursive" }}>Available upgrades</div>
-                <motion.button whileHover={{scale:1.05}} onClick={() => { logAction(40); setState(s => rerollPort(s)); }}
-                  style={{ padding:'4px 12px', borderRadius:6, border:'1px solid rgba(255,200,50,0.3)', background:'rgba(255,200,50,0.08)', cursor:'pointer', color:'#eedd44', fontSize:13, fontFamily:"'Pirata One', cursive" }}>
-                  🎲 Reroll (20g)
-                </motion.button>
-              </div>
-              <div style={{ display:'grid', gridTemplateColumns:'repeat(2, 1fr)', gap:10, marginBottom:12 }}>
-                {UPGRADES.filter(upg => s.portUpgrades.includes(upg.id) || s.ship.upgrades.includes(upg.id as UpgradeId)).map(upg => {
-                  const owned = s.ship.upgrades.includes(upg.id as UpgradeId);
-                  const inCart = cart.includes(upg.id);
-                  const free = s.upgradeToken;
-                  const cost = free ? 0 : upg.cost;
-                  const atMax = (s.ship.upgrades.length + cart.length) >= 2;
-                  const canAdd = !owned && !inCart && s.ship.gold >= cost && !atMax;
-                  const bc = BUILD_COLOR[upg.build];
-                  return (
-                    <div key={upg.id} onClick={() => { if (inCart) { setCart(c => c.filter(x => x !== upg.id)); } else if (canAdd) { setCart(c => [...c, upg.id]); } }}
-                      style={{ padding:'14px 18px', borderRadius:10, border:`1px solid ${owned?bc+'66':inCart?'#44cc8866':canAdd?bc+'33':'rgba(255,255,255,0.05)'}`, background:owned?`${bc}18`:inCart?'rgba(68,204,136,0.15)':canAdd?'rgba(255,255,255,0.04)':'rgba(255,255,255,0.01)', cursor:canAdd||inCart?'pointer':'default', opacity:owned||canAdd||inCart?1:0.35, display:'flex', alignItems:'center', gap:12 }}>
-                      <img src={UPGRADE_ICONS[upg.id]} style={{width:44,height:44,objectFit:'contain'}}/>
-                      <div>
-                        <div style={{ fontSize:17, fontWeight:700, color:owned?bc:inCart?'#44cc88':'#e8e0d0', fontFamily:"'Pirata One', cursive" }}>{upg.name}</div>
-                        <div style={{ marginTop:3 }}>
-                          <UpgradeDesc pros={upg.pros} cons={upg.cons} fontSize={12} opacity={0.5} />
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-              {(s.ship.upgrades.length + cart.length) >= 2 && (
-                <div style={{ fontSize:12, color:'rgba(238,102,85,0.8)', fontFamily:"'Cinzel', serif", letterSpacing:1, textAlign:'center', marginBottom:8 }}>
-                  MAX 2 SPECIAL ABILITIES
-                </div>
-              )}
-            </div>
-
-          {/* Repair — shown first for visibility */}
-          <div style={{ display:'flex', gap:8, marginBottom:16 }}>
-            {[{label:'Rum Barrel',desc:'+8 hull',cost:25,fn:()=>{ logAction(60); setState(st=>repairHull(st,8,25)); }},{label:'Full Repair',desc:'Restore all',cost:55,fn:()=>{ logAction(61); setState(st=>repairHull(st,s.ship.maxHull,55)); }}].map(item => (
-              <motion.button key={item.label} whileTap={{scale:0.97}} onClick={item.fn}
-                disabled={s.ship.gold < item.cost || s.ship.hull >= s.ship.maxHull}
-                style={{ flex:1, padding:'10px 8px', borderRadius:10, border:'1px solid rgba(68,204,136,0.3)', background:'rgba(68,204,136,0.08)', cursor: (s.ship.gold >= item.cost && s.ship.hull < s.ship.maxHull) ? 'pointer' : 'not-allowed', opacity: (s.ship.gold >= item.cost && s.ship.hull < s.ship.maxHull) ? 1 : 0.4, textAlign:'center' }}>
-                <div style={{ fontSize:13, color:'#44cc88', fontFamily:"'Pirata One', cursive" }}>{item.label}</div>
-                <div style={{ fontSize:11, color:'rgba(255,255,255,0.5)' }}>{item.desc}</div>
-                <div style={{ fontSize:12, color:'#eedd44', marginTop:4 }}>◆ {item.cost}g</div>
-              </motion.button>
-            ))}
-          </div>
-
-          {/* Set Sail */}
-          <motion.button whileHover={{scale:1.02}} whileTap={{scale:0.98}} onClick={() => { for (const id of cart) logAction(50 + UPGRADE_CODES.indexOf(id as string)); logAction(70); setState(st => { let s2 = st; for (const id of cart) s2 = buyUpgrade(s2, id as UpgradeId); return leavePort(s2); }); setCart([]); }}
-            style={{ width:'100%', padding:'14px', borderRadius:12, border:'2px solid rgba(200,160,48,0.5)', background:'rgba(200,160,48,0.1)', color:'#c8a030', fontSize:18, fontFamily:"'Pirata One', cursive", letterSpacing:3, cursor:'pointer' }}>
-            <Icon name="anchor" size={22} style={{ marginRight:8 }} />SET SAIL
-          </motion.button>
-        </motion.div>
-      )}
-      </AnimatePresence>
+      <PortPanel
+        open={!!s.showPort && !s.gameOver}
+        isMobile={isMobile}
+        ship={s.ship}
+        portUpgrades={s.portUpgrades}
+        upgradeToken={!!s.upgradeToken}
+        maxedComponents={s.maxedComponents}
+        cart={cart}
+        setCart={setCart}
+        onboard={onboard}
+        onDismissOnboard={dismissOnboard}
+        onUpgradeComponent={upgradeComp}
+        onReroll={() => { logAction(40); setState(st => rerollPort(st)); }}
+        onRepair={(gain, cost, code) => { logAction(code); setState(st => repairHull(st, gain, cost)); }}
+        onSetSail={() => {
+          for (const id of cart) logAction(50 + UPGRADE_CODES.indexOf(id as string));
+          logAction(70);
+          setState(st => {
+            let s2 = st;
+            for (const id of cart) s2 = buyUpgrade(s2, id as UpgradeId);
+            return leavePort(s2);
+          });
+          setCart([]);
+        }}
+      />
 
       {/* GAME OVER */}
       <AnimatePresence>
