@@ -1,10 +1,10 @@
 import { a as e } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as t, n, r, t as i } from "./motion-wKhEcHeU.js";
 import { n as a } from "./walletApi-DYniPf4L.js";
-import { A as o, S as s, _ as c, b as ee, c as te, d as l, f as u, g as d, h as f, l as p, m as ne, n as m, o as re, p as ie, r as h, s as ae, t as g, v as oe, w as se, x as ce, y as le } from "./anchor-B6LJUWD7.js";
-import { a as ue, b as de, d as fe, h as pe, m as me, p as he, t as ge, x as _e, __tla as __tla_0 } from "./supabase-BXtpc1SX.js";
-import { l as ve, __tla as __tla_1 } from "./wallet-D0U5_iuP.js";
-let st;
+import { A as o, S as s, _ as c, b as l, c as u, d, f, g as p, h as m, l as h, m as ee, n as g, o as te, p as ne, r as _, s as re, t as v, v as ie, w as ae, x as oe, y as se } from "./anchor-B6LJUWD7.js";
+import { a as ce, b as le, d as ue, h as de, m as fe, p as pe, t as me, x as he, __tla as __tla_0 } from "./supabase-BXtpc1SX.js";
+import { l as ge, __tla as __tla_1 } from "./wallet-D0U5_iuP.js";
+let rt;
 let __tla = Promise.all([
     (()=>{
         try {
@@ -17,15 +17,15 @@ let __tla = Promise.all([
         } catch  {}
     })()
 ]).then(async ()=>{
-    var ye = `/assets/careful-Cp7BVX84.png`, be = `/assets/cover-B_e5YbfY.png`, xe = `/assets/cursed-DmavkUs_.png`, Se = `/assets/detour-D8HBkeuW.png`, _ = `/assets/dock-ePamt-Sr.png`, Ce = `/assets/explore-CNxn52P4.png`, we = `/assets/fight-g8Kc5AC3.png`, Te = `/assets/leave-CeE9NwgD.png`, Ee = `/assets/lurks-BB0IX5ES.png`, De = `/assets/pact-DCE16eF-.png`, v = `/assets/push-DcLNLHxV.png`, y = `/assets/ritual-B5bqWt-6.png`, Oe = `/assets/sacrifice-KlI9xYLE.png`, ke = `/assets/sail-yGR6Adzb.png`, Ae = `/assets/search-CSNg3Ko5.png`, b = `/assets/speed-BTjZicNY.png`, x = `/assets/take-CO53AH6i.png`, je = `/assets/tribute-CcshN1U0.png`, Me = `/assets/vortex-l5f1oTMj.png`, S = e(t(), 1), C = `0x01396d5df31922799610a9710bc69c5cb59c3427b400403d43c198de5d0003e3`;
-    new ve({
+    var y = e(t(), 1), _e = `0x01396d5df31922799610a9710bc69c5cb59c3427b400403d43c198de5d0003e3`;
+    new ge({
         nodeUrl: `https://api.cartridge.gg/x/starknet/mainnet`
     });
-    async function Ne(e, t, n, r, i, a) {
+    async function ve(e, t, n, r, i, a) {
         let o = new TextEncoder().encode(a.slice(0, 31)), s = `0x` + (Array.from(o).map((e)=>e.toString(16).padStart(2, `0`)).join(``) || `00`);
         return await e.execute([
             {
-                contractAddress: C,
+                contractAddress: _e,
                 entrypoint: `submit_score`,
                 calldata: [
                     t.toString(),
@@ -38,25 +38,25 @@ let __tla = Promise.all([
             }
         ]);
     }
-    var w = `corsair_onboard_v1`;
-    function Pe() {
+    var ye = `corsair_onboard_v1`;
+    function be() {
         try {
-            return new Set(JSON.parse(localStorage.getItem(w) ?? `[]`));
+            return new Set(JSON.parse(localStorage.getItem(ye) ?? `[]`));
         } catch  {
             return new Set;
         }
     }
-    function Fe(e) {
-        let t = Pe();
+    function xe(e) {
+        let t = be();
         t.add(e);
         try {
-            localStorage.setItem(w, JSON.stringify([
+            localStorage.setItem(ye, JSON.stringify([
                 ...t
             ]));
         } catch  {}
     }
-    function Ie(e) {
-        let t = Pe();
+    function Se(e) {
+        let t = be();
         return !t.has(`sail`) && e.turn === 0 && !e.event && !e.showPort && !e.gameOver ? {
             id: `sail`,
             title: `SET SAIL`,
@@ -79,9 +79,9 @@ let __tla = Promise.all([
             text: `It tracks you. Purple tiles hint its next move. Ports and storms lower its awareness.`
         } : null;
     }
-    var T = r();
-    function Le({ payload: e, isMobile: t, onShare: n }) {
-        return (0, T.jsxs)(i.div, {
+    var b = r();
+    function Ce({ payload: e, isMobile: t, onShare: n }) {
+        return (0, b.jsxs)(i.div, {
             initial: {
                 opacity: 0,
                 y: 8
@@ -101,7 +101,7 @@ let __tla = Promise.all([
                 marginBottom: 10
             },
             children: [
-                (0, T.jsxs)(`div`, {
+                (0, b.jsxs)(`div`, {
                     style: {
                         padding: t ? `14px 16px 10px` : `18px 20px 12px`,
                         backgroundImage: `linear-gradient(to bottom, rgba(6,10,18,0.35), rgba(6,10,18,0.92)), url(/scenes/storm.jpg)`,
@@ -109,7 +109,7 @@ let __tla = Promise.all([
                         backgroundPosition: `center`
                     },
                     children: [
-                        (0, T.jsx)(`div`, {
+                        (0, b.jsx)(`div`, {
                             style: {
                                 fontFamily: `'Cinzel', serif`,
                                 fontSize: 11,
@@ -118,7 +118,7 @@ let __tla = Promise.all([
                             },
                             children: e.isDaily ? `DAILY CHALLENGE` : `VOYAGE LOG`
                         }),
-                        (0, T.jsx)(`div`, {
+                        (0, b.jsx)(`div`, {
                             style: {
                                 fontFamily: `'Pirata One', cursive`,
                                 fontSize: t ? 26 : 32,
@@ -128,7 +128,7 @@ let __tla = Promise.all([
                             },
                             children: e.runTitle
                         }),
-                        (0, T.jsxs)(`div`, {
+                        (0, b.jsxs)(`div`, {
                             style: {
                                 fontFamily: `'IM Fell English', cursive`,
                                 fontSize: 14,
@@ -142,7 +142,7 @@ let __tla = Promise.all([
                         })
                     ]
                 }),
-                (0, T.jsx)(`div`, {
+                (0, b.jsx)(`div`, {
                     style: {
                         display: `grid`,
                         gridTemplateColumns: `repeat(3, 1fr)`,
@@ -165,12 +165,12 @@ let __tla = Promise.all([
                             val: String(e.gold),
                             color: `#eedd44`
                         }
-                    ].map((e)=>(0, T.jsxs)(`div`, {
+                    ].map((e)=>(0, b.jsxs)(`div`, {
                             style: {
                                 textAlign: `center`
                             },
                             children: [
-                                (0, T.jsx)(`div`, {
+                                (0, b.jsx)(`div`, {
                                     style: {
                                         fontFamily: `'Cinzel', serif`,
                                         fontSize: 10,
@@ -179,7 +179,7 @@ let __tla = Promise.all([
                                     },
                                     children: e.label
                                 }),
-                                (0, T.jsx)(`div`, {
+                                (0, b.jsx)(`div`, {
                                     style: {
                                         fontFamily: `'Cinzel', serif`,
                                         fontSize: 20,
@@ -191,7 +191,7 @@ let __tla = Promise.all([
                             ]
                         }, e.label))
                 }),
-                (0, T.jsxs)(`div`, {
+                (0, b.jsxs)(`div`, {
                     style: {
                         padding: `0 16px 14px`,
                         display: `flex`,
@@ -200,7 +200,7 @@ let __tla = Promise.all([
                         alignItems: `center`
                     },
                     children: [
-                        (0, T.jsxs)(`div`, {
+                        (0, b.jsxs)(`div`, {
                             style: {
                                 fontFamily: `'Cinzel', serif`,
                                 fontSize: 11,
@@ -212,7 +212,7 @@ let __tla = Promise.all([
                                 ` · playcorsair.xyz`
                             ]
                         }),
-                        (0, T.jsx)(i.button, {
+                        (0, b.jsx)(i.button, {
                             whileHover: {
                                 scale: 1.04
                             },
@@ -239,7 +239,7 @@ let __tla = Promise.all([
             ]
         });
     }
-    async function Re(e) {
+    async function we(e) {
         try {
             if (typeof navigator < `u` && navigator.share) {
                 await navigator.share({
@@ -251,7 +251,7 @@ let __tla = Promise.all([
         } catch  {}
         window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(e)}`, `_blank`);
     }
-    var ze = {
+    var Te = {
         gold: .5,
         buy: .5,
         damage: .6,
@@ -261,17 +261,72 @@ let __tla = Promise.all([
         hunter_near: .65,
         hunter_attack: .7,
         thunder: .55
-    }, E = {}, Be = !1;
-    function Ve(e) {
-        Be = e;
+    }, x = {}, Ee = !1;
+    function De(e) {
+        Ee = e;
     }
-    function D(e) {
-        if (!Be) try {
-            let t = E[e];
-            t || (t = new Audio(`/sounds/${e}.wav`), E[e] = t), t.volume = ze[e], t.currentTime = 0, t.play().catch(()=>{});
+    function S(e) {
+        if (!Ee) try {
+            let t = x[e];
+            t || (t = new Audio(`/sounds/${e}.wav`), x[e] = t), t.volume = Te[e], t.currentTime = 0, t.play().catch(()=>{});
         } catch  {}
     }
-    var He = `/assets/swift_sails-YMobDX4v.png`, O = `/assets/ghost_ship-4jaVs07k.png`, k = `/assets/treasure_hunter-C9jnAyZy.png`, Ue = `/assets/storm_rider-BjRGnDwr.png`, A = `/assets/cursed_greed-BlVfcQDt.png`, j = `/assets/berserker-B9haxHEY.png`, We = Object.fromEntries([
+    function C({ tip: e, isMobile: t, onDismiss: n }) {
+        return (0, b.jsxs)(i.button, {
+            type: `button`,
+            initial: {
+                opacity: 0,
+                y: 6
+            },
+            animate: {
+                opacity: 1,
+                y: 0
+            },
+            onClick: n,
+            style: {
+                maxWidth: 440,
+                margin: `0 12px 10px`,
+                padding: `10px 14px`,
+                border: `1px solid rgba(200,160,48,0.35)`,
+                borderRadius: 10,
+                background: `rgba(12,18,28,0.82)`,
+                color: `rgba(255,255,255,0.85)`,
+                textAlign: `left`,
+                cursor: `pointer`,
+                fontFamily: `'IM Fell English', cursive`
+            },
+            children: [
+                (0, b.jsx)(`div`, {
+                    style: {
+                        fontSize: 11,
+                        letterSpacing: 2,
+                        color: `#c8a030`,
+                        fontFamily: `'Cinzel', serif`,
+                        marginBottom: 4
+                    },
+                    children: e.title
+                }),
+                (0, b.jsx)(`div`, {
+                    style: {
+                        fontSize: t ? 13 : 15,
+                        lineHeight: 1.35
+                    },
+                    children: e.text
+                }),
+                (0, b.jsx)(`div`, {
+                    style: {
+                        fontSize: 10,
+                        letterSpacing: 1,
+                        color: `rgba(255,255,255,0.35)`,
+                        fontFamily: `'Cinzel', serif`,
+                        marginTop: 6
+                    },
+                    children: `TAP TO DISMISS`
+                })
+            ]
+        });
+    }
+    var Oe = `/assets/careful-Cp7BVX84.png`, ke = `/assets/cover-B_e5YbfY.png`, Ae = `/assets/cursed-DmavkUs_.png`, je = `/assets/detour-D8HBkeuW.png`, w = `/assets/dock-ePamt-Sr.png`, T = `/assets/explore-CNxn52P4.png`, Me = `/assets/fight-g8Kc5AC3.png`, Ne = `/assets/leave-CeE9NwgD.png`, Pe = `/assets/lurks-BB0IX5ES.png`, E = `/assets/pact-DCE16eF-.png`, D = `/assets/push-DcLNLHxV.png`, Fe = `/assets/ritual-B5bqWt-6.png`, Ie = `/assets/sacrifice-KlI9xYLE.png`, O = `/assets/sail-yGR6Adzb.png`, k = `/assets/search-CSNg3Ko5.png`, Le = `/assets/speed-BTjZicNY.png`, Re = `/assets/take-CO53AH6i.png`, A = `/assets/tribute-CcshN1U0.png`, ze = `/assets/vortex-l5f1oTMj.png`, Be = Object.fromEntries([
         `search`,
         `lurks`,
         `fight`,
@@ -294,38 +349,31 @@ let __tla = Promise.all([
     ].map((e)=>[
             e,
             new URL(Object.assign({
-                "../assets/choices/careful.png": ye,
-                "../assets/choices/cover.png": be,
-                "../assets/choices/cursed.png": xe,
-                "../assets/choices/detour.png": Se,
-                "../assets/choices/dock.png": _,
-                "../assets/choices/explore.png": Ce,
-                "../assets/choices/fight.png": we,
-                "../assets/choices/leave.png": Te,
-                "../assets/choices/lurks.png": Ee,
-                "../assets/choices/pact.png": De,
-                "../assets/choices/push.png": v,
-                "../assets/choices/ritual.png": y,
-                "../assets/choices/sacrifice.png": Oe,
-                "../assets/choices/sail.png": ke,
-                "../assets/choices/search.png": Ae,
-                "../assets/choices/speed.png": b,
-                "../assets/choices/take.png": x,
-                "../assets/choices/tribute.png": je,
-                "../assets/choices/vortex.png": Me
-            })[`../assets/choices/${e}.png`], import.meta.url).href
-        ])), M = {
-        escape: He,
-        ghost: O,
-        hunter: k,
-        rider: Ue,
-        greed: A,
-        berserker: j
-    }, Ge = `/icons/gold.png`, Ke = {
+                "../../assets/choices/careful.png": Oe,
+                "../../assets/choices/cover.png": ke,
+                "../../assets/choices/cursed.png": Ae,
+                "../../assets/choices/detour.png": je,
+                "../../assets/choices/dock.png": w,
+                "../../assets/choices/explore.png": T,
+                "../../assets/choices/fight.png": Me,
+                "../../assets/choices/leave.png": Ne,
+                "../../assets/choices/lurks.png": Pe,
+                "../../assets/choices/pact.png": E,
+                "../../assets/choices/push.png": D,
+                "../../assets/choices/ritual.png": Fe,
+                "../../assets/choices/sacrifice.png": Ie,
+                "../../assets/choices/sail.png": O,
+                "../../assets/choices/search.png": k,
+                "../../assets/choices/speed.png": Le,
+                "../../assets/choices/take.png": Re,
+                "../../assets/choices/tribute.png": A,
+                "../../assets/choices/vortex.png": ze
+            })[`../../assets/choices/${e}.png`], import.meta.url).href
+        ])), Ve = {
         1: `/scenes/island.jpg`,
         2: `/scenes/storm.jpg`,
         3: `/scenes/ancient-kraken.jpg`
-    }, qe = {
+    }, He = {
         kraken: `/scenes/kraken.jpg`,
         ancient_kraken: `/scenes/ancient-kraken.jpg`,
         storm: `/scenes/storm.jpg`,
@@ -337,7 +385,7 @@ let __tla = Promise.all([
         rocks: `/scenes/rocks.jpg`,
         wreck: `/scenes/wreck.jpg`,
         maelstrom: `/scenes/maelstrom.jpg`
-    }, Je = {
+    }, Ue = {
         kraken: `/scenes/kraken.mp4`,
         ancient_kraken: `/scenes/ancient_kraken.mp4`,
         storm: `/scenes/storm.mp4`,
@@ -350,7 +398,7 @@ let __tla = Promise.all([
         wreck: `/scenes/wreck.mp4`,
         maelstrom: `/scenes/maelstrom.mp4`,
         death: `/scenes/death.mp4`
-    }, Ye = {
+    }, We = {
         kraken: `The Kraken Rises`,
         ancient_kraken: `The Ancient One Awakens`,
         storm: `Into the Storm`,
@@ -363,7 +411,345 @@ let __tla = Promise.all([
         wreck: `A Ghostly Wreck`,
         death: `Your Voyage Ends`,
         maelstrom: `The Maelstrom`
-    }, Xe = {
+    };
+    function j(e) {
+        let t = e.match(/(?:lose|pay|costs?|spend)\s*(\d+)\s*(?:gold\b|g\b)|(?:^|\s)-(\d+)\s*gold\b/i);
+        return t ? parseInt(t[1] ?? t[2]) : 0;
+    }
+    function M(e, t) {
+        let n = j(e);
+        return n === 0 || t >= n;
+    }
+    function Ge(e, t, n, r) {
+        if (e.label === `Pact` && t === `kraken`) {
+            let e = (n ?? []).includes(`storm_heart`);
+            return `-${Math.min(e ? 10 : 20, r - 1)} HP, storm +6 turns. Hunter awakens!${e ? ` (Heart of the Storm)` : ``}`;
+        }
+        return e.desc;
+    }
+    function N(e) {
+        return e === `safe` ? `#44cc88` : e === `risky` ? `#eedd44` : `#ee6644`;
+    }
+    function P(e, t) {
+        return e ? e.startsWith(`http`) || e.startsWith(`/`) ? (0, b.jsx)(`img`, {
+            src: e,
+            alt: ``,
+            style: {
+                width: t,
+                height: t,
+                objectFit: `contain`,
+                borderRadius: `50%`,
+                mixBlendMode: `lighten`,
+                filter: `drop-shadow(0 0 12px rgba(200,160,48,0.6))`
+            }
+        }) : (0, b.jsx)(`span`, {
+            style: {
+                fontSize: t
+            },
+            children: e
+        }) : null;
+    }
+    function Ke({ variant: e, event: t, isMobile: n, gold: r, hull: a, relics: o, score: s, cellIcon: c, onboard: l, onDismissOnboard: u, onChoose: d, canEscape: f, onSkip: p }) {
+        let m = (0, b.jsx)(`div`, {
+            style: {
+                display: `flex`,
+                flexDirection: n ? `column` : `row`,
+                alignItems: n ? `stretch` : void 0,
+                width: n ? `100%` : void 0,
+                gap: n ? e === `scene` ? 10 : 8 : e === `scene` ? 16 : 10,
+                justifyContent: `center`,
+                marginTop: e === `compact` ? 8 : 0
+            },
+            children: t.choices.map((s, c)=>{
+                let l = N(s.risk), u = M(s.desc, r), f = Ge(s, t.cellType, o, a), p = e === `scene` ? 1.04 : 1.02, m = e === `scene` ? .96 : .98;
+                return (0, b.jsxs)(i.button, {
+                    whileHover: {
+                        scale: u ? p : 1
+                    },
+                    whileTap: {
+                        scale: u ? m : 1
+                    },
+                    onClick: ()=>{
+                        u && d(c);
+                    },
+                    style: {
+                        flex: 1,
+                        maxWidth: e === `scene` && !n ? 320 : void 0,
+                        padding: e === `scene` ? n ? `14px 16px` : `24px 28px` : `20px 24px`,
+                        borderRadius: 16,
+                        border: `1.5px solid ${u ? l : `rgba(255,255,255,0.1)`}55`,
+                        background: u ? `linear-gradient(135deg, rgba(0,0,0,0.85) 0%, ${l}0f 100%)` : `rgba(0,0,0,0.5)`,
+                        cursor: u ? `pointer` : `not-allowed`,
+                        color: u ? `#e8e0d0` : `rgba(255,255,255,0.3)`,
+                        fontFamily: `'Pirata One', cursive`,
+                        textAlign: `left`,
+                        backdropFilter: `blur(8px)`,
+                        boxShadow: e === `scene` && u ? `0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 ${l}22` : `none`,
+                        transition: `all 0.2s`,
+                        opacity: u ? 1 : .5
+                    },
+                    children: [
+                        e === `scene` ? (0, b.jsx)(`div`, {
+                            style: {
+                                marginBottom: 12,
+                                textAlign: `center`
+                            },
+                            children: (0, b.jsx)(`img`, {
+                                src: Be[s.icon] || ``,
+                                alt: ``,
+                                style: {
+                                    width: 72,
+                                    height: 72,
+                                    objectFit: `contain`
+                                }
+                            })
+                        }) : (0, b.jsx)(`div`, {
+                            style: {
+                                fontSize: 26,
+                                marginBottom: 4
+                            },
+                            children: s.icon
+                        }),
+                        (0, b.jsx)(`div`, {
+                            style: {
+                                fontSize: e === `scene` ? 24 : 18,
+                                fontWeight: e === `scene` ? 700 : 600,
+                                color: l,
+                                textAlign: e === `scene` ? `center` : `left`
+                            },
+                            children: s.label
+                        }),
+                        (0, b.jsx)(`div`, {
+                            style: {
+                                fontSize: 20,
+                                color: `rgba(255,255,255,0.8)`,
+                                fontFamily: `'IM Fell English', cursive`,
+                                marginTop: e === `scene` ? 8 : 2,
+                                textAlign: e === `scene` ? `center` : `left`
+                            },
+                            children: f
+                        }),
+                        (0, b.jsx)(`div`, {
+                            style: {
+                                fontSize: e === `scene` ? 13 : 16,
+                                color: l,
+                                marginTop: e === `scene` ? 10 : 4,
+                                letterSpacing: e === `scene` ? 2 : 1,
+                                textAlign: e === `scene` ? `center` : `left`
+                            },
+                            children: s.risk.toUpperCase()
+                        })
+                    ]
+                }, c);
+            })
+        }), h = f && p ? (0, b.jsx)(`button`, {
+            onClick: p,
+            style: {
+                marginTop: 8,
+                padding: `6px 16px`,
+                borderRadius: 7,
+                border: `1px solid rgba(100,170,220,0.3)`,
+                background: `transparent`,
+                color: `rgba(100,170,220,0.5)`,
+                cursor: `pointer`,
+                fontSize: 14
+            },
+            children: `⛵ Use Swift Sails (1 use left)`
+        }) : null;
+        return e === `scene` ? (0, b.jsxs)(i.div, {
+            initial: {
+                opacity: 0,
+                scale: 1.05
+            },
+            animate: {
+                opacity: 1,
+                scale: 1
+            },
+            exit: {
+                opacity: 0
+            },
+            transition: {
+                delay: .26,
+                duration: .5,
+                ease: [
+                    .22,
+                    1,
+                    .36,
+                    1
+                ]
+            },
+            style: {
+                position: `fixed`,
+                inset: 0,
+                zIndex: 100,
+                display: `flex`,
+                flexDirection: `column`,
+                alignItems: `center`,
+                justifyContent: `flex-end`,
+                padding: n ? `12px` : `24px`,
+                paddingBottom: n ? `calc(20px + env(safe-area-inset-bottom))` : 64,
+                overflowY: `auto`
+            },
+            children: [
+                He[t.cellType] && (0, b.jsx)(`div`, {
+                    style: {
+                        position: `absolute`,
+                        inset: 0,
+                        zIndex: 0,
+                        backgroundImage: `url(${He[t.cellType]})`,
+                        backgroundSize: `cover`,
+                        backgroundPosition: `center`
+                    }
+                }),
+                (0, b.jsx)(`div`, {
+                    style: {
+                        position: `absolute`,
+                        inset: 0,
+                        zIndex: 0,
+                        background: `linear-gradient(to bottom, rgba(5,8,15,0.55) 0%, rgba(5,8,15,0.78) 60%, rgba(5,8,15,0.92) 100%)`
+                    }
+                }),
+                s != null && (0, b.jsx)(`div`, {
+                    style: {
+                        position: `absolute`,
+                        top: 16,
+                        right: 24,
+                        display: `flex`,
+                        alignItems: `center`,
+                        gap: 6,
+                        zIndex: 2
+                    },
+                    children: (0, b.jsxs)(`div`, {
+                        style: {
+                            fontSize: n ? 13 : 18,
+                            fontWeight: 700,
+                            color: `#eedd44`
+                        },
+                        children: [
+                            s,
+                            n ? `pts` : ` pts`
+                        ]
+                    })
+                }),
+                (0, b.jsxs)(`div`, {
+                    style: {
+                        position: `relative`,
+                        zIndex: 1,
+                        maxWidth: 700,
+                        width: `100%`,
+                        textAlign: `center`
+                    },
+                    children: [
+                        l && u && (0, b.jsx)(`div`, {
+                            style: {
+                                display: `flex`,
+                                justifyContent: `center`,
+                                marginBottom: 12
+                            },
+                            children: (0, b.jsx)(C, {
+                                tip: l,
+                                isMobile: n,
+                                onDismiss: u
+                            })
+                        }),
+                        (0, b.jsx)(`div`, {
+                            style: {
+                                alignSelf: `flex-start`,
+                                marginBottom: 16,
+                                paddingLeft: 8
+                            },
+                            children: (0, b.jsx)(`div`, {
+                                style: {
+                                    fontSize: n ? 28 : 42,
+                                    fontWeight: 700,
+                                    color: `#e8e0d0`,
+                                    fontFamily: `'Pirata One', cursive`,
+                                    letterSpacing: 3,
+                                    textShadow: `0 2px 20px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.7)`,
+                                    lineHeight: 1.1
+                                },
+                                children: We[t.cellType] ?? t.cellType
+                            })
+                        }),
+                        m,
+                        h && (0, b.jsx)(`div`, {
+                            style: {
+                                marginTop: 4
+                            },
+                            children: h
+                        })
+                    ]
+                })
+            ]
+        }, `event-scene`) : (0, b.jsx)(i.div, {
+            initial: {
+                y: 100,
+                opacity: 0
+            },
+            animate: {
+                y: 0,
+                opacity: 1
+            },
+            exit: {
+                y: 100,
+                opacity: 0
+            },
+            style: {
+                background: `rgba(5,10,18,0.97)`,
+                borderTop: `1px solid rgba(255,255,255,0.1)`,
+                padding: `16px 24px`,
+                flexShrink: 0
+            },
+            children: (0, b.jsxs)(`div`, {
+                style: {
+                    display: `flex`,
+                    alignItems: `flex-start`,
+                    gap: 20,
+                    maxWidth: 700,
+                    margin: `0 auto`
+                },
+                children: [
+                    (0, b.jsx)(`div`, {
+                        style: {
+                            flexShrink: 0
+                        },
+                        children: P(c, 55)
+                    }),
+                    (0, b.jsxs)(`div`, {
+                        style: {
+                            flex: 1
+                        },
+                        children: [
+                            (0, b.jsx)(`div`, {
+                                style: {
+                                    fontSize: 21,
+                                    fontWeight: 700,
+                                    marginBottom: 4,
+                                    color: `#e8e0d0`
+                                },
+                                children: t.cellType.charAt(0).toUpperCase() + t.cellType.slice(1).replace(`_`, ` `)
+                            }),
+                            l && u && (0, b.jsx)(C, {
+                                tip: l,
+                                isMobile: n,
+                                onDismiss: u
+                            }),
+                            m,
+                            h
+                        ]
+                    })
+                ]
+            })
+        }, `event-compact`);
+    }
+    var F = {
+        escape: `/assets/swift_sails-YMobDX4v.png`,
+        ghost: `/assets/ghost_ship-4jaVs07k.png`,
+        hunter: `/assets/treasure_hunter-C9jnAyZy.png`,
+        rider: `/assets/storm_rider-BjRGnDwr.png`,
+        greed: `/assets/cursed_greed-BlVfcQDt.png`,
+        berserker: `/assets/berserker-B9haxHEY.png`
+    }, qe = `/icons/gold.png`, Je = {
         sea: `〰`,
         storm: `/icons_ui/storm.png`,
         pirate: `/icons_ui/swords.png`,
@@ -373,7 +759,7 @@ let __tla = Promise.all([
         wreck: `/icons/wreck.png`,
         island: `/icons/island.png`,
         rocks: `/icons/rocks.png`
-    }, Ze = {
+    }, Ye = {
         1: {
             sea: `#1a3a4a`,
             storm: `#2a1a4a`,
@@ -410,7 +796,7 @@ let __tla = Promise.all([
             rocks: `#050508`,
             portal: `#150020`
         }
-    }, Qe = {
+    }, Xe = {
         1: {
             treasure: `#eedd44`,
             port: `#44cccc`,
@@ -433,8 +819,8 @@ let __tla = Promise.all([
             portal: `#440088`
         }
     };
-    function N({ ok: e }) {
-        return (0, T.jsx)(`span`, {
+    function I({ ok: e }) {
+        return (0, b.jsx)(`span`, {
             style: {
                 display: `inline-block`,
                 width: 7,
@@ -448,18 +834,18 @@ let __tla = Promise.all([
             }
         });
     }
-    function $e({ pros: e, cons: t, fontSize: n = 11, opacity: r = .55 }) {
-        let i = (e, t, n)=>(0, T.jsxs)(`div`, {
+    function Ze({ pros: e, cons: t, fontSize: n = 11, opacity: r = .55 }) {
+        let i = (e, t, n)=>(0, b.jsxs)(`div`, {
                 style: {
                     display: `flex`,
                     alignItems: `flex-start`,
                     lineHeight: 1.45
                 },
                 children: [
-                    (0, T.jsx)(N, {
+                    (0, b.jsx)(I, {
                         ok: t
                     }),
-                    (0, T.jsx)(`span`, {
+                    (0, b.jsx)(`span`, {
                         style: {
                             color: `rgba(255,255,255,${r})`
                         },
@@ -467,7 +853,7 @@ let __tla = Promise.all([
                     })
                 ]
             }, n);
-        return (0, T.jsxs)(`div`, {
+        return (0, b.jsxs)(`div`, {
             style: {
                 fontSize: n,
                 display: `flex`,
@@ -480,7 +866,7 @@ let __tla = Promise.all([
             ]
         });
     }
-    var et = [
+    var Qe = [
         `ghost`,
         `hunter`,
         `rider`,
@@ -494,7 +880,7 @@ let __tla = Promise.all([
         `armor`,
         `explorer`,
         `stormbreaker`
-    ], P = [
+    ], L = [
         {
             id: `ghost`,
             name: `Ghost Ship`,
@@ -572,13 +958,13 @@ let __tla = Promise.all([
             icon: `escape`,
             build: `escape`
         }
-    ], tt = {
+    ], $e = {
         vision: `#6aaccc`,
         gold: `#eedd44`,
         combat: `#ee6644`,
         escape: `#44cc88`
     };
-    function nt(e) {
+    function et(e) {
         let t = (e || ``).toLowerCase();
         return t.includes(`storm`) || t.includes(`lightning`) || t.includes(`splits the deck`) || t.includes(`waves`) || t.includes(`surge`) ? {
             name: `The Storm`,
@@ -603,244 +989,174 @@ let __tla = Promise.all([
             tip: `The sea keeps its secrets.`
         };
     }
-    var rt = (e, t = 14)=>(0, T.jsx)(m, {
+    var tt = (e, t = 14)=>(0, b.jsx)(g, {
             name: e === `frenzy` ? `lightning` : e === `stalking` ? `eye` : e === `searching` ? `mist` : `compass`,
             size: t,
             style: {
                 marginRight: 5
             }
-        }), it = (e)=>e === `frenzy` ? `ENRAGED` : e === `stalking` ? `STALKING` : e === `searching` ? `SEARCHING` : `TRACKING`, at = (e, t)=>e ? e.startsWith(`http`) || e.startsWith(`/`) ? (0, T.jsx)(`img`, {
-            src: e,
-            style: {
-                width: t,
-                height: t,
-                objectFit: `contain`,
-                borderRadius: `50%`,
-                mixBlendMode: `lighten`,
-                filter: `drop-shadow(0 0 12px rgba(200,160,48,0.6))`
-            }
-        }) : (0, T.jsx)(`span`, {
-            style: {
-                fontSize: t
-            },
-            children: e
-        }) : null;
-    function ot({ tip: e, isMobile: t, onDismiss: n }) {
-        return (0, T.jsxs)(i.button, {
-            type: `button`,
-            initial: {
-                opacity: 0,
-                y: 6
-            },
-            animate: {
-                opacity: 1,
-                y: 0
-            },
-            onClick: n,
-            style: {
-                maxWidth: 440,
-                margin: `0 12px 10px`,
-                padding: `10px 14px`,
-                border: `1px solid rgba(200,160,48,0.35)`,
-                borderRadius: 10,
-                background: `rgba(12,18,28,0.82)`,
-                color: `rgba(255,255,255,0.85)`,
-                textAlign: `left`,
-                cursor: `pointer`,
-                fontFamily: `'IM Fell English', cursive`
-            },
-            children: [
-                (0, T.jsx)(`div`, {
-                    style: {
-                        fontSize: 11,
-                        letterSpacing: 2,
-                        color: `#c8a030`,
-                        fontFamily: `'Cinzel', serif`,
-                        marginBottom: 4
-                    },
-                    children: e.title
-                }),
-                (0, T.jsx)(`div`, {
-                    style: {
-                        fontSize: t ? 13 : 15,
-                        lineHeight: 1.35
-                    },
-                    children: e.text
-                }),
-                (0, T.jsx)(`div`, {
-                    style: {
-                        fontSize: 10,
-                        letterSpacing: 1,
-                        color: `rgba(255,255,255,0.35)`,
-                        fontFamily: `'Cinzel', serif`,
-                        marginTop: 6
-                    },
-                    children: `TAP TO DISMISS`
-                })
-            ]
-        });
-    }
-    st = function({ walletAddress: e, account: t, username: r, onHome: ve, onPlayDaily: ye, dailySeed: be, isDaily: xe, seedToken: Se, shipId: _, resumeState: Ce, resumeRunId: we, resumeActions: Te }) {
-        let { connect: Ee, connecting: De } = a(), [v, y] = (0, S.useState)(()=>Ce ?? u(be, _ ?? `default`)), Oe = (0, S.useRef)(!e), [ke, Ae] = (0, S.useState)(()=>!l()), [b, x] = (0, S.useState)(null), [je, Me] = (0, S.useState)(!1), [C, w] = (0, S.useState)([]), [Pe, ze] = (0, S.useState)([]), [E, Be] = (0, S.useState)(null), He = (0, S.useRef)((v.relics ?? []).length), [O, k] = (0, S.useState)(!1), [Ue, A] = (0, S.useState)(!1), j = (0, S.useRef)(!1), [N, st] = (0, S.useState)([]), [ct, lt] = (0, S.useState)(null), [ut, dt] = (0, S.useState)(0), [F, ft] = (0, S.useState)(()=>parseInt(localStorage.getItem(`corsair_best_score`) || `0`)), [pt, mt] = (0, S.useState)(!1), [ht, gt] = (0, S.useState)(!1), [I, _t] = (0, S.useState)(window.innerWidth < 768), L = xe === !0, vt = (0, S.useRef)(Se), [yt, bt] = (0, S.useState)(!1), [R, xt] = (0, S.useState)(!1);
-        (0, S.useEffect)(()=>{
-            if (v.gameOver) {
-                x(null);
+        }), nt = (e)=>e === `frenzy` ? `ENRAGED` : e === `stalking` ? `STALKING` : e === `searching` ? `SEARCHING` : `TRACKING`;
+    rt = function({ walletAddress: e, account: t, username: r, onHome: ge, onPlayDaily: _e, dailySeed: ye, isDaily: be, seedToken: Te, shipId: x, resumeState: Ee, resumeRunId: Oe, resumeActions: ke }) {
+        let { connect: Ae, connecting: je } = a(), [w, T] = (0, y.useState)(()=>Ee ?? f(ye, x ?? `default`)), Me = (0, y.useRef)(!e), [Ne, Pe] = (0, y.useState)(()=>!d()), [E, D] = (0, y.useState)(null), [Fe, Ie] = (0, y.useState)(!1), [O, k] = (0, y.useState)([]), [Le, Re] = (0, y.useState)([]), [A, ze] = (0, y.useState)(null), Be = (0, y.useRef)((w.relics ?? []).length), [j, M] = (0, y.useState)(!1), [Ge, N] = (0, y.useState)(!1), P = (0, y.useRef)(!1), [I, rt] = (0, y.useState)([]), [it, at] = (0, y.useState)(null), [ot, st] = (0, y.useState)(0), [R, ct] = (0, y.useState)(()=>parseInt(localStorage.getItem(`corsair_best_score`) || `0`)), [lt, ut] = (0, y.useState)(!1), [dt, ft] = (0, y.useState)(!1), [z, pt] = (0, y.useState)(window.innerWidth < 768), B = be === !0, mt = (0, y.useRef)(Te), [ht, gt] = (0, y.useState)(!1), [_t, vt] = (0, y.useState)(!1);
+        (0, y.useEffect)(()=>{
+            if (w.gameOver) {
+                D(null);
                 return;
             }
-            v.turn > 0 && Fe(`sail`), x(Ie(v));
+            w.turn > 0 && xe(`sail`), D(Se(w));
         }, [
-            v.turn,
-            v.event,
-            v.showPort,
-            v.hunter?.active,
-            v.stormDistance,
-            v.gameOver
+            w.turn,
+            w.event,
+            w.showPort,
+            w.hunter?.active,
+            w.stormDistance,
+            w.gameOver
         ]);
-        let z = ()=>{
-            b && (Fe(b.id), x(null));
+        let yt = ()=>{
+            E && (xe(E.id), D(null));
         };
-        (0, S.useEffect)(()=>{
-            L && (f(), e && p());
-        }, []), (0, S.useEffect)(()=>{
+        (0, y.useEffect)(()=>{
+            B && (m(), e && h());
+        }, []), (0, y.useEffect)(()=>{
             if (!e) {
-                Ae(!l());
+                Pe(!d());
                 return;
             }
-            he(e, p()).then((e)=>Ae(!(e || l())));
+            pe(e, h()).then((e)=>Pe(!(e || d())));
         }, [
             e
         ]);
-        let B = (0, S.useRef)(we ?? crypto.randomUUID()), V = (0, S.useRef)(Te ? [
-            ...Te
-        ] : []), H = (e)=>{
-            V.current.push(e);
-        }, U = (0, S.useRef)([]);
-        (0, S.useEffect)(()=>{
+        let V = (0, y.useRef)(Oe ?? crypto.randomUUID()), H = (0, y.useRef)(ke ? [
+            ...ke
+        ] : []), U = (e)=>{
+            H.current.push(e);
+        }, W = (0, y.useRef)([]);
+        (0, y.useEffect)(()=>{
             let t = e;
-            !t || v.gameOver || V.current.length !== 0 && ae({
-                run_id: B.current,
+            !t || w.gameOver || H.current.length !== 0 && re({
+                run_id: V.current,
                 wallet_address: t,
-                seed: v.seed,
-                ship_id: _ ?? `default`,
-                is_daily: L,
-                actions: V.current,
-                turn: v.turn,
-                score: v.score,
+                seed: w.seed,
+                ship_id: x ?? `default`,
+                is_daily: B,
+                actions: H.current,
+                turn: w.turn,
+                score: w.score,
                 saved_at: Date.now()
             });
         }, [
-            v
-        ]), (0, S.useEffect)(()=>{
-            let e = V.current.length - 1;
-            e < 0 || (U.current[e * 3] = v.score, U.current[e * 3 + 1] = v.ship.hull, U.current[e * 3 + 2] = v.rngState ?? -1);
+            w
+        ]), (0, y.useEffect)(()=>{
+            let e = H.current.length - 1;
+            e < 0 || (W.current[e * 3] = w.score, W.current[e * 3 + 1] = w.ship.hull, W.current[e * 3 + 2] = w.rngState ?? -1);
         }, [
-            v
+            w
         ]);
-        let W = (0, S.useRef)(0);
-        (0, S.useEffect)(()=>{
-            e && (we || _e({
-                run_id: B.current,
+        let bt = (0, y.useRef)(0);
+        (0, y.useEffect)(()=>{
+            e && (Oe || he({
+                run_id: V.current,
                 wallet_address: e,
                 username: r ?? null,
-                seed: v.seed,
-                is_daily: L,
-                seed_token: Se ?? null
+                seed: w.seed,
+                is_daily: B,
+                seed_token: Te ?? null
             }));
-        }, []), (0, S.useEffect)(()=>{
-            !e || v.gameOver || v.turn - W.current < 3 || (W.current = v.turn, me(B.current, {
-                score: v.score,
-                turn: v.turn,
-                zone: v.currentZone ?? 1,
-                gold: v.ship.gold,
-                hull: v.ship.hull
+        }, []), (0, y.useEffect)(()=>{
+            !e || w.gameOver || w.turn - bt.current < 3 || (bt.current = w.turn, fe(V.current, {
+                score: w.score,
+                turn: w.turn,
+                zone: w.currentZone ?? 1,
+                gold: w.ship.gold,
+                hull: w.ship.hull
             }));
         }, [
-            v.turn
-        ]), (0, S.useEffect)(()=>{
-            if (!(!e || !v.gameOver) && !j.current) {
-                if (j.current = !0, ue(B.current, {
-                    score: v.score,
-                    turn: v.turn,
-                    zone: v.currentZone ?? 1,
-                    gold: v.ship.gold,
-                    hull: v.ship.hull,
-                    run_title: v.runTitle
-                }), !L && !vt.current) {
-                    console.warn(`[approve] skip : seed local, run non soumise`), h();
+            w.turn
+        ]), (0, y.useEffect)(()=>{
+            if (!(!e || !w.gameOver) && !P.current) {
+                if (P.current = !0, ce(V.current, {
+                    score: w.score,
+                    turn: w.turn,
+                    zone: w.currentZone ?? 1,
+                    gold: w.ship.gold,
+                    hull: w.ship.hull,
+                    run_title: w.runTitle
+                }), !B && !mt.current) {
+                    console.warn(`[approve] skip : seed local, run non soumise`), _();
                     return;
                 }
-                de({
-                    run_id: B.current,
+                le({
+                    run_id: V.current,
                     wallet_address: e,
-                    seed: v.seed,
-                    ship_id: _ ?? `default`,
-                    is_daily: L,
-                    actions: V.current,
-                    checks: V.current.flatMap((e, t)=>[
-                            U.current[t * 3] ?? -1,
-                            U.current[t * 3 + 1] ?? -1,
-                            U.current[t * 3 + 2] ?? -1
+                    seed: w.seed,
+                    ship_id: x ?? `default`,
+                    is_daily: B,
+                    actions: H.current,
+                    checks: H.current.flatMap((e, t)=>[
+                            W.current[t * 3] ?? -1,
+                            W.current[t * 3 + 1] ?? -1,
+                            W.current[t * 3 + 2] ?? -1
                         ]),
-                    final_score: v.score,
-                    final_turn: v.turn
-                }).then(()=>ge(B.current)).then((e)=>{
-                    e?.approved ? (k(!0), e.nft?.minted?.length && st(e.nft.minted.map((e)=>typeof e == `string` ? e : e.nft))) : console.warn(`[approve] refuse :`, e?.raison ?? e);
+                    final_score: w.score,
+                    final_turn: w.turn
+                }).then(()=>me(V.current)).then((e)=>{
+                    e?.approved ? (M(!0), e.nft?.minted?.length && rt(e.nft.minted.map((e)=>typeof e == `string` ? e : e.nft))) : console.warn(`[approve] refuse :`, e?.raison ?? e);
                 }).catch((e)=>{
-                    console.warn(`[approve]`, e), re(`approve`, {
-                        run_id: B.current
+                    console.warn(`[approve]`, e), te(`approve`, {
+                        run_id: V.current
                     });
-                }), h();
+                }), _();
             }
         }, [
-            v.gameOver
-        ]), (0, S.useEffect)(()=>{
-            let e = ()=>_t(window.innerWidth < 768);
+            w.gameOver
+        ]), (0, y.useEffect)(()=>{
+            let e = ()=>pt(window.innerWidth < 768);
             return window.addEventListener(`resize`, e), ()=>window.removeEventListener(`resize`, e);
         }, []);
-        let [G, K] = (0, S.useState)(null), [St, Ct] = (0, S.useState)(!1), [wt, q] = (0, S.useState)(!1), Tt = (0, S.useRef)(null), Et = (0, S.useRef)(new Set), [Dt, Ot] = (0, S.useState)(null);
-        (0, S.useEffect)(()=>{
+        let [G, K] = (0, y.useState)(null), [xt, St] = (0, y.useState)(!1), [Ct, q] = (0, y.useState)(!1), wt = (0, y.useRef)(null), Tt = (0, y.useRef)(new Set), [Et, Dt] = (0, y.useState)(null);
+        (0, y.useEffect)(()=>{
             let t = new Date, n = t.getUTCFullYear() === 2026 && t.getUTCMonth() === 8;
-            !v.gameOver || !L || !e || !n || O && fe().then((t)=>{
+            !w.gameOver || !B || !e || !n || j && ue().then((t)=>{
                 let n = (e)=>e.toLowerCase().replace(/^0x0*/, ``), r = t.find((t)=>n(t.wallet_address) === n(e));
-                r && Ot({
+                r && Dt({
                     rank: r.rank,
                     total: r.total
                 });
             }).catch(()=>{});
         }, [
-            v.gameOver,
-            O
+            w.gameOver,
+            j
         ]);
-        let kt = (0, S.useRef)({
-            x: v.ship.x,
-            y: v.ship.y
-        }), [At, jt] = (0, S.useState)({
+        let Ot = (0, y.useRef)({
+            x: w.ship.x,
+            y: w.ship.y
+        }), [kt, At] = (0, y.useState)({
             x: 0,
             y: 0,
             instant: !1
-        }), [Mt, Nt] = (0, S.useState)({
+        }), [jt, Mt] = (0, y.useState)({
             x: 0,
             y: 0
         });
-        (0, S.useEffect)(()=>{
-            let e = kt.current, t = v.ship.x - e.x, n = v.ship.y - e.y;
-            if (kt.current = {
-                x: v.ship.x,
-                y: v.ship.y
+        (0, y.useEffect)(()=>{
+            let e = Ot.current, t = w.ship.x - e.x, n = w.ship.y - e.y;
+            if (Ot.current = {
+                x: w.ship.x,
+                y: w.ship.y
             }, t === 0 && n === 0 || Math.abs(t) > 1 || Math.abs(n) > 1) return;
-            let r = v.ship.vision * 2 + 1, i = (I ? Math.floor((window.innerWidth - 16) / r) : Math.floor(Math.min(window.innerWidth * .5, window.innerHeight * .62) / r) - 4) + 4, a = .8;
-            jt({
+            let r = w.ship.vision * 2 + 1, i = (z ? Math.floor((window.innerWidth - 16) / r) : Math.floor(Math.min(window.innerWidth * .5, window.innerHeight * .62) / r) - 4) + 4, a = .8;
+            At({
                 x: t * i * a,
                 y: n * i * a,
                 instant: !0
-            }), Nt({
+            }), Mt({
                 x: t,
                 y: n
             });
-            let o = setTimeout(()=>Nt({
+            let o = setTimeout(()=>Mt({
                     x: 0,
                     y: 0
-                }), 380), s = requestAnimationFrame(()=>jt({
+                }), 380), s = requestAnimationFrame(()=>At({
                     x: 0,
                     y: 0,
                     instant: !1
@@ -849,188 +1165,188 @@ let __tla = Promise.all([
                 cancelAnimationFrame(s), clearTimeout(o);
             };
         }, [
-            v.ship.x,
-            v.ship.y
+            w.ship.x,
+            w.ship.y
         ]);
-        let [Pt, Ft] = (0, S.useState)(!1), [J, It] = (0, S.useState)(null), [Lt, Rt] = (0, S.useState)(!1), [zt, Bt] = (0, S.useState)(!1), [Vt, Ht] = (0, S.useState)(!1), [Ut, Wt] = (0, S.useState)(!1), [Gt, Kt] = (0, S.useState)(!1), [qt, Jt] = (0, S.useState)(!1), [Yt, Xt] = (0, S.useState)(!1), [Zt, Qt] = (0, S.useState)(!1), [$t, en] = (0, S.useState)(!1), [tn, nn] = (0, S.useState)(!1), [rn, an] = (0, S.useState)(!1), [on, sn] = (0, S.useState)(null), [cn, ln] = (0, S.useState)(0), un = ()=>{
-            Me(!0), setTimeout(()=>Me(!1), 400);
-        }, dn = (e)=>{
-            sn(e), setTimeout(()=>sn(null), 150);
-        }, Y = v, X = Math.min(100, (1 - Y.stormDistance / 10) * 100), fn = Y.ship.hull <= 5 ? `#ee4444` : Y.ship.hull <= 10 ? `#ee8844` : `#44cc88`, pn = !Y.escapeUsed && Y.ship.upgrades.includes(`escape`) && Y.event && Y.event.choices[0].risk !== `safe`;
-        (0, S.useEffect)(()=>{
-            if (I) {
+        let [Nt, Pt] = (0, y.useState)(!1), [J, Ft] = (0, y.useState)(null), [It, Lt] = (0, y.useState)(!1), [Rt, zt] = (0, y.useState)(!1), [Bt, Vt] = (0, y.useState)(!1), [Ht, Ut] = (0, y.useState)(!1), [Wt, Gt] = (0, y.useState)(!1), [Kt, qt] = (0, y.useState)(!1), [Jt, Yt] = (0, y.useState)(!1), [Xt, Zt] = (0, y.useState)(!1), [Qt, $t] = (0, y.useState)(!1), [en, tn] = (0, y.useState)(!1), [nn, rn] = (0, y.useState)(!1), [an, on] = (0, y.useState)(null), [sn, cn] = (0, y.useState)(0), ln = ()=>{
+            Ie(!0), setTimeout(()=>Ie(!1), 400);
+        }, un = (e)=>{
+            on(e), setTimeout(()=>on(null), 150);
+        }, Y = w, X = Math.min(100, (1 - Y.stormDistance / 10) * 100), dn = Y.ship.hull <= 5 ? `#ee4444` : Y.ship.hull <= 10 ? `#ee8844` : `#44cc88`, fn = !Y.escapeUsed && Y.ship.upgrades.includes(`escape`) && Y.event && Y.event.choices[0].risk !== `safe`;
+        (0, y.useEffect)(()=>{
+            if (z) {
                 K(null);
                 return;
             }
-            if (v.gameOver) return;
-            let e = v.event?.cellType;
-            if (e && Je[e]) {
-                if (Et.current.has(e)) return;
-                Et.current.add(e), K(e);
+            if (w.gameOver) return;
+            let e = w.event?.cellType;
+            if (e && Ue[e]) {
+                if (Tt.current.has(e)) return;
+                Tt.current.add(e), K(e);
                 let t = setTimeout(()=>K(null), 5e3);
                 return ()=>clearTimeout(t);
             }
         }, [
-            v.event,
-            v.turn
-        ]), (0, S.useEffect)(()=>{
-            if (v.gameOver) {
-                an(!1);
+            w.event,
+            w.turn
+        ]), (0, y.useEffect)(()=>{
+            if (w.gameOver) {
+                rn(!1);
                 return;
             }
-            v.event?.cellType === `port` && !I && (an(!0), setTimeout(()=>an(!1), 5e3));
+            w.event?.cellType === `port` && !z && (rn(!0), setTimeout(()=>rn(!1), 5e3));
         }, [
-            v.event,
-            v.turn
-        ]), (0, S.useEffect)(()=>{
-            if (v.gameOver) {
-                Xt(!1);
+            w.event,
+            w.turn
+        ]), (0, y.useEffect)(()=>{
+            if (w.gameOver) {
+                Yt(!1);
                 return;
             }
-            if (v.gameOver) {
-                Xt(!1);
+            if (w.gameOver) {
+                Yt(!1);
                 return;
             }
-            if (v.event?.cellType === `rocks` && !I) {
-                Xt(!0);
-                let e = setTimeout(()=>Xt(!1), 5e3);
+            if (w.event?.cellType === `rocks` && !z) {
+                Yt(!0);
+                let e = setTimeout(()=>Yt(!1), 5e3);
                 return ()=>clearTimeout(e);
             }
         }, [
-            v.event,
-            v.gameOver
-        ]), (0, S.useEffect)(()=>{
-            if (v.gameOver) {
-                Qt(!1);
+            w.event,
+            w.gameOver
+        ]), (0, y.useEffect)(()=>{
+            if (w.gameOver) {
+                Zt(!1);
                 return;
             }
-            if (v.event?.cellType === `treasure` && !I) {
-                Qt(!0);
-                let e = setTimeout(()=>Qt(!1), 5e3);
+            if (w.event?.cellType === `treasure` && !z) {
+                Zt(!0);
+                let e = setTimeout(()=>Zt(!1), 5e3);
                 return ()=>clearTimeout(e);
             }
         }, [
-            v.event,
-            v.turn
-        ]), (0, S.useEffect)(()=>{
-            if (v.gameOver) {
-                en(!1);
+            w.event,
+            w.turn
+        ]), (0, y.useEffect)(()=>{
+            if (w.gameOver) {
+                $t(!1);
                 return;
             }
-            if (v.event?.cellType === `cursed_treasure` && !I) {
-                en(!0);
-                let e = setTimeout(()=>en(!1), 5e3);
+            if (w.event?.cellType === `cursed_treasure` && !z) {
+                $t(!0);
+                let e = setTimeout(()=>$t(!1), 5e3);
                 return ()=>clearTimeout(e);
             }
         }, [
-            v.event,
-            v.turn
-        ]), (0, S.useEffect)(()=>{
-            if (v.gameOver) {
-                nn(!1);
+            w.event,
+            w.turn
+        ]), (0, y.useEffect)(()=>{
+            if (w.gameOver) {
+                tn(!1);
                 return;
             }
-            if (v.event?.cellType === `storm` && !I) {
-                nn(!0);
-                let e = setTimeout(()=>nn(!1), 5e3);
+            if (w.event?.cellType === `storm` && !z) {
+                tn(!0);
+                let e = setTimeout(()=>tn(!1), 5e3);
                 return ()=>clearTimeout(e);
             }
         }, [
-            v.event,
-            v.gameOver
-        ]), (0, S.useEffect)(()=>{
-            if (v.gameOver) {
-                Kt(!1);
+            w.event,
+            w.gameOver
+        ]), (0, y.useEffect)(()=>{
+            if (w.gameOver) {
+                Gt(!1);
                 return;
             }
-            if (v.event?.cellType === `ancient_kraken` && !I) {
-                Kt(!0);
-                let e = setTimeout(()=>Kt(!1), 5e3);
+            if (w.event?.cellType === `ancient_kraken` && !z) {
+                Gt(!0);
+                let e = setTimeout(()=>Gt(!1), 5e3);
                 return ()=>clearTimeout(e);
             }
         }, [
-            v.event,
-            v.gameOver
-        ]), (0, S.useEffect)(()=>{
-            if (v.gameOver) {
-                Jt(!1);
+            w.event,
+            w.gameOver
+        ]), (0, y.useEffect)(()=>{
+            if (w.gameOver) {
+                qt(!1);
                 return;
             }
-            if (v.event?.cellType === `maelstrom` && !I) {
-                Jt(!0);
-                let e = setTimeout(()=>Jt(!1), 5e3);
+            if (w.event?.cellType === `maelstrom` && !z) {
+                qt(!0);
+                let e = setTimeout(()=>qt(!1), 5e3);
                 return ()=>clearTimeout(e);
             }
         }, [
-            v.event,
-            v.gameOver
-        ]), (0, S.useEffect)(()=>{
-            if (v.gameOver) {
-                Wt(!1);
+            w.event,
+            w.gameOver
+        ]), (0, y.useEffect)(()=>{
+            if (w.gameOver) {
+                Ut(!1);
                 return;
             }
-            if (v.event?.cellType === `island` && !I) {
-                Wt(!0);
-                let e = setTimeout(()=>Wt(!1), 5e3);
+            if (w.event?.cellType === `island` && !z) {
+                Ut(!0);
+                let e = setTimeout(()=>Ut(!1), 5e3);
                 return ()=>clearTimeout(e);
             }
         }, [
-            v.event,
-            v.gameOver
-        ]), (0, S.useEffect)(()=>{
-            if (v.gameOver) {
-                Ht(!1);
+            w.event,
+            w.gameOver
+        ]), (0, y.useEffect)(()=>{
+            if (w.gameOver) {
+                Vt(!1);
                 return;
             }
-            if (v.gameOver) {
-                Ht(!1);
+            if (w.gameOver) {
+                Vt(!1);
                 return;
             }
-            if (v.event?.cellType === `wreck` && !I) {
-                Ht(!0);
-                let e = setTimeout(()=>Ht(!1), 5e3);
+            if (w.event?.cellType === `wreck` && !z) {
+                Vt(!0);
+                let e = setTimeout(()=>Vt(!1), 5e3);
                 return ()=>clearTimeout(e);
             }
         }, [
-            v.event,
-            v.turn
-        ]), (0, S.useEffect)(()=>{
-            if (v.gameOver) {
-                Bt(!1);
+            w.event,
+            w.turn
+        ]), (0, y.useEffect)(()=>{
+            if (w.gameOver) {
+                zt(!1);
                 return;
             }
-            if (v.gameOver) {
-                Bt(!1);
+            if (w.gameOver) {
+                zt(!1);
                 return;
             }
-            if (v.event?.cellType === `pirate` && !I) {
-                Bt(!0);
-                let e = setTimeout(()=>Bt(!1), 5e3);
+            if (w.event?.cellType === `pirate` && !z) {
+                zt(!0);
+                let e = setTimeout(()=>zt(!1), 5e3);
                 return ()=>clearTimeout(e);
             }
         }, [
-            v.event,
-            v.turn
-        ]), (0, S.useEffect)(()=>{
-            if (v.gameOver) {
-                Rt(!1);
+            w.event,
+            w.turn
+        ]), (0, y.useEffect)(()=>{
+            if (w.gameOver) {
+                Lt(!1);
                 return;
             }
-            if (v.event?.cellType === `kraken` && !I) {
-                Rt(!0);
-                let e = setTimeout(()=>Rt(!1), 5e3);
+            if (w.event?.cellType === `kraken` && !z) {
+                Lt(!0);
+                let e = setTimeout(()=>Lt(!1), 5e3);
                 return ()=>clearTimeout(e);
             }
         }, [
-            v.event,
-            v.gameOver
+            w.event,
+            w.gameOver
         ]);
-        let mn = (0, S.useRef)(1);
-        (0, S.useEffect)(()=>{
-            let e = v.currentZone ?? 1;
-            if (e > mn.current) {
+        let pn = (0, y.useRef)(1);
+        (0, y.useEffect)(()=>{
+            let e = w.currentZone ?? 1;
+            if (e > pn.current) {
                 let t = o[e];
-                lt({
+                at({
                     lines: [
                         ...t.transitionText,
                         ``,
@@ -1038,116 +1354,116 @@ let __tla = Promise.all([
                         t.name.toUpperCase()
                     ],
                     zone: e
-                }), dt(0), mn.current = e;
+                }), st(0), pn.current = e;
             }
         }, [
-            v.currentZone
-        ]), (0, S.useEffect)(()=>{
-            if (!ct) return;
-            if (ut >= ct.lines.length) {
-                setTimeout(()=>lt(null), 1e3);
+            w.currentZone
+        ]), (0, y.useEffect)(()=>{
+            if (!it) return;
+            if (ot >= it.lines.length) {
+                setTimeout(()=>at(null), 1e3);
                 return;
             }
-            let e = setTimeout(()=>dt((e)=>e + 1), 800);
+            let e = setTimeout(()=>st((e)=>e + 1), 800);
             return ()=>clearTimeout(e);
         }, [
-            ct,
-            ut
-        ]), (0, S.useEffect)(()=>{
-            v.gameOver && v.score > 0 && v.score > F && (ft(v.score), mt(!0), localStorage.setItem(`corsair_best_score`, v.score.toString()));
+            it,
+            ot
+        ]), (0, y.useEffect)(()=>{
+            w.gameOver && w.score > 0 && w.score > R && (ct(w.score), ut(!0), localStorage.setItem(`corsair_best_score`, w.score.toString()));
         }, [
-            v.gameOver
-        ]), (0, S.useEffect)(()=>{
-            if (v.gameOver) {
-                let e = se(v);
-                if (e.length > 0 && (ze(e), D(`streak`)), h(), I) q(!0);
+            w.gameOver
+        ]), (0, y.useEffect)(()=>{
+            if (w.gameOver) {
+                let e = ae(w);
+                if (e.length > 0 && (Re(e), S(`streak`)), _(), z) q(!0);
                 else {
-                    let e = hn.current ? 8e3 : 0;
+                    let e = mn.current ? 8e3 : 0;
                     setTimeout(()=>{
-                        Ft(!1), K(`death`), Tt.current = setTimeout(()=>{
+                        Pt(!1), K(`death`), wt.current = setTimeout(()=>{
                             q((e)=>e || !0), K(null);
                         }, 9e3);
                     }, e);
                 }
-            } else Tt.current &&= (clearTimeout(Tt.current), null), q(!1), K(null), Et.current.clear();
+            } else wt.current &&= (clearTimeout(wt.current), null), q(!1), K(null), Tt.current.clear();
         }, [
-            v.gameOver
+            w.gameOver
         ]);
-        let hn = (0, S.useRef)(!1), gn = (0, S.useRef)(-99), _n = (0, S.useRef)(null);
-        (0, S.useEffect)(()=>{
-            v.log?.includes(`Tentacles rake the hull`) && (v.turn - gn.current < 3 || (gn.current = v.turn, _n.current && clearTimeout(_n.current), hn.current = !0, Ft(!0), _n.current = setTimeout(()=>{
-                hn.current = !1, Ft(!1);
+        let mn = (0, y.useRef)(!1), hn = (0, y.useRef)(-99), gn = (0, y.useRef)(null);
+        (0, y.useEffect)(()=>{
+            w.log?.includes(`Tentacles rake the hull`) && (w.turn - hn.current < 3 || (hn.current = w.turn, gn.current && clearTimeout(gn.current), mn.current = !0, Pt(!0), gn.current = setTimeout(()=>{
+                mn.current = !1, Pt(!1);
             }, 3500)));
         }, [
-            v.log,
-            v.turn
-        ]), (0, S.useEffect)(()=>{
-            if (!Pt) return;
+            w.log,
+            w.turn
+        ]), (0, y.useEffect)(()=>{
+            if (!Nt) return;
             let e = ()=>{
-                hn.current = !1, Ft(!1);
+                mn.current = !1, Pt(!1);
             };
             return window.addEventListener(`mousedown`, e), window.addEventListener(`keydown`, e), window.addEventListener(`touchstart`, e), ()=>{
                 window.removeEventListener(`mousedown`, e), window.removeEventListener(`keydown`, e), window.removeEventListener(`touchstart`, e);
             };
         }, [
-            Pt
-        ]), (0, S.useEffect)(()=>{
-            v.log?.includes(`⚡ Storm surge`) && dn(`rgba(100,150,255,0.35)`), (v.event?.cellType === `kraken` || v.event?.cellType === `ancient_kraken`) && dn(`rgba(150,0,255,0.3)`), v.event?.cellType === `ancient_kraken` && dn(`rgba(200,160,48,0.4)`);
-            let e = v.hunter;
+            Nt
+        ]), (0, y.useEffect)(()=>{
+            w.log?.includes(`⚡ Storm surge`) && un(`rgba(100,150,255,0.35)`), (w.event?.cellType === `kraken` || w.event?.cellType === `ancient_kraken`) && un(`rgba(150,0,255,0.3)`), w.event?.cellType === `ancient_kraken` && un(`rgba(200,160,48,0.4)`);
+            let e = w.hunter;
             if (e?.active) {
-                let t = Math.abs(e.x - v.ship.x) + Math.abs(e.y - v.ship.y);
-                ln(t <= 1 ? .72 : t <= 2 ? .5 : t <= 4 ? .28 : .12);
-            } else ln(0);
+                let t = Math.abs(e.x - w.ship.x) + Math.abs(e.y - w.ship.y);
+                cn(t <= 1 ? .72 : t <= 2 ? .5 : t <= 4 ? .28 : .12);
+            } else cn(0);
         }, [
-            v
-        ]), (0, S.useEffect)(()=>{
+            w
+        ]), (0, y.useEffect)(()=>{
             let e = (e)=>{
-                if (v.gameOver || v.event || v.showPort) return;
+                if (w.gameOver || w.event || w.showPort) return;
                 let t = e.target;
                 t && (t.tagName === `INPUT` || t.tagName === `TEXTAREA`) || ((e.key === `ArrowLeft` || e.code === `KeyA`) && Z(-1, 0), (e.key === `ArrowUp` || e.code === `KeyW`) && Z(0, -1), (e.key === `ArrowRight` || e.code === `KeyD`) && Z(1, 0));
             };
             return window.addEventListener(`keydown`, e), ()=>window.removeEventListener(`keydown`, e);
         }, [
-            v.gameOver,
-            v.event,
-            v.showPort,
-            v.turn
+            w.gameOver,
+            w.event,
+            w.showPort,
+            w.turn
         ]);
         let Z = (e, t)=>{
-            H(e === -1 ? 0 : e === 1 ? 2 : 1), y((n)=>d(n, e, t));
-        }, vn = (e)=>{
-            H(10 + e), y((t)=>{
-                let n = le(t, e);
-                return n.ship.hull < t.ship.hull && un(), n;
+            U(e === -1 ? 0 : e === 1 ? 2 : 1), T((n)=>p(n, e, t));
+        }, _n = (e)=>{
+            U(10 + e), T((t)=>{
+                let n = se(t, e);
+                return n.ship.hull < t.ship.hull && ln(), n;
             });
-        }, yn = ()=>{
-            H(20), y((e)=>ee(e));
-        }, bn = (e)=>{
-            H(e === `hull` ? 30 : e === `weapon` ? 31 : 32), y((t)=>ce(t, e));
-        }, xn = async ()=>{
+        }, vn = ()=>{
+            U(20), T((e)=>l(e));
+        }, yn = (e)=>{
+            U(e === `hull` ? 30 : e === `weapon` ? 31 : 32), T((t)=>oe(t, e));
+        }, bn = async ()=>{
             if (e) {
-                xt(!0), bt(!1);
-                let t = await pe(e);
-                if (xt(!1), !t) {
-                    bt(!0);
+                vt(!0), gt(!1);
+                let t = await de(e);
+                if (vt(!1), !t) {
+                    gt(!0);
                     return;
                 }
-                vt.current = t.seed_token;
-                let n = u(t.seed, _ ?? `default`);
-                V.current = [], U.current = [], W.current = 0, B.current = crypto.randomUUID(), j.current = !1, k(!1), A(!1), st([]), _e({
-                    run_id: B.current,
+                mt.current = t.seed_token;
+                let n = f(t.seed, x ?? `default`);
+                H.current = [], W.current = [], bt.current = 0, V.current = crypto.randomUUID(), P.current = !1, M(!1), N(!1), rt([]), he({
+                    run_id: V.current,
                     wallet_address: e,
                     username: r ?? null,
                     seed: n.seed,
                     is_daily: !1,
                     seed_token: t.seed_token
-                }), y(n);
+                }), T(n);
                 return;
             }
-            let t = u(void 0, _ ?? `default`);
-            V.current = [], U.current = [], W.current = 0, B.current = crypto.randomUUID(), j.current = !1, k(!1), A(!1), st([]), y(t);
-        }, Q = (0, S.useRef)(null), [$, Sn] = (0, S.useState)(!1);
-        (0, S.useEffect)(()=>{
+            let t = f(void 0, x ?? `default`);
+            H.current = [], W.current = [], bt.current = 0, V.current = crypto.randomUUID(), P.current = !1, M(!1), N(!1), rt([]), T(t);
+        }, Q = (0, y.useRef)(null), [$, xn] = (0, y.useState)(!1);
+        (0, y.useEffect)(()=>{
             let e = !1, t = ()=>{
                 if (e) return;
                 e = !0;
@@ -1161,47 +1477,47 @@ let __tla = Promise.all([
             }), ()=>{
                 window.removeEventListener(`pointerdown`, t), window.removeEventListener(`keydown`, t), Q.current && (Q.current.pause(), Q.current.currentTime = 0);
             };
-        }, []), (0, S.useEffect)(()=>{
-            Q.current && (Q.current.muted = $), Ve($);
+        }, []), (0, y.useEffect)(()=>{
+            Q.current && (Q.current.muted = $), De($);
         }, [
             $
         ]);
-        let Cn = (0, S.useRef)({
-            gold: v.ship.gold,
-            hull: v.ship.hull,
-            zone: v.currentZone ?? 1,
-            over: v.gameOver,
-            mult: v.scoreMultiplier ?? 1,
-            hmode: v.hunter?.mode ?? ``,
-            storm: v.stormDistance
+        let Sn = (0, y.useRef)({
+            gold: w.ship.gold,
+            hull: w.ship.hull,
+            zone: w.currentZone ?? 1,
+            over: w.gameOver,
+            mult: w.scoreMultiplier ?? 1,
+            hmode: w.hunter?.mode ?? ``,
+            storm: w.stormDistance
         });
-        return (0, S.useEffect)(()=>{
-            let e = Cn.current, t = !!v.log?.includes(`Tentacles rake`);
-            if (v.gameOver && !e.over) D(`death`);
-            else if (!v.gameOver) {
-                v.ship.gold > e.gold && D(`gold`), v.ship.gold < e.gold && v.showPort && D(`buy`), t ? D(`hunter_attack`) : v.ship.hull < e.hull && D(`damage`), (v.currentZone ?? 1) !== e.zone && D(`zone`), (v.scoreMultiplier ?? 1) > e.mult && D(`streak`);
-                let n = v.hunter?.mode ?? ``;
-                n !== e.hmode && (n === `stalking` || n === `frenzy`) && D(`hunter_near`), v.stormDistance < e.storm && v.stormDistance <= 4 && v.stormDistance > 0 && (D(`thunder`), un());
+        return (0, y.useEffect)(()=>{
+            let e = Sn.current, t = !!w.log?.includes(`Tentacles rake`);
+            if (w.gameOver && !e.over) S(`death`);
+            else if (!w.gameOver) {
+                w.ship.gold > e.gold && S(`gold`), w.ship.gold < e.gold && w.showPort && S(`buy`), t ? S(`hunter_attack`) : w.ship.hull < e.hull && S(`damage`), (w.currentZone ?? 1) !== e.zone && S(`zone`), (w.scoreMultiplier ?? 1) > e.mult && S(`streak`);
+                let n = w.hunter?.mode ?? ``;
+                n !== e.hmode && (n === `stalking` || n === `frenzy`) && S(`hunter_near`), w.stormDistance < e.storm && w.stormDistance <= 4 && w.stormDistance > 0 && (S(`thunder`), ln());
             }
-            Cn.current = {
-                gold: v.ship.gold,
-                hull: v.ship.hull,
-                zone: v.currentZone ?? 1,
-                over: v.gameOver,
-                mult: v.scoreMultiplier ?? 1,
-                hmode: v.hunter?.mode ?? ``,
-                storm: v.stormDistance
+            Sn.current = {
+                gold: w.ship.gold,
+                hull: w.ship.hull,
+                zone: w.currentZone ?? 1,
+                over: w.gameOver,
+                mult: w.scoreMultiplier ?? 1,
+                hmode: w.hunter?.mode ?? ``,
+                storm: w.stormDistance
             };
-            let n = (v.relics ?? []).length;
-            if (n > He.current) {
-                let e = (v.relics ?? [])[n - 1], t = s(e);
-                t && (Be(t), D(`streak`));
+            let n = (w.relics ?? []).length;
+            if (n > Be.current) {
+                let e = (w.relics ?? [])[n - 1], t = s(e);
+                t && (ze(t), S(`streak`));
             }
-            He.current = n;
+            Be.current = n;
         }, [
-            v
-        ]), (0, T.jsxs)(i.div, {
-            animate: je ? {
+            w
+        ]), (0, b.jsxs)(i.div, {
+            animate: Fe ? {
                 x: [
                     0,
                     -8,
@@ -1231,7 +1547,7 @@ let __tla = Promise.all([
                 position: `relative`
             },
             children: [
-                (0, T.jsxs)(`div`, {
+                (0, b.jsxs)(`div`, {
                     style: {
                         position: `absolute`,
                         inset: 0,
@@ -1240,7 +1556,7 @@ let __tla = Promise.all([
                         overflow: `hidden`
                     },
                     children: [
-                        (0, T.jsx)(i.div, {
+                        (0, b.jsx)(i.div, {
                             initial: {
                                 opacity: 0
                             },
@@ -1254,13 +1570,13 @@ let __tla = Promise.all([
                             style: {
                                 position: `absolute`,
                                 inset: 0,
-                                backgroundImage: `url(${Ke[Y.currentZone ?? 1] ?? Ke[1]})`,
+                                backgroundImage: `url(${Ve[Y.currentZone ?? 1] ?? Ve[1]})`,
                                 backgroundSize: `cover`,
                                 backgroundPosition: `center`,
                                 filter: `saturate(0.7) brightness(0.8)`
                             }
                         }, Y.currentZone ?? 1),
-                        (0, T.jsx)(`div`, {
+                        (0, b.jsx)(`div`, {
                             style: {
                                 position: `absolute`,
                                 inset: 0,
@@ -1269,7 +1585,7 @@ let __tla = Promise.all([
                         })
                     ]
                 }),
-                on && (0, T.jsx)(i.div, {
+                an && (0, b.jsx)(i.div, {
                     initial: {
                         opacity: 1
                     },
@@ -1282,17 +1598,17 @@ let __tla = Promise.all([
                     style: {
                         position: `fixed`,
                         inset: 0,
-                        background: on,
+                        background: an,
                         zIndex: 99,
                         pointerEvents: `none`
                     }
                 }),
-                cn > 0 && (0, T.jsx)(i.div, {
+                sn > 0 && (0, b.jsx)(i.div, {
                     animate: {
                         opacity: [
-                            cn,
-                            cn * .6,
-                            cn
+                            sn,
+                            sn * .6,
+                            sn
                         ]
                     },
                     transition: {
@@ -1308,7 +1624,7 @@ let __tla = Promise.all([
                         pointerEvents: `none`
                     }
                 }),
-                Y.ship.hull <= 5 && !Y.gameOver && (0, T.jsx)(i.div, {
+                Y.ship.hull <= 5 && !Y.gameOver && (0, b.jsx)(i.div, {
                     animate: {
                         opacity: [
                             .4,
@@ -1328,12 +1644,12 @@ let __tla = Promise.all([
                         pointerEvents: `none`
                     }
                 }),
-                (0, T.jsxs)(`div`, {
+                (0, b.jsxs)(`div`, {
                     style: {
                         display: `flex`,
                         justifyContent: `space-between`,
                         alignItems: `center`,
-                        padding: I ? `6px 8px` : `16px 28px`,
+                        padding: z ? `6px 8px` : `16px 28px`,
                         background: `rgba(6,11,18,0.92)`,
                         borderBottom: `1px solid rgba(255,255,255,0.06)`,
                         flexShrink: 0,
@@ -1341,7 +1657,7 @@ let __tla = Promise.all([
                         zIndex: 5
                     },
                     children: [
-                        (0, T.jsxs)(`div`, {
+                        (0, b.jsxs)(`div`, {
                             style: {
                                 fontWeight: 700,
                                 color: `#c8a030`,
@@ -1351,28 +1667,28 @@ let __tla = Promise.all([
                                 gap: 4
                             },
                             children: [
-                                (0, T.jsx)(`img`, {
-                                    src: g,
+                                (0, b.jsx)(`img`, {
+                                    src: v,
                                     style: {
-                                        width: I ? 28 : 56,
-                                        height: I ? 28 : 56,
+                                        width: z ? 28 : 56,
+                                        height: z ? 28 : 56,
                                         objectFit: `contain`
                                     }
                                 }),
-                                !I && ` CORSAIR`
+                                !z && ` CORSAIR`
                             ]
                         }),
-                        (0, T.jsx)(`div`, {
+                        (0, b.jsx)(`div`, {
                             style: {
                                 display: `flex`,
-                                gap: I ? 8 : 24
+                                gap: z ? 8 : 24
                             },
-                            children: (I ? [
+                            children: (z ? [
                                 {
                                     icon: `hull`,
                                     label: `HULL`,
                                     val: `${Y.ship.hull}/${Y.ship.maxHull}`,
-                                    color: fn
+                                    color: dn
                                 },
                                 {
                                     icon: `gold`,
@@ -1391,7 +1707,7 @@ let __tla = Promise.all([
                                     icon: `hull`,
                                     label: `HULL`,
                                     val: `${Y.ship.hull}/${Y.ship.maxHull}`,
-                                    color: fn
+                                    color: dn
                                 },
                                 {
                                     icon: `gold`,
@@ -1423,21 +1739,21 @@ let __tla = Promise.all([
                                     val: ``,
                                     color: `#aa44ee`
                                 }
-                            ]).map((e)=>(0, T.jsxs)(`div`, {
+                            ]).map((e)=>(0, b.jsxs)(`div`, {
                                     style: {
                                         textAlign: `center`
                                     },
                                     children: [
-                                        (0, T.jsx)(`div`, {
+                                        (0, b.jsx)(`div`, {
                                             style: {
-                                                fontSize: I ? 10 : 17,
+                                                fontSize: z ? 10 : 17,
                                                 color: `rgba(255,255,255,0.7)`,
                                                 letterSpacing: 1,
                                                 fontFamily: `'Pirata One', cursive`
                                             },
                                             children: e.label
                                         }),
-                                        (0, T.jsxs)(`div`, {
+                                        (0, b.jsxs)(`div`, {
                                             style: {
                                                 display: `flex`,
                                                 alignItems: `center`,
@@ -1446,23 +1762,23 @@ let __tla = Promise.all([
                                                 color: e.color
                                             },
                                             children: [
-                                                (0, T.jsx)(`img`, {
+                                                (0, b.jsx)(`img`, {
                                                     src: {
                                                         hull: `/assets/hull-CGmPGbU0.png`,
-                                                        gold: Ge,
+                                                        gold: qe,
                                                         vision: `/assets/vision-3Q65Za4i.png`,
                                                         power: `/assets/power-CBX9SU5d.png`,
                                                         turn: `/assets/turn-Wvx6vBym.png`
                                                     }[e.icon] || `/assets/hull-CGmPGbU0.png`,
                                                     style: {
-                                                        width: I ? 24 : 40,
-                                                        height: I ? 24 : 40,
+                                                        width: z ? 24 : 40,
+                                                        height: z ? 24 : 40,
                                                         objectFit: `contain`
                                                     }
                                                 }),
-                                                (0, T.jsx)(`span`, {
+                                                (0, b.jsx)(`span`, {
                                                     style: {
-                                                        fontSize: I ? 14 : 22,
+                                                        fontSize: z ? 14 : 22,
                                                         fontFamily: `'Cinzel', serif`
                                                     },
                                                     children: e.val
@@ -1472,14 +1788,14 @@ let __tla = Promise.all([
                                     ]
                                 }, e.label))
                         }),
-                        !I && (0, T.jsxs)(`div`, {
+                        !z && (0, b.jsxs)(`div`, {
                             style: {
                                 display: `flex`,
                                 alignItems: `center`,
                                 gap: 16
                             },
                             children: [
-                                (0, T.jsxs)(`div`, {
+                                (0, b.jsxs)(`div`, {
                                     style: {
                                         fontSize: 26,
                                         fontWeight: 700,
@@ -1489,7 +1805,7 @@ let __tla = Promise.all([
                                         gap: 6
                                     },
                                     children: [
-                                        (0, T.jsx)(`img`, {
+                                        (0, b.jsx)(`img`, {
                                             src: `/assets/score-DnnSqbJU.png`,
                                             style: {
                                                 width: 56,
@@ -1497,7 +1813,7 @@ let __tla = Promise.all([
                                                 objectFit: `contain`
                                             }
                                         }),
-                                        (0, T.jsx)(`span`, {
+                                        (0, b.jsx)(`span`, {
                                             style: {
                                                 fontFamily: `'Cinzel', serif`
                                             },
@@ -1506,8 +1822,8 @@ let __tla = Promise.all([
                                         ` pts`
                                     ]
                                 }),
-                                (0, T.jsx)(`button`, {
-                                    onClick: ()=>Sn((e)=>!e),
+                                (0, b.jsx)(`button`, {
+                                    onClick: ()=>xn((e)=>!e),
                                     "aria-label": $ ? `Unmute sound` : `Mute sound`,
                                     title: $ ? `Unmute sound` : `Mute sound`,
                                     style: {
@@ -1524,14 +1840,14 @@ let __tla = Promise.all([
                                 })
                             ]
                         }),
-                        I && (0, T.jsxs)(`div`, {
+                        z && (0, b.jsxs)(`div`, {
                             style: {
                                 display: `flex`,
                                 alignItems: `center`,
                                 gap: 6
                             },
                             children: [
-                                (0, T.jsxs)(`span`, {
+                                (0, b.jsxs)(`span`, {
                                     style: {
                                         fontSize: 13,
                                         fontWeight: 700,
@@ -1543,8 +1859,8 @@ let __tla = Promise.all([
                                         `pts`
                                     ]
                                 }),
-                                (0, T.jsx)(`button`, {
-                                    onClick: ()=>Sn((e)=>!e),
+                                (0, b.jsx)(`button`, {
+                                    onClick: ()=>xn((e)=>!e),
                                     "aria-label": $ ? `Unmute sound` : `Mute sound`,
                                     title: $ ? `Unmute sound` : `Mute sound`,
                                     style: {
@@ -1560,7 +1876,7 @@ let __tla = Promise.all([
                         })
                     ]
                 }),
-                I && (Y.relics ?? []).length > 0 && (0, T.jsx)(`div`, {
+                z && (Y.relics ?? []).length > 0 && (0, b.jsx)(`div`, {
                     style: {
                         display: `flex`,
                         gap: 5,
@@ -1571,7 +1887,7 @@ let __tla = Promise.all([
                     },
                     children: (Y.relics ?? []).map((e)=>{
                         let t = s(e);
-                        return t ? (0, T.jsx)(`div`, {
+                        return t ? (0, b.jsx)(`div`, {
                             title: `${t.name} — ${t.desc}`,
                             style: {
                                 display: `flex`,
@@ -1581,16 +1897,16 @@ let __tla = Promise.all([
                                 background: `rgba(200,160,48,0.14)`,
                                 border: `1px solid rgba(200,160,48,0.35)`
                             },
-                            children: (0, T.jsx)(m, {
+                            children: (0, b.jsx)(g, {
                                 name: t.icon,
                                 size: 15
                             })
                         }, e) : null;
                     })
                 }),
-                I && Y.hunter?.active && (()=>{
+                z && Y.hunter?.active && (()=>{
                     let e = Math.abs(Y.hunter.x - Y.ship.x) + Math.abs(Y.hunter.y - Y.ship.y);
-                    return (0, T.jsxs)(`div`, {
+                    return (0, b.jsxs)(`div`, {
                         style: {
                             display: `flex`,
                             alignItems: `center`,
@@ -1600,14 +1916,14 @@ let __tla = Promise.all([
                             borderBottom: `1px solid rgba(180,30,180,0.3)`
                         },
                         children: [
-                            (0, T.jsx)(m, {
+                            (0, b.jsx)(g, {
                                 name: `kraken`,
                                 size: 15,
                                 style: {
                                     marginRight: 2
                                 }
                             }),
-                            (0, T.jsxs)(`div`, {
+                            (0, b.jsxs)(`div`, {
                                 style: {
                                     fontSize: 11,
                                     color: Y.hunter.mode === `frenzy` ? `#ff6666` : Y.hunter.mode === `stalking` ? `#dd88ff` : `rgba(255,255,255,0.4)`,
@@ -1616,11 +1932,11 @@ let __tla = Promise.all([
                                     minWidth: 70
                                 },
                                 children: [
-                                    rt(Y.hunter.mode),
-                                    it(Y.hunter.mode)
+                                    tt(Y.hunter.mode),
+                                    nt(Y.hunter.mode)
                                 ]
                             }),
-                            (0, T.jsx)(`div`, {
+                            (0, b.jsx)(`div`, {
                                 style: {
                                     fontSize: 10,
                                     color: e <= 1 ? `#ff6677` : `rgba(255,255,255,0.45)`,
@@ -1629,14 +1945,14 @@ let __tla = Promise.all([
                                 },
                                 children: e <= 1 ? `HULL!` : `${e} away`
                             }),
-                            (0, T.jsx)(`div`, {
+                            (0, b.jsx)(`div`, {
                                 style: {
                                     flex: 1,
                                     height: 3,
                                     background: `rgba(255,255,255,0.1)`,
                                     borderRadius: 2
                                 },
-                                children: (0, T.jsx)(`div`, {
+                                children: (0, b.jsx)(`div`, {
                                     style: {
                                         height: 3,
                                         borderRadius: 2,
@@ -1646,7 +1962,7 @@ let __tla = Promise.all([
                                     }
                                 })
                             }),
-                            (0, T.jsxs)(`span`, {
+                            (0, b.jsxs)(`span`, {
                                 style: {
                                     fontSize: 10,
                                     color: `rgba(255,255,255,0.3)`,
@@ -1660,7 +1976,7 @@ let __tla = Promise.all([
                         ]
                     });
                 })(),
-                (0, T.jsxs)(`div`, {
+                (0, b.jsxs)(`div`, {
                     style: {
                         flex: 1,
                         display: `flex`,
@@ -1668,19 +1984,19 @@ let __tla = Promise.all([
                         position: `relative`
                     },
                     children: [
-                        (0, T.jsxs)(`div`, {
+                        (0, b.jsxs)(`div`, {
                             style: {
-                                width: I ? 0 : 260,
-                                padding: I ? 0 : `16px 12px`,
+                                width: z ? 0 : 260,
+                                padding: z ? 0 : `16px 12px`,
                                 overflow: `hidden`,
                                 display: `flex`,
                                 flexDirection: `column`,
                                 gap: 10,
-                                borderRight: I ? `none` : `1px solid rgba(255,255,255,0.05)`,
+                                borderRight: z ? `none` : `1px solid rgba(255,255,255,0.05)`,
                                 transition: `width 0.3s`
                             },
                             children: [
-                                (0, T.jsxs)(`div`, {
+                                (0, b.jsxs)(`div`, {
                                     style: {
                                         background: X > 70 ? `rgba(180,30,30,0.2)` : `rgba(255,255,255,0.03)`,
                                         border: `1px solid ${X > 70 ? `rgba(220,50,50,0.5)` : `rgba(255,255,255,0.08)`}`,
@@ -1688,7 +2004,7 @@ let __tla = Promise.all([
                                         padding: `12px 10px`
                                     },
                                     children: [
-                                        (0, T.jsx)(`div`, {
+                                        (0, b.jsx)(`div`, {
                                             style: {
                                                 fontSize: 14,
                                                 color: X > 70 ? `#ee4444` : `rgba(255,255,255,0.3)`,
@@ -1697,7 +2013,7 @@ let __tla = Promise.all([
                                             },
                                             children: `⛈ STORM`
                                         }),
-                                        (0, T.jsx)(`div`, {
+                                        (0, b.jsx)(`div`, {
                                             style: {
                                                 fontSize: 29,
                                                 fontWeight: 700,
@@ -1705,7 +2021,7 @@ let __tla = Promise.all([
                                             },
                                             children: Y.stormDistance
                                         }),
-                                        (0, T.jsx)(`div`, {
+                                        (0, b.jsx)(`div`, {
                                             style: {
                                                 fontSize: 20,
                                                 color: `rgba(255,255,255,0.8)`,
@@ -1714,14 +2030,14 @@ let __tla = Promise.all([
                                             },
                                             children: `turns until impact`
                                         }),
-                                        (0, T.jsx)(`div`, {
+                                        (0, b.jsx)(`div`, {
                                             style: {
                                                 height: 4,
                                                 background: `rgba(255,255,255,0.06)`,
                                                 borderRadius: 2,
                                                 marginTop: 8
                                             },
-                                            children: (0, T.jsx)(i.div, {
+                                            children: (0, b.jsx)(i.div, {
                                                 animate: {
                                                     width: `${X}%`
                                                 },
@@ -1739,7 +2055,7 @@ let __tla = Promise.all([
                                 }),
                                 Y.hunter && (()=>{
                                     let e = Math.abs(Y.hunter.x - Y.ship.x) + Math.abs(Y.hunter.y - Y.ship.y), t = e <= 2;
-                                    return (0, T.jsxs)(`div`, {
+                                    return (0, b.jsxs)(`div`, {
                                         style: {
                                             background: t ? `rgba(180,30,60,0.18)` : `rgba(180,30,180,0.08)`,
                                             border: `1px solid ${Y.hunter.mode === `frenzy` || t ? `rgba(220,50,80,0.65)` : Y.hunter.mode === `stalking` ? `rgba(220,50,220,0.5)` : `rgba(255,255,255,0.08)`}`,
@@ -1748,7 +2064,7 @@ let __tla = Promise.all([
                                             marginTop: 4
                                         },
                                         children: [
-                                            (0, T.jsx)(`div`, {
+                                            (0, b.jsx)(`div`, {
                                                 style: {
                                                     fontSize: 13,
                                                     color: t ? `#ff8899` : `rgba(200,100,220,0.8)`,
@@ -1757,7 +2073,7 @@ let __tla = Promise.all([
                                                 },
                                                 children: `🐙 HUNTER`
                                             }),
-                                            (0, T.jsxs)(`div`, {
+                                            (0, b.jsxs)(`div`, {
                                                 style: {
                                                     display: `inline-block`,
                                                     padding: `2px 10px`,
@@ -1771,11 +2087,11 @@ let __tla = Promise.all([
                                                     border: `1px solid ${Y.hunter.mode === `frenzy` ? `rgba(220,30,30,0.6)` : Y.hunter.mode === `stalking` ? `rgba(180,30,180,0.5)` : `rgba(255,255,255,0.1)`}`
                                                 },
                                                 children: [
-                                                    rt(Y.hunter.mode),
-                                                    it(Y.hunter.mode)
+                                                    tt(Y.hunter.mode),
+                                                    nt(Y.hunter.mode)
                                                 ]
                                             }),
-                                            (0, T.jsx)(`div`, {
+                                            (0, b.jsx)(`div`, {
                                                 style: {
                                                     fontSize: 12,
                                                     color: e <= 1 ? `#ff5566` : e <= 2 ? `#eeaa66` : `rgba(255,255,255,0.45)`,
@@ -1785,7 +2101,7 @@ let __tla = Promise.all([
                                                 },
                                                 children: e <= 1 ? `ON YOUR HULL` : e === 2 ? `2 CELLS AWAY` : `${e} CELLS AWAY`
                                             }),
-                                            (0, T.jsxs)(`div`, {
+                                            (0, b.jsxs)(`div`, {
                                                 style: {
                                                     fontSize: 11,
                                                     color: `rgba(255,255,255,0.3)`,
@@ -1798,13 +2114,13 @@ let __tla = Promise.all([
                                                     `%`
                                                 ]
                                             }),
-                                            (0, T.jsx)(`div`, {
+                                            (0, b.jsx)(`div`, {
                                                 style: {
                                                     height: 4,
                                                     background: `rgba(255,255,255,0.06)`,
                                                     borderRadius: 2
                                                 },
-                                                children: (0, T.jsx)(i.div, {
+                                                children: (0, b.jsx)(i.div, {
                                                     animate: {
                                                         width: `${Y.hunter.awareness}%`
                                                     },
@@ -1821,7 +2137,7 @@ let __tla = Promise.all([
                                         ]
                                     });
                                 })(),
-                                (0, T.jsx)(`div`, {
+                                (0, b.jsx)(`div`, {
                                     style: {
                                         fontSize: 17,
                                         color: `rgba(255,255,255,0.6)`,
@@ -1830,7 +2146,7 @@ let __tla = Promise.all([
                                     },
                                     children: `EQUIPPED`
                                 }),
-                                Y.ship.upgrades.length === 0 ? (0, T.jsx)(`div`, {
+                                Y.ship.upgrades.length === 0 ? (0, b.jsx)(`div`, {
                                     style: {
                                         fontSize: 17,
                                         color: `rgba(255,255,255,0.5)`,
@@ -1838,18 +2154,18 @@ let __tla = Promise.all([
                                     },
                                     children: `None yet`
                                 }) : Y.ship.upgrades.map((e)=>{
-                                    let t = P.find((t)=>t.id === e);
-                                    return (0, T.jsxs)(`div`, {
+                                    let t = L.find((t)=>t.id === e);
+                                    return (0, b.jsxs)(`div`, {
                                         style: {
                                             fontSize: 14,
-                                            color: tt[t.build],
+                                            color: $e[t.build],
                                             display: `flex`,
                                             alignItems: `center`,
                                             gap: 6
                                         },
                                         children: [
-                                            (0, T.jsx)(`img`, {
-                                                src: M[e],
+                                            (0, b.jsx)(`img`, {
+                                                src: F[e],
                                                 style: {
                                                     width: 20,
                                                     height: 20,
@@ -1860,7 +2176,7 @@ let __tla = Promise.all([
                                         ]
                                     }, e);
                                 }),
-                                Y.upgradeToken && (0, T.jsx)(`div`, {
+                                Y.upgradeToken && (0, b.jsx)(`div`, {
                                     style: {
                                         fontSize: 14,
                                         color: `#eedd44`,
@@ -1868,12 +2184,12 @@ let __tla = Promise.all([
                                     },
                                     children: `✦ Free upgrade — claim it at a port`
                                 }),
-                                (0, T.jsxs)(`div`, {
+                                (0, b.jsxs)(`div`, {
                                     style: {
                                         marginTop: 12
                                     },
                                     children: [
-                                        (0, T.jsx)(`div`, {
+                                        (0, b.jsx)(`div`, {
                                             style: {
                                                 fontSize: 11,
                                                 color: `rgba(255,255,255,0.3)`,
@@ -1883,7 +2199,7 @@ let __tla = Promise.all([
                                             },
                                             children: `SHIP`
                                         }),
-                                        (0, T.jsx)(`div`, {
+                                        (0, b.jsx)(`div`, {
                                             style: {
                                                 display: `flex`,
                                                 flexDirection: `column`,
@@ -1944,7 +2260,7 @@ let __tla = Promise.all([
                                                     `II`,
                                                     `III`
                                                 ];
-                                                return (0, T.jsxs)(i.div, {
+                                                return (0, b.jsxs)(i.div, {
                                                     animate: n ? {
                                                         filter: [
                                                             `drop-shadow(0 0 3px ${r}00)`,
@@ -1963,7 +2279,7 @@ let __tla = Promise.all([
                                                         padding: `8px 10px`
                                                     },
                                                     children: [
-                                                        (0, T.jsxs)(`div`, {
+                                                        (0, b.jsxs)(`div`, {
                                                             style: {
                                                                 display: `flex`,
                                                                 alignItems: `center`,
@@ -1971,18 +2287,18 @@ let __tla = Promise.all([
                                                                 marginBottom: 6
                                                             },
                                                             children: [
-                                                                (0, T.jsx)(`span`, {
+                                                                (0, b.jsx)(`span`, {
                                                                     style: {
                                                                         fontSize: 16
                                                                     },
                                                                     children: e.icon
                                                                 }),
-                                                                (0, T.jsxs)(`div`, {
+                                                                (0, b.jsxs)(`div`, {
                                                                     style: {
                                                                         flex: 1
                                                                     },
                                                                     children: [
-                                                                        (0, T.jsx)(`div`, {
+                                                                        (0, b.jsx)(`div`, {
                                                                             style: {
                                                                                 fontSize: 13,
                                                                                 color: r,
@@ -1991,7 +2307,7 @@ let __tla = Promise.all([
                                                                             },
                                                                             children: e.label
                                                                         }),
-                                                                        (0, T.jsx)(`div`, {
+                                                                        (0, b.jsx)(`div`, {
                                                                             style: {
                                                                                 fontSize: 10,
                                                                                 color: `rgba(255,255,255,0.3)`,
@@ -2001,7 +2317,7 @@ let __tla = Promise.all([
                                                                         })
                                                                     ]
                                                                 }),
-                                                                (0, T.jsxs)(`div`, {
+                                                                (0, b.jsxs)(`div`, {
                                                                     style: {
                                                                         fontSize: 14,
                                                                         color: r,
@@ -2015,7 +2331,7 @@ let __tla = Promise.all([
                                                                 })
                                                             ]
                                                         }),
-                                                        (0, T.jsx)(`div`, {
+                                                        (0, b.jsx)(`div`, {
                                                             style: {
                                                                 display: `flex`,
                                                                 alignItems: `center`,
@@ -2025,20 +2341,20 @@ let __tla = Promise.all([
                                                                 0,
                                                                 1,
                                                                 2
-                                                            ].map((e, o)=>(0, T.jsxs)(`div`, {
+                                                            ].map((e, o)=>(0, b.jsxs)(`div`, {
                                                                     style: {
                                                                         display: `flex`,
                                                                         alignItems: `center`
                                                                     },
                                                                     children: [
-                                                                        o > 0 && (0, T.jsx)(`div`, {
+                                                                        o > 0 && (0, b.jsx)(`div`, {
                                                                             style: {
                                                                                 width: 10,
                                                                                 height: 2,
                                                                                 background: e <= t ? `${r}88` : `rgba(255,255,255,0.08)`
                                                                             }
                                                                         }),
-                                                                        (0, T.jsx)(i.div, {
+                                                                        (0, b.jsx)(i.div, {
                                                                             animate: n && e === 2 ? {
                                                                                 scale: [
                                                                                     1,
@@ -2061,7 +2377,7 @@ let __tla = Promise.all([
                                                                                 justifyContent: `center`,
                                                                                 boxShadow: e <= t ? `0 0 8px ${r}44` : `none`
                                                                             },
-                                                                            children: (0, T.jsx)(`span`, {
+                                                                            children: (0, b.jsx)(`span`, {
                                                                                 style: {
                                                                                     fontSize: 9,
                                                                                     color: e <= t ? `#000` : `rgba(255,255,255,0.2)`,
@@ -2082,19 +2398,19 @@ let __tla = Promise.all([
                                 })
                             ]
                         }),
-                        (0, T.jsxs)(`div`, {
+                        (0, b.jsxs)(`div`, {
                             style: {
                                 flex: 1,
                                 display: `flex`,
                                 flexDirection: `column`,
                                 alignItems: `center`,
-                                justifyContent: I ? `flex-start` : `center`,
-                                padding: I ? `6px 4px calc(96px + env(safe-area-inset-bottom))` : `10px`,
+                                justifyContent: z ? `flex-start` : `center`,
+                                padding: z ? `6px 4px calc(96px + env(safe-area-inset-bottom))` : `10px`,
                                 position: `relative`,
-                                overflowY: I ? `auto` : `visible`
+                                overflowY: z ? `auto` : `visible`
                             },
                             children: [
-                                I && !Y.event && !Y.showPort && !Y.gameOver && (0, T.jsx)(`div`, {
+                                z && !Y.event && !Y.showPort && !Y.gameOver && (0, b.jsx)(`div`, {
                                     style: {
                                         position: `fixed`,
                                         left: 0,
@@ -2122,7 +2438,7 @@ let __tla = Promise.all([
                                             dx: 1,
                                             dy: 0
                                         }
-                                    ].map((e)=>(0, T.jsx)(`button`, {
+                                    ].map((e)=>(0, b.jsx)(`button`, {
                                             onClick: ()=>Z(e.dx, e.dy),
                                             "aria-label": `Sail ${e.label.replace(/[▲◀▶]/g, ``).trim().toLowerCase()}`,
                                             style: {
@@ -2141,7 +2457,7 @@ let __tla = Promise.all([
                                             children: e.label
                                         }, e.label))
                                 }),
-                                I && (0, T.jsxs)(`div`, {
+                                z && (0, b.jsxs)(`div`, {
                                     style: {
                                         display: `flex`,
                                         gap: 12,
@@ -2150,7 +2466,7 @@ let __tla = Promise.all([
                                         fontFamily: `'Cinzel', serif`
                                     },
                                     children: [
-                                        (0, T.jsxs)(`span`, {
+                                        (0, b.jsxs)(`span`, {
                                             style: {
                                                 color: Y.stormDistance <= 4 ? `#ee4444` : `#ee8844`
                                             },
@@ -2160,13 +2476,13 @@ let __tla = Promise.all([
                                                 ` turns`
                                             ]
                                         }),
-                                        (0, T.jsx)(`span`, {
+                                        (0, b.jsx)(`span`, {
                                             style: {
                                                 color: `#cc44ee`
                                             },
                                             children: o[Y.currentZone ?? 1]?.name ?? `The Coasts`
                                         }),
-                                        (0, T.jsxs)(`span`, {
+                                        (0, b.jsxs)(`span`, {
                                             style: {
                                                 color: `#eedd44`
                                             },
@@ -2178,7 +2494,7 @@ let __tla = Promise.all([
                                         })
                                     ]
                                 }),
-                                !I && !Y.event && !Y.showPort && !Y.gameOver && (0, T.jsxs)(`div`, {
+                                !z && !Y.event && !Y.showPort && !Y.gameOver && (0, b.jsxs)(`div`, {
                                     "aria-label": `Sailing controls`,
                                     style: {
                                         display: `flex`,
@@ -2187,7 +2503,7 @@ let __tla = Promise.all([
                                         marginBottom: 10
                                     },
                                     children: [
-                                        (0, T.jsx)(`span`, {
+                                        (0, b.jsx)(`span`, {
                                             style: {
                                                 fontSize: 11,
                                                 color: `rgba(255,255,255,0.38)`,
@@ -2215,7 +2531,7 @@ let __tla = Promise.all([
                                                 dx: 1,
                                                 dy: 0
                                             }
-                                        ].map((e)=>(0, T.jsxs)(`button`, {
+                                        ].map((e)=>(0, b.jsxs)(`button`, {
                                                 onClick: ()=>Z(e.dx, e.dy),
                                                 title: `${e.label} (${e.keyHint} / arrow key)`,
                                                 style: {
@@ -2232,7 +2548,7 @@ let __tla = Promise.all([
                                                 children: [
                                                     e.label,
                                                     ` `,
-                                                    (0, T.jsx)(`span`, {
+                                                    (0, b.jsx)(`span`, {
                                                         style: {
                                                             marginLeft: 4,
                                                             color: `rgba(255,255,255,0.42)`,
@@ -2245,17 +2561,17 @@ let __tla = Promise.all([
                                             }, e.label))
                                     ]
                                 }),
-                                b && !Y.event && !Y.showPort && !Y.gameOver && (0, T.jsx)(ot, {
-                                    tip: b,
-                                    isMobile: I,
-                                    onDismiss: z
+                                E && !Y.event && !Y.showPort && !Y.gameOver && (0, b.jsx)(C, {
+                                    tip: E,
+                                    isMobile: z,
+                                    onDismiss: yt
                                 }),
-                                (0, T.jsxs)(`div`, {
+                                (0, b.jsxs)(`div`, {
                                     style: {
                                         position: `relative`
                                     },
                                     children: [
-                                        (0, T.jsx)(`div`, {
+                                        (0, b.jsx)(`div`, {
                                             style: {
                                                 position: `absolute`,
                                                 inset: 0,
@@ -2265,13 +2581,13 @@ let __tla = Promise.all([
                                                 borderRadius: 8
                                             }
                                         }),
-                                        (0, T.jsxs)(`div`, {
+                                        (0, b.jsxs)(`div`, {
                                             style: {
                                                 display: `grid`,
                                                 gridTemplateColumns: `repeat(${Y.ship.vision * 2 + 1},1fr)`,
                                                 gap: 4,
-                                                transform: `translate(${At.x}px, ${At.y}px)`,
-                                                transition: At.instant ? `none` : `transform 420ms cubic-bezier(0.22, 1, 0.36, 1)`,
+                                                transform: `translate(${kt.x}px, ${kt.y}px)`,
+                                                transition: kt.instant ? `none` : `transform 420ms cubic-bezier(0.22, 1, 0.36, 1)`,
                                                 willChange: `transform`
                                             },
                                             children: [
@@ -2320,10 +2636,10 @@ let __tla = Promise.all([
                                                             revealed: !1,
                                                             visited: !1,
                                                             value: 0
-                                                        }, ee = Y.ship.x + t, te = Y.ship.y + e, l = Y.hunter?.active && Y.hunter.x === ee && Y.hunter.y === te, u = Y.hunter?.active ? Math.abs(Y.hunter.x - Y.ship.x) + Math.abs(Y.hunter.y - Y.ship.y) : 99, d = t === 0 && e === 0, f = c.revealed || c.visited, p = c.stormed, ne = Y.stormDistance <= 0 ? -1 : Y.grid.length + 2 - Math.floor((10 - Y.stormDistance) / 3), m = p && r === ne, re = Ze[Y.currentZone ?? 1] ?? Ze[1], ie = Qe[Y.currentZone ?? 1] ?? Qe[1], h = p ? `#cc2222` : ie[c.type], ae = Y.ship.vision * 2 + 1, g = I ? Math.floor((window.innerWidth - 16) / ae) : Math.floor(Math.min(window.innerWidth * .5, window.innerHeight * .62) / ae) - 4;
-                                                        return (0, T.jsxs)(i.div, {
-                                                            className: m ? `storm-front` : void 0,
-                                                            initial: f ? {
+                                                        }, l = Y.ship.x + t, u = Y.ship.y + e, d = Y.hunter?.active && Y.hunter.x === l && Y.hunter.y === u, f = Y.hunter?.active ? Math.abs(Y.hunter.x - Y.ship.x) + Math.abs(Y.hunter.y - Y.ship.y) : 99, p = t === 0 && e === 0, m = c.revealed || c.visited, h = c.stormed, ee = Y.stormDistance <= 0 ? -1 : Y.grid.length + 2 - Math.floor((10 - Y.stormDistance) / 3), g = h && r === ee, te = Ye[Y.currentZone ?? 1] ?? Ye[1], ne = Xe[Y.currentZone ?? 1] ?? Xe[1], _ = h ? `#cc2222` : ne[c.type], re = Y.ship.vision * 2 + 1, v = z ? Math.floor((window.innerWidth - 16) / re) : Math.floor(Math.min(window.innerWidth * .5, window.innerHeight * .62) / re) - 4;
+                                                        return (0, b.jsxs)(i.div, {
+                                                            className: g ? `storm-front` : void 0,
+                                                            initial: m ? {
                                                                 opacity: 0,
                                                                 scale: .8
                                                             } : !1,
@@ -2332,27 +2648,27 @@ let __tla = Promise.all([
                                                                 scale: 1
                                                             },
                                                             style: {
-                                                                width: g,
-                                                                height: g,
-                                                                background: d ? `#0a2a4a` : l ? Y.hunter?.mode === `frenzy` ? `#3a0612` : `#2a0830` : p ? `#2a0505` : f ? re[c.type] ?? `#050a0f` : Y.currentZone === 2 ? `#03050a` : Y.currentZone === 3 ? `#020204` : `#050a0f`,
-                                                                border: d ? u <= 1 ? `2px solid #ee4466` : `2px solid #4a8acc` : l ? `2px solid ${Y.hunter?.mode === `frenzy` ? `#ff4466` : Y.hunter?.mode === `stalking` ? `#dd66ff` : `#aa44cc`}` : p ? `1px solid #cc222244` : f ? `1px solid ${h ? h + `44` : `rgba(255,255,255,0.08)`}` : `1px solid rgba(255,255,255,0.03)`,
+                                                                width: v,
+                                                                height: v,
+                                                                background: p ? `#0a2a4a` : d ? Y.hunter?.mode === `frenzy` ? `#3a0612` : `#2a0830` : h ? `#2a0505` : m ? te[c.type] ?? `#050a0f` : Y.currentZone === 2 ? `#03050a` : Y.currentZone === 3 ? `#020204` : `#050a0f`,
+                                                                border: p ? f <= 1 ? `2px solid #ee4466` : `2px solid #4a8acc` : d ? `2px solid ${Y.hunter?.mode === `frenzy` ? `#ff4466` : Y.hunter?.mode === `stalking` ? `#dd66ff` : `#aa44cc`}` : h ? `1px solid #cc222244` : m ? `1px solid ${_ ? _ + `44` : `rgba(255,255,255,0.08)`}` : `1px solid rgba(255,255,255,0.03)`,
                                                                 borderRadius: 8,
                                                                 display: `flex`,
                                                                 alignItems: `center`,
                                                                 justifyContent: `center`,
-                                                                fontSize: d ? 26 : 20,
-                                                                boxShadow: l ? `0 0 ${u <= 2 ? 22 : 14}px ${Y.hunter?.mode === `frenzy` ? `rgba(255,60,80,0.85)` : `rgba(200,60,220,0.75)`}` : d ? u <= 1 ? `0 0 22px rgba(238,68,102,0.55)` : `0 0 20px rgba(74,138,204,0.4)` : h && f ? `0 0 10px ${h}44` : `none`,
+                                                                fontSize: p ? 26 : 20,
+                                                                boxShadow: d ? `0 0 ${f <= 2 ? 22 : 14}px ${Y.hunter?.mode === `frenzy` ? `rgba(255,60,80,0.85)` : `rgba(200,60,220,0.75)`}` : p ? f <= 1 ? `0 0 22px rgba(238,68,102,0.55)` : `0 0 20px rgba(74,138,204,0.4)` : _ && m ? `0 0 10px ${_}44` : `none`,
                                                                 position: `relative`,
                                                                 cursor: `default`
                                                             },
                                                             children: [
-                                                                d && (0, T.jsxs)(T.Fragment, {
+                                                                p && (0, b.jsxs)(b.Fragment, {
                                                                     children: [
-                                                                        (0, T.jsx)(i.div, {
+                                                                        (0, b.jsx)(i.div, {
                                                                             animate: {
-                                                                                rotate: Mt.x * 10,
-                                                                                y: Mt.y * 5,
-                                                                                scale: Mt.x || Mt.y ? 1.06 : 1
+                                                                                rotate: jt.x * 10,
+                                                                                y: jt.y * 5,
+                                                                                scale: jt.x || jt.y ? 1.06 : 1
                                                                             },
                                                                             transition: {
                                                                                 type: `spring`,
@@ -2362,7 +2678,7 @@ let __tla = Promise.all([
                                                                             style: {
                                                                                 transformOrigin: `50% 75%`
                                                                             },
-                                                                            children: (0, T.jsx)(i.div, {
+                                                                            children: (0, b.jsx)(i.div, {
                                                                                 animate: {
                                                                                     y: [
                                                                                         0,
@@ -2375,18 +2691,18 @@ let __tla = Promise.all([
                                                                                     duration: 2,
                                                                                     ease: `easeInOut`
                                                                                 },
-                                                                                children: (0, T.jsx)(`img`, {
+                                                                                children: (0, b.jsx)(`img`, {
                                                                                     src: `/icons/ship.png`,
                                                                                     style: {
-                                                                                        width: g * .82,
-                                                                                        height: g * .82,
+                                                                                        width: v * .82,
+                                                                                        height: v * .82,
                                                                                         objectFit: `contain`,
                                                                                         filter: `drop-shadow(0 0 10px rgba(74,138,204,0.9))`
                                                                                     }
                                                                                 })
                                                                             })
                                                                         }),
-                                                                        (0, T.jsxs)(`div`, {
+                                                                        (0, b.jsxs)(`div`, {
                                                                             style: {
                                                                                 position: `absolute`,
                                                                                 bottom: 3,
@@ -2397,14 +2713,14 @@ let __tla = Promise.all([
                                                                                 gap: 3
                                                                             },
                                                                             children: [
-                                                                                (0, T.jsx)(`div`, {
+                                                                                (0, b.jsx)(`div`, {
                                                                                     style: {
                                                                                         flex: 1,
                                                                                         height: 3,
                                                                                         background: `rgba(0,0,0,0.5)`,
                                                                                         borderRadius: 2
                                                                                     },
-                                                                                    children: (0, T.jsx)(`div`, {
+                                                                                    children: (0, b.jsx)(`div`, {
                                                                                         style: {
                                                                                             width: `${Y.ship.hull / Y.ship.maxHull * 100}%`,
                                                                                             height: `100%`,
@@ -2414,9 +2730,9 @@ let __tla = Promise.all([
                                                                                         }
                                                                                     })
                                                                                 }),
-                                                                                (0, T.jsx)(`div`, {
+                                                                                (0, b.jsx)(`div`, {
                                                                                     style: {
-                                                                                        fontSize: Math.max(7, g * .16),
+                                                                                        fontSize: Math.max(7, v * .16),
                                                                                         color: Y.ship.hull <= 5 ? `#ee4444` : Y.ship.hull <= 10 ? `#ee8844` : `#44cc88`,
                                                                                         fontFamily: `'Cinzel', serif`,
                                                                                         fontWeight: 700,
@@ -2430,7 +2746,7 @@ let __tla = Promise.all([
                                                                         })
                                                                     ]
                                                                 }),
-                                                                !l && !d && !f && c.type === `portal` && (0, T.jsx)(i.div, {
+                                                                !d && !p && !m && c.type === `portal` && (0, b.jsx)(i.div, {
                                                                     animate: {
                                                                         opacity: [
                                                                             .55,
@@ -2458,26 +2774,26 @@ let __tla = Promise.all([
                                                                         borderRadius: 4,
                                                                         boxShadow: `0 0 12px #8866ff`
                                                                     },
-                                                                    children: (0, T.jsx)(`div`, {
+                                                                    children: (0, b.jsx)(`div`, {
                                                                         style: {
-                                                                            fontSize: g * .5,
+                                                                            fontSize: v * .5,
                                                                             lineHeight: 1,
                                                                             filter: `drop-shadow(0 0 6px #aa77ff)`
                                                                         },
                                                                         children: `🌀`
                                                                     })
                                                                 }),
-                                                                !l && !d && f && (0, T.jsx)(`img`, {
+                                                                !d && !p && m && (0, b.jsx)(`img`, {
                                                                     src: `/icons/${c.type}.png`,
                                                                     style: {
-                                                                        width: g * .82,
-                                                                        height: g * .82,
+                                                                        width: v * .82,
+                                                                        height: v * .82,
                                                                         opacity: c.visited ? .35 : 1,
                                                                         objectFit: `contain`,
                                                                         mixBlendMode: `screen`
                                                                     }
                                                                 }),
-                                                                l && !d && (0, T.jsx)(i.div, {
+                                                                d && !p && (0, b.jsx)(i.div, {
                                                                     animate: {
                                                                         scale: [
                                                                             1,
@@ -2497,16 +2813,16 @@ let __tla = Promise.all([
                                                                     style: {
                                                                         filter: `drop-shadow(0 0 12px #cc44ee)`
                                                                     },
-                                                                    children: (0, T.jsx)(`img`, {
+                                                                    children: (0, b.jsx)(`img`, {
                                                                         src: `/icons/hunter.png`,
                                                                         style: {
-                                                                            width: g * .82,
-                                                                            height: g * .82,
+                                                                            width: v * .82,
+                                                                            height: v * .82,
                                                                             objectFit: `contain`
                                                                         }
                                                                     })
                                                                 }),
-                                                                s && !d && !l && (0, T.jsx)(i.div, {
+                                                                s && !p && !d && (0, b.jsx)(i.div, {
                                                                     animate: {
                                                                         opacity: [
                                                                             0,
@@ -2528,7 +2844,7 @@ let __tla = Promise.all([
                                                                         pointerEvents: `none`
                                                                     }
                                                                 }),
-                                                                l && !d && !f && (0, T.jsx)(i.div, {
+                                                                d && !p && !m && (0, b.jsx)(i.div, {
                                                                     animate: {
                                                                         opacity: [
                                                                             .3,
@@ -2543,18 +2859,18 @@ let __tla = Promise.all([
                                                                     style: {
                                                                         filter: `drop-shadow(0 0 8px #aa22cc)`
                                                                     },
-                                                                    children: (0, T.jsx)(`img`, {
+                                                                    children: (0, b.jsx)(`img`, {
                                                                         src: `/icons/hunter.png`,
                                                                         style: {
-                                                                            width: g * .82,
-                                                                            height: g * .82,
+                                                                            width: v * .82,
+                                                                            height: v * .82,
                                                                             objectFit: `contain`,
                                                                             opacity: .4,
                                                                             filter: `grayscale(0.8) brightness(0.5)`
                                                                         }
                                                                     })
                                                                 }),
-                                                                !l && !d && !f && (0, T.jsx)(`span`, {
+                                                                !d && !p && !m && (0, b.jsx)(`span`, {
                                                                     style: {
                                                                         fontSize: 21,
                                                                         color: `rgba(255,255,255,0.06)`,
@@ -2570,7 +2886,7 @@ let __tla = Promise.all([
                                         })
                                     ]
                                 }),
-                                Y.dangerStreak > 0 && (0, T.jsxs)(i.div, {
+                                Y.dangerStreak > 0 && (0, b.jsxs)(i.div, {
                                     initial: {
                                         scale: .6,
                                         opacity: 0
@@ -2588,13 +2904,13 @@ let __tla = Promise.all([
                                         letterSpacing: 2
                                     },
                                     children: [
-                                        Y.scoreMultiplier > 1 && (0, T.jsxs)(`div`, {
+                                        Y.scoreMultiplier > 1 && (0, b.jsxs)(`div`, {
                                             style: {
-                                                fontSize: I ? 17 : Y.scoreMultiplier >= 3 ? 42 : 32,
+                                                fontSize: z ? 17 : Y.scoreMultiplier >= 3 ? 42 : 32,
                                                 fontWeight: 700,
                                                 color: Y.scoreMultiplier >= 3 ? `#ee4444` : `#eedd44`,
-                                                letterSpacing: I ? 2 : 4,
-                                                textShadow: I ? `none` : Y.scoreMultiplier >= 3 ? `0 0 30px #ee4444, 0 0 60px #ee444466` : `0 0 20px #eedd44, 0 0 40px #eedd4466`,
+                                                letterSpacing: z ? 2 : 4,
+                                                textShadow: z ? `none` : Y.scoreMultiplier >= 3 ? `0 0 30px #ee4444, 0 0 60px #ee444466` : `0 0 20px #eedd44, 0 0 40px #eedd4466`,
                                                 filter: Y.scoreMultiplier >= 3 ? `brightness(1.3)` : `brightness(1.1)`
                                             },
                                             children: [
@@ -2604,9 +2920,9 @@ let __tla = Promise.all([
                                                 ` COMBO`
                                             ]
                                         }),
-                                        (0, T.jsxs)(`div`, {
+                                        (0, b.jsxs)(`div`, {
                                             style: {
-                                                display: I ? `none` : `block`,
+                                                display: z ? `none` : `block`,
                                                 fontSize: 13,
                                                 color: `rgba(255,255,255,0.4)`,
                                                 fontFamily: `'Cinzel', serif`,
@@ -2618,7 +2934,7 @@ let __tla = Promise.all([
                                                 Y.dangerStreak
                                             ]
                                         }),
-                                        Y.dangerStreak >= 3 && (0, T.jsx)(i.div, {
+                                        Y.dangerStreak >= 3 && (0, b.jsx)(i.div, {
                                             animate: {
                                                 opacity: [
                                                     1,
@@ -2639,7 +2955,7 @@ let __tla = Promise.all([
                                             },
                                             children: `HUNTER ALERT`
                                         }),
-                                        Y.dangerStreak >= 4 && (0, T.jsx)(i.div, {
+                                        Y.dangerStreak >= 4 && (0, b.jsx)(i.div, {
                                             animate: {
                                                 opacity: [
                                                     1,
@@ -2660,7 +2976,7 @@ let __tla = Promise.all([
                                             },
                                             children: `⛈ STORM SURGE +8%`
                                         }),
-                                        Y.dangerStreak >= 5 && (0, T.jsxs)(i.div, {
+                                        Y.dangerStreak >= 5 && (0, b.jsxs)(i.div, {
                                             animate: {
                                                 opacity: [
                                                     1,
@@ -2680,7 +2996,7 @@ let __tla = Promise.all([
                                                 marginTop: 2
                                             },
                                             children: [
-                                                (0, T.jsx)(m, {
+                                                (0, b.jsx)(g, {
                                                     name: `skull`,
                                                     size: 18,
                                                     style: {
@@ -2690,7 +3006,7 @@ let __tla = Promise.all([
                                                 `CURSED WATERS`
                                             ]
                                         }),
-                                        Y.dangerStreak >= 6 && (0, T.jsxs)(i.div, {
+                                        Y.dangerStreak >= 6 && (0, b.jsxs)(i.div, {
                                             animate: {
                                                 opacity: [
                                                     1,
@@ -2710,7 +3026,7 @@ let __tla = Promise.all([
                                                 marginTop: 2
                                             },
                                             children: [
-                                                (0, T.jsx)(m, {
+                                                (0, b.jsx)(g, {
                                                     name: `skull`,
                                                     size: 18,
                                                     style: {
@@ -2722,13 +3038,13 @@ let __tla = Promise.all([
                                         })
                                     ]
                                 }, Y.dangerStreak),
-                                Y.ship.upgrades.includes(`hunter`) && (0, T.jsxs)(`div`, {
+                                Y.ship.upgrades.includes(`hunter`) && (0, b.jsxs)(`div`, {
                                     style: {
                                         position: `relative`,
                                         marginBottom: 8
                                     },
                                     children: [
-                                        (0, T.jsx)(`div`, {
+                                        (0, b.jsx)(`div`, {
                                             style: {
                                                 fontSize: 11,
                                                 color: `rgba(255,255,255,0.3)`,
@@ -2739,7 +3055,7 @@ let __tla = Promise.all([
                                             },
                                             children: `NAVIGATOR`
                                         }),
-                                        (0, T.jsx)(`div`, {
+                                        (0, b.jsx)(`div`, {
                                             style: {
                                                 display: `grid`,
                                                 gridTemplateColumns: `repeat(12, 1fr)`,
@@ -2757,7 +3073,7 @@ let __tla = Promise.all([
                                                     length: 12
                                                 }, (e, n)=>{
                                                     let r = Y.grid[t][n], i = n === Y.ship.x && t === Y.ship.y, a = Y.hunter?.active && n === Y.hunter.x && t === Y.hunter.y, o = r.revealed && !r.visited && (r.type === `treasure` || r.type === `cursed_treasure`), s = r.revealed && !r.visited && r.type === `port`;
-                                                    return (0, T.jsx)(`div`, {
+                                                    return (0, b.jsx)(`div`, {
                                                         style: {
                                                             width: 8,
                                                             height: 8,
@@ -2770,21 +3086,21 @@ let __tla = Promise.all([
                                     ]
                                 }),
                                 !1,
-                                (0, T.jsx)(`div`, {
+                                (0, b.jsx)(`div`, {
                                     "aria-live": `polite`,
                                     "aria-atomic": `true`,
                                     style: {
                                         marginTop: 10,
                                         textAlign: `center`,
                                         maxWidth: 420,
-                                        paddingRight: I ? 80 : 0,
+                                        paddingRight: z ? 80 : 0,
                                         marginBottom: 0
                                     },
                                     children: (()=>{
                                         let e = (Y.log ?? ``).split(`. `).map((e)=>e.trim()).filter(Boolean), t = e[0] ? e[0].replace(/\.+$/, ``) : ``, n = e.slice(1).join(`. `);
-                                        return (0, T.jsxs)(T.Fragment, {
+                                        return (0, b.jsxs)(b.Fragment, {
                                             children: [
-                                                (0, T.jsxs)(`div`, {
+                                                (0, b.jsxs)(`div`, {
                                                     style: {
                                                         fontSize: 18,
                                                         color: `rgba(255,255,255,0.95)`,
@@ -2796,7 +3112,7 @@ let __tla = Promise.all([
                                                         t ? `.` : ``
                                                     ]
                                                 }),
-                                                n && (0, T.jsxs)(`div`, {
+                                                n && (0, b.jsxs)(`div`, {
                                                     style: {
                                                         marginTop: 4,
                                                         fontSize: 13.5,
@@ -2813,7 +3129,7 @@ let __tla = Promise.all([
                                         });
                                     })()
                                 }),
-                                Y.portalHint && (0, T.jsxs)(`div`, {
+                                Y.portalHint && (0, b.jsxs)(`div`, {
                                     style: {
                                         marginTop: 6,
                                         fontSize: 14,
@@ -2829,7 +3145,7 @@ let __tla = Promise.all([
                                         ` ✦`
                                     ]
                                 }),
-                                (Y.relics ?? []).length > 0 && !I && (0, T.jsx)(`div`, {
+                                (Y.relics ?? []).length > 0 && !z && (0, b.jsx)(`div`, {
                                     style: {
                                         marginTop: 8,
                                         display: `flex`,
@@ -2839,7 +3155,7 @@ let __tla = Promise.all([
                                     },
                                     children: (Y.relics ?? []).map((e)=>{
                                         let t = s(e);
-                                        return t ? (0, T.jsxs)(`div`, {
+                                        return t ? (0, b.jsxs)(`div`, {
                                             title: `${t.name} — ${t.desc}`,
                                             style: {
                                                 display: `flex`,
@@ -2851,11 +3167,11 @@ let __tla = Promise.all([
                                                 border: `1px solid rgba(200,160,48,0.35)`
                                             },
                                             children: [
-                                                (0, T.jsx)(m, {
+                                                (0, b.jsx)(g, {
                                                     name: t.icon,
                                                     size: 16
                                                 }),
-                                                (0, T.jsx)(`span`, {
+                                                (0, b.jsx)(`span`, {
                                                     style: {
                                                         fontSize: 10,
                                                         color: `#eedd88`,
@@ -2868,7 +3184,7 @@ let __tla = Promise.all([
                                         }, e) : null;
                                     })
                                 }),
-                                I && (0, T.jsx)(`div`, {
+                                z && (0, b.jsx)(`div`, {
                                     "aria-hidden": !0,
                                     style: {
                                         flexShrink: 0,
@@ -2877,12 +3193,12 @@ let __tla = Promise.all([
                                 })
                             ]
                         }),
-                        (0, T.jsxs)(`div`, {
+                        (0, b.jsxs)(`div`, {
                             style: {
-                                width: I ? 0 : 260,
-                                minWidth: I ? 0 : 260,
-                                padding: I ? 0 : `16px 12px`,
-                                display: I ? `none` : `flex`,
+                                width: z ? 0 : 260,
+                                minWidth: z ? 0 : 260,
+                                padding: z ? 0 : `16px 12px`,
+                                display: z ? `none` : `flex`,
                                 flexDirection: `column`,
                                 gap: 10,
                                 borderLeft: `1px solid rgba(255,255,255,0.05)`,
@@ -2891,7 +3207,7 @@ let __tla = Promise.all([
                                 overflow: `hidden`
                             },
                             children: [
-                                (0, T.jsx)(`div`, {
+                                (0, b.jsx)(`div`, {
                                     style: {
                                         fontSize: 17,
                                         color: `rgba(255,255,255,0.9)`,
@@ -2899,18 +3215,18 @@ let __tla = Promise.all([
                                     },
                                     children: `UPGRADES`
                                 }),
-                                (0, T.jsx)(`div`, {
+                                (0, b.jsx)(`div`, {
                                     style: {
                                         display: `flex`,
                                         flexDirection: `column`,
                                         gap: 5,
                                         overflowY: `auto`
                                     },
-                                    children: P.map((e)=>{
-                                        let t = Y.ship.upgrades.includes(e.id), n = C.includes(e.id), r = Y.upgradeToken && Y.showPort, i = r ? 0 : e.cost, a = !t && !n && Y.ship.gold >= i && Y.showPort, o = tt[e.build];
-                                        return (0, T.jsxs)(`div`, {
+                                    children: L.map((e)=>{
+                                        let t = Y.ship.upgrades.includes(e.id), n = O.includes(e.id), r = Y.upgradeToken && Y.showPort, i = r ? 0 : e.cost, a = !t && !n && Y.ship.gold >= i && Y.showPort, o = $e[e.build];
+                                        return (0, b.jsxs)(`div`, {
                                             onClick: ()=>{
-                                                Y.showPort && (n ? w((t)=>t.filter((t)=>t !== e.id)) : a && w((t)=>[
+                                                Y.showPort && (n ? k((t)=>t.filter((t)=>t !== e.id)) : a && k((t)=>[
                                                         ...t,
                                                         e.id
                                                     ]));
@@ -2925,13 +3241,13 @@ let __tla = Promise.all([
                                                 transition: `all 0.15s`
                                             },
                                             children: [
-                                                (0, T.jsxs)(`div`, {
+                                                (0, b.jsxs)(`div`, {
                                                     style: {
                                                         display: `flex`,
                                                         justifyContent: `space-between`
                                                     },
                                                     children: [
-                                                        (0, T.jsxs)(`span`, {
+                                                        (0, b.jsxs)(`span`, {
                                                             style: {
                                                                 fontSize: 13,
                                                                 fontWeight: 600,
@@ -2941,8 +3257,8 @@ let __tla = Promise.all([
                                                                 gap: 4
                                                             },
                                                             children: [
-                                                                (0, T.jsx)(`img`, {
-                                                                    src: M[e.id],
+                                                                (0, b.jsx)(`img`, {
+                                                                    src: F[e.id],
                                                                     style: {
                                                                         width: 24,
                                                                         height: 24,
@@ -2952,19 +3268,19 @@ let __tla = Promise.all([
                                                                 e.name
                                                             ]
                                                         }),
-                                                        t ? (0, T.jsx)(`span`, {
+                                                        t ? (0, b.jsx)(`span`, {
                                                             style: {
                                                                 fontSize: 12,
                                                                 color: o
                                                             },
                                                             children: `✓`
-                                                        }) : n ? (0, T.jsx)(`span`, {
+                                                        }) : n ? (0, b.jsx)(`span`, {
                                                             style: {
                                                                 fontSize: 11,
                                                                 color: `#44cc88`
                                                             },
                                                             children: `✓`
-                                                        }) : (0, T.jsx)(`span`, {
+                                                        }) : (0, b.jsx)(`span`, {
                                                             style: {
                                                                 fontSize: 12,
                                                                 color: `#eedd44`
@@ -2973,11 +3289,11 @@ let __tla = Promise.all([
                                                         })
                                                     ]
                                                 }),
-                                                (0, T.jsx)(`div`, {
+                                                (0, b.jsx)(`div`, {
                                                     style: {
                                                         marginTop: 3
                                                     },
-                                                    children: (0, T.jsx)($e, {
+                                                    children: (0, b.jsx)(Ze, {
                                                         pros: e.pros,
                                                         cons: e.cons,
                                                         fontSize: 11,
@@ -2992,8 +3308,8 @@ let __tla = Promise.all([
                         })
                     ]
                 }),
-                (0, T.jsx)(n, {
-                    children: G && Je[G] && (0, T.jsxs)(i.div, {
+                (0, b.jsx)(n, {
+                    children: G && Ue[G] && (0, b.jsxs)(i.div, {
                         initial: {
                             opacity: 0
                         },
@@ -3018,8 +3334,8 @@ let __tla = Promise.all([
                             background: `#05080f`
                         },
                         children: [
-                            (0, T.jsx)(i.video, {
-                                src: Je[G],
+                            (0, b.jsx)(i.video, {
+                                src: Ue[G],
                                 autoPlay: !0,
                                 muted: $,
                                 playsInline: !0,
@@ -3046,7 +3362,7 @@ let __tla = Promise.all([
                                     objectFit: `cover`
                                 }
                             }, G),
-                            (0, T.jsx)(`div`, {
+                            (0, b.jsx)(`div`, {
                                 style: {
                                     position: `absolute`,
                                     inset: 0,
@@ -3054,7 +3370,7 @@ let __tla = Promise.all([
                                     pointerEvents: `none`
                                 }
                             }),
-                            (0, T.jsxs)(`div`, {
+                            (0, b.jsxs)(`div`, {
                                 style: {
                                     position: `absolute`,
                                     bottom: `12%`,
@@ -3064,7 +3380,7 @@ let __tla = Promise.all([
                                     pointerEvents: `none`
                                 },
                                 children: [
-                                    (0, T.jsx)(`div`, {
+                                    (0, b.jsx)(`div`, {
                                         style: {
                                             fontSize: 40,
                                             color: `#e8e0d0`,
@@ -3072,9 +3388,9 @@ let __tla = Promise.all([
                                             letterSpacing: 3,
                                             textShadow: `0 2px 30px rgba(0,0,0,0.95)`
                                         },
-                                        children: Ye[G] ?? ``
+                                        children: We[G] ?? ``
                                     }),
-                                    (0, T.jsx)(`div`, {
+                                    (0, b.jsx)(`div`, {
                                         style: {
                                             marginTop: 10,
                                             fontSize: 13,
@@ -3089,10 +3405,10 @@ let __tla = Promise.all([
                         ]
                     })
                 }),
-                (0, T.jsx)(n, {
-                    children: E && (()=>{
-                        let e = E.rarity === `legendary` ? `#eedd44` : E.rarity === `rare` ? `#c88aff` : `#88ddbb`, t = E.rarity.toUpperCase();
-                        return (0, T.jsxs)(i.div, {
+                (0, b.jsx)(n, {
+                    children: A && (()=>{
+                        let e = A.rarity === `legendary` ? `#eedd44` : A.rarity === `rare` ? `#c88aff` : `#88ddbb`, t = A.rarity.toUpperCase();
+                        return (0, b.jsxs)(i.div, {
                             initial: {
                                 opacity: 0
                             },
@@ -3102,7 +3418,7 @@ let __tla = Promise.all([
                             exit: {
                                 opacity: 0
                             },
-                            onClick: ()=>Be(null),
+                            onClick: ()=>ze(null),
                             style: {
                                 position: `fixed`,
                                 inset: 0,
@@ -3115,7 +3431,7 @@ let __tla = Promise.all([
                                 background: `radial-gradient(ellipse at center, rgba(20,15,5,0.92) 0%, rgba(3,5,10,0.97) 100%)`
                             },
                             children: [
-                                (0, T.jsx)(i.div, {
+                                (0, b.jsx)(i.div, {
                                     initial: {
                                         opacity: 0,
                                         y: -10
@@ -3136,7 +3452,7 @@ let __tla = Promise.all([
                                     },
                                     children: `A RELIC SURFACES FROM THE DEEP`
                                 }),
-                                (0, T.jsx)(i.div, {
+                                (0, b.jsx)(i.div, {
                                     initial: {
                                         scale: 0,
                                         rotate: -30
@@ -3155,12 +3471,12 @@ let __tla = Promise.all([
                                         filter: `drop-shadow(0 0 40px ${e})`,
                                         marginBottom: 20
                                     },
-                                    children: (0, T.jsx)(m, {
-                                        name: E.icon,
+                                    children: (0, b.jsx)(g, {
+                                        name: A.icon,
                                         size: 140
                                     })
                                 }),
-                                (0, T.jsxs)(i.div, {
+                                (0, b.jsxs)(i.div, {
                                     initial: {
                                         opacity: 0
                                     },
@@ -3182,7 +3498,7 @@ let __tla = Promise.all([
                                         ` RELIC`
                                     ]
                                 }),
-                                (0, T.jsx)(i.div, {
+                                (0, b.jsx)(i.div, {
                                     initial: {
                                         opacity: 0,
                                         y: 10
@@ -3196,7 +3512,7 @@ let __tla = Promise.all([
                                     },
                                     style: {
                                         fontFamily: `'Pirata One', cursive`,
-                                        fontSize: I ? 30 : 40,
+                                        fontSize: z ? 30 : 40,
                                         color: e,
                                         letterSpacing: 2,
                                         textShadow: `0 0 30px ${e}66`,
@@ -3204,9 +3520,9 @@ let __tla = Promise.all([
                                         textAlign: `center`,
                                         padding: `0 20px`
                                     },
-                                    children: E.name
+                                    children: A.name
                                 }),
-                                (0, T.jsx)(i.div, {
+                                (0, b.jsx)(i.div, {
                                     initial: {
                                         opacity: 0
                                     },
@@ -3218,7 +3534,7 @@ let __tla = Promise.all([
                                     },
                                     style: {
                                         fontFamily: `'IM Fell English', cursive`,
-                                        fontSize: I ? 15 : 17,
+                                        fontSize: z ? 15 : 17,
                                         color: `rgba(255,255,255,0.75)`,
                                         maxWidth: 440,
                                         textAlign: `center`,
@@ -3226,9 +3542,9 @@ let __tla = Promise.all([
                                         padding: `0 24px`,
                                         marginBottom: 32
                                     },
-                                    children: E.desc
+                                    children: A.desc
                                 }),
-                                (0, T.jsx)(i.div, {
+                                (0, b.jsx)(i.div, {
                                     initial: {
                                         opacity: 0
                                     },
@@ -3250,359 +3566,40 @@ let __tla = Promise.all([
                         });
                     })()
                 }),
-                (0, T.jsx)(n, {
-                    children: Y.event && !G && Ye[Y.event.cellType] && (0, T.jsxs)(i.div, {
-                        initial: {
-                            opacity: 0,
-                            scale: 1.05
-                        },
-                        animate: {
-                            opacity: 1,
-                            scale: 1
-                        },
-                        exit: {
-                            opacity: 0
-                        },
-                        transition: {
-                            delay: .26,
-                            duration: .5,
-                            ease: [
-                                .22,
-                                1,
-                                .36,
-                                1
-                            ]
-                        },
-                        style: {
-                            position: `fixed`,
-                            inset: 0,
-                            zIndex: 100,
-                            display: `flex`,
-                            flexDirection: `column`,
-                            alignItems: `center`,
-                            justifyContent: `flex-end`,
-                            padding: I ? `12px` : `24px`,
-                            paddingBottom: I ? `calc(20px + env(safe-area-inset-bottom))` : 64,
-                            overflowY: `auto`
-                        },
-                        children: [
-                            qe[Y.event.cellType] && (0, T.jsx)(`div`, {
-                                style: {
-                                    position: `absolute`,
-                                    inset: 0,
-                                    zIndex: 0,
-                                    backgroundImage: `url(${qe[Y.event.cellType]})`,
-                                    backgroundSize: `cover`,
-                                    backgroundPosition: `center`
-                                }
-                            }),
-                            (0, T.jsx)(`div`, {
-                                style: {
-                                    position: `absolute`,
-                                    inset: 0,
-                                    zIndex: 0,
-                                    background: `linear-gradient(to bottom, rgba(5,8,15,0.55) 0%, rgba(5,8,15,0.78) 60%, rgba(5,8,15,0.92) 100%)`
-                                }
-                            }),
-                            (0, T.jsx)(`div`, {
-                                style: {
-                                    position: `absolute`,
-                                    top: 16,
-                                    right: 24,
-                                    display: `flex`,
-                                    alignItems: `center`,
-                                    gap: 6,
-                                    zIndex: 2
-                                },
-                                children: (0, T.jsxs)(`div`, {
-                                    style: {
-                                        fontSize: I ? 13 : 18,
-                                        fontWeight: 700,
-                                        color: `#eedd44`
-                                    },
-                                    children: [
-                                        Y.score,
-                                        I ? `pts` : ` pts`
-                                    ]
-                                })
-                            }),
-                            (0, T.jsxs)(`div`, {
-                                style: {
-                                    position: `relative`,
-                                    zIndex: 1,
-                                    maxWidth: 700,
-                                    width: `100%`,
-                                    textAlign: `center`
-                                },
-                                children: [
-                                    b && (0, T.jsx)(`div`, {
-                                        style: {
-                                            display: `flex`,
-                                            justifyContent: `center`,
-                                            marginBottom: 12
-                                        },
-                                        children: (0, T.jsx)(ot, {
-                                            tip: b,
-                                            isMobile: I,
-                                            onDismiss: z
-                                        })
-                                    }),
-                                    (0, T.jsx)(`div`, {
-                                        style: {
-                                            alignSelf: `flex-start`,
-                                            marginBottom: 16,
-                                            paddingLeft: 8
-                                        },
-                                        children: (0, T.jsx)(`div`, {
-                                            style: {
-                                                fontSize: I ? 28 : 42,
-                                                fontWeight: 700,
-                                                color: `#e8e0d0`,
-                                                fontFamily: `'Pirata One', cursive`,
-                                                letterSpacing: 3,
-                                                textShadow: `0 2px 20px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.7)`,
-                                                lineHeight: 1.1
-                                            },
-                                            children: Ye[Y.event.cellType] ?? Y.event.cellType
-                                        })
-                                    }),
-                                    (0, T.jsx)(`div`, {
-                                        style: {
-                                            display: `flex`,
-                                            flexDirection: I ? `column` : `row`,
-                                            alignItems: I ? `stretch` : void 0,
-                                            width: I ? `100%` : void 0,
-                                            gap: I ? 10 : 16,
-                                            justifyContent: `center`
-                                        },
-                                        children: Y.event.choices.map((e, t)=>{
-                                            let n = e.risk === `safe` ? `#44cc88` : e.risk === `risky` ? `#eedd44` : `#ee6644`, r = e.desc.match(/(?:lose|pay|costs?|spend)\s*(\d+)\s*(?:gold\b|g\b)|(?:^|\s)-(\d+)\s*gold\b/i), a = r ? parseInt(r[1] ?? r[2]) : 0, o = a === 0 || Y.ship.gold >= a;
-                                            return (0, T.jsxs)(i.button, {
-                                                whileHover: {
-                                                    scale: o ? 1.04 : 1
-                                                },
-                                                whileTap: {
-                                                    scale: o ? .96 : 1
-                                                },
-                                                onClick: ()=>{
-                                                    o && vn(t);
-                                                },
-                                                style: {
-                                                    flex: 1,
-                                                    maxWidth: I ? `none` : 320,
-                                                    padding: I ? `14px 16px` : `24px 28px`,
-                                                    borderRadius: 16,
-                                                    border: `1.5px solid ${o ? n : `rgba(255,255,255,0.1)`}55`,
-                                                    background: o ? `linear-gradient(135deg, rgba(0,0,0,0.85) 0%, ${n}0f 100%)` : `rgba(0,0,0,0.5)`,
-                                                    cursor: o ? `pointer` : `not-allowed`,
-                                                    color: o ? `#e8e0d0` : `rgba(255,255,255,0.3)`,
-                                                    fontFamily: `'Pirata One', cursive`,
-                                                    textAlign: `left`,
-                                                    backdropFilter: `blur(8px)`,
-                                                    boxShadow: o ? `0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 ${n}22` : `none`,
-                                                    transition: `all 0.2s`,
-                                                    opacity: o ? 1 : .5
-                                                },
-                                                children: [
-                                                    (0, T.jsx)(`div`, {
-                                                        style: {
-                                                            marginBottom: 12,
-                                                            textAlign: `center`
-                                                        },
-                                                        children: (0, T.jsx)(`img`, {
-                                                            src: We[e.icon] || ``,
-                                                            style: {
-                                                                width: 72,
-                                                                height: 72,
-                                                                objectFit: `contain`
-                                                            }
-                                                        })
-                                                    }),
-                                                    (0, T.jsx)(`div`, {
-                                                        style: {
-                                                            fontSize: 24,
-                                                            fontWeight: 700,
-                                                            color: n,
-                                                            textAlign: `center`
-                                                        },
-                                                        children: e.label
-                                                    }),
-                                                    (0, T.jsx)(`div`, {
-                                                        style: {
-                                                            fontSize: 20,
-                                                            color: `rgba(255,255,255,0.8)`,
-                                                            fontFamily: `'IM Fell English', cursive`,
-                                                            marginTop: 8,
-                                                            textAlign: `center`
-                                                        },
-                                                        children: e.label === `Pact` && Y.event?.cellType === `kraken` ? `-${Math.min((Y.relics ?? []).includes(`storm_heart`) ? 10 : 20, Y.ship.hull - 1)} HP, storm +6 turns. Hunter awakens!${(Y.relics ?? []).includes(`storm_heart`) ? ` (Heart of the Storm)` : ``}` : e.desc
-                                                    }),
-                                                    (0, T.jsx)(`div`, {
-                                                        style: {
-                                                            fontSize: 13,
-                                                            color: n,
-                                                            marginTop: 10,
-                                                            letterSpacing: 2,
-                                                            textAlign: `center`
-                                                        },
-                                                        children: e.risk.toUpperCase()
-                                                    })
-                                                ]
-                                            }, t);
-                                        })
-                                    })
-                                ]
-                            })
-                        ]
-                    })
+                (0, b.jsx)(n, {
+                    children: Y.event && !G && !Y.gameOver && !Y.showPort && We[Y.event.cellType] && (0, b.jsx)(Ke, {
+                        variant: `scene`,
+                        event: Y.event,
+                        isMobile: z,
+                        gold: Y.ship.gold,
+                        hull: Y.ship.hull,
+                        relics: Y.relics,
+                        score: Y.score,
+                        onboard: E,
+                        onDismissOnboard: yt,
+                        onChoose: _n,
+                        canEscape: !!fn,
+                        onSkip: vn
+                    }, `event-scene`)
                 }),
-                (0, T.jsx)(n, {
-                    children: Y.event && !v.gameOver && !Y.showPort && Y.event.cellType && !qe[Y.event.cellType] && (0, T.jsx)(i.div, {
-                        initial: {
-                            y: 100,
-                            opacity: 0
-                        },
-                        animate: {
-                            y: 0,
-                            opacity: 1
-                        },
-                        exit: {
-                            y: 100,
-                            opacity: 0
-                        },
-                        style: {
-                            background: `rgba(5,10,18,0.97)`,
-                            borderTop: `1px solid rgba(255,255,255,0.1)`,
-                            padding: `16px 24px`,
-                            flexShrink: 0
-                        },
-                        children: (0, T.jsxs)(`div`, {
-                            style: {
-                                display: `flex`,
-                                alignItems: `flex-start`,
-                                gap: 20,
-                                maxWidth: 700,
-                                margin: `0 auto`
-                            },
-                            children: [
-                                (0, T.jsx)(`div`, {
-                                    style: {
-                                        flexShrink: 0
-                                    },
-                                    children: at(Xe[Y.event.cellType], 55)
-                                }),
-                                (0, T.jsxs)(`div`, {
-                                    style: {
-                                        flex: 1
-                                    },
-                                    children: [
-                                        (0, T.jsx)(`div`, {
-                                            style: {
-                                                fontSize: 21,
-                                                fontWeight: 700,
-                                                marginBottom: 4,
-                                                color: `#e8e0d0`
-                                            },
-                                            children: Y.event.cellType.charAt(0).toUpperCase() + Y.event.cellType.slice(1).replace(`_`, ` `)
-                                        }),
-                                        b && (0, T.jsx)(ot, {
-                                            tip: b,
-                                            isMobile: I,
-                                            onDismiss: z
-                                        }),
-                                        (0, T.jsx)(`div`, {
-                                            style: {
-                                                display: `flex`,
-                                                flexDirection: I ? `column` : `row`,
-                                                gap: I ? 8 : 10,
-                                                marginTop: 8
-                                            },
-                                            children: Y.event.choices.map((e, t)=>{
-                                                let n = e.risk === `safe` ? `#44cc88` : e.risk === `risky` ? `#eedd44` : `#ee6644`, r = e.desc.match(/(?:lose|pay|costs?|spend)\s*(\d+)\s*(?:gold\b|g\b)|(?:^|\s)-(\d+)\s*gold\b/i), a = r ? parseInt(r[1] ?? r[2]) : 0, o = a === 0 || Y.ship.gold >= a;
-                                                return (0, T.jsxs)(i.button, {
-                                                    whileHover: {
-                                                        scale: o ? 1.02 : 1
-                                                    },
-                                                    whileTap: {
-                                                        scale: o ? .98 : 1
-                                                    },
-                                                    onClick: ()=>{
-                                                        o && vn(t);
-                                                    },
-                                                    style: {
-                                                        flex: 1,
-                                                        padding: `20px 24px`,
-                                                        borderRadius: 16,
-                                                        border: `1.5px solid ${o ? n : `rgba(255,255,255,0.1)`}55`,
-                                                        background: o ? `linear-gradient(135deg, rgba(0,0,0,0.85) 0%, ${n}0f 100%)` : `rgba(0,0,0,0.5)`,
-                                                        cursor: o ? `pointer` : `not-allowed`,
-                                                        color: o ? `#e8e0d0` : `rgba(255,255,255,0.3)`,
-                                                        fontFamily: `'Pirata One', cursive`,
-                                                        textAlign: `left`,
-                                                        backdropFilter: `blur(8px)`,
-                                                        opacity: o ? 1 : .5,
-                                                        transition: `all 0.2s`
-                                                    },
-                                                    children: [
-                                                        (0, T.jsx)(`div`, {
-                                                            style: {
-                                                                fontSize: 26,
-                                                                marginBottom: 4
-                                                            },
-                                                            children: e.icon
-                                                        }),
-                                                        (0, T.jsx)(`div`, {
-                                                            style: {
-                                                                fontSize: 18,
-                                                                fontWeight: 600,
-                                                                color: n
-                                                            },
-                                                            children: e.label
-                                                        }),
-                                                        (0, T.jsx)(`div`, {
-                                                            style: {
-                                                                fontSize: 20,
-                                                                color: `rgba(255,255,255,0.8)`,
-                                                                fontFamily: `'IM Fell English', cursive`,
-                                                                marginTop: 2
-                                                            },
-                                                            children: e.desc
-                                                        }),
-                                                        (0, T.jsx)(`div`, {
-                                                            style: {
-                                                                fontSize: 16,
-                                                                color: n,
-                                                                marginTop: 4,
-                                                                letterSpacing: 1
-                                                            },
-                                                            children: e.risk.toUpperCase()
-                                                        })
-                                                    ]
-                                                }, t);
-                                            })
-                                        }),
-                                        pn && (0, T.jsx)(`button`, {
-                                            onClick: yn,
-                                            style: {
-                                                marginTop: 8,
-                                                padding: `6px 16px`,
-                                                borderRadius: 7,
-                                                border: `1px solid rgba(100,170,220,0.3)`,
-                                                background: `transparent`,
-                                                color: `rgba(100,170,220,0.5)`,
-                                                cursor: `pointer`,
-                                                fontSize: 14
-                                            },
-                                            children: `⛵ Use Swift Sails (1 use left)`
-                                        })
-                                    ]
-                                })
-                            ]
-                        })
-                    })
+                (0, b.jsx)(n, {
+                    children: Y.event && !G && !Y.gameOver && !Y.showPort && Y.event.cellType && !He[Y.event.cellType] && (0, b.jsx)(Ke, {
+                        variant: `compact`,
+                        event: Y.event,
+                        isMobile: z,
+                        gold: Y.ship.gold,
+                        hull: Y.ship.hull,
+                        relics: Y.relics,
+                        cellIcon: Je[Y.event.cellType],
+                        onboard: E,
+                        onDismissOnboard: yt,
+                        onChoose: _n,
+                        canEscape: !!fn,
+                        onSkip: vn
+                    }, `event-compact`)
                 }),
-                (0, T.jsx)(n, {
-                    children: Y.showPort && !Y.gameOver && (0, T.jsxs)(i.div, {
+                (0, b.jsx)(n, {
+                    children: Y.showPort && !Y.gameOver && (0, b.jsxs)(i.div, {
                         initial: {
                             y: 100,
                             opacity: 0
@@ -3618,21 +3615,21 @@ let __tla = Promise.all([
                         style: {
                             background: `rgba(5,10,18,0.985)`,
                             borderTop: `1px solid rgba(68,204,136,0.2)`,
-                            padding: I ? `12px 12px calc(12px + env(safe-area-inset-bottom))` : `16px 24px`,
+                            padding: z ? `12px 12px calc(12px + env(safe-area-inset-bottom))` : `16px 24px`,
                             flexShrink: 0,
                             position: `relative`,
                             zIndex: 5,
-                            maxHeight: I ? `62vh` : void 0,
-                            overflowY: I ? `auto` : void 0
+                            maxHeight: z ? `62vh` : void 0,
+                            overflowY: z ? `auto` : void 0
                         },
                         children: [
-                            (0, T.jsxs)(`div`, {
+                            (0, b.jsxs)(`div`, {
                                 style: {
                                     maxWidth: 700,
                                     margin: `0 auto`
                                 },
                                 children: [
-                                    (0, T.jsxs)(`div`, {
+                                    (0, b.jsxs)(`div`, {
                                         style: {
                                             display: `flex`,
                                             alignItems: `center`,
@@ -3640,7 +3637,7 @@ let __tla = Promise.all([
                                             marginBottom: 12
                                         },
                                         children: [
-                                            (0, T.jsx)(`img`, {
+                                            (0, b.jsx)(`img`, {
                                                 src: `/assets/anchor-Bx3zJViJ.png`,
                                                 style: {
                                                     width: 40,
@@ -3648,7 +3645,7 @@ let __tla = Promise.all([
                                                     objectFit: `contain`
                                                 }
                                             }),
-                                            (0, T.jsx)(`span`, {
+                                            (0, b.jsx)(`span`, {
                                                 style: {
                                                     fontSize: 26,
                                                     fontWeight: 700,
@@ -3660,17 +3657,17 @@ let __tla = Promise.all([
                                             })
                                         ]
                                     }),
-                                    b && (0, T.jsx)(ot, {
-                                        tip: b,
-                                        isMobile: I,
-                                        onDismiss: z
+                                    E && (0, b.jsx)(C, {
+                                        tip: E,
+                                        isMobile: z,
+                                        onDismiss: yt
                                     }),
-                                    (0, T.jsxs)(`div`, {
+                                    (0, b.jsxs)(`div`, {
                                         style: {
                                             marginBottom: 16
                                         },
                                         children: [
-                                            (0, T.jsx)(`div`, {
+                                            (0, b.jsx)(`div`, {
                                                 style: {
                                                     fontSize: 14,
                                                     letterSpacing: 3,
@@ -3680,10 +3677,10 @@ let __tla = Promise.all([
                                                 },
                                                 children: `SHIP COMPONENTS`
                                             }),
-                                            (0, T.jsx)(`div`, {
+                                            (0, b.jsx)(`div`, {
                                                 style: {
                                                     display: `grid`,
-                                                    gridTemplateColumns: I ? `1fr` : `repeat(3,1fr)`,
+                                                    gridTemplateColumns: z ? `1fr` : `repeat(3,1fr)`,
                                                     gap: 8
                                                 },
                                                 children: [
@@ -3722,8 +3719,8 @@ let __tla = Promise.all([
                                                     }
                                                 ].map((e)=>{
                                                     let t = Y.ship.levels[e.key], n = t === 0 ? 50 : 110, r = t < 2 && Y.ship.gold >= n && !(t === 1 && Y.maxedComponents >= 2), i = t >= 2;
-                                                    return (0, T.jsxs)(`div`, {
-                                                        onClick: ()=>r && bn(e.key),
+                                                    return (0, b.jsxs)(`div`, {
+                                                        onClick: ()=>r && yn(e.key),
                                                         style: {
                                                             background: `${e.color}12`,
                                                             border: `1px solid ${e.color}${r ? `66` : `22`}`,
@@ -3734,7 +3731,7 @@ let __tla = Promise.all([
                                                             transition: `all 0.2s`
                                                         },
                                                         children: [
-                                                            (0, T.jsxs)(`div`, {
+                                                            (0, b.jsxs)(`div`, {
                                                                 style: {
                                                                     display: `flex`,
                                                                     justifyContent: `space-between`,
@@ -3742,7 +3739,7 @@ let __tla = Promise.all([
                                                                     marginBottom: 6
                                                                 },
                                                                 children: [
-                                                                    (0, T.jsxs)(`div`, {
+                                                                    (0, b.jsxs)(`div`, {
                                                                         style: {
                                                                             display: `flex`,
                                                                             alignItems: `center`,
@@ -3752,7 +3749,7 @@ let __tla = Promise.all([
                                                                             fontFamily: `'Pirata One', cursive`
                                                                         },
                                                                         children: [
-                                                                            (0, T.jsx)(`img`, {
+                                                                            (0, b.jsx)(`img`, {
                                                                                 src: e.img,
                                                                                 style: {
                                                                                     width: 22,
@@ -3763,7 +3760,7 @@ let __tla = Promise.all([
                                                                             e.label
                                                                         ]
                                                                     }),
-                                                                    (0, T.jsx)(`div`, {
+                                                                    (0, b.jsx)(`div`, {
                                                                         style: {
                                                                             display: `flex`,
                                                                             gap: 3
@@ -3772,7 +3769,7 @@ let __tla = Promise.all([
                                                                             0,
                                                                             1,
                                                                             2
-                                                                        ].map((n)=>(0, T.jsx)(`div`, {
+                                                                        ].map((n)=>(0, b.jsx)(`div`, {
                                                                                 style: {
                                                                                     width: 8,
                                                                                     height: 8,
@@ -3783,7 +3780,7 @@ let __tla = Promise.all([
                                                                     })
                                                                 ]
                                                             }),
-                                                            (0, T.jsx)(`div`, {
+                                                            (0, b.jsx)(`div`, {
                                                                 style: {
                                                                     fontSize: 12,
                                                                     color: `rgba(255,255,255,0.6)`,
@@ -3792,7 +3789,7 @@ let __tla = Promise.all([
                                                                 },
                                                                 children: e.effects[t]
                                                             }),
-                                                            !i && (0, T.jsx)(`div`, {
+                                                            !i && (0, b.jsx)(`div`, {
                                                                 style: {
                                                                     fontSize: 11,
                                                                     color: r ? `#eedd44` : `rgba(255,255,255,0.2)`,
@@ -3800,7 +3797,7 @@ let __tla = Promise.all([
                                                                 },
                                                                 children: t === 1 && Y.maxedComponents >= 2 ? `MAX 2 N3` : `→ N${t + 2} · ${n}g`
                                                             }),
-                                                            i && (0, T.jsx)(`div`, {
+                                                            i && (0, b.jsx)(`div`, {
                                                                 style: {
                                                                     fontSize: 11,
                                                                     color: e.color,
@@ -3814,7 +3811,7 @@ let __tla = Promise.all([
                                             })
                                         ]
                                     }),
-                                    (0, T.jsxs)(`div`, {
+                                    (0, b.jsxs)(`div`, {
                                         style: {
                                             display: `flex`,
                                             justifyContent: `space-between`,
@@ -3822,7 +3819,7 @@ let __tla = Promise.all([
                                             marginBottom: 8
                                         },
                                         children: [
-                                            (0, T.jsx)(`div`, {
+                                            (0, b.jsx)(`div`, {
                                                 style: {
                                                     fontSize: 16,
                                                     color: `rgba(255,255,255,0.6)`,
@@ -3830,12 +3827,12 @@ let __tla = Promise.all([
                                                 },
                                                 children: `Available upgrades`
                                             }),
-                                            (0, T.jsx)(i.button, {
+                                            (0, b.jsx)(i.button, {
                                                 whileHover: {
                                                     scale: 1.05
                                                 },
                                                 onClick: ()=>{
-                                                    H(40), y((e)=>oe(e));
+                                                    U(40), T((e)=>ie(e));
                                                 },
                                                 style: {
                                                     padding: `4px 12px`,
@@ -3851,18 +3848,18 @@ let __tla = Promise.all([
                                             })
                                         ]
                                     }),
-                                    (0, T.jsx)(`div`, {
+                                    (0, b.jsx)(`div`, {
                                         style: {
                                             display: `grid`,
                                             gridTemplateColumns: `repeat(2, 1fr)`,
                                             gap: 10,
                                             marginBottom: 12
                                         },
-                                        children: P.filter((e)=>Y.portUpgrades.includes(e.id) || Y.ship.upgrades.includes(e.id)).map((e)=>{
-                                            let t = Y.ship.upgrades.includes(e.id), n = C.includes(e.id), r = Y.upgradeToken ? 0 : e.cost, i = Y.ship.upgrades.length + C.length >= 2, a = !t && !n && Y.ship.gold >= r && !i, o = tt[e.build];
-                                            return (0, T.jsxs)(`div`, {
+                                        children: L.filter((e)=>Y.portUpgrades.includes(e.id) || Y.ship.upgrades.includes(e.id)).map((e)=>{
+                                            let t = Y.ship.upgrades.includes(e.id), n = O.includes(e.id), r = Y.upgradeToken ? 0 : e.cost, i = Y.ship.upgrades.length + O.length >= 2, a = !t && !n && Y.ship.gold >= r && !i, o = $e[e.build];
+                                            return (0, b.jsxs)(`div`, {
                                                 onClick: ()=>{
-                                                    n ? w((t)=>t.filter((t)=>t !== e.id)) : a && w((t)=>[
+                                                    n ? k((t)=>t.filter((t)=>t !== e.id)) : a && k((t)=>[
                                                             ...t,
                                                             e.id
                                                         ]);
@@ -3879,17 +3876,17 @@ let __tla = Promise.all([
                                                     gap: 12
                                                 },
                                                 children: [
-                                                    (0, T.jsx)(`img`, {
-                                                        src: M[e.id],
+                                                    (0, b.jsx)(`img`, {
+                                                        src: F[e.id],
                                                         style: {
                                                             width: 44,
                                                             height: 44,
                                                             objectFit: `contain`
                                                         }
                                                     }),
-                                                    (0, T.jsxs)(`div`, {
+                                                    (0, b.jsxs)(`div`, {
                                                         children: [
-                                                            (0, T.jsx)(`div`, {
+                                                            (0, b.jsx)(`div`, {
                                                                 style: {
                                                                     fontSize: 17,
                                                                     fontWeight: 700,
@@ -3898,11 +3895,11 @@ let __tla = Promise.all([
                                                                 },
                                                                 children: e.name
                                                             }),
-                                                            (0, T.jsx)(`div`, {
+                                                            (0, b.jsx)(`div`, {
                                                                 style: {
                                                                     marginTop: 3
                                                                 },
-                                                                children: (0, T.jsx)($e, {
+                                                                children: (0, b.jsx)(Ze, {
                                                                     pros: e.pros,
                                                                     cons: e.cons,
                                                                     fontSize: 12,
@@ -3915,7 +3912,7 @@ let __tla = Promise.all([
                                             }, e.id);
                                         })
                                     }),
-                                    Y.ship.upgrades.length + C.length >= 2 && (0, T.jsx)(`div`, {
+                                    Y.ship.upgrades.length + O.length >= 2 && (0, b.jsx)(`div`, {
                                         style: {
                                             fontSize: 12,
                                             color: `rgba(238,102,85,0.8)`,
@@ -3928,7 +3925,7 @@ let __tla = Promise.all([
                                     })
                                 ]
                             }),
-                            (0, T.jsx)(`div`, {
+                            (0, b.jsx)(`div`, {
                                 style: {
                                     display: `flex`,
                                     gap: 8,
@@ -3940,7 +3937,7 @@ let __tla = Promise.all([
                                         desc: `+8 hull`,
                                         cost: 25,
                                         fn: ()=>{
-                                            H(60), y((e)=>c(e, 8, 25));
+                                            U(60), T((e)=>c(e, 8, 25));
                                         }
                                     },
                                     {
@@ -3948,10 +3945,10 @@ let __tla = Promise.all([
                                         desc: `Restore all`,
                                         cost: 55,
                                         fn: ()=>{
-                                            H(61), y((e)=>c(e, Y.ship.maxHull, 55));
+                                            U(61), T((e)=>c(e, Y.ship.maxHull, 55));
                                         }
                                     }
-                                ].map((e)=>(0, T.jsxs)(i.button, {
+                                ].map((e)=>(0, b.jsxs)(i.button, {
                                         whileTap: {
                                             scale: .97
                                         },
@@ -3968,7 +3965,7 @@ let __tla = Promise.all([
                                             textAlign: `center`
                                         },
                                         children: [
-                                            (0, T.jsx)(`div`, {
+                                            (0, b.jsx)(`div`, {
                                                 style: {
                                                     fontSize: 13,
                                                     color: `#44cc88`,
@@ -3976,14 +3973,14 @@ let __tla = Promise.all([
                                                 },
                                                 children: e.label
                                             }),
-                                            (0, T.jsx)(`div`, {
+                                            (0, b.jsx)(`div`, {
                                                 style: {
                                                     fontSize: 11,
                                                     color: `rgba(255,255,255,0.5)`
                                                 },
                                                 children: e.desc
                                             }),
-                                            (0, T.jsxs)(`div`, {
+                                            (0, b.jsxs)(`div`, {
                                                 style: {
                                                     fontSize: 12,
                                                     color: `#eedd44`,
@@ -3998,7 +3995,7 @@ let __tla = Promise.all([
                                         ]
                                     }, e.label))
                             }),
-                            (0, T.jsxs)(i.button, {
+                            (0, b.jsxs)(i.button, {
                                 whileHover: {
                                     scale: 1.02
                                 },
@@ -4006,12 +4003,12 @@ let __tla = Promise.all([
                                     scale: .98
                                 },
                                 onClick: ()=>{
-                                    for (let e of C)H(50 + et.indexOf(e));
-                                    H(70), y((e)=>{
+                                    for (let e of O)U(50 + Qe.indexOf(e));
+                                    U(70), T((e)=>{
                                         let t = e;
-                                        for (let e of C)t = te(t, e);
-                                        return ne(t);
-                                    }), w([]);
+                                        for (let e of O)t = u(t, e);
+                                        return ee(t);
+                                    }), k([]);
                                 },
                                 style: {
                                     width: `100%`,
@@ -4026,7 +4023,7 @@ let __tla = Promise.all([
                                     cursor: `pointer`
                                 },
                                 children: [
-                                    (0, T.jsx)(m, {
+                                    (0, b.jsx)(g, {
                                         name: `anchor`,
                                         size: 22,
                                         style: {
@@ -4039,8 +4036,8 @@ let __tla = Promise.all([
                         ]
                     })
                 }),
-                (0, T.jsx)(n, {
-                    children: wt && (0, T.jsxs)(i.div, {
+                (0, b.jsx)(n, {
+                    children: Ct && (0, b.jsxs)(i.div, {
                         initial: {
                             opacity: 0
                         },
@@ -4063,7 +4060,7 @@ let __tla = Promise.all([
                             overflowY: `auto`
                         },
                         children: [
-                            (0, T.jsx)(i.div, {
+                            (0, b.jsx)(i.div, {
                                 animate: {
                                     opacity: [
                                         .3,
@@ -4082,7 +4079,7 @@ let __tla = Promise.all([
                                     pointerEvents: `none`
                                 }
                             }),
-                            (0, T.jsx)(i.div, {
+                            (0, b.jsx)(i.div, {
                                 initial: {
                                     scale: 0,
                                     rotate: -20
@@ -4100,12 +4097,12 @@ let __tla = Promise.all([
                                     marginBottom: 8,
                                     filter: `drop-shadow(0 0 30px rgba(220,30,30,0.8))`
                                 },
-                                children: (0, T.jsx)(m, {
+                                children: (0, b.jsx)(g, {
                                     name: `skull`,
                                     size: 130
                                 })
                             }),
-                            (0, T.jsx)(i.div, {
+                            (0, b.jsx)(i.div, {
                                 initial: {
                                     opacity: 0,
                                     y: 20
@@ -4118,17 +4115,17 @@ let __tla = Promise.all([
                                     delay: .5
                                 },
                                 style: {
-                                    fontSize: I ? 42 : 72,
+                                    fontSize: z ? 42 : 72,
                                     fontWeight: 700,
                                     color: `#ee4444`,
                                     fontFamily: `'Pirata One', cursive`,
-                                    letterSpacing: I ? 3 : 6,
+                                    letterSpacing: z ? 3 : 6,
                                     textShadow: `0 0 40px rgba(220,30,30,0.8), 0 0 80px rgba(220,30,30,0.4)`,
                                     marginBottom: 8
                                 },
                                 children: `SHIPWRECKED`
                             }),
-                            (0, T.jsx)(i.div, {
+                            (0, b.jsx)(i.div, {
                                 initial: {
                                     opacity: 0
                                 },
@@ -4139,16 +4136,16 @@ let __tla = Promise.all([
                                     delay: .7
                                 },
                                 style: {
-                                    fontSize: I ? 16 : 24,
+                                    fontSize: z ? 16 : 24,
                                     color: `rgba(200,160,48,0.8)`,
                                     fontFamily: `'Cinzel', serif`,
-                                    letterSpacing: I ? 2 : 4,
+                                    letterSpacing: z ? 2 : 4,
                                     marginBottom: 4,
                                     textAlign: `center`
                                 },
                                 children: Y.runTitle
                             }),
-                            (0, T.jsxs)(i.div, {
+                            (0, b.jsxs)(i.div, {
                                 initial: {
                                     opacity: 0
                                 },
@@ -4159,14 +4156,14 @@ let __tla = Promise.all([
                                     delay: .9
                                 },
                                 style: {
-                                    fontSize: I ? 15 : 20,
+                                    fontSize: z ? 15 : 20,
                                     color: `rgba(255,255,255,0.35)`,
                                     fontFamily: `'IM Fell English', cursive`,
                                     marginBottom: 16,
-                                    maxWidth: I ? `90vw` : 600,
+                                    maxWidth: z ? `90vw` : 600,
                                     textAlign: `center`,
                                     fontStyle: `italic`,
-                                    padding: I ? `0 16px` : 0
+                                    padding: z ? `0 16px` : 0
                                 },
                                 children: [
                                     `"`,
@@ -4175,8 +4172,8 @@ let __tla = Promise.all([
                                 ]
                             }),
                             (()=>{
-                                let e = nt(Y.log);
-                                return (0, T.jsxs)(i.div, {
+                                let e = et(Y.log);
+                                return (0, b.jsxs)(i.div, {
                                     initial: {
                                         opacity: 0
                                     },
@@ -4196,18 +4193,18 @@ let __tla = Promise.all([
                                         borderRadius: 12,
                                         background: `rgba(150,0,0,0.12)`,
                                         border: `1px solid rgba(220,60,60,0.25)`,
-                                        maxWidth: I ? `90vw` : 560
+                                        maxWidth: z ? `90vw` : 560
                                     },
                                     children: [
-                                        (0, T.jsxs)(`div`, {
+                                        (0, b.jsxs)(`div`, {
                                             style: {
-                                                fontSize: I ? 13 : 15,
+                                                fontSize: z ? 13 : 15,
                                                 color: `#ee6655`,
                                                 fontFamily: `'Cinzel', serif`,
                                                 letterSpacing: 2
                                             },
                                             children: [
-                                                (0, T.jsx)(m, {
+                                                (0, b.jsx)(g, {
                                                     name: `anchor`,
                                                     size: 16,
                                                     style: {
@@ -4218,32 +4215,32 @@ let __tla = Promise.all([
                                                 e.name
                                             ]
                                         }),
-                                        (0, T.jsx)(`div`, {
+                                        (0, b.jsx)(`div`, {
                                             style: {
-                                                fontSize: I ? 12 : 14,
+                                                fontSize: z ? 12 : 14,
                                                 color: `rgba(255,255,255,0.55)`,
                                                 fontFamily: `'IM Fell English', cursive`,
                                                 textAlign: `center`
                                             },
                                             children: e.tip
                                         }),
-                                        Y.score < F && F > 0 && (0, T.jsxs)(`div`, {
+                                        Y.score < R && R > 0 && (0, b.jsxs)(`div`, {
                                             style: {
-                                                fontSize: I ? 11 : 13,
+                                                fontSize: z ? 11 : 13,
                                                 color: `rgba(238,221,68,0.7)`,
                                                 fontFamily: `'Cinzel', serif`
                                             },
                                             children: [
-                                                F - Y.score,
+                                                R - Y.score,
                                                 ` pts short of your best (`,
-                                                F,
+                                                R,
                                                 `)`
                                             ]
                                         })
                                     ]
                                 });
                             })(),
-                            Pe.length > 0 && (0, T.jsx)(i.div, {
+                            Le.length > 0 && (0, b.jsx)(i.div, {
                                 initial: {
                                     opacity: 0,
                                     scale: .9
@@ -4267,28 +4264,28 @@ let __tla = Promise.all([
                                     background: `rgba(200,160,48,0.12)`,
                                     border: `1px solid rgba(238,221,68,0.55)`,
                                     boxShadow: `0 0 24px rgba(238,221,68,0.15)`,
-                                    maxWidth: I ? `90vw` : 560
+                                    maxWidth: z ? `90vw` : 560
                                 },
-                                children: Pe.map((e)=>(0, T.jsxs)(`div`, {
+                                children: Le.map((e)=>(0, b.jsxs)(`div`, {
                                         style: {
                                             display: `flex`,
                                             alignItems: `center`,
                                             gap: 10
                                         },
                                         children: [
-                                            (0, T.jsx)(m, {
+                                            (0, b.jsx)(g, {
                                                 name: e.icon,
                                                 size: 26
                                             }),
-                                            (0, T.jsxs)(`div`, {
+                                            (0, b.jsxs)(`div`, {
                                                 style: {
                                                     textAlign: `left`
                                                 },
                                                 children: [
-                                                    (0, T.jsxs)(`div`, {
+                                                    (0, b.jsxs)(`div`, {
                                                         style: {
                                                             fontFamily: `'Pirata One', cursive`,
-                                                            fontSize: I ? 15 : 17,
+                                                            fontSize: z ? 15 : 17,
                                                             color: `#eedd44`,
                                                             letterSpacing: 1
                                                         },
@@ -4297,10 +4294,10 @@ let __tla = Promise.all([
                                                             e.name
                                                         ]
                                                     }),
-                                                    (0, T.jsxs)(`div`, {
+                                                    (0, b.jsxs)(`div`, {
                                                         style: {
                                                             fontFamily: `'Cinzel', serif`,
-                                                            fontSize: I ? 10 : 11,
+                                                            fontSize: z ? 10 : 11,
                                                             color: `rgba(238,221,68,0.75)`,
                                                             letterSpacing: 1.5
                                                         },
@@ -4314,7 +4311,7 @@ let __tla = Promise.all([
                                         ]
                                     }, e.id))
                             }),
-                            (0, T.jsx)(i.div, {
+                            (0, b.jsx)(i.div, {
                                 initial: {
                                     opacity: 0,
                                     y: 10
@@ -4328,11 +4325,11 @@ let __tla = Promise.all([
                                 },
                                 style: {
                                     display: `flex`,
-                                    gap: I ? 16 : 32,
-                                    marginBottom: I ? 16 : 28,
-                                    flexWrap: I ? `wrap` : `nowrap`,
+                                    gap: z ? 16 : 32,
+                                    marginBottom: z ? 16 : 28,
+                                    flexWrap: z ? `wrap` : `nowrap`,
                                     justifyContent: `center`,
-                                    padding: I ? `0 16px` : 0
+                                    padding: z ? `0 16px` : 0
                                 },
                                 children: [
                                     {
@@ -4342,8 +4339,8 @@ let __tla = Promise.all([
                                     },
                                     {
                                         label: `BEST`,
-                                        val: `${Math.max(F, Y.score)} pts`,
-                                        color: pt ? `#44ffaa` : `rgba(255,255,255,0.3)`
+                                        val: `${Math.max(R, Y.score)} pts`,
+                                        color: lt ? `#44ffaa` : `rgba(255,255,255,0.3)`
                                     },
                                     {
                                         label: `TURNS`,
@@ -4360,23 +4357,23 @@ let __tla = Promise.all([
                                         val: `${Y.ship.hull}/${Y.ship.maxHull}`,
                                         color: Y.ship.hull <= 5 ? `#ee4444` : Y.ship.hull <= 10 ? `#ee8844` : `#44cc88`
                                     }
-                                ].map((e)=>(0, T.jsxs)(`div`, {
+                                ].map((e)=>(0, b.jsxs)(`div`, {
                                         style: {
                                             textAlign: `center`
                                         },
                                         children: [
-                                            (0, T.jsx)(`div`, {
+                                            (0, b.jsx)(`div`, {
                                                 style: {
-                                                    fontSize: I ? 10 : 13,
+                                                    fontSize: z ? 10 : 13,
                                                     color: `rgba(255,255,255,0.3)`,
-                                                    letterSpacing: I ? 1 : 3,
+                                                    letterSpacing: z ? 1 : 3,
                                                     fontFamily: `'Cinzel', serif`
                                                 },
                                                 children: e.label
                                             }),
-                                            (0, T.jsx)(`div`, {
+                                            (0, b.jsx)(`div`, {
                                                 style: {
-                                                    fontSize: I ? 20 : 28,
+                                                    fontSize: z ? 20 : 28,
                                                     color: e.color,
                                                     fontFamily: `'Cinzel', serif`,
                                                     fontWeight: 700
@@ -4386,7 +4383,7 @@ let __tla = Promise.all([
                                         ]
                                     }, e.label))
                             }),
-                            Y.scoreBreakdown && (0, T.jsxs)(i.div, {
+                            Y.scoreBreakdown && (0, b.jsxs)(i.div, {
                                 initial: {
                                     opacity: 0
                                 },
@@ -4406,7 +4403,7 @@ let __tla = Promise.all([
                                     maxWidth: 400
                                 },
                                 children: [
-                                    (0, T.jsx)(`div`, {
+                                    (0, b.jsx)(`div`, {
                                         style: {
                                             fontSize: 11,
                                             color: `rgba(255,255,255,0.3)`,
@@ -4450,14 +4447,14 @@ let __tla = Promise.all([
                                                 color: `#aaaaff`
                                             }
                                         ] : []
-                                    ].filter((e)=>e.val > 0).map((e)=>(0, T.jsxs)(`div`, {
+                                    ].filter((e)=>e.val > 0).map((e)=>(0, b.jsxs)(`div`, {
                                             style: {
                                                 display: `flex`,
                                                 justifyContent: `space-between`,
                                                 marginBottom: 3
                                             },
                                             children: [
-                                                (0, T.jsx)(`span`, {
+                                                (0, b.jsx)(`span`, {
                                                     style: {
                                                         fontSize: 11,
                                                         color: `rgba(255,255,255,0.4)`,
@@ -4466,7 +4463,7 @@ let __tla = Promise.all([
                                                     },
                                                     children: e.label
                                                 }),
-                                                (0, T.jsxs)(`span`, {
+                                                (0, b.jsxs)(`span`, {
                                                     style: {
                                                         fontSize: 12,
                                                         color: e.color,
@@ -4482,7 +4479,7 @@ let __tla = Promise.all([
                                         }, e.label))
                                 ]
                             }),
-                            (0, T.jsxs)(i.div, {
+                            (0, b.jsxs)(i.div, {
                                 initial: {
                                     opacity: 0
                                 },
@@ -4504,10 +4501,10 @@ let __tla = Promise.all([
                                     gap: 8
                                 },
                                 children: [
-                                    (0, T.jsx)(`div`, {
-                                        children: L ? ie() ? `Seed: ${Y.seed} — Daily Key: ${p()}` : `Blind daily — seed revealed at 00:00 UTC` : `Seed: ${Y.seed} — challenge your crew!`
+                                    (0, b.jsx)(`div`, {
+                                        children: B ? ne() ? `Seed: ${Y.seed} — Daily Key: ${h()}` : `Blind daily — seed revealed at 00:00 UTC` : `Seed: ${Y.seed} — challenge your crew!`
                                     }),
-                                    L && (0, T.jsxs)(`div`, {
+                                    B && (0, b.jsxs)(`div`, {
                                         style: {
                                             display: `inline-flex`,
                                             alignItems: `center`,
@@ -4532,7 +4529,7 @@ let __tla = Promise.all([
                                     })
                                 ]
                             }),
-                            (0, T.jsxs)(i.div, {
+                            (0, b.jsxs)(i.div, {
                                 initial: {
                                     opacity: 0,
                                     y: 10
@@ -4551,18 +4548,18 @@ let __tla = Promise.all([
                                     gap: 12
                                 },
                                 children: [
-                                    t && !Ue && (0, T.jsx)(i.button, {
+                                    t && !Ge && (0, b.jsx)(i.button, {
                                         whileHover: {
                                             scale: 1.05
                                         },
-                                        disabled: ht,
+                                        disabled: dt,
                                         onClick: async ()=>{
-                                            if (gt(!0), t) try {
-                                                await Ne(t, Y.score, Y.seed, Y.turn, Y.currentZone ?? 1, Y.runTitle);
+                                            if (ft(!0), t) try {
+                                                await ve(t, Y.score, Y.seed, Y.turn, Y.currentZone ?? 1, Y.runTitle);
                                             } catch (e) {
                                                 console.warn(`On-chain submit failed:`, e);
                                             }
-                                            A(!0), gt(!1);
+                                            N(!0), ft(!1);
                                         },
                                         style: {
                                             padding: `12px 32px`,
@@ -4575,9 +4572,9 @@ let __tla = Promise.all([
                                             cursor: `pointer`,
                                             fontFamily: `'Pirata One', cursive`
                                         },
-                                        children: ht ? `ENGRAVING...` : (0, T.jsxs)(T.Fragment, {
+                                        children: dt ? `ENGRAVING...` : (0, b.jsxs)(b.Fragment, {
                                             children: [
-                                                (0, T.jsx)(m, {
+                                                (0, b.jsx)(g, {
                                                     name: `anchor`,
                                                     size: 16,
                                                     style: {
@@ -4588,7 +4585,7 @@ let __tla = Promise.all([
                                             ]
                                         })
                                     }),
-                                    (0, T.jsx)(`div`, {
+                                    (0, b.jsx)(`div`, {
                                         style: {
                                             fontSize: 11,
                                             color: `rgba(255,255,255,0.35)`,
@@ -4599,7 +4596,7 @@ let __tla = Promise.all([
                                         },
                                         children: `OPTIONAL — CARVES THIS VOYAGE INTO STARKNET FOREVER`
                                     }),
-                                    O && (0, T.jsx)(`div`, {
+                                    j && (0, b.jsx)(`div`, {
                                         style: {
                                             fontSize: 14,
                                             color: `#44cc88`,
@@ -4608,7 +4605,7 @@ let __tla = Promise.all([
                                         },
                                         children: `✓ SCORE SAVED — YOU'RE ON THE LEADERBOARD`
                                     }),
-                                    N.length > 0 && (0, T.jsxs)(i.div, {
+                                    I.length > 0 && (0, b.jsxs)(i.div, {
                                         initial: {
                                             opacity: 0,
                                             scale: .8
@@ -4625,16 +4622,16 @@ let __tla = Promise.all([
                                             textAlign: `center`
                                         },
                                         children: [
-                                            (0, T.jsx)(`div`, {
+                                            (0, b.jsx)(`div`, {
                                                 style: {
                                                     marginBottom: 4
                                                 },
-                                                children: (0, T.jsx)(m, {
+                                                children: (0, b.jsx)(g, {
                                                     name: `flag`,
                                                     size: 24
                                                 })
                                             }),
-                                            (0, T.jsx)(`div`, {
+                                            (0, b.jsx)(`div`, {
                                                 style: {
                                                     fontSize: 16,
                                                     color: `#FFD700`,
@@ -4643,7 +4640,7 @@ let __tla = Promise.all([
                                                 },
                                                 children: `NFT EARNED!`
                                             }),
-                                            N.map((e)=>(0, T.jsx)(`div`, {
+                                            I.map((e)=>(0, b.jsx)(`div`, {
                                                     style: {
                                                         fontSize: 13,
                                                         color: `rgba(255,255,255,0.8)`,
@@ -4652,7 +4649,7 @@ let __tla = Promise.all([
                                                     },
                                                     children: e.replace(/_/g, ` `).toUpperCase()
                                                 }, e)),
-                                            (0, T.jsx)(`div`, {
+                                            (0, b.jsx)(`div`, {
                                                 style: {
                                                     fontSize: 11,
                                                     color: `rgba(255,255,255,0.4)`,
@@ -4662,7 +4659,7 @@ let __tla = Promise.all([
                                                 },
                                                 children: `Your NFT will be sent to your wallet soon.`
                                             }),
-                                            (0, T.jsx)(i.button, {
+                                            (0, b.jsx)(i.button, {
                                                 whileHover: {
                                                     scale: 1.05
                                                 },
@@ -4670,7 +4667,7 @@ let __tla = Promise.all([
                                                     scale: .97
                                                 },
                                                 onClick: ()=>{
-                                                    let e = `🏴‍☠️ I earned "${N[0].replace(/_/g, ` `).replace(/\b\w/g, (e)=>e.toUpperCase())}" — a Genesis NFT in Corsair.\nNo mint button. No whitelist. Just sail, meet the condition, claim it before it's SOLD OUT.\nDare to find yours? ⚓\nhttps://playcorsair.xyz/`;
+                                                    let e = `🏴‍☠️ I earned "${I[0].replace(/_/g, ` `).replace(/\b\w/g, (e)=>e.toUpperCase())}" — a Genesis NFT in Corsair.\nNo mint button. No whitelist. Just sail, meet the condition, claim it before it's SOLD OUT.\nDare to find yours? ⚓\nhttps://playcorsair.xyz/`;
                                                     window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(e)}`, `_blank`);
                                                 },
                                                 style: {
@@ -4689,7 +4686,7 @@ let __tla = Promise.all([
                                             })
                                         ]
                                     }),
-                                    !e && (0, T.jsxs)(`div`, {
+                                    !e && (0, b.jsxs)(`div`, {
                                         style: {
                                             display: `flex`,
                                             flexDirection: `column`,
@@ -4698,7 +4695,7 @@ let __tla = Promise.all([
                                             marginBottom: 4
                                         },
                                         children: [
-                                            (0, T.jsx)(`div`, {
+                                            (0, b.jsx)(`div`, {
                                                 style: {
                                                     fontSize: 13,
                                                     color: `rgba(255,255,255,0.55)`,
@@ -4708,15 +4705,15 @@ let __tla = Promise.all([
                                                 },
                                                 children: `This run stayed local. Connect a wallet to submit scores, play the Daily, and earn NFTs.`
                                             }),
-                                            (0, T.jsx)(i.button, {
+                                            (0, b.jsx)(i.button, {
                                                 whileHover: {
                                                     scale: 1.05
                                                 },
                                                 whileTap: {
                                                     scale: .97
                                                 },
-                                                onClick: ()=>Ee(),
-                                                disabled: De,
+                                                onClick: ()=>Ae(),
+                                                disabled: je,
                                                 style: {
                                                     padding: `12px 28px`,
                                                     borderRadius: 10,
@@ -4728,11 +4725,11 @@ let __tla = Promise.all([
                                                     letterSpacing: 2,
                                                     fontFamily: `'Pirata One', cursive`
                                                 },
-                                                children: De ? `CONNECTING...` : `CONNECT WALLET`
+                                                children: je ? `CONNECTING...` : `CONNECT WALLET`
                                             })
                                         ]
                                     }),
-                                    e && Oe.current && !L && ke && ye && (0, T.jsxs)(`div`, {
+                                    e && Me.current && !B && Ne && _e && (0, b.jsxs)(`div`, {
                                         style: {
                                             display: `flex`,
                                             flexDirection: `column`,
@@ -4741,7 +4738,7 @@ let __tla = Promise.all([
                                             marginBottom: 4
                                         },
                                         children: [
-                                            (0, T.jsx)(`div`, {
+                                            (0, b.jsx)(`div`, {
                                                 style: {
                                                     fontSize: 13,
                                                     color: `rgba(255,255,255,0.55)`,
@@ -4751,14 +4748,14 @@ let __tla = Promise.all([
                                                 },
                                                 children: `Wallet linked. This run stayed local — sail the Daily to climb today's board.`
                                             }),
-                                            (0, T.jsx)(i.button, {
+                                            (0, b.jsx)(i.button, {
                                                 whileHover: {
                                                     scale: 1.05
                                                 },
                                                 whileTap: {
                                                     scale: .97
                                                 },
-                                                onClick: ye,
+                                                onClick: _e,
                                                 style: {
                                                     padding: `12px 28px`,
                                                     borderRadius: 10,
@@ -4782,11 +4779,11 @@ let __tla = Promise.all([
                                             legendary: 3,
                                             rare: 2,
                                             common: 1
-                                        }, n = (Y.relics ?? []).map((e)=>s(e)).filter((e)=>!!e).sort((e, n)=>(t[n.rarity] ?? 0) - (t[e.rarity] ?? 0))[0], r = n ? `\nFound the ${n.name} relic along the way.` : ``, i = Dt ? `\n⚔️ #${Dt.rank} in Starktember — ${Dt.total.toLocaleString()} pts across the month.` : ``, a = L ? `☀️ Daily Challenge — ${e} — ${Y.score} pts before the storm claimed me.\nSame sea for every captain today. Can you beat me?${i}${r}\n⚓ @PlayCorsair https://playcorsair.xyz/ #Starktember #Starknet` : `🏴\u200d☠️ ${Y.runTitle} — ${Y.score} pts before the storm claimed me.\n${Y.turn} turns · ${Y.ship.gold} gold · No mercy.${r}\nSame waters, seed ${Y.seed}. Dare to sail further? ⚓ @PlayCorsair\nhttps://playcorsair.xyz/ #Starknet`, o = nt(Y.log);
-                                        return (0, T.jsx)(Le, {
-                                            isMobile: I,
+                                        }, n = (Y.relics ?? []).map((e)=>s(e)).filter((e)=>!!e).sort((e, n)=>(t[n.rarity] ?? 0) - (t[e.rarity] ?? 0))[0], r = n ? `\nFound the ${n.name} relic along the way.` : ``, i = Et ? `\n⚔️ #${Et.rank} in Starktember — ${Et.total.toLocaleString()} pts across the month.` : ``, a = B ? `☀️ Daily Challenge — ${e} — ${Y.score} pts before the storm claimed me.\nSame sea for every captain today. Can you beat me?${i}${r}\n⚓ @PlayCorsair https://playcorsair.xyz/ #Starktember #Starknet` : `🏴\u200d☠️ ${Y.runTitle} — ${Y.score} pts before the storm claimed me.\n${Y.turn} turns · ${Y.ship.gold} gold · No mercy.${r}\nSame waters, seed ${Y.seed}. Dare to sail further? ⚓ @PlayCorsair\nhttps://playcorsair.xyz/ #Starknet`, o = et(Y.log);
+                                        return (0, b.jsx)(Ce, {
+                                            isMobile: z,
                                             onShare: ()=>{
-                                                Re(a);
+                                                we(a);
                                             },
                                             payload: {
                                                 score: Y.score,
@@ -4795,12 +4792,12 @@ let __tla = Promise.all([
                                                 runTitle: Y.runTitle,
                                                 seed: Y.seed,
                                                 deathName: o.name,
-                                                isDaily: L,
+                                                isDaily: B,
                                                 text: a
                                             }
                                         });
                                     })(),
-                                    (0, T.jsxs)(`div`, {
+                                    (0, b.jsxs)(`div`, {
                                         style: {
                                             display: `flex`,
                                             flexDirection: `column`,
@@ -4808,7 +4805,7 @@ let __tla = Promise.all([
                                             gap: 8
                                         },
                                         children: [
-                                            yt && (0, T.jsx)(`div`, {
+                                            ht && (0, b.jsx)(`div`, {
                                                 style: {
                                                     fontSize: 12,
                                                     color: `rgba(238,100,100,0.85)`,
@@ -4818,45 +4815,45 @@ let __tla = Promise.all([
                                                 },
                                                 children: `Harbor unreachable — try Sail again when you're back online`
                                             }),
-                                            (0, T.jsxs)(`div`, {
+                                            (0, b.jsxs)(`div`, {
                                                 style: {
                                                     display: `flex`,
                                                     gap: 12
                                                 },
                                                 children: [
-                                                    (0, T.jsx)(i.button, {
+                                                    (0, b.jsx)(i.button, {
                                                         whileHover: {
                                                             scale: 1.05
                                                         },
                                                         whileTap: {
                                                             scale: .97
                                                         },
-                                                        onClick: xn,
-                                                        disabled: R,
+                                                        onClick: bn,
+                                                        disabled: _t,
                                                         style: {
                                                             padding: `14px 36px`,
                                                             borderRadius: 12,
                                                             border: `2px solid rgba(200,160,48,0.6)`,
                                                             background: `rgba(80,60,10,0.5)`,
                                                             color: `#c8a030`,
-                                                            cursor: R ? `wait` : `pointer`,
+                                                            cursor: _t ? `wait` : `pointer`,
                                                             fontSize: 20,
                                                             fontWeight: 700,
                                                             letterSpacing: 2,
                                                             fontFamily: `'Pirata One', cursive`,
                                                             boxShadow: `0 0 20px rgba(200,160,48,0.2)`,
-                                                            opacity: R ? .7 : 1
+                                                            opacity: _t ? .7 : 1
                                                         },
-                                                        children: R ? `PREPARING…` : `SAIL AGAIN`
+                                                        children: _t ? `PREPARING…` : `SAIL AGAIN`
                                                     }),
-                                                    (0, T.jsx)(i.button, {
+                                                    (0, b.jsx)(i.button, {
                                                         whileHover: {
                                                             scale: 1.05
                                                         },
                                                         whileTap: {
                                                             scale: .97
                                                         },
-                                                        onClick: ve,
+                                                        onClick: ge,
                                                         style: {
                                                             padding: `14px 24px`,
                                                             borderRadius: 12,
@@ -4879,8 +4876,8 @@ let __tla = Promise.all([
                         ]
                     })
                 }),
-                (0, T.jsx)(n, {
-                    children: Pt && !I && (0, T.jsxs)(i.div, {
+                (0, b.jsx)(n, {
+                    children: Nt && !z && (0, b.jsxs)(i.div, {
                         initial: {
                             opacity: 0
                         },
@@ -4900,7 +4897,7 @@ let __tla = Promise.all([
                             pointerEvents: `none`
                         },
                         children: [
-                            (0, T.jsx)(`video`, {
+                            (0, b.jsx)(`video`, {
                                 src: `/scenes/hunter.mp4`,
                                 autoPlay: !0,
                                 muted: $,
@@ -4912,14 +4909,14 @@ let __tla = Promise.all([
                                     objectFit: `cover`
                                 }
                             }),
-                            (0, T.jsx)(`div`, {
+                            (0, b.jsx)(`div`, {
                                 style: {
                                     position: `absolute`,
                                     inset: 0,
                                     background: `rgba(0,0,0,0.3)`
                                 }
                             }),
-                            (0, T.jsxs)(i.div, {
+                            (0, b.jsxs)(i.div, {
                                 initial: {
                                     opacity: 0,
                                     y: 20
@@ -4939,7 +4936,7 @@ let __tla = Promise.all([
                                     textAlign: `center`
                                 },
                                 children: [
-                                    (0, T.jsx)(`div`, {
+                                    (0, b.jsx)(`div`, {
                                         style: {
                                             fontSize: 32,
                                             color: `#cc44ee`,
@@ -4949,7 +4946,7 @@ let __tla = Promise.all([
                                         },
                                         children: `THE HUNTER STRIKES!`
                                     }),
-                                    (0, T.jsx)(`div`, {
+                                    (0, b.jsx)(`div`, {
                                         style: {
                                             fontSize: 16,
                                             color: `rgba(255,255,255,0.7)`,
@@ -4958,7 +4955,7 @@ let __tla = Promise.all([
                                         },
                                         children: `Tentacles rake the hull`
                                     }),
-                                    (0, T.jsx)(`div`, {
+                                    (0, b.jsx)(`div`, {
                                         style: {
                                             fontSize: 11,
                                             color: `rgba(255,255,255,0.35)`,
@@ -4973,9 +4970,9 @@ let __tla = Promise.all([
                         ]
                     })
                 }),
-                I && (0, T.jsxs)(T.Fragment, {
+                z && (0, b.jsxs)(b.Fragment, {
                     children: [
-                        !Y.event && !Y.showPort && !Y.gameOver && (0, T.jsxs)(`div`, {
+                        !Y.event && !Y.showPort && !Y.gameOver && (0, b.jsxs)(`div`, {
                             style: {
                                 position: `fixed`,
                                 right: 8,
@@ -4986,11 +4983,11 @@ let __tla = Promise.all([
                                 zIndex: 30
                             },
                             children: [
-                                (0, T.jsx)(i.button, {
+                                (0, b.jsx)(i.button, {
                                     whileTap: {
                                         scale: .9
                                     },
-                                    onClick: ()=>It(J === `ship` ? null : `ship`),
+                                    onClick: ()=>Ft(J === `ship` ? null : `ship`),
                                     "aria-label": `Show ship status`,
                                     "aria-expanded": J === `ship`,
                                     style: {
@@ -5008,11 +5005,11 @@ let __tla = Promise.all([
                                     },
                                     children: `⚓`
                                 }),
-                                (0, T.jsx)(i.button, {
+                                (0, b.jsx)(i.button, {
                                     whileTap: {
                                         scale: .9
                                     },
-                                    onClick: ()=>It(J === `upgrades` ? null : `upgrades`),
+                                    onClick: ()=>Ft(J === `upgrades` ? null : `upgrades`),
                                     "aria-label": `Show upgrades`,
                                     "aria-expanded": J === `upgrades`,
                                     style: {
@@ -5032,8 +5029,8 @@ let __tla = Promise.all([
                                 })
                             ]
                         }),
-                        (0, T.jsx)(n, {
-                            children: J && (0, T.jsxs)(i.div, {
+                        (0, b.jsx)(n, {
+                            children: J && (0, b.jsxs)(i.div, {
                                 initial: {
                                     x: `100%`
                                 },
@@ -5062,9 +5059,9 @@ let __tla = Promise.all([
                                 },
                                 onClick: (e)=>e.stopPropagation(),
                                 children: [
-                                    J === `ship` && (0, T.jsxs)(T.Fragment, {
+                                    J === `ship` && (0, b.jsxs)(b.Fragment, {
                                         children: [
-                                            (0, T.jsx)(`div`, {
+                                            (0, b.jsx)(`div`, {
                                                 style: {
                                                     fontSize: 13,
                                                     color: `rgba(255,255,255,0.4)`,
@@ -5074,7 +5071,7 @@ let __tla = Promise.all([
                                                 },
                                                 children: `SHIP`
                                             }),
-                                            (0, T.jsx)(`div`, {
+                                            (0, b.jsx)(`div`, {
                                                 style: {
                                                     fontSize: 12,
                                                     color: `rgba(255,255,255,0.5)`,
@@ -5082,7 +5079,7 @@ let __tla = Promise.all([
                                                 },
                                                 children: `EQUIPPED`
                                             }),
-                                            Y.ship.upgrades.length === 0 ? (0, T.jsx)(`div`, {
+                                            Y.ship.upgrades.length === 0 ? (0, b.jsx)(`div`, {
                                                 style: {
                                                     fontSize: 13,
                                                     color: `rgba(255,255,255,0.3)`,
@@ -5091,8 +5088,8 @@ let __tla = Promise.all([
                                                 },
                                                 children: `None yet`
                                             }) : Y.ship.upgrades.map((e)=>{
-                                                let t = P.find((t)=>t.id === e);
-                                                return (0, T.jsxs)(`div`, {
+                                                let t = L.find((t)=>t.id === e);
+                                                return (0, b.jsxs)(`div`, {
                                                     style: {
                                                         fontSize: 13,
                                                         color: `#c8a030`,
@@ -5102,8 +5099,8 @@ let __tla = Promise.all([
                                                         gap: 6
                                                     },
                                                     children: [
-                                                        (0, T.jsx)(`img`, {
-                                                            src: M[e],
+                                                        (0, b.jsx)(`img`, {
+                                                            src: F[e],
                                                             style: {
                                                                 width: 18,
                                                                 height: 18,
@@ -5114,7 +5111,7 @@ let __tla = Promise.all([
                                                     ]
                                                 }, e);
                                             }),
-                                            Y.upgradeToken && (0, T.jsx)(`div`, {
+                                            Y.upgradeToken && (0, b.jsx)(`div`, {
                                                 style: {
                                                     fontSize: 12,
                                                     color: `#eedd44`,
@@ -5122,7 +5119,7 @@ let __tla = Promise.all([
                                                 },
                                                 children: `✦ Free upgrade — claim it at a port`
                                             }),
-                                            (0, T.jsx)(`div`, {
+                                            (0, b.jsx)(`div`, {
                                                 style: {
                                                     fontSize: 12,
                                                     color: `rgba(255,255,255,0.5)`,
@@ -5167,7 +5164,7 @@ let __tla = Promise.all([
                                                 }
                                             ].map((e)=>{
                                                 let t = Y.ship.levels[e.key];
-                                                return (0, T.jsxs)(`div`, {
+                                                return (0, b.jsxs)(`div`, {
                                                     style: {
                                                         display: `flex`,
                                                         alignItems: `center`,
@@ -5175,10 +5172,10 @@ let __tla = Promise.all([
                                                         marginBottom: 6
                                                     },
                                                     children: [
-                                                        (0, T.jsx)(`span`, {
+                                                        (0, b.jsx)(`span`, {
                                                             children: e.icon
                                                         }),
-                                                        (0, T.jsx)(`span`, {
+                                                        (0, b.jsx)(`span`, {
                                                             style: {
                                                                 color: e.color,
                                                                 fontSize: 13,
@@ -5186,7 +5183,7 @@ let __tla = Promise.all([
                                                             },
                                                             children: e.label
                                                         }),
-                                                        (0, T.jsx)(`div`, {
+                                                        (0, b.jsx)(`div`, {
                                                             style: {
                                                                 display: `flex`,
                                                                 gap: 3
@@ -5195,7 +5192,7 @@ let __tla = Promise.all([
                                                                 0,
                                                                 1,
                                                                 2
-                                                            ].map((n)=>(0, T.jsx)(`div`, {
+                                                            ].map((n)=>(0, b.jsx)(`div`, {
                                                                     style: {
                                                                         width: 14,
                                                                         height: 14,
@@ -5205,7 +5202,7 @@ let __tla = Promise.all([
                                                                     }
                                                                 }, n))
                                                         }),
-                                                        (0, T.jsx)(`span`, {
+                                                        (0, b.jsx)(`span`, {
                                                             style: {
                                                                 color: e.color,
                                                                 fontSize: 12
@@ -5217,9 +5214,9 @@ let __tla = Promise.all([
                                             })
                                         ]
                                     }),
-                                    J === `upgrades` && (0, T.jsxs)(T.Fragment, {
+                                    J === `upgrades` && (0, b.jsxs)(b.Fragment, {
                                         children: [
-                                            (0, T.jsx)(`div`, {
+                                            (0, b.jsx)(`div`, {
                                                 style: {
                                                     fontSize: 13,
                                                     color: `rgba(255,255,255,0.4)`,
@@ -5229,15 +5226,15 @@ let __tla = Promise.all([
                                                 },
                                                 children: `UPGRADES`
                                             }),
-                                            P.map((e)=>{
-                                                let t = Y.ship.upgrades.includes(e.id), n = tt[e.build];
-                                                return (0, T.jsxs)(`div`, {
+                                            L.map((e)=>{
+                                                let t = Y.ship.upgrades.includes(e.id), n = $e[e.build];
+                                                return (0, b.jsxs)(`div`, {
                                                     style: {
                                                         marginBottom: 10,
                                                         opacity: t ? 1 : .6
                                                     },
                                                     children: [
-                                                        (0, T.jsxs)(`div`, {
+                                                        (0, b.jsxs)(`div`, {
                                                             style: {
                                                                 display: `flex`,
                                                                 alignItems: `center`,
@@ -5245,15 +5242,15 @@ let __tla = Promise.all([
                                                                 marginBottom: 3
                                                             },
                                                             children: [
-                                                                (0, T.jsx)(`img`, {
-                                                                    src: M[e.id],
+                                                                (0, b.jsx)(`img`, {
+                                                                    src: F[e.id],
                                                                     style: {
                                                                         width: 20,
                                                                         height: 20,
                                                                         objectFit: `contain`
                                                                     }
                                                                 }),
-                                                                (0, T.jsx)(`span`, {
+                                                                (0, b.jsx)(`span`, {
                                                                     style: {
                                                                         fontSize: 13,
                                                                         color: t ? n : `rgba(255,255,255,0.7)`,
@@ -5261,7 +5258,7 @@ let __tla = Promise.all([
                                                                     },
                                                                     children: e.name
                                                                 }),
-                                                                t && (0, T.jsx)(`span`, {
+                                                                t && (0, b.jsx)(`span`, {
                                                                     style: {
                                                                         fontSize: 10,
                                                                         color: `#44cc88`,
@@ -5271,11 +5268,11 @@ let __tla = Promise.all([
                                                                 })
                                                             ]
                                                         }),
-                                                        (0, T.jsx)(`div`, {
+                                                        (0, b.jsx)(`div`, {
                                                             style: {
                                                                 lineHeight: 1.5
                                                             },
-                                                            children: (0, T.jsx)($e, {
+                                                            children: (0, b.jsx)(Ze, {
                                                                 pros: e.pros,
                                                                 cons: e.cons,
                                                                 fontSize: 11,
@@ -5290,13 +5287,13 @@ let __tla = Promise.all([
                                 ]
                             })
                         }),
-                        J && (0, T.jsx)(`div`, {
+                        J && (0, b.jsx)(`div`, {
                             style: {
                                 position: `fixed`,
                                 inset: 0,
                                 zIndex: 24
                             },
-                            onClick: ()=>It(null)
+                            onClick: ()=>Ft(null)
                         })
                     ]
                 })
@@ -5304,4 +5301,4 @@ let __tla = Promise.all([
         });
     };
 });
-export { st as default, __tla };
+export { rt as default, __tla };
