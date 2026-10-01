@@ -5,6 +5,8 @@ import { markDailyPlayedOnServer, startRun, heartbeatRun, finishRun, saveRunLog,
 import { ZONE_CONFIG } from '../game/balance';
 import { submitScoreOnChain } from '../starknet';
 import { initGame, moveShip, resolveEvent, repairHull, leavePort, skipEventFn, rerollPort, upgradeComponent, buyUpgrade, markDailyPlayed, getDailyKey } from '../game/engine';
+import { pickOnboardTip, markOnboardDone, type OnboardTip } from '../game/onboard';
+import { useWallet } from '../useWallet';
 import { sfx, setSfxMuted } from '../sound';
 import { getRelicDef, type RelicDef } from '../game/relics';
 import { checkAndUnlockFeats, type Feat } from '../game/feats';
@@ -166,8 +168,24 @@ const renderCellIcon = (icon: string | undefined, size: number) =>
     ? <img src={icon} style={{ width:size, height:size, objectFit:'contain', borderRadius:'50%', mixBlendMode:'lighten', filter:`drop-shadow(0 0 12px rgba(200,160,48,0.6))` }} />
     : <span style={{ fontSize:size }}>{icon}</span>;
 
+function OnboardCard({ tip, isMobile, onDismiss }: { tip: OnboardTip; isMobile: boolean; onDismiss: () => void }) {
+  return (
+    <motion.button
+      type="button"
+      initial={{ opacity:0, y:6 }} animate={{ opacity:1, y:0 }}
+      onClick={onDismiss}
+      style={{ maxWidth:440, margin:'0 12px 10px', padding:'10px 14px', border:'1px solid rgba(200,160,48,0.35)', borderRadius:10, background:'rgba(12,18,28,0.82)', color:'rgba(255,255,255,0.85)', textAlign:'left', cursor:'pointer', fontFamily:"'IM Fell English', cursive" }}>
+      <div style={{ fontSize:11, letterSpacing:2, color:'#c8a030', fontFamily:"'Cinzel', serif", marginBottom:4 }}>{tip.title}</div>
+      <div style={{ fontSize: isMobile ? 13 : 15, lineHeight:1.35 }}>{tip.text}</div>
+      <div style={{ fontSize:10, letterSpacing:1, color:'rgba(255,255,255,0.35)', fontFamily:"'Cinzel', serif", marginTop:6 }}>TAP TO DISMISS</div>
+    </motion.button>
+  );
+}
+
 export default function CorsairGame({ walletAddress, account, username, onHome, dailySeed, isDaily, seedToken, shipId, resumeState, resumeRunId, resumeActions }: { walletAddress: string | null; account?: any; username?: string | null; onHome: () => void; dailySeed?: number; isDaily?: boolean; seedToken?: string; shipId?: string; resumeState?: GameState; resumeRunId?: string; resumeActions?: number[] }) {
+  const { connect, connecting } = useWallet();
   const [state, setState] = useState<GameState>(() => resumeState ?? initGame(dailySeed, shipId ?? 'default'));
+  const [onboard, setOnboard] = useState<OnboardTip | null>(null);
   const [shake, setShake] = useState(false);
   const [cart, setCart] = useState<string[]>([]);
   const [newFeats, setNewFeats] = useState<Feat[]>([]);
@@ -186,6 +204,19 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   const [submitting, setSubmitting] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const isDailyRun = isDaily === true;
+  // Conseils de premiere partie (une fois chacun, memorises en local).
+  useEffect(() => {
+    if (state.gameOver) { setOnboard(null); return; }
+    if (state.turn > 0) markOnboardDone('sail');
+    setOnboard(pickOnboardTip(state));
+  }, [state.turn, state.event, state.showPort, state.hunter?.active, state.stormDistance, state.gameOver]);
+
+  const dismissOnboard = () => {
+    if (!onboard) return;
+    markOnboardDone(onboard.id);
+    setOnboard(null);
+  };
+
   // Daily : la tentative est consommee au LANCEMENT de la run (equite tournoi — un refresh ne redonne pas d'essai)
   useEffect(() => {
     if (!isDailyRun) return;
@@ -618,11 +649,11 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
     // Kraken/legendary flash
     if (state.event?.cellType === 'kraken' || state.event?.cellType === 'ancient_kraken') triggerFlash('rgba(150,0,255,0.3)');
     if (state.event?.cellType === 'ancient_kraken') triggerFlash('rgba(200,160,48,0.4)');
-    // Hunter vignette
+    // Hunter vignette — plus fort quand il est collé au navire
     const h = state.hunter;
     if (h?.active) {
       const dist = Math.abs(h.x - state.ship.x) + Math.abs(h.y - state.ship.y);
-      setVignetteIntensity(dist <= 2 ? 0.45 : dist <= 4 ? 0.25 : 0);
+      setVignetteIntensity(dist <= 1 ? 0.72 : dist <= 2 ? 0.5 : dist <= 4 ? 0.28 : 0.12);
     } else {
       setVignetteIntensity(0);
     }
@@ -806,18 +837,24 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
       )}
 
       {/* Mobile Hunter Bar */}
-      {isMobile && s.hunter?.active && (
-        <div style={{ display:'flex', alignItems:'center', gap:8, padding:'4px 10px', background:'rgba(80,0,80,0.3)', borderBottom:'1px solid rgba(180,30,180,0.3)' }}>
+      {isMobile && s.hunter?.active && (() => {
+        const hDist = Math.abs(s.hunter.x - s.ship.x) + Math.abs(s.hunter.y - s.ship.y);
+        return (
+        <div style={{ display:'flex', alignItems:'center', gap:8, padding:'4px 10px', background: hDist <= 2 ? 'rgba(120,0,40,0.45)' : 'rgba(80,0,80,0.3)', borderBottom:'1px solid rgba(180,30,180,0.3)' }}>
           <Icon name="kraken" size={15} style={{ marginRight:2 }} />
           <div style={{ fontSize:11, color: s.hunter.mode==='frenzy'?'#ff6666':s.hunter.mode==='stalking'?'#dd88ff':'rgba(255,255,255,0.4)', fontFamily:"'Cinzel', serif", letterSpacing:1, minWidth:70 }}>
             {hunterModeIcon(s.hunter.mode)}{hunterModeLabel(s.hunter.mode)}
+          </div>
+          <div style={{ fontSize:10, color: hDist <= 1 ? '#ff6677' : 'rgba(255,255,255,0.45)', fontFamily:"'Cinzel', serif", minWidth:52 }}>
+            {hDist <= 1 ? 'HULL!' : `${hDist} away`}
           </div>
           <div style={{ flex:1, height:3, background:'rgba(255,255,255,0.1)', borderRadius:2 }}>
             <div style={{ height:3, borderRadius:2, width:`${s.hunter.awareness}%`, background: s.hunter.awareness>=80?'#ee4444':s.hunter.awareness>=50?'#cc44ee':'#7744aa', transition:'width 0.5s' }}/>
           </div>
           <span style={{ fontSize:10, color:'rgba(255,255,255,0.3)', fontFamily:"'Cinzel', serif" }}>{s.hunter.awareness}%</span>
         </div>
-      )}
+        );
+      })()}
 
       {/* MAIN */}
       <div style={{ flex:1, display:'flex', overflow:'hidden', position:'relative' }}>
@@ -835,25 +872,30 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
           </div>
 
           {/* Hunter HUD */}
-          {s.hunter && (
-            <div style={{ background:'rgba(180,30,180,0.08)', border:`1px solid ${s.hunter.mode==='frenzy'||s.hunter.mode==='stalking'?'rgba(220,50,220,0.5)':'rgba(255,255,255,0.08)'}`, borderRadius:10, padding:'12px 10px', marginTop:4 }}>
-              <div style={{ fontSize:13, color:'rgba(200,100,220,0.8)', letterSpacing:2, marginBottom:6 }}>🐙 HUNTER</div>
-              {/* Mode badge */}
-              <div style={{ display:'inline-block', padding:'2px 10px', borderRadius:6, fontSize:11, letterSpacing:2, fontFamily:"'Cinzel', serif", marginBottom:8,
+          {s.hunter && (() => {
+            const hDist = Math.abs(s.hunter.x - s.ship.x) + Math.abs(s.hunter.y - s.ship.y);
+            const near = hDist <= 2;
+            return (
+            <div style={{ background: near ? 'rgba(180,30,60,0.18)' : 'rgba(180,30,180,0.08)', border:`1px solid ${s.hunter.mode==='frenzy'||near?'rgba(220,50,80,0.65)':s.hunter.mode==='stalking'?'rgba(220,50,220,0.5)':'rgba(255,255,255,0.08)'}`, borderRadius:10, padding:'12px 10px', marginTop:4 }}>
+              <div style={{ fontSize:13, color: near ? '#ff8899' : 'rgba(200,100,220,0.8)', letterSpacing:2, marginBottom:6 }}>🐙 HUNTER</div>
+              <div style={{ display:'inline-block', padding:'2px 10px', borderRadius:6, fontSize:11, letterSpacing:2, fontFamily:"'Cinzel', serif", marginBottom:6,
                 background: s.hunter.mode==='frenzy' ? 'rgba(220,30,30,0.3)' : s.hunter.mode==='stalking' ? 'rgba(180,30,180,0.3)' : s.hunter.mode==='searching' ? 'rgba(30,100,180,0.3)' : 'rgba(255,255,255,0.06)',
                 color: s.hunter.mode==='frenzy' ? '#ff6666' : s.hunter.mode==='stalking' ? '#dd88ff' : s.hunter.mode==='searching' ? '#66aaff' : 'rgba(255,255,255,0.4)',
                 border: `1px solid ${s.hunter.mode==='frenzy'?'rgba(220,30,30,0.6)':s.hunter.mode==='stalking'?'rgba(180,30,180,0.5)':'rgba(255,255,255,0.1)'}`,
               }}>
                 {hunterModeIcon(s.hunter.mode)}{hunterModeLabel(s.hunter.mode)}
               </div>
-              {/* Awareness bar */}
+              <div style={{ fontSize:12, color: hDist <= 1 ? '#ff5566' : hDist <= 2 ? '#eeaa66' : 'rgba(255,255,255,0.45)', fontFamily:"'Cinzel', serif", letterSpacing:1, marginBottom:6 }}>
+                {hDist <= 1 ? 'ON YOUR HULL' : hDist === 2 ? '2 CELLS AWAY' : `${hDist} CELLS AWAY`}
+              </div>
               <div style={{ fontSize:11, color:'rgba(255,255,255,0.3)', letterSpacing:1, marginBottom:4 }}>AWARENESS {s.hunter.awareness}%</div>
               <div style={{ height:4, background:'rgba(255,255,255,0.06)', borderRadius:2 }}>
                 <motion.div animate={{ width:`${s.hunter.awareness}%` }} transition={{ duration:0.5 }}
                   style={{ height:4, borderRadius:2, background: s.hunter.awareness>=80?'#ee4444':s.hunter.awareness>=50?'#cc44ee':'#7744aa' }}/>
               </div>
             </div>
-          )}
+            );
+          })()}
 
           {/* Upgrades owned */}
           <div style={{ fontSize:17, color:'rgba(255,255,255,0.6)', letterSpacing:2, marginTop:8 }}>EQUIPPED</div>
@@ -970,10 +1012,8 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
             </div>
           )}
 
-          {s.turn === 0 && !s.event && !s.showPort && !s.gameOver && (
-            <div role="status" aria-live="polite" style={{ maxWidth:440, margin:'0 12px 10px', padding:'8px 12px', border:'1px solid rgba(200,160,48,0.22)', borderRadius:8, background:'rgba(5,10,18,0.52)', color:'rgba(255,255,255,0.72)', textAlign:'center', fontSize:isMobile ? 13 : 15, fontFamily:"'IM Fell English', cursive", lineHeight:1.35 }}>
-              Sail north, uncover the sea, and build your score before the storm catches you.{!isMobile && ' Use A/W/D or the arrow keys to set course.'}
-            </div>
+          {onboard && !s.event && !s.showPort && !s.gameOver && (
+            <OnboardCard tip={onboard} isMobile={isMobile} onDismiss={dismissOnboard} />
           )}
 
           {/* Grid */}
@@ -1009,11 +1049,14 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                   return set;
                 })();
                 const seesTracking = (s.relics ?? []).includes('kraken_eye');
-                const isPredicted = s.hunter?.active && (seesTracking || !s.hunter?.mode?.includes('tracking')) && hunterPredictions.has(`${x}-${y}`) && !(x===s.hunter.x && y===s.hunter.y);
+                // Predictions visibles des qu'on voit le hunter (Eye of the Kraken aussi en tracking).
+                const hunterOnScreen = s.hunter?.active && Math.abs(s.hunter.x - s.ship.x) <= s.ship.vision && Math.abs(s.hunter.y - s.ship.y) <= s.ship.vision;
+                const isPredicted = !!hunterOnScreen && (seesTracking || s.hunter?.mode !== 'tracking') && hunterPredictions.has(`${x}-${y}`) && !(x===s.hunter!.x && y===s.hunter!.y);
                 const cell = (x>=0&&x<GRID_SIZE&&y>=0&&y<GRID_SIZE) ? s.grid[y][x] : {type:'sea' as const,revealed:false,visited:false,value:0};
                 const absX = s.ship.x + dx;
                 const absY = s.ship.y + dy;
                 const isHunter = s.hunter?.active && s.hunter.x === absX && s.hunter.y === absY;
+                const hunterDist = s.hunter?.active ? Math.abs(s.hunter.x - s.ship.x) + Math.abs(s.hunter.y - s.ship.y) : 99;
                 const isShip = dx===0 && dy===0;
                 const isRevealed = cell.revealed || cell.visited;
                 const isStormed = (cell as any).stormed;
@@ -1029,12 +1072,12 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                     animate={{ opacity:1, scale:1 }}
                     style={{
                       width:CELL_S, height:CELL_S,
-                      background: isShip ? '#0a2a4a' : isStormed ? '#2a0505' : isRevealed ? (zonePalette[cell.type] ?? '#050a0f') : (s.currentZone === 2 ? '#03050a' : s.currentZone === 3 ? '#020204' : '#050a0f'),
-                      border: isShip ? '2px solid #4a8acc' : isStormed ? '1px solid #cc222244' : isRevealed ? `1px solid ${glow ? glow+'44' : 'rgba(255,255,255,0.08)'}` : '1px solid rgba(255,255,255,0.03)',
+                      background: isShip ? '#0a2a4a' : isHunter ? (s.hunter?.mode==='frenzy' ? '#3a0612' : '#2a0830') : isStormed ? '#2a0505' : isRevealed ? (zonePalette[cell.type] ?? '#050a0f') : (s.currentZone === 2 ? '#03050a' : s.currentZone === 3 ? '#020204' : '#050a0f'),
+                      border: isShip ? (hunterDist <= 1 ? '2px solid #ee4466' : '2px solid #4a8acc') : isHunter ? `2px solid ${s.hunter?.mode==='frenzy'?'#ff4466':s.hunter?.mode==='stalking'?'#dd66ff':'#aa44cc'}` : isStormed ? '1px solid #cc222244' : isRevealed ? `1px solid ${glow ? glow+'44' : 'rgba(255,255,255,0.08)'}` : '1px solid rgba(255,255,255,0.03)',
                       borderRadius:8,
                       display:'flex', alignItems:'center', justifyContent:'center',
                       fontSize: isShip ? 26 : 20,
-                      boxShadow: isShip ? '0 0 20px rgba(74,138,204,0.4)' : glow && isRevealed ? `0 0 10px ${glow}44` : 'none',
+                      boxShadow: isHunter ? `0 0 ${hunterDist<=2?22:14}px ${s.hunter?.mode==='frenzy'?'rgba(255,60,80,0.85)':'rgba(200,60,220,0.75)'}` : isShip ? (hunterDist <= 1 ? '0 0 22px rgba(238,68,102,0.55)' : '0 0 20px rgba(74,138,204,0.4)') : glow && isRevealed ? `0 0 10px ${glow}44` : 'none',
                       position:'relative', cursor:'default',
                     }}>
                     {isShip && (
@@ -1329,6 +1372,11 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
               <div style={{ fontSize: isMobile ? 13 : 18, fontWeight:700, color:'#eedd44' }}>{s.score}{isMobile ? 'pts' : ' pts'}</div>
             </div>
             <div style={{ position:'relative', zIndex:1, maxWidth:700, width:'100%', textAlign:'center' }}>
+              {onboard && (
+                <div style={{ display:'flex', justifyContent:'center', marginBottom:12 }}>
+                  <OnboardCard tip={onboard} isMobile={isMobile} onDismiss={dismissOnboard} />
+                </div>
+              )}
               <div style={{ alignSelf:'flex-start', marginBottom:16, paddingLeft:8 }}>
                 <div style={{ fontSize: isMobile ? 28 : 42, fontWeight:700, color:'#e8e0d0', fontFamily:"'Pirata One', cursive", letterSpacing:3, textShadow:'0 2px 20px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.7)', lineHeight:1.1 }}>
                   {SCENE_TITLES[s.event.cellType] ?? s.event.cellType}
@@ -1374,6 +1422,9 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                 <div style={{ fontSize:21, fontWeight:700, marginBottom:4, color:'#e8e0d0' }}>
                   {s.event.cellType.charAt(0).toUpperCase()+s.event.cellType.slice(1).replace('_',' ')}
                 </div>
+                {onboard && (
+                  <OnboardCard tip={onboard} isMobile={isMobile} onDismiss={dismissOnboard} />
+                )}
                 <div style={{ display:'flex', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 8 : 10, marginTop:8 }}>
                   {s.event.choices.map((ch, i) => {
                     const rc = ch.risk==='safe'?'#44cc88':ch.risk==='risky'?'#eedd44':'#ee6644';
@@ -1416,6 +1467,9 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                 <img src={anchorImg} style={{ width:40, height:40, objectFit:'contain' }}/>
                 <span style={{ fontSize:26, fontWeight:700, color:'#44cc88', letterSpacing:2, fontFamily:"'Pirata One', cursive" }}>SAFE HARBOR</span>
               </div>
+              {onboard && (
+                <OnboardCard tip={onboard} isMobile={isMobile} onDismiss={dismissOnboard} />
+              )}
               {/* Composants du navire */}
               <div style={{ marginBottom:16 }}>
                 <div style={{ fontSize:14, letterSpacing:3, color:'rgba(255,255,255,0.5)', fontFamily:"'Cinzel', serif", marginBottom:10 }}>SHIP COMPONENTS</div>
@@ -1675,7 +1729,18 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                   </motion.button>
                 </motion.div>
               )}
-              {!walletAddress && <div style={{ fontSize:12, color:'rgba(255,255,255,0.2)', fontFamily:"'Cinzel', serif", letterSpacing:2 }}>Connect wallet to submit your score</div>}
+              {!walletAddress && (
+                <div style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:8, marginBottom:4 }}>
+                  <div style={{ fontSize:13, color:'rgba(255,255,255,0.55)', fontFamily:"'IM Fell English', cursive", textAlign:'center', maxWidth:360 }}>
+                    This run stayed local. Connect a wallet to submit scores, play the Daily, and earn NFTs.
+                  </div>
+                  <motion.button whileHover={{ scale:1.05 }} whileTap={{ scale:0.97 }}
+                    onClick={() => connect()} disabled={connecting}
+                    style={{ padding:'12px 28px', borderRadius:10, border:'1px solid rgba(200,160,48,0.55)', background:'rgba(200,160,48,0.12)', color:'#c8a030', cursor:'pointer', fontSize:15, letterSpacing:2, fontFamily:"'Pirata One', cursive" }}>
+                    {connecting ? 'CONNECTING...' : 'CONNECT WALLET'}
+                  </motion.button>
+                </div>
+              )}
               <div style={{ display:'flex', gap:12, marginBottom:8 }}>
                 <motion.button whileHover={{ scale:1.05 }} whileTap={{ scale:0.97 }}
                   onClick={() => {
@@ -1703,7 +1768,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                 <motion.button whileHover={{scale:1.05}} whileTap={{scale:0.97}} onClick={restart}
                   style={{ padding:'14px 36px', borderRadius:12, border:'2px solid rgba(200,160,48,0.6)', background:'rgba(80,60,10,0.5)', color:'#c8a030', cursor:'pointer', fontSize:20, fontWeight:700, letterSpacing:2, fontFamily:"'Pirata One', cursive",
                     boxShadow:'0 0 20px rgba(200,160,48,0.2)' }}>
-                  NEW VOYAGE
+                  SAIL AGAIN
                 </motion.button>
                 <motion.button whileHover={{ scale:1.05 }} whileTap={{scale:0.97}} onClick={onHome}
                   style={{ padding:'14px 24px', borderRadius:12, border:'1px solid rgba(255,255,255,0.1)', background:'transparent', color:'rgba(255,255,255,0.3)', cursor:'pointer', fontSize:14, letterSpacing:2, fontFamily:"'Pirata One', cursive" }}>

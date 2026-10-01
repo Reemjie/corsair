@@ -150,9 +150,18 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
           style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:12, marginTop:16 }}>
 
           <div style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:10 }}>
-          <div style={{ display:'flex', gap:16, width: isMobile ? '88%' : 'auto' }}>
+          <div style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:8, width: isMobile ? '88%' : 'auto' }}>
+          <div style={{ display:'flex', gap:16, width:'100%' }}>
             <motion.button whileHover={{ scale:1.05, boxShadow:'0 0 30px rgba(200,160,48,0.4)' }} whileTap={{ scale:0.97 }}
-              onClick={async () => { if (!address) { connect(); return; } const issued = await issueSeed(address); onPlay(address, username, issued?.seed, false, issued?.seed_token); }}
+              onClick={async () => {
+                // Premiere partie sans wallet : le daily et le board restent derriere Cartridge.
+                if (!address) {
+                  onPlay(null, 'Captain', Math.floor(Math.random() * 999999), false, undefined);
+                  return;
+                }
+                const issued = await issueSeed(address);
+                onPlay(address, username, issued?.seed, false, issued?.seed_token);
+              }}
               style={{ padding: isMobile ? '20px 0' : '16px 48px', width: isMobile ? '100%' : 'auto', borderRadius:12, border:'2px solid rgba(200,160,48,0.9)', background: isMobile ? 'rgba(200,160,48,0.38)' : 'rgba(200,160,48,0.25)', color: isMobile ? '#e8c250' : '#c8a030', fontSize: isMobile ? 28 : 22, letterSpacing:4, cursor:'pointer', fontFamily:"'Pirata One', cursive" }}>
               PLAY
             </motion.button>
@@ -163,6 +172,12 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
               style={{ display: isMobile ? 'none' : 'block', padding:'16px 32px', borderRadius:12, border:'1px solid rgba(200,160,48,0.7)', background:'rgba(200,160,48,0.18)', color:'rgba(200,160,48,0.95)', fontSize:16, letterSpacing:3, cursor:'pointer', fontFamily:"'Pirata One', cursive" }}>
               LEADERBOARD
             </motion.button>
+          </div>
+          {!address && (
+            <div style={{ fontSize:11, color:'rgba(255,255,255,0.45)', fontFamily:"'Cinzel', serif", letterSpacing:1, textAlign:'center' }}>
+              No wallet needed · connect later to climb the board
+            </div>
+          )}
           </div>
           <div style={{ padding: isMobile ? '12px 14px' : '16px 20px', borderRadius:16, border:'2px solid rgba(200,160,48,0.5)', background:'linear-gradient(135deg, rgba(30,20,5,0.9), rgba(10,15,25,0.9))', maxWidth:380, width:'100%', boxShadow:'0 0 24px rgba(200,160,48,0.15)' }}>
             <div style={{ display:'flex', alignItems:'center', gap:14 }}>
@@ -180,7 +195,7 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
                 : <motion.button whileHover={{ scale:1.04, boxShadow:'0 0 20px rgba(200,160,48,0.4)' }} whileTap={{ scale:0.96 }}
                     onClick={() => { if (!address) { connect(); } else { onPlay(address, username, getDailySeed(), true); } }}
                     style={{ padding:'10px 20px', borderRadius:10, border:'2px solid rgba(200,160,48,0.8)', background:'rgba(200,160,48,0.2)', color:'#c8a030', fontSize:13, letterSpacing:2, cursor:'pointer', fontFamily:"'Pirata One', cursive", fontWeight:700, whiteSpace:'nowrap' }}>
-                    PLAY · 1 TRY
+                    {address ? 'PLAY · 1 TRY' : 'CONNECT · 1 TRY'}
                   </motion.button>
               }
             </div>
@@ -328,7 +343,10 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
       <AnimatePresence>
         {showHowTo && <HowToPlay onClose={() => setShowHowTo(false)} onPlay={async () => {
           setShowHowTo(false);
-          if (!address) { connect(); return; }
+          if (!address) {
+            onPlay(null, 'Captain', Math.floor(Math.random() * 999999), false, undefined);
+            return;
+          }
           const issued = await issueSeed(address);
           onPlay(address, username, issued?.seed, false, issued?.seed_token);
         }} />}
