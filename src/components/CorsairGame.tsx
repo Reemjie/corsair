@@ -14,11 +14,9 @@ import { checkAndUnlockFeats, type Feat } from '../game/feats';
 import { saveActiveRun, clearActiveRun, queuePending } from '../game/crashRecovery';
 import { Icon } from '../Icon';
 import anchorImg from '../assets/anchor.png';
-
-const CHOICE_ICONS: Record<string, string> = Object.fromEntries(
-  ['search','lurks','fight','tribute','pact','push','detour','take','leave','dock','sail','ritual','explore','careful','speed','vortex','cursed','sacrifice','cover']
-  .map(name => [name, new URL(`../assets/choices/${name}.png`, import.meta.url).href])
-);
+import OnboardCard from './corsair/OnboardCard';
+import EventChoicePanel from './corsair/EventChoicePanel';
+import { ZONE_BG, SCENE_BG, SCENE_VIDEO, SCENE_TITLES } from './corsair/scenes';
 import swiftSailsImg from '../assets/upgrades/swift_sails.png';
 import ghostShipImg from '../assets/upgrades/ghost_ship.png';
 import treasureHunterImg from '../assets/upgrades/treasure_hunter.png';
@@ -41,59 +39,6 @@ import powerImg from '../assets/power.png';
 import turnImg from '../assets/turn.png';
 import scoreImg from '../assets/score.png';
 import { GRID_SIZE } from '../game/mapGen';
-
-// Fond de mer selon la zone : la progression doit se voir. Franchir un
-// portail change l'horizon, pas seulement un compteur.
-const ZONE_BG: Record<number, string> = {
-  1: import.meta.env.BASE_URL + 'scenes/island.jpg',
-  2: import.meta.env.BASE_URL + 'scenes/storm.jpg',
-  3: import.meta.env.BASE_URL + 'scenes/ancient-kraken.jpg',
-};
-
-const SCENE_BG: Record<string, string> = {
-  kraken: import.meta.env.BASE_URL + 'scenes/kraken.jpg',
-  ancient_kraken: import.meta.env.BASE_URL + 'scenes/ancient-kraken.jpg',
-
-  storm: import.meta.env.BASE_URL + 'scenes/storm.jpg',
-  island: import.meta.env.BASE_URL + 'scenes/island.jpg',
-  treasure: import.meta.env.BASE_URL + 'scenes/treasure.jpg',
-  cursed_treasure: import.meta.env.BASE_URL + 'scenes/cursed_treasure.jpg',
-  pirate: import.meta.env.BASE_URL + 'scenes/pirate.jpg',
-  port: import.meta.env.BASE_URL + 'scenes/port.jpg',
-  rocks: import.meta.env.BASE_URL + 'scenes/rocks.jpg',
-  wreck: import.meta.env.BASE_URL + 'scenes/wreck.jpg',
-  maelstrom: import.meta.env.BASE_URL + 'scenes/maelstrom.jpg',
-};
-
-const SCENE_VIDEO: Record<string, string> = {
-  kraken: import.meta.env.BASE_URL + 'scenes/kraken.mp4',
-  ancient_kraken: import.meta.env.BASE_URL + 'scenes/ancient_kraken.mp4',
-  storm: import.meta.env.BASE_URL + 'scenes/storm.mp4',
-  island: import.meta.env.BASE_URL + 'scenes/island.mp4',
-  treasure: import.meta.env.BASE_URL + 'scenes/treasure.mp4',
-  cursed_treasure: import.meta.env.BASE_URL + 'scenes/cursed_treasure.mp4',
-  pirate: import.meta.env.BASE_URL + 'scenes/pirate.mp4',
-  port: import.meta.env.BASE_URL + 'scenes/port.mp4',
-  rocks: import.meta.env.BASE_URL + 'scenes/rocks.mp4',
-  wreck: import.meta.env.BASE_URL + 'scenes/wreck.mp4',
-  maelstrom: import.meta.env.BASE_URL + 'scenes/maelstrom.mp4',
-  death: import.meta.env.BASE_URL + 'scenes/death.mp4',
-};
-
-const SCENE_TITLES: Record<string, string> = {
-  kraken: 'The Kraken Rises',
-  ancient_kraken: 'The Ancient One Awakens',
-  storm: 'Into the Storm',
-  island: 'Uncharted Island',
-  treasure: 'Hidden Treasure',
-  cursed_treasure: 'Cursed Gold',
-  pirate: 'Pirates on the Horizon',
-  port: 'Safe Harbor',
-  rocks: 'Treacherous Reef',
-  wreck: 'A Ghostly Wreck',
-  death: 'Your Voyage Ends',
-  maelstrom: 'The Maelstrom',
-};
 
 const CELL_ICONS: Record<string, string> = {
   sea:'〰', storm: import.meta.env.BASE_URL + 'icons_ui/storm.png', pirate: import.meta.env.BASE_URL + 'icons_ui/swords.png', treasure: import.meta.env.BASE_URL + 'icons_ui/treasure.png',
@@ -163,25 +108,6 @@ const hunterModeIcon = (mode: string, size = 14) => {
 };
 const hunterModeLabel = (mode: string) =>
   mode === 'frenzy' ? 'ENRAGED' : mode === 'stalking' ? 'STALKING' : mode === 'searching' ? 'SEARCHING' : 'TRACKING';
-
-const renderCellIcon = (icon: string | undefined, size: number) =>
-  !icon ? null : (icon.startsWith('http') || icon.startsWith('/'))
-    ? <img src={icon} style={{ width:size, height:size, objectFit:'contain', borderRadius:'50%', mixBlendMode:'lighten', filter:`drop-shadow(0 0 12px rgba(200,160,48,0.6))` }} />
-    : <span style={{ fontSize:size }}>{icon}</span>;
-
-function OnboardCard({ tip, isMobile, onDismiss }: { tip: OnboardTip; isMobile: boolean; onDismiss: () => void }) {
-  return (
-    <motion.button
-      type="button"
-      initial={{ opacity:0, y:6 }} animate={{ opacity:1, y:0 }}
-      onClick={onDismiss}
-      style={{ maxWidth:440, margin:'0 12px 10px', padding:'10px 14px', border:'1px solid rgba(200,160,48,0.35)', borderRadius:10, background:'rgba(12,18,28,0.82)', color:'rgba(255,255,255,0.85)', textAlign:'left', cursor:'pointer', fontFamily:"'IM Fell English', cursive" }}>
-      <div style={{ fontSize:11, letterSpacing:2, color:'#c8a030', fontFamily:"'Cinzel', serif", marginBottom:4 }}>{tip.title}</div>
-      <div style={{ fontSize: isMobile ? 13 : 15, lineHeight:1.35 }}>{tip.text}</div>
-      <div style={{ fontSize:10, letterSpacing:1, color:'rgba(255,255,255,0.35)', fontFamily:"'Cinzel', serif", marginTop:6 }}>TAP TO DISMISS</div>
-    </motion.button>
-  );
-}
 
 export default function CorsairGame({ walletAddress, account, username, onHome, onPlayDaily, dailySeed, isDaily, seedToken, shipId, resumeState, resumeRunId, resumeActions }: { walletAddress: string | null; account?: any; username?: string | null; onHome: () => void; onPlayDaily?: () => void; dailySeed?: number; isDaily?: boolean; seedToken?: string; shipId?: string; resumeState?: GameState; resumeRunId?: string; resumeActions?: number[] }) {
   const { connect, connecting } = useWallet();
@@ -1410,104 +1336,43 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
         })()}
       </AnimatePresence>
 
-      {/* EVENT SCENE OVERLAY */}
+      {/* EVENT CHOICE — scene illustree ou compact (Swift Sails sur les deux) */}
       <AnimatePresence>
-        {s.event && !cinematic && SCENE_TITLES[s.event.cellType] && (
-          <motion.div initial={{ opacity:0, scale:1.05 }} animate={{ opacity:1, scale:1 }} exit={{ opacity:0 }}
-            transition={{ delay:0.26, duration:0.5, ease:[0.22, 1, 0.36, 1] }}
-            style={{ position:'fixed', inset:0, zIndex:100, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'flex-end', padding: isMobile ? '12px' : '24px', paddingBottom: isMobile ? 'calc(20px + env(safe-area-inset-bottom))' : 64, overflowY:'auto' }}>
-            {/* Fond de scène */}
-            {SCENE_BG[s.event.cellType] && (
-              <div style={{ position:'absolute', inset:0, zIndex:0, backgroundImage:`url(${SCENE_BG[s.event.cellType]})`, backgroundSize:'cover', backgroundPosition:'center' }} />
-            )}
-            {/* Voile sombre pour lisibilité */}
-            <div style={{ position:'absolute', inset:0, zIndex:0, background:'linear-gradient(to bottom, rgba(5,8,15,0.55) 0%, rgba(5,8,15,0.78) 60%, rgba(5,8,15,0.92) 100%)' }} />
-            <div style={{ position:'absolute', top:16, right:24, display:'flex', alignItems:'center', gap:6, zIndex:2 }}>
-              <div style={{ fontSize: isMobile ? 13 : 18, fontWeight:700, color:'#eedd44' }}>{s.score}{isMobile ? 'pts' : ' pts'}</div>
-            </div>
-            <div style={{ position:'relative', zIndex:1, maxWidth:700, width:'100%', textAlign:'center' }}>
-              {onboard && (
-                <div style={{ display:'flex', justifyContent:'center', marginBottom:12 }}>
-                  <OnboardCard tip={onboard} isMobile={isMobile} onDismiss={dismissOnboard} />
-                </div>
-              )}
-              <div style={{ alignSelf:'flex-start', marginBottom:16, paddingLeft:8 }}>
-                <div style={{ fontSize: isMobile ? 28 : 42, fontWeight:700, color:'#e8e0d0', fontFamily:"'Pirata One', cursive", letterSpacing:3, textShadow:'0 2px 20px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.7)', lineHeight:1.1 }}>
-                  {SCENE_TITLES[s.event.cellType] ?? s.event.cellType}
-                </div>
-              </div>
-              <div style={{ display:'flex', flexDirection: isMobile ? 'column' : 'row', alignItems: isMobile ? 'stretch' : undefined, width: isMobile ? '100%' : undefined, gap: isMobile ? 10 : 16, justifyContent:'center' }}>
-                {s.event.choices.map((ch, i) => {
-                  const rc = ch.risk==='safe'?'#44cc88':ch.risk==='risky'?'#eedd44':'#ee6644';
-                  // Detect gold cost in description
-                  // Ne desactiver que sur un COUT explicite. « +20-60 gold » est un gain :
-                  // l'ancienne regex y voyait un cout de 60 et bloquait le combat.
-                  const goldMatch = ch.desc.match(/(?:lose|pay|costs?|spend)\s*(\d+)\s*(?:gold\b|g\b)|(?:^|\s)-(\d+)\s*gold\b/i);
-                  const goldCost = goldMatch ? parseInt(goldMatch[1] ?? goldMatch[2]) : 0;
-                  const canAfford = goldCost === 0 || s.ship.gold >= goldCost;
-                  return (
-                    <motion.button key={i} whileHover={{ scale: canAfford ? 1.04 : 1 }} whileTap={{ scale: canAfford ? 0.96 : 1 }}
-                      onClick={() => {
-                        if (!canAfford) return;
-                        resolve(i);
-                      }}
-                      style={{ flex:1, maxWidth: isMobile ? 'none' : 320, padding: isMobile ? '14px 16px' : '24px 28px', borderRadius:16, border:`1.5px solid ${canAfford ? rc : 'rgba(255,255,255,0.1)'}55`, background: canAfford ? `linear-gradient(135deg, rgba(0,0,0,0.85) 0%, ${rc}0f 100%)` : 'rgba(0,0,0,0.5)', cursor: canAfford ? 'pointer' : 'not-allowed', color: canAfford ? '#e8e0d0' : 'rgba(255,255,255,0.3)', fontFamily:"'Pirata One', cursive", textAlign:'left', backdropFilter:'blur(8px)', boxShadow: canAfford ? `0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 ${rc}22` : 'none', transition:'all 0.2s', opacity: canAfford ? 1 : 0.5 }}>
-                      <div style={{ marginBottom:12, textAlign:'center' }}><img src={CHOICE_ICONS[ch.icon] || ''} style={{ width:72, height:72, objectFit:'contain' }}/></div>
-                      <div style={{ fontSize:24, fontWeight:700, color:rc, textAlign:'center' }}>{ch.label}</div>
-                      <div style={{ fontSize:20, color:'rgba(255,255,255,0.8)', fontFamily:"'IM Fell English', cursive", marginTop:8, textAlign:'center' }}>{ch.label === 'Pact' && s.event?.cellType === 'kraken' ? `-${Math.min((s.relics ?? []).includes('storm_heart') ? 10 : 20, s.ship.hull - 1)} HP, storm +6 turns. Hunter awakens!${(s.relics ?? []).includes('storm_heart') ? ' (Heart of the Storm)' : ''}` : ch.desc}</div>
-                      <div style={{ fontSize:13, color:rc, marginTop:10, letterSpacing:2, textAlign:'center' }}>{ch.risk.toUpperCase()}</div>
-                    </motion.button>
-                  );
-                })}
-              </div>
-            </div>
-          </motion.div>
+        {s.event && !cinematic && !s.gameOver && !s.showPort && SCENE_TITLES[s.event.cellType] && (
+          <EventChoicePanel
+            key="event-scene"
+            variant="scene"
+            event={s.event}
+            isMobile={isMobile}
+            gold={s.ship.gold}
+            hull={s.ship.hull}
+            relics={s.relics}
+            score={s.score}
+            onboard={onboard}
+            onDismissOnboard={dismissOnboard}
+            onChoose={resolve}
+            canEscape={!!canEscape}
+            onSkip={skip}
+          />
         )}
       </AnimatePresence>
-
-      {/* EVENT PANEL — fallback sans scène */}
       <AnimatePresence>
-        {s.event && !state.gameOver && !s.showPort && s.event.cellType && !SCENE_BG[s.event.cellType] && (
-          <motion.div initial={{ y:100, opacity:0 }} animate={{ y:0, opacity:1 }} exit={{ y:100, opacity:0 }}
-            style={{ background:'rgba(5,10,18,0.97)', borderTop:'1px solid rgba(255,255,255,0.1)', padding:'16px 24px', flexShrink:0 }}>
-            <div style={{ display:'flex', alignItems:'flex-start', gap:20, maxWidth:700, margin:'0 auto' }}>
-              <div style={{ flexShrink:0 }}>{renderCellIcon(CELL_ICONS[s.event.cellType], 55)}</div>
-              <div style={{ flex:1 }}>
-                <div style={{ fontSize:21, fontWeight:700, marginBottom:4, color:'#e8e0d0' }}>
-                  {s.event.cellType.charAt(0).toUpperCase()+s.event.cellType.slice(1).replace('_',' ')}
-                </div>
-                {onboard && (
-                  <OnboardCard tip={onboard} isMobile={isMobile} onDismiss={dismissOnboard} />
-                )}
-                <div style={{ display:'flex', flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? 8 : 10, marginTop:8 }}>
-                  {s.event.choices.map((ch, i) => {
-                    const rc = ch.risk==='safe'?'#44cc88':ch.risk==='risky'?'#eedd44':'#ee6644';
-                    const goldMatch2 = ch.desc.match(/(?:lose|pay|costs?|spend)\s*(\d+)\s*(?:gold\b|g\b)|(?:^|\s)-(\d+)\s*gold\b/i);
-                    const goldCost2 = goldMatch2 ? parseInt(goldMatch2[1] ?? goldMatch2[2]) : 0;
-                    const canAfford2 = goldCost2 === 0 || s.ship.gold >= goldCost2;
-                    return (
-                      <motion.button key={i} whileHover={{ scale: canAfford2 ? 1.02 : 1 }} whileTap={{ scale: canAfford2 ? 0.98 : 1 }}
-                        onClick={() => {
-                          if (!canAfford2) return;
-                          resolve(i);
-                        }}
-                        style={{ flex:1, padding:'20px 24px', borderRadius:16, border:`1.5px solid ${canAfford2 ? rc : 'rgba(255,255,255,0.1)'}55`, background: canAfford2 ? `linear-gradient(135deg, rgba(0,0,0,0.85) 0%, ${rc}0f 100%)` : 'rgba(0,0,0,0.5)', cursor: canAfford2 ? 'pointer' : 'not-allowed', color: canAfford2 ? '#e8e0d0' : 'rgba(255,255,255,0.3)', fontFamily:"'Pirata One', cursive", textAlign:'left', backdropFilter:'blur(8px)', opacity: canAfford2 ? 1 : 0.5, transition:'all 0.2s' }}>
-                        <div style={{ fontSize:26, marginBottom:4 }}>{ch.icon}</div>
-                        <div style={{ fontSize:18, fontWeight:600, color:rc }}>{ch.label}</div>
-                        <div style={{ fontSize:20, color:'rgba(255,255,255,0.8)', fontFamily:"'IM Fell English', cursive", marginTop:2 }}>{ch.desc}</div>
-                        <div style={{ fontSize:16, color:rc, marginTop:4, letterSpacing:1 }}>{ch.risk.toUpperCase()}</div>
-                      </motion.button>
-                    );
-                  })}
-                </div>
-                {canEscape && (
-                  <button onClick={skip} style={{ marginTop:8, padding:'6px 16px', borderRadius:7, border:'1px solid rgba(100,170,220,0.3)', background:'transparent', color:'rgba(100,170,220,0.5)', cursor:'pointer', fontSize:14 }}>
-                    ⛵ Use Swift Sails (1 use left)
-                  </button>
-                )}
-              </div>
-            </div>
-          </motion.div>
+        {s.event && !cinematic && !s.gameOver && !s.showPort && s.event.cellType && !SCENE_BG[s.event.cellType] && (
+          <EventChoicePanel
+            key="event-compact"
+            variant="compact"
+            event={s.event}
+            isMobile={isMobile}
+            gold={s.ship.gold}
+            hull={s.ship.hull}
+            relics={s.relics}
+            cellIcon={CELL_ICONS[s.event.cellType]}
+            onboard={onboard}
+            onDismissOnboard={dismissOnboard}
+            onChoose={resolve}
+            canEscape={!!canEscape}
+            onSkip={skip}
+          />
         )}
       </AnimatePresence>
 
