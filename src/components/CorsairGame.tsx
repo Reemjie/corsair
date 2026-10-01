@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { GameState, UpgradeId } from '../types/game';
-import { markDailyPlayedOnServer, startRun, heartbeatRun, finishRun, saveRunLog, issueSeed, approveRun, getStarktemberBoard, type StarktemberRow } from '../supabase';
+import { markDailyPlayedOnServer, startRun, heartbeatRun, finishRun, saveRunLog, issueSeed, approveRun, getStarktemberBoard, hasPlayedDailyOnServer, type StarktemberRow } from '../supabase';
 import { ZONE_CONFIG } from '../game/balance';
 import { submitScoreOnChain } from '../starknet';
-import { initGame, moveShip, resolveEvent, repairHull, leavePort, skipEventFn, rerollPort, upgradeComponent, buyUpgrade, markDailyPlayed, getDailyKey } from '../game/engine';
+import { initGame, moveShip, resolveEvent, repairHull, leavePort, skipEventFn, rerollPort, upgradeComponent, buyUpgrade, markDailyPlayed, getDailyKey, hasDailyBeenPlayed, isDailySeedRevealed } from '../game/engine';
 import { pickOnboardTip, markOnboardDone, type OnboardTip } from '../game/onboard';
 import { useWallet } from '../useWallet';
 import ShareCard, { shareVoyage } from '../ShareCard';
@@ -183,9 +183,11 @@ function OnboardCard({ tip, isMobile, onDismiss }: { tip: OnboardTip; isMobile: 
   );
 }
 
-export default function CorsairGame({ walletAddress, account, username, onHome, dailySeed, isDaily, seedToken, shipId, resumeState, resumeRunId, resumeActions }: { walletAddress: string | null; account?: any; username?: string | null; onHome: () => void; dailySeed?: number; isDaily?: boolean; seedToken?: string; shipId?: string; resumeState?: GameState; resumeRunId?: string; resumeActions?: number[] }) {
+export default function CorsairGame({ walletAddress, account, username, onHome, onPlayDaily, dailySeed, isDaily, seedToken, shipId, resumeState, resumeRunId, resumeActions }: { walletAddress: string | null; account?: any; username?: string | null; onHome: () => void; onPlayDaily?: () => void; dailySeed?: number; isDaily?: boolean; seedToken?: string; shipId?: string; resumeState?: GameState; resumeRunId?: string; resumeActions?: number[] }) {
   const { connect, connecting } = useWallet();
   const [state, setState] = useState<GameState>(() => resumeState ?? initGame(dailySeed, shipId ?? 'default'));
+  const startedAsGuest = useRef(!walletAddress);
+  const [dailyAvailable, setDailyAvailable] = useState(() => !hasDailyBeenPlayed());
   const [onboard, setOnboard] = useState<OnboardTip | null>(null);
   const [shake, setShake] = useState(false);
   const [cart, setCart] = useState<string[]>([]);
@@ -224,6 +226,13 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
     markDailyPlayed();
     if (walletAddress) markDailyPlayedOnServer(walletAddress, getDailyKey());
   }, []);
+
+  // Conversion guest : apres Connect, proposer le Daily s'il reste disponible.
+  useEffect(() => {
+    if (!walletAddress) { setDailyAvailable(!hasDailyBeenPlayed()); return; }
+    hasPlayedDailyOnServer(walletAddress, getDailyKey())
+      .then(done => setDailyAvailable(!(done || hasDailyBeenPlayed())));
+  }, [walletAddress]);
 
   // ─── RUN TRACKING (partenaires / live) ───────────────────────────
   const runIdRef = useRef<string>(resumeRunId ?? crypto.randomUUID());
@@ -1689,10 +1698,14 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
               </motion.div>
             )}
 
-            {/* Seed */}
+            {/* Seed — daily reste aveugle jusqu'a 00:00 UTC */}
             <motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:1.3}}
               style={{ fontSize:13, color:'rgba(255,255,255,0.25)', fontFamily:"'Cinzel', serif", letterSpacing:2, marginBottom:24, display:'flex', flexDirection:'column', alignItems:'center', gap:8 }}>
-              <div>Seed: {s.seed} — {isDailyRun ? `Daily Key: ${getDailyKey()}` : 'challenge your crew!'}</div>
+              <div>
+                {isDailyRun
+                  ? (isDailySeedRevealed() ? `Seed: ${s.seed} — Daily Key: ${getDailyKey()}` : 'Blind daily — seed revealed at 00:00 UTC')
+                  : `Seed: ${s.seed} — challenge your crew!`}
+              </div>
               {isDailyRun && (
                 <div style={{ display:'inline-flex', alignItems:'center', gap:6, padding:'4px 14px', borderRadius:20, border:'1px solid rgba(100,200,255,0.5)', background:'rgba(0,30,60,0.7)', color:'#88ddff', fontSize:12, fontFamily:"'Cinzel', serif", letterSpacing:2 }}>
                   ☀ DAILY RUN — {new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}
@@ -1753,6 +1766,18 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                     onClick={() => connect()} disabled={connecting}
                     style={{ padding:'12px 28px', borderRadius:10, border:'1px solid rgba(200,160,48,0.55)', background:'rgba(200,160,48,0.12)', color:'#c8a030', cursor:'pointer', fontSize:15, letterSpacing:2, fontFamily:"'Pirata One', cursive" }}>
                     {connecting ? 'CONNECTING...' : 'CONNECT WALLET'}
+                  </motion.button>
+                </div>
+              )}
+              {walletAddress && startedAsGuest.current && !isDailyRun && dailyAvailable && onPlayDaily && (
+                <div style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:8, marginBottom:4 }}>
+                  <div style={{ fontSize:13, color:'rgba(255,255,255,0.55)', fontFamily:"'IM Fell English', cursive", textAlign:'center', maxWidth:360 }}>
+                    Wallet linked. This run stayed local — sail the Daily to climb today's board.
+                  </div>
+                  <motion.button whileHover={{ scale:1.05 }} whileTap={{ scale:0.97 }}
+                    onClick={onPlayDaily}
+                    style={{ padding:'12px 28px', borderRadius:10, border:'2px solid rgba(200,160,48,0.75)', background:'rgba(200,160,48,0.18)', color:'#c8a030', cursor:'pointer', fontSize:16, letterSpacing:2, fontFamily:"'Pirata One', cursive" }}>
+                    PLAY DAILY · 1 TRY
                   </motion.button>
                 </div>
               )}

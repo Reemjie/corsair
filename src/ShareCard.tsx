@@ -65,7 +65,7 @@ export default function ShareCard({
       </div>
       <div style={{ padding: '0 16px 14px', display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'center' }}>
         <div style={{ fontFamily: "'Cinzel', serif", fontSize: 11, letterSpacing: 1, color: 'rgba(255,255,255,0.3)' }}>
-          Seed {payload.seed} · playcorsair.xyz
+          {payload.isDaily ? 'Blind map · revealed at 00:00 UTC' : `Seed ${payload.seed}`} · playcorsair.xyz
         </div>
         <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
           onClick={onShare}

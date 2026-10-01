@@ -7,6 +7,7 @@ import { flushQueue, clearActiveRun, type ActiveRun } from './game/crashRecovery
 import { replayRun } from './game/replay';
 import type { GameState } from './types/game';
 import { submitScore, checkNFTConditions, approveRun } from './supabase';
+import { getDailySeed } from './game/engine';
 
 const CorsairGame = lazy(() => import('./components/CorsairGame'));
 const AdminPanel = lazy(() => import('./AdminPanel'));
@@ -83,7 +84,23 @@ export default function App() {
   );
   if (screen === 'game') return (
     <Suspense fallback={<BootSplash />}>
-      <CorsairGame walletAddress={address} account={account} username={username} onHome={() => setScreen('home')} dailySeed={dailySeed} isDaily={isDaily} seedToken={seedToken} shipId={resume ? resume.run.ship_id : shipId} resumeState={resume?.state} resumeRunId={resume?.run.run_id} resumeActions={resume?.run.actions} />
+      <CorsairGame
+        walletAddress={address}
+        account={account}
+        username={username}
+        onHome={() => setScreen('home')}
+        onPlayDaily={() => {
+          if (!address) return;
+          handlePlay(address, walletUsername, getDailySeed(), true);
+        }}
+        dailySeed={dailySeed}
+        isDaily={isDaily}
+        seedToken={seedToken}
+        shipId={resume ? resume.run.ship_id : shipId}
+        resumeState={resume?.state}
+        resumeRunId={resume?.run.run_id}
+        resumeActions={resume?.run.actions}
+      />
     </Suspense>
   );
   const handleResume = (run: ActiveRun) => {

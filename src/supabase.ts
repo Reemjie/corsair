@@ -41,8 +41,9 @@ export async function submitDailyScore(wallet: string, score: number, date: stri
 }
 
 export async function getDailyLeaderboard(date: string) {
+  // Vue publique : seed masque tant que le jour UTC n'est pas clos.
   const { data, error } = await supabase
-    .from('corsair_daily_scores')
+    .from('corsair_daily_board')
     .select('*')
     .eq('date', date)
     .order('score', { ascending: false })

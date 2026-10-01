@@ -182,7 +182,7 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
             <div style={{ display:'flex', alignItems:'center', gap:14 }}>
               <div style={{ flex:1, textAlign:'left' }}>
                 <div style={{ fontSize:15, color:'#c8a030', letterSpacing:2, fontFamily:"'Pirata One', cursive", display:'flex', alignItems:'center', gap:7 }}><Icon name="sun" size={19}/>DAILY CHALLENGE</div>
-                <div style={{ display: isMobile ? 'none' : 'block', fontSize:12, color:'rgba(255,255,255,0.65)', fontFamily:"'IM Fell English', cursive", marginTop:2, lineHeight:1.4 }}>One run a day · same map for all · climb the board</div>
+                <div style={{ display: isMobile ? 'none' : 'block', fontSize:12, color:'rgba(255,255,255,0.65)', fontFamily:"'IM Fell English', cursive", marginTop:2, lineHeight:1.4 }}>One run a day · blind map · climb the board</div>
               </div>
             </div>
             <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginTop:12, gap:10 }}>

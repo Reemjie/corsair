@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Icon } from './Icon';
 import { motion } from 'framer-motion';
 import { getLeaderboard, getDailyLeaderboard } from './supabase';
+import { isDailySeedRevealed } from './game/engine';
 import anchorImg from './assets/anchor.png';
 
 type Score = {
@@ -25,7 +26,7 @@ type DailyScore = {
   username: string | null;
   score: number;
   date: string;
-  seed: string;
+  seed: string | null;
   submitted_at: string;
 };
 
@@ -111,7 +112,7 @@ export default function Leaderboard({ onClose }: { onClose: () => void }) {
                     {s.username ?? formatAddress(s.wallet_address)}
                   </div>
                   <div style={{ fontSize: isMobile ? 11 : 12, color: 'rgba(255,255,255,0.4)', fontFamily: "'Cinzel', serif", marginTop: 2 }}>
-                    ☀ Daily · Seed {s.seed} · {formatDate(s.submitted_at)}
+                    ☀ Daily · {s.seed != null && isDailySeedRevealed(s.date) ? `Seed ${s.seed} · ` : 'Blind map · '}{formatDate(s.submitted_at)}
                   </div>
                 </div>
                 <div style={{ fontSize: isMobile ? 18 : 22, fontWeight: 700, color: i < 3 ? RANK_COLORS[i] : '#eedd44', fontFamily: "'Cinzel', serif" }}>

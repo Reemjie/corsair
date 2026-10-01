@@ -109,6 +109,13 @@ export function getDailySeed(): number {
   return Math.abs(hash) % 999999;
 }
 
+/** Daily = course a l'aveugle : le seed n'est public qu'apres 00:00 UTC. */
+export function isDailySeedRevealed(dateISO?: string): boolean {
+  const today = new Date().toISOString().slice(0, 10);
+  const d = dateISO ?? today;
+  return d < today;
+}
+
 export function hasDailyBeenPlayed(): boolean {
   return localStorage.getItem(`corsair_daily_${getDailyKey()}`) === 'done';
 }
