@@ -8165,7 +8165,7 @@ Resources:`;
         return t ? [] : e;
     };
     zi = async function(e) {
-        let { data: t, error: n } = await $.from(`corsair_daily_scores`).select(`*`).eq(`date`, e).order(`score`, {
+        let { data: t, error: n } = await $.from(`corsair_daily_board`).select(`*`).eq(`date`, e).order(`score`, {
             ascending: !1
         }).limit(20);
         return n ? [] : t;
