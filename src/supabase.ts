@@ -287,8 +287,9 @@ export async function getRunVerdicts(runIds: string[]): Promise<
 
 
 // ─── SEED EMIS PAR LE SERVEUR ─────────────────────────────────────────
-// Le client ne choisit jamais son seed. En cas d'echec, on renvoie null et
-// le jeu retombe sur un seed local : une partie ne doit jamais etre bloquee.
+// Le client ne choisit jamais son seed pour une run wallet.
+// Si l'emission echoue, on renvoie null : l'UI refuse de lancer une run
+// soumise (guest play garde un seed local, hors classement).
 
 export async function issueSeed(wallet: string): Promise<{ seed: number; seed_token: string } | null> {
   try {
@@ -296,12 +297,12 @@ export async function issueSeed(wallet: string): Promise<{ seed: number; seed_to
       body: { wallet_address: wallet },
     });
     if (error || typeof data?.seed !== 'number') {
-      console.warn('[seed] emission impossible, seed local utilise');
+      console.warn('[seed] emission impossible');
       return null;
     }
     return { seed: data.seed, seed_token: data.seed_token };
   } catch {
-    console.warn('[seed] emission impossible, seed local utilise');
+    console.warn('[seed] emission impossible');
     return null;
   }
 }

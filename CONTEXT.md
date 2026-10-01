@@ -112,9 +112,9 @@ problème de maintenabilité du projet.
 - **La colonne `condition` de `nft_conditions` contient des textes périmés** qui
   ne correspondent plus au code. C'est de la documentation obsolète, pas de la
   logique.
-- **Si `issueSeed` échoue, le jeu génère un seed local et continue.** C'est
-  délibéré : ne pas bloquer un joueur pour une coupure réseau, au prix de runs
-  invérifiables marquées comme telles.
+- **Si `issueSeed` échoue pour une run wallet, la partie ne démarre pas.**
+  Un seed local n'a plus le droit d'alimenter le classement. Le guest play
+  (sans wallet) garde un seed local : rien n'est soumis.
 
 ---
 

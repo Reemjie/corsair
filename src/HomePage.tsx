@@ -75,7 +75,22 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
     return () => clearInterval(id);
   }, []);
   const [showLeaderboard, setShowLeaderboard] = useState(false);
+  const [issuing, setIssuing] = useState(false);
+  const [harborDown, setHarborDown] = useState(false);
   const { address, username, connecting, connect, disconnect, openProfile } = useWallet();
+
+  const startWalletRun = async () => {
+    if (!address) return;
+    setIssuing(true);
+    setHarborDown(false);
+    const issued = await issueSeed(address);
+    setIssuing(false);
+    if (!issued) {
+      setHarborDown(true);
+      return;
+    }
+    onPlay(address, username, issued.seed, false, issued.seed_token);
+  };
   // La tentative quotidienne est verifiee cote serveur : localStorage seul
   // se contournait avec une fenetre privee.
   useEffect(() => {
@@ -152,17 +167,17 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
           <div style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:8, width: isMobile ? '88%' : 'auto' }}>
           <div style={{ display:'flex', gap:16, width:'100%' }}>
             <motion.button whileHover={{ scale:1.05, boxShadow:'0 0 30px rgba(200,160,48,0.4)' }} whileTap={{ scale:0.97 }}
+              disabled={issuing}
               onClick={async () => {
                 // Premiere partie sans wallet : le daily et le board restent derriere Cartridge.
                 if (!address) {
                   onPlay(null, 'Captain', Math.floor(Math.random() * 999999), false, undefined);
                   return;
                 }
-                const issued = await issueSeed(address);
-                onPlay(address, username, issued?.seed, false, issued?.seed_token);
+                await startWalletRun();
               }}
-              style={{ padding: isMobile ? '20px 0' : '16px 48px', width: isMobile ? '100%' : 'auto', borderRadius:12, border:'2px solid rgba(200,160,48,0.9)', background: isMobile ? 'rgba(200,160,48,0.38)' : 'rgba(200,160,48,0.25)', color: isMobile ? '#e8c250' : '#c8a030', fontSize: isMobile ? 28 : 22, letterSpacing:4, cursor:'pointer', fontFamily:"'Pirata One', cursive" }}>
-              PLAY
+              style={{ padding: isMobile ? '20px 0' : '16px 48px', width: isMobile ? '100%' : 'auto', borderRadius:12, border:'2px solid rgba(200,160,48,0.9)', background: isMobile ? 'rgba(200,160,48,0.38)' : 'rgba(200,160,48,0.25)', color: isMobile ? '#e8c250' : '#c8a030', fontSize: isMobile ? 28 : 22, letterSpacing:4, cursor: issuing ? 'wait' : 'pointer', fontFamily:"'Pirata One', cursive", opacity: issuing ? 0.7 : 1 }}>
+              {issuing ? 'PREPARING…' : 'PLAY'}
             </motion.button>
 
 
@@ -175,6 +190,11 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
           {!address && (
             <div style={{ fontSize:11, color:'rgba(255,255,255,0.45)', fontFamily:"'Cinzel', serif", letterSpacing:1, textAlign:'center' }}>
               No wallet needed · connect later to climb the board
+            </div>
+          )}
+          {harborDown && (
+            <div style={{ fontSize:11, color:'rgba(238,100,100,0.85)', fontFamily:"'Cinzel', serif", letterSpacing:1, textAlign:'center' }}>
+              Harbor unreachable — check your connection and try again
             </div>
           )}
           </div>
@@ -346,8 +366,7 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
             onPlay(null, 'Captain', Math.floor(Math.random() * 999999), false, undefined);
             return;
           }
-          const issued = await issueSeed(address);
-          onPlay(address, username, issued?.seed, false, issued?.seed_token);
+          await startWalletRun();
         }} />}
         {showFeats && <FeatsPanel onClose={() => setShowFeats(false)} />}
         {showShips && <ShipsPanel onClose={() => setShowShips(false)} />}

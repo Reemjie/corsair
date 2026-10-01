@@ -207,6 +207,10 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   const [submitting, setSubmitting] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const isDailyRun = isDaily === true;
+  // Daily = seed date ; free run = seed_token serveur. Sinon pas de soumission.
+  const seedTokenRef = useRef(seedToken);
+  const [harborDown, setHarborDown] = useState(false);
+  const [restarting, setRestarting] = useState(false);
   // Conseils de premiere partie (une fois chacun, memorises en local).
   useEffect(() => {
     if (state.gameOver) { setOnboard(null); return; }
@@ -301,7 +305,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
     });
   }, [state.turn]);
 
-  // Fin de partie
+  // Fin de partie — uniquement si le seed est serveur (ou daily).
   useEffect(() => {
     if (!walletAddress || !state.gameOver) return;
     if (autoSentRef.current) return;
@@ -312,6 +316,11 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
       gold: state.ship.gold, hull: state.ship.hull,
       run_title: state.runTitle,
     });
+    if (!isDailyRun && !seedTokenRef.current) {
+      console.warn('[approve] skip : seed local, run non soumise');
+      clearActiveRun();
+      return;
+    }
     saveRunLog({
       run_id: runIdRef.current,
       wallet_address: walletAddress,
@@ -699,9 +708,35 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   const upgradeComp = (c: 'hull'|'weapon'|'nav') => { logAction(c === 'hull' ? 30 : c === 'weapon' ? 31 : 32); setState(s => upgradeComponent(s, c)); };
 
   const restart = async () => {
-    // Nouvelle partie = nouveau seed serveur, sinon la relance serait une faille.
-    const issued = walletAddress ? await issueSeed(walletAddress) : null;
-    const fresh = initGame(issued?.seed, shipId ?? 'default');
+    // Nouvelle partie wallet = nouveau seed serveur, sinon la relance serait une faille.
+    if (walletAddress) {
+      setRestarting(true);
+      setHarborDown(false);
+      const issued = await issueSeed(walletAddress);
+      setRestarting(false);
+      if (!issued) {
+        setHarborDown(true);
+        return;
+      }
+      seedTokenRef.current = issued.seed_token;
+      const fresh = initGame(issued.seed, shipId ?? 'default');
+      actionLogRef.current = [];
+      checksRef.current = [];
+      lastBeatRef.current = 0;
+      runIdRef.current = crypto.randomUUID();
+      autoSentRef.current = false;
+      setScoreSubmitted(false);
+      setOnChainDone(false);
+      setNftMinted([]);
+      startRun({
+        run_id: runIdRef.current, wallet_address: walletAddress,
+        username: username ?? null, seed: fresh.seed, is_daily: false,
+        seed_token: issued.seed_token,
+      });
+      setState(fresh);
+      return;
+    }
+    const fresh = initGame(undefined, shipId ?? 'default');
     actionLogRef.current = [];
     checksRef.current = [];
     lastBeatRef.current = 0;
@@ -710,11 +745,6 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
     setScoreSubmitted(false);
     setOnChainDone(false);
     setNftMinted([]);
-    if (walletAddress) startRun({
-      run_id: runIdRef.current, wallet_address: walletAddress,
-      username: username ?? null, seed: fresh.seed, is_daily: false,
-      seed_token: issued?.seed_token ?? null,
-    });
     setState(fresh);
   };
 
@@ -1813,16 +1843,23 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                   />
                 );
               })()}
-              <div style={{ display:'flex', gap:12 }}>
-                <motion.button whileHover={{scale:1.05}} whileTap={{scale:0.97}} onClick={restart}
-                  style={{ padding:'14px 36px', borderRadius:12, border:'2px solid rgba(200,160,48,0.6)', background:'rgba(80,60,10,0.5)', color:'#c8a030', cursor:'pointer', fontSize:20, fontWeight:700, letterSpacing:2, fontFamily:"'Pirata One', cursive",
-                    boxShadow:'0 0 20px rgba(200,160,48,0.2)' }}>
-                  SAIL AGAIN
+              <div style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:8 }}>
+                {harborDown && (
+                  <div style={{ fontSize:12, color:'rgba(238,100,100,0.85)', fontFamily:"'Cinzel', serif", letterSpacing:1, textAlign:'center' }}>
+                    Harbor unreachable — try Sail again when you're back online
+                  </div>
+                )}
+                <div style={{ display:'flex', gap:12 }}>
+                <motion.button whileHover={{scale:1.05}} whileTap={{scale:0.97}} onClick={restart} disabled={restarting}
+                  style={{ padding:'14px 36px', borderRadius:12, border:'2px solid rgba(200,160,48,0.6)', background:'rgba(80,60,10,0.5)', color:'#c8a030', cursor: restarting ? 'wait' : 'pointer', fontSize:20, fontWeight:700, letterSpacing:2, fontFamily:"'Pirata One', cursive",
+                    boxShadow:'0 0 20px rgba(200,160,48,0.2)', opacity: restarting ? 0.7 : 1 }}>
+                  {restarting ? 'PREPARING…' : 'SAIL AGAIN'}
                 </motion.button>
                 <motion.button whileHover={{ scale:1.05 }} whileTap={{scale:0.97}} onClick={onHome}
                   style={{ padding:'14px 24px', borderRadius:12, border:'1px solid rgba(255,255,255,0.1)', background:'transparent', color:'rgba(255,255,255,0.3)', cursor:'pointer', fontSize:14, letterSpacing:2, fontFamily:"'Pirata One', cursive" }}>
                   ← MENU
                 </motion.button>
+                </div>
               </div>
             </motion.div>
           </motion.div>
