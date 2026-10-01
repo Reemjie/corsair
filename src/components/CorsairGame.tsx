@@ -7,6 +7,7 @@ import { submitScoreOnChain } from '../starknet';
 import { initGame, moveShip, resolveEvent, repairHull, leavePort, skipEventFn, rerollPort, upgradeComponent, buyUpgrade, markDailyPlayed, getDailyKey } from '../game/engine';
 import { pickOnboardTip, markOnboardDone, type OnboardTip } from '../game/onboard';
 import { useWallet } from '../useWallet';
+import ShareCard, { shareVoyage } from '../ShareCard';
 import { sfx, setSfxMuted } from '../sound';
 import { getRelicDef, type RelicDef } from '../game/relics';
 import { checkAndUnlockFeats, type Feat } from '../game/feats';
@@ -708,16 +709,30 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
     setState(fresh);
   };
 
-  // Ambient music
+  // Ambient music — apres le premier geste, pas au chargement (2.6 Mo).
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [muted, setMuted] = useState(false);
   useEffect(() => {
-    const audio = new Audio(import.meta.env.BASE_URL + 'sounds/ambient.mp3');
-    audio.loop = true;
-    audio.volume = 0.4;
-    audio.play().catch(() => {});
-    audioRef.current = audio;
-    return () => { audio.pause(); audio.currentTime = 0; };
+    let started = false;
+    const start = () => {
+      if (started) return;
+      started = true;
+      const audio = new Audio(import.meta.env.BASE_URL + 'sounds/ambient.mp3');
+      audio.loop = true;
+      audio.volume = 0.4;
+      audio.muted = muted;
+      audio.play().catch(() => {});
+      audioRef.current = audio;
+      window.removeEventListener('pointerdown', start);
+      window.removeEventListener('keydown', start);
+    };
+    window.addEventListener('pointerdown', start, { once: true });
+    window.addEventListener('keydown', start, { once: true });
+    return () => {
+      window.removeEventListener('pointerdown', start);
+      window.removeEventListener('keydown', start);
+      if (audioRef.current) { audioRef.current.pause(); audioRef.current.currentTime = 0; }
+    };
   }, []);
   useEffect(() => {
     if (audioRef.current) audioRef.current.muted = muted;
@@ -1295,7 +1310,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
             <motion.video
               key={cinematic}
               src={SCENE_VIDEO[cinematic]}
-              autoPlay muted={muted} playsInline preload="auto"
+              autoPlay muted={muted} playsInline preload="metadata"
               onEnded={() => { if (cinematic === 'death') setShowDeathScreen(true); setCinematic(null); }}
               initial={{ opacity: 0, scale: 1.07 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -1741,29 +1756,38 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                   </motion.button>
                 </div>
               )}
-              <div style={{ display:'flex', gap:12, marginBottom:8 }}>
-                <motion.button whileHover={{ scale:1.05 }} whileTap={{ scale:0.97 }}
-                  onClick={() => {
-                    const today = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'});
-                    // Met en avant la relique la plus rare trouvee pendant la run
-                    const rarityRank: Record<string, number> = { legendary: 3, rare: 2, common: 1 };
-                    const bestRelic = (s.relics ?? [])
-                      .map(id => getRelicDef(id))
-                      .filter((r): r is RelicDef => !!r)
-                      .sort((a, b) => (rarityRank[b.rarity] ?? 0) - (rarityRank[a.rarity] ?? 0))[0];
-                    const relicLine = bestRelic ? `\nFound the ${bestRelic.name} relic along the way.` : '';
-                    const rankLine = rangMois
-                      ? `\n⚔️ #${rangMois.rank} in Starktember — ${rangMois.total.toLocaleString()} pts across the month.`
-                      : '';
-                    const text = isDailyRun
-                      ? `☀️ Daily Challenge — ${today} — ${s.score} pts before the storm claimed me.\nSame sea for every captain today. Can you beat me?${rankLine}${relicLine}\n⚓ @PlayCorsair https://playcorsair.xyz/ #Starktember #Starknet`
-                      : `🏴\u200d☠️ ${s.runTitle} — ${s.score} pts before the storm claimed me.\n${s.turn} turns · ${s.ship.gold} gold · No mercy.${relicLine}\nSame waters, seed ${s.seed}. Dare to sail further? ⚓ @PlayCorsair\nhttps://playcorsair.xyz/ #Starknet`;
-                    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank');
-                  }}
-                  style={{ padding:'14px 24px', borderRadius:12, border:'1px solid rgba(255,255,255,0.3)', background:'rgba(0,0,0,0.4)', color:'#ffffff', cursor:'pointer', fontSize:16, fontWeight:700, letterSpacing:1, fontFamily:"'Pirata One', cursive" }}>
-                  𝕏 SHARE
-                </motion.button>
-              </div>
+              {(() => {
+                const today = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'});
+                const rarityRank: Record<string, number> = { legendary: 3, rare: 2, common: 1 };
+                const bestRelic = (s.relics ?? [])
+                  .map(id => getRelicDef(id))
+                  .filter((r): r is RelicDef => !!r)
+                  .sort((a, b) => (rarityRank[b.rarity] ?? 0) - (rarityRank[a.rarity] ?? 0))[0];
+                const relicLine = bestRelic ? `\nFound the ${bestRelic.name} relic along the way.` : '';
+                const rankLine = rangMois
+                  ? `\n⚔️ #${rangMois.rank} in Starktember — ${rangMois.total.toLocaleString()} pts across the month.`
+                  : '';
+                const text = isDailyRun
+                  ? `☀️ Daily Challenge — ${today} — ${s.score} pts before the storm claimed me.\nSame sea for every captain today. Can you beat me?${rankLine}${relicLine}\n⚓ @PlayCorsair https://playcorsair.xyz/ #Starktember #Starknet`
+                  : `🏴\u200d☠️ ${s.runTitle} — ${s.score} pts before the storm claimed me.\n${s.turn} turns · ${s.ship.gold} gold · No mercy.${relicLine}\nSame waters, seed ${s.seed}. Dare to sail further? ⚓ @PlayCorsair\nhttps://playcorsair.xyz/ #Starknet`;
+                const death = deriveDeathCause(s.log);
+                return (
+                  <ShareCard
+                    isMobile={isMobile}
+                    onShare={() => { void shareVoyage(text); }}
+                    payload={{
+                      score: s.score,
+                      turn: s.turn,
+                      gold: s.ship.gold,
+                      runTitle: s.runTitle,
+                      seed: s.seed,
+                      deathName: death.name,
+                      isDaily: isDailyRun,
+                      text,
+                    }}
+                  />
+                );
+              })()}
               <div style={{ display:'flex', gap:12 }}>
                 <motion.button whileHover={{scale:1.05}} whileTap={{scale:0.97}} onClick={restart}
                   style={{ padding:'14px 36px', borderRadius:12, border:'2px solid rgba(200,160,48,0.6)', background:'rgba(80,60,10,0.5)', color:'#c8a030', cursor:'pointer', fontSize:20, fontWeight:700, letterSpacing:2, fontFamily:"'Pirata One', cursive",
@@ -1785,7 +1809,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
           <motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}
             transition={{duration:0.3}}
             style={{ position:'fixed', inset:0, zIndex:150, pointerEvents:'none' }}>
-            <video src={`${import.meta.env.BASE_URL}scenes/hunter.mp4`} autoPlay muted={muted} playsInline preload="auto" style={{ width:'100%', height:'100%', objectFit:'cover' }}/>
+            <video src={`${import.meta.env.BASE_URL}scenes/hunter.mp4`} autoPlay muted={muted} playsInline preload="metadata" style={{ width:'100%', height:'100%', objectFit:'cover' }}/>
             <div style={{ position:'absolute', inset:0, background:'rgba(0,0,0,0.3)' }}/>
             <motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{delay:0.3}}
               style={{ position:'absolute', bottom:'20%', left:0, right:0, textAlign:'center' }}>

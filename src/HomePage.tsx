@@ -5,7 +5,6 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useWallet } from './useWallet';
-import { cartridgeConnector } from './cartridge';
 import HowToPlay from './HowToPlay';
 import FeatsPanel from './FeatsPanel';
 import NFTPanel from './NFTPanel';
@@ -76,7 +75,7 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
     return () => clearInterval(id);
   }, []);
   const [showLeaderboard, setShowLeaderboard] = useState(false);
-  const { address, username, connecting, connect, disconnect } = useWallet();
+  const { address, username, connecting, connect, disconnect, openProfile } = useWallet();
   // La tentative quotidienne est verifiee cote serveur : localStorage seul
   // se contournait avec une fenetre privee.
   useEffect(() => {
@@ -114,7 +113,7 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
       <div style={{ position:'absolute', top: isMobile ? 8 : 20, right: isMobile ? 8 : 24, zIndex:20 }}>
         {address ? (
           <div style={{ display:'flex', alignItems:'center', gap:10 }}>
-            <div onClick={() => (cartridgeConnector.controller as any).openProfile()} style={{ fontFamily:"'Cinzel', serif", fontSize: isMobile ? 9 : 11, color:'rgba(200,160,48,0.8)', letterSpacing: isMobile ? 1 : 2, border:'1px solid rgba(200,160,48,0.3)', borderRadius:8, padding: isMobile ? '3px 8px' : '6px 14px', cursor:'pointer' }}>
+            <div onClick={() => openProfile()} style={{ fontFamily:"'Cinzel', serif", fontSize: isMobile ? 9 : 11, color:'rgba(200,160,48,0.8)', letterSpacing: isMobile ? 1 : 2, border:'1px solid rgba(200,160,48,0.3)', borderRadius:8, padding: isMobile ? '3px 8px' : '6px 14px', cursor:'pointer' }}>
               {username ?? `${address.slice(0,6)}...${address.slice(-4)}`}
             </div>
             <button onClick={disconnect} style={{ background:'transparent', border:'1px solid rgba(255,255,255,0.1)', color:'rgba(255,255,255,0.3)', fontSize: isMobile ? 9 : 11, cursor:'pointer', borderRadius:6, padding: isMobile ? '3px 6px' : '6px 10px', fontFamily:"'Cinzel', serif" }}>

@@ -9,6 +9,16 @@ export default defineConfig({
   base: '/',
   build: {
     target: 'esnext',
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules/@cartridge') || id.includes('node_modules/@starknet-react') || id.includes('node_modules/starknet')) {
+            return 'wallet';
+          }
+          if (id.includes('node_modules/framer-motion')) return 'motion';
+        },
+      },
+    },
   },
   resolve: {
     dedupe: ['react', 'react-dom'],

@@ -1,8 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { useWallet } from './useWallet';
-import CorsairGame from './components/CorsairGame';
 import HomePage from './HomePage';
-import AdminPanel from './AdminPanel';
 import { getSelectedShip } from './game/ships';
 import { setFeatsWallet, syncFeatsFromServer } from './game/feats';
 import { flushQueue, clearActiveRun, type ActiveRun } from './game/crashRecovery';
@@ -10,7 +8,18 @@ import { replayRun } from './game/replay';
 import type { GameState } from './types/game';
 import { submitScore, checkNFTConditions, approveRun } from './supabase';
 
+const CorsairGame = lazy(() => import('./components/CorsairGame'));
+const AdminPanel = lazy(() => import('./AdminPanel'));
+
 type Screen = 'home' | 'game' | 'admin';
+
+function BootSplash() {
+  return (
+    <div style={{ height: '100vh', width: '100vw', background: '#060e18', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Pirata One', cursive", color: '#c8a030', letterSpacing: 4, fontSize: 22 }}>
+      CORSAIR
+    </div>
+  );
+}
 
 export default function App() {
   const { address, account, username: walletUsername } = useWallet();
@@ -67,8 +76,16 @@ export default function App() {
 
   // Le Daily force le navire par defaut (equite du tournoi) ; sinon le navire choisi.
   const shipId = isDaily ? 'default' : getSelectedShip();
-  if (screen === 'admin') return <AdminPanel onHome={() => { window.location.hash = ''; setScreen('home'); }} />;
-  if (screen === 'game') return <CorsairGame walletAddress={address} account={account} username={username} onHome={() => setScreen('home')} dailySeed={dailySeed} isDaily={isDaily} seedToken={seedToken} shipId={resume ? resume.run.ship_id : shipId} resumeState={resume?.state} resumeRunId={resume?.run.run_id} resumeActions={resume?.run.actions} />;
+  if (screen === 'admin') return (
+    <Suspense fallback={<BootSplash />}>
+      <AdminPanel onHome={() => { window.location.hash = ''; setScreen('home'); }} />
+    </Suspense>
+  );
+  if (screen === 'game') return (
+    <Suspense fallback={<BootSplash />}>
+      <CorsairGame walletAddress={address} account={account} username={username} onHome={() => setScreen('home')} dailySeed={dailySeed} isDaily={isDaily} seedToken={seedToken} shipId={resume ? resume.run.ship_id : shipId} resumeState={resume?.state} resumeRunId={resume?.run.run_id} resumeActions={resume?.run.actions} />
+    </Suspense>
+  );
   const handleResume = (run: ActiveRun) => {
     try {
       const st = replayRun(run.seed, run.ship_id, run.actions);
