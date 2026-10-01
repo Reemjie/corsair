@@ -24,7 +24,7 @@ const NFTS: NFTDef[] = [
   { key: 'kraken_eye', name: "The Kraken's Eye", rarity: 'Legendary', image: 'https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/01-kraken_eye.jpg', condition: 'Kill the Ancient Kraken — the one that only stirs in the deepest water.', seedBound: true },
   { key: 'maelstrom_heart', name: 'The Maelstrom Heart', rarity: 'Legendary', image: 'https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/05-maelstrom_heart.jpg', condition: 'Be swallowed by a maelstrom and come back out.', seedBound: true },
   { key: 'hunters_mark', name: "The Hunter's Mark", rarity: 'Legendary', image: 'https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/07-hunters_mark.jpg', condition: 'Survive 2 attacks from the Hunter in a single voyage.', seedBound: true },
-  { key: 'starktember_tide', name: 'The Starktember Tide', rarity: 'Mythic', image: 'https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/11-starktember_tide.jpg', condition: 'September only — highest total across the month\'s dailies. One month, one winner.' },
+  { key: 'starktember_tide', name: 'The Starktember Tide', rarity: 'Mythic', image: 'https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/11-starktember_tide.jpg', condition: 'Won by iamraheemking with 77,197 points across 26 Dailies. Starktember 2026 — one month, one winner.' },
   { key: 'leviathan', name: '???', rarity: 'Mythic', image: 'https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/10-leviathan.jpg', condition: 'Finish above 3,000 points, with a Kraken dead in your wake.', seedBound: true, hidden: true },
 ];
 
