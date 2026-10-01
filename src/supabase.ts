@@ -212,41 +212,36 @@ export async function startRun(r: {
   is_daily: boolean;
   seed_token?: string | null;
 }): Promise<void> {
-  const { error } = await supabase.from('corsair_runs').insert({
-    run_id: r.run_id,
-    wallet_address: r.wallet_address,
-    username: r.username ?? null,
-    seed: r.seed,
-    is_daily: r.is_daily,
-    seed_token: r.seed_token ?? null,
-    status: 'playing',
-    score: 0,
-    turn: 0,
-  });
-  if (error) console.warn('[runs] start:', error.message);
+  try {
+    const { error } = await supabase.functions.invoke('player-write', {
+      body: { action: 'run_start', ...r },
+    });
+    if (error) console.warn('[runs] start:', error.message);
+  } catch (e: any) {
+    console.warn('[runs] start:', e?.message ?? e);
+  }
 }
 
 export async function heartbeatRun(runId: string, s: RunSnapshot): Promise<void> {
-  const { error } = await supabase.from('corsair_runs')
-    .update({
-      score: s.score, turn: s.turn, zone: s.zone, gold: s.gold, hull: s.hull,
-      updated_at: new Date().toISOString(),
-    })
-    .eq('run_id', runId);
-  if (error) console.warn('[runs] heartbeat:', error.message);
+  try {
+    const { error } = await supabase.functions.invoke('player-write', {
+      body: { action: 'run_heartbeat', run_id: runId, ...s },
+    });
+    if (error) console.warn('[runs] heartbeat:', error.message);
+  } catch (e: any) {
+    console.warn('[runs] heartbeat:', e?.message ?? e);
+  }
 }
 
 export async function finishRun(runId: string, s: RunSnapshot): Promise<void> {
-  const now = new Date().toISOString();
-  const { error } = await supabase.from('corsair_runs')
-    .update({
-      status: 'finished',
-      score: s.score, turn: s.turn, zone: s.zone, gold: s.gold, hull: s.hull,
-      run_title: s.run_title ?? null,
-      updated_at: now, finished_at: now,
-    })
-    .eq('run_id', runId);
-  if (error) console.warn('[runs] finish:', error.message);
+  try {
+    const { error } = await supabase.functions.invoke('player-write', {
+      body: { action: 'run_finish', run_id: runId, ...s },
+    });
+    if (error) console.warn('[runs] finish:', error.message);
+  } catch (e: any) {
+    console.warn('[runs] finish:', e?.message ?? e);
+  }
 }
 
 
@@ -326,33 +321,37 @@ export async function fetchPlayerFeats(wallet: string): Promise<{ feats: string[
   };
 }
 
-export async function pushFeatUnlock(wallet: string, featId: string): Promise<void> {
-  const { error } = await supabase.from('player_feats')
-    .insert({ wallet_address: wallet, feat_id: featId });
-  if (error && !error.message.toLowerCase().includes('duplicate')) console.warn('[feats]', error.message);
+export async function pushFeatUnlock(_wallet: string, _featId: string): Promise<void> {
+  // Les feats serveur sont ecrits par approve-run apres rejeu — plus d'insert anon.
 }
 
 export async function pushPlayerTitle(wallet: string, title: string | null): Promise<void> {
-  const { error } = await supabase.from('player_titles')
-    .upsert({ wallet_address: wallet, title, updated_at: new Date().toISOString() });
-  if (error) console.warn('[title]', error.message);
+  try {
+    const { error } = await supabase.functions.invoke('player-write', {
+      body: { action: 'set_title', wallet_address: wallet, title },
+    });
+    if (error) console.warn('[title]', error.message);
+  } catch (e: any) {
+    console.warn('[title]', e?.message ?? e);
+  }
 }
 
-
 // ─── DAILY : tentative consommee cote serveur ─────────────────────────
-// localStorage seul se contournait avec une fenetre privee.
+// Source de verite : corsair_daily_scores (ecrit uniquement par approve-run).
+// daily_plays n'accepte plus d'insert anon.
 
 export async function hasPlayedDailyOnServer(wallet: string, key: string): Promise<boolean> {
-  const { data, error } = await supabase.from('daily_plays')
-    .select('daily_key').eq('wallet_address', wallet).eq('daily_key', key).maybeSingle();
+  // key = YYYYMMDD → date ISO
+  if (key.length !== 8) return false;
+  const date = `${key.slice(0, 4)}-${key.slice(4, 6)}-${key.slice(6, 8)}`;
+  const { data, error } = await supabase.from('corsair_daily_scores')
+    .select('id').eq('wallet_address', wallet).eq('date', date).maybeSingle();
   if (error) return false; // hors ligne : on ne bloque pas le joueur
   return !!data;
 }
 
-export async function markDailyPlayedOnServer(wallet: string, key: string): Promise<void> {
-  const { error } = await supabase.from('daily_plays')
-    .insert({ wallet_address: wallet, daily_key: key });
-  if (error && !error.message.toLowerCase().includes('duplicate')) console.warn('[daily]', error.message);
+export async function markDailyPlayedOnServer(_wallet: string, _key: string): Promise<void> {
+  // Plus d'insert anon : la tentative est posee par approve-run a l'approbation.
 }
 
 

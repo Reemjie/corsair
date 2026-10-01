@@ -211,6 +211,36 @@ Deno.serve(async (req: Request) => {
           seed: String(log.seed),
         });
       }
+      // Tentative daily consommee cote serveur (plus d'insert anon).
+      const cleDaily = dateDaily.replace(/-/g, '');
+      await sb.from('daily_plays').upsert({
+        wallet_address: log.wallet_address,
+        daily_key: cleDaily,
+      }, { onConflict: 'wallet_address,daily_key', ignoreDuplicates: true });
+    }
+
+    // 5 ter. feats debloques sur l'etat REJOUE — plus d'insert anon.
+    const FEAT_CHECKS: { id: string; ok: (s: any) => boolean }[] = [
+      { id: 'first_voyage', ok: s => s.turn >= 1 },
+      { id: 'sea_legs',     ok: s => s.turn >= 15 },
+      { id: 'storm_sea',    ok: s => (s.currentZone ?? 1) >= 2 },
+      { id: 'the_abyss',    ok: s => (s.currentZone ?? 1) >= 3 },
+      { id: 'prey_no_more', ok: s => (s.hunterAttacksSurvived ?? 0) >= 2 },
+      { id: 'gold_hoarder', ok: s => s.ship.gold >= 300 },
+      { id: 'legend_coast', ok: s => s.score >= 1000 },
+      { id: 'storm_legend', ok: s => s.score >= 2000 },
+      { id: 'daredevil',    ok: s => (s.exploits ?? []).includes('streak5') },
+      { id: 'full_rig',     ok: s => (s.ship.upgrades ?? []).length >= 2 },
+    ];
+    for (const f of FEAT_CHECKS) {
+      if (!f.ok(etat)) continue;
+      const { error: fe } = await sb.from('player_feats').insert({
+        wallet_address: log.wallet_address,
+        feat_id: f.id,
+      });
+      if (fe && !String(fe.message).toLowerCase().includes('duplicate')) {
+        console.warn('[feats]', fe.message);
+      }
     }
 
     // 6. conditions NFT, evaluees sur l'etat rejoue

@@ -74,15 +74,15 @@ export function setEquippedTitle(title: string | null) {
   if (currentWallet) pushPlayerTitle(currentWallet, title);
 }
 
-// Fusionne les feats du serveur avec le cache local, dans les deux sens :
-// ce qui a ete debloque hors ligne remonte, ce qui manque localement descend.
+// Fusionne les feats du serveur avec le cache local.
+// Le serveur est la source de verite pour ce qui est debloque (approve-run).
+// Le local peut etre en avance sur une session hors ligne, sans etre remonte.
 export async function syncFeatsFromServer(wallet: string): Promise<void> {
   try {
     const { feats, title } = await fetchPlayerFeats(wallet);
     const local = new Set(getUnlockedFeats());
     for (const f of feats) local.add(f);
     localStorage.setItem(KEY, JSON.stringify([...local]));
-    for (const f of local) if (!feats.includes(f)) pushFeatUnlock(wallet, f);
     if (title && !localStorage.getItem(TITLE_KEY)) localStorage.setItem(TITLE_KEY, title);
   } catch { /* hors ligne : le cache local fait foi */ }
 }
