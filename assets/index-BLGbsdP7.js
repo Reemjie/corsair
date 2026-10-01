@@ -64123,7 +64123,7 @@ Resources:`;
             name: `The Starktember Tide`,
             rarity: `Mythic`,
             image: `https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/11-starktember_tide.jpg`,
-            condition: `September only — highest total across the month's dailies. One month, one winner.`
+            condition: `Won by iamraheemking with 77,197 points across 26 Dailies. Starktember 2026 — one month, one winner.`
         },
         {
             key: `leviathan`,
