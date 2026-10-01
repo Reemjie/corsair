@@ -8294,12 +8294,12 @@ Resources:`;
                     wallet_address: e
                 }
             });
-            return n || typeof t?.seed != `number` ? (console.warn(`[seed] emission impossible, seed local utilise`), null) : {
+            return n || typeof t?.seed != `number` ? (console.warn(`[seed] emission impossible`), null) : {
                 seed: t.seed,
                 seed_token: t.seed_token
             };
         } catch  {
-            return console.warn(`[seed] emission impossible, seed local utilise`), null;
+            return console.warn(`[seed] emission impossible`), null;
         }
     };
     ea = async function(e) {
