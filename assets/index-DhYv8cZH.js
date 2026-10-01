@@ -10877,24 +10877,19 @@ Error generating stack: ` + e.message + `
     }
     var Ke = [
         {
-            bg: `scenes/storm.jpg`,
-            label: `THE STORM NEVER STOPS`
+            bg: `scenes/storm.jpg`
         },
         {
-            bg: `scenes/kraken.jpg`,
-            label: `SOMETHING ANCIENT AWAITS`
+            bg: `scenes/kraken.jpg`
         },
         {
-            bg: `scenes/island.jpg`,
-            label: `UNCHARTED WATERS`
+            bg: `scenes/island.jpg`
         },
         {
-            bg: `scenes/treasure.jpg`,
-            label: `RICHES BEYOND MEASURE`
+            bg: `scenes/treasure.jpg`
         },
         {
-            bg: `scenes/pirate.jpg`,
-            label: `DANGER AT EVERY TURN`
+            bg: `scenes/pirate.jpg`
         }
     ];
     function qe({ onPlay: e, onResume: t }) {
@@ -11921,18 +11916,6 @@ Error generating stack: ` + e.message + `
                                     ]
                                 })
                             ]
-                        }),
-                        !p && !l && !u && (0, O.jsx)(`div`, {
-                            style: {
-                                flexShrink: 0,
-                                fontFamily: `'Cinzel', serif`,
-                                fontSize: 13,
-                                letterSpacing: 6,
-                                color: `rgba(255,255,255,0.6)`,
-                                textShadow: `0 1px 4px rgba(0,0,0,0.8)`,
-                                textAlign: `center`
-                            },
-                            children: Ke[xe].label
                         }),
                         (0, O.jsx)(`div`, {
                             style: {
