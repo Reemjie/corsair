@@ -1779,7 +1779,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                   <motion.button whileHover={{ scale:1.05 }} whileTap={{ scale:0.97 }}
                     onClick={() => {
                       const nftName = nftMinted[0].replace(/_/g,' ').replace(/\b\w/g, c => c.toUpperCase());
-                      const text = `🏴‍☠️ I just found "${nftName}" — a hidden NFT inside Corsair.\nNo mint button. No whitelist. Just playing.\nDare to find yours? ⚓\nhttps://playcorsair.xyz/`;
+                      const text = `🏴‍☠️ I earned "${nftName}" — a Genesis NFT in Corsair.\nNo mint button. No whitelist. Just sail, meet the condition, claim it before it's SOLD OUT.\nDare to find yours? ⚓\nhttps://playcorsair.xyz/`;
                       window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank');
                     }}
                     style={{ marginTop:10, padding:'8px 20px', borderRadius:8, border:'1px solid rgba(255,255,255,0.3)', background:'rgba(0,0,0,0.5)', color:'#ffffff', cursor:'pointer', fontSize:13, fontFamily:"'Pirata One', cursive", letterSpacing:1 }}>

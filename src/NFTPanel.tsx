@@ -55,7 +55,7 @@ export default function NFTPanel({ onClose }: { onClose: () => void }) {
           <button onClick={onClose} style={closeBtn}>✕</button>
         </div>
         <p style={{ fontFamily: "'IM Fell English', cursive", fontSize: 13, color: 'rgba(255,255,255,0.5)', margin: '0 0 16px' }}>
-          Earned in-game, minted on Starknet. Limited supply — once claimed, gone forever.
+          Earned in-game, minted on Starknet. Conditions are public. Limited supply — once claimed, the card shows SOLD OUT.
         </p>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: 12 }}>

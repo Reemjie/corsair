@@ -219,7 +219,7 @@ export default function HowToPlay({ onClose, onPlay }: { onClose: () => void; on
         <Section title="THE HUNTER — SOMETHING IS FOLLOWING YOU">
           <div style={{ background: 'rgba(100,20,120,0.1)', border: '1px solid rgba(150,50,180,0.3)', borderRadius: 12, padding: 20 }}>
 <p style={{ fontFamily: "'IM Fell English', cursive", fontSize: 18, color: 'rgba(255,255,255,0.75)', lineHeight: 1.9, marginBottom: 12 }}>
-              At turn 8, a mysterious entity spawns on the opposite side of the map and begins tracking you. It has four modes, visible in the left panel (or top bar on mobile):
+              The Hunter appears after you have sailed deep enough into a zone — turn 12 on The Coasts, turn 8 on The Storm Sea, turn 6 in The Abyss (counted from when you entered that zone). It spawns on the opposite side of the map and begins tracking you. Four modes show in the left panel (or top bar on mobile):
             </p>
             <div style={{ display:'flex', flexDirection:'column', gap:8, marginBottom:12 }}>
               {[
@@ -249,7 +249,7 @@ export default function HowToPlay({ onClose, onPlay }: { onClose: () => void; on
             {[
               { c:'#eedd44', t:'FEATS', d:'Accomplishments that persist across runs. Check the ⚜ FEATS menu to see what you have earned and what is still out there.' },
               { c:'#88ddff', t:'SHIPS', d:'Unlock new vessels from the ⛵ SHIPS menu. The Merchant sails on gold, the Specter sees far but is easily sensed, the Breakwater shrugs off reefs. Each rewrites how a run plays.' },
-              { c:'#c8a030', t:'THE DAILY', d:'The daily tournament always uses the standard ship — same map, same rules for everyone. Pure skill.' },
+              { c:'#c8a030', t:'THE DAILY', d:'One run a day on a blind map — same waters for every captain, seed revealed at 00:00 UTC. Pure skill.' },
             ].map((r,i) => (
               <div key={i} style={{ display:'flex', gap:12, alignItems:'flex-start' }}>
                 <div style={{ color:r.c, fontFamily:"'Pirata One', cursive", fontSize:15, letterSpacing:1, flexShrink:0, width:74 }}>{r.t}</div>
