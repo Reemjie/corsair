@@ -11048,22 +11048,6 @@ Error generating stack: ` + e.message + `
                         children: ge ? `CONNECTING...` : `CONNECT WALLET`
                     })
                 }),
-                (0, O.jsx)(`div`, {
-                    style: {
-                        position: `absolute`,
-                        bottom: 100,
-                        left: 0,
-                        right: 0,
-                        textAlign: `center`,
-                        fontFamily: `'Cinzel', serif`,
-                        fontSize: 13,
-                        letterSpacing: 6,
-                        color: `rgba(255,255,255,0.6)`,
-                        textShadow: `0 1px 4px rgba(0,0,0,0.8)`,
-                        display: p || l ? `none` : `block`
-                    },
-                    children: Ke[xe].label
-                }),
                 (0, O.jsxs)(`div`, {
                     style: {
                         position: `relative`,
@@ -11072,11 +11056,11 @@ Error generating stack: ` + e.message + `
                         display: `flex`,
                         flexDirection: `column`,
                         alignItems: `center`,
-                        justifyContent: p ? `flex-start` : `center`,
-                        gap: p ? 12 : 24,
-                        overflowY: p ? `auto` : `visible`,
-                        paddingTop: p ? 44 : 0,
-                        paddingBottom: p ? 32 : 0
+                        justifyContent: p || u ? `flex-start` : `center`,
+                        gap: p ? 12 : u ? 16 : 24,
+                        overflowY: `auto`,
+                        paddingTop: p ? 44 : u ? 28 : 0,
+                        paddingBottom: p ? 32 : 28
                     },
                     children: [
                         (0, O.jsx)(a.div, {
@@ -11092,6 +11076,7 @@ Error generating stack: ` + e.message + `
                                 delay: .3
                             },
                             style: {
+                                flexShrink: 0,
                                 fontSize: p ? 58 : 72,
                                 letterSpacing: p ? 10 : 16,
                                 marginTop: p ? 32 : 0,
@@ -11111,6 +11096,7 @@ Error generating stack: ` + e.message + `
                                 delay: .6
                             },
                             style: {
+                                flexShrink: 0,
                                 fontFamily: `'Cinzel', serif`,
                                 fontSize: p ? 10 : 13,
                                 letterSpacing: p ? 3 : 6,
@@ -11135,6 +11121,7 @@ Error generating stack: ` + e.message + `
                                 delay: .9
                             },
                             style: {
+                                flexShrink: 0,
                                 display: `flex`,
                                 flexDirection: `column`,
                                 alignItems: `center`,
@@ -11935,11 +11922,25 @@ Error generating stack: ` + e.message + `
                                 })
                             ]
                         }),
+                        !p && !l && !u && (0, O.jsx)(`div`, {
+                            style: {
+                                flexShrink: 0,
+                                fontFamily: `'Cinzel', serif`,
+                                fontSize: 13,
+                                letterSpacing: 6,
+                                color: `rgba(255,255,255,0.6)`,
+                                textShadow: `0 1px 4px rgba(0,0,0,0.8)`,
+                                textAlign: `center`
+                            },
+                            children: Ke[xe].label
+                        }),
                         (0, O.jsx)(`div`, {
                             style: {
+                                flexShrink: 0,
                                 display: `flex`,
                                 gap: 8,
-                                marginTop: 8
+                                marginTop: 8,
+                                marginBottom: 4
                             },
                             children: Ke.map((e, t)=>(0, O.jsx)(`div`, {
                                     onClick: ()=>Se(t),
