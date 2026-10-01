@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-DZopVh3R.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-BXtpc1SX.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-B6LJUWD7.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-CLLDtgvE.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-1xcoiDGf.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-BXtpc1SX.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-B6LJUWD7.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-CLLDtgvE.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
 import { a as e, t } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as n, n as r, r as i, t as a } from "./motion-wKhEcHeU.js";
 import { n as o, t as s } from "./walletApi-DYniPf4L.js";
@@ -9328,7 +9328,7 @@ Error generating stack: ` + e.message + `
                                         lineHeight: 1.9,
                                         marginBottom: 12
                                     },
-                                    children: `At turn 8, a mysterious entity spawns on the opposite side of the map and begins tracking you. It has four modes, visible in the left panel (or top bar on mobile):`
+                                    children: `The Hunter appears after you have sailed deep enough into a zone — turn 12 on The Coasts, turn 8 on The Storm Sea, turn 6 in The Abyss (counted from when you entered that zone). It spawns on the opposite side of the map and begins tracking you. Four modes show in the left panel (or top bar on mobile):`
                                 }),
                                 (0, O.jsx)(`div`, {
                                     style: {
@@ -9462,7 +9462,7 @@ Error generating stack: ` + e.message + `
                                     {
                                         c: `#c8a030`,
                                         t: `THE DAILY`,
-                                        d: `The daily tournament always uses the standard ship — same map, same rules for everyone. Pure skill.`
+                                        d: `One run a day on a blind map — same waters for every captain, seed revealed at 00:00 UTC. Pure skill.`
                                     }
                                 ].map((e, t)=>(0, O.jsxs)(`div`, {
                                         style: {
@@ -10039,7 +10039,7 @@ Error generating stack: ` + e.message + `
                             color: `rgba(255,255,255,0.5)`,
                             margin: `0 0 16px`
                         },
-                        children: `Earned in-game, minted on Starknet. Limited supply — once claimed, gone forever.`
+                        children: `Earned in-game, minted on Starknet. Conditions are public. Limited supply — once claimed, the card shows SOLD OUT.`
                     }),
                     (0, O.jsx)(`div`, {
                         style: {
@@ -12004,7 +12004,7 @@ Error generating stack: ` + e.message + `
         for (let e of n)e === 0 ? r = y(r, -1, 0) : e === 1 ? r = y(r, 0, -1) : e === 2 ? r = y(r, 1, 0) : e >= 10 && e < 20 ? r = ce(r, e - 10) : e === 20 ? r = h(r) : e === 30 ? r = se(r, `hull`) : e === 31 ? r = se(r, `weapon`) : e === 32 ? r = se(r, `nav`) : e === 40 ? r = oe(r) : e >= 50 && e < 60 ? r = g(r, Je[e - 50]) : e === 60 ? r = p(r, 8, 25) : e === 61 ? r = p(r, r.ship.maxHull, 55) : e === 70 && (r = te(r));
         return r;
     }
-    var Xe = (0, D.lazy)(()=>le(()=>import(`./CorsairGame-DZopVh3R.js`).then(async (m)=>{
+    var Xe = (0, D.lazy)(()=>le(()=>import(`./CorsairGame-1xcoiDGf.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }), __vite__mapDeps([0,1,2,3,4,5,6]))), Ze = (0, D.lazy)(()=>le(()=>import(`./AdminPanel-CLLDtgvE.js`).then(async (m)=>{
