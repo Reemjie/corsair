@@ -1,8 +1,8 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-DSWVrpCE.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-BXtpc1SX.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-DCtG9mh-.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-CLLDtgvE.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-DMLIy9j6.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-BXtpc1SX.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-Djv7spiH.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-CLLDtgvE.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
 import { a as e, t } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as n, n as r, r as i, t as a } from "./motion-wKhEcHeU.js";
 import { n as o, t as s } from "./walletApi-DYniPf4L.js";
-import { C as c, D as l, E as u, O as d, T as f, _ as p, a as m, b as h, c as g, d as _, f as v, g as y, i as b, k as x, l as ee, m as te, n as S, p as ne, r as re, t as ie, u as ae, v as oe, x as se, y as ce } from "./anchor-DCtG9mh-.js";
+import { C as c, D as l, E as u, O as d, T as f, _ as p, a as m, b as h, c as g, d as _, f as v, g as y, i as b, k as x, l as ee, m as te, n as S, p as ne, r as re, t as ie, u as ae, v as oe, x as se, y as ce } from "./anchor-Djv7spiH.js";
 import { C as le, S as ue, c as C, d as w, f as de, h as fe, o as pe, p as me, r as T, s as E, t as he, __tla as __tla_0 } from "./supabase-BXtpc1SX.js";
 Promise.all([
     (()=>{
@@ -11988,7 +11988,7 @@ Error generating stack: ` + e.message + `
         for (let e of n)e === 0 ? r = y(r, -1, 0) : e === 1 ? r = y(r, 0, -1) : e === 2 ? r = y(r, 1, 0) : e >= 10 && e < 20 ? r = ce(r, e - 10) : e === 20 ? r = h(r) : e === 30 ? r = se(r, `hull`) : e === 31 ? r = se(r, `weapon`) : e === 32 ? r = se(r, `nav`) : e === 40 ? r = oe(r) : e >= 50 && e < 60 ? r = g(r, Je[e - 50]) : e === 60 ? r = p(r, 8, 25) : e === 61 ? r = p(r, r.ship.maxHull, 55) : e === 70 && (r = te(r));
         return r;
     }
-    var Xe = (0, D.lazy)(()=>le(()=>import(`./CorsairGame-DSWVrpCE.js`).then(async (m)=>{
+    var Xe = (0, D.lazy)(()=>le(()=>import(`./CorsairGame-DMLIy9j6.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }), __vite__mapDeps([0,1,2,3,4,5,6]))), Ze = (0, D.lazy)(()=>le(()=>import(`./AdminPanel-CLLDtgvE.js`).then(async (m)=>{
