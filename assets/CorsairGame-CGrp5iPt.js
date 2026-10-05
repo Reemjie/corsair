@@ -1,7 +1,7 @@
 import { a as e } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as t, n, r, t as i } from "./motion-wKhEcHeU.js";
 import { n as a } from "./walletApi-DYniPf4L.js";
-import { A as o, S as s, _ as c, b as l, c as u, d, f, g as p, h as m, j as h, l as g, m as _, n as v, o as ee, p as te, r as y, s as ne, t as b, v as x, w as S, x as re, y as C } from "./anchor-D1gly7cM.js";
+import { A as o, S as s, _ as c, b as l, c as u, d, f, g as p, h as m, j as h, l as g, m as _, n as v, o as ee, p as te, r as y, s as ne, t as b, v as x, w as S, x as re, y as C } from "./anchor-BvGro_7R.js";
 import { a as ie, b as ae, d as oe, h as se, m as ce, p as le, t as ue, x as de, __tla as __tla_0 } from "./supabase-BXtpc1SX.js";
 import { l as fe, __tla as __tla_1 } from "./wallet-D0U5_iuP.js";
 let dt;
@@ -818,9 +818,9 @@ let __tla = Promise.all([
                                                 img: `/assets/vision-3Q65Za4i.png`,
                                                 color: `#6aaccc`,
                                                 effects: [
-                                                    `Vision 1`,
-                                                    `Vision 2 +danger detect`,
-                                                    `Vision 3 +2 cases +minimap`
+                                                    `Vision base 1`,
+                                                    `Vision base 2 (stacks with Spyglass)`,
+                                                    `Vision base 3 +detect`
                                                 ]
                                             }
                                         ].map((e)=>{
@@ -3885,8 +3885,8 @@ let __tla = Promise.all([
                                 {
                                     icon: `vision`,
                                     label: `VISION`,
-                                    val: X.ship.vision,
-                                    color: `#6aaccc`
+                                    val: (X.visionBlind ?? 0) > 0 ? `${X.ship.vision}~` : X.ship.vision,
+                                    color: (X.visionBlind ?? 0) > 0 ? `#88aacc` : `#6aaccc`
                                 },
                                 {
                                     icon: `power`,
