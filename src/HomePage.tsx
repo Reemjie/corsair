@@ -9,20 +9,23 @@ import HowToPlay from './HowToPlay';
 import FeatsPanel from './FeatsPanel';
 import NFTPanel from './NFTPanel';
 import ShipsPanel from './ShipsPanel';
+import ShipDraft from './ShipDraft';
+import PatchNotes from './PatchNotes';
+import { getUnlockedShips, rollShipDraft, type ShipDef } from './game/ships';
 import { Icon } from './Icon';
 import Leaderboard from './Leaderboard';
 
 const SLIDES = [
-  { bg: 'scenes/storm.jpg',   label: 'THE STORM NEVER STOPS' },
-  { bg: 'scenes/kraken.jpg',  label: 'SOMETHING ANCIENT AWAITS' },
-  { bg: 'scenes/island.jpg',  label: 'UNCHARTED WATERS' },
-  { bg: 'scenes/treasure.jpg',label: 'RICHES BEYOND MEASURE' },
-  { bg: 'scenes/pirate.jpg',  label: 'DANGER AT EVERY TURN' },
+  { bg: 'scenes/storm.jpg' },
+  { bg: 'scenes/kraken.jpg' },
+  { bg: 'scenes/island.jpg' },
+  { bg: 'scenes/treasure.jpg' },
+  { bg: 'scenes/pirate.jpg' },
 ];
 
 
 
-export default function HomePage({ onPlay, onResume }: { onPlay: (address: string | null, username?: string | null, seed?: number, isDaily?: boolean, seedToken?: string) => void; onResume?: (run: ActiveRun) => void }) {
+export default function HomePage({ onPlay, onResume }: { onPlay: (address: string | null, username?: string | null, seed?: number, isDaily?: boolean, seedToken?: string, shipId?: string) => void; onResume?: (run: ActiveRun) => void }) {
   const [saved, setSaved] = useState<ActiveRun | null>(null);
   // Course Starktember : visible seulement pendant le mois concerne.
   const [board, setBoard] = useState<StarktemberRow[]>([]);
@@ -50,6 +53,7 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
   const [showFeats, setShowFeats] = useState(false);
   const [showNFTs, setShowNFTs] = useState(false);
   const [showShips, setShowShips] = useState(false);
+  const [showPatchNotes, setShowPatchNotes] = useState(false);
   const [top3, setTop3] = useState<{username:string|null,wallet_address:string,score:number}[]>([]);
   const [timeLeft, setTimeLeft] = useState('');
 
@@ -77,9 +81,10 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
   const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [issuing, setIssuing] = useState(false);
   const [harborDown, setHarborDown] = useState(false);
+  const [draftOffers, setDraftOffers] = useState<ShipDef[] | null>(null);
   const { address, username, connecting, connect, disconnect, openProfile } = useWallet();
 
-  const startWalletRun = async () => {
+  const startWalletRun = async (shipId?: string) => {
     if (!address) return;
     setIssuing(true);
     setHarborDown(false);
@@ -89,7 +94,29 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
       setHarborDown(true);
       return;
     }
-    onPlay(address, username, issued.seed, false, issued.seed_token);
+    onPlay(address, username, issued.seed, false, issued.seed_token, shipId);
+  };
+
+  const beginFreeRun = async () => {
+    const unlocked = getUnlockedShips();
+    if (unlocked.length >= 2) {
+      setDraftOffers(rollShipDraft(3));
+      return;
+    }
+    if (!address) {
+      onPlay(null, 'Captain', Math.floor(Math.random() * 999999), false, undefined, unlocked[0]?.id);
+      return;
+    }
+    await startWalletRun(unlocked[0]?.id);
+  };
+
+  const onDraftPick = async (shipId: string) => {
+    setDraftOffers(null);
+    if (!address) {
+      onPlay(null, 'Captain', Math.floor(Math.random() * 999999), false, undefined, shipId);
+      return;
+    }
+    await startWalletRun(shipId);
   };
   // La tentative quotidienne est verifiee cote serveur : localStorage seul
   // se contournait avec une fenetre privee.
@@ -143,39 +170,28 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
         )}
       </div>
 
-      {/* Slide label */}
-      <div style={{ position:'absolute', bottom:100, left:0, right:0, textAlign:'center', fontFamily:"'Cinzel', serif", fontSize:13, letterSpacing:6, color:'rgba(255,255,255,0.6)', textShadow:'0 1px 4px rgba(0,0,0,0.8)', display: (isMobile || enSeptembre) ? 'none' : 'block' }}>
-        {SLIDES[slide].label}
-      </div>
-
-      {/* Content */}
-      <div style={{ position:'relative', zIndex:10, height:'100%', display:'flex', flexDirection:'column', alignItems:'center', justifyContent: isMobile ? 'flex-start' : 'center', gap: isMobile ? 12 : 24, overflowY: isMobile ? 'auto' : 'visible', paddingTop: isMobile ? 44 : 0, paddingBottom: isMobile ? 32 : 0 }}>
-<motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.3 }}
-          style={{ fontSize: isMobile ? 58 : 72, letterSpacing: isMobile ? 10 : 16, marginTop: isMobile ? 32 : 0, color:'#c8a030', textShadow:'0 0 40px rgba(200,160,48,0.6), 0 2px 8px rgba(0,0,0,0.9)' }}>
+      {/* Content — scroll when the Starktember banner makes the column taller than the viewport;
+          flexShrink:0 prevents FEATS/label/dots from crushing into each other. */}
+      <div style={{ position:'relative', zIndex:10, height:'100%', display:'flex', flexDirection:'column', alignItems:'center', justifyContent: isMobile ? 'flex-start' : (tournoiTermine ? 'flex-start' : 'center'), gap: isMobile ? 12 : (tournoiTermine ? 16 : 24), overflowY:'auto', paddingTop: isMobile ? 44 : (tournoiTermine ? 28 : 0), paddingBottom: isMobile ? 32 : 28 }}>
+        <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.3 }}
+          style={{ flexShrink:0, fontSize: isMobile ? 58 : 72, letterSpacing: isMobile ? 10 : 16, marginTop: isMobile ? 32 : 0, color:'#c8a030', textShadow:'0 0 40px rgba(200,160,48,0.6), 0 2px 8px rgba(0,0,0,0.9)' }}>
           CORSAIR
         </motion.div>
 
         <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:0.6 }}
-          style={{ fontFamily:"'Cinzel', serif", fontSize: isMobile ? 10 : 13, letterSpacing: isMobile ? 3 : 6, color:'rgba(255,255,255,0.7)', marginTop: isMobile ? -6 : -16, textShadow:'0 1px 4px rgba(0,0,0,0.9)', textAlign:'center', width:'100%' }}>
+          style={{ flexShrink:0, fontFamily:"'Cinzel', serif", fontSize: isMobile ? 10 : 13, letterSpacing: isMobile ? 3 : 6, color:'rgba(255,255,255,0.7)', marginTop: isMobile ? -6 : -16, textShadow:'0 1px 4px rgba(0,0,0,0.9)', textAlign:'center', width:'100%' }}>
           A ROGUELITE OF NAVIGATION & SURVIVAL
         </motion.div>
 
         <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.9 }}
-          style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:12, marginTop:16 }}>
+          style={{ flexShrink:0, display:'flex', flexDirection:'column', alignItems:'center', gap:12, marginTop:16 }}>
 
           <div style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:10 }}>
           <div style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:8, width: isMobile ? '88%' : 'auto' }}>
           <div style={{ display:'flex', gap:16, width:'100%' }}>
             <motion.button whileHover={{ scale:1.05, boxShadow:'0 0 30px rgba(200,160,48,0.4)' }} whileTap={{ scale:0.97 }}
               disabled={issuing}
-              onClick={async () => {
-                // Premiere partie sans wallet : le daily et le board restent derriere Cartridge.
-                if (!address) {
-                  onPlay(null, 'Captain', Math.floor(Math.random() * 999999), false, undefined);
-                  return;
-                }
-                await startWalletRun();
-              }}
+              onClick={() => { void beginFreeRun(); }}
               style={{ padding: isMobile ? '20px 0' : '16px 48px', width: isMobile ? '100%' : 'auto', borderRadius:12, border:'2px solid rgba(200,160,48,0.9)', background: isMobile ? 'rgba(200,160,48,0.38)' : 'rgba(200,160,48,0.25)', color: isMobile ? '#e8c250' : '#c8a030', fontSize: isMobile ? 28 : 22, letterSpacing:4, cursor: issuing ? 'wait' : 'pointer', fontFamily:"'Pirata One', cursive", opacity: issuing ? 0.7 : 1 }}>
               {issuing ? 'PREPARING…' : 'PLAY'}
             </motion.button>
@@ -322,11 +338,17 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
               ⚓ RESUME VOYAGE — {saved.score} pts, turn {saved.turn}
             </motion.button>
           )}
+          <div style={{ display:'flex', gap:12, justifyContent:'center', flexWrap:'wrap', alignItems:'center' }}>
           <motion.button whileHover={{ scale:1.05 }} whileTap={{ scale:0.97 }}
             onClick={() => setShowHowTo(true)}
-            style={{ padding: isMobile ? '4px 10px' : '12px 32px', borderRadius:12, border: isMobile ? 'none' : '1px solid rgba(255,255,255,0.5)', background: isMobile ? 'transparent' : 'rgba(255,255,255,0.12)', color: isMobile ? 'rgba(255,255,255,0.5)' : 'rgba(255,255,255,0.85)', fontSize: isMobile ? 12 : 14, letterSpacing:3, cursor:'pointer', fontFamily:"'Pirata One', cursive" }}>
+            style={{ padding: isMobile ? '9px 12px' : '12px 32px', borderRadius:12, border: isMobile ? '1px solid rgba(255,255,255,0.25)' : '1px solid rgba(255,255,255,0.5)', background: isMobile ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.12)', color: isMobile ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.85)', fontSize: isMobile ? 11 : 14, letterSpacing: isMobile ? 1 : 3, cursor:'pointer', fontFamily:"'Pirata One', cursive" }}>
             HOW TO PLAY
           </motion.button>
+          <motion.button whileHover={{ scale:1.04 }} whileTap={{ scale:0.96 }} onClick={() => setShowPatchNotes(true)}
+            style={{ padding: isMobile ? '9px 12px' : '12px 26px', borderRadius:12, border:'1px solid rgba(68,204,170,0.45)', background:'rgba(68,204,170,0.07)', color:'rgba(100,220,190,0.95)', fontSize: isMobile ? 11 : 14, letterSpacing: isMobile ? 1 : 3, cursor:'pointer', fontFamily:"'Pirata One', cursive", display:'flex', alignItems:'center' }}>
+            <Icon name="star" size={isMobile ? 16 : 22} style={{ marginRight: isMobile ? 5 : 8 }} />PATCH NOTES
+          </motion.button>
+          </div>
           <div style={{ display:'flex', gap:12, justifyContent:'center', flexWrap:'wrap' }}>
           {isMobile && (
           <motion.button whileTap={{ scale:0.96 }} onClick={() => setShowLeaderboard(true)}
@@ -350,8 +372,8 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
 
         </motion.div>
 
-        {/* Dots */}
-        <div style={{ display:'flex', gap:8, marginTop:8 }}>
+        {/* Dots only — slide captions used to sit absolute and collided with FEATS/SHIPS/NFTS */}
+        <div style={{ flexShrink:0, display:'flex', gap:8, marginTop:8, marginBottom:4 }}>
           {SLIDES.map((_,i) => (
             <div key={i} onClick={() => setSlide(i)} style={{ width:6, height:6, borderRadius:'50%', background: i===slide ? 'rgba(200,160,48,0.8)' : 'rgba(255,255,255,0.15)', cursor:'pointer', transition:'background 0.3s' }}/>
           ))}
@@ -362,16 +384,14 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
       <AnimatePresence>
         {showHowTo && <HowToPlay onClose={() => setShowHowTo(false)} onPlay={async () => {
           setShowHowTo(false);
-          if (!address) {
-            onPlay(null, 'Captain', Math.floor(Math.random() * 999999), false, undefined);
-            return;
-          }
-          await startWalletRun();
+          await beginFreeRun();
         }} />}
+        {showPatchNotes && <PatchNotes onClose={() => setShowPatchNotes(false)} />}
         {showFeats && <FeatsPanel onClose={() => setShowFeats(false)} />}
         {showShips && <ShipsPanel onClose={() => setShowShips(false)} />}
         {showNFTs && <NFTPanel onClose={() => setShowNFTs(false)} />}
         {showLeaderboard && <Leaderboard onClose={() => setShowLeaderboard(false)} />}
+        {draftOffers && <ShipDraft offers={draftOffers} onPick={(id) => { void onDraftPick(id); }} />}
       </AnimatePresence>
     </div>
   );

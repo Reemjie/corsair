@@ -20,6 +20,7 @@ A_COPIER = [
     ('src/game/engine.ts',         'game/engine.ts'),
     ('src/game/rng.ts',            'game/rng.ts'),
     ('src/game/balance.ts',        'game/balance.ts'),
+    ('src/game/vision.ts',         'game/vision.ts'),
     ('src/game/mapGen.ts',         'game/mapGen.ts'),
     ('src/game/relics.ts',         'game/relics.ts'),
     ('src/game/systems/streak.ts', 'game/systems/streak.ts'),

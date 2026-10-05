@@ -23,6 +23,7 @@ export type PortPanelProps = {
   onDismissOnboard?: () => void;
   onUpgradeComponent: (c: 'hull' | 'weapon' | 'nav') => void;
   onReroll: () => void;
+  freeReroll?: boolean;
   onRepair: (hullGain: number, cost: number, actionCode: number) => void;
   onSetSail: () => void;
 };
@@ -40,6 +41,7 @@ export default function PortPanel({
   onDismissOnboard,
   onUpgradeComponent,
   onReroll,
+  freeReroll,
   onRepair,
   onSetSail,
 }: PortPanelProps) {
@@ -63,7 +65,7 @@ export default function PortPanel({
                 {([
                   { key: 'hull' as const, label: 'HULL', img: hullImg, color: '#44cc88', effects: ['Hull 20', 'Hull 28 −2 storm dmg', 'Hull 38 −3 env dmg'] },
                   { key: 'weapon' as const, label: 'ARMEMENT', img: powerImg, color: '#ee6644', effects: ['Power 2', 'Power 5 +min dmg', 'Power 9 −3 combat dmg'] },
-                  { key: 'nav' as const, label: 'NAVIGATION', img: visionImg, color: '#6aaccc', effects: ['Vision 1', 'Vision 2 +danger detect', 'Vision 3 +2 cases +minimap'] },
+                  { key: 'nav' as const, label: 'NAVIGATION', img: visionImg, color: '#6aaccc', effects: ['Vision base 1', 'Vision base 2 (stacks with Spyglass)', 'Vision base 3 +detect'] },
                 ]).map(comp => {
                   const lvl = ship.levels[comp.key];
                   const cost = lvl === 0 ? 50 : 110;
@@ -96,8 +98,8 @@ export default function PortPanel({
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
               <div style={{ fontSize: 16, color: 'rgba(255,255,255,0.6)', fontFamily: "'Pirata One', cursive" }}>Available upgrades</div>
               <motion.button whileHover={{ scale: 1.05 }} onClick={onReroll}
-                style={{ padding: '4px 12px', borderRadius: 6, border: '1px solid rgba(255,200,50,0.3)', background: 'rgba(255,200,50,0.08)', cursor: 'pointer', color: '#eedd44', fontSize: 13, fontFamily: "'Pirata One', cursive" }}>
-                🎲 Reroll (20g)
+                style={{ padding: '4px 12px', borderRadius: 6, border: freeReroll ? '1px solid rgba(238,221,68,0.55)' : '1px solid rgba(255,200,50,0.3)', background: freeReroll ? 'rgba(238,221,68,0.14)' : 'rgba(255,200,50,0.08)', cursor: 'pointer', color: '#eedd44', fontSize: 13, fontFamily: "'Pirata One', cursive" }}>
+                {freeReroll ? '🎲 Free reroll (Merchant)' : '🎲 Reroll (20g)'}
               </motion.button>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 10, marginBottom: 12 }}>

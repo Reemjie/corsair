@@ -1,0 +1,39 @@
+{
+  "id": "ahead-risk-42",
+  "note": "Always ahead, always risk (choice 0). Baseline aggression.",
+  "seed": 42,
+  "shipId": "wanderer",
+  "actions": [
+    1,
+    1,
+    10,
+    1,
+    10,
+    1,
+    10,
+    1,
+    10,
+    1,
+    1,
+    1,
+    10,
+    1,
+    10
+  ],
+  "expect": {
+    "score": 2078,
+    "turn": 9,
+    "hull": 0,
+    "maxHull": 20,
+    "gold": 293,
+    "power": 5,
+    "vision": 1,
+    "upgrades": [],
+    "dangerStreak": 1,
+    "stormDistance": 18,
+    "gameOver": true,
+    "rngState": -244290599,
+    "currentZone": 1,
+    "shipType": "wanderer"
+  }
+}

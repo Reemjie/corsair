@@ -9,7 +9,7 @@ const CELLS = [
   { icon: 'pirate',          label: 'Pirates',         desc: 'A pirate ship attacks! You can fight them (take damage but earn gold and notoriety) or pay a tribute (lose gold but stay safe). The higher your notoriety, the more the tribute costs — but also the more gold you earn in battle.', color: '#8a2020' },
   { icon: 'treasure',        label: 'Treasure',        desc: 'You found a chest full of gold! Take it to earn gold and points. The more danger you have chained before this (combo), the more points you earn. Some treasures are cursed — beware.', color: '#8a7a00' },
   { icon: 'port',            label: 'Port',            desc: 'A safe harbor. Dock to repair your ship with Rum Barrel (+8 hull) or Full Repair (restore all hull), and browse 4 random upgrades. You can reroll upgrades for 20 gold. Always try to visit ports before your hull gets too low.', color: '#005a5a' },
-  { icon: 'kraken',          label: 'Kraken',          desc: 'A terrifying sea monster! Attack it for massive rewards (+150 pts, vision cursed -1) or make a Pact: lose 20 HP but delay the storm by 6 turns. The Pact is often the better deal when desperate — but it awakens The Hunter.', color: '#4a008a' },
+  { icon: 'kraken',          label: 'Kraken',          desc: 'A terrifying sea monster! Attack it for massive rewards (+150 pts, −1 vision for a few turns — it recovers) or make a Pact: lose 20 HP but delay the storm by 6 turns. The Pact is often the better deal when desperate — but it awakens The Hunter.', color: '#4a008a' },
   { icon: 'wreck',           label: 'Wreck',           desc: 'The remains of a sunken ship. Search it for a chance at +40 to +100 gold (60% chance), but risk a booby trap (-6 to -12 hull, 40% chance). Or ignore it completely.', color: '#5a3a00' },
   { icon: 'island',          label: 'Island',          desc: 'A mysterious island. Perform an Ancient Ritual (spend 100 gold to delay the storm +4 turns) or explore freely for a chance to find a free upgrade token. Rituals are one of the best ways to extend your run.', color: '#005a20' },
   { icon: 'rocks',           label: 'Rocks',           desc: 'Dangerous reefs ahead. Navigate carefully to pass safely, or go full speed to save time but risk hull damage.', color: '#2a2a2a' },
@@ -21,10 +21,10 @@ const CELLS = [
 const UPGRADES = [
   { id: 'ghost',    name: 'Ghost Ship',      desc: '+2 vision on equip. Pirates always avoid you. Cannot dock at ports. Krakens are attracted to you on sea tiles (midgame+). A high-mobility stealth build — ultra fragile, ultra fast.',                                                cost: '80g', color: '#ee6644' },
   { id: 'rider',    name: 'Storm Rider',     desc: 'Storm immunity — storm cells give you gold, score, and +1 vision instead of killing you. Trade-off: -1 HP every 2 turns, port repairs heal only 50%. Play aggressive, surf the storm front.',                                              cost: '90g', color: '#44cc88' },
-  { id: 'greed',    name: 'Cursed Greed',    desc: 'Gold x1.5 on combat. Cannot repair at port. Corruption scales with wealth: 600g = cursed events start. 800g = Hunter doubles speed. The richer you get, the more the world hunts you.',                                                                        cost: '60g', color: '#eedd44' },
+  { id: 'greed',    name: 'Cursed Greed',    desc: 'Gold x1.5 on combat. Cannot repair at port. Corruption scales with wealth: every 200g worsens storms; at 400g+ pirates hit harder; at 600g+ the Hunter stops skipping turns; at 800g frenzy risk. The richer you get, the more the world hunts you.', cost: '60g', color: '#eedd44' },
   { id: 'berserker',name: 'Berserker',       desc: 'Doubles your Power stat immediately. But you also receive twice as much damage from all sources. Best combined with Hull upgrades.',                                                                cost: '60g', color: '#ee6644' },
-  { id: 'hunter',   name: 'Treasure Hunter', desc: 'Reveals all treasures on the map and doubles your treasure reward when your combo is at ×3. Downside: storm surges become 10% more likely.',                                                      cost: '75g', color: '#eedd44' },
-  { id: 'escape',   name: 'Swift Sails',     desc: 'Lets you skip dangerous events twice per run with no consequences. Save it for the most desperate situations.',                                                                                    cost: '65g', color: '#44cc88' },
+  { id: 'hunter',   name: 'Treasure Hunter', desc: 'Reveals all treasures on the map and doubles your treasure reward when your combo is at ×3. Downside: storm surges become 15% more likely.',                                                      cost: '60g', color: '#eedd44' },
+  { id: 'escape',   name: 'Swift Sails',     desc: 'Lets you skip one dangerous event per run with no consequences. Save it for the most desperate situation.',                                                                                    cost: '65g', color: '#44cc88' },
 ];
 
 const UPGRADE_ICONS: Record<string, string> = {
@@ -83,7 +83,7 @@ export default function HowToPlay({ onClose, onPlay }: { onClose: () => void; on
             {[
               { label: 'HULL', val: '20/20', desc: 'Your ship hit points. If it reaches 0, you sink. Repair at ports.', color: '#44cc88' },
               { label: 'GOLD', val: '80g', desc: 'Used to repair your ship and buy upgrades at port. Earned through combat and exploration.', color: '#eedd44' },
-              { label: 'VISION', val: '1', desc: 'The radius of cells revealed around you each turn. Higher vision means more information.', color: '#6aaccc' },
+              { label: 'VISION', val: '1–4', desc: 'How far you see. Navigation at port, Spyglass, and Ghost Ship stack. Cap 4. Kraken blindness recovers after a few turns; cursed gold is permanent.', color: '#6aaccc' },
               { label: 'POWER', val: '2', desc: 'Reduces damage received in combat. Every point of power directly lowers hull damage.', color: '#ee8844' },
               { label: 'STORM', val: '18', desc: 'Turns remaining before the storm reaches your position. Always watch this counter.', color: '#ee4444' },
               { label: 'NOTORIETY', val: '0-10', desc: 'Hidden stat. Rises when you fight pirates, falls when you pay tribute. Affects combat rewards and tribute costs.', color: '#cc44ee' },
@@ -197,7 +197,7 @@ export default function HowToPlay({ onClose, onPlay }: { onClose: () => void; on
 
         <Section title="SPECIAL ABILITIES (MAX 2 PER RUN)">
           <p style={{ fontFamily: "'IM Fell English', cursive", fontSize: 18, color: 'rgba(255,255,255,0.75)', lineHeight: 1.9, marginBottom: 20 }}>
-            At each port, 2 random special abilities are offered. You can equip a maximum of 2 per run. Choose wisely — these abilities define your playstyle and cannot be changed once bought.
+            At each port, 4 random special abilities are offered (reroll refreshes the list for 20 gold). You can equip a maximum of 2 per run. Choose wisely — these abilities define your playstyle and cannot be changed once bought.
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: 10 }}>
             {UPGRADES.map(upg => (
@@ -248,7 +248,7 @@ export default function HowToPlay({ onClose, onPlay }: { onClose: () => void; on
           <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
             {[
               { c:'#eedd44', t:'FEATS', d:'Accomplishments that persist across runs. Check the ⚜ FEATS menu to see what you have earned and what is still out there.' },
-              { c:'#88ddff', t:'SHIPS', d:'Unlock new vessels from the ⛵ SHIPS menu. The Merchant sails on gold, the Specter sees far but is easily sensed, the Breakwater shrugs off reefs. Each rewrites how a run plays.' },
+              { c:'#88ddff', t:'SHIPS', d:'Unlock vessels from ⛵ SHIPS. Free runs draft 3 unlocked ships — pick 1. Wanderer / Merchant / Specter / Breakwater / Corsair (Daredevil). Daily always uses The Wanderer.' },
               { c:'#c8a030', t:'THE DAILY', d:'One run a day on a blind map — same waters for every captain, seed revealed at 00:00 UTC. Pure skill.' },
             ].map((r,i) => (
               <div key={i} style={{ display:'flex', gap:12, alignItems:'flex-start' }}>
@@ -266,7 +266,7 @@ export default function HowToPlay({ onClose, onPlay }: { onClose: () => void; on
           </div>
           <div style={{ display:'flex', flexDirection:'column', gap:8 }}>
             {[
-              { c:'#88ddbb', t:'COMMON', d:'Bone Compass (portal sooner), Weighted Net (+50% wreck gold), Cracked Spyglass (+1 vision).' },
+              { c:'#88ddbb', t:'COMMON', d:'Bone Compass (portal sooner), Weighted Net (+50% wreck gold), Cracked Spyglass (+1 vision level — stacks with Navigation).' },
               { c:'#c88aff', t:'RARE', d:'Eye of the Kraken (always see the Hunter\'s next move), Ghost Anchor (ports calm the Hunter far more), Heart of the Storm (Kraken Pacts cost half).' },
               { c:'#eedd44', t:'LEGENDARY', d:'Gold Tooth (pirates pay YOU — but notoriety draws the Hunter), Black Flag (the Hunter appears later but hits harder).' },
             ].map((r,i) => (

@@ -20,3 +20,24 @@ export function getSynergies(ship: { upgrades: string[]; levels: { hull: number;
     greedFrenzy:   has('greed')     && ship.gold          >= BALANCE.greed.frenzyGold,
   };
 }
+
+/** Incoming hull loss — Berserker pays the tax advertised in the shop. */
+export function scaleIncomingDamage(upgrades: string[], dmg: number): number {
+  if (dmg <= 0) return 0;
+  if (!upgrades.includes('berserker')) return dmg;
+  return dmg * (BALANCE.berserker?.damageTakenMult ?? 2);
+}
+
+/** Weapon level → base power, then Berserker ×2, plus small ship bonuses. */
+export function powerFromWeaponLevel(
+  weaponLevel: 0 | 1 | 2,
+  upgrades: string[],
+  extras: { corsair?: boolean } = {},
+): number {
+  let power = weaponLevel === 0 ? BALANCE.ship.startPower
+    : weaponLevel === 1 ? BALANCE.ship.weapon2Power
+    : BALANCE.ship.weapon3Power;
+  if (extras.corsair) power += 1;
+  if (upgrades.includes('berserker')) power *= 2;
+  return power;
+}

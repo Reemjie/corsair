@@ -30,6 +30,7 @@ export default function App() {
   const [seedToken, setSeedToken] = useState<string | undefined>(undefined);
   const [resume, setResume] = useState<{ state: GameState; run: ActiveRun } | undefined>(undefined);
   const [overrideUsername, setOverrideUsername] = useState<string | null>(null);
+  const [runShipId, setRunShipId] = useState<string | undefined>(undefined);
 
   // Feats lies au wallet : on charge ceux du serveur des la connexion.
   useEffect(() => {
@@ -56,12 +57,13 @@ export default function App() {
     return () => window.removeEventListener('hashchange', check);
   }, []);
 
-  const handlePlay = (_address: string | null, uname?: string | null, seed?: number, daily?: boolean, token?: string) => {
+  const handlePlay = (_address: string | null, uname?: string | null, seed?: number, daily?: boolean, token?: string, shipForRun?: string) => {
     setOverrideUsername(uname ?? null);
     setResume(undefined);
     setDailySeed(seed);
     setIsDaily(!!daily);
     setSeedToken(token);
+    setRunShipId(daily ? 'default' : shipForRun);
     setScreen('game');
   };
 
@@ -75,8 +77,8 @@ export default function App() {
 
   const username = overrideUsername ?? walletUsername;
 
-  // Le Daily force le navire par defaut (equite du tournoi) ; sinon le navire choisi.
-  const shipId = isDaily ? 'default' : getSelectedShip();
+  // Daily = Wanderer. Free run = draft pick, sinon shipyard selection.
+  const shipId = isDaily ? 'default' : (runShipId ?? getSelectedShip());
   if (screen === 'admin') return (
     <Suspense fallback={<BootSplash />}>
       <AdminPanel onHome={() => { window.location.hash = ''; setScreen('home'); }} />

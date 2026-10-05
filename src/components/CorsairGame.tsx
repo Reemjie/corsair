@@ -9,6 +9,7 @@ import { useWallet } from '../useWallet';
 import { sfx, setSfxMuted } from '../sound';
 import { getRelicDef, type RelicDef } from '../game/relics';
 import { checkAndUnlockFeats, type Feat } from '../game/feats';
+import { SHIPS } from '../game/ships';
 import { saveActiveRun, clearActiveRun, queuePending } from '../game/crashRecovery';
 import { Icon } from '../Icon';
 import anchorImg from '../assets/anchor.png';
@@ -19,6 +20,10 @@ import GameMap from './corsair/GameMap';
 import { ZONE_BG, SCENE_BG, SCENE_VIDEO, SCENE_TITLES } from './corsair/scenes';
 import { UPGRADES, UPGRADE_ICONS, UPGRADE_CODES, BUILD_COLOR, UpgradeDesc } from './corsair/upgrades';
 import { CELL_ICONS } from './corsair/cells';
+import {
+  hunterDistLabel, hunterHitDamage, hunterManhattan, hunterModeHint,
+  hunterModeLabel, hunterThreatLevel,
+} from './corsair/hunterUi';
 import hullImg from '../assets/hull.png';
 const goldImg = `${import.meta.env.BASE_URL}icons/gold.png`;
 import visionImg from '../assets/vision.png';
@@ -30,8 +35,6 @@ const hunterModeIcon = (mode: string, size = 14) => {
   const n = mode === 'frenzy' ? 'lightning' : mode === 'stalking' ? 'eye' : mode === 'searching' ? 'mist' : 'compass';
   return <Icon name={n as any} size={size} style={{ marginRight:5 }} />;
 };
-const hunterModeLabel = (mode: string) =>
-  mode === 'frenzy' ? 'ENRAGED' : mode === 'stalking' ? 'STALKING' : mode === 'searching' ? 'SEARCHING' : 'TRACKING';
 
 export default function CorsairGame({ walletAddress, account, username, onHome, onPlayDaily, dailySeed, isDaily, seedToken, shipId, resumeState, resumeRunId, resumeActions }: { walletAddress: string | null; account?: any; username?: string | null; onHome: () => void; onPlayDaily?: () => void; dailySeed?: number; isDaily?: boolean; seedToken?: string; shipId?: string; resumeState?: GameState; resumeRunId?: string; resumeActions?: number[] }) {
   const { connect, connecting } = useWallet();
@@ -518,11 +521,11 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
     // Kraken/legendary flash
     if (state.event?.cellType === 'kraken' || state.event?.cellType === 'ancient_kraken') triggerFlash('rgba(150,0,255,0.3)');
     if (state.event?.cellType === 'ancient_kraken') triggerFlash('rgba(200,160,48,0.4)');
-    // Hunter vignette — plus fort quand il est collé au navire
+    // Hunter vignette — monte avec la menace (distance + mode)
     const h = state.hunter;
     if (h?.active) {
-      const dist = Math.abs(h.x - state.ship.x) + Math.abs(h.y - state.ship.y);
-      setVignetteIntensity(dist <= 1 ? 0.72 : dist <= 2 ? 0.5 : dist <= 4 ? 0.28 : 0.12);
+      const threat = hunterThreatLevel(state);
+      setVignetteIntensity(threat === 'critical' ? 0.78 : threat === 'danger' ? 0.48 : threat === 'watch' ? 0.26 : 0.12);
     } else {
       setVignetteIntensity(0);
     }
@@ -704,11 +707,27 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
 
       {/* TOP BAR */}
       <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding: isMobile ? '6px 8px' : '16px 28px', background:'rgba(6,11,18,0.92)', borderBottom:'1px solid rgba(255,255,255,0.06)', flexShrink:0, position:'relative', zIndex:5 }}>
-        <div style={{ fontWeight:700, color:'#c8a030', fontFamily:"'Pirata One', cursive", display:'flex', alignItems:'center', gap:4 }}><img src={anchorImg} style={{ width: isMobile ? 28 : 56, height: isMobile ? 28 : 56, objectFit:'contain' }}/>{!isMobile && ' CORSAIR'}</div>
+        <div style={{ fontWeight:700, color:'#c8a030', fontFamily:"'Pirata One', cursive", display:'flex', alignItems:'center', gap: isMobile ? 6 : 10 }}>
+          <img src={anchorImg} style={{ width: isMobile ? 28 : 56, height: isMobile ? 28 : 56, objectFit:'contain' }}/>
+          {!isMobile && ' CORSAIR'}
+          {(() => {
+            const vessel = SHIPS.find(sh => sh.id === (s.shipType ?? 'default')) ?? SHIPS[0];
+            return (
+              <div title={vessel.tagline} style={{
+                marginLeft: isMobile ? 0 : 4, padding: isMobile ? '2px 7px' : '3px 10px', borderRadius: 8,
+                border: '1px solid rgba(200,160,48,0.4)', background: 'rgba(200,160,48,0.1)',
+                fontSize: isMobile ? 9 : 11, letterSpacing: 1, color: '#e8d8a8', fontFamily: "'Cinzel', serif", fontWeight: 600,
+                maxWidth: isMobile ? 90 : 160, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+              }}>
+                ⛵ {isMobile ? vessel.name.replace(/^The /, '') : vessel.name}
+              </div>
+            );
+          })()}
+        </div>
         <div style={{ display:'flex', gap: isMobile ? 8 : 24 }}>
           {(isMobile
             ? [{icon:'hull',label:'HULL',val:`${s.ship.hull}/${s.ship.maxHull}`,color:hullColor},{icon:'gold',label:'GOLD',val:s.ship.gold,color:'#eedd44'},{icon:'power',label:'POWER',val:s.ship.power,color:'#ee8844'}]
-            : [{icon:'hull',label:'HULL',val:`${s.ship.hull}/${s.ship.maxHull}`,color:hullColor},{icon:'gold',label:'GOLD',val:s.ship.gold,color:'#eedd44'},{icon:'vision',label:'VISION',val:s.ship.vision,color:'#6aaccc'},{icon:'power',label:'POWER',val:s.ship.power,color:'#ee8844'},{icon:'turn',label:'TURN',val:s.turn,color:'rgba(255,255,255,0.4)'},{icon:'turn',label:(ZONE_CONFIG[s.currentZone??1]?.name??'The Coasts').toUpperCase(),val:'',color:'#aa44ee'}]
+            : [{icon:'hull',label:'HULL',val:`${s.ship.hull}/${s.ship.maxHull}`,color:hullColor},{icon:'gold',label:'GOLD',val:s.ship.gold,color:'#eedd44'},{icon:'vision',label:'VISION',val:(s.visionBlind ?? 0) > 0 ? `${s.ship.vision}~` : s.ship.vision,color:(s.visionBlind ?? 0) > 0 ? '#88aacc' : '#6aaccc'},{icon:'power',label:'POWER',val:s.ship.power,color:'#ee8844'},{icon:'turn',label:'TURN',val:s.turn,color:'rgba(255,255,255,0.4)'},{icon:'turn',label:(ZONE_CONFIG[s.currentZone??1]?.name??'The Coasts').toUpperCase(),val:'',color:'#aa44ee'}]
           ).map(st => (
             <div key={st.label} style={{ textAlign:'center' }}>
               <div style={{ fontSize: isMobile ? 10 : 17, color:'rgba(255,255,255,0.7)', letterSpacing:1, fontFamily:"'Pirata One', cursive" }}>{st.label}</div>
@@ -742,26 +761,35 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
 
       {/* Mobile Hunter Bar */}
       {isMobile && s.hunter?.active && (() => {
-        const hDist = Math.abs(s.hunter.x - s.ship.x) + Math.abs(s.hunter.y - s.ship.y);
+        const hDist = hunterManhattan(s);
+        const threat = hunterThreatLevel(s);
+        const dmg = hunterHitDamage(s);
         return (
-        <div style={{ display:'flex', alignItems:'center', gap:8, padding:'4px 10px', background: hDist <= 2 ? 'rgba(120,0,40,0.45)' : 'rgba(80,0,80,0.3)', borderBottom:'1px solid rgba(180,30,180,0.3)' }}>
-          <Icon name="kraken" size={15} style={{ marginRight:2 }} />
-          <div style={{ fontSize:11, color: s.hunter.mode==='frenzy'?'#ff6666':s.hunter.mode==='stalking'?'#dd88ff':'rgba(255,255,255,0.4)', fontFamily:"'Cinzel', serif", letterSpacing:1, minWidth:70 }}>
-            {hunterModeIcon(s.hunter.mode)}{hunterModeLabel(s.hunter.mode)}
+        <div style={{ display:'flex', flexDirection:'column', gap:2, padding:'5px 10px 6px', background: threat==='critical' ? 'rgba(140,0,30,0.55)' : threat==='danger' ? 'rgba(120,0,40,0.45)' : 'rgba(80,0,80,0.3)', borderBottom:`1px solid ${threat==='critical'?'rgba(255,80,100,0.55)':'rgba(180,30,180,0.3)'}` }}>
+          <div style={{ display:'flex', alignItems:'center', gap:8 }}>
+            <Icon name="kraken" size={15} style={{ marginRight:2 }} />
+            <div style={{ fontSize:11, color: s.hunter.mode==='frenzy'?'#ff6666':s.hunter.mode==='stalking'?'#dd88ff':'rgba(255,255,255,0.55)', fontFamily:"'Cinzel', serif", letterSpacing:1, minWidth:70 }}>
+              {hunterModeIcon(s.hunter.mode)}{hunterModeLabel(s.hunter.mode)}
+            </div>
+            <div style={{ fontSize:10, color: hDist <= 1 ? '#ff8899' : hDist <= 3 ? '#ffcc88' : 'rgba(255,255,255,0.5)', fontFamily:"'Cinzel', serif", flex:1 }}>
+              {hunterDistLabel(hDist)}
+            </div>
+            <div style={{ fontSize:10, color:'#ff8899', fontFamily:"'Cinzel', serif", letterSpacing:1, whiteSpace:'nowrap' }}>
+              ~−{dmg} hull
+            </div>
           </div>
-          <div style={{ fontSize:10, color: hDist <= 1 ? '#ff6677' : 'rgba(255,255,255,0.45)', fontFamily:"'Cinzel', serif", minWidth:52 }}>
-            {hDist <= 1 ? 'HULL!' : `${hDist} away`}
+          <div style={{ display:'flex', alignItems:'center', gap:8 }}>
+            <div style={{ flex:1, height:3, background:'rgba(255,255,255,0.1)', borderRadius:2 }}>
+              <div style={{ height:3, borderRadius:2, width:`${s.hunter.awareness}%`, background: s.hunter.awareness>=80?'#ee4444':s.hunter.awareness>=50?'#cc44ee':'#7744aa', transition:'width 0.5s' }}/>
+            </div>
+            <span style={{ fontSize:9, color:'rgba(255,255,255,0.35)', fontFamily:"'Cinzel', serif" }}>AWARE {s.hunter.awareness}%</span>
           </div>
-          <div style={{ flex:1, height:3, background:'rgba(255,255,255,0.1)', borderRadius:2 }}>
-            <div style={{ height:3, borderRadius:2, width:`${s.hunter.awareness}%`, background: s.hunter.awareness>=80?'#ee4444':s.hunter.awareness>=50?'#cc44ee':'#7744aa', transition:'width 0.5s' }}/>
-          </div>
-          <span style={{ fontSize:10, color:'rgba(255,255,255,0.3)', fontFamily:"'Cinzel', serif" }}>{s.hunter.awareness}%</span>
         </div>
         );
       })()}
 
       {/* MAIN */}
-      <div style={{ flex:1, display:'flex', overflow:'hidden', position:'relative' }}>
+      <div style={{ flex:1, minHeight:0, display:'flex', overflow:'hidden', position:'relative' }}>
 
         {/* LEFT — Storm panel */}
         <div style={{ width: isMobile ? 0 : 260, padding: isMobile ? 0 : '16px 12px', overflow:'hidden', display:'flex', flexDirection:'column', gap:10, borderRight: isMobile ? 'none' : '1px solid rgba(255,255,255,0.05)', transition:'width 0.3s' }}>
@@ -776,27 +804,40 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
           </div>
 
           {/* Hunter HUD */}
-          {s.hunter && (() => {
-            const hDist = Math.abs(s.hunter.x - s.ship.x) + Math.abs(s.hunter.y - s.ship.y);
-            const near = hDist <= 2;
+          {s.hunter?.active && (() => {
+            const hDist = hunterManhattan(s);
+            const threat = hunterThreatLevel(s);
+            const dmg = hunterHitDamage(s);
+            const near = threat === 'critical' || threat === 'danger';
             return (
-            <div style={{ background: near ? 'rgba(180,30,60,0.18)' : 'rgba(180,30,180,0.08)', border:`1px solid ${s.hunter.mode==='frenzy'||near?'rgba(220,50,80,0.65)':s.hunter.mode==='stalking'?'rgba(220,50,220,0.5)':'rgba(255,255,255,0.08)'}`, borderRadius:10, padding:'12px 10px', marginTop:4 }}>
+            <div style={{ background: threat==='critical' ? 'rgba(180,20,40,0.28)' : near ? 'rgba(180,30,60,0.18)' : 'rgba(180,30,180,0.08)', border:`1px solid ${s.hunter.mode==='frenzy'||threat==='critical'?'rgba(255,60,90,0.75)':near?'rgba(220,50,80,0.55)':s.hunter.mode==='stalking'?'rgba(220,50,220,0.5)':'rgba(255,255,255,0.08)'}`, borderRadius:10, padding:'12px 10px', marginTop:4 }}>
               <div style={{ fontSize:13, color: near ? '#ff8899' : 'rgba(200,100,220,0.8)', letterSpacing:2, marginBottom:6 }}>🐙 HUNTER</div>
-              <div style={{ display:'inline-block', padding:'2px 10px', borderRadius:6, fontSize:11, letterSpacing:2, fontFamily:"'Cinzel', serif", marginBottom:6,
+              <div style={{ display:'inline-block', padding:'2px 10px', borderRadius:6, fontSize:11, letterSpacing:2, fontFamily:"'Cinzel', serif", marginBottom:4,
                 background: s.hunter.mode==='frenzy' ? 'rgba(220,30,30,0.3)' : s.hunter.mode==='stalking' ? 'rgba(180,30,180,0.3)' : s.hunter.mode==='searching' ? 'rgba(30,100,180,0.3)' : 'rgba(255,255,255,0.06)',
-                color: s.hunter.mode==='frenzy' ? '#ff6666' : s.hunter.mode==='stalking' ? '#dd88ff' : s.hunter.mode==='searching' ? '#66aaff' : 'rgba(255,255,255,0.4)',
+                color: s.hunter.mode==='frenzy' ? '#ff6666' : s.hunter.mode==='stalking' ? '#dd88ff' : s.hunter.mode==='searching' ? '#66aaff' : 'rgba(255,255,255,0.55)',
                 border: `1px solid ${s.hunter.mode==='frenzy'?'rgba(220,30,30,0.6)':s.hunter.mode==='stalking'?'rgba(180,30,180,0.5)':'rgba(255,255,255,0.1)'}`,
               }}>
                 {hunterModeIcon(s.hunter.mode)}{hunterModeLabel(s.hunter.mode)}
               </div>
-              <div style={{ fontSize:12, color: hDist <= 1 ? '#ff5566' : hDist <= 2 ? '#eeaa66' : 'rgba(255,255,255,0.45)', fontFamily:"'Cinzel', serif", letterSpacing:1, marginBottom:6 }}>
-                {hDist <= 1 ? 'ON YOUR HULL' : hDist === 2 ? '2 CELLS AWAY' : `${hDist} CELLS AWAY`}
+              <div style={{ fontSize:11, color:'rgba(255,255,255,0.45)', fontFamily:"'IM Fell English', cursive", lineHeight:1.35, marginBottom:8 }}>
+                {hunterModeHint(s.hunter.mode)}
+              </div>
+              <div style={{ fontSize:13, fontWeight:700, color: hDist <= 1 ? '#ff5566' : hDist <= 3 ? '#eeaa66' : 'rgba(255,255,255,0.55)', fontFamily:"'Cinzel', serif", letterSpacing:1, marginBottom:4 }}>
+                {hunterDistLabel(hDist)}
+              </div>
+              <div style={{ fontSize:12, color:'#ff8899', fontFamily:"'Cinzel', serif", letterSpacing:1, marginBottom:8 }}>
+                Hit ≈ −{dmg} hull
               </div>
               <div style={{ fontSize:11, color:'rgba(255,255,255,0.3)', letterSpacing:1, marginBottom:4 }}>AWARENESS {s.hunter.awareness}%</div>
               <div style={{ height:4, background:'rgba(255,255,255,0.06)', borderRadius:2 }}>
                 <motion.div animate={{ width:`${s.hunter.awareness}%` }} transition={{ duration:0.5 }}
                   style={{ height:4, borderRadius:2, background: s.hunter.awareness>=80?'#ee4444':s.hunter.awareness>=50?'#cc44ee':'#7744aa' }}/>
               </div>
+              {s.hunter.awareness >= 80 && (
+                <div style={{ fontSize:10, color:'#ff6677', fontFamily:"'Cinzel', serif", letterSpacing:1, marginTop:6 }}>
+                  HIGH AWARENESS — it will not let go
+                </div>
+              )}
             </div>
             );
           })()}
@@ -1043,6 +1084,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
         onDismissOnboard={dismissOnboard}
         onUpgradeComponent={upgradeComp}
         onReroll={() => { logAction(40); setState(st => rerollPort(st)); }}
+        freeReroll={s.shipType === 'merchant' && !!(s.merchantFreeReroll)}
         onRepair={(gain, cost, code) => { logAction(code); setState(st => repairHull(st, gain, cost)); }}
         onSetSail={() => {
           for (const id of cart) logAction(50 + UPGRADE_CODES.indexOf(id as string));

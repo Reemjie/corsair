@@ -1,11 +1,26 @@
 import { seededRng, type Rng } from './rng';
 import { BALANCE, ZONE_CONFIG } from './balance';
-import { getStreakEffects, getSynergies } from './systems/streak';
+import { getStreakEffects, getSynergies, scaleIncomingDamage, powerFromWeaponLevel } from './systems/streak';
 import type { GameState, Ship, ActiveEvent, UpgradeId, CellType } from '../types/game';
 import { generateGrid, revealAround, GRID_SIZE } from './mapGen';
 import { getEquippedTitle } from './feats';
 import { rollRelic } from './relics';
+import { applyVisionBlind, syncShipVision, tickVisionBlind } from './vision';
 
+/** Rangée carte (sud→nord), même découpage que moveShip. */
+function rowZone(ny: number): 'early' | 'mid' | 'late' {
+  return ny >= Math.floor(GRID_SIZE * 0.7) ? 'early'
+    : ny >= Math.floor(GRID_SIZE * 0.4) ? 'mid' : 'late';
+}
+
+/** Multiplie les dégâts de combat après le tirage RNG (ordre des rolls inchangé). */
+function applyZoneDmg(d: number, ny: number): number {
+  const z = rowZone(ny);
+  if (z === 'early') return d;
+  const m = BALANCE.combat.zoneDamageMult[z] ?? 1;
+  if (m === 1) return d;
+  return Math.max(1, Math.round(d * m));
+}
 
 // ─── STREAK EFFECTS ──────────────────────────────────────────────────────────
 
@@ -86,7 +101,7 @@ function computeTitle(s: GameState): string {
   if (s.exploits.includes('survival'))                             return 'The Miraculed';
   if (s.exploits.includes('streak5'))                              return 'Reckless Corsair';
   if (s.exploits.includes('brokebut'))                             return 'Sea Wanderer';
-  if (s.ship.upgrades.includes('explorer'))                        return 'Grand Explorer';
+  if (s.ship.upgrades.includes('hunter') && (s.treasuresFound ?? 0) >= 4) return 'Gold Seeker';
   if (s.score > 1000)                                              return 'Legendary Corsair';
   if (s.score > 500)                                               return 'Sea Wolf';
   return 'Corsair';
@@ -128,13 +143,14 @@ export function markDailyPlayed(): void {
 export function initGame(seed?: number, shipId: string = 'default'): GameState {
   const s = seed ?? (Date.now() % 999999);
   const cx = Math.floor(GRID_SIZE / 2), cy = GRID_SIZE - 1;
-  const ship: Ship = { x: cx, y: cy, hull: BALANCE.ship.startHull, maxHull: BALANCE.ship.startHull, gold: BALANCE.ship.startGold, power: BALANCE.ship.startPower, vision: BALANCE.ship.startVision, upgrades: [], levels: { hull: 0, weapon: 0, nav: 0 } };
+  let ship: Ship = { x: cx, y: cy, hull: BALANCE.ship.startHull, maxHull: BALANCE.ship.startHull, gold: BALANCE.ship.startGold, power: BALANCE.ship.startPower, vision: BALANCE.ship.startVision, upgrades: [], levels: { hull: 0, weapon: 0, nav: 0 } };
   // Modificateurs de navire (le Daily force 'default' en amont pour l'equite)
   if (shipId === 'merchant')   { ship.gold += 80; ship.maxHull -= 5; ship.hull -= 5; }
-  if (shipId === 'specter')    { ship.vision += 1; }
-  if (shipId === 'breakwater') { ship.vision = Math.max(1, ship.vision - 1); ship.gold = Math.max(0, ship.gold - 25); }
+  if (shipId === 'breakwater') { ship.gold = Math.max(0, ship.gold - 25); }
+  if (shipId === 'corsair')    { ship.power += 1; ship.maxHull -= 3; ship.hull -= 3; }
+  ship = syncShipVision(ship, { relics: [], curses: [], shipType: shipId, visionBlind: 0 });
   const stormStart = BALANCE.storm.initial + (shipId === 'breakwater' ? 3 : 0);
-  const grid = revealAround(generateGrid(s, []), cx, cy, 1);
+  const grid = revealAround(generateGrid(s, []), cx, cy, ship.vision);
   return {
     grid, ship, event: null,
     turn: 0, score: 0, depth: 0,
@@ -153,6 +169,8 @@ export function initGame(seed?: number, shipId: string = 'default'): GameState {
     runTitle: 'Corsaire', relics: [], hunter: null, hunterTarget: null, hunterTargetHistory: [],
     scoreBreakdown: { movement: 0, combat: 0, treasure: 0, streaks: 0, achievements: 0, other: 0 },
     zone: 1, portUpgrades: [], maxedComponents: 0,
+    visionBlind: 0, visionBlindRecoverIn: 0,
+    merchantFreeReroll: false, wandererSteadyClaimed: false,
   };
 }
 
@@ -191,7 +209,10 @@ function stepMovement(state: GameState, dx: number, dy: number, rng: Rng): MoveC
   let ship = { ...state.ship, x: nx, y: ny };
   // Storm Rider constant dmg (applied before everything)
   const riderInterval = state.ship.levels.hull >= 2 ? 3 : 2;
-  if (ship.upgrades.includes('rider') && (state.turn + 1) % riderInterval === 0) ship.hull = Math.max(1, ship.hull - 1);
+  if (ship.upgrades.includes('rider') && (state.turn + 1) % riderInterval === 0) {
+    const tick = scaleIncomingDamage(ship.upgrades, 1);
+    ship.hull = Math.max(1, ship.hull - tick);
+  }
 
   const fx = getStreakEffects(state.dangerStreak);
   const hunterSurge = state.ship.upgrades.includes('hunter') ? BALANCE.storm.hunterSurgeBonus : 0;
@@ -375,6 +396,10 @@ function updateHunterAwareness(ctx: MoveContext): number {
   if (ctx.state.shipType === 'specter' && a > before) {
     a = before + (a - before) * 1.5;
   }
+  // Contrepartie mid-run : dans le brouillard (searching), le Specter se fond mieux.
+  if (ctx.state.shipType === 'specter' && ctx.hunter?.mode === 'searching') {
+    a -= 6;
+  }
   return Math.max(0, Math.min(100, a));
 }
 
@@ -524,7 +549,8 @@ function stepHunter(ctx: MoveContext): MoveContext {
   }
 
   if (h && h.active && h.x === nx && h.y === ny) {
-    const dmg = Math.max(BALANCE.hunter.minDamage, BALANCE.hunter.baseDamage - ctx.ship.power) + ((ctx.state.relics ?? []).includes('black_flag') ? 2 : 0);
+    const raw = Math.max(BALANCE.hunter.minDamage, BALANCE.hunter.baseDamage - ctx.ship.power) + ((ctx.state.relics ?? []).includes('black_flag') ? 2 : 0);
+    const dmg = scaleIncomingDamage(ctx.ship.upgrades, raw);
     ctx.ship = { ...ctx.ship, hull: Math.max(0, ctx.ship.hull - dmg) };
     ctx.log += ` It surfaces without warning. Tentacles rake the hull. -${dmg}.`;
     if (ctx.ship.hull <= 0) ctx.gameOver = true;
@@ -556,7 +582,7 @@ function stepCellEvent(ctx: MoveContext): MoveContext {
       ctx.scoreBreakdown = { ...ctx.scoreBreakdown, other: ctx.scoreBreakdown.other + b * 10 };
       ctx.log = `Favorable winds! +${b * 10} pts` + (ctx.log ? ' ' + ctx.log : '');
     } else if (roll < 0.18) {
-      const d = zoneLabel === 'early' ? 1 : 2;
+      const d = scaleIncomingDamage(ship.upgrades, zoneLabel === 'early' ? 1 : 2);
       ctx.ship = { ...ship, hull: Math.max(1, ship.hull - d) };
       ctx.log = `Hull creaks. -${d} hull.` + (ctx.log ? ' ' + ctx.log : '');
     } else if (roll < 0.22) {
@@ -595,11 +621,12 @@ function stepCellEvent(ctx: MoveContext): MoveContext {
     const syn = getSynergies(ctx.ship);
     const goldStorm = rng.int(15, 35);
     const scoreStorm = 50 * ctx.state.scoreMultiplier;
+    const surfDmg = scaleIncomingDamage(ctx.ship.upgrades, 2);
     const heal = syn.stormHeal ? Math.min(2, ctx.ship.maxHull - ctx.ship.hull) : 0;
-    ctx.ship = { ...ctx.ship, hull: Math.max(1, ctx.ship.hull - 2 + heal), gold: ctx.ship.gold + goldStorm };
+    ctx.ship = { ...ctx.ship, hull: Math.max(1, ctx.ship.hull - surfDmg + heal), gold: ctx.ship.gold + goldStorm };
     ctx.score += scoreStorm;
     ctx.scoreBreakdown = { ...ctx.scoreBreakdown, combat: ctx.scoreBreakdown.combat + scoreStorm };
-    ctx.log = `Storm Rider surfs the tempest! ${heal > 0 ? `+${heal} hull (synergy!), ` : '-2 hull, '}+${goldStorm}g, +${scoreStorm}pts.` + (ctx.log ? ' ' + ctx.log : '');
+    ctx.log = `Storm Rider surfs the tempest! ${heal > 0 ? `+${heal} hull (synergy!), ` : `-${surfDmg} hull, `}+${goldStorm}g, +${scoreStorm}pts.` + (ctx.log ? ' ' + ctx.log : '');
     return ctx;
   }
 
@@ -640,8 +667,21 @@ function ctxToState(ctx: MoveContext): GameState {
     x === ship.x && y === ship.y ? { ...cell, visited: true } : cell
   )) : grid;
 
+  // Aveuglement temporaire : 1 palier recupere tous les N tours.
+  const blindTick = tickVisionBlind(state.visionBlind ?? 0, state.visionBlindRecoverIn ?? 0);
+  let moveLog = log;
+  if (blindTick.recovered) {
+    moveLog = (moveLog ? moveLog + ' ' : '') + 'Your eyes adjust. Vision recovers.';
+  }
+  const syncedShip = syncShipVision(ship, {
+    relics: state.relics ?? [],
+    curses: state.curses,
+    shipType: state.shipType,
+    visionBlind: blindTick.visionBlind,
+  });
+
   const next: GameState = {
-    ...state, ship, grid: visitedGrid, turn, depth, score, stormDistance, gameOver, log,
+    ...state, ship: syncedShip, grid: visitedGrid, turn, depth, score, stormDistance, gameOver, log: moveLog,
     event, showPort, hunter,
     stormDistanceMin: Math.min(state.stormDistanceMin ?? 99, stormDistance),
     comboTurn: ((ctx.dangerStreak ?? state.dangerStreak) >= 3 && (state.comboTurn ?? 999) === 999)
@@ -659,6 +699,8 @@ function ctxToState(ctx: MoveContext): GameState {
     portUpgrades: state.portUpgrades,
     upgradeToken: state.upgradeToken,
     escapeUsed: state.escapeUsed,
+    visionBlind: blindTick.visionBlind,
+    visionBlindRecoverIn: blindTick.visionBlindRecoverIn,
   };
   return gameOver ? { ...next, runTitle: computeTitle(next) } : next;
 }
@@ -689,27 +731,42 @@ function applyAchievements(s: GameState): GameState {
     exploits = [...exploits, 'streak5']; score += 300; sb = { ...sb, streaks: sb.streaks + 300 };
     log += ' 5 dangers streak! +300pts'; changed = true;
   }
+  // Wanderer — Steady Hand : premiere fois a streak 3
+  let wandererSteadyClaimed = s.wandererSteadyClaimed ?? false;
+  if (s.shipType === 'default' && dangerStreak >= 3 && !wandererSteadyClaimed) {
+    wandererSteadyClaimed = true;
+    score += 50; sb = { ...sb, streaks: sb.streaks + 50 };
+    log += ' Steady Hand — The Wanderer holds the line. +50pts'; changed = true;
+  }
   if (ship.gold === 0 && !exploits.includes('brokebut')) {
     exploits = [...exploits, 'brokebut']; score += 150; sb = { ...sb, achievements: sb.achievements + 150 };
     log += ' Sailed penniless! +150pts'; changed = true;
   }
-  return changed ? { ...s, ship, score, exploits, curses, log, scoreBreakdown: sb } : s;
+  return changed ? { ...s, ship, score, exploits, curses, log, scoreBreakdown: sb, wandererSteadyClaimed } : s;
 }
 
 function applyGreedCurse(s: GameState, rng: Rng): GameState {
   if (!s.ship.upgrades.includes('greed')) return s;
   let { ship, curses, log } = s;
+  let visionBlind = s.visionBlind ?? 0;
+  let visionBlindRecoverIn = s.visionBlindRecoverIn ?? 0;
   const cfx = getStreakEffects(s.dangerStreak);
 
   if (ship.gold >= BALANCE.greed.curseThreshold && cfx.curseChance > 0 && rng.next() < cfx.curseChance && curses.length < 3) {
     const newCurse = rng.next() < 0.5 ? 'kraken_curse' : 'cursed_treasure';
     if (!curses.includes(newCurse)) {
       curses = [...curses, newCurse];
-      if (newCurse === 'kraken_curse') { ship = { ...ship, vision: Math.max(1, ship.vision - 1) }; log += ' The sea blinds you. -1 vision.'; }
+      if (newCurse === 'kraken_curse') {
+        const b = applyVisionBlind(visionBlind, visionBlindRecoverIn);
+        visionBlind = b.visionBlind;
+        visionBlindRecoverIn = b.visionBlindRecoverIn;
+        log += ' The sea blinds you. -1 vision (recovers in time).';
+      }
       else { ship = { ...ship, gold: Math.floor(ship.gold * 0.8) }; log += ' Cursed waters drain your gold. -20%.'; }
     }
   }
-  return { ...s, ship, curses, log };
+  ship = syncShipVision(ship, { relics: s.relics ?? [], curses, shipType: s.shipType, visionBlind });
+  return { ...s, ship, curses, log, visionBlind, visionBlindRecoverIn };
 }
 
 function applyDeathCheck(s: GameState): GameState {
@@ -756,7 +813,8 @@ export function resolveEvent(state: GameState, choiceIdx: number): GameState {
   let relics        = state.relics ?? [];
   const hasRelicLocal = (id: string) => relics.includes(id);
   const hullLevel = state.ship.levels.hull;
-  const envDmgReduction = hullLevel >= 2 ? 3 : hullLevel >= 1 ? 2 : 0;
+  const envDmgReduction = (hullLevel >= 2 ? 3 : hullLevel >= 1 ? 2 : 0)
+    + (state.shipType === 'breakwater' ? 1 : 0);
   const hullPassive = hullLevel >= 2 && ship.hull > Math.floor(ship.maxHull * 0.5) ? 1 : 0;
   const weaponLevel = state.ship.levels.weapon;
   const minCombatDmg = weaponLevel >= 1 ? 2 : 0; // dégâts minimum garantis
@@ -782,11 +840,17 @@ export function resolveEvent(state: GameState, choiceIdx: number): GameState {
     stormDistance = Math.min(99, stormDistance + ((BALANCE.streak as any).fleeStormGain ?? 0));
   }
 
-  let dangerStreak = tookRisk
+  // En dessous de minHullForStreak, le risque ne nourrit plus la serie
+  // (pas de x2/x3, pas d'aggro hunter/storm via streak). 0 = desactive.
+  const minHull = BALANCE.streak.minHullForStreak;
+  const riskCounts = tookRisk && (minHull <= 0 || ship.hull >= minHull);
+  let dangerStreak = riskCounts
     ? state.dangerStreak + 1
-    : escapedDanger
-      ? Math.max(0, state.dangerStreak - 2)
-      : Math.max(0, state.dangerStreak - 1);
+    : tookRisk
+      ? state.dangerStreak // risque desespere : pas de credit, pas de decay
+      : escapedDanger
+        ? Math.max(0, state.dangerStreak - 2)
+        : Math.max(0, state.dangerStreak - 1);
   let scoreMultiplier = dangerStreak >= 3 ? 3 : dangerStreak >= 2 ? 2 : 1;
   let notoriety    = state.notoriety;
   let curses       = [...state.curses];
@@ -794,6 +858,8 @@ export function resolveEvent(state: GameState, choiceIdx: number): GameState {
   let lowestHull   = state.lowestHull;
   let portUpgrades = state.portUpgrades;
   let hunter       = state.hunter;
+  let visionBlind  = state.visionBlind ?? 0;
+  let visionBlindRecoverIn = state.visionBlindRecoverIn ?? 0;
 
   const grid = state.grid.map((row, y) => row.map((cell, x) =>
     x === ship.x && y === ship.y
@@ -802,6 +868,12 @@ export function resolveEvent(state: GameState, choiceIdx: number): GameState {
   ));
 
   let sb = { ...state.scoreBreakdown };
+  const takeDmg = (raw: number): number => {
+    const d = scaleIncomingDamage(ship.upgrades, raw);
+    ship.hull -= d;
+    return d;
+  };
+  const greedGoldMult = BALANCE.greed.goldMultiplier;
   const done = (overrides: Partial<GameState> = {}): GameState => {
     ship.hull = Math.max(0, ship.hull);
     if (ship.hull <= 0) gameOver = true;
@@ -814,8 +886,7 @@ export function resolveEvent(state: GameState, choiceIdx: number): GameState {
         hunter = { ...state.hunter!, active: true, mode: 'frenzy' as const, frenzyTurns: 3, searchTurns: 0, awareness: Math.min(100, (state.hunter?.awareness ?? 0) + 40) };
         log += ' Your greed drives the Hunter into a frenzy!';
       } else if (ship.gold >= 600 && rng.next() < 0.15) {
-        curses.push('cursed_treasure');
-        ship.vision = Math.max(1, ship.vision - 1);
+        if (!curses.includes('cursed_treasure')) curses.push('cursed_treasure');
         log += ' Cursed by wealth. -1 vision.';
       }
     }
@@ -823,6 +894,7 @@ export function resolveEvent(state: GameState, choiceIdx: number): GameState {
 
     if (cellType === 'kraken' && choiceIdx === 0 && ship.hull <= 5 && !exploits.includes('krakenlow')) { exploits.push('krakenlow'); score += 500; sb = { ...sb, achievements: sb.achievements + 500 }; log += ' Kraken slain at deaths door! +500pts'; }
     if (ship.gold === 0 && !exploits.includes('brokebut'))  { exploits.push('brokebut');  score += 150; sb = { ...sb, achievements: sb.achievements + 150 }; log += ' Sailed penniless! +150pts'; }
+    ship = syncShipVision(ship, { relics, curses, shipType: state.shipType, visionBlind });
     const result: GameState = {
       ...state, grid, ship, event: null, log, score, showPort, upgradeToken, gameOver,
       rngState: rng.getState(), dangerStreak, scoreMultiplier, notoriety, curses,
@@ -830,7 +902,9 @@ export function resolveEvent(state: GameState, choiceIdx: number): GameState {
       comboTurn: (dangerStreak >= 3 && (state.comboTurn ?? 999) === 999)
         ? state.turn : (state.comboTurn ?? 999),
       exploits, lowestHull, hunter, zone: state.zone, portUpgrades,
-      runTitle: state.runTitle, stormDistance, relics, scoreBreakdown: sb, ...overrides,
+      runTitle: state.runTitle, stormDistance, relics, scoreBreakdown: sb,
+      visionBlind, visionBlindRecoverIn,
+      ...overrides,
     };
     return applyPostTurnEffects(result, rng);
   };
@@ -841,18 +915,18 @@ export function resolveEvent(state: GameState, choiceIdx: number): GameState {
       const foundRelic = rng.next() < 0.35 ? rollRelic(state.relics ?? [], () => rng.next()) : null;
       if (foundRelic) {
         relics = [...(state.relics ?? []), foundRelic.id];
-        if (foundRelic.id === 'cracked_spyglass') ship.vision += 1;
+        // cracked_spyglass : +1 via syncShipVision (s'empile avec Nav)
         score += 30; sb = { ...sb, treasure: sb.treasure + 30 };
         log = `Among the wreckage, something gleams. You found a relic: ${foundRelic.name}! ${foundRelic.desc}`;
       }
       else if (rng.next() < 0.6) { let g = rng.int(40,100); if (hasRelicLocal('weighted_net')) g = Math.round(g*1.5); ship.gold += g; score += g; sb = { ...sb, treasure: sb.treasure + g }; log = `The wreck yields its secrets. Waterlogged gold, but gold nonetheless. +${g} gold.`; }
       else if (state.shipType === 'breakwater') { log = `Full speed! The reinforced prow of the Breakwater shatters the reef. Not a scratch.`; }
-      else { const d = Math.max(1, rng.int(6,12)); ship.hull -= d; log = `A hidden trap springs from the darkness. The explosion rocks your hull. -${d} hull.`; }
+      else { const d = takeDmg(Math.max(1, rng.int(6,12))); log = `A hidden trap springs from the darkness. The explosion rocks your hull. -${d} hull.`; }
     } else {
-      const d = Math.max(1, rng.int(8,15) - ship.power);
+      const d = takeDmg(Math.max(1, rng.int(8,15) - ship.power));
       const g = rng.int(50,120);
-      if (rng.next() < 0.5) { ship.hull -= d; const goldGain = isGreed ? g*2 : g; ship.gold += goldGain; score += goldGain * scoreMultiplier; sb = { ...sb, combat: sb.combat + goldGain * scoreMultiplier }; log = `Something ancient lurks in the hull. You fight it back. -${d} hull, +${goldGain} gold.`; }
-      else { ship.hull -= d; log = `It drags you under before you can react. -${d} hull. You barely escape.`; }
+      if (rng.next() < 0.5) { const goldGain = Math.floor(isGreed ? g * greedGoldMult : g); ship.gold += goldGain; score += goldGain * scoreMultiplier; sb = { ...sb, combat: sb.combat + goldGain * scoreMultiplier }; log = `Something ancient lurks in the hull. You fight it back. -${d} hull, +${goldGain} gold.`; }
+      else { log = `It drags you under before you can react. -${d} hull. You barely escape.`; }
     }
     return done();
   }
@@ -861,39 +935,48 @@ export function resolveEvent(state: GameState, choiceIdx: number): GameState {
     switch(cellType) {
       case 'pirate': {
         const fx = getStreakEffects(dangerStreak);
-        const rawD = Math.max(0, rng.int(3,10) - ship.power - hullPassive);
-        const d = Math.max(minCombatDmg, rawD);
+        const greedCorrupt = isGreed ? Math.floor(ship.gold / BALANCE.greed.corruptionStep) : 0;
+        const greedPirateExtra = greedCorrupt >= BALANCE.greed.corruptionPirateAt
+          ? (BALANCE.greed.corruptionPirateBonus ?? 1)
+          : 0;
+        const rawD = Math.max(0, rng.int(3,10) - ship.power - hullPassive + greedPirateExtra);
+        const d = takeDmg(applyZoneDmg(Math.max(minCombatDmg, rawD), ship.y));
         const g = rng.int(20,60) + Math.floor(notoriety/3);
-        const greedBonus = isGreed ? 1.5 : 1;
+        const greedBonus = isGreed ? greedGoldMult : 1;
         const goldGain = Math.floor(g * greedBonus * fx.goldBonus);
         const goldCap = ship.gold >= 300 ? 0.6 : ship.gold >= 200 ? 0.8 : 1;
         const goldFinal = Math.floor(goldGain * goldCap);
         const capMsg = goldCap < 1 ? ' (hold full — gold lost at sea)' : '';
+        const greedTaxMsg = greedPirateExtra > 0 ? ' Corruption taxes the fight.' : '';
         const syn = getSynergies(ship);
         const crit = syn.berserkerCrit && rng.next() < BALANCE.combat.berserkerCritChance;
-        ship.hull -= d;
         ship.gold += goldFinal;
         state = { ...state, piratesFought: (state.piratesFought ?? 0) + 1 };
-        const combatGain = Math.floor((goldFinal + 35) * scoreMultiplier * (crit ? BALANCE.combat.berserkerCritMult : 1));
+        const combatGain = Math.floor((goldFinal + 35) * scoreMultiplier * (crit ? BALANCE.combat.berserkerCritMult : 1))
+          + (state.shipType === 'corsair' ? 20 : 0);
         score += combatGain;
         sb = { ...sb, combat: sb.combat + combatGain };
         notoriety = Math.min(10, notoriety + 2);
-        log = `Pirates defeated! -${d} hull, +${goldFinal} gold.${crit ? ' CRITICAL HIT!' : ''}${capMsg}${scoreMultiplier > 1 ? ` [x${scoreMultiplier}]` : ''}`;
+        log = `Pirates defeated! -${d} hull, +${goldFinal} gold.${crit ? ' CRITICAL HIT!' : ''}${state.shipType === 'corsair' ? ' Corsair bounty +20.' : ''}${greedTaxMsg}${capMsg}${scoreMultiplier > 1 ? ` [x${scoreMultiplier}]` : ''}`;
         break;
       }
       case 'kraken': {
-        const d = Math.max(2, rng.int(8,15) - ship.power);
-        ship.hull -= d; score += 150 * scoreMultiplier;
+        const d = takeDmg(applyZoneDmg(Math.max(2, rng.int(8,15) - ship.power), ship.y));
+        score += 150 * scoreMultiplier;
         sb = { ...sb, combat: sb.combat + 150 * scoreMultiplier };
-        ship.vision = Math.max(1, ship.vision - 1);
-        curses.push('kraken_curse');
+        {
+          const b = applyVisionBlind(visionBlind, visionBlindRecoverIn);
+          visionBlind = b.visionBlind;
+          visionBlindRecoverIn = b.visionBlindRecoverIn;
+        }
+        if (!curses.includes('kraken_curse')) curses.push('kraken_curse');
         state = { ...state, krakenKilled: true };
-        log = `The sea runs black with ink. The Kraken sinks into the abyss. -${d} hull. Your eyes... feel different. +${150*scoreMultiplier} pts.`;
+        log = `The sea runs black with ink. The Kraken sinks into the abyss. -${d} hull. Your eyes blur (−1 vision, recovers). +${150*scoreMultiplier} pts.`;
         break;
       }
       case 'storm': {
         if (rng.next() < 0.6) log = 'Your crew holds the mast. You burst through the storm unscathed.';
-        else { const d = Math.max(1, rng.int(4,8) - envDmgReduction); ship.hull -= d; log = `Lightning splits the deck. The hull groans under the pressure. -${d} hull.`; }
+        else { const d = takeDmg(Math.max(1, rng.int(4,8) - envDmgReduction)); log = `Lightning splits the deck. The hull groans under the pressure. -${d} hull.`; }
         break;
       }
       case 'treasure': {
@@ -919,10 +1002,15 @@ const rawG = navLvl2 >= 2 ? Math.floor(rng.int(30,90)*0.7) : rng.int(30,90);
         }
         state = { ...state, portsVisited: (state.portsVisited ?? 0) + 1 };
         showPort = true;
+        if (state.shipType === 'merchant') {
+          state = { ...state, merchantFreeReroll: true };
+        }
         const all = ['ghost','rider','greed','berserker','hunter','escape'];
         const avail = all.filter(u => !ship.upgrades.includes(u as UpgradeId));
-        portUpgrades = (shuffleWithRng(avail as any[], rng).slice(0, 2)) as UpgradeId[];
-        log = 'Welcome to port, Captain!';
+        portUpgrades = (shuffleWithRng(avail as any[], rng).slice(0, BALANCE.upgrades.portOfferCount)) as UpgradeId[];
+        log = state.shipType === 'merchant'
+          ? 'Welcome to port, Captain! The Merchant’s free reroll is ready.'
+          : 'Welcome to port, Captain!';
         break;
       }
       case 'island': {
@@ -969,8 +1057,7 @@ const rawG = navLvl2 >= 2 ? Math.floor(rng.int(30,90)*0.7) : rng.int(30,90);
         const tGrid = revealAround(grid, mx, my, ship.vision);
         ship.x = mx; ship.y = my;
         const tScore = rng.next() < 0.5 ? 200 : 0;
-        const tDmg   = rng.next() < 0.5 ? rng.int(5,15) : 0;
-        ship.hull -= tDmg;
+        const tDmg   = rng.next() < 0.5 ? takeDmg(rng.int(5,15)) : 0;
         if (tScore > 0) { ship.gold += 50; score += tScore; sb = { ...sb, other: sb.other + tScore }; }
         log = tScore > 0 ? `The vortex spits you out on the far side of the sea. Fortune favors the mad. +50g +200pts.` : `The world spins. When it stops, you are somewhere else entirely. -${tDmg} hull.`;
         state = { ...state, maelstromSurvived: true };
@@ -979,15 +1066,14 @@ const rawG = navLvl2 >= 2 ? Math.floor(rng.int(30,90)*0.7) : rng.int(30,90);
       case 'cursed_treasure': {
         ship.gold += 300; score += 300 * scoreMultiplier;
         sb = { ...sb, treasure: sb.treasure + 300 * scoreMultiplier };
-        ship.vision = Math.max(1, ship.vision - 1);
-        curses.push('cursed_treasure');
+        if (!curses.includes('cursed_treasure')) curses.push('cursed_treasure');
         state = { ...state, cursedTreasureTaken: true };
-        log = `The gold burns cold in your hands. Something watches from behind your eyes now. +300g.${scoreMultiplier > 1 ? ` [x${scoreMultiplier}]` : ''}`;
+        log = `The gold burns cold in your hands. Something watches from behind your eyes now. +300g. Permanent −1 vision.${scoreMultiplier > 1 ? ` [x${scoreMultiplier}]` : ''}`;
         break;
       }
       case 'ancient_kraken': {
-        const d = Math.max(5, rng.int(15,25) - ship.power);
-        ship.hull -= d; score += 800 * scoreMultiplier; ship.power += 3; ship.gold += 200;
+        const d = takeDmg(applyZoneDmg(Math.max(5, rng.int(15,25) - ship.power), ship.y));
+        score += 800 * scoreMultiplier; ship.power += 3; ship.gold += 200;
         sb = { ...sb, combat: sb.combat + 800 * scoreMultiplier };
         curses.push('ancient_curse');
         state = { ...state, ancientKrakenKilled: true };
@@ -1015,14 +1101,17 @@ const rawG = navLvl2 >= 2 ? Math.floor(rng.int(30,90)*0.7) : rng.int(30,90);
         break;
       }
       case 'kraken': {
-        const pactCost = hasRelicLocal('storm_heart') ? Math.floor(BALANCE.port.krakenPactHull / 2) : BALANCE.port.krakenPactHull;
+        const pactCost = scaleIncomingDamage(
+          ship.upgrades,
+          hasRelicLocal('storm_heart') ? Math.floor(BALANCE.port.krakenPactHull / 2) : BALANCE.port.krakenPactHull,
+        );
         ship.hull = Math.max(1, ship.hull - pactCost);
         const riderBonus = state.ship.upgrades.includes('rider') ? 200 : 0;
         if (riderBonus > 0) { score += riderBonus; sb = { ...sb, achievements: sb.achievements + riderBonus }; }
         hunter = state.hunter
           ? { ...state.hunter, active: true, mode: 'frenzy' as const, searchTurns: 0, frenzyTurns: 3, awareness: Math.min(100, (state.hunter.awareness ?? 0) + 40) }
           : { x: ship.x > GRID_SIZE/2 ? 0 : GRID_SIZE-1, y: 0, active: true, mode: 'frenzy' as const, searchTurns: 0, frenzyTurns: 3, awareness: 80 };
-        log = `You offer your blood to the deep. The storm holds back... but something stirs in the dark. -20 hull.${riderBonus > 0 ? ' +200pts' : ''}`;
+        log = `You offer your blood to the deep. The storm holds back... but something stirs in the dark. -${pactCost} hull.${riderBonus > 0 ? ' +200pts' : ''}`;
         return done({ stormDistance: stormDistance + BALANCE.port.krakenPactStorm, hunter });
       }
       case 'storm':          { log = 'You change course, keeping the storm to your stern. It gains ground.';   return done({ stormDistance: Math.max(0, stormDistance - 1) }); }
@@ -1050,8 +1139,11 @@ const rawG = navLvl2 >= 2 ? Math.floor(rng.int(30,90)*0.7) : rng.int(30,90);
         break;
       }
       case 'rocks':          {
-        const d = rng.int(2, 6);
-        ship.hull -= d;
+        if (state.shipType === 'breakwater') {
+          log = `Full speed! The Breakwater shrugs off the reef. You gain ground on the storm (+1).`;
+          return done({ stormDistance: Math.min(99, stormDistance + 1) });
+        }
+        const d = takeDmg(rng.int(2, 6));
         log = `Full speed through the reef! You gain ground on the storm (+1) but the hull scrapes. -${d} hull.`;
         return done({ stormDistance: Math.min(99, stormDistance + 1) });
       }
@@ -1066,17 +1158,22 @@ const rawG = navLvl2 >= 2 ? Math.floor(rng.int(30,90)*0.7) : rng.int(30,90);
 
 // ─── BUY UPGRADE ─────────────────────────────────────────────────────────────
 export function buyUpgrade(state: GameState, id: UpgradeId): GameState {
-  const COSTS: Partial<Record<UpgradeId, number>> = { ghost:80, rider:90, greed:60, berserker:60, hunter:75, escape:65 };
-  const cost = state.upgradeToken ? 0 : (COSTS[id] ?? 60);
+  // Port only — sinon un log injecte peut equiper en mer.
+  if (!state.showPort) return state;
+  const cost = state.upgradeToken ? 0 : (BALANCE.upgrades.costs[id as keyof typeof BALANCE.upgrades.costs] ?? 60);
+  if (!(id in BALANCE.upgrades.costs)) return state;
   if (state.ship.gold < cost || state.ship.upgrades.includes(id)) return state;
-  if (state.ship.upgrades.length >= 2) return { ...state, log: 'Max 2 special abilities!' };
+  if (state.ship.upgrades.length >= BALANCE.upgrades.maxSpecials) {
+    return { ...state, log: `Max ${BALANCE.upgrades.maxSpecials} special abilities!` };
+  }
   let ship = { ...state.ship, gold: state.ship.gold - cost, upgrades: [...state.ship.upgrades, id] };
   if (id === 'berserker') ship.power *= 2;
-  if (id === 'ghost') {
-    ship.vision = Math.min(ship.vision + 2, 4);
-    const syn = getSynergies(ship);
-    if (syn.ghostVision) ship.vision = Math.min(ship.vision + 1, 5);
-  }
+  ship = syncShipVision(ship, {
+    relics: state.relics ?? [],
+    curses: state.curses,
+    shipType: state.shipType,
+    visionBlind: state.visionBlind ?? 0,
+  });
 
   let grid = revealAround(state.grid, ship.x, ship.y, ship.vision);
   // Treasure Hunter : révèle tous les trésors
@@ -1090,6 +1187,7 @@ export function buyUpgrade(state: GameState, id: UpgradeId): GameState {
 
 // ─── REPAIR ──────────────────────────────────────────────────────────────────
 export function upgradeComponent(state: GameState, component: 'hull' | 'weapon' | 'nav'): GameState {
+  if (!state.showPort) return state;
   const COSTS = { 0: 50, 1: 110 } as Record<number, number>;
   const currentLevel = state.ship.levels[component];
   if (currentLevel >= 2) return state;
@@ -1102,23 +1200,28 @@ export function upgradeComponent(state: GameState, component: 'hull' | 'weapon' 
   let maxedComponents = state.maxedComponents;
 
   if (component === 'hull') {
-    if (currentLevel === 0) { ship.maxHull = 28; ship.hull = Math.min(ship.hull + 8, 28); }
-    if (currentLevel === 1) { ship.maxHull = 38; ship.hull = Math.min(ship.hull + 10, 38); maxedComponents++; }
+    if (currentLevel === 0) { ship.maxHull = BALANCE.ship.hull2Max; ship.hull = Math.min(ship.hull + 8, BALANCE.ship.hull2Max); }
+    if (currentLevel === 1) { ship.maxHull = BALANCE.ship.hull3Max; ship.hull = Math.min(ship.hull + 10, BALANCE.ship.hull3Max); maxedComponents++; }
   }
   if (component === 'weapon') {
-    if (currentLevel === 0) ship.power = 5;
-    if (currentLevel === 1) { ship.power = 9; maxedComponents++; }
+    ship.power = powerFromWeaponLevel(ship.levels.weapon, ship.upgrades, { corsair: state.shipType === 'corsair' });
+    if (currentLevel === 1) maxedComponents++;
   }
-  if (component === 'nav') {
-    if (currentLevel === 0) ship.vision = 2;
-    if (currentLevel === 1) { ship.vision = 3; maxedComponents++; }
-  }
+  if (component === 'nav' && currentLevel === 1) maxedComponents++;
+
+  ship = syncShipVision(ship, {
+    relics: state.relics ?? [],
+    curses: state.curses,
+    shipType: state.shipType,
+    visionBlind: state.visionBlind ?? 0,
+  });
 
   const grid = revealAround(state.grid, ship.x, ship.y, ship.vision);
   return { ...state, ship, grid, maxedComponents, log: `${component} upgraded to level ${currentLevel + 2}!` };
 }
 
 export function repairHull(state: GameState, amount: number, cost: number): GameState {
+  if (!state.showPort) return state;
   if (state.ship.upgrades.includes('greed')) return { ...state, log: 'Cursed Greed prevents repairs!' };
   if (state.ship.gold < cost) return state;
   const riderPenalty = state.ship.upgrades.includes('rider') ? 0.5 : 1;
@@ -1129,11 +1232,21 @@ export function repairHull(state: GameState, amount: number, cost: number): Game
 
 // ─── PORT / SKIP ─────────────────────────────────────────────────────────────
 export function rerollPort(state: GameState): GameState {
-  if (state.ship.gold < 20) return { ...state, log: 'Not enough gold to reroll. (need 20g)' };
+  if (!state.showPort) return state;
+  const free = state.shipType === 'merchant' && (state.merchantFreeReroll ?? false);
+  if (!free && state.ship.gold < 20) return { ...state, log: 'Not enough gold to reroll. (need 20g)' };
   const rng = seededRng(state.rngState + state.turn);
   const all = ['escape','ghost','hunter','rider','greed','berserker'];
   const avail = all.filter(u => !state.ship.upgrades.includes(u as UpgradeId));
-  const portUpgrades = shuffleWithRng(avail as any[], rng).slice(0, 4);
+  const portUpgrades = shuffleWithRng(avail as any[], rng).slice(0, BALANCE.upgrades.portOfferCount);
+  if (free) {
+    return {
+      ...state,
+      merchantFreeReroll: false,
+      portUpgrades: portUpgrades as UpgradeId[],
+      log: 'Merchant’s free reroll! Fresh offers.',
+    };
+  }
   return { ...state, ship: { ...state.ship, gold: state.ship.gold - 20 }, portUpgrades: portUpgrades as UpgradeId[], log: 'Rerolled! -20g' };
 }
 

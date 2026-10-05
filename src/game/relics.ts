@@ -17,7 +17,7 @@ export const RELICS: RelicDef[] = [
   { id: 'weighted_net', name: 'Weighted Net', icon: 'treasure', rarity: 'common',
     desc: 'Wrecks and treasures yield +50% more gold.' },
   { id: 'cracked_spyglass', name: 'Cracked Spyglass', icon: 'spyglass', rarity: 'common',
-    desc: '+1 vision. See one tile further in every direction.' },
+    desc: '+1 vision level. Stacks with Navigation upgrades at port (cap 4).' },
 
   // — Rares —
   { id: 'kraken_eye', name: 'Eye of the Kraken', icon: 'eye', rarity: 'rare',

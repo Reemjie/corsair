@@ -2,7 +2,7 @@ export type CellType = 'fog' | 'sea' | 'storm' | 'pirate' | 'treasure' | 'port' 
 export type CurseId = 'kraken_curse' | 'cursed_treasure' | 'ancient_curse';
 export type ExploitId = 'survival' | 'streak5' | 'krakenlow' | 'brokebut' | 'ancient' | 'legendary';
 
-export type UpgradeId = 'ghost' | 'hunter' | 'rider' | 'greed' | 'berserker' | 'escape' | 'vision' | 'compass' | 'detector' | 'power' | 'armor' | 'explorer' | 'stormbreaker';
+export type UpgradeId = 'ghost' | 'hunter' | 'rider' | 'greed' | 'berserker' | 'escape';
 
 export interface Cell {
   type: CellType;
@@ -87,4 +87,12 @@ export interface GameState {
   hunterTarget: { x: number; y: number } | null;
   hunterTargetHistory: { x: number; y: number }[];
   scoreBreakdown: { movement: number; combat: number; treasure: number; streaks: number; achievements: number; other: number };
+  /** Paliers d'aveuglement temporaire (−1 vision chacun), recuperes progressivement. */
+  visionBlind: number;
+  /** Tours restants avant de recuperer 1 palier de visionBlind. */
+  visionBlindRecoverIn: number;
+  /** Merchant : un reroll gratuit encore dispo pour ce docking. */
+  merchantFreeReroll: boolean;
+  /** Wanderer : bonus Steady Hand deja reclame cette run. */
+  wandererSteadyClaimed: boolean;
 }

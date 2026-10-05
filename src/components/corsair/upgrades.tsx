@@ -4,6 +4,7 @@ import treasureHunterImg from '../../assets/upgrades/treasure_hunter.png';
 import stormRiderImg from '../../assets/upgrades/storm_rider.png';
 import cursedGreedImg from '../../assets/upgrades/cursed_greed.png';
 import berserkerImg from '../../assets/upgrades/berserker.png';
+import { BALANCE } from '../../game/balance';
 
 export const UPGRADE_ICONS: Record<string, string> = {
   escape: swiftSailsImg,
@@ -14,19 +15,23 @@ export const UPGRADE_ICONS: Record<string, string> = {
   berserker: berserkerImg,
 };
 
-/** Codes stables des ameliorations pour le log de coups (ne jamais reordonner). */
+/** Codes stables des ameliorations pour le log de coups (ne jamais reordonner).
+ *  Indices 0–5 = specials live. Slots 6–12 reserves (anciens stubs) — ne pas recycler. */
 export const UPGRADE_CODES: string[] = [
   'ghost', 'hunter', 'rider', 'greed', 'berserker', 'escape',
-  'vision', 'compass', 'detector', 'power', 'armor', 'explorer', 'stormbreaker',
+  '_reserved6', '_reserved7', '_reserved8', '_reserved9', '_reserved10', '_reserved11', '_reserved12',
 ];
 
+const C = BALANCE.upgrades.costs;
+const surgePct = Math.round(BALANCE.storm.hunterSurgeBonus * 100);
+
 export const UPGRADES = [
-  { id: 'ghost', name: 'Ghost Ship', pros: ['Pirates ignore you. +2 vision.'], cons: ['Cannot dock at ports. Krakens attracted on sea cells.'], cost: 80, icon: 'ghost', build: 'combat' },
-  { id: 'rider', name: 'Storm Rider', pros: ['Storm immunity. Storm cells give gold+score.', 'Hull+Rider synergy heals on storm.'], cons: ['-1 HP every 2 turns. Repairs -50%.'], cost: 90, icon: 'rider', build: 'escape' },
-  { id: 'greed', name: 'Cursed Greed', pros: ['Gold x1.5 on combat.'], cons: ['Cannot repair at port. Storm gets worse every 200g. Hunter speeds up at 800g.'], cost: 60, icon: 'greed', build: 'gold' },
-  { id: 'berserker', name: 'Berserker', pros: ['Power x2. Weapon3 synergy = 15% crit chance.'], cons: ['All damage received x2.'], cost: 60, icon: 'berserker', build: 'combat' },
-  { id: 'hunter', name: 'Treasure Hunter', pros: ['All treasures revealed on map. x3 combo = treasure reward x2.'], cons: ['Storm surges +10% more frequent.'], cost: 75, icon: 'hunter', build: 'gold' },
-  { id: 'escape', name: 'Swift Sails', pros: ['Skip any dangerous event twice per run with no consequences. Save for the worst moments.'], cons: [], cost: 65, icon: 'escape', build: 'escape' },
+  { id: 'ghost', name: 'Ghost Ship', pros: ['Pirates ignore you. +2 vision.'], cons: ['Cannot dock at ports. Krakens attracted on sea cells.'], cost: C.ghost, icon: 'ghost', build: 'combat' },
+  { id: 'rider', name: 'Storm Rider', pros: ['Storm immunity. Storm cells give gold+score.', 'Hull+Rider synergy heals on storm.'], cons: ['-1 HP every 2 turns. Repairs -50%.'], cost: C.rider, icon: 'rider', build: 'escape' },
+  { id: 'greed', name: 'Cursed Greed', pros: [`Gold x${BALANCE.greed.goldMultiplier} on combat.`], cons: ['Cannot repair at port. Storm worsens every 200g. Pirates hit harder at 400g+. Hunter aggro at 600g+.'], cost: C.greed, icon: 'greed', build: 'gold' },
+  { id: 'berserker', name: 'Berserker', pros: ['Power x2. Weapon3 synergy = 15% crit chance.'], cons: ['All damage received x2.'], cost: C.berserker, icon: 'berserker', build: 'combat' },
+  { id: 'hunter', name: 'Treasure Hunter', pros: ['All treasures revealed on map. x3 combo = treasure reward x2.'], cons: [`Storm surges +${surgePct}% more frequent.`], cost: C.hunter, icon: 'hunter', build: 'gold' },
+  { id: 'escape', name: 'Swift Sails', pros: ['Skip one dangerous event per run with no consequences. Save for the worst moment.'], cons: [], cost: C.escape, icon: 'escape', build: 'escape' },
 ] as const;
 
 export const BUILD_COLOR: Record<string, string> = {
