@@ -10613,6 +10613,35 @@ Error generating stack: ` + e.message + `
     }
     var Ge = [
         {
+            version: `1.2`,
+            date: `October 2026`,
+            headline: `What the shop promises, the sea delivers`,
+            sections: [
+                {
+                    title: `Honesty`,
+                    items: [
+                        `Berserker now truly takes ×2 damage from all sources — and weapon upgrades keep your doubled Power.`,
+                        `Swift Sails is one escape per run (as the button already said).`,
+                        `Ports offer 4 special abilities on dock — same as after a reroll.`
+                    ]
+                },
+                {
+                    title: `Special abilities`,
+                    items: [
+                        `Treasure Hunter costs 60g; storm surges are +15% more frequent.`,
+                        `Cursed Greed: at 400g+ pirates hit harder; Hunter aggro and frenzy thresholds match the corruption ladder.`
+                    ]
+                },
+                {
+                    title: `HUD`,
+                    items: [
+                        `Hunter tile badge no longer truncates (TRK / STK / SRC / ENR).`,
+                        `Sail controls and log stay on-screen — Hunter banner overlays the map instead of pushing the layout.`
+                    ]
+                }
+            ]
+        },
+        {
             version: `1.1`,
             date: `October 2026`,
             headline: `Ships, vision & clearer seas`,
