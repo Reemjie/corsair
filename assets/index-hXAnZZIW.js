@@ -1,8 +1,8 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-I6N3Edth.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-BXtpc1SX.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-iaH4P8U2.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-CLLDtgvE.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-N41pD1Bz.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-BXtpc1SX.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-BToIUbif.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-CLLDtgvE.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
 import { a as e, t } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as n, n as r, r as i, t as a } from "./motion-wKhEcHeU.js";
 import { n as o, t as s } from "./walletApi-DYniPf4L.js";
-import { C as c, D as l, E as u, F as d, M as f, N as p, P as m, S as h, T as g, _, a as v, b as y, c as b, d as x, g as ee, h as te, i as ne, j as re, k as ie, l as ae, m as oe, n as se, o as ce, r as le, s as ue, t as de, u as S, v as C, w as fe, y as pe } from "./anchor-iaH4P8U2.js";
+import { C as c, D as l, E as u, F as d, M as f, N as p, P as m, S as h, T as g, _, a as v, b as y, c as b, d as x, g as ee, h as te, i as ne, j as re, k as ie, l as ae, m as oe, n as se, o as ce, r as le, s as ue, t as de, u as S, v as C, w as fe, y as pe } from "./anchor-BToIUbif.js";
 import { C as me, S as he, c as w, d as T, f as ge, h as _e, o as ve, p as ye, r as E, s as be, t as xe, __tla as __tla_0 } from "./supabase-BXtpc1SX.js";
 Promise.all([
     (()=>{
@@ -8526,7 +8526,7 @@ Error generating stack: ` + e.message + `
         {
             id: `escape`,
             name: `Swift Sails`,
-            desc: `Lets you skip dangerous events twice per run with no consequences. Save it for the most desperate situations.`,
+            desc: `Lets you skip one dangerous event per run with no consequences. Save it for the most desperate situation.`,
             cost: `65g`,
             color: `#44cc88`
         }
@@ -9237,7 +9237,7 @@ Error generating stack: ` + e.message + `
                                     lineHeight: 1.9,
                                     marginBottom: 20
                                 },
-                                children: `At each port, 2 random special abilities are offered. You can equip a maximum of 2 per run. Choose wisely — these abilities define your playstyle and cannot be changed once bought.`
+                                children: `At each port, 4 random special abilities are offered (reroll refreshes the list for 20 gold). You can equip a maximum of 2 per run. Choose wisely — these abilities define your playstyle and cannot be changed once bought.`
                             }),
                             (0, O.jsx)(`div`, {
                                 style: {
@@ -12370,7 +12370,7 @@ Error generating stack: ` + e.message + `
         for (let e of n)e === 0 ? r = h(r, -1, 0) : e === 1 ? r = h(r, 0, -1) : e === 2 ? r = h(r, 1, 0) : e >= 10 && e < 20 ? r = g(r, e - 10) : e === 20 ? r = u(r) : e === 30 ? r = l(r, `hull`) : e === 31 ? r = l(r, `weapon`) : e === 32 ? r = l(r, `nav`) : e === 40 ? r = fe(r) : e >= 50 && e < 60 ? r = oe(r, Qe[e - 50]) : e === 60 ? r = c(r, 8, 25) : e === 61 ? r = c(r, r.ship.maxHull, 55) : e === 70 && (r = y(r));
         return r;
     }
-    var et = (0, D.lazy)(()=>me(()=>import(`./CorsairGame-I6N3Edth.js`).then(async (m)=>{
+    var et = (0, D.lazy)(()=>me(()=>import(`./CorsairGame-N41pD1Bz.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }), __vite__mapDeps([0,1,2,3,4,5,6]))), tt = (0, D.lazy)(()=>me(()=>import(`./AdminPanel-CLLDtgvE.js`).then(async (m)=>{
