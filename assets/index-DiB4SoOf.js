@@ -1,9 +1,9 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-CGrp5iPt.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-BXtpc1SX.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-BvGro_7R.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-CLLDtgvE.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-Bk3i2rkb.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-BXtpc1SX.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-BUzqY08Z.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-CLLDtgvE.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
 import { a as e, t } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as n, n as r, r as i, t as a } from "./motion-wKhEcHeU.js";
 import { n as o, t as s } from "./walletApi-DYniPf4L.js";
-import { C as c, D as l, E as u, O as d, T as f, _ as p, a as m, b as h, c as g, d as _, f as v, g as y, i as b, k as x, l as ee, m as te, n as S, p as ne, r as re, t as ie, u as ae, v as oe, x as se, y as ce } from "./anchor-BvGro_7R.js";
-import { C as le, S as ue, c as C, d as w, f as de, h as fe, o as pe, p as me, r as T, s as E, t as he, __tla as __tla_0 } from "./supabase-BXtpc1SX.js";
+import { A as c, C as l, D as u, M as d, N as f, S as p, T as m, _ as h, a as g, b as _, c as v, f as y, g as b, h as x, i as ee, j as te, k as ne, l as re, m as ie, n as ae, o as S, p as oe, r as se, s as ce, t as le, v as ue, w as C, x as w } from "./anchor-BUzqY08Z.js";
+import { C as de, S as T, c as fe, d as pe, f as E, h as D, o as me, p as he, r as ge, s as _e, t as ve, __tla as __tla_0 } from "./supabase-BXtpc1SX.js";
 Promise.all([
     (()=>{
         try {
@@ -32,7 +32,7 @@ Promise.all([
             fetch(e.href, n);
         }
     })();
-    var ge = t(((e)=>{
+    var ye = t(((e)=>{
         function t(e, t) {
             var n = e.length;
             e.push(t);
@@ -84,20 +84,20 @@ Promise.all([
             }
         }
         function x(e) {
-            if (h = !1, b(e), !m) if (n(c) !== null) m = !0, ee || (ee = !0, ae());
+            if (h = !1, b(e), !m) if (n(c) !== null) m = !0, ee || (ee = !0, S());
             else {
                 var t = n(l);
                 t !== null && ce(x, t.startTime - e);
             }
         }
-        var ee = !1, te = -1, S = 5, ne = -1;
-        function re() {
-            return g ? !0 : !(e.unstable_now() - ne < S);
-        }
+        var ee = !1, te = -1, ne = 5, re = -1;
         function ie() {
+            return g ? !0 : !(e.unstable_now() - re < ne);
+        }
+        function ae() {
             if (g = !1, ee) {
                 var t = e.unstable_now();
-                ne = t;
+                re = t;
                 var i = !0;
                 try {
                     a: {
@@ -105,7 +105,7 @@ Promise.all([
                         var a = f;
                         try {
                             b: {
-                                for(b(t), d = n(c); d !== null && !(d.expirationTime > t && re());){
+                                for(b(t), d = n(c); d !== null && !(d.expirationTime > t && ie());){
                                     var o = d.callback;
                                     if (typeof o == `function`) {
                                         d.callback = null, f = d.priorityLevel;
@@ -131,21 +131,21 @@ Promise.all([
                         i = void 0;
                     }
                 } finally{
-                    i ? ae() : ee = !1;
+                    i ? S() : ee = !1;
                 }
             }
         }
-        var ae;
-        if (typeof y == `function`) ae = function() {
-            y(ie);
+        var S;
+        if (typeof y == `function`) S = function() {
+            y(ae);
         };
         else if (typeof MessageChannel < `u`) {
             var oe = new MessageChannel, se = oe.port2;
-            oe.port1.onmessage = ie, ae = function() {
+            oe.port1.onmessage = ae, S = function() {
                 se.postMessage(null);
             };
-        } else ae = function() {
-            _(ie, 0);
+        } else S = function() {
+            _(ae, 0);
         };
         function ce(t, n) {
             te = _(function() {
@@ -155,7 +155,7 @@ Promise.all([
         e.unstable_IdlePriority = 5, e.unstable_ImmediatePriority = 1, e.unstable_LowPriority = 4, e.unstable_NormalPriority = 3, e.unstable_Profiling = null, e.unstable_UserBlockingPriority = 2, e.unstable_cancelCallback = function(e) {
             e.callback = null;
         }, e.unstable_forceFrameRate = function(e) {
-            0 > e || 125 < e ? console.error(`forceFrameRate takes a positive int between 0 and 125, forcing frame rates higher than 125 fps is not supported`) : S = 0 < e ? Math.floor(1e3 / e) : 5;
+            0 > e || 125 < e ? console.error(`forceFrameRate takes a positive int between 0 and 125, forcing frame rates higher than 125 fps is not supported`) : ne = 0 < e ? Math.floor(1e3 / e) : 5;
         }, e.unstable_getCurrentPriorityLevel = function() {
             return f;
         }, e.unstable_next = function(e) {
@@ -220,8 +220,8 @@ Promise.all([
                 startTime: a,
                 expirationTime: s,
                 sortIndex: -1
-            }, a > o ? (r.sortIndex = a, t(l, r), n(c) === null && r === n(l) && (h ? (v(te), te = -1) : h = !0, ce(x, a - o))) : (r.sortIndex = s, t(c, r), m || p || (m = !0, ee || (ee = !0, ae()))), r;
-        }, e.unstable_shouldYield = re, e.unstable_wrapCallback = function(e) {
+            }, a > o ? (r.sortIndex = a, t(l, r), n(c) === null && r === n(l) && (h ? (v(te), te = -1) : h = !0, ce(x, a - o))) : (r.sortIndex = s, t(c, r), m || p || (m = !0, ee || (ee = !0, S()))), r;
+        }, e.unstable_shouldYield = ie, e.unstable_wrapCallback = function(e) {
             var t = f;
             return function() {
                 var n = f;
@@ -233,9 +233,9 @@ Promise.all([
                 }
             };
         };
-    })), _e = t(((e, t)=>{
-        t.exports = ge();
-    })), ve = t(((e)=>{
+    })), be = t(((e, t)=>{
+        t.exports = ye();
+    })), xe = t(((e)=>{
         var t = n();
         function r(e) {
             var t = `https://react.dev/errors/` + e;
@@ -351,7 +351,7 @@ Promise.all([
         }, e.useFormStatus = function() {
             return c.H.useHostTransitionStatus();
         }, e.version = `19.2.7`;
-    })), ye = t(((e, t)=>{
+    })), Se = t(((e, t)=>{
         function n() {
             if (!(typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ > `u` || typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE != `function`)) try {
                 __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(n);
@@ -359,9 +359,9 @@ Promise.all([
                 console.error(e);
             }
         }
-        n(), t.exports = ve();
-    })), be = t(((e)=>{
-        var t = _e(), r = n(), i = ye();
+        n(), t.exports = xe();
+    })), Ce = t(((e)=>{
+        var t = be(), r = n(), i = Se();
         function a(e) {
             var t = `https://react.dev/errors/` + e;
             if (1 < arguments.length) {
@@ -467,7 +467,7 @@ Promise.all([
             }
             return null;
         }
-        var p = Object.assign, m = Symbol.for(`react.element`), h = Symbol.for(`react.transitional.element`), g = Symbol.for(`react.portal`), _ = Symbol.for(`react.fragment`), v = Symbol.for(`react.strict_mode`), y = Symbol.for(`react.profiler`), b = Symbol.for(`react.consumer`), x = Symbol.for(`react.context`), ee = Symbol.for(`react.forward_ref`), te = Symbol.for(`react.suspense`), S = Symbol.for(`react.suspense_list`), ne = Symbol.for(`react.memo`), re = Symbol.for(`react.lazy`), ie = Symbol.for(`react.activity`), ae = Symbol.for(`react.memo_cache_sentinel`), oe = Symbol.iterator;
+        var p = Object.assign, m = Symbol.for(`react.element`), h = Symbol.for(`react.transitional.element`), g = Symbol.for(`react.portal`), _ = Symbol.for(`react.fragment`), v = Symbol.for(`react.strict_mode`), y = Symbol.for(`react.profiler`), b = Symbol.for(`react.consumer`), x = Symbol.for(`react.context`), ee = Symbol.for(`react.forward_ref`), te = Symbol.for(`react.suspense`), ne = Symbol.for(`react.suspense_list`), re = Symbol.for(`react.memo`), ie = Symbol.for(`react.lazy`), ae = Symbol.for(`react.activity`), S = Symbol.for(`react.memo_cache_sentinel`), oe = Symbol.iterator;
         function se(e) {
             return typeof e != `object` || !e ? null : (e = oe && e[oe] || e[`@@iterator`], typeof e == `function` ? e : null);
         }
@@ -485,9 +485,9 @@ Promise.all([
                     return `StrictMode`;
                 case te:
                     return `Suspense`;
-                case S:
+                case ne:
                     return `SuspenseList`;
-                case ie:
+                case ae:
                     return `Activity`;
             }
             if (typeof e == `object`) switch(e.$$typeof){
@@ -500,9 +500,9 @@ Promise.all([
                 case ee:
                     var t = e.render;
                     return e = e.displayName, e ||= (e = t.displayName || t.name || ``, e === `` ? `ForwardRef` : `ForwardRef(` + e + `)`), e;
-                case ne:
-                    return t = e.displayName || null, t === null ? le(e.type) || `Memo` : t;
                 case re:
+                    return t = e.displayName || null, t === null ? le(e.type) || `Memo` : t;
+                case ie:
                     t = e._payload, e = e._init;
                     try {
                         return le(e(t));
@@ -515,21 +515,21 @@ Promise.all([
             data: null,
             method: null,
             action: null
-        }, fe = [], pe = -1;
-        function me(e) {
+        }, T = [], fe = -1;
+        function pe(e) {
             return {
                 current: e
             };
         }
-        function T(e) {
-            0 > pe || (e.current = fe[pe], fe[pe] = null, pe--);
+        function E(e) {
+            0 > fe || (e.current = T[fe], T[fe] = null, fe--);
         }
-        function E(e, t) {
-            pe++, fe[pe] = e.current, e.current = t;
+        function D(e, t) {
+            fe++, T[fe] = e.current, e.current = t;
         }
-        var he = me(null), ge = me(null), ve = me(null), be = me(null);
-        function xe(e, t) {
-            switch(E(ve, t), E(ge, e), E(he, null), t.nodeType){
+        var me = pe(null), he = pe(null), ge = pe(null), _e = pe(null);
+        function ve(e, t) {
+            switch(D(ge, t), D(he, e), D(me, null), t.nodeType){
                 case 9:
                 case 11:
                     e = (e = t.documentElement) && (e = e.namespaceURI) ? Vd(e) : 0;
@@ -547,35 +547,35 @@ Promise.all([
                             e = 0;
                     }
             }
-            T(he), E(he, e);
+            E(me), D(me, e);
         }
-        function D() {
-            T(he), T(ge), T(ve);
+        function ye() {
+            E(me), E(he), E(ge);
         }
-        function Se(e) {
-            e.memoizedState !== null && E(be, e);
-            var t = he.current, n = Hd(t, e.type);
-            t !== n && (E(ge, e), E(he, n));
+        function xe(e) {
+            e.memoizedState !== null && D(_e, e);
+            var t = me.current, n = Hd(t, e.type);
+            t !== n && (D(he, e), D(me, n));
         }
-        function O(e) {
-            ge.current === e && (T(he), T(ge)), be.current === e && (T(be), Qf._currentValue = de);
+        function Ce(e) {
+            he.current === e && (E(me), E(he)), _e.current === e && (E(_e), Qf._currentValue = de);
         }
-        var Ce, we;
+        var we, O;
         function Te(e) {
-            if (Ce === void 0) try {
+            if (we === void 0) try {
                 throw Error();
             } catch (e) {
                 var t = e.stack.trim().match(/\n( *(at )?)/);
-                Ce = t && t[1] || ``, we = -1 < e.stack.indexOf(`
+                we = t && t[1] || ``, O = -1 < e.stack.indexOf(`
     at`) ? ` (<anonymous>)` : -1 < e.stack.indexOf(`@`) ? `@unknown:0:0` : ``;
             }
             return `
-` + Ce + e + we;
+` + we + e + O;
         }
-        var Ee = !1;
-        function De(e, t) {
-            if (!e || Ee) return ``;
-            Ee = !0;
+        var k = !1;
+        function Ee(e, t) {
+            if (!e || k) return ``;
+            k = !0;
             var n = Error.prepareStackTrace;
             Error.prepareStackTrace = void 0;
             try {
@@ -649,11 +649,11 @@ Promise.all([
                     }
                 }
             } finally{
-                Ee = !1, Error.prepareStackTrace = n;
+                k = !1, Error.prepareStackTrace = n;
             }
             return (n = e ? e.displayName || e.name : ``) ? Te(n) : ``;
         }
-        function Oe(e, t) {
+        function De(e, t) {
             switch(e.tag){
                 case 26:
                 case 27:
@@ -667,21 +667,21 @@ Promise.all([
                     return Te(`SuspenseList`);
                 case 0:
                 case 15:
-                    return De(e.type, !1);
+                    return Ee(e.type, !1);
                 case 11:
-                    return De(e.type.render, !1);
+                    return Ee(e.type.render, !1);
                 case 1:
-                    return De(e.type, !0);
+                    return Ee(e.type, !0);
                 case 31:
                     return Te(`Activity`);
                 default:
                     return ``;
             }
         }
-        function ke(e) {
+        function Oe(e) {
             try {
                 var t = ``, n = null;
-                do t += Oe(e, n), n = e, e = e.return;
+                do t += De(e, n), n = e, e = e.return;
                 while (e);
                 return t;
             } catch (e) {
@@ -690,10 +690,10 @@ Error generating stack: ` + e.message + `
 ` + e.stack;
             }
         }
-        var Ae = Object.prototype.hasOwnProperty, je = t.unstable_scheduleCallback, Me = t.unstable_cancelCallback, Ne = t.unstable_shouldYield, Pe = t.unstable_requestPaint, Fe = t.unstable_now, Ie = t.unstable_getCurrentPriorityLevel, Le = t.unstable_ImmediatePriority, Re = t.unstable_UserBlockingPriority, ze = t.unstable_NormalPriority, Be = t.unstable_LowPriority, Ve = t.unstable_IdlePriority, He = t.log, Ue = t.unstable_setDisableYieldValue, We = null, k = null;
+        var ke = Object.prototype.hasOwnProperty, Ae = t.unstable_scheduleCallback, je = t.unstable_cancelCallback, Me = t.unstable_shouldYield, Ne = t.unstable_requestPaint, Pe = t.unstable_now, Fe = t.unstable_getCurrentPriorityLevel, Ie = t.unstable_ImmediatePriority, Le = t.unstable_UserBlockingPriority, Re = t.unstable_NormalPriority, ze = t.unstable_LowPriority, Be = t.unstable_IdlePriority, Ve = t.log, He = t.unstable_setDisableYieldValue, Ue = null, We = null;
         function Ge(e) {
-            if (typeof He == `function` && Ue(e), k && typeof k.setStrictMode == `function`) try {
-                k.setStrictMode(We, e);
+            if (typeof Ve == `function` && He(e), We && typeof We.setStrictMode == `function`) try {
+                We.setStrictMode(Ue, e);
             } catch  {}
         }
         var Ke = Math.clz32 ? Math.clz32 : Ye, qe = Math.log, Je = Math.LN2;
@@ -955,7 +955,7 @@ Error generating stack: ` + e.message + `
         }
         var Nt = RegExp(`^[:A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD][:A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040]*$`), Pt = {}, Ft = {};
         function It(e) {
-            return Ae.call(Ft, e) ? !0 : Ae.call(Pt, e) ? !1 : Nt.test(e) ? Ft[e] = !0 : (Pt[e] = !0, !1);
+            return ke.call(Ft, e) ? !0 : ke.call(Pt, e) ? !1 : Nt.test(e) ? Ft[e] = !0 : (Pt[e] = !0, !1);
         }
         function Lt(e, t, n) {
             if (It(t)) if (n === null) e.removeAttribute(t);
@@ -1916,7 +1916,7 @@ Error generating stack: ` + e.message + `
             if (n.length !== r.length) return !1;
             for(r = 0; r < n.length; r++){
                 var i = n[r];
-                if (!Ae.call(t, i) || !jr(e[i], t[i])) return !1;
+                if (!ke.call(t, i) || !jr(e[i], t[i])) return !1;
             }
             return !0;
         }
@@ -2095,10 +2095,10 @@ Error generating stack: ` + e.message + `
         function xi(e, t, n, r, i, o) {
             var s = 0;
             if (r = e, typeof e == `function`) vi(e) && (s = 1);
-            else if (typeof e == `string`) s = Uf(e, n, he.current) ? 26 : e === `html` || e === `head` || e === `body` ? 27 : 5;
+            else if (typeof e == `string`) s = Uf(e, n, me.current) ? 26 : e === `html` || e === `head` || e === `body` ? 27 : 5;
             else a: switch(e){
-                case ie:
-                    return e = _i(31, n, t, i), e.elementType = ie, e.lanes = o, e;
+                case ae:
+                    return e = _i(31, n, t, i), e.elementType = ae, e.lanes = o, e;
                 case _:
                     return Si(n.children, i, o, t);
                 case v:
@@ -2108,8 +2108,8 @@ Error generating stack: ` + e.message + `
                     return e = _i(12, n, t, i | 2), e.elementType = y, e.lanes = o, e;
                 case te:
                     return e = _i(13, n, t, i), e.elementType = te, e.lanes = o, e;
-                case S:
-                    return e = _i(19, n, t, i), e.elementType = S, e.lanes = o, e;
+                case ne:
+                    return e = _i(19, n, t, i), e.elementType = ne, e.lanes = o, e;
                 default:
                     if (typeof e == `object` && e) switch(e.$$typeof){
                         case x:
@@ -2121,10 +2121,10 @@ Error generating stack: ` + e.message + `
                         case ee:
                             s = 11;
                             break a;
-                        case ne:
+                        case re:
                             s = 14;
                             break a;
-                        case re:
+                        case ie:
                             s = 16, r = null;
                             break a;
                     }
@@ -2156,13 +2156,13 @@ Error generating stack: ` + e.message + `
                 return n === void 0 ? (t = {
                     value: e,
                     source: t,
-                    stack: ke(t)
+                    stack: Oe(t)
                 }, Ei.set(e, t), t) : n;
             }
             return {
                 value: e,
                 source: t,
-                stack: ke(t)
+                stack: Oe(t)
             };
         }
         var Oi = [], ki = 0, Ai = null, ji = 0, Mi = [], Ni = 0, Pi = null, Fi = 1, Ii = ``;
@@ -2272,12 +2272,12 @@ Error generating stack: ` + e.message + `
                 e
             ] : Ui.push(e);
         }
-        var $i = me(null), ea = null, ta = null;
+        var $i = pe(null), ea = null, ta = null;
         function na(e, t, n) {
-            E($i, t._currentValue), t._currentValue = n;
+            D($i, t._currentValue), t._currentValue = n;
         }
         function ra(e) {
-            e._currentValue = $i.current, T($i);
+            e._currentValue = $i.current, E($i);
         }
         function ia(e, t, n) {
             for(; e !== null;){
@@ -2337,7 +2337,7 @@ Error generating stack: ` + e.message + `
                             c
                         ] : e.push(c));
                     }
-                } else if (i === be.current) {
+                } else if (i === _e.current) {
                     if (s = i.alternate, s === null) throw Error(a(387));
                     s.memoizedState.memoizedState !== i.memoizedState.memoizedState && (e === null ? e = [
                         Qf
@@ -2450,15 +2450,15 @@ Error generating stack: ` + e.message + `
         }
         var wa = C.S;
         C.S = function(e, t) {
-            tu = Fe(), typeof t == `object` && t && typeof t.then == `function` && xa(e, t), wa !== null && wa(e, t);
+            tu = Pe(), typeof t == `object` && t && typeof t.then == `function` && xa(e, t), wa !== null && wa(e, t);
         };
-        var Ta = me(null);
+        var Ta = pe(null);
         function Ea() {
             var e = Ta.current;
             return e === null ? G.pooledCache : e;
         }
         function Da(e, t) {
-            t === null ? E(Ta, Ta.current) : E(Ta, t.pool);
+            t === null ? D(Ta, Ta.current) : D(Ta, t.pool);
         }
         function Oa() {
             var e = Ea();
@@ -2564,7 +2564,7 @@ Error generating stack: ` + e.message + `
             }
             function l(e, t, n, r) {
                 var a = n.type;
-                return a === _ ? d(e, t, n.props.children, r, n.key) : t !== null && (t.elementType === a || typeof a == `object` && a && a.$$typeof === re && Fa(a) === t.type) ? (t = i(t, n.props), Ha(t, n), t.return = e, t) : (t = xi(n.type, n.key, n.props, null, e.mode, r), Ha(t, n), t.return = e, t);
+                return a === _ ? d(e, t, n.props.children, r, n.key) : t !== null && (t.elementType === a || typeof a == `object` && a && a.$$typeof === ie && Fa(a) === t.type) ? (t = i(t, n.props), Ha(t, n), t.return = e, t) : (t = xi(n.type, n.key, n.props, null, e.mode, r), Ha(t, n), t.return = e, t);
             }
             function u(e, t, n, r) {
                 return t === null || t.tag !== 4 || t.stateNode.containerInfo !== n.containerInfo || t.stateNode.implementation !== n.implementation ? (t = Ti(n, e.mode, r), t.return = e, t) : (t = i(t, n.children || []), t.return = e, t);
@@ -2580,7 +2580,7 @@ Error generating stack: ` + e.message + `
                             return n = xi(t.type, t.key, t.props, null, e.mode, n), Ha(n, t), n.return = e, n;
                         case g:
                             return t = Ti(t, e.mode, n), t.return = e, t;
-                        case re:
+                        case ie:
                             return t = Fa(t), f(e, t, n);
                     }
                     if (ue(t) || se(t)) return t = Si(t, e.mode, n, null), t.return = e, t;
@@ -2599,7 +2599,7 @@ Error generating stack: ` + e.message + `
                             return n.key === i ? l(e, t, n, r) : null;
                         case g:
                             return n.key === i ? u(e, t, n, r) : null;
-                        case re:
+                        case ie:
                             return n = Fa(n), p(e, t, n, r);
                     }
                     if (ue(n) || se(n)) return i === null ? d(e, t, n, r, null) : null;
@@ -2617,7 +2617,7 @@ Error generating stack: ` + e.message + `
                             return e = e.get(r.key === null ? n : r.key) || null, l(t, e, r, i);
                         case g:
                             return e = e.get(r.key === null ? n : r.key) || null, u(t, e, r, i);
-                        case re:
+                        case ie:
                             return r = Fa(r), m(e, t, n, r, i);
                     }
                     if (ue(r) || se(r)) return e = e.get(n) || null, d(t, e, r, i, null);
@@ -2680,7 +2680,7 @@ Error generating stack: ` + e.message + `
                                                 n(e, r.sibling), c = i(r, o.props.children), c.return = e, e = c;
                                                 break a;
                                             }
-                                        } else if (r.elementType === l || typeof l == `object` && l && l.$$typeof === re && Fa(l) === r.type) {
+                                        } else if (r.elementType === l || typeof l == `object` && l && l.$$typeof === ie && Fa(l) === r.type) {
                                             n(e, r.sibling), c = i(r, o.props), Ha(c, o), c.return = e, e = c;
                                             break a;
                                         }
@@ -2708,7 +2708,7 @@ Error generating stack: ` + e.message + `
                                 c = Ti(o, e.mode, c), c.return = e, e = c;
                             }
                             return s(e);
-                        case re:
+                        case ie:
                             return o = Fa(o), b(e, r, o, c);
                     }
                     if (ue(o)) return v(e, r, o, c);
@@ -2889,34 +2889,34 @@ Error generating stack: ` + e.message + `
             var n = e.callbacks;
             if (n !== null) for(e.callbacks = null, e = 0; e < n.length; e++)ro(n[e], t);
         }
-        var ao = me(null), oo = me(0);
+        var ao = pe(null), oo = pe(0);
         function so(e, t) {
-            e = Gl, E(oo, e), E(ao, t), Gl = e | t.baseLanes;
+            e = Gl, D(oo, e), D(ao, t), Gl = e | t.baseLanes;
         }
         function co() {
-            E(oo, Gl), E(ao, ao.current);
+            D(oo, Gl), D(ao, ao.current);
         }
         function lo() {
-            Gl = oo.current, T(ao), T(oo);
+            Gl = oo.current, E(ao), E(oo);
         }
-        var uo = me(null), fo = null;
+        var uo = pe(null), fo = null;
         function po(e) {
             var t = e.alternate;
-            E(N, N.current & 1), E(uo, e), fo === null && (t === null || ao.current !== null || t.memoizedState !== null) && (fo = e);
+            D(N, N.current & 1), D(uo, e), fo === null && (t === null || ao.current !== null || t.memoizedState !== null) && (fo = e);
         }
         function mo(e) {
-            E(N, N.current), E(uo, e), fo === null && (fo = e);
+            D(N, N.current), D(uo, e), fo === null && (fo = e);
         }
         function ho(e) {
-            e.tag === 22 ? (E(N, N.current), E(uo, e), fo === null && (fo = e)) : go(e);
+            e.tag === 22 ? (D(N, N.current), D(uo, e), fo === null && (fo = e)) : go(e);
         }
         function go() {
-            E(N, N.current), E(uo, uo.current);
+            D(N, N.current), D(uo, uo.current);
         }
         function _o(e) {
-            T(uo), fo === e && (fo = null), T(N);
+            E(uo), fo === e && (fo = null), E(N);
         }
-        var N = me(0);
+        var N = pe(0);
         function vo(e) {
             for(var t = e; t !== null;){
                 if (t.tag === 13) {
@@ -3051,7 +3051,7 @@ Error generating stack: ` + e.message + `
             if (t ??= {
                 data: [],
                 index: 0
-            }, n === null && (n = Io(), P.updateQueue = n), n.memoCache = t, n = t.data[t.index], n === void 0) for(n = t.data[t.index] = Array(e), r = 0; r < e; r++)n[r] = ae;
+            }, n === null && (n = Io(), P.updateQueue = n), n.memoCache = t, n = t.data[t.index], n === void 0) for(n = t.data[t.index] = Array(e), r = 0; r < e; r++)n[r] = S;
             return t.index++, n;
         }
         function Bo(e, t) {
@@ -4276,7 +4276,7 @@ Error generating stack: ` + e.message + `
             var r = t.pendingProps, i = r.revealOrder, a = r.tail;
             r = r.children;
             var o = N.current, s = (o & 2) != 0;
-            if (s ? (o = o & 1 | 2, t.flags |= 128) : o &= 1, E(N, o), cc(e, t, r, n), r = j ? ji : 0, !s && e !== null && e.flags & 128) a: for(e = t.child; e !== null;){
+            if (s ? (o = o & 1 | 2, t.flags |= 128) : o &= 1, D(N, o), cc(e, t, r, n), r = j ? ji : 0, !s && e !== null && e.flags & 128) a: for(e = t.child; e !== null;){
                 if (e.tag === 13) e.memoizedState !== null && Ac(e, n, t);
                 else if (e.tag === 19) Ac(e, n, t);
                 else if (e.child !== null) {
@@ -4331,14 +4331,14 @@ Error generating stack: ` + e.message + `
         function Fc(e, t, n) {
             switch(t.tag){
                 case 3:
-                    xe(t, t.stateNode.containerInfo), na(t, M, e.memoizedState.cache), Xi();
+                    ve(t, t.stateNode.containerInfo), na(t, M, e.memoizedState.cache), Xi();
                     break;
                 case 27:
                 case 5:
-                    Se(t);
+                    xe(t);
                     break;
                 case 4:
-                    xe(t, t.stateNode.containerInfo);
+                    ve(t, t.stateNode.containerInfo);
                     break;
                 case 10:
                     na(t, t.type, t.memoizedProps.value);
@@ -4357,7 +4357,7 @@ Error generating stack: ` + e.message + `
                         if (r) return Mc(e, t, n);
                         t.flags |= 128;
                     }
-                    if (i = t.memoizedState, i !== null && (i.rendering = null, i.tail = null, i.lastEffect = null), E(N, N.current), r) break;
+                    if (i = t.memoizedState, i !== null && (i.rendering = null, i.tail = null, i.lastEffect = null), D(N, N.current), r) break;
                     return null;
                 case 22:
                     return t.lanes = 0, fc(e, t, n, t.pendingProps);
@@ -4384,7 +4384,7 @@ Error generating stack: ` + e.message + `
                                 if (i === ee) {
                                     t.tag = 11, t = lc(null, t, e, r, n);
                                     break a;
-                                } else if (i === ne) {
+                                } else if (i === re) {
                                     t.tag = 14, t = uc(null, t, e, r, n);
                                     break a;
                                 }
@@ -4399,7 +4399,7 @@ Error generating stack: ` + e.message + `
                     return r = t.type, i = Zs(r, t.pendingProps), xc(e, t, r, i, n);
                 case 3:
                     a: {
-                        if (xe(t, t.stateNode.containerInfo), e === null) throw Error(a(387));
+                        if (ve(t, t.stateNode.containerInfo), e === null) throw Error(a(387));
                         r = t.pendingProps;
                         var o = t.memoizedState;
                         i = o.element, Ya(e, t), no(t, r, null, n);
@@ -4437,17 +4437,17 @@ Error generating stack: ` + e.message + `
                     }
                     return t;
                 case 26:
-                    return vc(e, t), e === null ? (n = kf(t.type, null, t.pendingProps, null)) ? t.memoizedState = n : j || (n = t.type, e = t.pendingProps, r = Bd(ve.current).createElement(n), r[ht] = t, r[gt] = e, Pd(r, n, e), Ot(r), t.stateNode = r) : t.memoizedState = kf(t.type, e.memoizedProps, t.pendingProps, e.memoizedState), null;
+                    return vc(e, t), e === null ? (n = kf(t.type, null, t.pendingProps, null)) ? t.memoizedState = n : j || (n = t.type, e = t.pendingProps, r = Bd(ge.current).createElement(n), r[ht] = t, r[gt] = e, Pd(r, n, e), Ot(r), t.stateNode = r) : t.memoizedState = kf(t.type, e.memoizedProps, t.pendingProps, e.memoizedState), null;
                 case 27:
-                    return Se(t), e === null && j && (r = t.stateNode = ff(t.type, t.pendingProps, ve.current), Hi = t, Wi = !0, i = A, Zd(t.type) ? (lf = i, A = cf(r.firstChild)) : A = i), cc(e, t, t.pendingProps.children, n), vc(e, t), e === null && (t.flags |= 4194304), t.child;
+                    return xe(t), e === null && j && (r = t.stateNode = ff(t.type, t.pendingProps, ge.current), Hi = t, Wi = !0, i = A, Zd(t.type) ? (lf = i, A = cf(r.firstChild)) : A = i), cc(e, t, t.pendingProps.children, n), vc(e, t), e === null && (t.flags |= 4194304), t.child;
                 case 5:
-                    return e === null && j && ((i = r = A) && (r = tf(r, t.type, t.pendingProps, Wi), r === null ? i = !1 : (t.stateNode = r, Hi = t, A = cf(r.firstChild), Wi = !1, i = !0)), i || Ki(t)), Se(t), i = t.type, o = t.pendingProps, s = e === null ? null : e.memoizedProps, r = o.children, Ud(i, o) ? r = null : s !== null && Ud(i, s) && (t.flags |= 32), t.memoizedState !== null && (i = Oo(e, t, jo, null, null, n), Qf._currentValue = i), vc(e, t), cc(e, t, r, n), t.child;
+                    return e === null && j && ((i = r = A) && (r = tf(r, t.type, t.pendingProps, Wi), r === null ? i = !1 : (t.stateNode = r, Hi = t, A = cf(r.firstChild), Wi = !1, i = !0)), i || Ki(t)), xe(t), i = t.type, o = t.pendingProps, s = e === null ? null : e.memoizedProps, r = o.children, Ud(i, o) ? r = null : s !== null && Ud(i, s) && (t.flags |= 32), t.memoizedState !== null && (i = Oo(e, t, jo, null, null, n), Qf._currentValue = i), vc(e, t), cc(e, t, r, n), t.child;
                 case 6:
                     return e === null && j && ((e = n = A) && (n = nf(n, t.pendingProps, Wi), n === null ? e = !1 : (t.stateNode = n, Hi = t, A = null, e = !0)), e || Ki(t)), null;
                 case 13:
                     return Ec(e, t, n);
                 case 4:
-                    return xe(t, t.stateNode.containerInfo), r = t.pendingProps, e === null ? t.child = Ga(t, null, r, n) : cc(e, t, r, n), t.child;
+                    return ve(t, t.stateNode.containerInfo), r = t.pendingProps, e === null ? t.child = Ga(t, null, r, n) : cc(e, t, r, n), t.child;
                 case 11:
                     return lc(e, t, t.type, t.pendingProps, n);
                 case 7:
@@ -4538,30 +4538,30 @@ Error generating stack: ` + e.message + `
                 case 1:
                     return B(t), null;
                 case 3:
-                    return n = t.stateNode, r = null, e !== null && (r = e.memoizedState.cache), t.memoizedState.cache !== r && (t.flags |= 2048), ra(M), D(), n.pendingContext && (n.context = n.pendingContext, n.pendingContext = null), (e === null || e.child === null) && (Yi(t) ? Lc(t) : e === null || e.memoizedState.isDehydrated && !(t.flags & 256) || (t.flags |= 1024, Zi())), B(t), null;
+                    return n = t.stateNode, r = null, e !== null && (r = e.memoizedState.cache), t.memoizedState.cache !== r && (t.flags |= 2048), ra(M), ye(), n.pendingContext && (n.context = n.pendingContext, n.pendingContext = null), (e === null || e.child === null) && (Yi(t) ? Lc(t) : e === null || e.memoizedState.isDehydrated && !(t.flags & 256) || (t.flags |= 1024, Zi())), B(t), null;
                 case 26:
                     var i = t.type, o = t.memoizedState;
                     return e === null ? (Lc(t), o === null ? (B(t), Rc(t, i, null, r, n)) : (B(t), zc(t, o))) : o ? o === e.memoizedState ? (B(t), t.flags &= -16777217) : (Lc(t), B(t), zc(t, o)) : (e = e.memoizedProps, e !== r && Lc(t), B(t), Rc(t, i, e, r, n)), null;
                 case 27:
-                    if (O(t), n = ve.current, i = t.type, e !== null && t.stateNode != null) e.memoizedProps !== r && Lc(t);
+                    if (Ce(t), n = ge.current, i = t.type, e !== null && t.stateNode != null) e.memoizedProps !== r && Lc(t);
                     else {
                         if (!r) {
                             if (t.stateNode === null) throw Error(a(166));
                             return B(t), null;
                         }
-                        e = he.current, Yi(t) ? qi(t, e) : (e = ff(i, r, n), t.stateNode = e, Lc(t));
+                        e = me.current, Yi(t) ? qi(t, e) : (e = ff(i, r, n), t.stateNode = e, Lc(t));
                     }
                     return B(t), null;
                 case 5:
-                    if (O(t), i = t.type, e !== null && t.stateNode != null) e.memoizedProps !== r && Lc(t);
+                    if (Ce(t), i = t.type, e !== null && t.stateNode != null) e.memoizedProps !== r && Lc(t);
                     else {
                         if (!r) {
                             if (t.stateNode === null) throw Error(a(166));
                             return B(t), null;
                         }
-                        if (o = he.current, Yi(t)) qi(t, o);
+                        if (o = me.current, Yi(t)) qi(t, o);
                         else {
-                            var s = Bd(ve.current);
+                            var s = Bd(ge.current);
                             switch(o){
                                 case 1:
                                     o = s.createElementNS(`http://www.w3.org/2000/svg`, i);
@@ -4627,7 +4627,7 @@ Error generating stack: ` + e.message + `
                     if (e && t.stateNode != null) e.memoizedProps !== r && Lc(t);
                     else {
                         if (typeof r != `string` && t.stateNode === null) throw Error(a(166));
-                        if (e = ve.current, Yi(t)) {
+                        if (e = ge.current, Yi(t)) {
                             if (e = t.stateNode, n = t.memoizedProps, r = null, i = Hi, i !== null) switch(i.tag){
                                 case 27:
                                 case 5:
@@ -4665,32 +4665,32 @@ Error generating stack: ` + e.message + `
                     }
                     return _o(t), t.flags & 128 ? (t.lanes = n, t) : (n = r !== null, e = e !== null && e.memoizedState !== null, n && (r = t.child, i = null, r.alternate !== null && r.alternate.memoizedState !== null && r.alternate.memoizedState.cachePool !== null && (i = r.alternate.memoizedState.cachePool.pool), o = null, r.memoizedState !== null && r.memoizedState.cachePool !== null && (o = r.memoizedState.cachePool.pool), o !== i && (r.flags |= 2048)), n !== e && n && (t.child.flags |= 8192), Bc(t, t.updateQueue), B(t), null);
                 case 4:
-                    return D(), e === null && Sd(t.stateNode.containerInfo), B(t), null;
+                    return ye(), e === null && Sd(t.stateNode.containerInfo), B(t), null;
                 case 10:
                     return ra(t.type), B(t), null;
                 case 19:
-                    if (T(N), r = t.memoizedState, r === null) return B(t), null;
+                    if (E(N), r = t.memoizedState, r === null) return B(t), null;
                     if (i = (t.flags & 128) != 0, o = r.rendering, o === null) if (i) Vc(r, !1);
                     else {
                         if (Y !== 0 || e !== null && e.flags & 128) for(e = t.child; e !== null;){
                             if (o = vo(e), o !== null) {
                                 for(t.flags |= 128, Vc(r, !1), e = o.updateQueue, t.updateQueue = e, Bc(t, e), t.subtreeFlags = 0, e = n, n = t.child; n !== null;)bi(n, e), n = n.sibling;
-                                return E(N, N.current & 1 | 2), j && Li(t, r.treeForkCount), t.child;
+                                return D(N, N.current & 1 | 2), j && Li(t, r.treeForkCount), t.child;
                             }
                             e = e.sibling;
                         }
-                        r.tail !== null && Fe() > nu && (t.flags |= 128, i = !0, Vc(r, !1), t.lanes = 4194304);
+                        r.tail !== null && Pe() > nu && (t.flags |= 128, i = !0, Vc(r, !1), t.lanes = 4194304);
                     }
                     else {
                         if (!i) if (e = vo(o), e !== null) {
                             if (t.flags |= 128, i = !0, e = e.updateQueue, t.updateQueue = e, Bc(t, e), Vc(r, !0), r.tail === null && r.tailMode === `hidden` && !o.alternate && !j) return B(t), null;
-                        } else 2 * Fe() - r.renderingStartTime > nu && n !== 536870912 && (t.flags |= 128, i = !0, Vc(r, !1), t.lanes = 4194304);
+                        } else 2 * Pe() - r.renderingStartTime > nu && n !== 536870912 && (t.flags |= 128, i = !0, Vc(r, !1), t.lanes = 4194304);
                         r.isBackwards ? (o.sibling = t.child, t.child = o) : (e = r.last, e === null ? t.child = o : e.sibling = o, r.last = o);
                     }
-                    return r.tail === null ? (B(t), null) : (e = r.tail, r.rendering = e, r.tail = e.sibling, r.renderingStartTime = Fe(), e.sibling = null, n = N.current, E(N, i ? n & 1 | 2 : n & 1), j && Li(t, r.treeForkCount), e);
+                    return r.tail === null ? (B(t), null) : (e = r.tail, r.rendering = e, r.tail = e.sibling, r.renderingStartTime = Pe(), e.sibling = null, n = N.current, D(N, i ? n & 1 | 2 : n & 1), j && Li(t, r.treeForkCount), e);
                 case 22:
                 case 23:
-                    return _o(t), lo(), r = t.memoizedState !== null, e === null ? r && (t.flags |= 8192) : e.memoizedState !== null !== r && (t.flags |= 8192), r ? n & 536870912 && !(t.flags & 128) && (B(t), t.subtreeFlags & 6 && (t.flags |= 8192)) : B(t), n = t.updateQueue, n !== null && Bc(t, n.retryQueue), n = null, e !== null && e.memoizedState !== null && e.memoizedState.cachePool !== null && (n = e.memoizedState.cachePool.pool), r = null, t.memoizedState !== null && t.memoizedState.cachePool !== null && (r = t.memoizedState.cachePool.pool), r !== n && (t.flags |= 2048), e !== null && T(Ta), null;
+                    return _o(t), lo(), r = t.memoizedState !== null, e === null ? r && (t.flags |= 8192) : e.memoizedState !== null !== r && (t.flags |= 8192), r ? n & 536870912 && !(t.flags & 128) && (B(t), t.subtreeFlags & 6 && (t.flags |= 8192)) : B(t), n = t.updateQueue, n !== null && Bc(t, n.retryQueue), n = null, e !== null && e.memoizedState !== null && e.memoizedState.cachePool !== null && (n = e.memoizedState.cachePool.pool), r = null, t.memoizedState !== null && t.memoizedState.cachePool !== null && (r = t.memoizedState.cachePool.pool), r !== n && (t.flags |= 2048), e !== null && E(Ta), null;
                 case 24:
                     return n = null, e !== null && (n = e.memoizedState.cache), t.memoizedState.cache !== n && (t.flags |= 2048), ra(M), B(t), null;
                 case 25:
@@ -4705,11 +4705,11 @@ Error generating stack: ` + e.message + `
                 case 1:
                     return e = t.flags, e & 65536 ? (t.flags = e & -65537 | 128, t) : null;
                 case 3:
-                    return ra(M), D(), e = t.flags, e & 65536 && !(e & 128) ? (t.flags = e & -65537 | 128, t) : null;
+                    return ra(M), ye(), e = t.flags, e & 65536 && !(e & 128) ? (t.flags = e & -65537 | 128, t) : null;
                 case 26:
                 case 27:
                 case 5:
-                    return O(t), null;
+                    return Ce(t), null;
                 case 31:
                     if (t.memoizedState !== null) {
                         if (_o(t), t.alternate === null) throw Error(a(340));
@@ -4723,14 +4723,14 @@ Error generating stack: ` + e.message + `
                     }
                     return e = t.flags, e & 65536 ? (t.flags = e & -65537 | 128, t) : null;
                 case 19:
-                    return T(N), null;
+                    return E(N), null;
                 case 4:
-                    return D(), null;
+                    return ye(), null;
                 case 10:
                     return ra(t.type), null;
                 case 22:
                 case 23:
-                    return _o(t), lo(), e !== null && T(Ta), e = t.flags, e & 65536 ? (t.flags = e & -65537 | 128, t) : null;
+                    return _o(t), lo(), e !== null && E(Ta), e = t.flags, e & 65536 ? (t.flags = e & -65537 | 128, t) : null;
                 case 24:
                     return ra(M), null;
                 case 25:
@@ -4742,15 +4742,15 @@ Error generating stack: ` + e.message + `
         function Wc(e, t) {
             switch(Bi(t), t.tag){
                 case 3:
-                    ra(M), D();
+                    ra(M), ye();
                     break;
                 case 26:
                 case 27:
                 case 5:
-                    O(t);
+                    Ce(t);
                     break;
                 case 4:
-                    D();
+                    ye();
                     break;
                 case 31:
                     t.memoizedState !== null && _o(t);
@@ -4759,14 +4759,14 @@ Error generating stack: ` + e.message + `
                     _o(t);
                     break;
                 case 19:
-                    T(N);
+                    E(N);
                     break;
                 case 10:
                     ra(t.type);
                     break;
                 case 22:
                 case 23:
-                    _o(t), lo(), e !== null && T(Ta);
+                    _o(t), lo(), e !== null && E(Ta);
                     break;
                 case 24:
                     ra(M);
@@ -5108,8 +5108,8 @@ Error generating stack: ` + e.message + `
             for(n = n.child; n !== null;)fl(e, t, n), n = n.sibling;
         }
         function fl(e, t, n) {
-            if (k && typeof k.onCommitFiberUnmount == `function`) try {
-                k.onCommitFiberUnmount(We, n);
+            if (We && typeof We.onCommitFiberUnmount == `function`) try {
+                We.onCommitFiberUnmount(Ue, n);
             } catch  {}
             switch(n.tag){
                 case 26:
@@ -5323,7 +5323,7 @@ Error generating stack: ` + e.message + `
                     _l(t, e), bl(e), r & 4 && (r = e.updateQueue, r !== null && (e.updateQueue = null, gl(e, r)));
                     break;
                 case 13:
-                    _l(t, e), bl(e), e.child.flags & 8192 && e.memoizedState !== null != (n !== null && n.memoizedState !== null) && (eu = Fe()), r & 4 && (r = e.updateQueue, r !== null && (e.updateQueue = null, gl(e, r)));
+                    _l(t, e), bl(e), e.child.flags & 8192 && e.memoizedState !== null != (n !== null && n.memoizedState !== null) && (eu = Pe()), r & 4 && (r = e.updateQueue, r !== null && (e.updateQueue = null, gl(e, r)));
                     break;
                 case 22:
                     i = e.memoizedState !== null;
@@ -5811,7 +5811,7 @@ Error generating stack: ` + e.message + `
                             default:
                                 throw Error(a(329));
                         }
-                        if ((t & 62914560) === t && (i = eu + 300 - Fe(), 10 < i)) {
+                        if ((t & 62914560) === t && (i = eu + 300 - Pe(), 10 < i)) {
                             if (yu(r, t, Yl, !Hl), et(r, 0, !0) !== 0) break a;
                             su = t, r.timeoutHandle = Kd(_u.bind(null, r, n, Ql, ru, $l, t, Yl, ql, Xl, Hl, o, `Throttled`, -0, 0), i);
                             break a;
@@ -5835,7 +5835,7 @@ Error generating stack: ` + e.message + `
                     waitingForViewTransition: !1,
                     unsuspend: ln
                 }, Nl(t, a, d);
-                var m = (a & 62914560) === a ? eu - Fe() : (a & 4194048) === a ? tu - Fe() : 0;
+                var m = (a & 62914560) === a ? eu - Pe() : (a & 4194048) === a ? tu - Pe() : 0;
                 if (m = qf(d, m), m !== null) {
                     su = a, e.cancelPendingCommit = m(Lu.bind(null, e, t, a, n, r, i, o, s, c, u, d, null, f, p)), yu(e, a, o, !l);
                     return;
@@ -5957,7 +5957,7 @@ Error generating stack: ` + e.message + `
             var n = W;
             W |= 2;
             var r = Tu(), i = Eu();
-            G !== e || q !== t ? (ru = null, nu = Fe() + 500, Su(e, t)) : Ul = tt(e, t);
+            G !== e || q !== t ? (ru = null, nu = Pe() + 500, Su(e, t)) : Ul = tt(e, t);
             a: do try {
                 if (J !== 0 && K !== null) {
                     t = K;
@@ -6025,7 +6025,7 @@ Error generating stack: ` + e.message + `
             return ta = ea = null, C.H = r, C.A = i, W = n, K === null ? (G = null, q = 0, li(), Y) : 0;
         }
         function ju() {
-            for(; K !== null && !Ne();)Mu(K);
+            for(; K !== null && !Me();)Mu(K);
         }
         function Mu(e) {
             var t = Ic(e.alternate, e, Gl);
@@ -6106,7 +6106,7 @@ Error generating stack: ` + e.message + `
             if (W & 6) throw Error(a(327));
             if (t !== null) {
                 if (t === e.current) throw Error(a(177));
-                if (o = t.lanes | t.childLanes, o |= ci, ot(e, n, o, s, c, l), e === G && (K = G = null, q = 0), ou = t, au = e, su = n, cu = o, lu = i, uu = r, t.subtreeFlags & 10256 || t.flags & 10256 ? (e.callbackNode = null, e.callbackPriority = 0, Xu(ze, function() {
+                if (o = t.lanes | t.childLanes, o |= ci, ot(e, n, o, s, c, l), e === G && (K = G = null, q = 0), ou = t, au = e, su = n, cu = o, lu = i, uu = r, t.subtreeFlags & 10256 || t.flags & 10256 ? (e.callbackNode = null, e.callbackPriority = 0, Xu(Re, function() {
                     return Uu(), null;
                 })) : (e.callbackNode = null, e.callbackPriority = 0), r = (t.flags & 13878) != 0, t.subtreeFlags & 13878 || r) {
                     r = C.T, C.T = null, i = w.p, w.p = 2, s = W, W |= 4;
@@ -6188,12 +6188,12 @@ Error generating stack: ` + e.message + `
         }
         function Bu() {
             if (X === 4 || X === 3) {
-                X = 0, Pe();
+                X = 0, Ne();
                 var e = au, t = ou, n = su, r = uu;
                 t.subtreeFlags & 10256 || t.flags & 10256 ? X = 5 : (X = 0, ou = au = null, Vu(e, e.pendingLanes));
                 var i = e.pendingLanes;
-                if (i === 0 && (iu = null), dt(n), t = t.stateNode, k && typeof k.onCommitFiberRoot == `function`) try {
-                    k.onCommitFiberRoot(We, t, void 0, (t.current.flags & 128) == 128);
+                if (i === 0 && (iu = null), dt(n), t = t.stateNode, We && typeof We.onCommitFiberRoot == `function`) try {
+                    We.onCommitFiberRoot(Ue, t, void 0, (t.current.flags & 128) == 128);
                 } catch  {}
                 if (r !== null) {
                     t = C.T, i = w.p, w.p = 2, C.T = null;
@@ -6227,8 +6227,8 @@ Error generating stack: ` + e.message + `
                 var o = au, s = su;
                 if (X = 0, ou = au = null, su = 0, W & 6) throw Error(a(331));
                 var c = W;
-                if (W |= 4, Il(o.current), Ol(o, o.current, s, n), W = c, id(0, !1), k && typeof k.onPostCommitFiberRoot == `function`) try {
-                    k.onPostCommitFiberRoot(We, o);
+                if (W |= 4, Il(o.current), Ol(o, o.current, s, n), W = c, id(0, !1), We && typeof We.onPostCommitFiberRoot == `function`) try {
+                    We.onPostCommitFiberRoot(Ue, o);
                 } catch  {}
                 return !0;
             } finally{
@@ -6265,7 +6265,7 @@ Error generating stack: ` + e.message + `
         }
         function Ku(e, t, n) {
             var r = e.pingCache;
-            r !== null && r.delete(t), e.pingedLanes |= e.suspendedLanes & n, e.warmLanes &= ~n, G === e && (q & n) === n && (Y === 4 || Y === 3 && (q & 62914560) === q && 300 > Fe() - eu ? !(W & 2) && Su(e, 0) : Jl |= n, Xl === q && (Xl = 0)), rd(e);
+            r !== null && r.delete(t), e.pingedLanes |= e.suspendedLanes & n, e.warmLanes &= ~n, G === e && (q & n) === n && (Y === 4 || Y === 3 && (q & 62914560) === q && 300 > Pe() - eu ? !(W & 2) && Su(e, 0) : Jl |= n, Xl === q && (Xl = 0)), rd(e);
         }
         function qu(e, t) {
             t === 0 && (t = rt()), e = fi(e, t), e !== null && (at(e, t), rd(e));
@@ -6294,7 +6294,7 @@ Error generating stack: ` + e.message + `
             r !== null && r.delete(t), qu(e, n);
         }
         function Xu(e, t) {
-            return je(e, t);
+            return Ae(e, t);
         }
         var Zu = null, Qu = null, $u = !1, ed = !1, td = !1, nd = 0;
         function rd(e) {
@@ -6326,7 +6326,7 @@ Error generating stack: ` + e.message + `
             ed = $u = !1;
             var e = 0;
             nd !== 0 && Gd() && (e = nd);
-            for(var t = Fe(), n = null, r = Zu; r !== null;){
+            for(var t = Pe(), n = null, r = Zu; r !== null;){
                 var i = r.next, a = sd(r, t);
                 a === 0 ? (r.next = null, n === null ? Zu = i : n.next = i, i === null && (Qu = n)) : (n = r, (e !== 0 || a & 3) && (ed = !0)), r = i;
             }
@@ -6337,33 +6337,33 @@ Error generating stack: ` + e.message + `
                 var o = 31 - Ke(a), s = 1 << o, c = i[o];
                 c === -1 ? ((s & n) === 0 || (s & r) !== 0) && (i[o] = nt(s, t)) : c <= t && (e.expiredLanes |= s), a &= ~s;
             }
-            if (t = G, n = q, n = et(e, e === t ? n : 0, e.cancelPendingCommit !== null || e.timeoutHandle !== -1), r = e.callbackNode, n === 0 || e === t && (J === 2 || J === 9) || e.cancelPendingCommit !== null) return r !== null && r !== null && Me(r), e.callbackNode = null, e.callbackPriority = 0;
+            if (t = G, n = q, n = et(e, e === t ? n : 0, e.cancelPendingCommit !== null || e.timeoutHandle !== -1), r = e.callbackNode, n === 0 || e === t && (J === 2 || J === 9) || e.cancelPendingCommit !== null) return r !== null && r !== null && je(r), e.callbackNode = null, e.callbackPriority = 0;
             if (!(n & 3) || tt(e, n)) {
                 if (t = n & -n, t === e.callbackPriority) return t;
-                switch(r !== null && Me(r), dt(n)){
+                switch(r !== null && je(r), dt(n)){
                     case 2:
                     case 8:
-                        n = Re;
+                        n = Le;
                         break;
                     case 32:
-                        n = ze;
+                        n = Re;
                         break;
                     case 268435456:
-                        n = Ve;
+                        n = Be;
                         break;
                     default:
-                        n = ze;
+                        n = Re;
                 }
-                return r = cd.bind(null, e), n = je(n, r), e.callbackPriority = t, e.callbackNode = n, t;
+                return r = cd.bind(null, e), n = Ae(n, r), e.callbackPriority = t, e.callbackNode = n, t;
             }
-            return r !== null && r !== null && Me(r), e.callbackPriority = 2, e.callbackNode = null, 2;
+            return r !== null && r !== null && je(r), e.callbackPriority = 2, e.callbackNode = null, 2;
         }
         function cd(e, t) {
             if (X !== 0 && X !== 5) return e.callbackNode = null, e.callbackPriority = 0, null;
             var n = e.callbackNode;
             if (Hu() && e.callbackNode !== n) return null;
             var r = q;
-            return r = et(e, e === G ? r : 0, e.cancelPendingCommit !== null || e.timeoutHandle !== -1), r === 0 ? null : (gu(e, r, t), sd(e, Fe()), e.callbackNode != null && e.callbackNode === n ? cd.bind(null, e) : null);
+            return r = et(e, e === G ? r : 0, e.cancelPendingCommit !== null || e.timeoutHandle !== -1), r === 0 ? null : (gu(e, r, t), sd(e, Pe()), e.callbackNode != null && e.callbackNode === n ? cd.bind(null, e) : null);
         }
         function ld(e, t) {
             if (Hu()) return null;
@@ -6371,7 +6371,7 @@ Error generating stack: ` + e.message + `
         }
         function ud() {
             Yd(function() {
-                W & 6 ? je(Le, ad) : od();
+                W & 6 ? Ae(Ie, ad) : od();
             });
         }
         function dd() {
@@ -7707,7 +7707,7 @@ Error generating stack: ` + e.message + `
             }
         }
         function kf(e, t, n, r) {
-            var i = (i = ve.current) ? gf(i) : null;
+            var i = (i = ge.current) ? gf(i) : null;
             if (!i) throw Error(a(446));
             switch(e){
                 case `meta`:
@@ -8039,7 +8039,7 @@ Error generating stack: ` + e.message + `
                                             var c = 1 << 31 - Ke(o);
                                             s.entanglements[1] |= c, o &= ~c;
                                         }
-                                        rd(a), !(W & 6) && (nu = Fe() + 500, id(0, !1));
+                                        rd(a), !(W & 6) && (nu = Pe() + 500, id(0, !1));
                                     }
                                 }
                                 break;
@@ -8154,15 +8154,15 @@ Error generating stack: ` + e.message + `
                 case `pointerleave`:
                     return 8;
                 case `message`:
-                    switch(Ie()){
-                        case Le:
+                    switch(Fe()){
+                        case Ie:
                             return 2;
-                        case Re:
+                        case Le:
                             return 8;
+                        case Re:
                         case ze:
-                        case Be:
                             return 32;
-                        case Ve:
+                        case Be:
                             return 268435456;
                         default:
                             return 32;
@@ -8394,7 +8394,7 @@ Error generating stack: ` + e.message + `
         if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ < `u`) {
             var zp = __REACT_DEVTOOLS_GLOBAL_HOOK__;
             if (!zp.isDisabled && zp.supportsFiber) try {
-                We = zp.inject(Rp), k = zp;
+                Ue = zp.inject(Rp), We = zp;
             } catch  {}
         }
         e.createRoot = function(e, t) {
@@ -8402,7 +8402,7 @@ Error generating stack: ` + e.message + `
             var n = !1, r = ``, i = Qs, s = $s, c = ec;
             return t != null && (!0 === t.unstable_strictMode && (n = !0), t.identifierPrefix !== void 0 && (r = t.identifierPrefix), t.onUncaughtError !== void 0 && (i = t.onUncaughtError), t.onCaughtError !== void 0 && (s = t.onCaughtError), t.onRecoverableError !== void 0 && (c = t.onRecoverableError)), t = ep(e, 1, !1, null, null, n, r, null, i, s, c, Pp), e[_t] = t.current, Sd(e), new Fp(t);
         };
-    })), xe = t(((e, t)=>{
+    })), we = t(((e, t)=>{
         function n() {
             if (!(typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ > `u` || typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE != `function`)) try {
                 __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(n);
@@ -8410,8 +8410,8 @@ Error generating stack: ` + e.message + `
                 console.error(e);
             }
         }
-        n(), t.exports = be();
-    })), D = e(n(), 1), Se = e(xe(), 1), O = i(), Ce = `/`, we = [
+        n(), t.exports = Ce();
+    })), O = e(n(), 1), Te = e(we(), 1), k = i(), Ee = `/`, De = [
         {
             icon: `sea`,
             label: `Calm Sea`,
@@ -8487,7 +8487,7 @@ Error generating stack: ` + e.message + `
             color: `#003a5a`,
             legendary: !0
         }
-    ], Te = [
+    ], Oe = [
         {
             id: `ghost`,
             name: `Ghost Ship`,
@@ -8530,7 +8530,7 @@ Error generating stack: ` + e.message + `
             cost: `65g`,
             color: `#44cc88`
         }
-    ], Ee = {
+    ], ke = {
         ghost: `upgrades/ghost_ship.png`,
         rider: `upgrades/storm_rider.png`,
         greed: `upgrades/cursed_greed.png`,
@@ -8538,13 +8538,13 @@ Error generating stack: ` + e.message + `
         hunter: `upgrades/treasure_hunter.png`,
         escape: `upgrades/swift_sails.png`
     };
-    function De({ title: e, children: t }) {
-        return (0, O.jsxs)(`div`, {
+    function Ae({ title: e, children: t }) {
+        return (0, k.jsxs)(`div`, {
             style: {
                 marginBottom: 36
             },
             children: [
-                (0, O.jsx)(`div`, {
+                (0, k.jsx)(`div`, {
                     style: {
                         fontSize: 15,
                         letterSpacing: 5,
@@ -8560,9 +8560,9 @@ Error generating stack: ` + e.message + `
             ]
         });
     }
-    function Oe({ onClose: e, onPlay: t }) {
+    function je({ onClose: e, onPlay: t }) {
         let n = window.innerWidth < 768;
-        return (0, O.jsx)(a.div, {
+        return (0, k.jsx)(a.div, {
             initial: {
                 opacity: 0
             },
@@ -8584,7 +8584,7 @@ Error generating stack: ` + e.message + `
                 fontFamily: `'Pirata One', cursive`
             },
             onClick: e,
-            children: (0, O.jsxs)(a.div, {
+            children: (0, k.jsxs)(a.div, {
                 initial: {
                     scale: .95,
                     opacity: 0
@@ -8611,7 +8611,7 @@ Error generating stack: ` + e.message + `
                     position: `relative`
                 },
                 children: [
-                    (0, O.jsxs)(`div`, {
+                    (0, k.jsxs)(`div`, {
                         style: {
                             display: `flex`,
                             justifyContent: `space-between`,
@@ -8619,7 +8619,7 @@ Error generating stack: ` + e.message + `
                             marginBottom: 32
                         },
                         children: [
-                            (0, O.jsx)(`div`, {
+                            (0, k.jsx)(`div`, {
                                 style: {
                                     fontSize: n ? 20 : 30,
                                     color: `#c8a030`,
@@ -8627,7 +8627,7 @@ Error generating stack: ` + e.message + `
                                 },
                                 children: `HOW TO PLAY`
                             }),
-                            (0, O.jsx)(`button`, {
+                            (0, k.jsx)(`button`, {
                                 onClick: e,
                                 style: {
                                     background: `transparent`,
@@ -8643,9 +8643,9 @@ Error generating stack: ` + e.message + `
                             })
                         ]
                     }),
-                    (0, O.jsx)(De, {
+                    (0, k.jsx)(Ae, {
                         title: `THE GOAL`,
-                        children: (0, O.jsx)(`p`, {
+                        children: (0, k.jsx)(`p`, {
                             style: {
                                 fontFamily: `'IM Fell English', cursive`,
                                 fontSize: 18,
@@ -8655,10 +8655,10 @@ Error generating stack: ` + e.message + `
                             children: `You are a lone corsair sailing the northern seas. A deadly storm is chasing you from the south — and it never stops advancing. Your goal is to survive as long as possible, explore the fog-covered map, make smart decisions, and accumulate the highest score. There is no finish line. Every run ends in death. The only question is how far you can go before the sea claims you.`
                         })
                     }),
-                    (0, O.jsxs)(De, {
+                    (0, k.jsxs)(Ae, {
                         title: `MOVEMENT & NAVIGATION`,
                         children: [
-                            (0, O.jsxs)(`p`, {
+                            (0, k.jsxs)(`p`, {
                                 style: {
                                     fontFamily: `'IM Fell English', cursive`,
                                     fontSize: 18,
@@ -8668,21 +8668,21 @@ Error generating stack: ` + e.message + `
                                 },
                                 children: [
                                     `You can move in three directions each turn: `,
-                                    (0, O.jsx)(`span`, {
+                                    (0, k.jsx)(`span`, {
                                         style: {
                                             color: `#c8a030`
                                         },
                                         children: `← PORT`
                                     }),
                                     ` (left), `,
-                                    (0, O.jsx)(`span`, {
+                                    (0, k.jsx)(`span`, {
                                         style: {
                                             color: `#c8a030`
                                         },
                                         children: `↑ AHEAD`
                                     }),
                                     ` (forward), or `,
-                                    (0, O.jsx)(`span`, {
+                                    (0, k.jsx)(`span`, {
                                         style: {
                                             color: `#c8a030`
                                         },
@@ -8691,7 +8691,7 @@ Error generating stack: ` + e.message + `
                                     ` (right). You cannot go backwards. Every move advances the storm by 1 turn and reveals the cells around you based on your current Vision stat. Each move also earns you +5 points.`
                                 ]
                             }),
-                            (0, O.jsxs)(`p`, {
+                            (0, k.jsxs)(`p`, {
                                 style: {
                                     fontFamily: `'IM Fell English', cursive`,
                                     fontSize: 18,
@@ -8700,21 +8700,21 @@ Error generating stack: ` + e.message + `
                                 },
                                 children: [
                                     `The map is a 12×12 grid divided into three zones. The `,
-                                    (0, O.jsx)(`span`, {
+                                    (0, k.jsx)(`span`, {
                                         style: {
                                             color: `#44cc88`
                                         },
                                         children: `early zone`
                                     }),
                                     ` (bottom) is calmer with frequent ports. The `,
-                                    (0, O.jsx)(`span`, {
+                                    (0, k.jsx)(`span`, {
                                         style: {
                                             color: `#eedd44`
                                         },
                                         children: `mid zone`
                                     }),
                                     ` is where pirates, storms and hybrid events appear. The `,
-                                    (0, O.jsx)(`span`, {
+                                    (0, k.jsx)(`span`, {
                                         style: {
                                             color: `#ee4444`
                                         },
@@ -8725,9 +8725,9 @@ Error generating stack: ` + e.message + `
                             })
                         ]
                     }),
-                    (0, O.jsx)(De, {
+                    (0, k.jsx)(Ae, {
                         title: `YOUR STATS`,
-                        children: (0, O.jsx)(`div`, {
+                        children: (0, k.jsx)(`div`, {
                             style: {
                                 display: `grid`,
                                 gridTemplateColumns: n ? `repeat(2, 1fr)` : `repeat(3, 1fr)`,
@@ -8771,7 +8771,7 @@ Error generating stack: ` + e.message + `
                                     desc: `Hidden stat. Rises when you fight pirates, falls when you pay tribute. Affects combat rewards and tribute costs.`,
                                     color: `#cc44ee`
                                 }
-                            ].map((e)=>(0, O.jsxs)(`div`, {
+                            ].map((e)=>(0, k.jsxs)(`div`, {
                                     style: {
                                         background: `rgba(255,255,255,0.03)`,
                                         border: `1px solid ${e.color}33`,
@@ -8779,7 +8779,7 @@ Error generating stack: ` + e.message + `
                                         padding: `12px 16px`
                                     },
                                     children: [
-                                        (0, O.jsx)(`div`, {
+                                        (0, k.jsx)(`div`, {
                                             style: {
                                                 fontSize: 12,
                                                 letterSpacing: 3,
@@ -8788,7 +8788,7 @@ Error generating stack: ` + e.message + `
                                             },
                                             children: e.label
                                         }),
-                                        (0, O.jsx)(`div`, {
+                                        (0, k.jsx)(`div`, {
                                             style: {
                                                 fontSize: 24,
                                                 color: e.color,
@@ -8796,7 +8796,7 @@ Error generating stack: ` + e.message + `
                                             },
                                             children: e.val
                                         }),
-                                        (0, O.jsx)(`div`, {
+                                        (0, k.jsx)(`div`, {
                                             style: {
                                                 fontSize: 14,
                                                 color: `rgba(255,255,255,0.5)`,
@@ -8810,9 +8810,9 @@ Error generating stack: ` + e.message + `
                                 }, e.label))
                         })
                     }),
-                    (0, O.jsx)(De, {
+                    (0, k.jsx)(Ae, {
                         title: `THE STORM`,
-                        children: (0, O.jsx)(`div`, {
+                        children: (0, k.jsx)(`div`, {
                             style: {
                                 background: `rgba(180,30,30,0.1)`,
                                 border: `1px solid rgba(220,50,50,0.3)`,
@@ -8820,7 +8820,7 @@ Error generating stack: ` + e.message + `
                                 padding: 20,
                                 marginBottom: 12
                             },
-                            children: (0, O.jsxs)(`p`, {
+                            children: (0, k.jsxs)(`p`, {
                                 style: {
                                     fontFamily: `'IM Fell English', cursive`,
                                     fontSize: 18,
@@ -8830,7 +8830,7 @@ Error generating stack: ` + e.message + `
                                 },
                                 children: [
                                     `The storm advances from the bottom of the map every turn. When it reaches your position, you die instantly — unless you have the Storm Rider upgrade. Each turn, there is a small chance of a `,
-                                    (0, O.jsx)(`span`, {
+                                    (0, k.jsx)(`span`, {
                                         style: {
                                             color: `#ee4444`
                                         },
@@ -8841,10 +8841,10 @@ Error generating stack: ` + e.message + `
                             })
                         })
                     }),
-                    (0, O.jsxs)(De, {
+                    (0, k.jsxs)(Ae, {
                         title: `ZONES & PORTALS`,
                         children: [
-                            (0, O.jsxs)(`p`, {
+                            (0, k.jsxs)(`p`, {
                                 style: {
                                     fontFamily: `'IM Fell English', cursive`,
                                     fontSize: 18,
@@ -8854,21 +8854,21 @@ Error generating stack: ` + e.message + `
                                 },
                                 children: [
                                     `Your voyage spans three great zones, each more perilous and rewarding than the last: `,
-                                    (0, O.jsx)(`span`, {
+                                    (0, k.jsx)(`span`, {
                                         style: {
                                             color: `#44cc88`
                                         },
                                         children: `The Coasts`
                                     }),
                                     `, then `,
-                                    (0, O.jsx)(`span`, {
+                                    (0, k.jsx)(`span`, {
                                         style: {
                                             color: `#cc44ee`
                                         },
                                         children: `The Storm Sea`
                                     }),
                                     `, and finally `,
-                                    (0, O.jsx)(`span`, {
+                                    (0, k.jsx)(`span`, {
                                         style: {
                                             color: `#ee4444`
                                         },
@@ -8877,14 +8877,14 @@ Error generating stack: ` + e.message + `
                                     `. Storms grow fiercer and monsters deadlier with each crossing — but so do the points.`
                                 ]
                             }),
-                            (0, O.jsx)(`div`, {
+                            (0, k.jsx)(`div`, {
                                 style: {
                                     background: `rgba(100,60,180,0.1)`,
                                     border: `1px solid rgba(140,90,220,0.35)`,
                                     borderRadius: 12,
                                     padding: 20
                                 },
-                                children: (0, O.jsxs)(`p`, {
+                                children: (0, k.jsxs)(`p`, {
                                     style: {
                                         fontFamily: `'IM Fell English', cursive`,
                                         fontSize: 18,
@@ -8894,14 +8894,14 @@ Error generating stack: ` + e.message + `
                                     },
                                     children: [
                                         `After you have sailed deep enough into a zone, a glowing purple `,
-                                        (0, O.jsx)(`span`, {
+                                        (0, k.jsx)(`span`, {
                                             style: {
                                                 color: `#aa77ff`
                                             },
                                             children: `VORTEX`
                                         }),
                                         ` appears somewhere ahead of you on the map. Watch the log — as you near it, reality begins to distort. Sail onto the vortex cell and choose `,
-                                        (0, O.jsx)(`span`, {
+                                        (0, k.jsx)(`span`, {
                                             style: {
                                                 color: `#aa77ff`
                                             },
@@ -8913,15 +8913,15 @@ Error generating stack: ` + e.message + `
                             })
                         ]
                     }),
-                    (0, O.jsx)(De, {
+                    (0, k.jsx)(Ae, {
                         title: `THE CELLS — WHAT YOU WILL ENCOUNTER`,
-                        children: (0, O.jsx)(`div`, {
+                        children: (0, k.jsx)(`div`, {
                             style: {
                                 display: `grid`,
                                 gridTemplateColumns: n ? `1fr` : `repeat(2, 1fr)`,
                                 gap: 10
                             },
-                            children: we.map((e)=>(0, O.jsxs)(`div`, {
+                            children: De.map((e)=>(0, k.jsxs)(`div`, {
                                     style: {
                                         background: `${e.color}18`,
                                         border: `1px solid ${e.color}44`,
@@ -8932,7 +8932,7 @@ Error generating stack: ` + e.message + `
                                         position: `relative`
                                     },
                                     children: [
-                                        e.legendary && (0, O.jsx)(`div`, {
+                                        e.legendary && (0, k.jsx)(`div`, {
                                             style: {
                                                 position: `absolute`,
                                                 top: 8,
@@ -8947,8 +8947,8 @@ Error generating stack: ` + e.message + `
                                             },
                                             children: `LEGENDARY`
                                         }),
-                                        (0, O.jsx)(`img`, {
-                                            src: `${Ce}icons/${e.icon}.png`,
+                                        (0, k.jsx)(`img`, {
+                                            src: `${Ee}icons/${e.icon}.png`,
                                             style: {
                                                 width: 44,
                                                 height: 44,
@@ -8957,9 +8957,9 @@ Error generating stack: ` + e.message + `
                                                 marginTop: 2
                                             }
                                         }),
-                                        (0, O.jsxs)(`div`, {
+                                        (0, k.jsxs)(`div`, {
                                             children: [
-                                                (0, O.jsx)(`div`, {
+                                                (0, k.jsx)(`div`, {
                                                     style: {
                                                         fontSize: 15,
                                                         color: `#e8e0d0`,
@@ -8967,7 +8967,7 @@ Error generating stack: ` + e.message + `
                                                     },
                                                     children: e.label
                                                 }),
-                                                (0, O.jsx)(`div`, {
+                                                (0, k.jsx)(`div`, {
                                                     style: {
                                                         fontSize: 14,
                                                         color: `rgba(255,255,255,0.55)`,
@@ -8982,10 +8982,10 @@ Error generating stack: ` + e.message + `
                                 }, e.icon))
                         })
                     }),
-                    (0, O.jsxs)(De, {
+                    (0, k.jsxs)(Ae, {
                         title: `SCORE & COMBO SYSTEM`,
                         children: [
-                            (0, O.jsxs)(`p`, {
+                            (0, k.jsxs)(`p`, {
                                 style: {
                                     fontFamily: `'IM Fell English', cursive`,
                                     fontSize: 18,
@@ -8995,7 +8995,7 @@ Error generating stack: ` + e.message + `
                                 },
                                 children: [
                                     `You earn +5 points per move. Combat, treasure, and exploration all add to your score. The key to a high score is the `,
-                                    (0, O.jsx)(`span`, {
+                                    (0, k.jsx)(`span`, {
                                         style: {
                                             color: `#eedd44`
                                         },
@@ -9004,7 +9004,7 @@ Error generating stack: ` + e.message + `
                                     `: every time you encounter a dangerous cell (pirates, kraken, storm, rocks, wreck), your combo stack increases by 1 up to a maximum of ×3. Every safe cell decreases it by 1. If you flee or pay tribute, it drops by 2. This means the best scores come from chains of risky decisions — but each one could end your run.`
                                 ]
                             }),
-                            (0, O.jsx)(`div`, {
+                            (0, k.jsx)(`div`, {
                                 style: {
                                     display: `grid`,
                                     gridTemplateColumns: n ? `repeat(2, 1fr)` : `repeat(3, 1fr)`,
@@ -9081,7 +9081,7 @@ Error generating stack: ` + e.message + `
                                         desc: `Earn a unique title based on your playstyle`,
                                         color: `#cc44ee`
                                     }
-                                ].map((e)=>(0, O.jsxs)(`div`, {
+                                ].map((e)=>(0, k.jsxs)(`div`, {
                                         style: {
                                             background: `rgba(255,255,255,0.03)`,
                                             border: `1px solid ${e.color}33`,
@@ -9090,14 +9090,14 @@ Error generating stack: ` + e.message + `
                                             textAlign: `center`
                                         },
                                         children: [
-                                            (0, O.jsx)(`div`, {
+                                            (0, k.jsx)(`div`, {
                                                 style: {
                                                     fontSize: 16,
                                                     color: e.color
                                                 },
                                                 children: e.label
                                             }),
-                                            (0, O.jsx)(`div`, {
+                                            (0, k.jsx)(`div`, {
                                                 style: {
                                                     fontSize: 13,
                                                     color: `rgba(255,255,255,0.45)`,
@@ -9112,9 +9112,9 @@ Error generating stack: ` + e.message + `
                             })
                         ]
                     }),
-                    (0, O.jsx)(De, {
+                    (0, k.jsx)(Ae, {
                         title: `THE PORT — YOUR LIFELINE`,
-                        children: (0, O.jsx)(`p`, {
+                        children: (0, k.jsx)(`p`, {
                             style: {
                                 fontFamily: `'IM Fell English', cursive`,
                                 fontSize: 18,
@@ -9124,10 +9124,10 @@ Error generating stack: ` + e.message + `
                             children: `Whenever you land on a port cell and choose to dock, you enter the port. Here you can repair your hull with a Rum Barrel (+8 hull for 25 gold) or a Full Repair (restore all hull for 55 gold). You also see 4 randomly selected upgrades — each port offers a different selection. Click an upgrade to add it to your cart, then press Confirm to purchase. If the selection does not suit your build, you can reroll it for 20 gold. You can only own one of each upgrade per run, so choose wisely. Occasionally, exploring an island grants you an Upgrade Token — your next upgrade at port costs 0 gold, so save it for the most expensive ability.`
                         })
                     }),
-                    (0, O.jsxs)(De, {
+                    (0, k.jsxs)(Ae, {
                         title: `SHIP COMPONENTS`,
                         children: [
-                            (0, O.jsx)(`p`, {
+                            (0, k.jsx)(`p`, {
                                 style: {
                                     fontFamily: `'IM Fell English', cursive`,
                                     fontSize: 18,
@@ -9137,7 +9137,7 @@ Error generating stack: ` + e.message + `
                                 },
                                 children: `At port you can upgrade 3 core components of your ship, each on 3 levels. Maximum 2 components can reach level 3 — forcing you to specialize.`
                             }),
-                            (0, O.jsx)(`div`, {
+                            (0, k.jsx)(`div`, {
                                 style: {
                                     display: `grid`,
                                     gridTemplateColumns: n ? `repeat(2, 1fr)` : `repeat(3, 1fr)`,
@@ -9178,7 +9178,7 @@ Error generating stack: ` + e.message + `
                                         ],
                                         cost: `50g → 110g`
                                     }
-                                ].map((e)=>(0, O.jsxs)(`div`, {
+                                ].map((e)=>(0, k.jsxs)(`div`, {
                                         style: {
                                             background: `${e.color}12`,
                                             border: `1px solid ${e.color}44`,
@@ -9186,7 +9186,7 @@ Error generating stack: ` + e.message + `
                                             padding: `14px 16px`
                                         },
                                         children: [
-                                            (0, O.jsxs)(`div`, {
+                                            (0, k.jsxs)(`div`, {
                                                 style: {
                                                     fontSize: 15,
                                                     color: e.color,
@@ -9196,14 +9196,14 @@ Error generating stack: ` + e.message + `
                                                     gap: 8
                                                 },
                                                 children: [
-                                                    (0, O.jsx)(S, {
+                                                    (0, k.jsx)(S, {
                                                         name: e.icon,
                                                         size: 20
                                                     }),
                                                     e.label
                                                 ]
                                             }),
-                                            e.levels.map((e, t)=>(0, O.jsx)(`div`, {
+                                            e.levels.map((e, t)=>(0, k.jsx)(`div`, {
                                                     style: {
                                                         fontSize: 13,
                                                         color: `rgba(255,255,255,0.55)`,
@@ -9212,7 +9212,7 @@ Error generating stack: ` + e.message + `
                                                     },
                                                     children: e
                                                 }, t)),
-                                            (0, O.jsx)(`div`, {
+                                            (0, k.jsx)(`div`, {
                                                 style: {
                                                     fontSize: 12,
                                                     color: `#eedd44`,
@@ -9226,10 +9226,10 @@ Error generating stack: ` + e.message + `
                             })
                         ]
                     }),
-                    (0, O.jsxs)(De, {
+                    (0, k.jsxs)(Ae, {
                         title: `SPECIAL ABILITIES (MAX 2 PER RUN)`,
                         children: [
-                            (0, O.jsx)(`p`, {
+                            (0, k.jsx)(`p`, {
                                 style: {
                                     fontFamily: `'IM Fell English', cursive`,
                                     fontSize: 18,
@@ -9239,13 +9239,13 @@ Error generating stack: ` + e.message + `
                                 },
                                 children: `At each port, 2 random special abilities are offered. You can equip a maximum of 2 per run. Choose wisely — these abilities define your playstyle and cannot be changed once bought.`
                             }),
-                            (0, O.jsx)(`div`, {
+                            (0, k.jsx)(`div`, {
                                 style: {
                                     display: `grid`,
                                     gridTemplateColumns: n ? `1fr` : `repeat(2, 1fr)`,
                                     gap: 10
                                 },
-                                children: Te.map((e)=>(0, O.jsxs)(`div`, {
+                                children: Oe.map((e)=>(0, k.jsxs)(`div`, {
                                         style: {
                                             background: `rgba(255,255,255,0.02)`,
                                             border: `1px solid ${e.color}33`,
@@ -9256,8 +9256,8 @@ Error generating stack: ` + e.message + `
                                             gap: 14
                                         },
                                         children: [
-                                            (0, O.jsx)(`img`, {
-                                                src: `${Ce}${Ee[e.id]}`,
+                                            (0, k.jsx)(`img`, {
+                                                src: `${Ee}${ke[e.id]}`,
                                                 style: {
                                                     width: 44,
                                                     height: 44,
@@ -9265,12 +9265,12 @@ Error generating stack: ` + e.message + `
                                                     flexShrink: 0
                                                 }
                                             }),
-                                            (0, O.jsxs)(`div`, {
+                                            (0, k.jsxs)(`div`, {
                                                 style: {
                                                     flex: 1
                                                 },
                                                 children: [
-                                                    (0, O.jsxs)(`div`, {
+                                                    (0, k.jsxs)(`div`, {
                                                         style: {
                                                             display: `flex`,
                                                             justifyContent: `space-between`,
@@ -9278,14 +9278,14 @@ Error generating stack: ` + e.message + `
                                                             marginBottom: 6
                                                         },
                                                         children: [
-                                                            (0, O.jsx)(`div`, {
+                                                            (0, k.jsx)(`div`, {
                                                                 style: {
                                                                     fontSize: 15,
                                                                     color: e.color
                                                                 },
                                                                 children: e.name
                                                             }),
-                                                            (0, O.jsx)(`div`, {
+                                                            (0, k.jsx)(`div`, {
                                                                 style: {
                                                                     fontSize: 14,
                                                                     color: `#eedd44`
@@ -9294,7 +9294,7 @@ Error generating stack: ` + e.message + `
                                                             })
                                                         ]
                                                     }),
-                                                    (0, O.jsx)(`div`, {
+                                                    (0, k.jsx)(`div`, {
                                                         style: {
                                                             fontSize: 14,
                                                             color: `rgba(255,255,255,0.55)`,
@@ -9310,9 +9310,9 @@ Error generating stack: ` + e.message + `
                             })
                         ]
                     }),
-                    (0, O.jsx)(De, {
+                    (0, k.jsx)(Ae, {
                         title: `THE HUNTER — SOMETHING IS FOLLOWING YOU`,
-                        children: (0, O.jsxs)(`div`, {
+                        children: (0, k.jsxs)(`div`, {
                             style: {
                                 background: `rgba(100,20,120,0.1)`,
                                 border: `1px solid rgba(150,50,180,0.3)`,
@@ -9320,7 +9320,7 @@ Error generating stack: ` + e.message + `
                                 padding: 20
                             },
                             children: [
-                                (0, O.jsx)(`p`, {
+                                (0, k.jsx)(`p`, {
                                     style: {
                                         fontFamily: `'IM Fell English', cursive`,
                                         fontSize: 18,
@@ -9330,7 +9330,7 @@ Error generating stack: ` + e.message + `
                                     },
                                     children: `The Hunter appears after you have sailed deep enough into a zone — turn 12 on The Coasts, turn 8 on The Storm Sea, turn 6 in The Abyss (counted from when you entered that zone). It spawns on the opposite side of the map and begins tracking you. Four modes show in the left panel (or top bar on mobile):`
                                 }),
-                                (0, O.jsx)(`div`, {
+                                (0, k.jsx)(`div`, {
                                     style: {
                                         display: `flex`,
                                         flexDirection: `column`,
@@ -9362,14 +9362,14 @@ Error generating stack: ` + e.message + `
                                             desc: `Lost your trail — wanders randomly for 2 turns. Use this window.`,
                                             color: `#66aaff`
                                         }
-                                    ].map((e)=>(0, O.jsxs)(`div`, {
+                                    ].map((e)=>(0, k.jsxs)(`div`, {
                                             style: {
                                                 display: `flex`,
                                                 gap: 10,
                                                 alignItems: `flex-start`
                                             },
                                             children: [
-                                                (0, O.jsxs)(`div`, {
+                                                (0, k.jsxs)(`div`, {
                                                     style: {
                                                         color: e.color,
                                                         fontFamily: `'Cinzel', serif`,
@@ -9381,14 +9381,14 @@ Error generating stack: ` + e.message + `
                                                         gap: 6
                                                     },
                                                     children: [
-                                                        (0, O.jsx)(S, {
+                                                        (0, k.jsx)(S, {
                                                             name: e.icon,
                                                             size: 16
                                                         }),
                                                         e.mode
                                                     ]
                                                 }),
-                                                (0, O.jsx)(`div`, {
+                                                (0, k.jsx)(`div`, {
                                                     style: {
                                                         fontFamily: `'IM Fell English', cursive`,
                                                         fontSize: 16,
@@ -9400,7 +9400,7 @@ Error generating stack: ` + e.message + `
                                             ]
                                         }, e.mode))
                                 }),
-                                (0, O.jsx)(`p`, {
+                                (0, k.jsx)(`p`, {
                                     style: {
                                         fontFamily: `'IM Fell English', cursive`,
                                         fontSize: 18,
@@ -9413,10 +9413,10 @@ Error generating stack: ` + e.message + `
                             ]
                         })
                     }),
-                    (0, O.jsxs)(De, {
+                    (0, k.jsxs)(Ae, {
                         title: `PROGRESSION & SHIPS`,
                         children: [
-                            (0, O.jsxs)(`div`, {
+                            (0, k.jsxs)(`div`, {
                                 style: {
                                     fontFamily: `'IM Fell English', cursive`,
                                     fontSize: 17,
@@ -9426,14 +9426,14 @@ Error generating stack: ` + e.message + `
                                 },
                                 children: [
                                     `Every run counts, even a short one. Reaching milestones — surviving Hunter attacks, hoarding gold, reaching deeper zones — unlocks `,
-                                    (0, O.jsx)(`span`, {
+                                    (0, k.jsx)(`span`, {
                                         style: {
                                             color: `#eedd44`
                                         },
                                         children: `Feats`
                                     }),
                                     `, each granting a captain title and often a new `,
-                                    (0, O.jsx)(`span`, {
+                                    (0, k.jsx)(`span`, {
                                         style: {
                                             color: `#88ddff`
                                         },
@@ -9442,7 +9442,7 @@ Error generating stack: ` + e.message + `
                                     `.`
                                 ]
                             }),
-                            (0, O.jsx)(`div`, {
+                            (0, k.jsx)(`div`, {
                                 style: {
                                     display: `flex`,
                                     flexDirection: `column`,
@@ -9457,21 +9457,21 @@ Error generating stack: ` + e.message + `
                                     {
                                         c: `#88ddff`,
                                         t: `SHIPS`,
-                                        d: `Unlock new vessels from the ⛵ SHIPS menu. The Merchant sails on gold, the Specter sees far but is easily sensed, the Breakwater shrugs off reefs. Each rewrites how a run plays.`
+                                        d: `Unlock vessels from ⛵ SHIPS. Wanderer: Steady Hand at streak ×3. Merchant: free port reroll. Specter: always see the Hunter’s next step. Breakwater: shrugs reefs and softens storms. Daily always uses The Wanderer.`
                                     },
                                     {
                                         c: `#c8a030`,
                                         t: `THE DAILY`,
                                         d: `One run a day on a blind map — same waters for every captain, seed revealed at 00:00 UTC. Pure skill.`
                                     }
-                                ].map((e, t)=>(0, O.jsxs)(`div`, {
+                                ].map((e, t)=>(0, k.jsxs)(`div`, {
                                         style: {
                                             display: `flex`,
                                             gap: 12,
                                             alignItems: `flex-start`
                                         },
                                         children: [
-                                            (0, O.jsx)(`div`, {
+                                            (0, k.jsx)(`div`, {
                                                 style: {
                                                     color: e.c,
                                                     fontFamily: `'Pirata One', cursive`,
@@ -9482,7 +9482,7 @@ Error generating stack: ` + e.message + `
                                                 },
                                                 children: e.t
                                             }),
-                                            (0, O.jsx)(`div`, {
+                                            (0, k.jsx)(`div`, {
                                                 style: {
                                                     fontFamily: `'IM Fell English', cursive`,
                                                     fontSize: 16,
@@ -9496,10 +9496,10 @@ Error generating stack: ` + e.message + `
                             })
                         ]
                     }),
-                    (0, O.jsxs)(De, {
+                    (0, k.jsxs)(Ae, {
                         title: `RELICS — TREASURES OF THE DEEP`,
                         children: [
-                            (0, O.jsxs)(`div`, {
+                            (0, k.jsxs)(`div`, {
                                 style: {
                                     fontFamily: `'IM Fell English', cursive`,
                                     fontSize: 17,
@@ -9509,14 +9509,14 @@ Error generating stack: ` + e.message + `
                                 },
                                 children: [
                                     `When you `,
-                                    (0, O.jsx)(`span`, {
+                                    (0, k.jsx)(`span`, {
                                         style: {
                                             color: `#88ddff`
                                         },
                                         children: `search a wreck`
                                     }),
                                     `, you may uncover a `,
-                                    (0, O.jsx)(`span`, {
+                                    (0, k.jsx)(`span`, {
                                         style: {
                                             color: `#eedd44`
                                         },
@@ -9525,7 +9525,7 @@ Error generating stack: ` + e.message + `
                                     ` — a unique artifact that bends one rule for the rest of your run. Unlike abilities you buy at port, relics are found by chance. You keep every relic you find until you die.`
                                 ]
                             }),
-                            (0, O.jsx)(`div`, {
+                            (0, k.jsx)(`div`, {
                                 style: {
                                     display: `flex`,
                                     flexDirection: `column`,
@@ -9547,14 +9547,14 @@ Error generating stack: ` + e.message + `
                                         t: `LEGENDARY`,
                                         d: `Gold Tooth (pirates pay YOU — but notoriety draws the Hunter), Black Flag (the Hunter appears later but hits harder).`
                                     }
-                                ].map((e, t)=>(0, O.jsxs)(`div`, {
+                                ].map((e, t)=>(0, k.jsxs)(`div`, {
                                         style: {
                                             display: `flex`,
                                             gap: 12,
                                             alignItems: `flex-start`
                                         },
                                         children: [
-                                            (0, O.jsx)(`div`, {
+                                            (0, k.jsx)(`div`, {
                                                 style: {
                                                     color: e.c,
                                                     fontFamily: `'Cinzel', serif`,
@@ -9566,7 +9566,7 @@ Error generating stack: ` + e.message + `
                                                 },
                                                 children: e.t
                                             }),
-                                            (0, O.jsx)(`div`, {
+                                            (0, k.jsx)(`div`, {
                                                 style: {
                                                     fontFamily: `'IM Fell English', cursive`,
                                                     fontSize: 15.5,
@@ -9580,9 +9580,9 @@ Error generating stack: ` + e.message + `
                             })
                         ]
                     }),
-                    (0, O.jsx)(De, {
+                    (0, k.jsx)(Ae, {
                         title: `TIPS FOR BEGINNERS`,
-                        children: (0, O.jsx)(`div`, {
+                        children: (0, k.jsx)(`div`, {
                             style: {
                                 display: `flex`,
                                 flexDirection: `column`,
@@ -9613,14 +9613,14 @@ Error generating stack: ` + e.message + `
                                     tip: `Watch the Hunter awareness bar. Pass through storms or ports to reduce it. When it goes ENRAGED (80%+), it moves twice per turn — prioritize escaping over exploring.`,
                                     color: `#6aaccc`
                                 }
-                            ].map((e, t)=>(0, O.jsxs)(`div`, {
+                            ].map((e, t)=>(0, k.jsxs)(`div`, {
                                     style: {
                                         display: `flex`,
                                         gap: 12,
                                         alignItems: `flex-start`
                                     },
                                     children: [
-                                        (0, O.jsx)(`div`, {
+                                        (0, k.jsx)(`div`, {
                                             style: {
                                                 color: e.color,
                                                 fontSize: 18,
@@ -9629,7 +9629,7 @@ Error generating stack: ` + e.message + `
                                             },
                                             children: `→`
                                         }),
-                                        (0, O.jsx)(`div`, {
+                                        (0, k.jsx)(`div`, {
                                             style: {
                                                 fontFamily: `'IM Fell English', cursive`,
                                                 fontSize: 17,
@@ -9642,12 +9642,12 @@ Error generating stack: ` + e.message + `
                                 }, t))
                         })
                     }),
-                    (0, O.jsx)(`div`, {
+                    (0, k.jsx)(`div`, {
                         style: {
                             display: `flex`,
                             gap: 12
                         },
-                        children: (0, O.jsx)(a.button, {
+                        children: (0, k.jsx)(a.button, {
                             whileHover: {
                                 scale: 1.03
                             },
@@ -9675,9 +9675,9 @@ Error generating stack: ` + e.message + `
             })
         });
     }
-    function ke({ onClose: e }) {
-        let t = new Set(u()), [n, r] = (0, D.useState)(f()), i = c.filter((e)=>t.has(e.id)).length;
-        return (0, O.jsx)(a.div, {
+    function Me({ onClose: e }) {
+        let t = new Set(c()), [n, r] = (0, O.useState)(ne()), i = u.filter((e)=>t.has(e.id)).length;
+        return (0, k.jsx)(a.div, {
             initial: {
                 opacity: 0
             },
@@ -9698,7 +9698,7 @@ Error generating stack: ` + e.message + `
                 justifyContent: `center`,
                 padding: 16
             },
-            children: (0, O.jsxs)(a.div, {
+            children: (0, k.jsxs)(a.div, {
                 initial: {
                     scale: .94,
                     y: 12
@@ -9719,7 +9719,7 @@ Error generating stack: ` + e.message + `
                     padding: `22px 20px calc(20px + env(safe-area-inset-bottom))`
                 },
                 children: [
-                    (0, O.jsxs)(`div`, {
+                    (0, k.jsxs)(`div`, {
                         style: {
                             display: `flex`,
                             alignItems: `center`,
@@ -9727,7 +9727,7 @@ Error generating stack: ` + e.message + `
                             marginBottom: 6
                         },
                         children: [
-                            (0, O.jsxs)(`div`, {
+                            (0, k.jsxs)(`div`, {
                                 style: {
                                     fontFamily: `'Pirata One', cursive`,
                                     fontSize: 28,
@@ -9735,7 +9735,7 @@ Error generating stack: ` + e.message + `
                                     letterSpacing: 3
                                 },
                                 children: [
-                                    (0, O.jsx)(S, {
+                                    (0, k.jsx)(S, {
                                         name: `fleurdelys`,
                                         size: 30,
                                         style: {
@@ -9745,7 +9745,7 @@ Error generating stack: ` + e.message + `
                                     `FEATS`
                                 ]
                             }),
-                            (0, O.jsx)(`button`, {
+                            (0, k.jsx)(`button`, {
                                 onClick: e,
                                 style: {
                                     background: `none`,
@@ -9758,7 +9758,7 @@ Error generating stack: ` + e.message + `
                             })
                         ]
                     }),
-                    (0, O.jsxs)(`div`, {
+                    (0, k.jsxs)(`div`, {
                         style: {
                             fontFamily: `'Cinzel', serif`,
                             fontSize: 12,
@@ -9769,11 +9769,11 @@ Error generating stack: ` + e.message + `
                         children: [
                             i,
                             ` / `,
-                            c.length,
+                            u.length,
                             ` UNLOCKED`
                         ]
                     }),
-                    (0, O.jsxs)(`div`, {
+                    (0, k.jsxs)(`div`, {
                         style: {
                             fontFamily: `'IM Fell English', cursive`,
                             fontSize: 13,
@@ -9783,7 +9783,7 @@ Error generating stack: ` + e.message + `
                         },
                         children: [
                             `Wear a title to sail under it — it appears on the leaderboard, in your shared runs and on-chain. `,
-                            n ? (0, O.jsxs)(`span`, {
+                            n ? (0, k.jsxs)(`span`, {
                                 style: {
                                     color: `#eedd44`
                                 },
@@ -9791,7 +9791,7 @@ Error generating stack: ` + e.message + `
                                     `Currently: `,
                                     n
                                 ]
-                            }) : (0, O.jsx)(`span`, {
+                            }) : (0, k.jsx)(`span`, {
                                 style: {
                                     opacity: .6
                                 },
@@ -9799,15 +9799,15 @@ Error generating stack: ` + e.message + `
                             })
                         ]
                     }),
-                    (0, O.jsx)(`div`, {
+                    (0, k.jsx)(`div`, {
                         style: {
                             display: `flex`,
                             flexDirection: `column`,
                             gap: 10
                         },
-                        children: c.map((e)=>{
+                        children: u.map((e)=>{
                             let i = t.has(e.id), a = n === e.title;
-                            return (0, O.jsxs)(`div`, {
+                            return (0, k.jsxs)(`div`, {
                                 style: {
                                     display: `flex`,
                                     alignItems: `center`,
@@ -9819,30 +9819,30 @@ Error generating stack: ` + e.message + `
                                     opacity: i ? 1 : .55
                                 },
                                 children: [
-                                    (0, O.jsx)(`div`, {
+                                    (0, k.jsx)(`div`, {
                                         style: {
                                             width: 34,
                                             textAlign: `center`,
                                             filter: i ? `none` : `grayscale(1)`,
                                             opacity: i ? 1 : .5
                                         },
-                                        children: i ? (0, O.jsx)(S, {
+                                        children: i ? (0, k.jsx)(S, {
                                             name: e.icon,
                                             size: 28
-                                        }) : (0, O.jsx)(`span`, {
+                                        }) : (0, k.jsx)(`span`, {
                                             style: {
                                                 fontSize: 22
                                             },
                                             children: `🔒`
                                         })
                                     }),
-                                    (0, O.jsxs)(`div`, {
+                                    (0, k.jsxs)(`div`, {
                                         style: {
                                             flex: 1,
                                             minWidth: 0
                                         },
                                         children: [
-                                            (0, O.jsx)(`div`, {
+                                            (0, k.jsx)(`div`, {
                                                 style: {
                                                     fontFamily: `'Pirata One', cursive`,
                                                     fontSize: 17,
@@ -9851,7 +9851,7 @@ Error generating stack: ` + e.message + `
                                                 },
                                                 children: e.name
                                             }),
-                                            (0, O.jsx)(`div`, {
+                                            (0, k.jsx)(`div`, {
                                                 style: {
                                                     fontFamily: `'IM Fell English', cursive`,
                                                     fontSize: 12.5,
@@ -9860,7 +9860,7 @@ Error generating stack: ` + e.message + `
                                                 },
                                                 children: e.desc
                                             }),
-                                            (0, O.jsxs)(`div`, {
+                                            (0, k.jsxs)(`div`, {
                                                 style: {
                                                     fontFamily: `'Cinzel', serif`,
                                                     fontSize: 10.5,
@@ -9875,10 +9875,10 @@ Error generating stack: ` + e.message + `
                                             })
                                         ]
                                     }),
-                                    i && (0, O.jsx)(`button`, {
+                                    i && (0, k.jsx)(`button`, {
                                         onClick: ()=>{
                                             let t = a ? null : e.title;
-                                            l(t), r(t);
+                                            te(t), r(t);
                                         },
                                         style: {
                                             padding: `7px 12px`,
@@ -9902,7 +9902,7 @@ Error generating stack: ` + e.message + `
             })
         });
     }
-    var Ae = (e)=>e.replace(`ipfs://`, `https://ipfs.io/ipfs/`), je = [
+    var Ne = (e)=>e.replace(`ipfs://`, `https://ipfs.io/ipfs/`), Pe = [
         {
             key: `last_port`,
             name: `The Last Port`,
@@ -9986,28 +9986,28 @@ Error generating stack: ` + e.message + `
             seedBound: !0,
             hidden: !0
         }
-    ], Me = {
+    ], Fe = {
         Rare: `#44cc88`,
         Epic: `#aa66ee`,
         Legendary: `#eedd88`,
         Mythic: `#ee5566`
     };
-    function Ne({ onClose: e }) {
-        let { address: t } = o(), [n, r] = (0, D.useState)([]), [i, a] = (0, D.useState)([]);
-        (0, D.useEffect)(()=>{
-            de().then(r), t && pe(t).then(a);
+    function Ie({ onClose: e }) {
+        let { address: t } = o(), [n, r] = (0, O.useState)([]), [i, a] = (0, O.useState)([]);
+        (0, O.useEffect)(()=>{
+            E().then(r), t && me(t).then(a);
         }, [
             t
         ]);
         let s = (e)=>n.find((t)=>t.name === e);
-        return (0, O.jsx)(`div`, {
-            style: Pe,
+        return (0, k.jsx)(`div`, {
+            style: Le,
             onClick: e,
-            children: (0, O.jsxs)(`div`, {
-                style: Fe,
+            children: (0, k.jsxs)(`div`, {
+                style: Re,
                 onClick: (e)=>e.stopPropagation(),
                 children: [
-                    (0, O.jsxs)(`div`, {
+                    (0, k.jsxs)(`div`, {
                         style: {
                             display: `flex`,
                             justifyContent: `space-between`,
@@ -10015,7 +10015,7 @@ Error generating stack: ` + e.message + `
                             marginBottom: 6
                         },
                         children: [
-                            (0, O.jsx)(`h1`, {
+                            (0, k.jsx)(`h1`, {
                                 style: {
                                     fontFamily: `'Pirata One', cursive`,
                                     fontSize: 26,
@@ -10025,14 +10025,14 @@ Error generating stack: ` + e.message + `
                                 },
                                 children: `⚓ Genesis NFTs`
                             }),
-                            (0, O.jsx)(`button`, {
+                            (0, k.jsx)(`button`, {
                                 onClick: e,
-                                style: Ie,
+                                style: ze,
                                 children: `✕`
                             })
                         ]
                     }),
-                    (0, O.jsx)(`p`, {
+                    (0, k.jsx)(`p`, {
                         style: {
                             fontFamily: `'IM Fell English', cursive`,
                             fontSize: 13,
@@ -10041,15 +10041,15 @@ Error generating stack: ` + e.message + `
                         },
                         children: `Earned in-game, minted on Starknet. Conditions are public. Limited supply — once claimed, the card shows SOLD OUT.`
                     }),
-                    (0, O.jsx)(`div`, {
+                    (0, k.jsx)(`div`, {
                         style: {
                             display: `grid`,
                             gridTemplateColumns: `repeat(auto-fill, minmax(150px, 1fr))`,
                             gap: 12
                         },
-                        children: je.map((e)=>{
-                            let t = s(e.key), n = i.includes(e.key), r = t ? t.minted >= t.max_supply : !1, a = Me[e.rarity], o = !e.hidden || n;
-                            return (0, O.jsxs)(`div`, {
+                        children: Pe.map((e)=>{
+                            let t = s(e.key), n = i.includes(e.key), r = t ? t.minted >= t.max_supply : !1, a = Fe[e.rarity], o = !e.hidden || n;
+                            return (0, k.jsxs)(`div`, {
                                 style: {
                                     borderRadius: 12,
                                     border: `1px solid ${n ? `rgba(68,204,136,0.7)` : `rgba(200,160,48,0.3)`}`,
@@ -10058,15 +10058,15 @@ Error generating stack: ` + e.message + `
                                     opacity: r && !n ? .55 : 1
                                 },
                                 children: [
-                                    (0, O.jsxs)(`div`, {
+                                    (0, k.jsxs)(`div`, {
                                         style: {
                                             position: `relative`,
                                             aspectRatio: `3/4`,
                                             background: `rgba(0,0,0,0.4)`
                                         },
                                         children: [
-                                            o ? (0, O.jsx)(`img`, {
-                                                src: Ae(e.image),
+                                            o ? (0, k.jsx)(`img`, {
+                                                src: Ne(e.image),
                                                 alt: e.name,
                                                 loading: `lazy`,
                                                 style: {
@@ -10075,7 +10075,7 @@ Error generating stack: ` + e.message + `
                                                     objectFit: `cover`,
                                                     display: `block`
                                                 }
-                                            }) : (0, O.jsx)(`div`, {
+                                            }) : (0, k.jsx)(`div`, {
                                                 style: {
                                                     width: `100%`,
                                                     height: `100%`,
@@ -10088,7 +10088,7 @@ Error generating stack: ` + e.message + `
                                                 },
                                                 children: `?`
                                             }),
-                                            n && (0, O.jsx)(`div`, {
+                                            n && (0, k.jsx)(`div`, {
                                                 style: {
                                                     position: `absolute`,
                                                     top: 8,
@@ -10104,7 +10104,7 @@ Error generating stack: ` + e.message + `
                                                 },
                                                 children: `CLAIMED ⚓`
                                             }),
-                                            r && !n && (0, O.jsx)(`div`, {
+                                            r && !n && (0, k.jsx)(`div`, {
                                                 style: {
                                                     position: `absolute`,
                                                     top: 8,
@@ -10122,12 +10122,12 @@ Error generating stack: ` + e.message + `
                                             })
                                         ]
                                     }),
-                                    (0, O.jsxs)(`div`, {
+                                    (0, k.jsxs)(`div`, {
                                         style: {
                                             padding: `10px 12px`
                                         },
                                         children: [
-                                            (0, O.jsx)(`div`, {
+                                            (0, k.jsx)(`div`, {
                                                 style: {
                                                     fontFamily: `'Pirata One', cursive`,
                                                     fontSize: 16,
@@ -10136,7 +10136,7 @@ Error generating stack: ` + e.message + `
                                                 },
                                                 children: e.name
                                             }),
-                                            (0, O.jsxs)(`div`, {
+                                            (0, k.jsxs)(`div`, {
                                                 style: {
                                                     display: `flex`,
                                                     justifyContent: `space-between`,
@@ -10144,7 +10144,7 @@ Error generating stack: ` + e.message + `
                                                     marginTop: 4
                                                 },
                                                 children: [
-                                                    (0, O.jsx)(`span`, {
+                                                    (0, k.jsx)(`span`, {
                                                         style: {
                                                             fontFamily: `'Cinzel', serif`,
                                                             fontSize: 10,
@@ -10154,7 +10154,7 @@ Error generating stack: ` + e.message + `
                                                         },
                                                         children: e.rarity.toUpperCase()
                                                     }),
-                                                    t && (0, O.jsxs)(`span`, {
+                                                    t && (0, k.jsxs)(`span`, {
                                                         style: {
                                                             fontSize: 11,
                                                             color: `rgba(255,255,255,0.45)`
@@ -10167,14 +10167,14 @@ Error generating stack: ` + e.message + `
                                                     })
                                                 ]
                                             }),
-                                            t && (0, O.jsx)(`div`, {
+                                            t && (0, k.jsx)(`div`, {
                                                 style: {
                                                     height: 3,
                                                     borderRadius: 2,
                                                     background: `rgba(255,255,255,0.1)`,
                                                     marginTop: 5
                                                 },
-                                                children: (0, O.jsx)(`div`, {
+                                                children: (0, k.jsx)(`div`, {
                                                     style: {
                                                         width: `${t.max_supply > 0 ? t.minted / t.max_supply * 100 : 0}%`,
                                                         height: `100%`,
@@ -10183,7 +10183,7 @@ Error generating stack: ` + e.message + `
                                                     }
                                                 })
                                             }),
-                                            (0, O.jsx)(`p`, {
+                                            (0, k.jsx)(`p`, {
                                                 style: {
                                                     fontFamily: `'IM Fell English', cursive`,
                                                     fontSize: 12,
@@ -10194,7 +10194,7 @@ Error generating stack: ` + e.message + `
                                                 },
                                                 children: e.condition
                                             }),
-                                            e.seedBound && (0, O.jsx)(`p`, {
+                                            e.seedBound && (0, k.jsx)(`p`, {
                                                 style: {
                                                     fontFamily: `'Cinzel', serif`,
                                                     fontSize: 9,
@@ -10204,7 +10204,7 @@ Error generating stack: ` + e.message + `
                                                 },
                                                 children: `⚠ BOUND TO A CURSED SEED`
                                             }),
-                                            e.hidden && (0, O.jsx)(`p`, {
+                                            e.hidden && (0, k.jsx)(`p`, {
                                                 style: {
                                                     fontFamily: `'Cinzel', serif`,
                                                     fontSize: 9,
@@ -10220,7 +10220,7 @@ Error generating stack: ` + e.message + `
                             }, e.key);
                         })
                     }),
-                    (0, O.jsx)(`p`, {
+                    (0, k.jsx)(`p`, {
                         style: {
                             fontFamily: `'IM Fell English', cursive`,
                             fontSize: 12,
@@ -10234,7 +10234,7 @@ Error generating stack: ` + e.message + `
             })
         });
     }
-    var Pe = {
+    var Le = {
         position: `fixed`,
         inset: 0,
         zIndex: 1e3,
@@ -10245,14 +10245,14 @@ Error generating stack: ` + e.message + `
         justifyContent: `center`,
         overflowY: `auto`,
         padding: `24px 12px calc(24px + env(safe-area-inset-bottom))`
-    }, Fe = {
+    }, Re = {
         width: `100%`,
         maxWidth: 860,
         background: `linear-gradient(160deg, #0a0e16, #05080f)`,
         border: `1px solid rgba(200,160,48,0.35)`,
         borderRadius: 16,
         padding: `20px 18px`
-    }, Ie = {
+    }, ze = {
         width: 34,
         height: 34,
         borderRadius: 8,
@@ -10261,76 +10261,10 @@ Error generating stack: ` + e.message + `
         color: `#eedd88`,
         fontSize: 15,
         cursor: `pointer`
-    }, Le = [
-        {
-            id: `default`,
-            name: `The Wanderer`,
-            tagline: `A balanced vessel. The sea shows no favor.`,
-            perks: [
-                `Balanced stats`
-            ],
-            drawbacks: [],
-            unlockFeat: null,
-            unlockLabel: ``
-        },
-        {
-            id: `merchant`,
-            name: `The Merchant`,
-            tagline: `Buy your way through the storm.`,
-            perks: [
-                `+80 starting gold`,
-                `Pirate tributes cost half`
-            ],
-            drawbacks: [
-                `-5 max hull`
-            ],
-            unlockFeat: `gold_hoarder`,
-            unlockLabel: `Unlock: feat “Gold Hoarder”`
-        },
-        {
-            id: `specter`,
-            name: `The Specter`,
-            tagline: `See everything. Be seen.`,
-            perks: [
-                `+1 vision (see further)`
-            ],
-            drawbacks: [
-                `The Hunter grows aware 50% faster`
-            ],
-            unlockFeat: `prey_no_more`,
-            unlockLabel: `Unlock: feat “Prey No More”`
-        },
-        {
-            id: `breakwater`,
-            name: `The Breakwater`,
-            tagline: `Let the reefs break upon your hull.`,
-            perks: [
-                `Immune to reef damage`,
-                `Storm starts 3 turns further`
-            ],
-            drawbacks: [
-                `-1 vision`,
-                `-25 starting gold`
-            ],
-            unlockFeat: `storm_sea`,
-            unlockLabel: `Unlock: feat “Into the Storm Sea”`
-        }
-    ];
-    function Re(e) {
-        let t = Le.find((t)=>t.id === e);
-        return !t || t.unlockFeat === null ? !0 : u().includes(t.unlockFeat);
-    }
-    var ze = `corsair_ship`;
-    function Be() {
-        let e = localStorage.getItem(ze);
-        return e && Le.some((t)=>t.id === e) && Re(e) ? e : `default`;
-    }
-    function Ve(e) {
-        Le.some((t)=>t.id === e) && Re(e) && localStorage.setItem(ze, e);
-    }
-    function He({ onClose: e }) {
-        let [t, n] = (0, D.useState)(Be());
-        return (0, O.jsx)(a.div, {
+    };
+    function Be({ onClose: e }) {
+        let [t, n] = (0, O.useState)(se());
+        return (0, k.jsx)(a.div, {
             initial: {
                 opacity: 0
             },
@@ -10351,7 +10285,7 @@ Error generating stack: ` + e.message + `
                 justifyContent: `center`,
                 padding: 16
             },
-            children: (0, O.jsxs)(a.div, {
+            children: (0, k.jsxs)(a.div, {
                 initial: {
                     scale: .94,
                     y: 12
@@ -10372,7 +10306,7 @@ Error generating stack: ` + e.message + `
                     padding: `22px 20px calc(20px + env(safe-area-inset-bottom))`
                 },
                 children: [
-                    (0, O.jsxs)(`div`, {
+                    (0, k.jsxs)(`div`, {
                         style: {
                             display: `flex`,
                             alignItems: `center`,
@@ -10380,7 +10314,7 @@ Error generating stack: ` + e.message + `
                             marginBottom: 6
                         },
                         children: [
-                            (0, O.jsxs)(`div`, {
+                            (0, k.jsxs)(`div`, {
                                 style: {
                                     fontFamily: `'Pirata One', cursive`,
                                     fontSize: 28,
@@ -10388,7 +10322,7 @@ Error generating stack: ` + e.message + `
                                     letterSpacing: 3
                                 },
                                 children: [
-                                    (0, O.jsx)(S, {
+                                    (0, k.jsx)(S, {
                                         name: `ship`,
                                         size: 30,
                                         style: {
@@ -10398,7 +10332,7 @@ Error generating stack: ` + e.message + `
                                     `SHIPYARD`
                                 ]
                             }),
-                            (0, O.jsx)(`button`, {
+                            (0, k.jsx)(`button`, {
                                 onClick: e,
                                 style: {
                                     background: `none`,
@@ -10411,7 +10345,7 @@ Error generating stack: ` + e.message + `
                             })
                         ]
                     }),
-                    (0, O.jsx)(`div`, {
+                    (0, k.jsx)(`div`, {
                         style: {
                             fontFamily: `'Cinzel', serif`,
                             fontSize: 12,
@@ -10421,17 +10355,17 @@ Error generating stack: ` + e.message + `
                         },
                         children: `CHOOSE YOUR VESSEL · daily tournament always uses The Wanderer`
                     }),
-                    (0, O.jsx)(`div`, {
+                    (0, k.jsx)(`div`, {
                         style: {
                             display: `flex`,
                             flexDirection: `column`,
                             gap: 10
                         },
-                        children: Le.map((e)=>{
-                            let r = Re(e.id), i = t === e.id;
-                            return (0, O.jsxs)(`div`, {
+                        children: ae.map((e)=>{
+                            let r = ee(e.id), i = t === e.id;
+                            return (0, k.jsxs)(`div`, {
                                 onClick: ()=>{
-                                    r && (Ve(e.id), n(e.id));
+                                    r && (g(e.id), n(e.id));
                                 },
                                 style: {
                                     padding: `14px 16px`,
@@ -10442,14 +10376,14 @@ Error generating stack: ` + e.message + `
                                     opacity: r ? 1 : .6
                                 },
                                 children: [
-                                    (0, O.jsxs)(`div`, {
+                                    (0, k.jsxs)(`div`, {
                                         style: {
                                             display: `flex`,
                                             alignItems: `center`,
                                             justifyContent: `space-between`
                                         },
                                         children: [
-                                            (0, O.jsxs)(`div`, {
+                                            (0, k.jsxs)(`div`, {
                                                 style: {
                                                     fontFamily: `'Pirata One', cursive`,
                                                     fontSize: 19,
@@ -10461,7 +10395,7 @@ Error generating stack: ` + e.message + `
                                                     e.name
                                                 ]
                                             }),
-                                            i && (0, O.jsx)(`div`, {
+                                            i && (0, k.jsx)(`div`, {
                                                 style: {
                                                     fontFamily: `'Cinzel', serif`,
                                                     fontSize: 11,
@@ -10472,7 +10406,7 @@ Error generating stack: ` + e.message + `
                                             })
                                         ]
                                     }),
-                                    (0, O.jsx)(`div`, {
+                                    (0, k.jsx)(`div`, {
                                         style: {
                                             fontFamily: `'IM Fell English', cursive`,
                                             fontSize: 13,
@@ -10482,14 +10416,14 @@ Error generating stack: ` + e.message + `
                                         },
                                         children: e.tagline
                                     }),
-                                    r ? (0, O.jsxs)(`div`, {
+                                    r ? (0, k.jsxs)(`div`, {
                                         style: {
                                             display: `flex`,
                                             flexWrap: `wrap`,
                                             gap: `4px 14px`
                                         },
                                         children: [
-                                            e.perks.map((e)=>(0, O.jsxs)(`span`, {
+                                            e.perks.map((e)=>(0, k.jsxs)(`span`, {
                                                     style: {
                                                         fontSize: 11.5,
                                                         color: `#66cc88`,
@@ -10500,7 +10434,7 @@ Error generating stack: ` + e.message + `
                                                         e
                                                     ]
                                                 }, e)),
-                                            e.drawbacks.map((e)=>(0, O.jsxs)(`span`, {
+                                            e.drawbacks.map((e)=>(0, k.jsxs)(`span`, {
                                                     style: {
                                                         fontSize: 11.5,
                                                         color: `#ee6655`,
@@ -10512,7 +10446,7 @@ Error generating stack: ` + e.message + `
                                                     ]
                                                 }, e))
                                         ]
-                                    }) : (0, O.jsx)(`div`, {
+                                    }) : (0, k.jsx)(`div`, {
                                         style: {
                                             fontSize: 11.5,
                                             color: `rgba(238,221,68,0.7)`,
@@ -10529,24 +10463,24 @@ Error generating stack: ` + e.message + `
             })
         });
     }
-    var Ue = [
+    var Ve = [
         `#FFD700`,
         `#C0C0C0`,
         `#CD7F32`
-    ], We = (e)=>e === 0 ? (0, O.jsx)(S, {
+    ], He = (e)=>e === 0 ? (0, k.jsx)(S, {
             name: `crown`,
             size: 18
-        }) : e === 2 ? (0, O.jsx)(S, {
+        }) : e === 2 ? (0, k.jsx)(S, {
             name: `skull`,
             size: 16
-        }) : `⚔️`, k = window.innerWidth < 768;
-    function Ge({ onClose: e }) {
-        let [t, n] = (0, D.useState)(`daily`), [r, i] = (0, D.useState)([]), [o, s] = (0, D.useState)([]), [c, l] = (0, D.useState)(!0);
-        (0, D.useEffect)(()=>{
+        }) : `⚔️`, Ue = window.innerWidth < 768;
+    function We({ onClose: e }) {
+        let [t, n] = (0, O.useState)(`daily`), [r, i] = (0, O.useState)([]), [o, s] = (0, O.useState)([]), [c, l] = (0, O.useState)(!0);
+        (0, O.useEffect)(()=>{
             let e = new Date().toISOString().slice(0, 10);
             Promise.all([
-                C(),
-                E(e)
+                fe(),
+                _e(e)
             ]).then(([e, t])=>{
                 i(e), s(t), l(!1);
             });
@@ -10555,7 +10489,7 @@ Error generating stack: ` + e.message + `
                 day: `2-digit`,
                 month: `short`
             });
-        return (0, O.jsx)(a.div, {
+        return (0, k.jsx)(a.div, {
             initial: {
                 opacity: 0
             },
@@ -10577,7 +10511,7 @@ Error generating stack: ` + e.message + `
                 fontFamily: `'Pirata One', cursive`
             },
             onClick: e,
-            children: (0, O.jsxs)(a.div, {
+            children: (0, k.jsxs)(a.div, {
                 initial: {
                     scale: .95,
                     opacity: 0
@@ -10598,7 +10532,7 @@ Error generating stack: ` + e.message + `
                     overflowY: `auto`
                 },
                 children: [
-                    (0, O.jsxs)(`div`, {
+                    (0, k.jsxs)(`div`, {
                         style: {
                             display: `flex`,
                             justifyContent: `space-between`,
@@ -10606,22 +10540,22 @@ Error generating stack: ` + e.message + `
                             marginBottom: 28
                         },
                         children: [
-                            (0, O.jsxs)(`div`, {
+                            (0, k.jsxs)(`div`, {
                                 style: {
                                     display: `flex`,
                                     alignItems: `center`,
                                     gap: 12
                                 },
                                 children: [
-                                    (0, O.jsx)(`img`, {
-                                        src: ie,
+                                    (0, k.jsx)(`img`, {
+                                        src: le,
                                         style: {
                                             width: 36,
                                             height: 36,
                                             objectFit: `contain`
                                         }
                                     }),
-                                    (0, O.jsx)(`div`, {
+                                    (0, k.jsx)(`div`, {
                                         style: {
                                             fontSize: 26,
                                             color: `#c8a030`,
@@ -10631,7 +10565,7 @@ Error generating stack: ` + e.message + `
                                     })
                                 ]
                             }),
-                            (0, O.jsx)(`button`, {
+                            (0, k.jsx)(`button`, {
                                 onClick: e,
                                 style: {
                                     background: `transparent`,
@@ -10647,7 +10581,7 @@ Error generating stack: ` + e.message + `
                             })
                         ]
                     }),
-                    (0, O.jsx)(`div`, {
+                    (0, k.jsx)(`div`, {
                         style: {
                             display: `flex`,
                             gap: 8,
@@ -10656,7 +10590,7 @@ Error generating stack: ` + e.message + `
                         children: [
                             `daily`,
                             `all`
-                        ].map((e)=>(0, O.jsx)(`button`, {
+                        ].map((e)=>(0, k.jsx)(`button`, {
                                 onClick: ()=>n(e),
                                 style: {
                                     flex: 1,
@@ -10670,9 +10604,9 @@ Error generating stack: ` + e.message + `
                                     cursor: `pointer`,
                                     fontFamily: `'Pirata One', cursive`
                                 },
-                                children: e === `daily` ? `☀ DAILY` : (0, O.jsxs)(O.Fragment, {
+                                children: e === `daily` ? `☀ DAILY` : (0, k.jsxs)(k.Fragment, {
                                     children: [
-                                        (0, O.jsx)(S, {
+                                        (0, k.jsx)(S, {
                                             name: `anchor`,
                                             size: 14,
                                             style: {
@@ -10684,7 +10618,7 @@ Error generating stack: ` + e.message + `
                                 })
                             }, e))
                     }),
-                    c ? (0, O.jsx)(`div`, {
+                    c ? (0, k.jsx)(`div`, {
                         style: {
                             textAlign: `center`,
                             padding: 40,
@@ -10693,7 +10627,7 @@ Error generating stack: ` + e.message + `
                             letterSpacing: 4
                         },
                         children: `LOADING...`
-                    }) : t === `daily` && o.length === 0 ? (0, O.jsx)(`div`, {
+                    }) : t === `daily` && o.length === 0 ? (0, k.jsx)(`div`, {
                         style: {
                             textAlign: `center`,
                             padding: 40,
@@ -10702,7 +10636,7 @@ Error generating stack: ` + e.message + `
                             letterSpacing: 4
                         },
                         children: `NO DAILY SCORES YET TODAY`
-                    }) : t === `all` && r.length === 0 ? (0, O.jsx)(`div`, {
+                    }) : t === `all` && r.length === 0 ? (0, k.jsx)(`div`, {
                         style: {
                             textAlign: `center`,
                             padding: 40,
@@ -10711,13 +10645,13 @@ Error generating stack: ` + e.message + `
                             letterSpacing: 4
                         },
                         children: `NO SCORES YET — BE THE FIRST!`
-                    }) : t === `daily` ? (0, O.jsx)(`div`, {
+                    }) : t === `daily` ? (0, k.jsx)(`div`, {
                         style: {
                             display: `flex`,
                             flexDirection: `column`,
                             gap: 8
                         },
-                        children: o.map((e, t)=>(0, O.jsxs)(a.div, {
+                        children: o.map((e, t)=>(0, k.jsxs)(a.div, {
                                 initial: {
                                     opacity: 0,
                                     x: -20
@@ -10734,65 +10668,65 @@ Error generating stack: ` + e.message + `
                                     alignItems: `center`,
                                     gap: 16,
                                     background: t < 3 ? `rgba(200,160,48,${.08 - t * .02})` : `rgba(255,255,255,0.02)`,
-                                    border: `1px solid ${t < 3 ? Ue[t] + `44` : `rgba(255,255,255,0.06)`}`,
+                                    border: `1px solid ${t < 3 ? Ve[t] + `44` : `rgba(255,255,255,0.06)`}`,
                                     borderRadius: 12,
-                                    padding: k ? `10px 12px` : `14px 18px`
+                                    padding: Ue ? `10px 12px` : `14px 18px`
                                 },
                                 children: [
-                                    (0, O.jsx)(`div`, {
+                                    (0, k.jsx)(`div`, {
                                         style: {
                                             width: 32,
                                             textAlign: `center`,
                                             fontSize: t < 3 ? 22 : 15,
-                                            color: t < 3 ? Ue[t] : `rgba(255,255,255,0.25)`
+                                            color: t < 3 ? Ve[t] : `rgba(255,255,255,0.25)`
                                         },
-                                        children: t < 3 ? We(t) : `#${t + 1}`
+                                        children: t < 3 ? He(t) : `#${t + 1}`
                                     }),
-                                    (0, O.jsxs)(`div`, {
+                                    (0, k.jsxs)(`div`, {
                                         style: {
                                             flex: 1
                                         },
                                         children: [
-                                            (0, O.jsx)(`div`, {
+                                            (0, k.jsx)(`div`, {
                                                 style: {
-                                                    fontSize: k ? 13 : 15,
-                                                    color: t < 3 ? Ue[t] : `#e8e0d0`
+                                                    fontSize: Ue ? 13 : 15,
+                                                    color: t < 3 ? Ve[t] : `#e8e0d0`
                                                 },
                                                 children: e.username ?? u(e.wallet_address)
                                             }),
-                                            (0, O.jsxs)(`div`, {
+                                            (0, k.jsxs)(`div`, {
                                                 style: {
-                                                    fontSize: k ? 11 : 12,
+                                                    fontSize: Ue ? 11 : 12,
                                                     color: `rgba(255,255,255,0.4)`,
                                                     fontFamily: `'Cinzel', serif`,
                                                     marginTop: 2
                                                 },
                                                 children: [
                                                     `☀ Daily · `,
-                                                    e.seed != null && ne(e.date) ? `Seed ${e.seed} · ` : `Blind map · `,
+                                                    e.seed != null && h(e.date) ? `Seed ${e.seed} · ` : `Blind map · `,
                                                     d(e.submitted_at)
                                                 ]
                                             })
                                         ]
                                     }),
-                                    (0, O.jsx)(`div`, {
+                                    (0, k.jsx)(`div`, {
                                         style: {
-                                            fontSize: k ? 18 : 22,
+                                            fontSize: Ue ? 18 : 22,
                                             fontWeight: 700,
-                                            color: t < 3 ? Ue[t] : `#eedd44`,
+                                            color: t < 3 ? Ve[t] : `#eedd44`,
                                             fontFamily: `'Cinzel', serif`
                                         },
                                         children: e.score.toLocaleString()
                                     })
                                 ]
                             }, e.id))
-                    }) : (0, O.jsx)(`div`, {
+                    }) : (0, k.jsx)(`div`, {
                         style: {
                             display: `flex`,
                             flexDirection: `column`,
                             gap: 8
                         },
-                        children: r.map((e, t)=>(0, O.jsxs)(a.div, {
+                        children: r.map((e, t)=>(0, k.jsxs)(a.div, {
                                 initial: {
                                     opacity: 0,
                                     x: -20
@@ -10809,42 +10743,42 @@ Error generating stack: ` + e.message + `
                                     alignItems: `center`,
                                     gap: 16,
                                     background: t < 3 ? `rgba(200,160,48,${.08 - t * .02})` : `rgba(255,255,255,0.02)`,
-                                    border: `1px solid ${t < 3 ? Ue[t] + `44` : `rgba(255,255,255,0.06)`}`,
+                                    border: `1px solid ${t < 3 ? Ve[t] + `44` : `rgba(255,255,255,0.06)`}`,
                                     borderRadius: 12,
-                                    padding: k ? `10px 12px` : `14px 18px`
+                                    padding: Ue ? `10px 12px` : `14px 18px`
                                 },
                                 children: [
-                                    (0, O.jsx)(`div`, {
+                                    (0, k.jsx)(`div`, {
                                         style: {
                                             width: 32,
                                             textAlign: `center`,
                                             fontSize: t < 3 ? 22 : 15,
-                                            color: t < 3 ? Ue[t] : `rgba(255,255,255,0.25)`
+                                            color: t < 3 ? Ve[t] : `rgba(255,255,255,0.25)`
                                         },
-                                        children: t < 3 ? We(t) : `#${t + 1}`
+                                        children: t < 3 ? He(t) : `#${t + 1}`
                                     }),
-                                    (0, O.jsxs)(`div`, {
+                                    (0, k.jsxs)(`div`, {
                                         style: {
                                             flex: 1
                                         },
                                         children: [
-                                            (0, O.jsx)(`div`, {
+                                            (0, k.jsx)(`div`, {
                                                 style: {
                                                     display: `flex`,
                                                     alignItems: `center`,
                                                     gap: 8
                                                 },
-                                                children: (0, O.jsx)(`div`, {
+                                                children: (0, k.jsx)(`div`, {
                                                     style: {
-                                                        fontSize: k ? 13 : 15,
-                                                        color: t < 3 ? Ue[t] : `#e8e0d0`
+                                                        fontSize: Ue ? 13 : 15,
+                                                        color: t < 3 ? Ve[t] : `#e8e0d0`
                                                     },
                                                     children: e.username ?? u(e.wallet_address)
                                                 })
                                             }),
-                                            (0, O.jsxs)(`div`, {
+                                            (0, k.jsxs)(`div`, {
                                                 style: {
-                                                    fontSize: k ? 11 : 12,
+                                                    fontSize: Ue ? 11 : 12,
                                                     color: `rgba(255,255,255,0.4)`,
                                                     fontFamily: `'Cinzel', serif`,
                                                     marginTop: 2
@@ -10859,11 +10793,11 @@ Error generating stack: ` + e.message + `
                                             })
                                         ]
                                     }),
-                                    (0, O.jsx)(`div`, {
+                                    (0, k.jsx)(`div`, {
                                         style: {
-                                            fontSize: k ? 18 : 22,
+                                            fontSize: Ue ? 18 : 22,
                                             fontWeight: 700,
-                                            color: t < 3 ? Ue[t] : `#eedd44`,
+                                            color: t < 3 ? Ve[t] : `#eedd44`,
                                             fontFamily: `'Cinzel', serif`
                                         },
                                         children: e.score.toLocaleString()
@@ -10875,7 +10809,7 @@ Error generating stack: ` + e.message + `
             })
         });
     }
-    var Ke = [
+    var Ge = [
         {
             bg: `scenes/storm.jpg`
         },
@@ -10892,26 +10826,26 @@ Error generating stack: ` + e.message + `
             bg: `scenes/pirate.jpg`
         }
     ];
-    function qe({ onPlay: e, onResume: t }) {
-        let [n, i] = (0, D.useState)(null), [s, c] = (0, D.useState)([]), l = (()=>{
+    function Ke({ onPlay: e, onResume: t }) {
+        let [n, i] = (0, O.useState)(null), [s, c] = (0, O.useState)([]), l = (()=>{
             let e = new Date;
             return e.getUTCFullYear() === 2026 && e.getUTCMonth() === 8;
         })(), u = (()=>{
             let e = Date.now();
             return typeof window < `u` && new URLSearchParams(window.location.search).has(`fin`) || e >= Date.UTC(2026, 9, 1) && e < Date.UTC(2026, 9, 15);
         })();
-        (0, D.useEffect)(()=>{
-            if (!l && !u || (w().then(c), !l)) return;
-            let e = setInterval(()=>w().then(c), 12e4);
+        (0, O.useEffect)(()=>{
+            if (!l && !u || (pe().then(c), !l)) return;
+            let e = setInterval(()=>pe().then(c), 12e4);
             return ()=>clearInterval(e);
         }, [
             l,
             u
         ]);
-        let [d, f] = (0, D.useState)(()=>_()), [p] = (0, D.useState)(()=>typeof window < `u` && window.innerWidth < 768), [h, g] = (0, D.useState)(!1), [v, y] = (0, D.useState)(!1), [b, x] = (0, D.useState)(!1), [te, ne] = (0, D.useState)(!1), [re, ie] = (0, D.useState)([]), [oe, se] = (0, D.useState)(``);
-        (0, D.useEffect)(()=>{
-            E(new Date().toISOString().slice(0, 10)).then((e)=>ie(e.slice(0, 3)));
-        }, []), (0, D.useEffect)(()=>{
+        let [d, f] = (0, O.useState)(()=>x()), [p] = (0, O.useState)(()=>typeof window < `u` && window.innerWidth < 768), [m, h] = (0, O.useState)(!1), [g, _] = (0, O.useState)(!1), [v, y] = (0, O.useState)(!1), [b, ee] = (0, O.useState)(!1), [te, ne] = (0, O.useState)([]), [ae, se] = (0, O.useState)(``);
+        (0, O.useEffect)(()=>{
+            _e(new Date().toISOString().slice(0, 10)).then((e)=>ne(e.slice(0, 3)));
+        }, []), (0, O.useEffect)(()=>{
             let e = ()=>{
                 let e = Date.now(), t = new Date(e), n = Date.UTC(t.getUTCFullYear(), t.getUTCMonth(), t.getUTCDate() + 1, 0, 0, 0), r = Math.max(0, n - e);
                 se(`${String(Math.floor(r / 36e5)).padStart(2, `0`)}:${String(Math.floor(r % 36e5 / 6e4)).padStart(2, `0`)}:${String(Math.floor(r % 6e4 / 1e3)).padStart(2, `0`)}`);
@@ -10920,35 +10854,35 @@ Error generating stack: ` + e.message + `
             let t = setInterval(e, 1e3);
             return ()=>clearInterval(t);
         }, []);
-        let [ce, le] = (0, D.useState)(!1), [ue, C] = (0, D.useState)(!1), [de, pe] = (0, D.useState)(!1), { address: T, username: he, connecting: ge, connect: _e, disconnect: ve, openProfile: ye } = o(), be = async ()=>{
+        let [ce, le] = (0, O.useState)(!1), [ue, C] = (0, O.useState)(!1), [w, de] = (0, O.useState)(!1), { address: T, username: fe, connecting: E, connect: me, disconnect: ge, openProfile: ve } = o(), ye = async ()=>{
             if (!T) return;
-            C(!0), pe(!1);
-            let t = await fe(T);
+            C(!0), de(!1);
+            let t = await D(T);
             if (C(!1), !t) {
-                pe(!0);
+                de(!0);
                 return;
             }
-            e(T, he, t.seed, !1, t.seed_token);
+            e(T, fe, t.seed, !1, t.seed_token);
         };
-        (0, D.useEffect)(()=>{
+        (0, O.useEffect)(()=>{
             if (!T) {
-                f(_());
+                f(x());
                 return;
             }
-            me(T, ee()).then((e)=>f(e || _()));
+            he(T, oe()).then((e)=>f(e || x()));
         }, [
             T
-        ]), (0, D.useEffect)(()=>{
-            let e = m();
+        ]), (0, O.useEffect)(()=>{
+            let e = re();
             e && T && e.wallet_address === T ? i(e) : i(null);
         }, [
             T
         ]);
-        let [xe, Se] = (0, D.useState)(0);
-        return (0, D.useEffect)(()=>{
-            let e = setInterval(()=>Se((e)=>(e + 1) % Ke.length), 4e3);
+        let [be, xe] = (0, O.useState)(0);
+        return (0, O.useEffect)(()=>{
+            let e = setInterval(()=>xe((e)=>(e + 1) % Ge.length), 4e3);
             return ()=>clearInterval(e);
-        }, []), (0, O.jsxs)(`div`, {
+        }, []), (0, k.jsxs)(`div`, {
             style: {
                 height: `100vh`,
                 width: `100vw`,
@@ -10958,9 +10892,9 @@ Error generating stack: ` + e.message + `
                 fontFamily: `'Pirata One', cursive`
             },
             children: [
-                Ke.map((e, t)=>(0, O.jsx)(a.div, {
+                Ge.map((e, t)=>(0, k.jsx)(a.div, {
                         animate: {
-                            opacity: +(t === xe)
+                            opacity: +(t === be)
                         },
                         transition: {
                             duration: 1.5
@@ -10973,29 +10907,29 @@ Error generating stack: ` + e.message + `
                             backgroundPosition: `center`
                         }
                     }, t)),
-                (0, O.jsx)(`div`, {
+                (0, k.jsx)(`div`, {
                     style: {
                         position: `absolute`,
                         inset: 0,
                         background: `linear-gradient(to bottom, rgba(6,14,24,0.6) 0%, rgba(6,14,24,0.3) 40%, rgba(6,14,24,0.85) 100%)`
                     }
                 }),
-                (0, O.jsx)(`div`, {
+                (0, k.jsx)(`div`, {
                     style: {
                         position: `absolute`,
                         top: p ? 8 : 20,
                         right: p ? 8 : 24,
                         zIndex: 20
                     },
-                    children: T ? (0, O.jsxs)(`div`, {
+                    children: T ? (0, k.jsxs)(`div`, {
                         style: {
                             display: `flex`,
                             alignItems: `center`,
                             gap: 10
                         },
                         children: [
-                            (0, O.jsx)(`div`, {
-                                onClick: ()=>ye(),
+                            (0, k.jsx)(`div`, {
+                                onClick: ()=>ve(),
                                 style: {
                                     fontFamily: `'Cinzel', serif`,
                                     fontSize: p ? 9 : 11,
@@ -11006,10 +10940,10 @@ Error generating stack: ` + e.message + `
                                     padding: p ? `3px 8px` : `6px 14px`,
                                     cursor: `pointer`
                                 },
-                                children: he ?? `${T.slice(0, 6)}...${T.slice(-4)}`
+                                children: fe ?? `${T.slice(0, 6)}...${T.slice(-4)}`
                             }),
-                            (0, O.jsx)(`button`, {
-                                onClick: ve,
+                            (0, k.jsx)(`button`, {
+                                onClick: ge,
                                 style: {
                                     background: `transparent`,
                                     border: `1px solid rgba(255,255,255,0.1)`,
@@ -11023,12 +10957,12 @@ Error generating stack: ` + e.message + `
                                 children: `DISCONNECT`
                             })
                         ]
-                    }) : (0, O.jsx)(a.button, {
+                    }) : (0, k.jsx)(a.button, {
                         whileHover: {
                             scale: 1.05
                         },
-                        onClick: _e,
-                        disabled: ge,
+                        onClick: me,
+                        disabled: E,
                         style: {
                             padding: `8px 20px`,
                             borderRadius: 8,
@@ -11040,10 +10974,10 @@ Error generating stack: ` + e.message + `
                             cursor: `pointer`,
                             fontFamily: `'Pirata One', cursive`
                         },
-                        children: ge ? `CONNECTING...` : `CONNECT WALLET`
+                        children: E ? `CONNECTING...` : `CONNECT WALLET`
                     })
                 }),
-                (0, O.jsxs)(`div`, {
+                (0, k.jsxs)(`div`, {
                     style: {
                         position: `relative`,
                         zIndex: 10,
@@ -11058,7 +10992,7 @@ Error generating stack: ` + e.message + `
                         paddingBottom: p ? 32 : 28
                     },
                     children: [
-                        (0, O.jsx)(a.div, {
+                        (0, k.jsx)(a.div, {
                             initial: {
                                 opacity: 0,
                                 y: 20
@@ -11080,7 +11014,7 @@ Error generating stack: ` + e.message + `
                             },
                             children: `CORSAIR`
                         }),
-                        (0, O.jsx)(a.div, {
+                        (0, k.jsx)(a.div, {
                             initial: {
                                 opacity: 0
                             },
@@ -11103,7 +11037,7 @@ Error generating stack: ` + e.message + `
                             },
                             children: `A ROGUELITE OF NAVIGATION & SURVIVAL`
                         }),
-                        (0, O.jsxs)(a.div, {
+                        (0, k.jsxs)(a.div, {
                             initial: {
                                 opacity: 0,
                                 y: 20
@@ -11124,7 +11058,7 @@ Error generating stack: ` + e.message + `
                                 marginTop: 16
                             },
                             children: [
-                                (0, O.jsxs)(`div`, {
+                                (0, k.jsxs)(`div`, {
                                     style: {
                                         display: `flex`,
                                         flexDirection: `column`,
@@ -11132,7 +11066,7 @@ Error generating stack: ` + e.message + `
                                         gap: 10
                                     },
                                     children: [
-                                        (0, O.jsxs)(`div`, {
+                                        (0, k.jsxs)(`div`, {
                                             style: {
                                                 display: `flex`,
                                                 flexDirection: `column`,
@@ -11141,14 +11075,14 @@ Error generating stack: ` + e.message + `
                                                 width: p ? `88%` : `auto`
                                             },
                                             children: [
-                                                (0, O.jsxs)(`div`, {
+                                                (0, k.jsxs)(`div`, {
                                                     style: {
                                                         display: `flex`,
                                                         gap: 16,
                                                         width: `100%`
                                                     },
                                                     children: [
-                                                        (0, O.jsx)(a.button, {
+                                                        (0, k.jsx)(a.button, {
                                                             whileHover: {
                                                                 scale: 1.05,
                                                                 boxShadow: `0 0 30px rgba(200,160,48,0.4)`
@@ -11162,7 +11096,7 @@ Error generating stack: ` + e.message + `
                                                                     e(null, `Captain`, Math.floor(Math.random() * 999999), !1, void 0);
                                                                     return;
                                                                 }
-                                                                await be();
+                                                                await ye();
                                                             },
                                                             style: {
                                                                 padding: p ? `20px 0` : `16px 48px`,
@@ -11179,7 +11113,7 @@ Error generating stack: ` + e.message + `
                                                             },
                                                             children: ue ? `PREPARING…` : `PLAY`
                                                         }),
-                                                        (0, O.jsx)(a.button, {
+                                                        (0, k.jsx)(a.button, {
                                                             whileHover: {
                                                                 scale: 1.05
                                                             },
@@ -11203,7 +11137,7 @@ Error generating stack: ` + e.message + `
                                                         })
                                                     ]
                                                 }),
-                                                !T && (0, O.jsx)(`div`, {
+                                                !T && (0, k.jsx)(`div`, {
                                                     style: {
                                                         fontSize: 11,
                                                         color: `rgba(255,255,255,0.45)`,
@@ -11213,7 +11147,7 @@ Error generating stack: ` + e.message + `
                                                     },
                                                     children: `No wallet needed · connect later to climb the board`
                                                 }),
-                                                de && (0, O.jsx)(`div`, {
+                                                w && (0, k.jsx)(`div`, {
                                                     style: {
                                                         fontSize: 11,
                                                         color: `rgba(238,100,100,0.85)`,
@@ -11225,7 +11159,7 @@ Error generating stack: ` + e.message + `
                                                 })
                                             ]
                                         }),
-                                        (0, O.jsxs)(`div`, {
+                                        (0, k.jsxs)(`div`, {
                                             style: {
                                                 padding: p ? `12px 14px` : `16px 20px`,
                                                 borderRadius: 16,
@@ -11236,19 +11170,19 @@ Error generating stack: ` + e.message + `
                                                 boxShadow: `0 0 24px rgba(200,160,48,0.15)`
                                             },
                                             children: [
-                                                (0, O.jsx)(`div`, {
+                                                (0, k.jsx)(`div`, {
                                                     style: {
                                                         display: `flex`,
                                                         alignItems: `center`,
                                                         gap: 14
                                                     },
-                                                    children: (0, O.jsxs)(`div`, {
+                                                    children: (0, k.jsxs)(`div`, {
                                                         style: {
                                                             flex: 1,
                                                             textAlign: `left`
                                                         },
                                                         children: [
-                                                            (0, O.jsxs)(`div`, {
+                                                            (0, k.jsxs)(`div`, {
                                                                 style: {
                                                                     fontSize: 15,
                                                                     color: `#c8a030`,
@@ -11259,14 +11193,14 @@ Error generating stack: ` + e.message + `
                                                                     gap: 7
                                                                 },
                                                                 children: [
-                                                                    (0, O.jsx)(S, {
+                                                                    (0, k.jsx)(S, {
                                                                         name: `sun`,
                                                                         size: 19
                                                                     }),
                                                                     `DAILY CHALLENGE`
                                                                 ]
                                                             }),
-                                                            (0, O.jsx)(`div`, {
+                                                            (0, k.jsx)(`div`, {
                                                                 style: {
                                                                     display: p ? `none` : `block`,
                                                                     fontSize: 12,
@@ -11280,7 +11214,7 @@ Error generating stack: ` + e.message + `
                                                         ]
                                                     })
                                                 }),
-                                                (0, O.jsxs)(`div`, {
+                                                (0, k.jsxs)(`div`, {
                                                     style: {
                                                         display: `flex`,
                                                         alignItems: `center`,
@@ -11289,7 +11223,7 @@ Error generating stack: ` + e.message + `
                                                         gap: 10
                                                     },
                                                     children: [
-                                                        (0, O.jsxs)(`div`, {
+                                                        (0, k.jsxs)(`div`, {
                                                             style: {
                                                                 fontSize: 12,
                                                                 color: `rgba(136,221,255,0.8)`,
@@ -11298,15 +11232,15 @@ Error generating stack: ` + e.message + `
                                                             },
                                                             children: [
                                                                 `⏳ Resets in `,
-                                                                (0, O.jsx)(`span`, {
+                                                                (0, k.jsx)(`span`, {
                                                                     style: {
                                                                         color: `#88ddff`,
                                                                         fontWeight: 700
                                                                     },
-                                                                    children: oe
+                                                                    children: ae
                                                                 }),
                                                                 ` `,
-                                                                (0, O.jsx)(`span`, {
+                                                                (0, k.jsx)(`span`, {
                                                                     style: {
                                                                         opacity: .5
                                                                     },
@@ -11314,7 +11248,7 @@ Error generating stack: ` + e.message + `
                                                                 })
                                                             ]
                                                         }),
-                                                        d ? (0, O.jsxs)(`div`, {
+                                                        d ? (0, k.jsxs)(`div`, {
                                                             style: {
                                                                 fontSize: 11,
                                                                 color: `rgba(136,221,255,0.55)`,
@@ -11323,10 +11257,10 @@ Error generating stack: ` + e.message + `
                                                             },
                                                             children: [
                                                                 `Already played ·`,
-                                                                (0, O.jsx)(`br`, {}),
+                                                                (0, k.jsx)(`br`, {}),
                                                                 `back at 00:00 UTC`
                                                             ]
-                                                        }) : (0, O.jsx)(a.button, {
+                                                        }) : (0, k.jsx)(a.button, {
                                                             whileHover: {
                                                                 scale: 1.04,
                                                                 boxShadow: `0 0 20px rgba(200,160,48,0.4)`
@@ -11335,7 +11269,7 @@ Error generating stack: ` + e.message + `
                                                                 scale: .96
                                                             },
                                                             onClick: ()=>{
-                                                                T ? e(T, he, ae(), !0) : _e();
+                                                                T ? e(T, fe, ie(), !0) : me();
                                                             },
                                                             style: {
                                                                 padding: `10px 20px`,
@@ -11354,7 +11288,7 @@ Error generating stack: ` + e.message + `
                                                         })
                                                     ]
                                                 }),
-                                                (0, O.jsx)(`div`, {
+                                                (0, k.jsx)(`div`, {
                                                     style: {
                                                         display: p ? `none` : `block`,
                                                         fontSize: 10,
@@ -11364,9 +11298,9 @@ Error generating stack: ` + e.message + `
                                                         textAlign: `center`,
                                                         letterSpacing: 1
                                                     },
-                                                    children: (l || u) && (0, O.jsxs)(O.Fragment, {
+                                                    children: (l || u) && (0, k.jsxs)(k.Fragment, {
                                                         children: [
-                                                            (0, O.jsx)(S, {
+                                                            (0, k.jsx)(S, {
                                                                 name: `trophy`,
                                                                 size: 17,
                                                                 style: {
@@ -11381,7 +11315,7 @@ Error generating stack: ` + e.message + `
                                         })
                                     ]
                                 }),
-                                re.length > 0 && (0, O.jsxs)(`div`, {
+                                te.length > 0 && (0, k.jsxs)(`div`, {
                                     style: {
                                         padding: `10px 20px`,
                                         borderRadius: 12,
@@ -11391,7 +11325,7 @@ Error generating stack: ` + e.message + `
                                         maxWidth: 360
                                     },
                                     children: [
-                                        (0, O.jsxs)(`div`, {
+                                        (0, k.jsxs)(`div`, {
                                             style: {
                                                 fontSize: 11,
                                                 color: `rgba(200,160,48,0.6)`,
@@ -11405,14 +11339,14 @@ Error generating stack: ` + e.message + `
                                                 gap: 6
                                             },
                                             children: [
-                                                (0, O.jsx)(S, {
+                                                (0, k.jsx)(S, {
                                                     name: `sun`,
                                                     size: 14
                                                 }),
                                                 `TODAY'S TOP`
                                             ]
                                         }),
-                                        re.map((e, t)=>(0, O.jsxs)(`div`, {
+                                        te.map((e, t)=>(0, k.jsxs)(`div`, {
                                                 style: {
                                                     display: `flex`,
                                                     alignItems: `center`,
@@ -11420,14 +11354,14 @@ Error generating stack: ` + e.message + `
                                                     marginBottom: 4
                                                 },
                                                 children: [
-                                                    (0, O.jsx)(`div`, {
+                                                    (0, k.jsx)(`div`, {
                                                         style: {
                                                             fontSize: 13,
                                                             color: t === 0 ? `#FFD700` : t === 1 ? `#C0C0C0` : `#CD7F32`,
                                                             width: 16,
                                                             textAlign: `center`
                                                         },
-                                                        children: t === 0 ? (0, O.jsx)(S, {
+                                                        children: t === 0 ? (0, k.jsx)(S, {
                                                             name: `crown`,
                                                             size: 19
                                                         }) : [
@@ -11436,7 +11370,7 @@ Error generating stack: ` + e.message + `
                                                             `🏴‍☠️`
                                                         ][t]
                                                     }),
-                                                    (0, O.jsx)(`div`, {
+                                                    (0, k.jsx)(`div`, {
                                                         style: {
                                                             flex: 1,
                                                             fontSize: 13,
@@ -11448,7 +11382,7 @@ Error generating stack: ` + e.message + `
                                                         },
                                                         children: e.username ?? `${e.wallet_address.slice(0, 6)}...${e.wallet_address.slice(-4)}`
                                                     }),
-                                                    (0, O.jsx)(`div`, {
+                                                    (0, k.jsx)(`div`, {
                                                         style: {
                                                             fontSize: 13,
                                                             color: `#eedd44`,
@@ -11460,7 +11394,7 @@ Error generating stack: ` + e.message + `
                                             }, t))
                                     ]
                                 }),
-                                l && (0, O.jsxs)(`div`, {
+                                l && (0, k.jsxs)(`div`, {
                                     style: {
                                         padding: `12px 20px`,
                                         borderRadius: 12,
@@ -11470,7 +11404,7 @@ Error generating stack: ` + e.message + `
                                         maxWidth: 360
                                     },
                                     children: [
-                                        (0, O.jsx)(`div`, {
+                                        (0, k.jsx)(`div`, {
                                             style: {
                                                 fontSize: 11,
                                                 color: `rgba(238,170,68,0.8)`,
@@ -11481,7 +11415,7 @@ Error generating stack: ` + e.message + `
                                             },
                                             children: `STARKTEMBER`
                                         }),
-                                        (0, O.jsx)(`div`, {
+                                        (0, k.jsx)(`div`, {
                                             style: {
                                                 fontSize: p ? 9 : 10,
                                                 color: `rgba(255,255,255,0.45)`,
@@ -11491,7 +11425,7 @@ Error generating stack: ` + e.message + `
                                             },
                                             children: `Highest total across the month · one relic, one winner`
                                         }),
-                                        (0, O.jsx)(`div`, {
+                                        (0, k.jsx)(`div`, {
                                             style: {
                                                 fontSize: p ? 9 : 10,
                                                 color: `rgba(238,170,68,0.7)`,
@@ -11502,7 +11436,7 @@ Error generating stack: ` + e.message + `
                                             },
                                             children: `ONLY THE DAILY CHALLENGE COUNTS`
                                         }),
-                                        s.length === 0 ? (0, O.jsx)(`div`, {
+                                        s.length === 0 ? (0, k.jsx)(`div`, {
                                             style: {
                                                 fontSize: 11,
                                                 color: `rgba(255,255,255,0.35)`,
@@ -11511,7 +11445,7 @@ Error generating stack: ` + e.message + `
                                                 padding: `6px 0`
                                             },
                                             children: `No captain has sailed yet.`
-                                        }) : s.slice(0, 5).map((e, t)=>(0, O.jsxs)(`div`, {
+                                        }) : s.slice(0, 5).map((e, t)=>(0, k.jsxs)(`div`, {
                                                 style: {
                                                     display: `flex`,
                                                     alignItems: `center`,
@@ -11519,19 +11453,19 @@ Error generating stack: ` + e.message + `
                                                     marginBottom: 4
                                                 },
                                                 children: [
-                                                    (0, O.jsx)(`div`, {
+                                                    (0, k.jsx)(`div`, {
                                                         style: {
                                                             fontSize: 12,
                                                             color: t === 0 ? `#FFD700` : `rgba(255,255,255,0.4)`,
                                                             width: 16,
                                                             textAlign: `center`
                                                         },
-                                                        children: t === 0 ? (0, O.jsx)(S, {
+                                                        children: t === 0 ? (0, k.jsx)(S, {
                                                             name: `crown`,
                                                             size: 17
                                                         }) : t + 1
                                                     }),
-                                                    (0, O.jsx)(`div`, {
+                                                    (0, k.jsx)(`div`, {
                                                         style: {
                                                             flex: 1,
                                                             fontSize: 12,
@@ -11543,7 +11477,7 @@ Error generating stack: ` + e.message + `
                                                         },
                                                         children: e.username ?? `${e.wallet_address.slice(0, 6)}...${e.wallet_address.slice(-4)}`
                                                     }),
-                                                    (0, O.jsxs)(`div`, {
+                                                    (0, k.jsxs)(`div`, {
                                                         style: {
                                                             fontSize: 10,
                                                             color: `rgba(255,255,255,0.3)`,
@@ -11554,7 +11488,7 @@ Error generating stack: ` + e.message + `
                                                             `d`
                                                         ]
                                                     }),
-                                                    (0, O.jsx)(`div`, {
+                                                    (0, k.jsx)(`div`, {
                                                         style: {
                                                             fontSize: 12,
                                                             color: `#eeaa44`,
@@ -11571,7 +11505,7 @@ Error generating stack: ` + e.message + `
                                             let e = (e)=>e.toLowerCase().replace(/^0x0*/, ``), t = s.find((t)=>e(t.wallet_address) === e(T));
                                             if (!t || t.rank <= 5) return null;
                                             let n = s[0];
-                                            return (0, O.jsxs)(`div`, {
+                                            return (0, k.jsxs)(`div`, {
                                                 style: {
                                                     display: `flex`,
                                                     alignItems: `center`,
@@ -11581,7 +11515,7 @@ Error generating stack: ` + e.message + `
                                                     borderTop: `1px solid rgba(238,170,68,0.18)`
                                                 },
                                                 children: [
-                                                    (0, O.jsx)(`div`, {
+                                                    (0, k.jsx)(`div`, {
                                                         style: {
                                                             fontSize: 12,
                                                             color: `rgba(238,170,68,0.9)`,
@@ -11590,7 +11524,7 @@ Error generating stack: ` + e.message + `
                                                         },
                                                         children: t.rank
                                                     }),
-                                                    (0, O.jsx)(`div`, {
+                                                    (0, k.jsx)(`div`, {
                                                         style: {
                                                             flex: 1,
                                                             fontSize: 12,
@@ -11599,7 +11533,7 @@ Error generating stack: ` + e.message + `
                                                         },
                                                         children: `You`
                                                     }),
-                                                    (0, O.jsxs)(`div`, {
+                                                    (0, k.jsxs)(`div`, {
                                                         style: {
                                                             fontSize: 10,
                                                             color: `rgba(255,255,255,0.3)`,
@@ -11610,7 +11544,7 @@ Error generating stack: ` + e.message + `
                                                             `d`
                                                         ]
                                                     }),
-                                                    (0, O.jsx)(`div`, {
+                                                    (0, k.jsx)(`div`, {
                                                         style: {
                                                             fontSize: 12,
                                                             color: `#eeaa44`,
@@ -11620,7 +11554,7 @@ Error generating stack: ` + e.message + `
                                                         },
                                                         children: t.total.toLocaleString()
                                                     }),
-                                                    (0, O.jsxs)(`div`, {
+                                                    (0, k.jsxs)(`div`, {
                                                         style: {
                                                             fontSize: 10,
                                                             color: `rgba(255,255,255,0.35)`,
@@ -11638,7 +11572,7 @@ Error generating stack: ` + e.message + `
                                         })()
                                     ]
                                 }),
-                                u && (0, O.jsxs)(`div`, {
+                                u && (0, k.jsxs)(`div`, {
                                     style: {
                                         padding: `14px 20px`,
                                         borderRadius: 12,
@@ -11649,7 +11583,7 @@ Error generating stack: ` + e.message + `
                                         textAlign: `center`
                                     },
                                     children: [
-                                        (0, O.jsx)(`div`, {
+                                        (0, k.jsx)(`div`, {
                                             style: {
                                                 fontSize: 11,
                                                 color: `rgba(238,170,68,0.8)`,
@@ -11659,9 +11593,9 @@ Error generating stack: ` + e.message + `
                                             },
                                             children: `STARKTEMBER IS OVER`
                                         }),
-                                        s[0] ? (0, O.jsxs)(O.Fragment, {
+                                        s[0] ? (0, k.jsxs)(k.Fragment, {
                                             children: [
-                                                (0, O.jsx)(`div`, {
+                                                (0, k.jsx)(`div`, {
                                                     style: {
                                                         fontSize: p ? 10 : 11,
                                                         color: `rgba(255,255,255,0.5)`,
@@ -11670,7 +11604,7 @@ Error generating stack: ` + e.message + `
                                                     },
                                                     children: `The Starktember Tide goes to`
                                                 }),
-                                                (0, O.jsxs)(`div`, {
+                                                (0, k.jsxs)(`div`, {
                                                     style: {
                                                         display: `flex`,
                                                         alignItems: `center`,
@@ -11679,11 +11613,11 @@ Error generating stack: ` + e.message + `
                                                         marginBottom: 4
                                                     },
                                                     children: [
-                                                        (0, O.jsx)(S, {
+                                                        (0, k.jsx)(S, {
                                                             name: `crown`,
                                                             size: 22
                                                         }),
-                                                        (0, O.jsx)(`div`, {
+                                                        (0, k.jsx)(`div`, {
                                                             style: {
                                                                 fontSize: 22,
                                                                 color: `#FFD700`,
@@ -11694,7 +11628,7 @@ Error generating stack: ` + e.message + `
                                                         })
                                                     ]
                                                 }),
-                                                (0, O.jsxs)(`div`, {
+                                                (0, k.jsxs)(`div`, {
                                                     style: {
                                                         fontSize: 12,
                                                         color: `#eeaa44`,
@@ -11708,7 +11642,7 @@ Error generating stack: ` + e.message + `
                                                         ` Dailies`
                                                     ]
                                                 }),
-                                                (0, O.jsxs)(`div`, {
+                                                (0, k.jsxs)(`div`, {
                                                     style: {
                                                         fontSize: p ? 11 : 12,
                                                         color: `rgba(255,255,255,0.65)`,
@@ -11717,12 +11651,12 @@ Error generating stack: ` + e.message + `
                                                     },
                                                     children: [
                                                         `Congratulations, captain. Well sailed.`,
-                                                        (0, O.jsx)(`br`, {}),
+                                                        (0, k.jsx)(`br`, {}),
                                                         `Thank you to every captain who took part.`
                                                     ]
                                                 })
                                             ]
-                                        }) : (0, O.jsx)(`div`, {
+                                        }) : (0, k.jsx)(`div`, {
                                             style: {
                                                 fontSize: 12,
                                                 color: `rgba(255,255,255,0.65)`,
@@ -11733,7 +11667,7 @@ Error generating stack: ` + e.message + `
                                         })
                                     ]
                                 }),
-                                n && n.actions.length > 0 && t && (0, O.jsxs)(a.button, {
+                                n && n.actions.length > 0 && t && (0, k.jsxs)(a.button, {
                                     whileHover: {
                                         scale: 1.05
                                     },
@@ -11759,14 +11693,14 @@ Error generating stack: ` + e.message + `
                                         n.turn
                                     ]
                                 }),
-                                (0, O.jsx)(a.button, {
+                                (0, k.jsx)(a.button, {
                                     whileHover: {
                                         scale: 1.05
                                     },
                                     whileTap: {
                                         scale: .97
                                     },
-                                    onClick: ()=>g(!0),
+                                    onClick: ()=>h(!0),
                                     style: {
                                         padding: p ? `4px 10px` : `12px 32px`,
                                         borderRadius: 12,
@@ -11780,7 +11714,7 @@ Error generating stack: ` + e.message + `
                                     },
                                     children: `HOW TO PLAY`
                                 }),
-                                (0, O.jsxs)(`div`, {
+                                (0, k.jsxs)(`div`, {
                                     style: {
                                         display: `flex`,
                                         gap: 12,
@@ -11788,7 +11722,7 @@ Error generating stack: ` + e.message + `
                                         flexWrap: `wrap`
                                     },
                                     children: [
-                                        p && (0, O.jsxs)(a.button, {
+                                        p && (0, k.jsxs)(a.button, {
                                             whileTap: {
                                                 scale: .96
                                             },
@@ -11807,7 +11741,7 @@ Error generating stack: ` + e.message + `
                                                 alignItems: `center`
                                             },
                                             children: [
-                                                (0, O.jsx)(S, {
+                                                (0, k.jsx)(S, {
                                                     name: `crown`,
                                                     size: 16,
                                                     style: {
@@ -11817,14 +11751,14 @@ Error generating stack: ` + e.message + `
                                                 `BOARD`
                                             ]
                                         }),
-                                        (0, O.jsxs)(a.button, {
+                                        (0, k.jsxs)(a.button, {
                                             whileHover: {
                                                 scale: 1.04
                                             },
                                             whileTap: {
                                                 scale: .96
                                             },
-                                            onClick: ()=>y(!0),
+                                            onClick: ()=>_(!0),
                                             style: {
                                                 padding: p ? `9px 12px` : `12px 26px`,
                                                 borderRadius: 12,
@@ -11839,7 +11773,7 @@ Error generating stack: ` + e.message + `
                                                 alignItems: `center`
                                             },
                                             children: [
-                                                (0, O.jsx)(S, {
+                                                (0, k.jsx)(S, {
                                                     name: `fleurdelys`,
                                                     size: p ? 16 : 22,
                                                     style: {
@@ -11849,14 +11783,14 @@ Error generating stack: ` + e.message + `
                                                 `FEATS`
                                             ]
                                         }),
-                                        (0, O.jsxs)(a.button, {
+                                        (0, k.jsxs)(a.button, {
                                             whileHover: {
                                                 scale: 1.04
                                             },
                                             whileTap: {
                                                 scale: .96
                                             },
-                                            onClick: ()=>ne(!0),
+                                            onClick: ()=>ee(!0),
                                             style: {
                                                 padding: p ? `9px 12px` : `12px 26px`,
                                                 borderRadius: 12,
@@ -11871,7 +11805,7 @@ Error generating stack: ` + e.message + `
                                                 alignItems: `center`
                                             },
                                             children: [
-                                                (0, O.jsx)(S, {
+                                                (0, k.jsx)(S, {
                                                     name: `ship`,
                                                     size: p ? 16 : 22,
                                                     style: {
@@ -11881,14 +11815,14 @@ Error generating stack: ` + e.message + `
                                                 `SHIPS`
                                             ]
                                         }),
-                                        (0, O.jsxs)(a.button, {
+                                        (0, k.jsxs)(a.button, {
                                             whileHover: {
                                                 scale: 1.04
                                             },
                                             whileTap: {
                                                 scale: .96
                                             },
-                                            onClick: ()=>x(!0),
+                                            onClick: ()=>y(!0),
                                             style: {
                                                 padding: p ? `9px 12px` : `12px 26px`,
                                                 borderRadius: 12,
@@ -11903,7 +11837,7 @@ Error generating stack: ` + e.message + `
                                                 alignItems: `center`
                                             },
                                             children: [
-                                                (0, O.jsx)(S, {
+                                                (0, k.jsx)(S, {
                                                     name: `fleurdelys`,
                                                     size: p ? 16 : 22,
                                                     style: {
@@ -11917,7 +11851,7 @@ Error generating stack: ` + e.message + `
                                 })
                             ]
                         }),
-                        (0, O.jsx)(`div`, {
+                        (0, k.jsx)(`div`, {
                             style: {
                                 flexShrink: 0,
                                 display: `flex`,
@@ -11925,13 +11859,13 @@ Error generating stack: ` + e.message + `
                                 marginTop: 8,
                                 marginBottom: 4
                             },
-                            children: Ke.map((e, t)=>(0, O.jsx)(`div`, {
-                                    onClick: ()=>Se(t),
+                            children: Ge.map((e, t)=>(0, k.jsx)(`div`, {
+                                    onClick: ()=>xe(t),
                                     style: {
                                         width: 6,
                                         height: 6,
                                         borderRadius: `50%`,
-                                        background: t === xe ? `rgba(200,160,48,0.8)` : `rgba(255,255,255,0.15)`,
+                                        background: t === be ? `rgba(200,160,48,0.8)` : `rgba(255,255,255,0.15)`,
                                         cursor: `pointer`,
                                         transition: `background 0.3s`
                                     }
@@ -11939,28 +11873,28 @@ Error generating stack: ` + e.message + `
                         })
                     ]
                 }),
-                (0, O.jsxs)(r, {
+                (0, k.jsxs)(r, {
                     children: [
-                        h && (0, O.jsx)(Oe, {
-                            onClose: ()=>g(!1),
+                        m && (0, k.jsx)(je, {
+                            onClose: ()=>h(!1),
                             onPlay: async ()=>{
-                                if (g(!1), !T) {
+                                if (h(!1), !T) {
                                     e(null, `Captain`, Math.floor(Math.random() * 999999), !1, void 0);
                                     return;
                                 }
-                                await be();
+                                await ye();
                             }
                         }),
-                        v && (0, O.jsx)(ke, {
+                        g && (0, k.jsx)(Me, {
+                            onClose: ()=>_(!1)
+                        }),
+                        b && (0, k.jsx)(Be, {
+                            onClose: ()=>ee(!1)
+                        }),
+                        v && (0, k.jsx)(Ie, {
                             onClose: ()=>y(!1)
                         }),
-                        te && (0, O.jsx)(He, {
-                            onClose: ()=>ne(!1)
-                        }),
-                        b && (0, O.jsx)(Ne, {
-                            onClose: ()=>x(!1)
-                        }),
-                        ce && (0, O.jsx)(Ge, {
+                        ce && (0, k.jsx)(We, {
                             onClose: ()=>le(!1)
                         })
                     ]
@@ -11968,7 +11902,7 @@ Error generating stack: ` + e.message + `
             ]
         });
     }
-    var Je = [
+    var qe = [
         `ghost`,
         `hunter`,
         `rider`,
@@ -11983,20 +11917,20 @@ Error generating stack: ` + e.message + `
         `explorer`,
         `stormbreaker`
     ];
-    function Ye(e, t, n) {
-        let r = v(e, t || `default`);
-        for (let e of n)e === 0 ? r = y(r, -1, 0) : e === 1 ? r = y(r, 0, -1) : e === 2 ? r = y(r, 1, 0) : e >= 10 && e < 20 ? r = ce(r, e - 10) : e === 20 ? r = h(r) : e === 30 ? r = se(r, `hull`) : e === 31 ? r = se(r, `weapon`) : e === 32 ? r = se(r, `nav`) : e === 40 ? r = oe(r) : e >= 50 && e < 60 ? r = g(r, Je[e - 50]) : e === 60 ? r = p(r, 8, 25) : e === 61 ? r = p(r, r.ship.maxHull, 55) : e === 70 && (r = te(r));
+    function Je(e, t, n) {
+        let r = b(e, t || `default`);
+        for (let e of n)e === 0 ? r = _(r, -1, 0) : e === 1 ? r = _(r, 0, -1) : e === 2 ? r = _(r, 1, 0) : e >= 10 && e < 20 ? r = l(r, e - 10) : e === 20 ? r = C(r) : e === 30 ? r = m(r, `hull`) : e === 31 ? r = m(r, `weapon`) : e === 32 ? r = m(r, `nav`) : e === 40 ? r = p(r) : e >= 50 && e < 60 ? r = y(r, qe[e - 50]) : e === 60 ? r = w(r, 8, 25) : e === 61 ? r = w(r, r.ship.maxHull, 55) : e === 70 && (r = ue(r));
         return r;
     }
-    var Xe = (0, D.lazy)(()=>le(()=>import(`./CorsairGame-CGrp5iPt.js`).then(async (m)=>{
+    var Ye = (0, O.lazy)(()=>de(()=>import(`./CorsairGame-Bk3i2rkb.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
-            }), __vite__mapDeps([0,1,2,3,4,5,6]))), Ze = (0, D.lazy)(()=>le(()=>import(`./AdminPanel-CLLDtgvE.js`).then(async (m)=>{
+            }), __vite__mapDeps([0,1,2,3,4,5,6]))), Xe = (0, O.lazy)(()=>de(()=>import(`./AdminPanel-CLLDtgvE.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }), __vite__mapDeps([7,1,2,4])));
-    function Qe() {
-        return (0, O.jsx)(`div`, {
+    function Ze() {
+        return (0, k.jsx)(`div`, {
             style: {
                 height: `100vh`,
                 width: `100vw`,
@@ -12012,84 +11946,84 @@ Error generating stack: ` + e.message + `
             children: `CORSAIR`
         });
     }
-    function $e() {
-        let { address: e, account: t, username: n } = o(), [r, i] = (0, D.useState)(`home`), [a, s] = (0, D.useState)(void 0), [c, l] = (0, D.useState)(!1), [u, f] = (0, D.useState)(void 0), [p, m] = (0, D.useState)(void 0), [h, g] = (0, D.useState)(null);
-        (0, D.useEffect)(()=>{
-            d(e ?? null), e && x(e);
+    function Qe() {
+        let { address: e, account: t, username: n } = o(), [r, i] = (0, O.useState)(`home`), [a, s] = (0, O.useState)(void 0), [c, l] = (0, O.useState)(!1), [u, p] = (0, O.useState)(void 0), [m, h] = (0, O.useState)(void 0), [g, _] = (0, O.useState)(null);
+        (0, O.useEffect)(()=>{
+            d(e ?? null), e && f(e);
         }, [
             e
-        ]), (0, D.useEffect)(()=>{
-            b(async (e, t)=>e === `approve` ? (await he(t.run_id), !0) : e === `score` ? await ue(t.wallet, t.score, t.run_title, t.turn, t.zone, t.seed, t.username) : (await T(t), !0));
-        }, []), (0, D.useEffect)(()=>{
+        ]), (0, O.useEffect)(()=>{
+            v(async (e, t)=>e === `approve` ? (await ve(t.run_id), !0) : e === `score` ? await T(t.wallet, t.score, t.run_title, t.turn, t.zone, t.seed, t.username) : (await ge(t), !0));
+        }, []), (0, O.useEffect)(()=>{
             let e = ()=>{
                 window.location.hash.replace(`#`, ``) === `admin` && i(`admin`);
             };
             return e(), window.addEventListener(`hashchange`, e), ()=>window.removeEventListener(`hashchange`, e);
         }, []);
-        let _ = (e, t, n, r, a)=>{
-            g(t ?? null), m(void 0), s(n), l(!!r), f(a), i(`game`);
+        let y = (e, t, n, r, a)=>{
+            _(t ?? null), h(void 0), s(n), l(!!r), p(a), i(`game`);
         };
-        (0, D.useEffect)(()=>{
-            new URLSearchParams(window.location.search).has(`guest`) && _(null, `Guest`, Math.floor(Math.random() * 999999), !1, void 0);
+        (0, O.useEffect)(()=>{
+            new URLSearchParams(window.location.search).has(`guest`) && y(null, `Guest`, Math.floor(Math.random() * 999999), !1, void 0);
         }, []);
-        let v = h ?? n, y = c ? `default` : Be();
-        return r === `admin` ? (0, O.jsx)(D.Suspense, {
-            fallback: (0, O.jsx)(Qe, {}),
-            children: (0, O.jsx)(Ze, {
+        let b = g ?? n, x = c ? `default` : se();
+        return r === `admin` ? (0, k.jsx)(O.Suspense, {
+            fallback: (0, k.jsx)(Ze, {}),
+            children: (0, k.jsx)(Xe, {
                 onHome: ()=>{
                     window.location.hash = ``, i(`home`);
                 }
             })
-        }) : r === `game` ? (0, O.jsx)(D.Suspense, {
-            fallback: (0, O.jsx)(Qe, {}),
-            children: (0, O.jsx)(Xe, {
+        }) : r === `game` ? (0, k.jsx)(O.Suspense, {
+            fallback: (0, k.jsx)(Ze, {}),
+            children: (0, k.jsx)(Ye, {
                 walletAddress: e,
                 account: t,
-                username: v,
+                username: b,
                 onHome: ()=>i(`home`),
                 onPlayDaily: ()=>{
-                    e && _(e, n, ae(), !0);
+                    e && y(e, n, ie(), !0);
                 },
                 dailySeed: a,
                 isDaily: c,
                 seedToken: u,
-                shipId: p ? p.run.ship_id : y,
-                resumeState: p?.state,
-                resumeRunId: p?.run.run_id,
-                resumeActions: p?.run.actions
+                shipId: m ? m.run.ship_id : x,
+                resumeState: m?.state,
+                resumeRunId: m?.run.run_id,
+                resumeActions: m?.run.actions
             })
-        }) : (0, O.jsx)(qe, {
-            onPlay: _,
+        }) : (0, k.jsx)(Ke, {
+            onPlay: y,
             onResume: (e)=>{
                 try {
-                    let t = Ye(e.seed, e.ship_id, e.actions);
+                    let t = Je(e.seed, e.ship_id, e.actions);
                     if (t.gameOver) {
-                        re();
+                        ce();
                         return;
                     }
-                    m({
+                    h({
                         state: t,
                         run: e
                     }), l(e.is_daily), s(e.is_daily ? e.seed : void 0), i(`game`);
                 } catch (e) {
-                    console.warn(`Replay failed, clearing saved run:`, e), re();
+                    console.warn(`Replay failed, clearing saved run:`, e), ce();
                 }
             }
         });
     }
-    var et = (0, D.lazy)(()=>le(()=>import(`./cartridge-x3He-95Y.js`).then(async (m)=>{
+    var $e = (0, O.lazy)(()=>de(()=>import(`./cartridge-x3He-95Y.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }).then((e)=>({
                     default: e.StarknetProvider
-                })), __vite__mapDeps([8,9,3,1,4]))), tt = (0, D.lazy)(()=>le(()=>import(`./LiveWalletBridge-W8MLdVd8.js`).then(async (m)=>{
+                })), __vite__mapDeps([8,9,3,1,4]))), et = (0, O.lazy)(()=>de(()=>import(`./LiveWalletBridge-W8MLdVd8.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }), __vite__mapDeps([10,1,3,4,9,6])));
-    function nt({ children: e }) {
-        let [t, n] = (0, D.useState)(!1), [r, i] = (0, D.useState)(!1), a = (0, D.useCallback)((e)=>{
+    function tt({ children: e }) {
+        let [t, n] = (0, O.useState)(!1), [r, i] = (0, O.useState)(!1), a = (0, O.useCallback)((e)=>{
             e && i(!0), n(!0);
-        }, []), o = (0, D.useMemo)(()=>({
+        }, []), o = (0, O.useMemo)(()=>({
                 address: null,
                 account: null,
                 username: null,
@@ -12102,31 +12036,31 @@ Error generating stack: ` + e.message + `
             r,
             a
         ]);
-        return t ? (0, O.jsx)(D.Suspense, {
-            fallback: (0, O.jsx)(s, {
+        return t ? (0, k.jsx)(O.Suspense, {
+            fallback: (0, k.jsx)(s, {
                 value: o,
                 children: e
             }),
-            children: (0, O.jsx)(et, {
-                children: (0, O.jsx)(D.Suspense, {
-                    fallback: (0, O.jsx)(s, {
+            children: (0, k.jsx)($e, {
+                children: (0, k.jsx)(O.Suspense, {
+                    fallback: (0, k.jsx)(s, {
                         value: o,
                         children: e
                     }),
-                    children: (0, O.jsx)(tt, {
+                    children: (0, k.jsx)(et, {
                         autoConnect: r,
                         children: e
                     })
                 })
             })
-        }) : (0, O.jsx)(s, {
+        }) : (0, k.jsx)(s, {
             value: o,
             children: e
         });
     }
-    Se.createRoot(document.getElementById(`root`)).render((0, O.jsx)(D.StrictMode, {
-        children: (0, O.jsx)(nt, {
-            children: (0, O.jsx)($e, {})
+    Te.createRoot(document.getElementById(`root`)).render((0, k.jsx)(O.StrictMode, {
+        children: (0, k.jsx)(tt, {
+            children: (0, k.jsx)(Qe, {})
         })
     }));
 });
