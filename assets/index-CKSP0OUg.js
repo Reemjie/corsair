@@ -1,8 +1,8 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-N41pD1Bz.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-BXtpc1SX.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-BToIUbif.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-CLLDtgvE.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-DdDgpVWX.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-BXtpc1SX.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-DvbAm_70.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-CLLDtgvE.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
 import { a as e, t } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as n, n as r, r as i, t as a } from "./motion-wKhEcHeU.js";
 import { n as o, t as s } from "./walletApi-DYniPf4L.js";
-import { C as c, D as l, E as u, F as d, M as f, N as p, P as m, S as h, T as g, _, a as v, b as y, c as b, d as x, g as ee, h as te, i as ne, j as re, k as ie, l as ae, m as oe, n as se, o as ce, r as le, s as ue, t as de, u as S, v as C, w as fe, y as pe } from "./anchor-BToIUbif.js";
+import { C as c, D as l, E as u, F as d, M as f, N as p, P as m, S as h, T as g, _, a as v, b as y, c as b, d as x, g as ee, h as te, i as ne, j as re, k as ie, l as ae, m as oe, n as se, o as ce, r as le, s as ue, t as de, u as S, v as C, w as fe, y as pe } from "./anchor-DvbAm_70.js";
 import { C as me, S as he, c as w, d as T, f as ge, h as _e, o as ve, p as ye, r as E, s as be, t as xe, __tla as __tla_0 } from "./supabase-BXtpc1SX.js";
 Promise.all([
     (()=>{
@@ -8505,7 +8505,7 @@ Error generating stack: ` + e.message + `
         {
             id: `greed`,
             name: `Cursed Greed`,
-            desc: `Gold x1.5 on combat. Cannot repair at port. Corruption scales with wealth: 600g = cursed events start. 800g = Hunter doubles speed. The richer you get, the more the world hunts you.`,
+            desc: `Gold x1.5 on combat. Cannot repair at port. Corruption scales with wealth: every 200g worsens storms; at 400g+ pirates hit harder; at 600g+ the Hunter stops skipping turns; at 800g frenzy risk. The richer you get, the more the world hunts you.`,
             cost: `60g`,
             color: `#eedd44`
         },
@@ -8519,8 +8519,8 @@ Error generating stack: ` + e.message + `
         {
             id: `hunter`,
             name: `Treasure Hunter`,
-            desc: `Reveals all treasures on the map and doubles your treasure reward when your combo is at ×3. Downside: storm surges become 10% more likely.`,
-            cost: `75g`,
+            desc: `Reveals all treasures on the map and doubles your treasure reward when your combo is at ×3. Downside: storm surges become 15% more likely.`,
+            cost: `60g`,
             color: `#eedd44`
         },
         {
@@ -12357,27 +12357,46 @@ Error generating stack: ` + e.message + `
         `greed`,
         `berserker`,
         `escape`,
-        `vision`,
-        `compass`,
-        `detector`,
-        `power`,
-        `armor`,
-        `explorer`,
-        `stormbreaker`
-    ];
-    function $e(e, t, n) {
+        `_reserved6`,
+        `_reserved7`,
+        `_reserved8`,
+        `_reserved9`,
+        `_reserved10`,
+        `_reserved11`,
+        `_reserved12`
+    ], $e = new Set([
+        `ghost`,
+        `hunter`,
+        `rider`,
+        `greed`,
+        `berserker`,
+        `escape`
+    ]);
+    function et(e, t, n) {
         let r = C(e, t || `default`);
-        for (let e of n)e === 0 ? r = h(r, -1, 0) : e === 1 ? r = h(r, 0, -1) : e === 2 ? r = h(r, 1, 0) : e >= 10 && e < 20 ? r = g(r, e - 10) : e === 20 ? r = u(r) : e === 30 ? r = l(r, `hull`) : e === 31 ? r = l(r, `weapon`) : e === 32 ? r = l(r, `nav`) : e === 40 ? r = fe(r) : e >= 50 && e < 60 ? r = oe(r, Qe[e - 50]) : e === 60 ? r = c(r, 8, 25) : e === 61 ? r = c(r, r.ship.maxHull, 55) : e === 70 && (r = y(r));
+        for (let e of n)if (e === 0) r = h(r, -1, 0);
+        else if (e === 1) r = h(r, 0, -1);
+        else if (e === 2) r = h(r, 1, 0);
+        else if (e >= 10 && e < 20) r = g(r, e - 10);
+        else if (e === 20) r = u(r);
+        else if (e === 30) r = l(r, `hull`);
+        else if (e === 31) r = l(r, `weapon`);
+        else if (e === 32) r = l(r, `nav`);
+        else if (e === 40) r = fe(r);
+        else if (e >= 50 && e < 60) {
+            let t = Qe[e - 50];
+            t && $e.has(t) && (r = oe(r, t));
+        } else e === 60 ? r = c(r, 8, 25) : e === 61 ? r = c(r, r.ship.maxHull, 55) : e === 70 && (r = y(r));
         return r;
     }
-    var et = (0, D.lazy)(()=>me(()=>import(`./CorsairGame-N41pD1Bz.js`).then(async (m)=>{
+    var tt = (0, D.lazy)(()=>me(()=>import(`./CorsairGame-DdDgpVWX.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
-            }), __vite__mapDeps([0,1,2,3,4,5,6]))), tt = (0, D.lazy)(()=>me(()=>import(`./AdminPanel-CLLDtgvE.js`).then(async (m)=>{
+            }), __vite__mapDeps([0,1,2,3,4,5,6]))), nt = (0, D.lazy)(()=>me(()=>import(`./AdminPanel-CLLDtgvE.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }), __vite__mapDeps([7,1,2,4])));
-    function nt() {
+    function rt() {
         return (0, O.jsx)(`div`, {
             style: {
                 height: `100vh`,
@@ -12394,7 +12413,7 @@ Error generating stack: ` + e.message + `
             children: `CORSAIR`
         });
     }
-    function rt() {
+    function it() {
         let { address: e, account: t, username: n } = o(), [r, i] = (0, D.useState)(`home`), [a, s] = (0, D.useState)(void 0), [c, l] = (0, D.useState)(!1), [u, f] = (0, D.useState)(void 0), [p, h] = (0, D.useState)(void 0), [g, _] = (0, D.useState)(null), [v, y] = (0, D.useState)(void 0);
         (0, D.useEffect)(()=>{
             m(e ?? null), e && d(e);
@@ -12416,15 +12435,15 @@ Error generating stack: ` + e.message + `
         }, []);
         let x = g ?? n, te = c ? `default` : v ?? le();
         return r === `admin` ? (0, O.jsx)(D.Suspense, {
-            fallback: (0, O.jsx)(nt, {}),
-            children: (0, O.jsx)(tt, {
+            fallback: (0, O.jsx)(rt, {}),
+            children: (0, O.jsx)(nt, {
                 onHome: ()=>{
                     window.location.hash = ``, i(`home`);
                 }
             })
         }) : r === `game` ? (0, O.jsx)(D.Suspense, {
-            fallback: (0, O.jsx)(nt, {}),
-            children: (0, O.jsx)(et, {
+            fallback: (0, O.jsx)(rt, {}),
+            children: (0, O.jsx)(tt, {
                 walletAddress: e,
                 account: t,
                 username: x,
@@ -12444,7 +12463,7 @@ Error generating stack: ` + e.message + `
             onPlay: b,
             onResume: (e)=>{
                 try {
-                    let t = $e(e.seed, e.ship_id, e.actions);
+                    let t = et(e.seed, e.ship_id, e.actions);
                     if (t.gameOver) {
                         ae();
                         return;
@@ -12459,16 +12478,16 @@ Error generating stack: ` + e.message + `
             }
         });
     }
-    var it = (0, D.lazy)(()=>me(()=>import(`./cartridge-x3He-95Y.js`).then(async (m)=>{
+    var at = (0, D.lazy)(()=>me(()=>import(`./cartridge-x3He-95Y.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }).then((e)=>({
                     default: e.StarknetProvider
-                })), __vite__mapDeps([8,9,3,1,4]))), at = (0, D.lazy)(()=>me(()=>import(`./LiveWalletBridge-W8MLdVd8.js`).then(async (m)=>{
+                })), __vite__mapDeps([8,9,3,1,4]))), ot = (0, D.lazy)(()=>me(()=>import(`./LiveWalletBridge-W8MLdVd8.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }), __vite__mapDeps([10,1,3,4,9,6])));
-    function ot({ children: e }) {
+    function st({ children: e }) {
         let [t, n] = (0, D.useState)(!1), [r, i] = (0, D.useState)(!1), a = (0, D.useCallback)((e)=>{
             e && i(!0), n(!0);
         }, []), o = (0, D.useMemo)(()=>({
@@ -12489,13 +12508,13 @@ Error generating stack: ` + e.message + `
                 value: o,
                 children: e
             }),
-            children: (0, O.jsx)(it, {
+            children: (0, O.jsx)(at, {
                 children: (0, O.jsx)(D.Suspense, {
                     fallback: (0, O.jsx)(s, {
                         value: o,
                         children: e
                     }),
-                    children: (0, O.jsx)(at, {
+                    children: (0, O.jsx)(ot, {
                         autoConnect: r,
                         children: e
                     })
@@ -12507,8 +12526,8 @@ Error generating stack: ` + e.message + `
         });
     }
     Oe.createRoot(document.getElementById(`root`)).render((0, O.jsx)(D.StrictMode, {
-        children: (0, O.jsx)(ot, {
-            children: (0, O.jsx)(rt, {})
+        children: (0, O.jsx)(st, {
+            children: (0, O.jsx)(it, {})
         })
     }));
 });
