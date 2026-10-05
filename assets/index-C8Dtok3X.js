@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-DX_93Oj_.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-BXtpc1SX.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-iaH4P8U2.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-CLLDtgvE.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-I6N3Edth.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-BXtpc1SX.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-iaH4P8U2.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-CLLDtgvE.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
 import { a as e, t } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as n, n as r, r as i, t as a } from "./motion-wKhEcHeU.js";
 import { n as o, t as s } from "./walletApi-DYniPf4L.js";
@@ -12370,7 +12370,7 @@ Error generating stack: ` + e.message + `
         for (let e of n)e === 0 ? r = h(r, -1, 0) : e === 1 ? r = h(r, 0, -1) : e === 2 ? r = h(r, 1, 0) : e >= 10 && e < 20 ? r = g(r, e - 10) : e === 20 ? r = u(r) : e === 30 ? r = l(r, `hull`) : e === 31 ? r = l(r, `weapon`) : e === 32 ? r = l(r, `nav`) : e === 40 ? r = fe(r) : e >= 50 && e < 60 ? r = oe(r, Qe[e - 50]) : e === 60 ? r = c(r, 8, 25) : e === 61 ? r = c(r, r.ship.maxHull, 55) : e === 70 && (r = y(r));
         return r;
     }
-    var et = (0, D.lazy)(()=>me(()=>import(`./CorsairGame-DX_93Oj_.js`).then(async (m)=>{
+    var et = (0, D.lazy)(()=>me(()=>import(`./CorsairGame-I6N3Edth.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }), __vite__mapDeps([0,1,2,3,4,5,6]))), tt = (0, D.lazy)(()=>me(()=>import(`./AdminPanel-CLLDtgvE.js`).then(async (m)=>{
