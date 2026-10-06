@@ -2811,7 +2811,8 @@ let __tla = Promise.all([
                                                         inset: 0,
                                                         borderRadius: 7,
                                                         pointerEvents: `none`,
-                                                        background: y === 3 ? `radial-gradient(ellipse at 40% 35%, rgba(40,60,90,0.35), transparent 70%)` : y === 2 ? `radial-gradient(ellipse at 40% 35%, rgba(50,70,120,0.3), transparent 70%)` : `radial-gradient(ellipse at 40% 35%, rgba(60,120,150,0.28), transparent 70%)`
+                                                        background: y === 3 ? `radial-gradient(ellipse at 35% 30%, rgba(70,100,140,0.55) 0%, rgba(25,40,70,0.25) 55%, transparent 75%)` : y === 2 ? `radial-gradient(ellipse at 35% 30%, rgba(80,110,170,0.5) 0%, rgba(40,55,110,0.22) 55%, transparent 75%)` : `radial-gradient(ellipse at 35% 30%, rgba(90,170,200,0.55) 0%, rgba(40,100,130,0.28) 50%, transparent 75%)`,
+                                                        boxShadow: `inset 0 -10px 18px rgba(30,80,110,0.35), inset 0 6px 12px rgba(160,220,245,0.12)`
                                                     }
                                                 }),
                                                 g && (0, D.jsxs)(D.Fragment, {
@@ -2965,7 +2966,8 @@ let __tla = Promise.all([
                                                         inset: 0,
                                                         zIndex: 1,
                                                         borderRadius: 7,
-                                                        pointerEvents: `none`
+                                                        pointerEvents: `none`,
+                                                        animationDelay: `${((Math.abs(d) * .37 + Math.abs(f) * .53) % 2.8).toFixed(2)}s`
                                                     }
                                                 }),
                                                 p && !g && (0, D.jsxs)(i.div, {
