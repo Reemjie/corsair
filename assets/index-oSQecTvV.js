@@ -1,8 +1,8 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-7g7cWlHs.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-BXtpc1SX.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-8Uvwg5gY.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-CLLDtgvE.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-BYwL9qmt.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-BXtpc1SX.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-BN9PXZDj.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-CLLDtgvE.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
 import { a as e, t } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as n, n as r, r as i, t as a } from "./motion-wKhEcHeU.js";
 import { n as o, t as s } from "./walletApi-DYniPf4L.js";
-import { A as c, C as l, D as u, E as d, F as f, I as p, L as m, M as h, O as g, P as _, R as v, S as y, T as b, _ as x, a as ee, b as te, c as ne, d as S, f as re, k as ie, l as ae, m as oe, n as se, o as ce, p as le, r as ue, s as C, t as w, u as de, v as fe, x as pe, y as me } from "./anchor-8Uvwg5gY.js";
+import { A as c, C as l, D as u, E as d, F as f, I as p, L as m, M as h, O as g, P as _, R as v, S as y, T as b, _ as x, a as ee, b as te, c as ne, d as S, f as re, k as ie, l as ae, m as oe, n as se, o as ce, p as le, r as ue, s as C, t as w, u as de, v as fe, x as pe, y as me } from "./anchor-BN9PXZDj.js";
 import { C as T, S as E, c as he, d as ge, f as _e, h as ve, o as ye, p as be, r as D, s as xe, t as Se, __tla as __tla_0 } from "./supabase-BXtpc1SX.js";
 Promise.all([
     (()=>{
@@ -12524,7 +12524,7 @@ Error generating stack: ` + e.message + `
         } else e === 60 ? r = d(r, 8, 25) : e === 61 ? r = d(r, r.ship.maxHull, 55) : e === 70 && (r = l(r));
         return r;
     }
-    var nt = (0, O.lazy)(()=>T(()=>import(`./CorsairGame-7g7cWlHs.js`).then(async (m)=>{
+    var nt = (0, O.lazy)(()=>T(()=>import(`./CorsairGame-BYwL9qmt.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }), __vite__mapDeps([0,1,2,3,4,5,6]))), rt = (0, O.lazy)(()=>T(()=>import(`./AdminPanel-CLLDtgvE.js`).then(async (m)=>{
