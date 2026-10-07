@@ -12755,8 +12755,8 @@ Error generating stack: ` + e.message + `
             }), __vite__mapDeps([0,1,2,3,4,5,6]))), ut = (0, O.lazy)(()=>E(()=>import(`./AdminPanel-CLLDtgvE.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
-            }), __vite__mapDeps([7,1,2,4])));
-    function dt() {
+            }), __vite__mapDeps([7,1,2,4]))), dt = `corsair_crew_bypass`;
+    function ft() {
         return (0, k.jsx)(`div`, {
             style: {
                 height: `100vh`,
@@ -12773,8 +12773,109 @@ Error generating stack: ` + e.message + `
             children: `CORSAIR`
         });
     }
-    function ft() {
-        let { address: e, account: t, username: n } = o(), [r, i] = (0, O.useState)(`home`), [a, s] = (0, O.useState)(void 0), [c, u] = (0, O.useState)(!1), [d, f] = (0, O.useState)(void 0), [p, m] = (0, O.useState)(void 0), [h, g] = (0, O.useState)(null), [_, v] = (0, O.useState)(void 0);
+    function pt() {
+        return (0, k.jsxs)(`div`, {
+            style: {
+                height: `100vh`,
+                width: `100vw`,
+                position: `relative`,
+                overflow: `hidden`,
+                background: `radial-gradient(ellipse at 50% 30%, #0c2238 0%, #060e18 55%, #03060c 100%)`,
+                display: `flex`,
+                flexDirection: `column`,
+                alignItems: `center`,
+                justifyContent: `center`,
+                fontFamily: `'Pirata One', cursive`,
+                color: `#c8a030`,
+                textAlign: `center`,
+                padding: 24
+            },
+            children: [
+                (0, k.jsx)(`div`, {
+                    "aria-hidden": !0,
+                    style: {
+                        position: `absolute`,
+                        inset: 0,
+                        pointerEvents: `none`,
+                        opacity: .35,
+                        backgroundImage: `url(/scenes/storm.jpg)`,
+                        backgroundSize: `cover`,
+                        backgroundPosition: `center`,
+                        filter: `saturate(0.6) brightness(0.45)`
+                    }
+                }),
+                (0, k.jsx)(`div`, {
+                    "aria-hidden": !0,
+                    style: {
+                        position: `absolute`,
+                        inset: 0,
+                        pointerEvents: `none`,
+                        background: `linear-gradient(to bottom, rgba(6,14,24,0.55) 0%, rgba(6,14,24,0.75) 50%, rgba(3,6,12,0.95) 100%)`
+                    }
+                }),
+                (0, k.jsxs)(`div`, {
+                    style: {
+                        position: `relative`,
+                        zIndex: 1,
+                        maxWidth: 420
+                    },
+                    children: [
+                        (0, k.jsx)(`div`, {
+                            style: {
+                                fontSize: 56,
+                                letterSpacing: 14,
+                                textShadow: `0 0 40px rgba(200,160,48,0.45)`,
+                                marginBottom: 8
+                            },
+                            children: `CORSAIR`
+                        }),
+                        (0, k.jsx)(`div`, {
+                            style: {
+                                fontFamily: `'Cinzel', serif`,
+                                fontSize: 11,
+                                letterSpacing: 4,
+                                color: `rgba(136,200,238,0.85)`,
+                                marginBottom: 28
+                            },
+                            children: `TIDEBORN · SEASON 1`
+                        }),
+                        (0, k.jsx)(`div`, {
+                            style: {
+                                fontFamily: `'IM Fell English', cursive`,
+                                fontSize: 20,
+                                lineHeight: 1.45,
+                                color: `rgba(255,255,255,0.78)`,
+                                marginBottom: 12
+                            },
+                            children: `The tide is turning.`
+                        }),
+                        (0, k.jsxs)(`div`, {
+                            style: {
+                                fontFamily: `'IM Fell English', cursive`,
+                                fontSize: 15,
+                                lineHeight: 1.5,
+                                color: `rgba(255,255,255,0.45)`
+                            },
+                            children: [
+                                `The sea is closed while we fit new relics to the hull.`,
+                                (0, k.jsx)(`br`, {}),
+                                `Cast off again soon.`
+                            ]
+                        })
+                    ]
+                })
+            ]
+        });
+    }
+    function mt() {
+        try {
+            return new URLSearchParams(window.location.search).has(`crew`) ? (localStorage.setItem(dt, `1`), !0) : localStorage.getItem(dt) === `1`;
+        } catch  {
+            return !1;
+        }
+    }
+    function ht() {
+        let { address: e, account: t, username: n } = o(), [r, i] = (0, O.useState)(`home`), [a, s] = (0, O.useState)(void 0), [c, u] = (0, O.useState)(!1), [d, f] = (0, O.useState)(void 0), [p, m] = (0, O.useState)(void 0), [h, g] = (0, O.useState)(null), [_, v] = (0, O.useState)(void 0), [y] = (0, O.useState)(()=>mt());
         (0, O.useEffect)(()=>{
             T(e ?? null), e && l(e);
         }, [
@@ -12787,40 +12888,40 @@ Error generating stack: ` + e.message + `
             };
             return e(), window.addEventListener(`hashchange`, e), ()=>window.removeEventListener(`hashchange`, e);
         }, []);
-        let y = (e, t, n, r, a, o)=>{
+        let x = (e, t, n, r, a, o)=>{
             g(t ?? null), m(void 0), s(n), u(!!r), f(a), v(r ? `default` : o), i(`game`);
         };
         (0, O.useEffect)(()=>{
-            new URLSearchParams(window.location.search).has(`guest`) && y(null, `Guest`, Math.floor(Math.random() * 999999), !1, void 0);
+            y && new URLSearchParams(window.location.search).has(`guest`) && x(null, `Guest`, Math.floor(Math.random() * 999999), !1, void 0);
         }, []);
-        let x = h ?? n, ee = c ? `default` : _ ?? se();
+        let ee = h ?? n, S = c ? `default` : _ ?? se();
         return r === `admin` ? (0, k.jsx)(O.Suspense, {
-            fallback: (0, k.jsx)(dt, {}),
+            fallback: (0, k.jsx)(ft, {}),
             children: (0, k.jsx)(ut, {
                 onHome: ()=>{
                     window.location.hash = ``, i(`home`);
                 }
             })
-        }) : r === `game` ? (0, k.jsx)(O.Suspense, {
-            fallback: (0, k.jsx)(dt, {}),
+        }) : y ? r === `game` ? (0, k.jsx)(O.Suspense, {
+            fallback: (0, k.jsx)(ft, {}),
             children: (0, k.jsx)(lt, {
                 walletAddress: e,
                 account: t,
-                username: x,
+                username: ee,
                 onHome: ()=>i(`home`),
                 onPlayDaily: ()=>{
-                    e && y(e, n, b(), !0);
+                    e && x(e, n, b(), !0);
                 },
                 dailySeed: a,
                 isDaily: c,
                 seedToken: d,
-                shipId: p ? p.run.ship_id : ee,
+                shipId: p ? p.run.ship_id : S,
                 resumeState: p?.state,
                 resumeRunId: p?.run.run_id,
                 resumeActions: p?.run.actions
             })
         }) : (0, k.jsx)(at, {
-            onPlay: y,
+            onPlay: x,
             onResume: (e)=>{
                 try {
                     let t = ct(e.seed, e.ship_id, e.actions);
@@ -12836,18 +12937,18 @@ Error generating stack: ` + e.message + `
                     console.warn(`Replay failed, clearing saved run:`, e), ce();
                 }
             }
-        });
+        }) : (0, k.jsx)(pt, {});
     }
-    var pt = (0, O.lazy)(()=>E(()=>import(`./cartridge-x3He-95Y.js`).then(async (m)=>{
+    var gt = (0, O.lazy)(()=>E(()=>import(`./cartridge-x3He-95Y.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }).then((e)=>({
                     default: e.StarknetProvider
-                })), __vite__mapDeps([8,9,3,1,4]))), mt = (0, O.lazy)(()=>E(()=>import(`./LiveWalletBridge-W8MLdVd8.js`).then(async (m)=>{
+                })), __vite__mapDeps([8,9,3,1,4]))), _t = (0, O.lazy)(()=>E(()=>import(`./LiveWalletBridge-W8MLdVd8.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }), __vite__mapDeps([10,1,3,4,9,6])));
-    function ht({ children: e }) {
+    function vt({ children: e }) {
         let [t, n] = (0, O.useState)(!1), [r, i] = (0, O.useState)(!1), a = (0, O.useCallback)((e)=>{
             e && i(!0), n(!0);
         }, []), o = (0, O.useMemo)(()=>({
@@ -12868,13 +12969,13 @@ Error generating stack: ` + e.message + `
                 value: o,
                 children: e
             }),
-            children: (0, k.jsx)(pt, {
+            children: (0, k.jsx)(gt, {
                 children: (0, k.jsx)(O.Suspense, {
                     fallback: (0, k.jsx)(s, {
                         value: o,
                         children: e
                     }),
-                    children: (0, k.jsx)(mt, {
+                    children: (0, k.jsx)(_t, {
                         autoConnect: r,
                         children: e
                     })
@@ -12886,8 +12987,8 @@ Error generating stack: ` + e.message + `
         });
     }
     Ae.createRoot(document.getElementById(`root`)).render((0, k.jsx)(O.StrictMode, {
-        children: (0, k.jsx)(ht, {
-            children: (0, k.jsx)(ft, {})
+        children: (0, k.jsx)(vt, {
+            children: (0, k.jsx)(ht, {})
         })
     }));
 });
