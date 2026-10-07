@@ -12869,7 +12869,7 @@ Error generating stack: ` + e.message + `
     }
     function mt() {
         try {
-            return new URLSearchParams(window.location.search).has(`crew`) ? (localStorage.setItem(dt, `1`), !0) : localStorage.getItem(dt) === `1`;
+            return new URLSearchParams(window.location.search).has(`crew`) ? !0 : (localStorage.removeItem(dt), !1);
         } catch  {
             return !1;
         }
