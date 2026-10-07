@@ -21220,7 +21220,7 @@ void main() {
         n.needsUpdate = !0;
     }
     function lp(e, t) {
-        let n = e >= 3 ? new J(`#02050c`) : e === 2 ? new J(`#030a14`) : new J(`#041018`), r = e >= 3 ? new J(`#0a1830`) : e === 2 ? new J(`#0c2240`) : new J(`#0c2e4a`), i = e >= 3 ? new J(`#1a4068`) : e === 2 ? new J(`#1e5a88`) : new J(`#2478a0`), a = new J(`#c8e4f4`);
+        let n = e >= 3 ? new J(`#081428`) : e === 2 ? new J(`#0a2038`) : new J(`#0c3050`), r = e >= 3 ? new J(`#143858`) : e === 2 ? new J(`#1a4a70`) : new J(`#1e6898`), i = e >= 3 ? new J(`#2a6890`) : e === 2 ? new J(`#3a88b0`) : new J(`#4aa8c8`), a = new J(`#d8f0ff`);
         return new Xs({
             transparent: !1,
             depthWrite: !0,
@@ -21350,11 +21350,12 @@ void main() {
         foamAmt *= 0.55 + 0.45 * noise(vWorld.xz * 4.0 + uTime * 0.5);
         col = mix(col, uFoam, foamAmt * 0.55);
 
-        // Dark void at edges
-        col = mix(col, uDeep * 0.12, smoothstep(7.0, 16.0, dist));
+        // Soft falloff at edges — keep playable pool readable
+        col = mix(col, uDeep * 0.45, smoothstep(9.0, 18.0, dist) * 0.55);
 
-        // Subtle vignette in shader
-        col *= 0.92 + spot * 0.12;
+        // Lift overall so the board never reads as a black void
+        col *= 0.95 + spot * 0.2;
+        col += vec3(0.02, 0.04, 0.06);
 
         gl_FragColor = vec4(col, 1.0);
       }
@@ -21406,22 +21407,22 @@ void main() {
                 alpha: !1,
                 powerPreference: r ? `low-power` : `high-performance`
             });
-            p.setPixelRatio(Math.min(window.devicePixelRatio, r ? 1.75 : 2)), p.setSize(t, n, !1), p.setClearColor(f, 1), p.outputColorSpace = Mn, p.toneMapping = 4, p.toneMappingExposure = 1.05;
+            p.setPixelRatio(Math.min(window.devicePixelRatio, r ? 1.75 : 2)), p.setSize(t, n, !1), p.setClearColor(f, 1), p.outputColorSpace = Mn, p.toneMapping = 4, p.toneMappingExposure = 1.25;
             let m = new di;
-            m.background = f, m.fog = new ui(up(a), .018);
+            m.background = f, m.fog = new ui(up(a), .012);
             let h = new Fc(38, t / Math.max(n, 1), .1, 120);
             h.position.set(0, r ? 5.6 : 6.2, r ? 7.4 : 8.2), h.lookAt(0, .25, -2.6);
-            let g = fp(a), _ = new Cc(g.hemiSky, g.hemiGround, .45);
+            let g = fp(a), _ = new Cc(g.hemiSky, g.hemiGround, .75);
             m.add(_);
-            let v = new Bc(g.key, 1.05);
+            let v = new Bc(g.key, 1.35);
             v.position.set(4, 18, 6), m.add(v);
-            let y = new Bc(g.fill, .4);
+            let y = new Bc(g.fill, .55);
             y.position.set(-7, 5, -3), m.add(y);
-            let b = new Bc(16767136, .35);
+            let b = new Bc(16767136, .45);
             b.position.set(-2, 3, 10), m.add(b);
-            let x = new Lc(13691128, 3.2, 18, 1.4);
+            let x = new Lc(14216952, 4, 20, 1.2);
             x.position.set(0, 5.8, .4), m.add(x);
-            let S = new Lc(16769200, 1.1, 9, 1.8);
+            let S = new Lc(16769200, 1.4, 10, 1.6);
             S.position.set(.3, 2.4, .9), m.add(S);
             let C = new Bc(8956620, .45);
             C.position.set(-8, 10, -12), m.add(C);
@@ -21536,7 +21537,7 @@ void main() {
             let t = c.current;
             if (!t) return;
             let n = e.currentZone ?? 1, r = e.ship.vision, i = Tf[n] ?? Tf[1], a = e.hunter?.active ? Ef(e) : 99, o = fp(n);
-            t.hemi.color.set(o.hemiSky), t.hemi.groundColor.set(o.hemiGround), t.key.color.set(o.key), t.fill.color.set(o.fill), t.scene.fog instanceof ui && t.scene.fog.color.copy(up(n)), t.scene.background = dp(n), t.renderer.setClearColor(dp(n), 1), t.waterMat.uniforms.uDeep.value = n >= 3 ? new J(`#03060e`) : n === 2 ? new J(`#050c18`) : new J(`#061018`), t.waterMat.uniforms.uMid.value = n >= 3 ? new J(`#0c1830`) : n === 2 ? new J(`#0e2240`) : new J(`#0e2a44`), t.waterMat.uniforms.uShallow && (t.waterMat.uniforms.uShallow.value = n >= 3 ? new J(`#1a4068`) : n === 2 ? new J(`#1e5a88`) : new J(`#2478a0`)), t.waterMat.uniforms.uSpotRadius.value = 3.5 + r * mp * .55, t.waterMat.uniforms.uSpotSoft.value = 3.5 + r * .4;
+            t.hemi.color.set(o.hemiSky), t.hemi.groundColor.set(o.hemiGround), t.key.color.set(o.key), t.fill.color.set(o.fill), t.scene.fog instanceof ui && t.scene.fog.color.copy(up(n)), t.scene.background = dp(n), t.renderer.setClearColor(dp(n), 1), t.waterMat.uniforms.uDeep.value = n >= 3 ? new J(`#081428`) : n === 2 ? new J(`#0a2038`) : new J(`#0c3050`), t.waterMat.uniforms.uMid.value = n >= 3 ? new J(`#143858`) : n === 2 ? new J(`#1a4a70`) : new J(`#1e6898`), t.waterMat.uniforms.uShallow && (t.waterMat.uniforms.uShallow.value = n >= 3 ? new J(`#2a6890`) : n === 2 ? new J(`#3a88b0`) : new J(`#4aa8c8`)), t.waterMat.uniforms.uSpotRadius.value = 3.5 + r * mp * .55, t.waterMat.uniforms.uSpotSoft.value = 3.5 + r * .4;
             let s = e.shipType ?? `default`;
             s !== t.lastShipId && (t.board.remove(t.ship), ip(t.ship), t.ship = Hf(s), t.ship.position.set(0, .1, .3), t.board.add(t.ship), t.lastShipId = s), t.ship.scale.setScalar(a <= 1 ? 1.45 : 1.4);
             let l = ((e.stormDistance <= 0 ? -1 : 14 - Math.floor((10 - e.stormDistance) / 3)) - e.ship.y) * mp, u = Math.min(11, Math.max(1.8, l));
