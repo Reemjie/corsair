@@ -369,6 +369,37 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
             </div>
           )}
 
+          {/* Tideborn Season 1 — live callout (English) */}
+          {!enSeptembre && (
+            <div style={{
+              padding: isMobile ? '12px 14px' : '14px 20px', borderRadius:12,
+              border:'1px solid rgba(136,200,238,0.45)',
+              background:'linear-gradient(135deg, rgba(8,28,48,0.92), rgba(6,12,22,0.92))',
+              width:'100%', maxWidth:360, textAlign:'center',
+              boxShadow:'0 0 20px rgba(80,160,220,0.12)',
+            }}>
+              <div style={{ fontSize:11, color:'rgba(136,200,238,0.9)', fontFamily:"'Cinzel', serif", letterSpacing:3, marginBottom:6 }}>
+                TIDEBORN · SEASON 1
+              </div>
+              <div style={{ fontSize: isMobile ? 13 : 14, color:'rgba(255,255,255,0.78)', fontFamily:"'IM Fell English', cursive", lineHeight:1.4, marginBottom:10 }}>
+                Five new relics. Fresh conditions.<br/>One Crown for a single captain.
+              </div>
+              <motion.button
+                whileHover={{ scale:1.04 }} whileTap={{ scale:0.97 }}
+                onClick={() => setShowNFTs(true)}
+                style={{
+                  padding:'8px 18px', borderRadius:10,
+                  border:'1px solid rgba(136,200,238,0.65)',
+                  background:'rgba(136,200,238,0.12)',
+                  color:'#88c8ee', fontSize:12, letterSpacing:2,
+                  cursor:'pointer', fontFamily:"'Pirata One', cursive",
+                }}
+              >
+                VIEW RELICS
+              </motion.button>
+            </div>
+          )}
+
           {saved && saved.actions.length > 0 && onResume && (
             <motion.button whileHover={{ scale:1.05 }} whileTap={{ scale:0.97 }}
               onClick={() => onResume(saved)}
