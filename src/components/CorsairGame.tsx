@@ -7,9 +7,10 @@ import { initGame, moveShip, resolveEvent, repairHull, leavePort, skipEventFn, r
 import { pickOnboardTip, markOnboardDone, type OnboardTip } from '../game/onboard';
 import { useWallet } from '../useWallet';
 import { sfx, setSfxMuted } from '../sound';
-import { getRelicDef, type RelicDef } from '../game/relics';
+import { getRelicDef, relicPortraitUrl, type RelicDef } from '../game/relics';
 import { checkAndUnlockFeats, type Feat } from '../game/feats';
-import { SHIPS } from '../game/ships';
+import { summarizeRunForRetention, getPersonalBest, type FeatProgress } from '../game/progress';
+import { SHIPS, shipPortraitUrl } from '../game/ships';
 import { saveActiveRun, clearActiveRun, queuePending } from '../game/crashRecovery';
 import { Icon } from '../Icon';
 import anchorImg from '../assets/anchor.png';
@@ -45,6 +46,8 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   const [shake, setShake] = useState(false);
   const [cart, setCart] = useState<string[]>([]);
   const [newFeats, setNewFeats] = useState<Feat[]>([]);
+  const [nearFeats, setNearFeats] = useState<FeatProgress[]>([]);
+  const peakStreakRef = useRef(0);
   const [foundRelic, setFoundRelic] = useState<RelicDef | null>(null);
   const prevRelicCount = useRef((state.relics ?? []).length);
   const [scoreSubmitted, setScoreSubmitted] = useState(false);
@@ -53,9 +56,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   const [nftMinted, setNftMinted] = useState<string[]>([]);
   const [portalCinematic, setPortalCinematic] = useState<{lines: string[], zone: number} | null>(null);
   const [portalLineIndex, setPortalLineIndex] = useState(0);
-  const [personalBest, setPersonalBest] = useState<number>(() => {
-    return parseInt(localStorage.getItem('corsair_best_score') || '0');
-  });
+  const [personalBest, setPersonalBest] = useState<number>(() => getPersonalBest());
   const [isNewRecord, setIsNewRecord] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -285,19 +286,19 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   const hullColor = s.ship.hull<=5?'#ee4444':s.ship.hull<=10?'#ee8844':'#44cc88';
   const canEscape = !s.escapeUsed && s.ship.upgrades.includes('escape') && s.event && s.event.choices[0].risk !== 'safe';
 
-  // Cinematic unifiée : joue la vidéo d'intro 5s quand un événement à scène se déclenche
+  // Cinematic unifiée : vidéo desktop / poster JPG mobile (1× par type de scène)
   useEffect(() => {
-    if (isMobile) { setCinematic(null); return; }
-    if (state.gameOver) return;  // la cinématique de mort est gérée par le death trigger
+    if (state.gameOver) return;
     const ct = state.event?.cellType;
-    if (ct && SCENE_VIDEO[ct]) {
-      if (seenCineRef.current.has(ct)) return;
-      seenCineRef.current.add(ct);
-      setCinematic(ct);
-      const t = setTimeout(() => setCinematic(null), 5000);
-      return () => clearTimeout(t);
-    }
-  }, [state.event, state.turn]);
+    if (!ct) return;
+    if (!SCENE_VIDEO[ct] && !SCENE_BG[ct]) return;
+    if (seenCineRef.current.has(ct)) return;
+    seenCineRef.current.add(ct);
+    setCinematic(ct);
+    const dur = isMobile ? 2200 : 5000;
+    const t = setTimeout(() => setCinematic(null), dur);
+    return () => clearTimeout(t);
+  }, [state.event, state.turn, isMobile]);
 
   // Port cinematic trigger
   useEffect(() => {
@@ -416,8 +417,14 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   useEffect(() => {
     const currentZone = state.currentZone ?? 1;
     if (currentZone > prevZoneRef.current) {
+      const from = prevZoneRef.current;
       const config = ZONE_CONFIG[currentZone];
-      setPortalCinematic({ lines: [...config.transitionText, '', `You have entered:`, config.name.toUpperCase()], zone: currentZone });
+      // transitionText is written on the zone you leave (flavor for the crossing)
+      const crossing = ZONE_CONFIG[from]?.transitionText ?? [];
+      const lines = crossing.length > 0
+        ? [...crossing, '', `You have entered:`, config.name.toUpperCase()]
+        : [`You have entered:`, config.name.toUpperCase()];
+      setPortalCinematic({ lines, zone: currentZone });
       setPortalLineIndex(0);
       prevZoneRef.current = currentZone;
     }
@@ -433,22 +440,34 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
     return () => clearTimeout(t);
   }, [portalCinematic, portalLineIndex]);
 
-  // Personal best check
+  // Track peak danger streak this run (for Daredevil progress after decay)
   useEffect(() => {
-    if (state.gameOver && state.score > 0) {
-      if (state.score > personalBest) {
-        setPersonalBest(state.score);
-        setIsNewRecord(true);
-        localStorage.setItem('corsair_best_score', state.score.toString());
-      }
-    }
-  }, [state.gameOver]);
+    if (state.dangerStreak > peakStreakRef.current) peakStreakRef.current = state.dangerStreak;
+  }, [state.dangerStreak]);
 
-  // Death cinematic trigger
+  // Death cinematic + feats + retention peaks
   useEffect(() => {
     if (state.gameOver) {
       const fresh = checkAndUnlockFeats(state);
       if (fresh.length > 0) { setNewFeats(fresh); sfx('streak'); }
+      if (state.score > 0) {
+        const summary = summarizeRunForRetention({
+          score: state.score,
+          turn: state.turn,
+          zone: state.currentZone ?? 1,
+          gold: state.ship.gold,
+          hunterAttacksSurvived: state.hunterAttacksSurvived ?? 0,
+          peakStreak: peakStreakRef.current,
+          hadStreak5: (state.exploits ?? []).includes('streak5'),
+        });
+        // Exclude feats just unlocked this death
+        const freshIds = new Set(fresh.map(f => f.id));
+        setNearFeats(summary.nearest.filter(n => !freshIds.has(n.feat.id)));
+        if (summary.isNewRecord) {
+          setPersonalBest(summary.pb);
+          setIsNewRecord(true);
+        }
+      }
       clearActiveRun();
       // Le score quotidien est desormais ecrit par le serveur.
 
@@ -470,13 +489,18 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
           deathTimerRef.current = setTimeout(() => { setShowDeathScreen(s => s || true); setCinematic(null); }, 9000);
         }, delay);
       } else {
-        setShowDeathScreen(true);
+        setShowHunterAttack(false);
+        setCinematic('death');
+        deathTimerRef.current = setTimeout(() => { setShowDeathScreen(s => s || true); setCinematic(null); }, 2200);
       }
     } else {
       if (deathTimerRef.current) { clearTimeout(deathTimerRef.current); deathTimerRef.current = null; }
     setShowDeathScreen(false);
     setCinematic(null);
     seenCineRef.current.clear();
+    peakStreakRef.current = 0;
+    setNearFeats([]);
+    setIsNewRecord(false);
     }
   }, [state.gameOver]);
 
@@ -497,8 +521,8 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
     hunterCineTimerRef.current = setTimeout(() => {
       hunterAttackRef.current = false;
       setShowHunterAttack(false);
-    }, 3500);
-  }, [state.log, state.turn]);
+    }, isMobile ? 2000 : 3500);
+  }, [state.log, state.turn, isMobile]);
 
   // Passer l'animation du Hunter : un clic, une touche ou un appui suffit.
   useEffect(() => {
@@ -683,7 +707,20 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
             filter:'saturate(0.7) brightness(0.8)' }} />
         <div style={{ position:'absolute', inset:0,
           background:'radial-gradient(ellipse at 50% 45%, rgba(8,15,24,0.35) 0%, rgba(8,15,24,0.82) 55%, rgba(8,15,24,0.97) 100%)' }} />
-
+        {/* Zone-tinted vignette — Coasts teal / Storm violet / Abyss black-purple */}
+        <motion.div
+          key={`vig-${s.currentZone ?? 1}`}
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+          transition={{ duration: 1.2 }}
+          style={{
+            position: 'absolute', inset: 0,
+            background: (s.currentZone ?? 1) === 3
+              ? 'radial-gradient(ellipse at 50% 42%, transparent 18%, rgba(50,8,70,0.35) 55%, rgba(0,0,0,0.72) 100%)'
+              : (s.currentZone ?? 1) === 2
+                ? 'radial-gradient(ellipse at 50% 42%, transparent 20%, rgba(55,25,95,0.32) 58%, rgba(4,6,18,0.7) 100%)'
+                : 'radial-gradient(ellipse at 50% 42%, transparent 22%, rgba(15,55,85,0.28) 60%, rgba(4,10,18,0.65) 100%)',
+          }}
+        />
       </div>
 
       {/* Flash overlay */}
@@ -714,12 +751,14 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
             const vessel = SHIPS.find(sh => sh.id === (s.shipType ?? 'default')) ?? SHIPS[0];
             return (
               <div title={vessel.tagline} style={{
-                marginLeft: isMobile ? 0 : 4, padding: isMobile ? '2px 7px' : '3px 10px', borderRadius: 8,
+                marginLeft: isMobile ? 0 : 4, padding: isMobile ? '2px 6px 2px 2px' : '3px 10px 3px 3px', borderRadius: 8,
                 border: '1px solid rgba(200,160,48,0.4)', background: 'rgba(200,160,48,0.1)',
                 fontSize: isMobile ? 9 : 11, letterSpacing: 1, color: '#e8d8a8', fontFamily: "'Cinzel', serif", fontWeight: 600,
-                maxWidth: isMobile ? 90 : 160, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+                maxWidth: isMobile ? 110 : 180, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+                display: 'flex', alignItems: 'center', gap: 6,
               }}>
-                ⛵ {isMobile ? vessel.name.replace(/^The /, '') : vessel.name}
+                <img src={shipPortraitUrl(vessel.id)} alt="" style={{ width: isMobile ? 22 : 28, height: isMobile ? 22 : 28, borderRadius: 5, objectFit: 'cover', flexShrink: 0 }} />
+                {isMobile ? vessel.name.replace(/^The /, '') : vessel.name}
               </div>
             );
           })()}
@@ -737,13 +776,13 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
         </div>
         {!isMobile && <div style={{ display:'flex', alignItems:'center', gap:16 }}>
           <div style={{ fontSize:26, fontWeight:700, color:'#eedd44', display:'flex', alignItems:'center', gap:6 }}><img src={scoreImg} style={{ width:56, height:56, objectFit:'contain' }}/><span style={{ fontFamily:"'Cinzel', serif" }}>{s.score}</span> pts</div>
-          <button onClick={() => setMuted(m => !m)} aria-label={muted ? 'Unmute sound' : 'Mute sound'} title={muted ? 'Unmute sound' : 'Mute sound'} style={{ background:'transparent', border:'1px solid rgba(255,255,255,0.1)', color:'rgba(255,255,255,0.5)', fontSize:18, cursor:'pointer', borderRadius:8, padding:'6px 10px', fontFamily:"'Cinzel', serif" }}>
-            {muted ? '🔇' : '🔊'}
+          <button onClick={() => setMuted(m => !m)} aria-label={muted ? 'Unmute sound' : 'Mute sound'} title={muted ? 'Unmute sound' : 'Mute sound'} style={{ background:'transparent', border:'1px solid rgba(255,255,255,0.1)', color:'rgba(255,255,255,0.5)', fontSize:11, letterSpacing:1, cursor:'pointer', borderRadius:8, padding:'6px 10px', fontFamily:"'Cinzel', serif" }}>
+            {muted ? 'MUTE' : 'SOUND'}
           </button>
         </div>}
         {isMobile && <div style={{ display:'flex', alignItems:'center', gap:6 }}>
           <span style={{ fontSize:13, fontWeight:700, color:'#eedd44', fontFamily:"'Cinzel', serif" }}>{s.score}pts</span>
-          <button onClick={() => setMuted(m => !m)} aria-label={muted ? 'Unmute sound' : 'Mute sound'} title={muted ? 'Unmute sound' : 'Mute sound'} style={{ background:'transparent', border:'none', color:'rgba(255,255,255,0.4)', fontSize:14, cursor:'pointer' }}>{muted ? '🔇' : '🔊'}</button>
+          <button onClick={() => setMuted(m => !m)} aria-label={muted ? 'Unmute sound' : 'Mute sound'} title={muted ? 'Unmute sound' : 'Mute sound'} style={{ background:'transparent', border:'none', color:'rgba(255,255,255,0.4)', fontSize:10, letterSpacing:1, cursor:'pointer', fontFamily:"'Cinzel', serif" }}>{muted ? 'MUTE' : 'SND'}</button>
         </div>}
       </div>
 
@@ -753,7 +792,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
           {(s.relics ?? []).map(rid => { const r = getRelicDef(rid); if (!r) return null; return (
             <div key={rid} title={`${r.name} — ${r.desc}`}
               style={{ display:'flex', alignItems:'center', padding:'2px 5px', borderRadius:6, background:'rgba(200,160,48,0.14)', border:'1px solid rgba(200,160,48,0.35)' }}>
-              <Icon name={r.icon as any} size={15} />
+              <img src={relicPortraitUrl(rid)} alt="" style={{ width:18, height:18, borderRadius:4, objectFit:'cover' }} />
             </div>
           ); })}
         </div>
@@ -794,7 +833,9 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
         {/* LEFT — Storm panel */}
         <div style={{ width: isMobile ? 0 : 260, padding: isMobile ? 0 : '16px 12px', overflow:'hidden', display:'flex', flexDirection:'column', gap:10, borderRight: isMobile ? 'none' : '1px solid rgba(255,255,255,0.05)', transition:'width 0.3s' }}>
           <div style={{ background: stormPct>70?'rgba(180,30,30,0.2)':'rgba(255,255,255,0.03)', border:`1px solid ${stormPct>70?'rgba(220,50,50,0.5)':'rgba(255,255,255,0.08)'}`, borderRadius:10, padding:'12px 10px' }}>
-            <div style={{ fontSize:14, color: stormPct>70?'#ee4444':'rgba(255,255,255,0.3)', letterSpacing:2, marginBottom:6 }}>⛈ STORM</div>
+            <div style={{ fontSize:14, color: stormPct>70?'#ee4444':'rgba(255,255,255,0.3)', letterSpacing:2, marginBottom:6, display:'flex', alignItems:'center', gap:6 }}>
+              <Icon name="storm" size={16} /> STORM
+            </div>
             <div style={{ fontSize:29, fontWeight:700, color: stormPct>70?'#ee4444':'#ee8844' }}>{s.stormDistance}</div>
             <div style={{ fontSize:20, color:'rgba(255,255,255,0.8)', fontFamily:"'IM Fell English', cursive", marginTop:2 }}>turns until impact</div>
             <div style={{ height:4, background:'rgba(255,255,255,0.06)', borderRadius:2, marginTop:8 }}>
@@ -811,7 +852,9 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
             const near = threat === 'critical' || threat === 'danger';
             return (
             <div style={{ background: threat==='critical' ? 'rgba(180,20,40,0.28)' : near ? 'rgba(180,30,60,0.18)' : 'rgba(180,30,180,0.08)', border:`1px solid ${s.hunter.mode==='frenzy'||threat==='critical'?'rgba(255,60,90,0.75)':near?'rgba(220,50,80,0.55)':s.hunter.mode==='stalking'?'rgba(220,50,220,0.5)':'rgba(255,255,255,0.08)'}`, borderRadius:10, padding:'12px 10px', marginTop:4 }}>
-              <div style={{ fontSize:13, color: near ? '#ff8899' : 'rgba(200,100,220,0.8)', letterSpacing:2, marginBottom:6 }}>🐙 HUNTER</div>
+              <div style={{ fontSize:13, color: near ? '#ff8899' : 'rgba(200,100,220,0.8)', letterSpacing:2, marginBottom:6, display:'flex', alignItems:'center', gap:6 }}>
+                <Icon name="kraken" size={15} /> HUNTER
+              </div>
               <div style={{ display:'inline-block', padding:'2px 10px', borderRadius:6, fontSize:11, letterSpacing:2, fontFamily:"'Cinzel', serif", marginBottom:4,
                 background: s.hunter.mode==='frenzy' ? 'rgba(220,30,30,0.3)' : s.hunter.mode==='stalking' ? 'rgba(180,30,180,0.3)' : s.hunter.mode==='searching' ? 'rgba(30,100,180,0.3)' : 'rgba(255,255,255,0.06)',
                 color: s.hunter.mode==='frenzy' ? '#ff6666' : s.hunter.mode==='stalking' ? '#dd88ff' : s.hunter.mode==='searching' ? '#66aaff' : 'rgba(255,255,255,0.55)',
@@ -851,16 +894,16 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
               return <div key={id} style={{ fontSize:14, color:BUILD_COLOR[u.build], display:'flex', alignItems:'center', gap:6 }}><img src={UPGRADE_ICONS[id]} style={{width:20,height:20,objectFit:'contain'}}/>{u.name}</div>;
             })
           }
-          {s.upgradeToken && <div style={{ fontSize:14, color:'#eedd44', marginTop:4 }}>✦ Free upgrade — claim it at a port</div>}
+          {s.upgradeToken && <div style={{ fontSize:14, color:'#eedd44', marginTop:4, display:'flex', alignItems:'center', gap:6 }}><Icon name="star" size={14} /> Free upgrade — claim it at a port</div>}
 
           {/* Composants navire */}
           <div style={{ marginTop:12 }}>
             <div style={{ fontSize:11, color:'rgba(255,255,255,0.3)', letterSpacing:3, fontFamily:"'Cinzel', serif", marginBottom:10 }}>SHIP</div>
             <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
               {([
-                { key:'hull',   label:'Hull',   icon:'⚓', color:'#44cc88', levels:['20 HP','28 HP','38 HP'], sub:['Integrity','Reinforced','Ironclad'] },
-                { key:'weapon', label:'Weapon', icon:'⚔️', color:'#ee6644', levels:['P2','P5','P9'],         sub:['Cannons','Iron Guns','Heavy Fire'] },
-                { key:'nav',    label:'Navigation',    icon:'🔭', color:'#6aaccc', levels:['V1','V2','V3'],         sub:['Basic','Chart','Star Reader'] },
+                { key:'hull',   label:'Hull',   img: hullImg, color:'#44cc88', levels:['20 HP','28 HP','38 HP'], sub:['Integrity','Reinforced','Ironclad'] },
+                { key:'weapon', label:'Weapon', img: powerImg, color:'#ee6644', levels:['P2','P5','P9'],         sub:['Cannons','Iron Guns','Heavy Fire'] },
+                { key:'nav',    label:'Navigation',    img: visionImg, color:'#6aaccc', levels:['V1','V2','V3'],         sub:['Basic','Chart','Star Reader'] },
               ] as const).map(comp => {
                 const lvl = s.ship.levels[comp.key];
                 const isMaxed = lvl === 2;
@@ -872,7 +915,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                     transition={{ repeat:Infinity, duration:2 }}
                     style={{ background:`linear-gradient(135deg, rgba(0,0,0,0.4), ${gc}08)`, border:`1px solid ${gc}${isMaxed?'66':'22'}`, borderRadius:10, padding:'8px 10px' }}>
                     <div style={{ display:'flex', alignItems:'center', gap:8, marginBottom:6 }}>
-                      <span style={{ fontSize:16 }}>{comp.icon}</span>
+                      <img src={comp.img} alt="" style={{ width:22, height:22, objectFit:'contain' }} />
                       <div style={{ flex:1 }}>
                         <div style={{ fontSize:13, color: gc, fontFamily:"'Pirata One', cursive", letterSpacing:1 }}>{comp.label}</div>
                         <div style={{ fontSize:10, color:'rgba(255,255,255,0.3)', fontFamily:"'Cinzel', serif" }}>{comp.sub[lvl]}</div>
@@ -958,33 +1001,112 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
         </div>
       </div>
 
-      {/* CINEMATIC INTRO (vidéo 5s, par-dessus la page d'événement) */}
+      {/* CINEMATIC INTRO — vidéo desktop / poster JPG mobile */}
       <AnimatePresence>
-        {cinematic && SCENE_VIDEO[cinematic] && (
+        {cinematic && (SCENE_VIDEO[cinematic] || SCENE_BG[cinematic] || cinematic === 'death') && (() => {
+          const useVideo = !isMobile && !!SCENE_VIDEO[cinematic];
+          const still = cinematic === 'death'
+            ? (ZONE_BG[s.currentZone ?? 1] ?? SCENE_BG.storm)
+            : (SCENE_BG[cinematic] ?? null);
+          return (
           <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            transition={{ delay: 0.2, duration: 0.3 }}
+            transition={{ delay: 0.1, duration: 0.25 }}
             onClick={() => { if (cinematic === 'death') setShowDeathScreen(true); setCinematic(null); }}
             style={{ position:'fixed', inset:0, zIndex:140, cursor:'pointer', background:'#05080f' }}>
-            <motion.video
-              key={cinematic}
-              src={SCENE_VIDEO[cinematic]}
-              autoPlay muted={muted} playsInline preload="metadata"
-              onEnded={() => { if (cinematic === 'death') setShowDeathScreen(true); setCinematic(null); }}
-              initial={{ opacity: 0, scale: 1.07 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.42, duration: 0.75, ease: 'easeOut' }}
-              style={{ width:'100%', height:'100%', objectFit:'cover' }}
-            />
-            <div style={{ position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(5,8,15,0.1) 0%, rgba(5,8,15,0.35) 70%, rgba(5,8,15,0.7) 100%)', pointerEvents:'none' }}/>
-            <div style={{ position:'absolute', bottom:'12%', left:0, right:0, textAlign:'center', pointerEvents:'none' }}>
-              <div style={{ fontSize: 40, color:'#e8e0d0', fontFamily:"'Pirata One', cursive", letterSpacing:3, textShadow:'0 2px 30px rgba(0,0,0,0.95)' }}>
+            {useVideo ? (
+              <motion.video
+                key={cinematic}
+                src={SCENE_VIDEO[cinematic]}
+                autoPlay muted={muted} playsInline preload="metadata"
+                onEnded={() => { if (cinematic === 'death') setShowDeathScreen(true); setCinematic(null); }}
+                initial={{ opacity: 0, scale: 1.07 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.2, duration: 0.6, ease: 'easeOut' }}
+                style={{ width:'100%', height:'100%', objectFit:'cover' }}
+              />
+            ) : still ? (
+              <motion.div
+                key={`still-${cinematic}`}
+                initial={{ opacity: 0, scale: 1.08 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.7, ease: 'easeOut' }}
+                style={{
+                  position: 'absolute', inset: 0,
+                  backgroundImage: `url(${still})`,
+                  backgroundSize: 'cover', backgroundPosition: 'center',
+                }}
+              />
+            ) : null}
+            <div style={{ position:'absolute', inset:0, background: cinematic === 'death'
+              ? 'linear-gradient(to bottom, rgba(40,5,5,0.35) 0%, rgba(5,8,15,0.55) 55%, rgba(5,8,15,0.88) 100%)'
+              : 'linear-gradient(to bottom, rgba(5,8,15,0.1) 0%, rgba(5,8,15,0.35) 70%, rgba(5,8,15,0.7) 100%)', pointerEvents:'none' }}/>
+            <div style={{ position:'absolute', bottom: isMobile ? '18%' : '12%', left:0, right:0, textAlign:'center', pointerEvents:'none', padding: '0 16px' }}>
+              <div style={{ fontSize: isMobile ? 28 : 40, color: cinematic === 'death' ? '#ee6666' : '#e8e0d0', fontFamily:"'Pirata One', cursive", letterSpacing:3, textShadow:'0 2px 30px rgba(0,0,0,0.95)' }}>
                 {SCENE_TITLES[cinematic] ?? ''}
               </div>
-              <div style={{ marginTop:10, fontSize:13, color:'rgba(255,255,255,0.55)', fontFamily:"'IM Fell English', cursive", letterSpacing:1 }}>
+              <div style={{ marginTop:10, fontSize: isMobile ? 12 : 13, color:'rgba(255,255,255,0.55)', fontFamily:"'IM Fell English', cursive", letterSpacing:1 }}>
                 tap to skip
               </div>
             </div>
+          </motion.div>
+          );
+        })()}
+      </AnimatePresence>
+
+      {/* ZONE TRANSITION — portal crossing */}
+      <AnimatePresence>
+        {portalCinematic && (
+          <motion.div
+            key="portal-zone"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            transition={{ duration: 0.45 }}
+            onClick={() => setPortalCinematic(null)}
+            style={{
+              position: 'fixed', inset: 0, zIndex: 145, cursor: 'pointer',
+              display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+              background: `radial-gradient(ellipse at center, rgba(8,6,20,0.75) 0%, rgba(2,3,8,0.96) 100%)`,
+            }}>
+            {ZONE_BG[portalCinematic.zone] && (
+              <div style={{
+                position: 'absolute', inset: 0, zIndex: 0,
+                backgroundImage: `url(${ZONE_BG[portalCinematic.zone]})`,
+                backgroundSize: 'cover', backgroundPosition: 'center',
+                opacity: 0.28, filter: 'saturate(0.7) brightness(0.55)',
+              }} />
+            )}
+            <div style={{ position: 'absolute', inset: 0, zIndex: 0, background: 'radial-gradient(ellipse at center, transparent 20%, rgba(0,0,0,0.75) 100%)' }} />
+            <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: 'spring', stiffness: 120, delay: 0.1 }}
+              style={{ position: 'relative', zIndex: 1, marginBottom: 28, filter: 'drop-shadow(0 0 28px rgba(136,102,255,0.55))' }}>
+              <Icon name="vortex" size={isMobile ? 72 : 96} />
+            </motion.div>
+            <div style={{ position: 'relative', zIndex: 1, maxWidth: isMobile ? '88vw' : 520, textAlign: 'center', padding: '0 16px' }}>
+              {portalCinematic.lines.slice(0, portalLineIndex + 1).map((line, i) => {
+                const isTitle = line === portalCinematic.lines[portalCinematic.lines.length - 1] && portalLineIndex >= portalCinematic.lines.length - 1;
+                const isLabel = line === 'You have entered:';
+                if (!line) return <div key={i} style={{ height: 12 }} />;
+                return (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.35 }}
+                    style={{
+                      fontFamily: isTitle ? "'Pirata One', cursive" : "'IM Fell English', cursive",
+                      fontSize: isTitle ? (isMobile ? 28 : 40) : isLabel ? 14 : (isMobile ? 17 : 20),
+                      letterSpacing: isTitle ? 3 : isLabel ? 3 : 0.5,
+                      color: isTitle ? '#c8a8ff' : isLabel ? 'rgba(200,180,255,0.55)' : 'rgba(230,220,255,0.85)',
+                      marginBottom: isTitle ? 0 : 6,
+                      textShadow: isTitle ? '0 0 24px rgba(136,102,255,0.45)' : 'none',
+                    }}>
+                    {line}
+                  </motion.div>
+                );
+              })}
+            </div>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2 }}
+              style={{ position: 'relative', zIndex: 1, marginTop: 36, fontFamily: "'Cinzel', serif", fontSize: 11, letterSpacing: 3, color: 'rgba(255,255,255,0.35)' }}>
+              tap to continue
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -1006,8 +1128,37 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
               <motion.div
                 initial={{ scale:0, rotate:-30 }} animate={{ scale:1, rotate:0 }}
                 transition={{ type:'spring', stiffness:130, damping:12, delay:0.2 }}
-                style={{ filter:`drop-shadow(0 0 40px ${rarityColor})`, marginBottom:20 }}>
-                <Icon name={foundRelic.icon as any} size={140} />
+                style={{ position: 'relative', marginBottom: 20, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <motion.div
+                  aria-hidden
+                  animate={{ scale: [1, 1.18, 1], opacity: [0.45, 0.15, 0.45] }}
+                  transition={{ repeat: Infinity, duration: 2.4, ease: 'easeInOut' }}
+                  style={{
+                    position: 'absolute', width: isMobile ? 168 : 220, height: isMobile ? 168 : 220,
+                    borderRadius: '50%', border: `2px solid ${rarityColor}`,
+                    boxShadow: `0 0 40px ${rarityColor}66, inset 0 0 30px ${rarityColor}22`,
+                  }}
+                />
+                <motion.div
+                  aria-hidden
+                  animate={{ scale: [1.05, 1.28, 1.05], opacity: [0.25, 0.08, 0.25] }}
+                  transition={{ repeat: Infinity, duration: 2.4, ease: 'easeInOut', delay: 0.3 }}
+                  style={{
+                    position: 'absolute', width: isMobile ? 200 : 260, height: isMobile ? 200 : 260,
+                    borderRadius: '50%', border: `1px solid ${rarityColor}88`,
+                  }}
+                />
+                <img
+                  src={relicPortraitUrl(foundRelic.id)}
+                  alt=""
+                  style={{
+                    position: 'relative', zIndex: 1,
+                    width: isMobile ? 120 : 160, height: isMobile ? 120 : 160,
+                    borderRadius: 16, objectFit: 'cover',
+                    border: `2px solid ${rarityColor}`,
+                    boxShadow: `0 0 36px ${rarityColor}99, 0 8px 24px rgba(0,0,0,0.6)`,
+                  }}
+                />
               </motion.div>
               <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:0.5 }}
                 style={{ fontFamily:"'Cinzel', serif", fontSize:12, letterSpacing:4, color:rarityColor, marginBottom:8 }}>
@@ -1107,6 +1258,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
         personalBest={personalBest}
         isNewRecord={isNewRecord}
         newFeats={newFeats}
+        nearFeats={nearFeats}
         scoreSubmitted={scoreSubmitted}
         nftMinted={nftMinted}
         walletAddress={walletAddress}
@@ -1126,19 +1278,32 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
         onHome={onHome}
       />
 
-      {/* HUNTER ATTACK NOTIFICATION */}
+      {/* HUNTER ATTACK — vidéo desktop / poster mobile */}
       <AnimatePresence>
-        {showHunterAttack && !isMobile && (
+        {showHunterAttack && (
           <motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}
             transition={{duration:0.3}}
             style={{ position:'fixed', inset:0, zIndex:150, pointerEvents:'none' }}>
-            <video src={`${import.meta.env.BASE_URL}scenes/hunter.mp4`} autoPlay muted={muted} playsInline preload="metadata" style={{ width:'100%', height:'100%', objectFit:'cover' }}/>
-            <div style={{ position:'absolute', inset:0, background:'rgba(0,0,0,0.3)' }}/>
-            <motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{delay:0.3}}
-              style={{ position:'absolute', bottom:'20%', left:0, right:0, textAlign:'center' }}>
-              <div style={{ fontSize: 32, color:'#cc44ee', fontFamily:"'Pirata One', cursive", letterSpacing:3, textShadow:'0 0 30px rgba(150,0,150,0.9)' }}>THE HUNTER STRIKES!</div>
-              <div style={{ fontSize:16, color:'rgba(255,255,255,0.7)', fontFamily:"'IM Fell English', cursive", marginTop:6 }}>Tentacles rake the hull</div>
-              <div style={{ fontSize:11, color:'rgba(255,255,255,0.35)', fontFamily:"'Cinzel', serif", letterSpacing:2, marginTop:14 }}>CLICK TO SKIP</div>
+            {isMobile ? (
+              <motion.div
+                initial={{ scale: 1.06, opacity: 0.7 }} animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.55 }}
+                style={{
+                  width: '100%', height: '100%',
+                  backgroundImage: `url(${import.meta.env.BASE_URL}icons/hunter.png)`,
+                  backgroundSize: 'cover', backgroundPosition: 'center',
+                  filter: 'saturate(1.1) brightness(0.75)',
+                }}
+              />
+            ) : (
+              <video src={`${import.meta.env.BASE_URL}scenes/hunter.mp4`} autoPlay muted={muted} playsInline preload="metadata" style={{ width:'100%', height:'100%', objectFit:'cover' }}/>
+            )}
+            <div style={{ position:'absolute', inset:0, background: isMobile ? 'radial-gradient(ellipse at center, rgba(80,0,100,0.35) 0%, rgba(0,0,0,0.65) 100%)' : 'rgba(0,0,0,0.3)' }}/>
+            <motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{delay:0.2}}
+              style={{ position:'absolute', bottom: isMobile ? '22%' : '20%', left:0, right:0, textAlign:'center', padding: '0 16px' }}>
+              <div style={{ fontSize: isMobile ? 26 : 32, color:'#cc44ee', fontFamily:"'Pirata One', cursive", letterSpacing:3, textShadow:'0 0 30px rgba(150,0,150,0.9)' }}>THE HUNTER STRIKES!</div>
+              <div style={{ fontSize: isMobile ? 14 : 16, color:'rgba(255,255,255,0.7)', fontFamily:"'IM Fell English', cursive", marginTop:6 }}>Tentacles rake the hull</div>
+              <div style={{ fontSize:11, color:'rgba(255,255,255,0.35)', fontFamily:"'Cinzel', serif", letterSpacing:2, marginTop:14 }}>TAP TO SKIP</div>
             </motion.div>
           </motion.div>
         )}
@@ -1152,11 +1317,15 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
             <motion.button whileTap={{scale:0.9}}
               onClick={() => setMobileDrawer(mobileDrawer === 'ship' ? null : 'ship')}
               aria-label="Show ship status" aria-expanded={mobileDrawer === 'ship'}
-              style={{ width:44, height:44, borderRadius:10, border:`1px solid ${mobileDrawer==='ship' ? '#44cc88' : 'rgba(255,255,255,0.2)'}`, background: mobileDrawer==='ship' ? 'rgba(68,204,136,0.2)' : 'rgba(0,0,0,0.7)', color: mobileDrawer==='ship' ? '#44cc88' : 'rgba(255,255,255,0.6)', fontSize:20, cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center' }}>⚓</motion.button>
+              style={{ width:44, height:44, borderRadius:10, border:`1px solid ${mobileDrawer==='ship' ? '#44cc88' : 'rgba(255,255,255,0.2)'}`, background: mobileDrawer==='ship' ? 'rgba(68,204,136,0.2)' : 'rgba(0,0,0,0.7)', color: mobileDrawer==='ship' ? '#44cc88' : 'rgba(255,255,255,0.6)', cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center' }}>
+              <Icon name="anchor" size={22} />
+            </motion.button>
             <motion.button whileTap={{scale:0.9}}
               onClick={() => setMobileDrawer(mobileDrawer === 'upgrades' ? null : 'upgrades')}
               aria-label="Show upgrades" aria-expanded={mobileDrawer === 'upgrades'}
-              style={{ width:44, height:44, borderRadius:10, border:`1px solid ${mobileDrawer==='upgrades' ? '#c8a030' : 'rgba(255,255,255,0.2)'}`, background: mobileDrawer==='upgrades' ? 'rgba(200,160,48,0.2)' : 'rgba(0,0,0,0.7)', color: mobileDrawer==='upgrades' ? '#c8a030' : 'rgba(255,255,255,0.6)', fontSize:20, cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center' }}>⚔️</motion.button>
+              style={{ width:44, height:44, borderRadius:10, border:`1px solid ${mobileDrawer==='upgrades' ? '#c8a030' : 'rgba(255,255,255,0.2)'}`, background: mobileDrawer==='upgrades' ? 'rgba(200,160,48,0.2)' : 'rgba(0,0,0,0.7)', color: mobileDrawer==='upgrades' ? '#c8a030' : 'rgba(255,255,255,0.6)', cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center' }}>
+              <Icon name="swords" size={22} />
+            </motion.button>
           </div>}
 
           {/* Drawer overlay */}
@@ -1177,18 +1346,18 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                           return <div key={id} style={{ fontSize:13, color:'#c8a030', marginBottom:4, display:'flex', alignItems:'center', gap:6 }}><img src={UPGRADE_ICONS[id]} style={{width:18,height:18,objectFit:'contain'}}/>{u.name}</div>;
                         })
                     }
-                    {s.upgradeToken && <div style={{ fontSize:12, color:'#eedd44', marginBottom:8 }}>✦ Free upgrade — claim it at a port</div>}
+                    {s.upgradeToken && <div style={{ fontSize:12, color:'#eedd44', marginBottom:8, display:'flex', alignItems:'center', gap:5 }}><Icon name="star" size={12} /> Free upgrade — claim it at a port</div>}
                     {/* Components */}
                     <div style={{ fontSize:12, color:'rgba(255,255,255,0.5)', marginTop:10, marginBottom:6 }}>COMPONENTS</div>
                     {([
-                      { key:'hull', label:'Hull', icon:'⚓', color:'#44cc88', levels:['20 HP','28 HP','38 HP'] },
-                      { key:'weapon', label:'Weapon', icon:'⚔️', color:'#ee6644', levels:['P2','P5','P9'] },
-                      { key:'nav', label:'Nav', icon:'🔭', color:'#6aaccc', levels:['V1','V2','V3'] },
+                      { key:'hull', label:'Hull', img: hullImg, color:'#44cc88', levels:['20 HP','28 HP','38 HP'] },
+                      { key:'weapon', label:'Weapon', img: powerImg, color:'#ee6644', levels:['P2','P5','P9'] },
+                      { key:'nav', label:'Nav', img: visionImg, color:'#6aaccc', levels:['V1','V2','V3'] },
                     ] as const).map(comp => {
                       const lvl = s.ship.levels[comp.key];
                       return (
                         <div key={comp.key} style={{ display:'flex', alignItems:'center', gap:8, marginBottom:6 }}>
-                          <span>{comp.icon}</span>
+                          <img src={comp.img} alt="" style={{ width:18, height:18, objectFit:'contain' }} />
                           <span style={{ color:comp.color, fontSize:13, width:50 }}>{comp.label}</span>
                           <div style={{ display:'flex', gap:3 }}>
                             {[0,1,2].map(i => (

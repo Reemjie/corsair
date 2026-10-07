@@ -86,6 +86,7 @@ export async function checkNFTConditions(runData: {
   combo_turn: number;
   storm_distance_min: number;
   cursed_treasure_taken: boolean;
+  zone?: number;
 }): Promise<{ minted: { nft: string; tx: string }[] }> {
   try {
     const res = await fetch(
@@ -119,6 +120,11 @@ export const NFT_URIS: Record<string, string> = {
   last_port: 'ipfs://QmPnXkYVFQqVKJcY87dQkSte8bKWQiYVY8KTfDBPMGB1wA',
   blood_moon_tide: 'ipfs://QmRQMW4ybuayF4S4yRwKzHHEpQWLbbJXtrYroAAB3rjx2M',
   leviathan: 'ipfs://QmNnwHkhNawMF1K2cEzfitNUAzWRoAaqAF3hxheULKxj19',
+  splintered_keel: 'https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/12-splintered_keel.jpg',
+  quiet_hold: 'https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/13-quiet_hold.jpg',
+  red_wake: 'https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/14-red_wake.jpg',
+  abyss_lantern: 'https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/15-abyss_lantern.jpg',
+  tideborn_crown: 'https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/16-tideborn_crown.jpg',
 };
 
 export const NFT_CONTRACT = '0x06c8b06fb6a94f3ae9b26c87b1baacc4a7a1f2e0184870c957728b5d17bd0202';

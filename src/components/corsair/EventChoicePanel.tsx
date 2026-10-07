@@ -4,6 +4,7 @@ import type { OnboardTip } from '../../game/onboard';
 import OnboardCard from './OnboardCard';
 import { CHOICE_ICONS, SCENE_BG, SCENE_TITLES } from './scenes';
 import { canAffordChoice, choiceDescription, riskColor } from './eventChoice';
+import { Icon } from '../../Icon';
 
 function renderCellIcon(icon: string | undefined, size: number) {
   if (!icon) return null;
@@ -71,12 +72,12 @@ export default function EventChoicePanel({
               transition: 'all 0.2s',
               opacity: canAfford ? 1 : 0.5,
             }}>
-            {variant === 'scene' ? (
-              <div style={{ marginBottom: 12, textAlign: 'center' }}>
-                <img src={CHOICE_ICONS[ch.icon] || ''} alt="" style={{ width: 72, height: 72, objectFit: 'contain' }} />
+            {CHOICE_ICONS[ch.icon] ? (
+              <div style={{ marginBottom: variant === 'scene' ? 12 : 6, textAlign: variant === 'scene' ? 'center' : 'left' }}>
+                <img src={CHOICE_ICONS[ch.icon]} alt="" style={{ width: variant === 'scene' ? 72 : 40, height: variant === 'scene' ? 72 : 40, objectFit: 'contain' }} />
               </div>
             ) : (
-              <div style={{ fontSize: 26, marginBottom: 4 }}>{ch.icon}</div>
+              <div style={{ fontSize: variant === 'scene' ? 26 : 22, marginBottom: 4 }}>{ch.icon}</div>
             )}
             <div style={{ fontSize: variant === 'scene' ? 24 : 18, fontWeight: variant === 'scene' ? 700 : 600, color: rc, textAlign: variant === 'scene' ? 'center' : 'left' }}>{ch.label}</div>
             <div style={{ fontSize: 20, color: 'rgba(255,255,255,0.8)', fontFamily: "'IM Fell English', cursive", marginTop: variant === 'scene' ? 8 : 2, textAlign: variant === 'scene' ? 'center' : 'left' }}>{desc}</div>
@@ -88,8 +89,8 @@ export default function EventChoicePanel({
   );
 
   const escapeBtn = canEscape && onSkip ? (
-    <button onClick={onSkip} style={{ marginTop: 8, padding: '6px 16px', borderRadius: 7, border: '1px solid rgba(100,170,220,0.3)', background: 'transparent', color: 'rgba(100,170,220,0.5)', cursor: 'pointer', fontSize: 14 }}>
-      ⛵ Use Swift Sails (1 use left)
+    <button onClick={onSkip} style={{ marginTop: 8, padding: '6px 16px', borderRadius: 7, border: '1px solid rgba(100,170,220,0.3)', background: 'transparent', color: 'rgba(100,170,220,0.5)', cursor: 'pointer', fontSize: 14, display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+      <Icon name="ship" size={14} /> Use Swift Sails (1 use left)
     </button>
   ) : null;
 

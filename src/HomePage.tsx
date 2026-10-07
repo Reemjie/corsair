@@ -12,6 +12,7 @@ import ShipsPanel from './ShipsPanel';
 import ShipDraft from './ShipDraft';
 import PatchNotes from './PatchNotes';
 import { getUnlockedShips, rollShipDraft, type ShipDef } from './game/ships';
+import { getPersonalBest, getNearestFeats } from './game/progress';
 import { Icon } from './Icon';
 import Leaderboard from './Leaderboard';
 
@@ -182,6 +183,43 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
           style={{ flexShrink:0, fontFamily:"'Cinzel', serif", fontSize: isMobile ? 10 : 13, letterSpacing: isMobile ? 3 : 6, color:'rgba(255,255,255,0.7)', marginTop: isMobile ? -6 : -16, textShadow:'0 1px 4px rgba(0,0,0,0.9)', textAlign:'center', width:'100%' }}>
           A ROGUELITE OF NAVIGATION & SURVIVAL
         </motion.div>
+
+        {/* Return strip — unfinished business for captains who come back */}
+        {(() => {
+          const pb = getPersonalBest();
+          const near = getNearestFeats(undefined, 1).find(n => n.ratio > 0) ?? null;
+          if (pb <= 0 && !near) return null;
+          return (
+            <motion.div initial={{ opacity:0, y:8 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.75 }}
+              style={{
+                flexShrink:0, maxWidth:420, width: isMobile ? '90%' : '100%',
+                padding: isMobile ? '8px 12px' : '10px 16px', borderRadius:10,
+                border:'1px solid rgba(136,221,255,0.28)', background:'rgba(8,18,28,0.72)',
+                display:'flex', flexDirection:'column', gap:4, textAlign:'center',
+              }}>
+              <div style={{ fontFamily:"'Cinzel', serif", fontSize:10, letterSpacing:2, color:'rgba(136,221,255,0.7)' }}>
+                YOUR TIDE
+              </div>
+              <div style={{ fontFamily:"'IM Fell English', cursive", fontSize: isMobile ? 13 : 14, color:'rgba(255,255,255,0.75)', lineHeight:1.35 }}>
+                {pb > 0 && <>Best <span style={{ color:'#eedd44' }}>{pb.toLocaleString()}</span> pts</>}
+                {pb > 0 && <span style={{ color:'rgba(255,255,255,0.35)' }}> · </span>}
+                Daily resets <span style={{ color:'#88ddff' }}>{timeLeft}</span>
+                {near && (
+                  <>
+                    <span style={{ color:'rgba(255,255,255,0.35)' }}> · </span>
+                    Near: <span style={{ color:'#a8d8ff' }}>{near.feat.name}</span>
+                    {' '}({Math.round(near.ratio * 100)}%)
+                  </>
+                )}
+              </div>
+              {!dailyDone && (
+                <div style={{ fontFamily:"'Cinzel', serif", fontSize:10, letterSpacing:1, color:'rgba(200,160,48,0.7)', marginTop:2 }}>
+                  {address ? 'Daily still open — climb today’s board' : 'Connect to sail the Daily · same seas for every captain'}
+                </div>
+              )}
+            </motion.div>
+          );
+        })()}
 
         <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.9 }}
           style={{ flexShrink:0, display:'flex', flexDirection:'column', alignItems:'center', gap:12, marginTop:16 }}>

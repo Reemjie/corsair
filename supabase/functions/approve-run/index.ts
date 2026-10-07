@@ -212,6 +212,7 @@ Deno.serve(async (req: Request) => {
           combo_turn: etat.comboTurn ?? 999,
           storm_distance_min: etat.stormDistanceMin ?? 99,
           cursed_treasure_taken: etat.cursedTreasureTaken ?? false,
+          zone: etat.currentZone ?? etat.zone ?? 1,
         }),
       });
       nft = await r.json();
