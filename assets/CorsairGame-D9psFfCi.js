@@ -4,7 +4,7 @@ import { n as a } from "./walletApi-DYniPf4L.js";
 import { A as o, C as s, D as c, E as l, F as u, H as d, M as f, N as p, O as m, S as h, T as g, U as _, V as v, _ as y, a as b, d as x, f as S, g as C, i as w, j as T, k as E, p as D, r as O, t as k, v as A, w as j, x as ee, y as M } from "./anchor-CJawS8b5.js";
 import { a as te, b as ne, d as N, h as re, m as ie, p as ae, t as oe, x as se, __tla as __tla_0 } from "./supabase-BXtpc1SX.js";
 import { l as ce, __tla as __tla_1 } from "./wallet-D0U5_iuP.js";
-let Wf;
+let Uf;
 let __tla = Promise.all([
     (()=>{
         try {
@@ -20660,99 +20660,98 @@ void main() {
     function xf(e) {
         e && pf(e);
     }
-    var Sf = .018;
-    function Cf(e, t) {
-        return new ga({
-            color: e,
+    function Sf(e, t, n) {
+        let r = new ti, i = e * t + n * .46, a = .04, o = new ga({
+            color: 14216952,
             transparent: !0,
-            opacity: t,
+            opacity: .55,
             depthWrite: !1
-        });
-    }
-    function wf(e) {
-        let t = new ti, n = e * .5, r = Cf(13166840, .42), i = [
-            [
-                0,
-                -n,
-                e,
-                Sf
-            ],
-            [
-                0,
-                n,
-                e,
-                Sf
-            ],
-            [
-                -n,
-                0,
-                Sf,
-                e
-            ],
-            [
-                n,
-                0,
-                Sf,
-                e
-            ]
-        ];
-        for (let [e, n, a, o] of i){
-            let i = new X(new za(a, .012, o), r);
-            i.position.set(e, .03, n), t.add(i);
+        }), s = .022;
+        for(let n = -e; n <= e + 1; n++){
+            let c = (n - .5) * t, l = new X(new za(i * 2, .01, s), o.clone());
+            l.position.set(0, a, c);
+            let u = Math.abs(n - .5) / (e + .5);
+            l.material.opacity = .58 - u * .28, r.add(l);
         }
-        return t;
+        for(let n = -e; n <= e + 1; n++){
+            let c = (n - .5) * t, l = new X(new za(s, .01, i * 2), o.clone());
+            l.position.set(c, a, 0);
+            let u = Math.abs(n - .5) / (e + .5);
+            l.material.opacity = .58 - u * .28, r.add(l);
+        }
+        for(let n = -e; n <= e + 1; n++)for(let i = -e; i <= e + 1; i++){
+            let a = wf();
+            a.position.set((i - .5) * t, .045, (n - .5) * t);
+            let o = Math.max(Math.abs(i - .5), Math.abs(n - .5)) / (e + .5);
+            a.material.opacity = Math.max(.35, .9 - o * .45), r.add(a);
+        }
+        return r;
     }
-    function Tf() {
-        let e = new Co, t = .07, n = .016;
-        e.moveTo(-.016, -.07), e.lineTo(n, -.07), e.lineTo(n, -.016), e.lineTo(t, -.016), e.lineTo(t, n), e.lineTo(n, n), e.lineTo(n, t), e.lineTo(-.016, t), e.lineTo(-.016, n), e.lineTo(-.07, n), e.lineTo(-.07, -.016), e.lineTo(-.016, -.016), e.lineTo(-.016, -.07);
-        let r = new X(new ds(e), new ga({
-            color: 15267071,
+    function Cf(e, t, n = .7) {
+        let r = e * .46, i = new Co, a = .04;
+        i.moveTo(-r + a, -r), i.lineTo(r - a, -r), i.quadraticCurveTo(r, -r, r, -r + a), i.lineTo(r, r - a), i.quadraticCurveTo(r, r, r - a, r), i.lineTo(-r + a, r), i.quadraticCurveTo(-r, r, -r, r - a), i.lineTo(-r, -r + a), i.quadraticCurveTo(-r, -r, -r + a, -r);
+        let o = new So, s = r - .035;
+        o.moveTo(-s + a, -s), o.lineTo(s - a, -s), o.quadraticCurveTo(s, -s, s, -s + a), o.lineTo(s, s - a), o.quadraticCurveTo(s, s, s - a, s), o.lineTo(-s + a, s), o.quadraticCurveTo(-s, s, -s, s - a), o.lineTo(-s, -s + a), o.quadraticCurveTo(-s, -s, -s + a, -s), i.holes.push(o);
+        let c = new X(new ds(i), new ga({
+            color: t,
             transparent: !0,
-            opacity: .7,
+            opacity: n,
             depthWrite: !1,
             side: 2
         }));
-        return r.rotation.x = -Math.PI / 2, r.position.y = .035, r;
+        return c.rotation.x = -Math.PI / 2, c.position.y = .05, c;
     }
-    function Ef(e, t = .45) {
-        let n = new X(new Va(.55, 24), new ga({
+    function wf() {
+        let e = new Co, t = .1, n = .022;
+        e.moveTo(-.022, -.1), e.lineTo(n, -.1), e.lineTo(n, -.022), e.lineTo(t, -.022), e.lineTo(t, n), e.lineTo(n, n), e.lineTo(n, t), e.lineTo(-.022, t), e.lineTo(-.022, n), e.lineTo(-.1, n), e.lineTo(-.1, -.022), e.lineTo(-.022, -.022), e.lineTo(-.022, -.1);
+        let r = new X(new ds(e), new ga({
+            color: 15792383,
+            transparent: !0,
+            opacity: .85,
+            depthWrite: !1,
+            side: 2
+        }));
+        return r.rotation.x = -Math.PI / 2, r;
+    }
+    function Tf(e, t = .5) {
+        let n = new X(new Va(.62, 28), new ga({
             color: e,
             transparent: !0,
             opacity: t,
             depthWrite: !1,
             side: 2
         }));
-        return n.rotation.x = -Math.PI / 2, n.position.y = .02, n;
+        return n.rotation.x = -Math.PI / 2, n.position.y = .025, n;
     }
-    function Df(e, t) {
-        let n = new ti, r = new X(new cs(.16, 0), new Ts({
-            color: 1710626,
+    function Ef(e, t) {
+        let n = new ti, r = new X(new cs(.2, 0), new Ts({
+            color: 1184796,
             emissive: t,
-            emissiveIntensity: .35,
-            metalness: .4,
-            roughness: .45
+            emissiveIntensity: .55,
+            metalness: .5,
+            roughness: .35
         }));
-        r.scale.set(1, 1.35, .35), n.add(r);
-        let i = new X(new ls(.18, .22), new ga({
-            color: 657936,
+        r.scale.set(1, 1.4, .32), n.add(r);
+        let i = new X(new ls(.22, .26), new ga({
+            color: 526864,
             transparent: !0,
-            opacity: .9,
+            opacity: .92,
             side: 2
         }));
-        i.position.z = .06, n.add(i);
+        i.position.z = .07, n.add(i);
         let a = new ga({
-            color: 15791359,
+            color: 16054527,
             side: 2
         }), o;
-        o = e === `treasure` || e === `cursed_treasure` ? new X(new Va(.05, 3), a) : e === `pirate` || e === `kraken` || e === `ancient_kraken` ? new X(new Va(.04, 6), a) : e === `port` ? new X(new us(.025, .05, 12), a) : e === `portal` ? new X(new ms(.04, .012, 6, 12), a) : new X(new Va(.035, 4), a), o.position.z = .07, n.add(o);
-        let s = new X(new Ha(.008, .008, .35, 4), new ga({
-            color: 8952234,
+        o = e === `treasure` || e === `cursed_treasure` ? new X(new Va(.055, 3), a) : e === `pirate` || e === `kraken` || e === `ancient_kraken` ? new X(new Va(.045, 6), a) : e === `port` ? new X(new us(.028, .055, 14), a) : e === `portal` ? new X(new ms(.045, .014, 6, 14), a) : new X(new Va(.04, 4), a), o.position.z = .08, n.add(o);
+        let s = new X(new Ha(.01, .01, .45, 4), new ga({
+            color: 11059408,
             transparent: !0,
-            opacity: .5
+            opacity: .55
         }));
-        return s.position.y = -.28, n.add(s), n.position.y = 1.05, n;
+        return s.position.y = -.35, n.add(s), n.position.y = 1.15, n.scale.setScalar(1.15), n;
     }
-    function Of(e) {
+    function Df(e) {
         e.traverse((e)=>{
             if (e instanceof X) {
                 e.geometry.dispose();
@@ -20761,7 +20760,7 @@ void main() {
             }
         });
     }
-    function kf(e, t) {
+    function Of(e, t) {
         let n = e >= 3 ? new Y(`#03060e`) : e === 2 ? new Y(`#050c18`) : new Y(`#061018`), r = e >= 3 ? new Y(`#0c1830`) : e === 2 ? new Y(`#0e2240`) : new Y(`#0e2a44`), i = e >= 3 ? new Y(`#2a4868`) : e === 2 ? new Y(`#3a6890`) : new Y(`#4a88a8`);
         return new Cs({
             transparent: !1,
@@ -20841,31 +20840,36 @@ void main() {
         vec3 L = normalize(vec3(0.25, 0.85, 0.35));
         vec3 V = normalize(vec3(-vWorld.x, 8.0, -vWorld.z + 6.0));
         vec3 H = normalize(L + V);
-        float spec = pow(max(dot(N, H), 0.0), 48.0) * 0.55;
-        float fres = pow(1.0 - max(dot(N, V), 0.0), 3.0) * 0.18;
-        col += vec3(0.55, 0.7, 0.85) * (spec + fres);
+        float spec = pow(max(dot(N, H), 0.0), 36.0) * 0.85;
+        float fres = pow(1.0 - max(dot(N, V), 0.0), 2.5) * 0.28;
+        col += vec3(0.65, 0.8, 0.95) * (spec + fres);
+
+        // Ripple shimmer in spotlight only
+        float shimmer = sin(vWorld.x * 3.5 + uTime * 1.2) * sin(vWorld.z * 3.2 - uTime * 0.9);
+        shimmer = shimmer * 0.5 + 0.5;
 
         // Central spotlight pool (player-centric world origin)
         float dist = length(vWorld.xz);
         float spot = 1.0 - smoothstep(uSpotRadius, uSpotRadius + uSpotSoft, dist);
-        col = mix(uDeep * 0.45, col, 0.35 + spot * 0.65);
-        col += vec3(0.08, 0.12, 0.18) * spot * 0.5;
+        col = mix(uDeep * 0.35, col, 0.25 + spot * 0.75);
+        col += vec3(0.12, 0.18, 0.28) * spot * 0.7;
+        col += vec3(0.2, 0.28, 0.35) * shimmer * spot * 0.12;
 
         // Edge falloff into void
-        col = mix(col, uDeep * 0.25, smoothstep(10.0, 22.0, dist) * 0.7);
+        col = mix(col, uDeep * 0.15, smoothstep(8.0, 18.0, dist) * 0.85);
 
         gl_FragColor = vec4(col, 1.0);
       }
     `
         });
     }
-    function Af(e) {
+    function kf(e) {
         return e >= 3 ? new Y(`#04060c`) : e === 2 ? new Y(`#060a14`) : new Y(`#081018`);
     }
-    function jf(e) {
+    function Af(e) {
         return e >= 3 ? new Y(`#05070e`) : e === 2 ? new Y(`#070b14`) : new Y(`#0a1018`);
     }
-    function Mf(e) {
+    function jf(e) {
         return e >= 3 ? {
             hemiSky: 2635848,
             hemiGround: 262664,
@@ -20883,22 +20887,22 @@ void main() {
             fill: 2639960
         };
     }
-    var Nf = 1.35, Pf = 1.4300000000000002;
-    function Ff(e) {
+    var Mf = 1.35, Nf = 1.4300000000000002;
+    function Pf(e) {
         return new Y(e);
     }
+    function Ff(e, t) {
+        return new q(e * Nf, 0, t * Nf);
+    }
     function If(e, t) {
-        return new q(e * Pf, 0, t * Pf);
+        return t[e] ? Pf(t[e]).getHex() : e === `storm` ? 6719692 : e === `rocks` || e === `island` ? 10535120 : e === `wreck` ? 11571296 : 13162728;
     }
-    function Lf(e, t) {
-        return t[e] ? Ff(t[e]).getHex() : e === `storm` ? 6719692 : e === `rocks` || e === `island` ? 10535120 : e === `wreck` ? 11571296 : 13162728;
-    }
-    function Rf({ state: e, width: t, height: n, isMobile: r, lurch: i, paused: a = !1 }) {
+    function Lf({ state: e, width: t, height: n, isMobile: r, lurch: i, paused: a = !1 }) {
         let o = (0, P.useRef)(null), s = (0, P.useRef)(null), c = (0, P.useRef)(null), l = (0, P.useRef)(e), u = (0, P.useRef)(i), d = (0, P.useRef)(a);
         l.current = e, u.current = i, d.current = a, (0, P.useEffect)(()=>{
             let i = o.current;
             if (!i) return;
-            let a = e.currentZone ?? 1, f = jf(a), p = new Jd({
+            let a = e.currentZone ?? 1, f = Af(a), p = new Jd({
                 canvas: i,
                 antialias: !r,
                 alpha: !1,
@@ -20906,10 +20910,10 @@ void main() {
             });
             p.setPixelRatio(Math.min(window.devicePixelRatio, r ? 1.75 : 2)), p.setSize(t, n, !1), p.setClearColor(f, 1), p.outputColorSpace = jn, p.toneMapping = 4, p.toneMappingExposure = 1.05;
             let m = new ui;
-            m.background = f, m.fog = new li(Af(a), .038);
+            m.background = f, m.fog = new li(kf(a), .038);
             let h = new cc(40, t / Math.max(n, 1), .1, 120);
             h.position.set(0, r ? 5.8 : 6.4, r ? 7.2 : 8), h.lookAt(0, .2, -2.8);
-            let g = Mf(a), _ = new Xs(g.hemiSky, g.hemiGround, .55);
+            let g = jf(a), _ = new Xs(g.hemiSky, g.hemiGround, .55);
             m.add(_);
             let v = new pc(g.key, .85);
             v.position.set(3, 16, 5), m.add(v);
@@ -20921,25 +20925,25 @@ void main() {
             x.position.set(0, 2.2, .8), m.add(x);
             let S = new ti;
             m.add(S);
-            let C = kf(a, r), w = r ? 36 : 56, T = new X(new ls(90, 90, w, w), C);
+            let C = Of(a, r), w = r ? 36 : 56, T = new X(new ls(90, 90, w, w), C);
             T.rotation.x = -Math.PI / 2, S.add(T);
-            let E = new ti, D = new ga({
-                color: 1712684,
-                transparent: !0,
-                opacity: .55,
-                depthWrite: !1,
-                side: 2
-            });
-            for(let e = 0; e < 10; e++){
-                let t = e / 10 * Math.PI * 2, n = new X(new ps(2.8 + e % 3 * .4, 12, 8), D.clone());
-                n.scale.set(1.6, .55, 1.3), n.position.set(Math.cos(t) * 9.5, 1.1, Math.sin(t) * 9.5 - 1.5), n.userData.baseA = t, n.userData.phase = e * .7, E.add(n);
+            let E = new ti, D = (e)=>new ga({
+                    color: 10136508,
+                    transparent: !0,
+                    opacity: e,
+                    depthWrite: !1,
+                    side: 2
+                });
+            for(let e = 0; e < 14; e++){
+                let t = e / 14 * Math.PI * 2, n = new X(new ps(3.4 + e % 4 * .55, 14, 10), D(.38 + e % 3 * .06));
+                n.scale.set(1.9, .7, 1.5), n.position.set(Math.cos(t) * 8.5, 1.3, Math.sin(t) * 8.5 - 1.2), n.userData.baseA = t, n.userData.phase = e * .55, n.userData.radius = 8.5, E.add(n);
             }
-            for(let e = 0; e < 5; e++){
-                let t = new X(new ps(3.2, 10, 8), D.clone());
-                t.scale.set(1.8, .7, 1.2), t.position.set(-6 + e * 3, 1.4, -11), t.userData.phase = e, E.add(t);
+            for(let e = 0; e < 6; e++){
+                let t = new X(new ps(3.8, 12, 9), D(.42));
+                t.scale.set(2.2, .85, 1.4), t.position.set(-7.5 + e * 3, 1.6, -10.5), t.userData.phase = e + 2, E.add(t);
             }
             S.add(E);
-            let O = new ti;
+            let O = Sf(e.ship.vision ?? 1, Nf, Mf);
             S.add(O);
             let k = e.shipType ?? `default`, A = df(k);
             A.position.set(0, .1, .3), S.add(A);
@@ -20979,14 +20983,15 @@ void main() {
                 hunter: null,
                 storm: j,
                 fogBank: E,
-                crosses: O,
+                grid: O,
                 spot: b,
                 tiles: ne,
                 hemi: _,
                 key: v,
                 fill: y,
                 frame: 0,
-                lastShipId: k
+                lastShipId: k,
+                lastVision: e.ship.vision ?? 1
             };
             c.current = N;
             let re = performance.now(), ie = (e)=>{
@@ -21000,16 +21005,17 @@ void main() {
                             let t = e.userData.baseA + i * .04, r = (e.userData.radius ?? 9.2) + Math.sin(i * .2 + n) * .4;
                             e.position.x = Math.cos(t) * r, e.position.z = Math.sin(t) * r - 1.5;
                         }
-                        e instanceof X && e.material instanceof ga && (e.material.opacity = .4 + Math.sin(i * .5 + n) * .12);
+                        e instanceof X && e.material instanceof ga && (e.material.opacity = .32 + Math.sin(i * .45 + n) * .1);
                     }), N.storm.children.forEach((e)=>{
                         if (e.name.startsWith(`bolt-`)) {
                             let t = e.material;
                             t.opacity = Math.sin(i * 9 + e.position.x) > .92 && a.stormDistance <= 6 ? .85 : 0;
                         }
                     }), N.hunter && (N.hunter.rotation.y = i * 1.2, N.hunter.position.y = .05 + Math.sin(i * 3) * .04), N.tiles.forEach((e)=>{
-                        if (e.marker && (e.marker.position.y = 1 + Math.sin(i * 1.8 + e.frame.position.x) * .06, e.marker.rotation.y = Math.sin(i * .8) * .15), !e.prop) return;
-                        let t = e.prop.userData.type;
-                        t === `portal` || t === `maelstrom` ? e.prop.rotation.y = i * (t === `portal` ? .8 : 1.4) : t === `storm` || t === `kraken` || t === `ancient_kraken` ? e.prop.position.y = .02 + Math.sin(i * 2.2 + e.frame.position.x) * .04 : t === `pirate` && (e.prop.rotation.z = Math.sin(i * 1.6) * .04, e.prop.position.y = .02 + Math.sin(i * 2) * .025);
+                        let t = e.prop?.position.x ?? e.marker?.position.x ?? 0;
+                        if (e.marker && (e.marker.position.y = 1.15 + Math.sin(i * 1.8 + t) * .07, e.marker.rotation.y = Math.sin(i * .8) * .15), !e.prop) return;
+                        let n = e.prop.userData.type;
+                        n === `portal` || n === `maelstrom` ? e.prop.rotation.y = i * (n === `portal` ? .8 : 1.4) : n === `storm` || n === `kraken` || n === `ancient_kraken` ? e.prop.position.y = .02 + Math.sin(i * 2.2 + t) * .04 : n === `pirate` && (e.prop.rotation.z = Math.sin(i * 1.6) * .04, e.prop.position.y = .02 + Math.sin(i * 2) * .025);
                     }), p.render(m, h);
                 }
                 if (s.current) {
@@ -21022,7 +21028,7 @@ void main() {
             };
             return N.frame = requestAnimationFrame(ie), ()=>{
                 cancelAnimationFrame(N.frame), ne.forEach((e)=>{
-                    Of(e.frame), e.glow && Of(e.glow), e.marker && Of(e.marker), e.prop && xf(e.prop);
+                    e.highlight && Df(e.highlight), e.glow && Df(e.glow), e.marker && Df(e.marker), e.prop && xf(e.prop);
                 }), m.traverse((e)=>{
                     if (e instanceof X) {
                         e.geometry.dispose();
@@ -21038,39 +21044,29 @@ void main() {
         ]), (0, P.useEffect)(()=>{
             let t = c.current;
             if (!t) return;
-            let n = e.currentZone ?? 1, r = e.ship.vision, i = Zd[n] ?? Zd[1], a = e.hunter?.active ? Qd(e) : 99, o = Mf(n);
-            t.hemi.color.set(o.hemiSky), t.hemi.groundColor.set(o.hemiGround), t.key.color.set(o.key), t.fill.color.set(o.fill), t.scene.fog instanceof li && t.scene.fog.color.copy(Af(n)), t.scene.background = jf(n), t.renderer.setClearColor(jf(n), 1), t.waterMat.uniforms.uDeep.value = n >= 3 ? new Y(`#03060e`) : n === 2 ? new Y(`#050c18`) : new Y(`#061018`), t.waterMat.uniforms.uMid.value = n >= 3 ? new Y(`#0c1830`) : n === 2 ? new Y(`#0e2240`) : new Y(`#0e2a44`), t.waterMat.uniforms.uCrest.value = n >= 3 ? new Y(`#2a4868`) : n === 2 ? new Y(`#3a6890`) : new Y(`#4a88a8`), t.waterMat.uniforms.uSpotRadius.value = 3.5 + r * Pf * .55, t.waterMat.uniforms.uSpotSoft.value = 3.5 + r * .4;
+            let n = e.currentZone ?? 1, r = e.ship.vision, i = Zd[n] ?? Zd[1], a = e.hunter?.active ? Qd(e) : 99, o = jf(n);
+            t.hemi.color.set(o.hemiSky), t.hemi.groundColor.set(o.hemiGround), t.key.color.set(o.key), t.fill.color.set(o.fill), t.scene.fog instanceof li && t.scene.fog.color.copy(kf(n)), t.scene.background = Af(n), t.renderer.setClearColor(Af(n), 1), t.waterMat.uniforms.uDeep.value = n >= 3 ? new Y(`#03060e`) : n === 2 ? new Y(`#050c18`) : new Y(`#061018`), t.waterMat.uniforms.uMid.value = n >= 3 ? new Y(`#0c1830`) : n === 2 ? new Y(`#0e2240`) : new Y(`#0e2a44`), t.waterMat.uniforms.uCrest.value = n >= 3 ? new Y(`#2a4868`) : n === 2 ? new Y(`#3a6890`) : new Y(`#4a88a8`), t.waterMat.uniforms.uSpotRadius.value = 3.5 + r * Nf * .55, t.waterMat.uniforms.uSpotSoft.value = 3.5 + r * .4;
             let s = e.shipType ?? `default`;
-            s !== t.lastShipId && (t.board.remove(t.ship), Of(t.ship), t.ship = df(s), t.ship.position.set(0, .1, .3), t.board.add(t.ship), t.lastShipId = s), t.ship.scale.setScalar(a <= 1 ? 1.45 : 1.4);
-            let l = ((e.stormDistance <= 0 ? -1 : 14 - Math.floor((10 - e.stormDistance) / 3)) - e.ship.y) * Pf, u = Math.min(11, Math.max(1.8, l));
+            s !== t.lastShipId && (t.board.remove(t.ship), Df(t.ship), t.ship = df(s), t.ship.position.set(0, .1, .3), t.board.add(t.ship), t.lastShipId = s), t.ship.scale.setScalar(a <= 1 ? 1.45 : 1.4);
+            let l = ((e.stormDistance <= 0 ? -1 : 14 - Math.floor((10 - e.stormDistance) / 3)) - e.ship.y) * Nf, u = Math.min(11, Math.max(1.8, l));
             t.storm.position.set(0, 0, u);
             let d = Math.max(0, Math.min(1, 1 - e.stormDistance / 10));
             t.storm.visible = e.stormDistance < 12, t.storm.traverse((e)=>{
                 e instanceof X && e.material instanceof Ts && (e.material.opacity = .45 + d * .4, e.material.emissiveIntensity = .2 + d * .55), e instanceof X && e.material instanceof ga && !e.name.startsWith(`bolt-`) && (e.material.opacity = .2 + d * .35);
             }), t.storm.scale.set(1 + d * .25, 1 + d * .4, 1);
-            let f = r * Pf + 3.2;
+            let f = r * Nf + 2.8;
             t.fogBank.children.forEach((e)=>{
                 e.userData.baseA !== void 0 && (e.userData.radius = f);
-            });
+            }), r !== t.lastVision && (t.board.remove(t.grid), Df(t.grid), t.grid = Sf(r, Nf, Mf), t.board.add(t.grid), t.lastVision = r);
             let p = e.hunter?.mode === `frenzy`;
             if (e.hunter?.active) {
                 let n = e.hunter.x - e.ship.x, i = e.hunter.y - e.ship.y;
                 if (Math.abs(n) <= r && Math.abs(i) <= r) {
-                    (!t.hunter || t.hunter.userData.frenzy !== p) && (t.hunter && (t.board.remove(t.hunter), Of(t.hunter)), t.hunter = ff(!!p), t.hunter.userData.frenzy = p, t.board.add(t.hunter));
-                    let e = If(n, i);
+                    (!t.hunter || t.hunter.userData.frenzy !== p) && (t.hunter && (t.board.remove(t.hunter), Df(t.hunter)), t.hunter = ff(!!p), t.hunter.userData.frenzy = p, t.board.add(t.hunter));
+                    let e = Ff(n, i);
                     t.hunter.position.set(e.x, .05, e.z), t.hunter.visible = !0;
                 } else t.hunter && (t.hunter.visible = !1);
-            } else t.hunter &&= (t.board.remove(t.hunter), Of(t.hunter), null);
-            for(; t.crosses.children.length;){
-                let e = t.crosses.children[0];
-                t.crosses.remove(e), Of(e);
-            }
-            for(let e = -r; e <= r + 1; e++)for(let n = -r; n <= r + 1; n++){
-                let i = Tf();
-                i.position.set((n - .5) * Pf, .035, (e - .5) * Pf);
-                let a = Math.max(Math.abs(n - .5), Math.abs(e - .5)) / (r + .5);
-                i.material.opacity = Math.max(.25, .72 - a * .4), t.crosses.add(i);
-            }
+            } else t.hunter &&= (t.board.remove(t.hunter), Df(t.hunter), null);
             let m = new Set;
             for(let n = -r; n <= r; n++)for(let o = -r; o <= r; o++){
                 let r = e.ship.x + o, s = e.ship.y + n, c = `${o},${n}`;
@@ -21082,30 +21078,32 @@ void main() {
                     stormed: !1,
                     value: 0
                 }, u = o === 0 && n === 0, d = !!(e.hunter?.active && e.hunter.x === r && e.hunter.y === s), f = l.revealed || l.visited, h = l.stormed, g = !u && !d && (f && l.type !== `sea` || !f && l.type === `portal`), _ = t.tiles.get(c);
-                if (!_) {
-                    let e = wf(Nf * .92);
-                    t.board.add(e), _ = {
-                        frame: e,
-                        key: c
-                    }, t.tiles.set(c, _);
-                }
-                let v = _, y = If(o, n);
-                if (v.frame.position.set(y.x, 0, y.z), v.frame.traverse((e)=>{
-                    e instanceof X && e.material instanceof ga && (u ? (e.material.color.set(a <= 1 ? `#ee5566` : `#b8e4ff`), e.material.opacity = .85) : d ? (e.material.color.set(p ? `#ff4466` : `#cc66ff`), e.material.opacity = .75) : h ? (e.material.color.set(`#cc5555`), e.material.opacity = .4) : g && i[l.type] ? (e.material.color.copy(Ff(i[l.type])), e.material.opacity = .55) : (e.material.color.set(f ? `#a8d4ec` : `#5a8098`), e.material.opacity = f ? .38 : .22));
-                }), v.frame.visible = !0, g && (i[l.type] || l.type === `storm` || l.type === `pirate` || l.type === `kraken` || l.type === `ancient_kraken` || h)) {
-                    let e = h ? 11149875 : i[l.type] ? Ff(i[l.type]).getHex() : l.type === `storm` ? 4482730 : 13382468;
-                    v.glow ? v.glow.material.color.setHex(e) : (v.glow = Ef(e, .35), t.board.add(v.glow)), v.glow.position.set(y.x, .02, y.z), v.glow.visible = !0;
+                _ || (_ = {
+                    key: c
+                }, t.tiles.set(c, _));
+                let v = _, y = Ff(o, n), b = null, x = .65;
+                if (u ? (b = a <= 1 ? 15619430 : 11066623, x = .8) : d ? (b = p ? 16729190 : 13395711, x = .75) : g && i[l.type] ? (b = Pf(i[l.type]).getHex(), x = .7) : h && (b = 13386837, x = .5), b !== null) {
+                    if (!v.highlight) v.highlight = Cf(Mf, b, x), t.board.add(v.highlight);
+                    else {
+                        let e = v.highlight.material;
+                        e.color.setHex(b), e.opacity = x;
+                    }
+                    v.highlight.position.set(y.x, .05, y.z), v.highlight.visible = !0;
+                } else v.highlight && (v.highlight.visible = !1);
+                if (g && (i[l.type] || l.type === `storm` || l.type === `pirate` || l.type === `kraken` || l.type === `ancient_kraken`) || h) {
+                    let e = h ? 11149875 : i[l.type] ? Pf(i[l.type]).getHex() : l.type === `storm` ? 4482730 : 13382468;
+                    v.glow ? v.glow.material.color.setHex(e) : (v.glow = Tf(e, .42), t.board.add(v.glow)), v.glow.position.set(y.x, .022, y.z), v.glow.visible = !0;
                 } else v.glow && (v.glow.visible = !1);
                 if (g) if (!v.prop || v.prop.userData.type !== l.type || v.prop.userData.visited !== l.visited) {
-                    v.prop && (t.board.remove(v.prop), xf(v.prop)), v.marker &&= (t.board.remove(v.marker), Of(v.marker), void 0);
+                    v.prop && (t.board.remove(v.prop), xf(v.prop)), v.marker &&= (t.board.remove(v.marker), Df(v.marker), void 0);
                     let e = bf(l.type, l.visited);
                     e.userData.visited = l.visited, e.position.set(y.x, .02, y.z), t.board.add(e), v.prop = e;
-                    let n = Df(l.type, Lf(l.type, i));
-                    n.position.set(y.x, 1.05, y.z), t.board.add(n), v.marker = n;
+                    let n = Ef(l.type, If(l.type, i));
+                    n.position.set(y.x, 1.15, y.z), t.board.add(n), v.marker = n;
                 } else v.prop.position.set(y.x, .02, y.z), v.marker && v.marker.position.set(y.x, v.marker.position.y, y.z);
-                else v.prop &&= (t.board.remove(v.prop), xf(v.prop), void 0), v.marker &&= (t.board.remove(v.marker), Of(v.marker), void 0);
+                else v.prop &&= (t.board.remove(v.prop), xf(v.prop), void 0), v.marker &&= (t.board.remove(v.marker), Df(v.marker), void 0);
             }
-            for (let [e, n] of t.tiles)m.has(e) || (t.board.remove(n.frame), Of(n.frame), n.glow && (t.board.remove(n.glow), Of(n.glow)), n.marker && (t.board.remove(n.marker), Of(n.marker)), n.prop && (t.board.remove(n.prop), xf(n.prop)), t.tiles.delete(e));
+            for (let [e, n] of t.tiles)m.has(e) || (n.highlight && (t.board.remove(n.highlight), Df(n.highlight)), n.glow && (t.board.remove(n.glow), Df(n.glow)), n.marker && (t.board.remove(n.marker), Df(n.marker)), n.prop && (t.board.remove(n.prop), xf(n.prop)), t.tiles.delete(e));
         }, [
             e,
             r
@@ -21240,7 +21238,7 @@ void main() {
             ]
         });
     }
-    function zf() {
+    function Rf() {
         if (typeof window > `u`) return !1;
         try {
             if (window.matchMedia(`(prefers-reduced-motion: reduce)`).matches) return !1;
@@ -21252,13 +21250,13 @@ void main() {
             return !1;
         }
     }
-    var Bf = {
+    var zf = {
         1: `rgba(6,14,22,0.82)`,
         2: `rgba(6,10,22,0.86)`,
         3: `rgba(4,6,14,0.9)`
     };
-    function Vf({ state: e, isMobile: t, slide: n, lurch: r, onboard: a, onDismissOnboard: o, onMove: s }) {
-        let c = e.ship.vision * 2 + 1, l = t ? 240 : 210, u = Math.max(180, window.innerHeight - l), d = t ? window.innerWidth - 16 : Math.min(window.innerWidth * .48, 560), m = Math.max(28, Math.floor(Math.min(d, u) / c) - 4), h = Math.max(d, t ? window.innerWidth - 12 : 420), g = Math.max(u * .92, t ? 280 : 380), [v, y] = (0, P.useState)(!1), b = (0, P.useMemo)(()=>!v && zf(), [
+    function Bf({ state: e, isMobile: t, slide: n, lurch: r, onboard: a, onDismissOnboard: o, onMove: s }) {
+        let c = e.ship.vision * 2 + 1, l = t ? 240 : 210, u = Math.max(180, window.innerHeight - l), d = t ? window.innerWidth - 16 : Math.min(window.innerWidth * .48, 560), m = Math.max(28, Math.floor(Math.min(d, u) / c) - 4), h = Math.max(d, t ? window.innerWidth - 12 : 420), g = Math.max(u * .92, t ? 280 : 380), [v, y] = (0, P.useState)(!1), b = (0, P.useMemo)(()=>!v && Rf(), [
             v
         ]), x = !!(e.event || e.showPort || e.gameOver), C = !e.event && !e.showPort && !e.gameOver && (t ? (0, F.jsx)(`div`, {
             style: {
@@ -21507,7 +21505,7 @@ void main() {
                                 transition: n.instant ? `none` : `transform 420ms cubic-bezier(0.22, 1, 0.36, 1)`,
                                 willChange: `transform`
                             },
-                            children: (0, F.jsx)(Rf, {
+                            children: (0, F.jsx)(Lf, {
                                 state: e,
                                 width: h,
                                 height: g,
@@ -21600,7 +21598,7 @@ void main() {
                                                 visited: !1,
                                                 value: 0,
                                                 stormed: !1
-                                            }, d = e.ship.x + n, f = e.ship.y + t, p = e.hunter?.active && e.hunter.x === d && e.hunter.y === f, h = e.hunter?.active ? Qd(e) : 99, g = n === 0 && t === 0, _ = u.revealed || u.visited, v = u.stormed, y = e.stormDistance <= 0 ? -1 : e.grid.length + 2 - Math.floor((10 - e.stormDistance) / 3), b = v && o === y, x = e.currentZone ?? 1, S = Xd[x] ?? Xd[1], C = Zd[x] ?? Zd[1], w = v ? `#cc2222` : C[u.type], T = g ? `#0a2a4a` : p ? e.hunter?.mode === `frenzy` ? `#3a0612` : `#2a0830` : v ? `rgba(90,12,18,0.78)` : _ ? S[u.type] ?? `#050a0f` : Bf[x] ?? Bf[1];
+                                            }, d = e.ship.x + n, f = e.ship.y + t, p = e.hunter?.active && e.hunter.x === d && e.hunter.y === f, h = e.hunter?.active ? Qd(e) : 99, g = n === 0 && t === 0, _ = u.revealed || u.visited, v = u.stormed, y = e.stormDistance <= 0 ? -1 : e.grid.length + 2 - Math.floor((10 - e.stormDistance) / 3), b = v && o === y, x = e.currentZone ?? 1, S = Xd[x] ?? Xd[1], C = Zd[x] ?? Zd[1], w = v ? `#cc2222` : C[u.type], T = g ? `#0a2a4a` : p ? e.hunter?.mode === `frenzy` ? `#3a0612` : `#2a0830` : v ? `rgba(90,12,18,0.78)` : _ ? S[u.type] ?? `#050a0f` : zf[x] ?? zf[1];
                                             return (0, F.jsxs)(i.div, {
                                                 className: b ? `storm-front` : void 0,
                                                 initial: _ ? {
@@ -22168,14 +22166,14 @@ void main() {
             ]
         });
     }
-    var Hf = `/icons/gold.png`, Uf = (e, t = 14)=>(0, F.jsx)(S, {
+    var Vf = `/icons/gold.png`, Hf = (e, t = 14)=>(0, F.jsx)(S, {
             name: e === `frenzy` ? `lightning` : e === `stalking` ? `eye` : e === `searching` ? `mist` : `compass`,
             size: t,
             style: {
                 marginRight: 5
             }
         });
-    Wf = function({ walletAddress: e, account: t, username: r, onHome: s, onPlayDaily: d, dailySeed: v, isDaily: ce, seedToken: le, shipId: ue, resumeState: pe, resumeRunId: me, resumeActions: he }) {
+    Uf = function({ walletAddress: e, account: t, username: r, onHome: s, onPlayDaily: d, dailySeed: v, isDaily: ce, seedToken: le, shipId: ue, resumeState: pe, resumeRunId: me, resumeActions: he }) {
         let { connect: ve, connecting: ye } = a(), [I, be] = (0, P.useState)(()=>pe ?? h(v, ue ?? `default`)), L = (0, P.useRef)(!e), [xe, Se] = (0, P.useState)(()=>!ee()), [Ce, R] = (0, P.useState)(null), [we, z] = (0, P.useState)(!1), [B, Te] = (0, P.useState)([]), [Ee, De] = (0, P.useState)([]), [Oe, ke] = (0, P.useState)([]), Ae = (0, P.useRef)(0), [je, Me] = (0, P.useState)(null), Ne = (0, P.useRef)((I.relics ?? []).length), [Re, ze] = (0, P.useState)(!1), [Be, Ve] = (0, P.useState)(!1), He = (0, P.useRef)(!1), [Ke, qe] = (0, P.useState)([]), [Xe, nt] = (0, P.useState)(null), [rt, it] = (0, P.useState)(0), [at, ot] = (0, P.useState)(()=>O()), [ct, lt] = (0, P.useState)(!1), [ut, dt] = (0, P.useState)(!1), [V, ft] = (0, P.useState)(window.innerWidth < 768), pt = ce === !0, mt = (0, P.useRef)(le), [ht, gt] = (0, P.useState)(!1), [_t, vt] = (0, P.useState)(!1);
         (0, P.useEffect)(()=>{
             if (I.gameOver) {
@@ -23010,7 +23008,7 @@ void main() {
                                                 (0, F.jsx)(`img`, {
                                                     src: {
                                                         hull: `/assets/hull-CGmPGbU0.png`,
-                                                        gold: Hf,
+                                                        gold: Vf,
                                                         vision: `/assets/vision-3Q65Za4i.png`,
                                                         power: `/assets/power-CBX9SU5d.png`,
                                                         turn: `/assets/turn-Wvx6vBym.png`
@@ -23193,7 +23191,7 @@ void main() {
                                             minWidth: 70
                                         },
                                         children: [
-                                            Uf(H.hunter.mode),
+                                            Hf(H.hunter.mode),
                                             ef(H.hunter.mode)
                                         ]
                                     }),
@@ -23393,7 +23391,7 @@ void main() {
                                                     border: `1px solid ${H.hunter.mode === `frenzy` ? `rgba(220,30,30,0.6)` : H.hunter.mode === `stalking` ? `rgba(180,30,180,0.5)` : `rgba(255,255,255,0.1)`}`
                                                 },
                                                 children: [
-                                                    Uf(H.hunter.mode),
+                                                    Hf(H.hunter.mode),
                                                     ef(H.hunter.mode)
                                                 ]
                                             }),
@@ -23751,7 +23749,7 @@ void main() {
                                 })
                             ]
                         }),
-                        (0, F.jsx)(Vf, {
+                        (0, F.jsx)(Bf, {
                             state: H,
                             isMobile: V,
                             slide: It,
@@ -24914,4 +24912,4 @@ void main() {
         });
     };
 });
-export { Wf as default, __tla };
+export { Uf as default, __tla };
