@@ -19771,7 +19771,6 @@ void main() {
                     e && (e.userData.type = d.type, e.position.set(x.x, .38, x.z), t.board.add(e), v.icon = e);
                 } else v.icon.position.set(x.x, .38, x.z), v.icon.material.opacity = d.visited ? .4 : .95;
                 else v.icon && (t.board.remove(v.icon), v.icon.material.dispose(), v.icon = void 0);
-                v.mesh.visible = !0, v.rim.visible = !0;
             }
             for (let [e, n] of t.tiles)m.has(e) || (t.board.remove(n.mesh), t.board.remove(n.rim), n.mesh.geometry.dispose(), n.mesh.material.dispose(), n.rim.geometry.dispose(), n.rim.material.dispose(), n.icon && (t.board.remove(n.icon), n.icon.material.dispose()), t.tiles.delete(e));
         }, [
