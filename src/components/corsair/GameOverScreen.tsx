@@ -1,8 +1,9 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import type { GameState } from '../../types/game';
 import type { Feat } from '../../game/feats';
+import type { FeatProgress } from '../../game/progress';
 import { getRelicDef, type RelicDef } from '../../game/relics';
-import { getDailyKey, isDailySeedRevealed } from '../../game/engine';
+import { getDailyKey, isDailySeedRevealed, hasDailyBeenPlayed } from '../../game/engine';
 import { submitScoreOnChain } from '../../starknet';
 import ShareCard, { shareVoyage } from '../../ShareCard';
 import { Icon } from '../../Icon';
@@ -16,6 +17,7 @@ export type GameOverScreenProps = {
   personalBest: number;
   isNewRecord: boolean;
   newFeats: Feat[];
+  nearFeats: FeatProgress[];
   scoreSubmitted: boolean;
   nftMinted: string[];
   walletAddress: string | null;
@@ -43,6 +45,7 @@ export default function GameOverScreen({
   personalBest,
   isNewRecord,
   newFeats,
+  nearFeats,
   scoreSubmitted,
   nftMinted,
   walletAddress,
@@ -104,11 +107,6 @@ export default function GameOverScreen({
                 <div style={{ fontSize: isMobile ? 12 : 14, color: 'rgba(255,255,255,0.55)', fontFamily: "'IM Fell English', cursive", textAlign: 'center' }}>
                   {dc.tip}
                 </div>
-                {s.score < personalBest && personalBest > 0 && (
-                  <div style={{ fontSize: isMobile ? 11 : 13, color: 'rgba(238,221,68,0.7)', fontFamily: "'Cinzel', serif" }}>
-                    {personalBest - s.score} pts short of your best ({personalBest})
-                  </div>
-                )}
               </motion.div>
             );
           })()}
@@ -125,6 +123,49 @@ export default function GameOverScreen({
                   </div>
                 </div>
               ))}
+            </motion.div>
+          )}
+
+          {/* Unfinished business — reason to come back */}
+          {(nearFeats.length > 0 || (!isNewRecord && personalBest > s.score)) && (
+            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.35 }}
+              style={{
+                marginBottom: 18, padding: isMobile ? '12px 14px' : '14px 20px', borderRadius: 12,
+                border: '1px solid rgba(136,221,255,0.35)', background: 'rgba(10,24,40,0.75)',
+                maxWidth: isMobile ? '92vw' : 520, width: '100%',
+              }}>
+              <div style={{ fontFamily: "'Cinzel', serif", fontSize: 11, letterSpacing: 3, color: 'rgba(136,221,255,0.85)', marginBottom: 8, textAlign: 'center' }}>
+                STILL ON THE TIDE
+              </div>
+              {!isNewRecord && personalBest > s.score && (
+                <div style={{ fontFamily: "'IM Fell English', cursive", fontSize: isMobile ? 14 : 15, color: 'rgba(255,255,255,0.75)', textAlign: 'center', marginBottom: nearFeats.length ? 8 : 0 }}>
+                  {personalBest - s.score} pts short of your best ({personalBest.toLocaleString()})
+                </div>
+              )}
+              {nearFeats.map(p => (
+                <div key={p.feat.id} style={{ marginTop: 8 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8, alignItems: 'baseline', marginBottom: 4 }}>
+                    <div style={{ fontFamily: "'Pirata One', cursive", fontSize: 15, color: '#c8e8ff' }}>{p.feat.name}</div>
+                    <div style={{ fontFamily: "'Cinzel', serif", fontSize: 11, color: 'rgba(255,255,255,0.45)' }}>{Math.round(p.ratio * 100)}%</div>
+                  </div>
+                  <div style={{ height: 4, borderRadius: 2, background: 'rgba(255,255,255,0.08)', overflow: 'hidden', marginBottom: 4 }}>
+                    <div style={{ height: '100%', width: `${Math.round(p.ratio * 100)}%`, background: 'linear-gradient(90deg,#2a6a8a,#88ddff)', borderRadius: 2 }} />
+                  </div>
+                  <div style={{ fontFamily: "'IM Fell English', cursive", fontSize: 13, color: 'rgba(255,255,255,0.55)' }}>
+                    {p.line}
+                  </div>
+                </div>
+              ))}
+              {!isDailyRun && !hasDailyBeenPlayed() && onPlayDaily && walletAddress && (
+                <div style={{ marginTop: 12, fontSize: 12, color: 'rgba(200,160,48,0.75)', fontFamily: "'Cinzel', serif", letterSpacing: 1, textAlign: 'center' }}>
+                  Daily still open today — same seas as every captain.
+                </div>
+              )}
+              {!isDailyRun && !hasDailyBeenPlayed() && !walletAddress && (
+                <div style={{ marginTop: 12, fontSize: 12, color: 'rgba(200,160,48,0.75)', fontFamily: "'Cinzel', serif", letterSpacing: 1, textAlign: 'center' }}>
+                  Connect to sail today’s Daily and climb the board.
+                </div>
+              )}
             </motion.div>
           )}
 
@@ -280,7 +321,14 @@ export default function GameOverScreen({
                   Harbor unreachable — try Sail again when you're back online
                 </div>
               )}
-              <div style={{ display: 'flex', gap: 12 }}>
+              <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
+                {!isDailyRun && !hasDailyBeenPlayed() && onPlayDaily && walletAddress && (
+                  <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }} onClick={onPlayDaily}
+                    style={{ padding: '14px 28px', borderRadius: 12, border: '2px solid rgba(136,221,255,0.7)', background: 'rgba(30,80,110,0.45)', color: '#88ddff', cursor: 'pointer', fontSize: 18, fontWeight: 700, letterSpacing: 2, fontFamily: "'Pirata One', cursive",
+                      boxShadow: '0 0 20px rgba(100,180,220,0.2)' }}>
+                    PLAY DAILY · 1 TRY
+                  </motion.button>
+                )}
                 <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }} onClick={onRestart} disabled={restarting}
                   style={{ padding: '14px 36px', borderRadius: 12, border: '2px solid rgba(200,160,48,0.6)', background: 'rgba(80,60,10,0.5)', color: '#c8a030', cursor: restarting ? 'wait' : 'pointer', fontSize: 20, fontWeight: 700, letterSpacing: 2, fontFamily: "'Pirata One', cursive",
                     boxShadow: '0 0 20px rgba(200,160,48,0.2)', opacity: restarting ? 0.7 : 1 }}>

@@ -80,7 +80,7 @@ function buildEvent(type: CellType, power: number): ActiveEvent {
     ]};
     default: return { cellType: type, choices: [
       { label: 'Continue',    desc: 'Sail on',             icon: 'sail', risk: 'safe' },
-      { label: 'Look around', desc: 'Use a turn to scout', icon: '🔭', risk: 'safe' },
+      { label: 'Look around', desc: 'Use a turn to scout', icon: 'search', risk: 'safe' },
     ]};
   }
 }

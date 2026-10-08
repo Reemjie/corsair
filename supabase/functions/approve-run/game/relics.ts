@@ -5,9 +5,14 @@
 export interface RelicDef {
   id: string;
   name: string;
-  icon: string;      // nom d'icone gravee (Icon.tsx) ou emoji
+  icon: string;      // fallback Icon.tsx name
   rarity: 'common' | 'rare' | 'legendary';
   desc: string;      // description joueur
+}
+
+/** Dedicated relic art under public/relics/{id}.jpg */
+export function relicPortraitUrl(id: string): string {
+  return `${import.meta.env.BASE_URL}relics/${id}.jpg`;
 }
 
 export const RELICS: RelicDef[] = [

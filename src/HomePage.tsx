@@ -12,6 +12,7 @@ import ShipsPanel from './ShipsPanel';
 import ShipDraft from './ShipDraft';
 import PatchNotes from './PatchNotes';
 import { getUnlockedShips, rollShipDraft, type ShipDef } from './game/ships';
+import { getPersonalBest, getNearestFeats } from './game/progress';
 import { Icon } from './Icon';
 import Leaderboard from './Leaderboard';
 
@@ -183,6 +184,43 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
           A ROGUELITE OF NAVIGATION & SURVIVAL
         </motion.div>
 
+        {/* Return strip — unfinished business for captains who come back */}
+        {(() => {
+          const pb = getPersonalBest();
+          const near = getNearestFeats(undefined, 1).find(n => n.ratio > 0) ?? null;
+          if (pb <= 0 && !near) return null;
+          return (
+            <motion.div initial={{ opacity:0, y:8 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.75 }}
+              style={{
+                flexShrink:0, maxWidth:420, width: isMobile ? '90%' : '100%',
+                padding: isMobile ? '8px 12px' : '10px 16px', borderRadius:10,
+                border:'1px solid rgba(136,221,255,0.28)', background:'rgba(8,18,28,0.72)',
+                display:'flex', flexDirection:'column', gap:4, textAlign:'center',
+              }}>
+              <div style={{ fontFamily:"'Cinzel', serif", fontSize:10, letterSpacing:2, color:'rgba(136,221,255,0.7)' }}>
+                YOUR TIDE
+              </div>
+              <div style={{ fontFamily:"'IM Fell English', cursive", fontSize: isMobile ? 13 : 14, color:'rgba(255,255,255,0.75)', lineHeight:1.35 }}>
+                {pb > 0 && <>Best <span style={{ color:'#eedd44' }}>{pb.toLocaleString()}</span> pts</>}
+                {pb > 0 && <span style={{ color:'rgba(255,255,255,0.35)' }}> · </span>}
+                Daily resets <span style={{ color:'#88ddff' }}>{timeLeft}</span>
+                {near && (
+                  <>
+                    <span style={{ color:'rgba(255,255,255,0.35)' }}> · </span>
+                    Near: <span style={{ color:'#a8d8ff' }}>{near.feat.name}</span>
+                    {' '}({Math.round(near.ratio * 100)}%)
+                  </>
+                )}
+              </div>
+              {!dailyDone && (
+                <div style={{ fontFamily:"'Cinzel', serif", fontSize:10, letterSpacing:1, color:'rgba(200,160,48,0.7)', marginTop:2 }}>
+                  {address ? 'Daily still open — climb today’s board' : 'Connect to sail the Daily · same seas for every captain'}
+                </div>
+              )}
+            </motion.div>
+          );
+        })()}
+
         <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.9 }}
           style={{ flexShrink:0, display:'flex', flexDirection:'column', alignItems:'center', gap:12, marginTop:16 }}>
 
@@ -328,6 +366,37 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
                   Thank you to every captain who took part.
                 </div>
               )}
+            </div>
+          )}
+
+          {/* Tideborn Season 1 — live callout (English) */}
+          {!enSeptembre && (
+            <div style={{
+              padding: isMobile ? '12px 14px' : '14px 20px', borderRadius:12,
+              border:'1px solid rgba(136,200,238,0.45)',
+              background:'linear-gradient(135deg, rgba(8,28,48,0.92), rgba(6,12,22,0.92))',
+              width:'100%', maxWidth:360, textAlign:'center',
+              boxShadow:'0 0 20px rgba(80,160,220,0.12)',
+            }}>
+              <div style={{ fontSize:11, color:'rgba(136,200,238,0.9)', fontFamily:"'Cinzel', serif", letterSpacing:3, marginBottom:6 }}>
+                TIDEBORN · SEASON 1
+              </div>
+              <div style={{ fontSize: isMobile ? 13 : 14, color:'rgba(255,255,255,0.78)', fontFamily:"'IM Fell English', cursive", lineHeight:1.4, marginBottom:10 }}>
+                Five new relics. Fresh conditions.<br/>One Crown for a single captain.
+              </div>
+              <motion.button
+                whileHover={{ scale:1.04 }} whileTap={{ scale:0.97 }}
+                onClick={() => setShowNFTs(true)}
+                style={{
+                  padding:'8px 18px', borderRadius:10,
+                  border:'1px solid rgba(136,200,238,0.65)',
+                  background:'rgba(136,200,238,0.12)',
+                  color:'#88c8ee', fontSize:12, letterSpacing:2,
+                  cursor:'pointer', fontFamily:"'Pirata One', cursive",
+                }}
+              >
+                VIEW RELICS
+              </motion.button>
             </div>
           )}
 

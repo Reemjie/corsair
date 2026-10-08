@@ -20,6 +20,12 @@ const METADATA_URIS: Record<string, string> = {
   last_port: 'ipfs://QmPnXkYVFQqVKJcY87dQkSte8bKWQiYVY8KTfDBPMGB1wA',
   blood_moon_tide: 'ipfs://QmRQMW4ybuayF4S4yRwKzHHEpQWLbbJXtrYroAAB3rjx2M',
   leviathan: 'ipfs://QmNnwHkhNawMF1K2cEzfitNUAzWRoAaqAF3hxheULKxj19',
+  // Tideborn — metadata URI = public storage image until IPFS pin
+  splintered_keel: 'https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/12-splintered_keel.jpg',
+  quiet_hold: 'https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/13-quiet_hold.jpg',
+  red_wake: 'https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/14-red_wake.jpg',
+  abyss_lantern: 'https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/15-abyss_lantern.jpg',
+  tideborn_crown: 'https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/16-tideborn_crown.jpg',
 }
 
 interface RunData {
@@ -41,6 +47,8 @@ interface RunData {
   combo_turn: number
   storm_distance_min: number
   cursed_treasure_taken: boolean
+  /** Current zone at end of run (1 Coast / 2 Storm Sea / 3 Abyss) */
+  zone?: number
 }
 
 const TELEGRAM_BOT_TOKEN = Deno.env.get('TELEGRAM_BOT_TOKEN')!
@@ -85,14 +93,21 @@ Deno.serve(async (req) => {
 
   const nftsToMint: string[] = []
 
-  // ACHIEVEMENT CONDITIONS
+  // ACHIEVEMENT CONDITIONS — Genesis
   if (run.gold >= 300 && run.cursed_treasure_taken) nftsToMint.push('cursed_doubloon')
   if (run.ports_visited >= 2 && run.score > 500) nftsToMint.push('last_port')
   if (run.treasures_found >= 3 && run.kraken_killed) nftsToMint.push('ancient_chart')
   if (run.pirates_fought === 0 && run.score > 400) nftsToMint.push('ghost_corsair')
   if (run.combo_turn <= 8 && run.turn >= 20) nftsToMint.push('blood_moon_tide')
 
-  // SEED CONDITIONS (LEGENDARY)
+  // ACHIEVEMENT CONDITIONS — Tideborn (season 1)
+  // tideborn_crown is event-only (manual), like starktember_tide
+  if (run.min_hull_during_run <= 3 && run.turn >= 15) nftsToMint.push('splintered_keel')
+  if (run.gold >= 200 && run.pirates_fought === 0) nftsToMint.push('quiet_hold')
+  if (run.pirates_fought >= 5) nftsToMint.push('red_wake')
+  if ((run.zone ?? 1) >= 3 && run.score >= 800) nftsToMint.push('abyss_lantern')
+
+  // SEED CONDITIONS (LEGENDARY — Genesis)
   const { data: seedData } = await supabase
     .from('nft_seeds').select('nft_name')
     .eq('seed', run.seed).eq('used', false).single()

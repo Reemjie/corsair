@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { SHIPS, isShipUnlocked, getSelectedShip, setSelectedShip } from './game/ships';
+import { SHIPS, isShipUnlocked, getSelectedShip, setSelectedShip, shipPortraitUrl } from './game/ships';
 import { useState } from 'react';
 import { Icon } from './Icon';
 
@@ -29,25 +29,36 @@ export default function ShipsPanel({ onClose }: { onClose: () => void }) {
             return (
               <div key={sh.id}
                 onClick={() => { if (unlocked) { setSelectedShip(sh.id); setSelected(sh.id); } }}
-                style={{ padding:'14px 16px', borderRadius:12, cursor: unlocked ? 'pointer' : 'default',
+                style={{ padding:0, borderRadius:12, cursor: unlocked ? 'pointer' : 'default', overflow:'hidden',
                   border: isSel ? '2px solid rgba(238,221,68,0.85)' : unlocked ? '1px solid rgba(200,160,48,0.4)' : '1px solid rgba(255,255,255,0.08)',
                   background: isSel ? 'rgba(238,221,68,0.12)' : unlocked ? 'rgba(200,160,48,0.06)' : 'rgba(255,255,255,0.02)',
-                  opacity: unlocked ? 1 : 0.6 }}>
-                <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between' }}>
-                  <div style={{ fontFamily:"'Pirata One', cursive", fontSize:19, color: unlocked ? '#eedd88' : 'rgba(255,255,255,0.5)', letterSpacing:1 }}>
-                    {unlocked ? '' : '🔒 '}{sh.name}
+                  opacity: unlocked ? 1 : 0.55, display:'flex', alignItems:'stretch' }}>
+                <img
+                  src={shipPortraitUrl(sh.id)}
+                  alt=""
+                  style={{
+                    width: 88, height: 88, objectFit: 'cover', flexShrink: 0,
+                    filter: unlocked ? 'none' : 'grayscale(0.85) brightness(0.55)',
+                    borderRight: isSel ? '1px solid rgba(238,221,68,0.4)' : '1px solid rgba(200,160,48,0.2)',
+                  }}
+                />
+                <div style={{ padding:'12px 14px', flex:1, minWidth:0 }}>
+                  <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', gap:8 }}>
+                    <div style={{ fontFamily:"'Pirata One', cursive", fontSize:19, color: unlocked ? '#eedd88' : 'rgba(255,255,255,0.5)', letterSpacing:1 }}>
+                      {unlocked ? '' : '🔒 '}{sh.name}
+                    </div>
+                    {isSel && <div style={{ fontFamily:"'Cinzel', serif", fontSize:11, letterSpacing:2, color:'#eedd44', flexShrink:0 }}>★ SELECTED</div>}
                   </div>
-                  {isSel && <div style={{ fontFamily:"'Cinzel', serif", fontSize:11, letterSpacing:2, color:'#eedd44' }}>★ SELECTED</div>}
+                  <div style={{ fontFamily:"'IM Fell English', cursive", fontSize:13, color:'rgba(255,255,255,0.6)', fontStyle:'italic', margin:'2px 0 8px' }}>{sh.tagline}</div>
+                  {unlocked ? (
+                    <div style={{ display:'flex', flexWrap:'wrap', gap:'4px 14px' }}>
+                      {sh.perks.map(p => <span key={p} style={{ fontSize:11.5, color:'#66cc88', fontFamily:"'Cinzel', serif" }}>+ {p}</span>)}
+                      {sh.drawbacks.map(d => <span key={d} style={{ fontSize:11.5, color:'#ee6655', fontFamily:"'Cinzel', serif" }}>− {d}</span>)}
+                    </div>
+                  ) : (
+                    <div style={{ fontSize:11.5, color:'rgba(238,221,68,0.7)', fontFamily:"'Cinzel', serif", letterSpacing:1 }}>{sh.unlockLabel}</div>
+                  )}
                 </div>
-                <div style={{ fontFamily:"'IM Fell English', cursive", fontSize:13, color:'rgba(255,255,255,0.6)', fontStyle:'italic', margin:'2px 0 8px' }}>{sh.tagline}</div>
-                {unlocked ? (
-                  <div style={{ display:'flex', flexWrap:'wrap', gap:'4px 14px' }}>
-                    {sh.perks.map(p => <span key={p} style={{ fontSize:11.5, color:'#66cc88', fontFamily:"'Cinzel', serif" }}>+ {p}</span>)}
-                    {sh.drawbacks.map(d => <span key={d} style={{ fontSize:11.5, color:'#ee6655', fontFamily:"'Cinzel', serif" }}>− {d}</span>)}
-                  </div>
-                ) : (
-                  <div style={{ fontSize:11.5, color:'rgba(238,221,68,0.7)', fontFamily:"'Cinzel', serif", letterSpacing:1 }}>{sh.unlockLabel}</div>
-                )}
               </div>
             );
           })}
