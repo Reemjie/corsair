@@ -12427,6 +12427,65 @@ Error generating stack: ` + e.message + `
                                         })
                                     ]
                                 }),
+                                !l && (0, k.jsxs)(`div`, {
+                                    style: {
+                                        padding: p ? `12px 14px` : `14px 20px`,
+                                        borderRadius: 12,
+                                        border: `1px solid rgba(136,200,238,0.45)`,
+                                        background: `linear-gradient(135deg, rgba(8,28,48,0.92), rgba(6,12,22,0.92))`,
+                                        width: `100%`,
+                                        maxWidth: 360,
+                                        textAlign: `center`,
+                                        boxShadow: `0 0 20px rgba(80,160,220,0.12)`
+                                    },
+                                    children: [
+                                        (0, k.jsx)(`div`, {
+                                            style: {
+                                                fontSize: 11,
+                                                color: `rgba(136,200,238,0.9)`,
+                                                fontFamily: `'Cinzel', serif`,
+                                                letterSpacing: 3,
+                                                marginBottom: 6
+                                            },
+                                            children: `TIDEBORN · SEASON 1`
+                                        }),
+                                        (0, k.jsxs)(`div`, {
+                                            style: {
+                                                fontSize: p ? 13 : 14,
+                                                color: `rgba(255,255,255,0.78)`,
+                                                fontFamily: `'IM Fell English', cursive`,
+                                                lineHeight: 1.4,
+                                                marginBottom: 10
+                                            },
+                                            children: [
+                                                `Five new relics. Fresh conditions.`,
+                                                (0, k.jsx)(`br`, {}),
+                                                `One Crown for a single captain.`
+                                            ]
+                                        }),
+                                        (0, k.jsx)(a.button, {
+                                            whileHover: {
+                                                scale: 1.04
+                                            },
+                                            whileTap: {
+                                                scale: .97
+                                            },
+                                            onClick: ()=>y(!0),
+                                            style: {
+                                                padding: `8px 18px`,
+                                                borderRadius: 10,
+                                                border: `1px solid rgba(136,200,238,0.65)`,
+                                                background: `rgba(136,200,238,0.12)`,
+                                                color: `#88c8ee`,
+                                                fontSize: 12,
+                                                letterSpacing: 2,
+                                                cursor: `pointer`,
+                                                fontFamily: `'Pirata One', cursive`
+                                            },
+                                            children: `VIEW RELICS`
+                                        })
+                                    ]
+                                }),
                                 n && n.actions.length > 0 && t && (0, k.jsxs)(a.button, {
                                     whileHover: {
                                         scale: 1.05
