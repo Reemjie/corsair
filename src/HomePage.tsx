@@ -382,7 +382,7 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
                 TIDEBORN · SEASON 1
               </div>
               <div style={{ fontSize: isMobile ? 13 : 14, color:'rgba(255,255,255,0.78)', fontFamily:"'IM Fell English', cursive", lineHeight:1.4, marginBottom:10 }}>
-                Five new relics. Fresh conditions.<br/>One Crown for a single captain.
+                Five new relics. Fresh conditions.<br/>The Crown waits in The Abyss — one copy, ever.
               </div>
               <motion.button
                 whileHover={{ scale:1.04 }} whileTap={{ scale:0.97 }}

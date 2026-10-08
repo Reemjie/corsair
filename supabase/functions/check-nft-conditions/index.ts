@@ -101,11 +101,12 @@ Deno.serve(async (req) => {
   if (run.combo_turn <= 8 && run.turn >= 20) nftsToMint.push('blood_moon_tide')
 
   // ACHIEVEMENT CONDITIONS — Tideborn (season 1)
-  // tideborn_crown is event-only (manual), like starktember_tide
   if (run.min_hull_during_run <= 3 && run.turn >= 15) nftsToMint.push('splintered_keel')
   if (run.gold >= 200 && run.pirates_fought === 0) nftsToMint.push('quiet_hold')
   if (run.pirates_fought >= 5) nftsToMint.push('red_wake')
   if ((run.zone ?? 1) >= 3 && run.score >= 800) nftsToMint.push('abyss_lantern')
+  // Mythic crown — one copy: Abyss + Ancient Kraken + elite score
+  if ((run.zone ?? 1) >= 3 && run.ancient_kraken_killed && run.score >= 2000) nftsToMint.push('tideborn_crown')
 
   // SEED CONDITIONS (LEGENDARY — Genesis)
   const { data: seedData } = await supabase

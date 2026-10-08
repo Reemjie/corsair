@@ -7,5 +7,5 @@ VALUES
   ('quiet_hold',      13, 'Rare',      0, 40, 'Finish with 200+ gold without fighting a pirate.'),
   ('red_wake',        14, 'Epic',      0, 25, 'Fight 5 or more pirates in a single voyage.'),
   ('abyss_lantern',   15, 'Legendary', 0, 10, 'Reach The Abyss and finish with 800+ points.'),
-  ('tideborn_crown',  16, 'Mythic',    0, 1,  'Win the Tideborn season event — one crown, one captain.')
+  ('tideborn_crown',  16, 'Mythic',    0, 1,  'Reach The Abyss, slay the Ancient Kraken, and finish with 2,000+ points.')
 ON CONFLICT (name) DO NOTHING;

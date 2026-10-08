@@ -37,7 +37,7 @@ const TIDEBORN: NFTDef[] = [
   { key: 'quiet_hold', name: 'The Quiet Hold', rarity: 'Rare', image: `${IMG}/13-quiet_hold.jpg`, condition: 'Finish with 200+ gold without fighting a single pirate.' },
   { key: 'red_wake', name: 'The Red Wake', rarity: 'Epic', image: `${IMG}/14-red_wake.jpg`, condition: 'Fight 5 or more pirates in a single voyage.' },
   { key: 'abyss_lantern', name: 'The Abyss Lantern', rarity: 'Legendary', image: `${IMG}/15-abyss_lantern.jpg`, condition: 'Reach The Abyss and finish with 800+ points.' },
-  { key: 'tideborn_crown', name: 'The Tideborn Crown', rarity: 'Mythic', image: `${IMG}/16-tideborn_crown.jpg`, condition: 'Win the Tideborn season — one crown, one captain.', eventOnly: true },
+  { key: 'tideborn_crown', name: 'The Tideborn Crown', rarity: 'Mythic', image: `${IMG}/16-tideborn_crown.jpg`, condition: 'Reach The Abyss, slay the Ancient Kraken, and finish with 2,000+ points.', hidden: true },
 ];
 
 const RARITY_COLOR: Record<string, string> = {
