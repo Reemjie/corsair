@@ -10021,8 +10021,8 @@ Error generating stack: ` + e.message + `
             name: `The Tideborn Crown`,
             rarity: `Mythic`,
             image: `${ze}/16-tideborn_crown.jpg`,
-            condition: `Win the Tideborn season — one crown, one captain.`,
-            eventOnly: !0
+            condition: `Reach The Abyss, slay the Ancient Kraken, and finish with 2,000+ points.`,
+            hidden: !0
         }
     ], He = {
         Rare: `#44cc88`,
@@ -12460,7 +12460,7 @@ Error generating stack: ` + e.message + `
                                             children: [
                                                 `Five new relics. Fresh conditions.`,
                                                 (0, k.jsx)(`br`, {}),
-                                                `One Crown for a single captain.`
+                                                `The Crown waits in The Abyss — one copy, ever.`
                                             ]
                                         }),
                                         (0, k.jsx)(a.button, {
