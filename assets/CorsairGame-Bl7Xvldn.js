@@ -1,7 +1,7 @@
 import { a as e } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as t, n, r, t as i } from "./motion-wKhEcHeU.js";
 import { n as a } from "./walletApi-DYniPf4L.js";
-import { A as o, C as s, D as c, E as l, F as u, H as d, M as f, N as p, O as m, S as h, T as g, U as _, V as v, _ as ee, a as y, d as b, f as x, g as te, i as S, j as ne, k as re, p as C, r as ie, t as ae, v as oe, w as se, x as w, y as ce } from "./anchor-CJawS8b5.js";
+import { A as o, C as s, D as c, E as l, F as u, H as d, M as f, N as p, O as m, S as h, T as g, U as _, V as v, _ as ee, a as y, d as b, f as x, g as te, i as S, j as ne, k as re, p as C, r as ie, t as ae, v as oe, w as se, x as w, y as ce } from "./anchor-yBmKqk5Y.js";
 import { a as le, b as ue, d as de, h as fe, m as pe, p as me, t as he, x as ge, __tla as __tla_0 } from "./supabase-BXtpc1SX.js";
 import { l as _e, __tla as __tla_1 } from "./wallet-D0U5_iuP.js";
 let St;
@@ -2355,57 +2355,67 @@ let __tla = Promise.all([
             case `merchant`:
                 return {
                     hull: `#8B5A2B`,
-                    hullDark: `#5C3A18`,
+                    hullDark: `#4A2E12`,
+                    hullLight: `#A87840`,
                     deck: `#C4A06A`,
                     sail: `#F2E6C4`,
-                    sailShade: `#D9C89A`,
+                    sailShade: `#D4C08A`,
                     trim: `#D4A017`,
-                    mast: `#3D2A18`
+                    mast: `#3D2A18`,
+                    flag: `#D4A017`
                 };
             case `specter`:
                 return {
-                    hull: `#6BB8D4`,
-                    hullDark: `#3A7A98`,
+                    hull: `#5A9BB8`,
+                    hullDark: `#2A5A70`,
+                    hullLight: `#8EC8DC`,
                     deck: `#A8DCEC`,
-                    sail: `#E0F6FF`,
-                    sailShade: `#B0D8EC`,
+                    sail: `#E8F8FF`,
+                    sailShade: `#A8D0E8`,
                     trim: `#8EE0FF`,
-                    mast: `#2A4A58`
+                    mast: `#2A4A58`,
+                    flag: `#B0E8FF`
                 };
             case `breakwater`:
                 return {
-                    hull: `#4A3A32`,
-                    hullDark: `#2A2018`,
-                    deck: `#7A6A58`,
-                    sail: `#D0C8B8`,
-                    sailShade: `#A8A090`,
-                    trim: `#8A8070`,
-                    mast: `#1A1410`
+                    hull: `#5C3A22`,
+                    hullDark: `#2A1810`,
+                    hullLight: `#7A5040`,
+                    deck: `#8A6A48`,
+                    sail: `#E8DCC8`,
+                    sailShade: `#B8A888`,
+                    trim: `#8A9098`,
+                    mast: `#1A1008`,
+                    flag: `#C8B090`
                 };
             case `corsair`:
                 return {
                     hull: `#2A1814`,
-                    hullDark: `#120C0A`,
+                    hullDark: `#100806`,
+                    hullLight: `#4A2820`,
                     deck: `#5A3830`,
-                    sail: `#C42830`,
-                    sailShade: `#8A1820`,
+                    sail: `#B01820`,
+                    sailShade: `#701018`,
                     trim: `#E8C840`,
-                    mast: `#1A1010`
+                    mast: `#1A1010`,
+                    flag: `#E04040`
                 };
             default:
                 return {
                     hull: `#6B4428`,
-                    hullDark: `#3E2818`,
+                    hullDark: `#3A2414`,
+                    hullLight: `#8A5A38`,
                     deck: `#A87848`,
                     sail: `#F4EFE4`,
-                    sailShade: `#D4C8B0`,
+                    sailShade: `#D0C4A8`,
                     trim: `#C8A060`,
-                    mast: `#2E2014`
+                    mast: `#2E2014`,
+                    flag: `#C8A060`
                 };
         }
     }
     function lt({ shipId: e, size: t, lurchX: n = 0, lurchY: r = 0 }) {
-        let a = ct(e), o = e === `specter`, s = e === `merchant` || e === `breakwater`;
+        let a = ct(e), o = e === `specter`, s = e === `breakwater`, c = e === `corsair` || e === `specter` || e === `breakwater`;
         return (0, O.jsx)(i.div, {
             animate: {
                 rotate: n * 8,
@@ -2419,19 +2429,19 @@ let __tla = Promise.all([
             },
             style: {
                 lineHeight: 0,
-                transformOrigin: `50% 70%`
+                transformOrigin: `50% 72%`
             },
             children: (0, O.jsx)(i.div, {
                 animate: {
                     y: [
                         0,
-                        -2,
+                        -2.5,
                         0
                     ]
                 },
                 transition: {
                     repeat: 1 / 0,
-                    duration: 2.2,
+                    duration: 2.4,
                     ease: `easeInOut`
                 },
                 children: (0, O.jsxs)(`svg`, {
@@ -2442,81 +2452,130 @@ let __tla = Promise.all([
                     xmlns: `http://www.w3.org/2000/svg`,
                     style: {
                         display: `block`,
-                        filter: o ? `drop-shadow(0 0 6px rgba(110,200,240,0.85))` : `drop-shadow(0 2px 4px rgba(0,0,0,0.55)) drop-shadow(0 0 6px rgba(74,138,204,0.45))`,
-                        opacity: o ? .88 : 1
+                        filter: o ? `drop-shadow(0 0 7px rgba(110,200,240,0.9))` : `drop-shadow(0 3px 5px rgba(0,0,0,0.65))`,
+                        opacity: o ? .9 : 1
                     },
                     children: [
                         (0, O.jsx)(`ellipse`, {
                             cx: `32`,
-                            cy: `48`,
-                            rx: `20`,
-                            ry: `6`,
-                            fill: `rgba(40,120,160,0.35)`
+                            cy: `52`,
+                            rx: `18`,
+                            ry: `5`,
+                            fill: `rgba(180,220,240,0.18)`
+                        }),
+                        (0, O.jsx)(`ellipse`, {
+                            cx: `32`,
+                            cy: `50`,
+                            rx: `12`,
+                            ry: `3.2`,
+                            fill: `rgba(40,90,120,0.35)`
                         }),
                         (0, O.jsx)(`path`, {
-                            d: s ? `M32 14 L50 28 L44 46 L20 46 L14 28 Z` : `M32 12 L46 28 L42 46 L22 46 L18 28 Z`,
+                            d: s ? `M32 10 L48 26 L46 48 L18 48 L16 26 Z` : `M32 8 L46 26 L43 48 L21 48 L18 26 Z`,
                             fill: a.hull
                         }),
                         (0, O.jsx)(`path`, {
-                            d: s ? `M32 14 L50 28 L44 46 L32 40 Z` : `M32 12 L46 28 L42 46 L32 40 Z`,
+                            d: s ? `M32 10 L48 26 L46 48 L32 42 Z` : `M32 8 L46 26 L43 48 L32 42 Z`,
                             fill: a.hullDark,
-                            opacity: `0.55`
+                            opacity: `0.65`
                         }),
                         (0, O.jsx)(`path`, {
-                            d: s ? `M32 18 L44 28 L40 40 L24 40 L20 28 Z` : `M32 16 L42 28 L38 40 L26 40 L22 28 Z`,
+                            d: `M20 34 H44`,
+                            stroke: a.hullDark,
+                            strokeWidth: `0.6`,
+                            opacity: `0.45`
+                        }),
+                        (0, O.jsx)(`path`, {
+                            d: `M21 40 H43`,
+                            stroke: a.hullDark,
+                            strokeWidth: `0.6`,
+                            opacity: `0.35`
+                        }),
+                        s && (0, O.jsxs)(O.Fragment, {
+                            children: [
+                                (0, O.jsx)(`path`, {
+                                    d: `M32 8 L36 18 L32 16 L28 18 Z`,
+                                    fill: a.trim
+                                }),
+                                (0, O.jsx)(`path`, {
+                                    d: `M18 30 L20 46`,
+                                    stroke: a.trim,
+                                    strokeWidth: `1.4`,
+                                    opacity: `0.85`
+                                }),
+                                (0, O.jsx)(`path`, {
+                                    d: `M46 30 L44 46`,
+                                    stroke: a.trim,
+                                    strokeWidth: `1.4`,
+                                    opacity: `0.85`
+                                })
+                            ]
+                        }),
+                        (0, O.jsx)(`path`, {
+                            d: s ? `M32 16 L42 26 L40 42 L24 42 L22 26 Z` : `M32 14 L40 26 L38 42 L26 42 L24 26 Z`,
                             fill: a.deck
                         }),
-                        (e === `breakwater` || e === `corsair` || e === `merchant`) && (0, O.jsx)(`rect`, {
-                            x: e === `breakwater` ? 26 : 27,
-                            y: `36`,
-                            width: e === `breakwater` ? 12 : 10,
-                            height: e === `breakwater` ? 8 : 6,
-                            rx: `1`,
-                            fill: e === `breakwater` ? a.trim : a.hullDark
+                        (0, O.jsx)(`path`, {
+                            d: s ? `M32 16 L42 26 L40 42 L32 38 Z` : `M32 14 L40 26 L38 42 L32 38 Z`,
+                            fill: a.hullLight,
+                            opacity: `0.35`
+                        }),
+                        (s || e === `corsair` || e === `merchant`) && (0, O.jsx)(`path`, {
+                            d: s ? `M24 40 L40 40 L38 48 L26 48 Z` : `M26 42 L38 42 L36 48 L28 48 Z`,
+                            fill: a.hullDark
                         }),
                         (0, O.jsx)(`rect`, {
-                            x: `31`,
-                            y: `8`,
-                            width: `2.2`,
-                            height: `28`,
+                            x: `30.8`,
+                            y: `4`,
+                            width: `2.4`,
+                            height: `34`,
                             rx: `0.8`,
                             fill: a.mast
                         }),
                         (0, O.jsx)(`rect`, {
-                            x: s ? 18 : 20,
-                            y: `14`,
-                            width: s ? 28 : 24,
-                            height: `2`,
-                            rx: `1`,
+                            x: s ? 16 : 18,
+                            y: `12`,
+                            width: s ? 32 : 28,
+                            height: `1.8`,
+                            rx: `0.8`,
                             fill: a.mast
                         }),
                         (0, O.jsx)(`path`, {
-                            d: s ? `M20 16 L44 16 L40 34 L24 34 Z` : `M22 16 L42 16 L38 34 L26 34 Z`,
+                            d: s ? `M17 13.5 C22 15, 26 14, 32 13.5 C38 14, 42 15, 47 13.5 L44 36 C38 38, 34 37, 32 36.5 C30 37, 26 38, 20 36 Z` : `M19 13.5 C24 15, 28 14, 32 13.5 C36 14, 40 15, 45 13.5 L42 35 C37 37, 34 36, 32 35.5 C30 36, 27 37, 22 35 Z`,
                             fill: a.sail
                         }),
                         (0, O.jsx)(`path`, {
-                            d: s ? `M32 16 L44 16 L40 34 L32 34 Z` : `M32 16 L42 16 L38 34 L32 34 Z`,
+                            d: s ? `M32 13.5 C38 14, 42 15, 47 13.5 L44 36 C38 38, 34 37, 32 36.5 Z` : `M32 13.5 C36 14, 40 15, 45 13.5 L42 35 C37 37, 34 36, 32 35.5 Z`,
                             fill: a.sailShade,
                             opacity: `0.55`
                         }),
-                        (e === `corsair` || e === `specter` || e === `breakwater`) && (0, O.jsxs)(O.Fragment, {
+                        (0, O.jsx)(`path`, {
+                            d: `M32 14 V36`,
+                            stroke: a.sailShade,
+                            strokeWidth: `0.7`,
+                            opacity: `0.7`
+                        }),
+                        (0, O.jsx)(`path`, {
+                            d: `M32 4 L42 7 L32 9 Z`,
+                            fill: a.flag
+                        }),
+                        c && (0, O.jsxs)(O.Fragment, {
                             children: [
                                 (0, O.jsx)(`rect`, {
-                                    x: `31`,
+                                    x: `38.5`,
                                     y: `22`,
                                     width: `2`,
-                                    height: `16`,
+                                    height: `18`,
                                     rx: `0.6`,
-                                    fill: a.mast,
-                                    transform: `translate(8,4)`
+                                    fill: a.mast
                                 }),
                                 (0, O.jsx)(`path`, {
-                                    d: `M36 28 L48 28 L46 40 L38 40 Z`,
+                                    d: `M36 24 C39 25, 42 24.5, 46 24 L44 38 C41 39, 39 38.5, 37 38 Z`,
                                     fill: a.sail,
-                                    opacity: `0.92`
+                                    opacity: `0.95`
                                 }),
                                 (0, O.jsx)(`path`, {
-                                    d: `M42 28 L48 28 L46 40 L42 40 Z`,
+                                    d: `M41 24 C42 24.5, 44 24.2, 46 24 L44 38 C42 38.5, 41.5 38.2, 41 38 Z`,
                                     fill: a.sailShade,
                                     opacity: `0.5`
                                 })
@@ -2526,18 +2585,18 @@ let __tla = Promise.all([
                             children: [
                                 (0, O.jsx)(`rect`, {
                                     x: `26`,
-                                    y: `34`,
-                                    width: `4`,
+                                    y: `38`,
+                                    width: `5`,
                                     height: `4`,
-                                    rx: `0.5`,
+                                    rx: `0.6`,
                                     fill: a.trim
                                 }),
                                 (0, O.jsx)(`rect`, {
-                                    x: `32`,
-                                    y: `34`,
-                                    width: `4`,
+                                    x: `33`,
+                                    y: `38`,
+                                    width: `5`,
                                     height: `4`,
-                                    rx: `0.5`,
+                                    rx: `0.6`,
                                     fill: a.trim,
                                     opacity: `0.85`
                                 })
@@ -2548,33 +2607,47 @@ let __tla = Promise.all([
                                 (0, O.jsx)(`circle`, {
                                     cx: `22`,
                                     cy: `36`,
-                                    r: `1.4`,
-                                    fill: `#1a1a1a`
+                                    r: `1.5`,
+                                    fill: `#0a0808`
                                 }),
                                 (0, O.jsx)(`circle`, {
                                     cx: `22`,
-                                    cy: `40`,
-                                    r: `1.4`,
-                                    fill: `#1a1a1a`
+                                    cy: `42`,
+                                    r: `1.5`,
+                                    fill: `#0a0808`
                                 }),
                                 (0, O.jsx)(`circle`, {
                                     cx: `42`,
                                     cy: `36`,
-                                    r: `1.4`,
-                                    fill: `#1a1a1a`
+                                    r: `1.5`,
+                                    fill: `#0a0808`
                                 }),
                                 (0, O.jsx)(`circle`, {
                                     cx: `42`,
-                                    cy: `40`,
-                                    r: `1.4`,
-                                    fill: `#1a1a1a`
+                                    cy: `42`,
+                                    r: `1.5`,
+                                    fill: `#0a0808`
+                                }),
+                                (0, O.jsx)(`circle`, {
+                                    cx: `22`,
+                                    cy: `36`,
+                                    r: `0.5`,
+                                    fill: `#E8C840`,
+                                    opacity: `0.7`
+                                }),
+                                (0, O.jsx)(`circle`, {
+                                    cx: `42`,
+                                    cy: `36`,
+                                    r: `0.5`,
+                                    fill: `#E8C840`,
+                                    opacity: `0.7`
                                 })
                             ]
                         }),
-                        (0, O.jsx)(`path`, {
-                            d: `M32 12 L36 20 L32 18 L28 20 Z`,
+                        !s && (0, O.jsx)(`path`, {
+                            d: `M32 8 L35 16 L32 14.5 L29 16 Z`,
                             fill: a.trim,
-                            opacity: `0.7`
+                            opacity: `0.75`
                         })
                     ]
                 })
@@ -2593,7 +2666,7 @@ let __tla = Promise.all([
         rocks: `/icons/rocks.png`
     }, dt = {
         1: {
-            sea: `#1a3a4a`,
+            sea: `#0e2f3c`,
             storm: `#2a1a4a`,
             pirate: `#3a1010`,
             treasure: `#2a2a00`,
@@ -2605,7 +2678,7 @@ let __tla = Promise.all([
             portal: `#1a0a3a`
         },
         2: {
-            sea: `#1a2a3a`,
+            sea: `#0c2436`,
             storm: `#3a0a5a`,
             pirate: `#4a0a1a`,
             treasure: `#2a1a00`,
@@ -2617,7 +2690,7 @@ let __tla = Promise.all([
             portal: `#2a0a4a`
         },
         3: {
-            sea: `#0a1a2a`,
+            sea: `#081520`,
             storm: `#2a0a3a`,
             pirate: `#3a0505`,
             treasure: `#1a1000`,
@@ -3010,7 +3083,7 @@ let __tla = Promise.all([
                                                 visited: !1,
                                                 value: 0,
                                                 stormed: !1
-                                            }, d = e.ship.x + n, f = e.ship.y + t, p = e.hunter?.active && e.hunter.x === d && e.hunter.y === f, h = e.hunter?.active ? V(e) : 99, g = n === 0 && t === 0, _ = u.revealed || u.visited, v = u.stormed, ee = e.stormDistance <= 0 ? -1 : e.grid.length + 2 - Math.floor((10 - e.stormDistance) / 3), y = v && o === ee, b = e.currentZone ?? 1, x = dt[b] ?? dt[1], te = ft[b] ?? ft[1], S = v ? `#cc2222` : te[u.type], ne = g ? `#0a2a4a` : p ? e.hunter?.mode === `frenzy` ? `#3a0612` : `#2a0830` : v ? `rgba(90,12,18,0.78)` : _ ? x[u.type] ?? `#050a0f` : U[b] ?? U[1];
+                                            }, d = e.ship.x + n, f = e.ship.y + t, p = e.hunter?.active && e.hunter.x === d && e.hunter.y === f, h = e.hunter?.active ? V(e) : 99, g = n === 0 && t === 0, _ = u.revealed || u.visited, v = u.stormed, ee = e.stormDistance <= 0 ? -1 : e.grid.length + 2 - Math.floor((10 - e.stormDistance) / 3), y = v && o === ee, b = e.currentZone ?? 1, x = dt[b] ?? dt[1], te = ft[b] ?? ft[1], S = v ? `#cc2222` : te[u.type], ne = x.sea ?? `#0e2f3c`, re = g ? ne : p ? e.hunter?.mode === `frenzy` ? `#3a0612` : `#2a0830` : v ? `rgba(90,12,18,0.78)` : _ ? x[u.type] ?? `#050a0f` : U[b] ?? U[1], C = _ && u.type === `sea`;
                                             return (0, O.jsxs)(i.div, {
                                                 className: y ? `storm-front` : void 0,
                                                 initial: _ ? {
@@ -3024,29 +3097,56 @@ let __tla = Promise.all([
                                                 style: {
                                                     width: m,
                                                     height: m,
-                                                    background: ne,
-                                                    border: g ? h <= 1 ? `2px solid #ee4466` : `2px solid #4a8acc` : p ? `2px solid ${e.hunter?.mode === `frenzy` ? `#ff4466` : e.hunter?.mode === `stalking` ? `#dd66ff` : `#aa44cc`}` : v ? `1px solid #cc222244` : _ ? `1px solid ${S ? S + `55` : `rgba(255,255,255,0.1)`}` : `1px solid rgba(255,255,255,0.04)`,
-                                                    borderRadius: 8,
+                                                    background: re,
+                                                    border: g ? h <= 1 ? `2px solid #ee4466` : `2px solid rgba(72,140,170,0.7)` : p ? `2px solid ${e.hunter?.mode === `frenzy` ? `#ff4466` : e.hunter?.mode === `stalking` ? `#dd66ff` : `#aa44cc`}` : v ? `1px solid #cc222244` : C ? `1px solid rgba(120,180,200,0.12)` : _ ? `1px solid ${S ? S + `55` : `rgba(255,255,255,0.1)`}` : `1px solid rgba(255,255,255,0.04)`,
+                                                    borderRadius: 6,
                                                     display: `flex`,
                                                     alignItems: `center`,
                                                     justifyContent: `center`,
                                                     fontSize: g ? 26 : 20,
-                                                    boxShadow: p ? `0 0 ${h <= 2 ? 22 : 14}px ${e.hunter?.mode === `frenzy` ? `rgba(255,60,80,0.85)` : `rgba(200,60,220,0.75)`}` : g ? h <= 1 ? `0 0 22px rgba(238,68,102,0.55)` : `0 0 20px rgba(74,138,204,0.4)` : S && _ ? `0 0 10px ${S}44` : `none`,
+                                                    boxShadow: p ? `0 0 ${h <= 2 ? 22 : 14}px ${e.hunter?.mode === `frenzy` ? `rgba(255,60,80,0.85)` : `rgba(200,60,220,0.75)`}` : g ? h <= 1 ? `0 0 18px rgba(238,68,102,0.5)` : `0 0 14px rgba(40,100,130,0.35)` : S && _ ? `0 0 10px ${S}44` : `none`,
                                                     position: `relative`,
                                                     cursor: `default`,
                                                     overflow: `hidden`
                                                 },
                                                 children: [
-                                                    !g && !p && _ && u.type === `sea` && (0, O.jsx)(`div`, {
+                                                    (g || !p && C) && (0, O.jsx)(`div`, {
                                                         "aria-hidden": !0,
                                                         style: {
                                                             position: `absolute`,
                                                             inset: 0,
-                                                            borderRadius: 7,
+                                                            borderRadius: 5,
                                                             pointerEvents: `none`,
-                                                            background: b === 3 ? `radial-gradient(ellipse at 35% 30%, rgba(70,100,140,0.55) 0%, rgba(25,40,70,0.25) 55%, transparent 75%)` : b === 2 ? `radial-gradient(ellipse at 35% 30%, rgba(80,110,170,0.5) 0%, rgba(40,55,110,0.22) 55%, transparent 75%)` : `radial-gradient(ellipse at 35% 30%, rgba(90,170,200,0.55) 0%, rgba(40,100,130,0.28) 50%, transparent 75%)`,
-                                                            boxShadow: `inset 0 -10px 18px rgba(30,80,110,0.35), inset 0 6px 12px rgba(160,220,245,0.12)`
+                                                            background: b === 3 ? `linear-gradient(155deg, rgba(30,55,80,0.55) 0%, transparent 42%, rgba(8,20,36,0.5) 100%), radial-gradient(ellipse at 30% 25%, rgba(50,80,110,0.4) 0%, transparent 60%)` : b === 2 ? `linear-gradient(155deg, rgba(35,70,100,0.5) 0%, transparent 45%, rgba(10,28,48,0.45) 100%), radial-gradient(ellipse at 30% 25%, rgba(55,95,130,0.35) 0%, transparent 60%)` : `linear-gradient(155deg, rgba(45,110,130,0.45) 0%, transparent 45%, rgba(12,40,55,0.4) 100%), radial-gradient(ellipse at 28% 22%, rgba(70,140,160,0.38) 0%, transparent 58%)`,
+                                                            boxShadow: `inset 0 -8px 14px rgba(6,28,40,0.45), inset 0 5px 10px rgba(140,190,210,0.08)`
                                                         }
+                                                    }),
+                                                    !g && !p && C && (0, O.jsxs)(`svg`, {
+                                                        "aria-hidden": !0,
+                                                        viewBox: `0 0 40 40`,
+                                                        style: {
+                                                            position: `absolute`,
+                                                            inset: 0,
+                                                            width: `100%`,
+                                                            height: `100%`,
+                                                            opacity: .35,
+                                                            pointerEvents: `none`,
+                                                            zIndex: 0
+                                                        },
+                                                        children: [
+                                                            (0, O.jsx)(`path`, {
+                                                                d: `M2 ${14 + d % 3} Q10 ${10 + f % 2}, 20 ${14 + d % 3} T38 ${14 + d % 3}`,
+                                                                fill: `none`,
+                                                                stroke: `rgba(160,210,230,0.55)`,
+                                                                strokeWidth: `1.1`
+                                                            }),
+                                                            (0, O.jsx)(`path`, {
+                                                                d: `M0 ${24 + f % 3} Q12 ${20 + d % 2}, 22 ${24 + f % 3} T40 ${24 + f % 3}`,
+                                                                fill: `none`,
+                                                                stroke: `rgba(100,160,190,0.4)`,
+                                                                strokeWidth: `0.9`
+                                                            })
+                                                        ]
                                                     }),
                                                     g && (0, O.jsxs)(O.Fragment, {
                                                         children: [
@@ -3058,7 +3158,7 @@ let __tla = Promise.all([
                                                                 },
                                                                 children: (0, O.jsx)(lt, {
                                                                     shipId: e.shipType ?? `default`,
-                                                                    size: Math.round(m * .9),
+                                                                    size: Math.round(m * .92),
                                                                     lurchX: r.x,
                                                                     lurchY: r.y
                                                                 })

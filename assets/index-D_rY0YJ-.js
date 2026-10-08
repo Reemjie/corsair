@@ -1,8 +1,8 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-CorzZAqS.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-BXtpc1SX.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-CJawS8b5.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-CLLDtgvE.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-Bl7Xvldn.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-BXtpc1SX.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-yBmKqk5Y.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-CLLDtgvE.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
 import { a as e, t } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as n, n as r, r as i, t as a } from "./motion-wKhEcHeU.js";
 import { n as o, t as s } from "./walletApi-DYniPf4L.js";
-import { A as c, B as l, C as u, D as d, E as f, I as p, L as m, O as h, P as g, R as _, S as v, a as y, b, c as x, d as ee, f as S, h as te, j as ne, k as re, l as ie, m as ae, n as oe, o as se, p as ce, r as le, s as ue, t as C, u as w, v as de, w as fe, x as pe, y as me, z as T } from "./anchor-CJawS8b5.js";
+import { A as c, B as l, C as u, D as d, E as f, I as p, L as m, O as h, P as g, R as _, S as v, a as y, b, c as x, d as ee, f as S, h as te, j as ne, k as re, l as ie, m as ae, n as oe, o as se, p as ce, r as le, s as ue, t as C, u as w, v as de, w as fe, x as pe, y as me, z as T } from "./anchor-yBmKqk5Y.js";
 import { C as E, S as he, c as ge, d as _e, f as ve, h as ye, o as D, p as be, r as xe, s as Se, t as Ce, __tla as __tla_0 } from "./supabase-BXtpc1SX.js";
 Promise.all([
     (()=>{
@@ -12808,7 +12808,7 @@ Error generating stack: ` + e.message + `
         } else e === 60 ? r = d(r, 8, 25) : e === 61 ? r = d(r, r.ship.maxHull, 55) : e === 70 && (r = fe(r));
         return r;
     }
-    var lt = (0, O.lazy)(()=>E(()=>import(`./CorsairGame-CorzZAqS.js`).then(async (m)=>{
+    var lt = (0, O.lazy)(()=>E(()=>import(`./CorsairGame-Bl7Xvldn.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }), __vite__mapDeps([0,1,2,3,4,5,6]))), ut = (0, O.lazy)(()=>E(()=>import(`./AdminPanel-CLLDtgvE.js`).then(async (m)=>{
