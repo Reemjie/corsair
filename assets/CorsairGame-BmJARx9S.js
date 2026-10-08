@@ -2462,47 +2462,50 @@ let __tla = Promise.all([
     }
     var ut = {
         1: {
-            base: `#0a2834`,
-            deep: `#061820`,
-            foam: `rgba(200,220,225,0.22)`,
-            ripple: `rgba(140,175,185,0.28)`,
-            sheen: `rgba(90,140,150,0.18)`
+            base: `#1a5a6e`,
+            mid: `#247a8c`,
+            deep: `#0e3a48`,
+            foam: `rgba(230,245,250,0.55)`,
+            ripple: `rgba(160,210,220,0.45)`,
+            sheen: `rgba(120,200,210,0.35)`
         },
         2: {
-            base: `#081e2e`,
-            deep: `#041018`,
-            foam: `rgba(170,190,210,0.18)`,
-            ripple: `rgba(100,140,170,0.24)`,
-            sheen: `rgba(70,110,140,0.16)`
+            base: `#164860`,
+            mid: `#1e6880`,
+            deep: `#0c3044`,
+            foam: `rgba(210,230,240,0.42)`,
+            ripple: `rgba(130,180,200,0.38)`,
+            sheen: `rgba(90,160,190,0.28)`
         },
         3: {
-            base: `#06141e`,
-            deep: `#030a10`,
-            foam: `rgba(130,150,170,0.14)`,
-            ripple: `rgba(70,100,130,0.22)`,
-            sheen: `rgba(50,80,110,0.14)`
+            base: `#123848`,
+            mid: `#185060`,
+            deep: `#0a2434`,
+            foam: `rgba(180,205,220,0.32)`,
+            ripple: `rgba(100,150,175,0.32)`,
+            sheen: `rgba(70,130,160,0.22)`
         }
     };
     function H(e, t) {
         return Math.abs(e * 73856093 ^ t * 19349663) % 1e3;
     }
     function dt({ zone: e, x: t, y: n, quiet: r }) {
-        let i = ut[e] ?? ut[1], a = H(t, n), o = a % 7 * .35, s = 8 + a % 5, c = 20 + a * 3 % 6, l = 4 + a % 5;
+        let i = ut[e] ?? ut[1], a = H(t, n), o = 22 + a % 55, s = 18 + a * 3 % 40, c = 10 + a % 6, l = 22 + a * 2 % 7, u = 34 + a % 5, d = 3 + a % 4;
         return (0, D.jsxs)(`div`, {
             "aria-hidden": !0,
             className: r ? void 0 : `sea-tile`,
             style: {
                 position: `absolute`,
                 inset: 0,
-                borderRadius: 4,
+                borderRadius: 5,
                 pointerEvents: `none`,
                 overflow: `hidden`,
                 background: `
-          radial-gradient(ellipse 90% 70% at ${28 + a % 40}% ${22 + a % 30}%, ${i.sheen} 0%, transparent 55%),
-          linear-gradient(168deg, ${i.base} 0%, ${i.deep} 72%, #02080c 100%)
+          radial-gradient(ellipse 85% 65% at ${o}% ${s}%, ${i.sheen} 0%, transparent 58%),
+          linear-gradient(160deg, ${i.mid} 0%, ${i.base} 48%, ${i.deep} 100%)
         `,
-                boxShadow: r ? `inset 0 -6px 12px rgba(0,8,14,0.45)` : `inset 0 1px 0 rgba(180,200,210,0.06), inset 0 -8px 14px rgba(0,10,16,0.55)`,
-                animationDelay: r ? void 0 : `${a % 40 / 10}s`
+                boxShadow: r ? `inset 0 -5px 10px rgba(8,30,40,0.35)` : `inset 0 1px 0 rgba(220,240,245,0.18), inset 0 -7px 12px rgba(8,28,38,0.4)`,
+                animationDelay: r ? void 0 : `${a % 50 / 10}s`
             },
             children: [
                 (0, D.jsxs)(`svg`, {
@@ -2513,48 +2516,54 @@ let __tla = Promise.all([
                         inset: 0,
                         width: `100%`,
                         height: `100%`,
-                        opacity: r ? .28 : .55
+                        opacity: r ? .35 : .85
                     },
                     children: [
                         (0, D.jsx)(`path`, {
-                            d: `M-2 ${s} Q12 ${s - l}, 24 ${s} T50 ${s}`,
+                            d: `M-2 ${c} Q12 ${c - d}, 24 ${c} T50 ${c}`,
                             fill: `none`,
                             stroke: i.foam,
-                            strokeWidth: `1.4`,
+                            strokeWidth: `1.8`,
                             strokeLinecap: `round`
                         }),
                         (0, D.jsx)(`path`, {
-                            d: `M-4 ${c} Q14 ${c - l * .7}, 26 ${c + o} T52 ${c}`,
+                            d: `M-4 ${l} Q14 ${l + d * .6}, 26 ${l - 1} T52 ${l}`,
                             fill: `none`,
                             stroke: i.ripple,
-                            strokeWidth: `1.1`,
+                            strokeWidth: `1.35`,
                             strokeLinecap: `round`
                         }),
                         (0, D.jsx)(`path`, {
-                            d: `M0 ${34 + a % 4} Q16 32, 28 35 T48 33`,
+                            d: `M0 ${u} Q18 ${u - 2}, 30 ${u + 1} T48 ${u}`,
                             fill: `none`,
-                            stroke: `rgba(20,40,50,0.45)`,
-                            strokeWidth: `1.6`,
+                            stroke: `rgba(10,40,55,0.28)`,
+                            strokeWidth: `1.5`,
                             strokeLinecap: `round`
                         }),
                         !r && (0, D.jsxs)(D.Fragment, {
                             children: [
                                 (0, D.jsx)(`circle`, {
-                                    cx: 10 + a % 8,
-                                    cy: s - 1,
-                                    r: `0.7`,
+                                    cx: 8 + a % 10,
+                                    cy: c,
+                                    r: `1.1`,
                                     fill: i.foam
                                 }),
                                 (0, D.jsx)(`circle`, {
-                                    cx: 30 + a % 6,
-                                    cy: s + 1,
-                                    r: `0.55`,
+                                    cx: 22 + a % 8,
+                                    cy: c + 2,
+                                    r: `0.8`,
                                     fill: i.foam
                                 }),
                                 (0, D.jsx)(`circle`, {
-                                    cx: 20 + a * 2 % 9,
-                                    cy: c - 2,
-                                    r: `0.45`,
+                                    cx: 36 + a * 2 % 7,
+                                    cy: c - 1,
+                                    r: `0.9`,
+                                    fill: i.foam
+                                }),
+                                (0, D.jsx)(`circle`, {
+                                    cx: 14 + a % 6,
+                                    cy: l - 1,
+                                    r: `0.6`,
                                     fill: i.ripple
                                 })
                             ]
@@ -2564,10 +2573,11 @@ let __tla = Promise.all([
                 (0, D.jsx)(`div`, {
                     style: {
                         position: `absolute`,
-                        inset: 0,
-                        opacity: .07,
-                        backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.35) 2px, rgba(0,0,0,0.35) 3px), repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(255,255,255,0.04) 3px, rgba(255,255,255,0.04) 4px)`,
-                        mixBlendMode: `overlay`
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        height: `42%`,
+                        background: `linear-gradient(180deg, rgba(200,235,240,${r ? .08 : .14}) 0%, transparent 100%)`
                     }
                 })
             ]
@@ -2588,7 +2598,7 @@ let __tla = Promise.all([
         rocks: `/icons/rocks.png`
     }, pt = {
         1: {
-            sea: `#0a2834`,
+            sea: `#1a5a6e`,
             storm: `#2a1a4a`,
             pirate: `#3a1010`,
             treasure: `#2a2a00`,
@@ -2600,7 +2610,7 @@ let __tla = Promise.all([
             portal: `#1a0a3a`
         },
         2: {
-            sea: `#081e2e`,
+            sea: `#164860`,
             storm: `#3a0a5a`,
             pirate: `#4a0a1a`,
             treasure: `#2a1a00`,
@@ -2612,7 +2622,7 @@ let __tla = Promise.all([
             portal: `#2a0a4a`
         },
         3: {
-            sea: `#06141e`,
+            sea: `#123848`,
             storm: `#2a0a3a`,
             pirate: `#3a0505`,
             treasure: `#1a1000`,
@@ -3024,8 +3034,8 @@ let __tla = Promise.all([
                                                     width: f,
                                                     height: f,
                                                     background: re,
-                                                    border: g ? h <= 1 ? `2px solid #ee4466` : `1px solid rgba(90,140,160,0.35)` : m ? `2px solid ${e.hunter?.mode === `frenzy` ? `#ff4466` : e.hunter?.mode === `stalking` ? `#dd66ff` : `#aa44cc`}` : v ? `1px solid #cc222244` : S ? `1px solid rgba(0,0,0,0.2)` : _ ? `1px solid ${x ? x + `55` : `rgba(255,255,255,0.1)`}` : `1px solid rgba(255,255,255,0.04)`,
-                                                    borderRadius: 4,
+                                                    border: g ? h <= 1 ? `2px solid #ee4466` : `1px solid rgba(120,190,200,0.45)` : m ? `2px solid ${e.hunter?.mode === `frenzy` ? `#ff4466` : e.hunter?.mode === `stalking` ? `#dd66ff` : `#aa44cc`}` : v ? `1px solid #cc222244` : S ? `1px solid rgba(255,255,255,0.08)` : _ ? `1px solid ${x ? x + `55` : `rgba(255,255,255,0.1)`}` : `1px solid rgba(255,255,255,0.04)`,
+                                                    borderRadius: 5,
                                                     display: `flex`,
                                                     alignItems: `center`,
                                                     justifyContent: `center`,
