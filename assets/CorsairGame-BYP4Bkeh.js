@@ -2351,7 +2351,7 @@ let __tla = Promise.all([
         });
     }
     function lt({ shipId: e, size: t, lurchX: n = 0, lurchY: r = 0 }) {
-        let a = e === `specter`, [o, s] = (0, T.useState)(!0), c = `${x(e)}?v=3`;
+        let a = e === `specter`, [o, s] = (0, T.useState)(!0), c = `${x(e)}?v=4`;
         return (0, O.jsx)(i.div, {
             animate: {
                 rotate: n * 8,
