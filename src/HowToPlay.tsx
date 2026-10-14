@@ -10,7 +10,7 @@ const CELLS = [
   { icon: 'treasure',        label: 'Treasure',        desc: 'You found a chest full of gold! Take it to earn gold and points. The more danger you have chained before this (combo), the more points you earn. Some treasures are cursed — beware.', color: '#8a7a00' },
   { icon: 'port',            label: 'Port',            desc: 'A safe harbor. Dock to repair your ship with Rum Barrel (+8 hull) or Full Repair (restore all hull), and browse 4 random upgrades. You can reroll upgrades for 20 gold. Always try to visit ports before your hull gets too low.', color: '#005a5a' },
   { icon: 'kraken',          label: 'Kraken',          desc: 'A terrifying sea monster! Attack it for massive rewards (+150 pts, −1 vision for a few turns — it recovers) or make a Pact: lose 20 HP but delay the storm by 6 turns. The Pact is often the better deal when desperate — but it awakens The Hunter.', color: '#4a008a' },
-  { icon: 'wreck',           label: 'Wreck',           desc: 'The remains of a sunken ship. Search it for a chance at +40 to +100 gold (60% chance), but risk a booby trap (-6 to -12 hull, 40% chance). Or ignore it completely.', color: '#5a3a00' },
+  { icon: 'wreck',           label: 'Wreck',           desc: 'The remains of a sunken ship. Search it for gold (and sometimes a relic) — but risk a booby trap. Or pick Something lurks: a nearby Kraken forces you to flee or fight. There is no safe ignore.', color: '#5a3a00' },
   { icon: 'island',          label: 'Island',          desc: 'A mysterious island. Perform an Ancient Ritual (spend 100 gold to delay the storm +4 turns) or explore freely for a chance to find a free upgrade token. Rituals are one of the best ways to extend your run.', color: '#005a20' },
   { icon: 'rocks',           label: 'Rocks',           desc: 'Dangerous reefs ahead. Navigate carefully to pass safely, or go full speed to save time but risk hull damage.', color: '#2a2a2a' },
   { icon: 'maelstrom',       label: 'Maelstrom',       desc: 'LEGENDARY — Rare event in mid/late zones. Enter the vortex to be teleported to a random location on the map (extreme risk and reward) or fight the current to resist it (lose 1 storm turn but stay safe).', color: '#3a006a', legendary: true },
@@ -159,7 +159,7 @@ export default function HowToPlay({ onClose, onPlay }: { onClose: () => void; on
         {/* Score */}
         <Section title="SCORE & COMBO SYSTEM">
           <p style={{ fontFamily: "'IM Fell English', cursive", fontSize: 18, color: 'rgba(255,255,255,0.75)', lineHeight: 1.9, marginBottom: 16 }}>
-            You earn +5 points per move. Combat, treasure, and exploration all add to your score. Two related meters climb together when you take risks: the <span style={{ color: '#eedd44' }}>score multiplier</span> (caps at ×3 — boosts points on rewards) and the <span style={{ color: '#ee8844' }}>danger streak</span> (keeps climbing and unlocks world effects below). Every safe sea cell drops the streak by 1; fleeing or paying tribute drops it by 2. Best scores chain risks — each one can end the run.
+            You earn +5 points per move. Combat, treasure, and exploration all add to your score. Two related meters climb together when you take risks: the <span style={{ color: '#eedd44' }}>score multiplier</span> (caps at ×3 — boosts points on rewards) and the <span style={{ color: '#ee8844' }}>danger streak</span> (keeps climbing and unlocks world effects below). Below 8 hull, risky choices no longer grow your streak. Every safe sea cell drops the streak by 1; fleeing or paying tribute drops it by 2 — but fleeing also pushes the storm back by 3. Best scores chain risks — each one can end the run.
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)', gap: 8 }}>
             {[
@@ -169,6 +169,8 @@ export default function HowToPlay({ onClose, onPlay }: { onClose: () => void; on
             { label: 'Streak 4', desc: '+8% storm surge chance + elite encounters replace pirates', color: '#ee6644' },
             { label: 'Streak 5', desc: 'Cursed waters — random curse triggers (-vision or -20% gold)', color: '#cc44ee' },
             { label: 'Streak 6+', desc: 'Legendary zone — ancient krakens and maelstroms everywhere', color: '#ff2222' },
+              { label: 'Hull < 8', desc: 'Risky choices no longer grow your danger streak', color: '#ee8844' },
+              { label: 'Flee +3', desc: 'Fleeing a danger pushes the storm back by 3', color: '#44cc88' },
               { label: '-1 streak', desc: 'Each safe cell (sea) reduces your danger streak by 1', color: '#6aaccc' },
               { label: '-2 streak', desc: 'Fleeing or paying tribute drops the streak faster', color: '#ee4444' },
               { label: '+200 pts', desc: 'Exploit: survive at exactly 1 HP', color: '#eedd44' },

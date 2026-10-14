@@ -392,10 +392,11 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
     if (hunterCineTimerRef.current) clearTimeout(hunterCineTimerRef.current);
     hunterAttackRef.current = true;
     setShowHunterAttack(true);
+    // hunter.mp4 ≈ 6.75s — desktop waits for onEnded; this is a safety net only
     hunterCineTimerRef.current = setTimeout(() => {
       hunterAttackRef.current = false;
       setShowHunterAttack(false);
-    }, isMobile ? 2000 : 3500);
+    }, isMobile ? 2000 : 7200);
   }, [state.log, state.turn, isMobile]);
 
   // Passer l'animation du Hunter : un clic, une touche ou un appui suffit.
@@ -1169,7 +1170,12 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                 }}
               />
             ) : (
-              <video src={`${import.meta.env.BASE_URL}scenes/hunter.mp4`} autoPlay muted={muted} playsInline preload="metadata" style={{ width:'100%', height:'100%', objectFit:'cover' }}/>
+              <video
+                src={`${import.meta.env.BASE_URL}scenes/hunter.mp4`}
+                autoPlay muted={muted} playsInline preload="metadata"
+                onEnded={() => { hunterAttackRef.current = false; setShowHunterAttack(false); }}
+                style={{ width:'100%', height:'100%', objectFit:'cover' }}
+              />
             )}
             <div style={{ position:'absolute', inset:0, background: isMobile ? 'radial-gradient(ellipse at center, rgba(80,0,100,0.35) 0%, rgba(0,0,0,0.65) 100%)' : 'rgba(0,0,0,0.3)' }}/>
             <motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{delay:0.2}}
