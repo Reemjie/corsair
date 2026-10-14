@@ -85,9 +85,10 @@ export default function ShareCard({
 export async function shareVoyage(text: string): Promise<void> {
   try {
     if (typeof navigator !== 'undefined' && navigator.share) {
-      await navigator.share({ text, url: 'https://playcorsair.xyz/' });
+      // text already includes the URL — passing `url` too duplicates / breaks the link on X
+      await navigator.share({ text });
       return;
     }
   } catch { /* user cancelled or unsupported — fall through */ }
-  window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank');
+  window.open(`https://x.com/intent/post?text=${encodeURIComponent(text)}`, '_blank');
 }

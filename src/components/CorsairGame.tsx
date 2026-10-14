@@ -21,6 +21,7 @@ import GameMap from './corsair/GameMap';
 import { ZONE_BG, SCENE_BG, SCENE_VIDEO, SCENE_TITLES } from './corsair/scenes';
 import { UPGRADES, UPGRADE_ICONS, UPGRADE_CODES, BUILD_COLOR, UpgradeDesc } from './corsair/upgrades';
 import { CELL_ICONS } from './corsair/cells';
+import { getMapStep } from './corsair/mapMetrics';
 import {
   hunterDistLabel, hunterHitDamage, hunterManhattan, hunterModeHint,
   hunterModeLabel, hunterThreatLevel,
@@ -214,7 +215,6 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
     return () => window.removeEventListener('resize', fn);
   }, []);
   const [cinematic, setCinematic] = useState<string | null>(null);
-  const [_showDeathCinematic, _setShowDeathCinematic] = useState(false);
   const [showDeathScreen, setShowDeathScreen] = useState(false);
   const deathTimerRef = useRef<any>(null);
   // Une cinematique par type et par partie : vue dix fois, elle devient un peage.
@@ -251,31 +251,17 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
     if (ddx === 0 && ddy === 0) return;
     // Teleportation (maelstrom, changement de zone) : pas de travelling.
     if (Math.abs(ddx) > 1 || Math.abs(ddy) > 1) return;
-    const v = state.ship.vision * 2 + 1;
-    const cs = (isMobile
-      ? Math.floor((window.innerWidth - 16) / v)
-      : Math.floor(Math.min(window.innerWidth * 0.50, window.innerHeight * 0.62) / v) - 4) + 4;
-    const amp = 0.8; // amplitude : 1 = une case pleine, plus bas = plus discret
-    setSlide({ x: ddx * cs * amp, y: ddy * cs * amp, instant: true });
+    const step = getMapStep(state.ship.vision, isMobile);
+    const amp = 0.8;
+    setSlide({ x: ddx * step * amp, y: ddy * step * amp, instant: true });
     setLurch({ x: ddx, y: ddy });
     const t = setTimeout(() => setLurch({ x: 0, y: 0 }), 380);
     const id = requestAnimationFrame(() =>
       setSlide({ x: 0, y: 0, instant: false }));
     return () => { cancelAnimationFrame(id); clearTimeout(t); };
-  }, [state.ship.x, state.ship.y]);
+  }, [state.ship.x, state.ship.y, isMobile, state.ship.vision]);
   const [showHunterAttack, setShowHunterAttack] = useState(false);
   const [mobileDrawer, setMobileDrawer] = useState<'ship'|'upgrades'|null>(null);
-  const [_showKrakenCinematic, _setShowKrakenCinematic] = useState(false);
-  const [_showPirateCinematic, _setShowPirateCinematic] = useState(false);
-  const [_showWreckCinematic, _setShowWreckCinematic] = useState(false);
-  const [_showIslandCinematic, _setShowIslandCinematic] = useState(false);
-  const [_showAncientKrakenCinematic, _setShowAncientKrakenCinematic] = useState(false);
-  const [_showMaelstromCinematic, _setShowMaelstromCinematic] = useState(false);
-  const [_showRocksCinematic, _setShowRocksCinematic] = useState(false);
-  const [_showTreasureCinematic, _setShowTreasureCinematic] = useState(false);
-  const [_showCursedTreasureCinematic, _setShowCursedTreasureCinematic] = useState(false);
-  const [_showStormCinematic, _setShowStormCinematic] = useState(false);
-  const [_showPortCinematic, _setShowPortCinematic] = useState(false);
   const [flashColor, setFlashColor] = useState<string | null>(null);
   const [vignetteIntensity, setVignetteIntensity] = useState(0);
 
@@ -295,122 +281,12 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
     if (seenCineRef.current.has(ct)) return;
     seenCineRef.current.add(ct);
     setCinematic(ct);
-    const dur = isMobile ? 2200 : 5000;
+    // ancient_kraken clip is 6s; leave a short tail so it doesn't cut mid-frame
+    const CINE_MS: Record<string, number> = { ancient_kraken: 6500 };
+    const dur = isMobile ? 2200 : (CINE_MS[ct] ?? 5000);
     const t = setTimeout(() => setCinematic(null), dur);
     return () => clearTimeout(t);
   }, [state.event, state.turn, isMobile]);
-
-  // Port cinematic trigger
-  useEffect(() => {
-    if (state.gameOver) { _setShowPortCinematic(false); return; }
-    if (state.event?.cellType === 'port' && !isMobile) {
-      _setShowPortCinematic(true);
-      setTimeout(() => _setShowPortCinematic(false), 5000);
-    }
-  }, [state.event, state.turn]);
-
-  // Rocks cinematic trigger
-  useEffect(() => {
-    if (state.gameOver) { _setShowRocksCinematic(false); return; }
-    if (state.gameOver) { _setShowRocksCinematic(false); return; }
-    if (state.event?.cellType === 'rocks' && !isMobile) {
-      _setShowRocksCinematic(true);
-      const t = setTimeout(() => _setShowRocksCinematic(false), 5000);
-      return () => clearTimeout(t);
-    }
-  }, [state.event, state.gameOver]);
-
-  // Treasure cinematic trigger
-  useEffect(() => {
-    if (state.gameOver) { _setShowTreasureCinematic(false); return; }
-    if (state.event?.cellType === 'treasure' && !isMobile) {
-      _setShowTreasureCinematic(true);
-      const t = setTimeout(() => _setShowTreasureCinematic(false), 5000);
-      return () => clearTimeout(t);
-    }
-  }, [state.event, state.turn]);
-
-  // Cursed treasure cinematic trigger
-  useEffect(() => {
-    if (state.gameOver) { _setShowCursedTreasureCinematic(false); return; }
-    if (state.event?.cellType === 'cursed_treasure' && !isMobile) {
-      _setShowCursedTreasureCinematic(true);
-      const t = setTimeout(() => _setShowCursedTreasureCinematic(false), 5000);
-      return () => clearTimeout(t);
-    }
-  }, [state.event, state.turn]);
-
-  // Storm cinematic trigger
-  useEffect(() => {
-    if (state.gameOver) { _setShowStormCinematic(false); return; }
-    if (state.event?.cellType === 'storm' && !isMobile) {
-      _setShowStormCinematic(true);
-      const t = setTimeout(() => _setShowStormCinematic(false), 5000);
-      return () => clearTimeout(t);
-    }
-  }, [state.event, state.gameOver]);
-
-  // Ancient Kraken cinematic trigger
-  useEffect(() => {
-    if (state.gameOver) { _setShowAncientKrakenCinematic(false); return; }
-    if (state.event?.cellType === 'ancient_kraken' && !isMobile) {
-      _setShowAncientKrakenCinematic(true);
-      const t = setTimeout(() => _setShowAncientKrakenCinematic(false), 5000);
-      return () => clearTimeout(t);
-    }
-  }, [state.event, state.gameOver]);
-
-  // Maelstrom cinematic trigger
-  useEffect(() => {
-    if (state.gameOver) { _setShowMaelstromCinematic(false); return; }
-    if (state.event?.cellType === 'maelstrom' && !isMobile) {
-      _setShowMaelstromCinematic(true);
-      const t = setTimeout(() => _setShowMaelstromCinematic(false), 5000);
-      return () => clearTimeout(t);
-    }
-  }, [state.event, state.gameOver]);
-
-  // Island cinematic trigger
-  useEffect(() => {
-    if (state.gameOver) { _setShowIslandCinematic(false); return; }
-    if (state.event?.cellType === 'island' && !isMobile) {
-      _setShowIslandCinematic(true);
-      const t = setTimeout(() => _setShowIslandCinematic(false), 5000);
-      return () => clearTimeout(t);
-    }
-  }, [state.event, state.gameOver]);
-
-  // Wreck cinematic trigger
-  useEffect(() => {
-    if (state.gameOver) { _setShowWreckCinematic(false); return; }
-    if (state.gameOver) { _setShowWreckCinematic(false); return; }
-    if (state.event?.cellType === 'wreck' && !isMobile) {
-      _setShowWreckCinematic(true);
-      const t = setTimeout(() => _setShowWreckCinematic(false), 5000);
-      return () => clearTimeout(t);
-    }
-  }, [state.event, state.turn]);
-
-  // Pirate cinematic trigger
-  useEffect(() => {
-    if (state.gameOver) { _setShowPirateCinematic(false); return; }
-    if (state.gameOver) { _setShowPirateCinematic(false); return; }
-    if (state.event?.cellType === 'pirate' && !isMobile) {
-      _setShowPirateCinematic(true);
-      const t = setTimeout(() => _setShowPirateCinematic(false), 5000);
-      return () => clearTimeout(t);
-    }
-  }, [state.event, state.turn]);
-
-  // Kraken cinematic trigger
-  useEffect(() => {
-    if (state.gameOver) { _setShowKrakenCinematic(false); return; }
-    if (state.event?.cellType === 'kraken' && !isMobile) {
-      _setShowKrakenCinematic(true);
-      const t = setTimeout(() => _setShowKrakenCinematic(false), 5000);
-      return () => clearTimeout(t);
-    }
-  }, [state.event, state.gameOver]);
 
   // Portal zone transition cinematic
   const prevZoneRef = useRef(1);
@@ -450,23 +326,21 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
     if (state.gameOver) {
       const fresh = checkAndUnlockFeats(state);
       if (fresh.length > 0) { setNewFeats(fresh); sfx('streak'); }
-      if (state.score > 0) {
-        const summary = summarizeRunForRetention({
-          score: state.score,
-          turn: state.turn,
-          zone: state.currentZone ?? 1,
-          gold: state.ship.gold,
-          hunterAttacksSurvived: state.hunterAttacksSurvived ?? 0,
-          peakStreak: peakStreakRef.current,
-          hadStreak5: (state.exploits ?? []).includes('streak5'),
-        });
-        // Exclude feats just unlocked this death
-        const freshIds = new Set(fresh.map(f => f.id));
-        setNearFeats(summary.nearest.filter(n => !freshIds.has(n.feat.id)));
-        if (summary.isNewRecord) {
-          setPersonalBest(summary.pb);
-          setIsNewRecord(true);
-        }
+      const summary = summarizeRunForRetention({
+        score: state.score,
+        turn: state.turn,
+        zone: state.currentZone ?? 1,
+        gold: state.ship.gold,
+        hunterAttacksSurvived: state.hunterAttacksSurvived ?? 0,
+        peakStreak: peakStreakRef.current,
+        hadStreak5: (state.exploits ?? []).includes('streak5'),
+      });
+      // Exclude feats just unlocked this death
+      const freshIds = new Set(fresh.map(f => f.id));
+      setNearFeats(summary.nearest.filter(n => !freshIds.has(n.feat.id)));
+      if (summary.isNewRecord) {
+        setPersonalBest(summary.pb);
+        setIsNewRecord(true);
       }
       clearActiveRun();
       // Le score quotidien est desormais ecrit par le serveur.
@@ -542,9 +416,8 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
   useEffect(() => {
     // Storm surge flash
     if (state.log?.includes('⚡ Storm surge')) triggerFlash('rgba(100,150,255,0.35)');
-    // Kraken/legendary flash
-    if (state.event?.cellType === 'kraken' || state.event?.cellType === 'ancient_kraken') triggerFlash('rgba(150,0,255,0.3)');
     if (state.event?.cellType === 'ancient_kraken') triggerFlash('rgba(200,160,48,0.4)');
+    else if (state.event?.cellType === 'kraken') triggerFlash('rgba(150,0,255,0.3)');
     // Hunter vignette — monte avec la menace (distance + mode)
     const h = state.hunter;
     if (h?.active) {

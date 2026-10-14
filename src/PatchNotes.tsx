@@ -15,10 +15,18 @@ type Patch = {
 
 const PATCHES: Patch[] = [
   {
-    version: '1.2',
+    version: '1.1',
     date: 'October 2026',
-    headline: 'What the shop promises, the sea delivers',
+    headline: 'Ships, honesty & clearer seas',
     sections: [
+      {
+        title: 'Balance',
+        items: [
+          'Fleeing a danger now pushes the storm back by 3.',
+          'Below 8 hull, risky choices no longer build your danger streak.',
+          'Combat hits harder mid-map (×1.15) and far north (×1.3).',
+        ],
+      },
       {
         title: 'Honesty',
         items: [
@@ -35,28 +43,6 @@ const PATCHES: Patch[] = [
         ],
       },
       {
-        title: 'HUD',
-        items: [
-          'Hunter tile badge no longer truncates (TRK / STK / SRC / ENR).',
-          'Sail controls and log stay on-screen — Hunter banner overlays the map instead of pushing the layout.',
-        ],
-      },
-    ],
-  },
-  {
-    version: '1.1',
-    date: 'October 2026',
-    headline: 'Ships, vision & clearer seas',
-    sections: [
-      {
-        title: 'Balance',
-        items: [
-          'Fleeing a danger now pushes the storm back by 3.',
-          'Below 8 hull, risky choices no longer build your danger streak.',
-          'Combat hits harder mid-map (×1.15) and far north (×1.3).',
-        ],
-      },
-      {
         title: 'Vision',
         items: [
           'Navigation and Cracked Spyglass now stack (cap 4).',
@@ -68,7 +54,8 @@ const PATCHES: Patch[] = [
         title: 'The Hunter',
         items: [
           'Map banner shows mode, distance, and estimated hit damage.',
-          'Clearer HUD and tile badge so you can read the threat at a glance.',
+          'Hunter tile badge no longer truncates (TRK / STK / SRC / ENR).',
+          'Sail controls and log stay on-screen — Hunter banner overlays the map instead of pushing the layout.',
         ],
       },
       {

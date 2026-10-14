@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import type { GameState } from '../../types/game';
 import type { Feat } from '../../game/feats';
-import type { FeatProgress } from '../../game/progress';
+import { getRunsPlayed, type FeatProgress } from '../../game/progress';
 import { getRelicDef, type RelicDef } from '../../game/relics';
 import { getDailyKey, isDailySeedRevealed, hasDailyBeenPlayed } from '../../game/engine';
 import { submitScoreOnChain } from '../../starknet';
@@ -177,6 +177,7 @@ export default function GameOverScreen({
               { label: 'TURNS', val: s.turn, color: 'rgba(255,255,255,0.6)' },
               { label: 'GOLD', val: s.ship.gold, color: '#eedd44' },
               { label: 'HULL', val: `${s.ship.hull}/${s.ship.maxHull}`, color: s.ship.hull <= 5 ? '#ee4444' : s.ship.hull <= 10 ? '#ee8844' : '#44cc88' },
+              { label: 'VOYAGES', val: getRunsPlayed(), color: '#88ddff' },
             ].map(st => (
               <div key={st.label} style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: isMobile ? 10 : 13, color: 'rgba(255,255,255,0.3)', letterSpacing: isMobile ? 1 : 3, fontFamily: "'Cinzel', serif" }}>{st.label}</div>
@@ -250,9 +251,12 @@ export default function GameOverScreen({
                 <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', fontFamily: "'Cinzel', serif", marginTop: 8, lineHeight: 1.4 }}>Your NFT will be sent to your wallet soon.</div>
                 <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}
                   onClick={() => {
-                    const nftName = nftMinted[0].replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-                    const text = `🏴‍☠️ I earned "${nftName}" — a Genesis NFT in Corsair.\nNo mint button. No whitelist. Just sail, meet the condition, claim it before it's SOLD OUT.\nDare to find yours? ⚓\nhttps://playcorsair.xyz/`;
-                    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank');
+                    const nftKey = nftMinted[0];
+                    const nftName = nftKey.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+                    const TIDEBORN = new Set(['splintered_keel', 'quiet_hold', 'red_wake', 'abyss_lantern', 'tideborn_crown']);
+                    const season = TIDEBORN.has(nftKey) ? 'Tideborn' : 'Genesis';
+                    const text = `🏴‍☠️ I earned "${nftName}" — a ${season} NFT in Corsair.\nNo mint button. No whitelist. Just sail, meet the condition, claim it before it's SOLD OUT.\nDare to find yours? ⚓ @PlayCorsair\nhttps://playcorsair.xyz/\n\n#Tideborn #Starknet`;
+                    window.open(`https://x.com/intent/post?text=${encodeURIComponent(text)}`, '_blank');
                   }}
                   style={{ marginTop: 10, padding: '8px 20px', borderRadius: 8, border: '1px solid rgba(255,255,255,0.3)', background: 'rgba(0,0,0,0.5)', color: '#ffffff', cursor: 'pointer', fontSize: 13, fontFamily: "'Pirata One', cursive", letterSpacing: 1 }}>
                   𝕏 Share your find
@@ -294,9 +298,10 @@ export default function GameOverScreen({
               const rankLine = rangMois
                 ? `\n⚔️ #${rangMois.rank} in Starktember — ${rangMois.total.toLocaleString()} pts across the month.`
                 : '';
+              // URL alone on its own line — hashtags on the same line as the URL break the link on X
               const text = isDailyRun
-                ? `☀️ Daily Challenge — ${today} — ${s.score} pts before the storm claimed me.\nSame sea for every captain today. Can you beat me?${rankLine}${relicLine}\n⚓ @PlayCorsair https://playcorsair.xyz/ #Starktember #Starknet`
-                : `🏴\u200d☠️ ${s.runTitle} — ${s.score} pts before the storm claimed me.\n${s.turn} turns · ${s.ship.gold} gold · No mercy.${relicLine}\nSame waters, seed ${s.seed}. Dare to sail further? ⚓ @PlayCorsair\nhttps://playcorsair.xyz/ #Starknet`;
+                ? `☀️ Daily Challenge — ${today} — ${s.score} pts before the storm claimed me.\nSame sea for every captain today. Can you beat me?${rankLine}${relicLine}\n⚓ @PlayCorsair\nhttps://playcorsair.xyz/\n\n#Tideborn #Starknet`
+                : `🏴\u200d☠️ ${s.runTitle} — ${s.score} pts before the storm claimed me.\n${s.turn} turns · ${s.ship.gold} gold · No mercy.${relicLine}\nSame waters, seed ${s.seed}. Dare to sail further? ⚓ @PlayCorsair\nhttps://playcorsair.xyz/\n\n#Tideborn #Starknet`;
               const death = deriveDeathCause(s.log);
               return (
                 <ShareCard

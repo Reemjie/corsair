@@ -8,12 +8,12 @@ export const CHOICE_ICONS: Record<string, string> = Object.fromEntries(
 export const ZONE_BG: Record<number, string> = {
   1: import.meta.env.BASE_URL + 'scenes/island.jpg',
   2: import.meta.env.BASE_URL + 'scenes/storm.jpg',
-  3: import.meta.env.BASE_URL + 'scenes/ancient-kraken.jpg',
+  3: import.meta.env.BASE_URL + 'scenes/ancient_kraken.jpg',
 };
 
 export const SCENE_BG: Record<string, string> = {
   kraken: import.meta.env.BASE_URL + 'scenes/kraken.jpg',
-  ancient_kraken: import.meta.env.BASE_URL + 'scenes/ancient-kraken.jpg',
+  ancient_kraken: import.meta.env.BASE_URL + 'scenes/ancient_kraken.jpg',
   storm: import.meta.env.BASE_URL + 'scenes/storm.jpg',
   island: import.meta.env.BASE_URL + 'scenes/island.jpg',
   treasure: import.meta.env.BASE_URL + 'scenes/treasure.jpg',

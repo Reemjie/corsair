@@ -7,8 +7,10 @@ import { getRelicDef, relicPortraitUrl } from '../../game/relics';
 import { Icon } from '../../Icon';
 import OnboardCard from './OnboardCard';
 import ShipToken from './ShipToken';
-import { CELL_COLOR_BY_ZONE, CELL_GLOW_BY_ZONE } from './cells';
+import SeaTile, { seaBaseColor } from './SeaTile';
+import { CELL_ACCENT } from './cells';
 import { ZONE_BG } from './scenes';
+import { getMapCellSize, MAP_GAP } from './mapMetrics';
 import {
   hunterBannerText, hunterManhattan, hunterModeShort, hunterThreatLevel,
 } from './hunterUi';
@@ -18,6 +20,7 @@ const FOG_WASH: Record<number, string> = {
   2: 'rgba(6,10,22,0.86)',
   3: 'rgba(4,6,14,0.9)',
 };
+
 export type GameMapProps = {
   state: GameState;
   isMobile: boolean;
@@ -38,10 +41,7 @@ export default function GameMap({
   onMove,
 }: GameMapProps) {
   const vSize = s.ship.vision * 2 + 1;
-  const reservedH = isMobile ? 240 : 210;
-  const maxGridH = Math.max(180, window.innerHeight - reservedH);
-  const maxGridW = isMobile ? window.innerWidth - 16 : Math.min(window.innerWidth * 0.48, 560);
-  const CELL_S = Math.max(28, Math.floor(Math.min(maxGridW, maxGridH) / vSize) - 4);
+  const CELL_S = getMapCellSize(s.ship.vision, isMobile);
 
   const sailControls = !s.event && !s.showPort && !s.gameOver && (
     isMobile ? (
@@ -130,7 +130,13 @@ export default function GameMap({
             {hunterBanner}
 
             <>
-                <div style={{ position:'absolute', inset:0, background:'radial-gradient(circle at 50% 65%, transparent 20%, rgba(8,15,24,0.6) 45%, rgba(8,15,24,0.95) 70%)', pointerEvents:'none', zIndex:2, borderRadius:8 }}/>
+                {/* Soft vignette — stay gentle at high vision so edge icons stay readable */}
+                <div style={{
+                  position:'absolute', inset:0, pointerEvents:'none', zIndex:2, borderRadius:8,
+                  background: s.ship.vision >= 4
+                    ? 'radial-gradient(circle at 50% 50%, transparent 55%, rgba(8,15,24,0.35) 78%, rgba(8,15,24,0.7) 100%)'
+                    : 'radial-gradient(circle at 50% 65%, transparent 28%, rgba(8,15,24,0.45) 55%, rgba(8,15,24,0.85) 78%)',
+                }}/>
                 {ZONE_BG[s.currentZone ?? 1] && (
                   <div aria-hidden style={{
                     position:'absolute', inset: -6, zIndex: 0, borderRadius: 14, overflow: 'hidden',
@@ -142,7 +148,11 @@ export default function GameMap({
                 )}
                 <div style={{
                   position:'relative', zIndex:1,
-                  display:'grid', gridTemplateColumns:`repeat(${vSize},1fr)`, gap:4,
+                  display:'grid', gridTemplateColumns:`repeat(${vSize},1fr)`, gap: MAP_GAP,
+                  padding: 2,
+                  borderRadius: 8,
+                  background: seaBaseColor(s.currentZone ?? 1),
+                  boxShadow: 'inset 0 0 24px rgba(0,8,14,0.55)',
                   transform: `translate(${slide.x}px, ${slide.y}px)`,
                   transition: slide.instant ? 'none' : 'transform 420ms cubic-bezier(0.22, 1, 0.36, 1)',
                   willChange: 'transform',
@@ -179,45 +189,55 @@ export default function GameMap({
                     const stormFrontRow = s.stormDistance <= 0 ? -1 : s.grid.length + 2 - Math.floor((10 - s.stormDistance) / 3);
                     const isStormFront = isStormed && y === stormFrontRow;
                     const zone = s.currentZone ?? 1;
-                    const zonePalette = CELL_COLOR_BY_ZONE[zone] ?? CELL_COLOR_BY_ZONE[1];
-                    const zoneGlow = CELL_GLOW_BY_ZONE[zone] ?? CELL_GLOW_BY_ZONE[1];
-                    const glow = isStormed ? '#cc2222' : zoneGlow[cell.type];
-                    const wash = isShip ? '#0a2a4a'
-                      : isHunter ? (s.hunter?.mode === 'frenzy' ? '#3a0612' : '#2a0830')
-                      : isStormed ? 'rgba(90,12,18,0.78)'
-                      : isRevealed ? (zonePalette[cell.type] ?? '#050a0f')
-                      : (FOG_WASH[zone] ?? FOG_WASH[1]);
+                    const showOcean = isShip || (isRevealed && !isHunter);
+                    // Never use per-type palette washes (old red/purple/gold cell fills).
+                    const wash = isHunter
+                      ? (s.hunter?.mode === 'frenzy' ? '#3a0612' : '#2a0830')
+                      : showOcean
+                        ? 'transparent'
+                        : (FOG_WASH[zone] ?? FOG_WASH[1]);
+                    // Small cells (high vision): fill the tile + punch brightness so badges stay scannable
+                    const compact = CELL_S < 56;
+                    const iconPx = Math.round(CELL_S * (compact ? 1.02 : 0.96));
+                    const accent = (!isShip && !isHunter && isRevealed && cell.type !== 'sea')
+                      ? (CELL_ACCENT[cell.type] ?? null)
+                      : null;
+                    const rim = compact ? 2 : 1.5;
+                    const iconBright = compact ? 1.38 : 1.22;
+                    const iconContrast = compact ? 1.32 : 1.2;
+                    const iconGlow = compact ? 5 : 3;
                     return (
                       <motion.div key={`${x}-${y}`} className={isStormFront ? 'storm-front' : undefined}
                         initial={isRevealed ? { opacity:0, scale:0.8 } : false}
                         animate={{ opacity:1, scale:1 }}
                         style={{
                           width:CELL_S, height:CELL_S,
-                          background: wash,
-                          border: isShip ? (hunterDist <= 1 ? '2px solid #ee4466' : '2px solid #4a8acc') : isHunter ? `2px solid ${s.hunter?.mode==='frenzy'?'#ff4466':s.hunter?.mode==='stalking'?'#dd66ff':'#aa44cc'}` : isStormed ? '1px solid #cc222244' : isRevealed ? `1px solid ${glow ? glow+'55' : 'rgba(255,255,255,0.1)'}` : '1px solid rgba(255,255,255,0.04)',
-                          borderRadius:8,
+                          // Ocean texture lives only in <SeaTile> — avoid stacking a CSS bg-image on top.
+                          background: showOcean ? seaBaseColor(zone) : wash,
+                          border: isShip ? (hunterDist <= 1 ? '2px solid #ee4466' : '1px solid rgba(120,190,200,0.45)')
+                            : isHunter ? `2px solid ${s.hunter?.mode==='frenzy'?'#ff4466':s.hunter?.mode==='stalking'?'#dd66ff':'#aa44cc'}`
+                            : isStormed ? '1px solid #cc222244'
+                            : accent ? `${rim}px solid ${accent}${compact ? 'cc' : '99'}`
+                            : showOcean ? '1px solid rgba(255,255,255,0.10)'
+                            : '1px solid rgba(255,255,255,0.04)',
+                          borderRadius:5,
                           display:'flex', alignItems:'center', justifyContent:'center',
                           fontSize: isShip ? 26 : 20,
-                          boxShadow: isHunter ? `0 0 ${hunterDist<=2?22:14}px ${s.hunter?.mode==='frenzy'?'rgba(255,60,80,0.85)':'rgba(200,60,220,0.75)'}` : isShip ? (hunterDist <= 1 ? '0 0 22px rgba(238,68,102,0.55)' : '0 0 20px rgba(74,138,204,0.4)') : glow && isRevealed ? `0 0 10px ${glow}44` : 'none',
+                          boxShadow: isHunter ? `0 0 ${hunterDist<=2?22:14}px ${s.hunter?.mode==='frenzy'?'rgba(255,60,80,0.85)':'rgba(200,60,220,0.75)'}`
+                            : isShip ? (hunterDist <= 1 ? '0 0 18px rgba(238,68,102,0.5)' : '0 0 10px rgba(20,60,80,0.35)')
+                            : accent ? `0 0 ${compact ? 12 : 8}px ${accent}${compact ? '66' : '44'}, inset 0 0 ${compact ? 14 : 10}px ${accent}${compact ? '28' : '18'}`
+                            : 'none',
                           position:'relative', cursor:'default', overflow:'hidden',
                         }}>
-                        {!isShip && !isHunter && isRevealed && cell.type === 'sea' && (
-                          <div aria-hidden style={{
-                            position: 'absolute', inset: 0, borderRadius: 7, pointerEvents: 'none',
-                            background: zone === 3
-                              ? 'radial-gradient(ellipse at 35% 30%, rgba(70,100,140,0.55) 0%, rgba(25,40,70,0.25) 55%, transparent 75%)'
-                              : zone === 2
-                                ? 'radial-gradient(ellipse at 35% 30%, rgba(80,110,170,0.5) 0%, rgba(40,55,110,0.22) 55%, transparent 75%)'
-                                : 'radial-gradient(ellipse at 35% 30%, rgba(90,170,200,0.55) 0%, rgba(40,100,130,0.28) 50%, transparent 75%)',
-                            boxShadow: 'inset 0 -10px 18px rgba(30,80,110,0.35), inset 0 6px 12px rgba(160,220,245,0.12)',
-                          }} />
+                        {showOcean && (
+                          <SeaTile zone={zone} x={absX} y={absY} cellSize={CELL_S} quiet={isShip} />
                         )}
                         {isShip && (
                           <>
                             <div style={{ position:'relative', zIndex:1, lineHeight:0 }}>
                               <ShipToken
                                 shipId={s.shipType ?? 'default'}
-                                size={Math.round(CELL_S * 0.9)}
+                                size={Math.round(CELL_S * (compact ? 0.98 : 0.92))}
                                 lurchX={lurch.x}
                                 lurchY={lurch.y}
                               />
@@ -234,29 +254,49 @@ export default function GameMap({
                           <motion.div animate={{ opacity:[0.55,1,0.55], scale:[0.9,1.08,0.9] }} transition={{ repeat:Infinity, duration:1.6, ease:'easeInOut' }}
                             style={{ position:'absolute', inset:0, zIndex:1, display:'flex', alignItems:'center', justifyContent:'center', background:'radial-gradient(circle, #aa77ff 0%, #6644cc55 45%, transparent 75%)', borderRadius:4, boxShadow:'0 0 12px #8866ff' }}>
                             <img
-                              src={`${import.meta.env.BASE_URL}icons/portal.png`}
+                              src={`${import.meta.env.BASE_URL}icons/portal.png?v=9`}
                               alt=""
-                              style={{ width: CELL_S*0.72, height: CELL_S*0.72, objectFit:'contain', filter:'drop-shadow(0 0 6px #aa77ff)', mixBlendMode:'screen' as const }}
+                              style={{ width: iconPx, height: iconPx, objectFit:'contain', filter:'drop-shadow(0 0 8px #aa77ff)' }}
                             />
                           </motion.div>
                         )}
                         {!isHunter && !isShip && isRevealed && cell.type !== 'sea' && (
-                          <img src={`${import.meta.env.BASE_URL}icons/${cell.type}.png`} style={{ width:CELL_S*0.82, height:CELL_S*0.82, opacity: cell.visited ? 0.35 : 1, objectFit:'contain', mixBlendMode:'screen' as const, position:'relative', zIndex:1 }}/>
-                        )}
-                        {!isHunter && !isShip && isRevealed && cell.type === 'sea' && (
-                          <div
-                            aria-hidden
-                            className="sea-shimmer"
-                            style={{
-                              position: 'absolute', inset: 0, zIndex: 1, borderRadius: 7, pointerEvents: 'none',
-                              animationDelay: `${((Math.abs(absX) * 0.37 + Math.abs(absY) * 0.53) % 2.8).toFixed(2)}s`,
+                          <>
+                            {/* Type halo — glanceable color blob when badges shrink */}
+                            {accent && !cell.visited && (
+                              <div
+                                aria-hidden
+                                style={{
+                                  position: 'absolute',
+                                  inset: compact ? '8%' : '14%',
+                                  borderRadius: '50%',
+                                  background: `radial-gradient(circle, ${accent}${compact ? '55' : '38'} 0%, ${accent}00 70%)`,
+                                  pointerEvents: 'none',
+                                  zIndex: 0,
+                                }}
+                              />
+                            )}
+                            <img
+                              src={`${import.meta.env.BASE_URL}icons/${cell.type}.png?v=9`}
+                              alt=""
+                              style={{
+                              width: iconPx,
+                              height: iconPx,
+                              opacity: cell.visited ? 0.45 : 1,
+                              objectFit: 'contain',
+                              position: 'relative',
+                              zIndex: 1,
+                              filter: cell.visited
+                                ? 'brightness(1.05) contrast(1.1)'
+                                : `brightness(${iconBright}) contrast(${iconContrast}) drop-shadow(0 0 ${iconGlow}px ${accent ?? '#88aacc'}${compact ? 'cc' : '88'})`,
                             }}
-                          />
+                            />
+                          </>
                         )}
                         {isHunter && !isShip && (
                           <motion.div animate={{ scale:[1, s.hunter?.mode==='frenzy'?1.28:1.18, 1], opacity:[0.85,1,0.85] }} transition={{ repeat:Infinity, duration: s.hunter?.mode==='frenzy'?0.9:1.5 }}
                             style={{ filter:`drop-shadow(0 0 ${hunterDist<=2?16:10}px ${s.hunter?.mode==='frenzy'?'#ff4466':'#cc44ee'})`, position:'relative', zIndex:1 }}>
-                            <img src={`${import.meta.env.BASE_URL}icons/hunter.png`} style={{width:CELL_S*0.82,height:CELL_S*0.82,objectFit:'contain'}}/>
+                            <img src={`${import.meta.env.BASE_URL}icons/hunter.png?v=9`} style={{width:iconPx,height:iconPx,objectFit:'contain'}}/>
                             <div style={{
                               position:'absolute', left:'50%', bottom: -2, transform:'translateX(-50%)',
                               fontSize: Math.max(7, CELL_S * 0.14), lineHeight:1.1, whiteSpace:'nowrap',
@@ -274,12 +314,6 @@ export default function GameMap({
                         {isPredicted && !isShip && !isHunter && (
                           <motion.div animate={{ opacity:[0,0.4,0] }} transition={{ repeat:Infinity, duration:1.8, ease:'easeInOut' }}
                             style={{ position:'absolute', inset:0, borderRadius:8, background:'rgba(180,30,220,0.15)', border:'1px solid rgba(180,30,220,0.3)', pointerEvents:'none', zIndex:1 }}/>
-                        )}
-                        {isHunter && !isShip && !isRevealed && (
-                          <motion.div animate={{ opacity:[0.3,0.6,0.3] }} transition={{ repeat:Infinity, duration:2 }}
-                            style={{ filter:'drop-shadow(0 0 8px #aa22cc)', position:'relative', zIndex:1 }}>
-                            <img src={`${import.meta.env.BASE_URL}icons/hunter.png`} style={{width:CELL_S*0.82,height:CELL_S*0.82,objectFit:'contain',opacity:0.4,filter:'grayscale(0.8) brightness(0.5)'}}/>
-                          </motion.div>
                         )}
                         {!isHunter && !isShip && !isRevealed && cell.type !== 'portal' && (
                           <span style={{ fontSize:21, color:'rgba(255,255,255,0.08)', fontWeight:700, position:'relative', zIndex:1 }}>?</span>

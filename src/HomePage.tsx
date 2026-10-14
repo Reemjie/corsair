@@ -12,7 +12,7 @@ import ShipsPanel from './ShipsPanel';
 import ShipDraft from './ShipDraft';
 import PatchNotes from './PatchNotes';
 import { getUnlockedShips, rollShipDraft, type ShipDef } from './game/ships';
-import { getPersonalBest, getNearestFeats } from './game/progress';
+import { getCaptainStats, getNearestFeats, zoneLabel } from './game/progress';
 import { Icon } from './Icon';
 import Leaderboard from './Leaderboard';
 
@@ -34,20 +34,12 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
     const n = new Date();
     return n.getUTCFullYear() === 2026 && n.getUTCMonth() === 8;
   })();
-  // Apres le tournoi : bandeau de cloture du 1er au 14 octobre (UTC).
-  // ?fin dans l'adresse permet de le previsualiser avant l'heure.
-  const tournoiTermine = (() => {
-    const t = Date.now();
-    const apercu = typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('fin');
-    return apercu || (t >= Date.UTC(2026, 9, 1) && t < Date.UTC(2026, 9, 15));
-  })();
   useEffect(() => {
-    if (!enSeptembre && !tournoiTermine) return;
+    if (!enSeptembre) return;
     getStarktemberBoard().then(setBoard);
-    if (!enSeptembre) return; // classement fige : inutile de le rafraichir
     const id = setInterval(() => getStarktemberBoard().then(setBoard), 120000);
     return () => clearInterval(id);
-  }, [enSeptembre, tournoiTermine]);
+  }, [enSeptembre]);
   const [dailyDone, setDailyDone] = useState(() => hasDailyBeenPlayed());
   const [isMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
   const [showHowTo, setShowHowTo] = useState(false);
@@ -171,9 +163,8 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
         )}
       </div>
 
-      {/* Content — scroll when the Starktember banner makes the column taller than the viewport;
-          flexShrink:0 prevents FEATS/label/dots from crushing into each other. */}
-      <div style={{ position:'relative', zIndex:10, height:'100%', display:'flex', flexDirection:'column', alignItems:'center', justifyContent: isMobile ? 'flex-start' : (tournoiTermine ? 'flex-start' : 'center'), gap: isMobile ? 12 : (tournoiTermine ? 16 : 24), overflowY:'auto', paddingTop: isMobile ? 44 : (tournoiTermine ? 28 : 0), paddingBottom: isMobile ? 32 : 28 }}>
+      {/* Content — flexShrink:0 prevents FEATS/label/dots from crushing into each other. */}
+      <div style={{ position:'relative', zIndex:10, height:'100%', display:'flex', flexDirection:'column', alignItems:'center', justifyContent: isMobile ? 'flex-start' : 'center', gap: isMobile ? 12 : 24, overflowY:'auto', paddingTop: isMobile ? 44 : 0, paddingBottom: isMobile ? 32 : 28 }}>
         <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.3 }}
           style={{ flexShrink:0, fontSize: isMobile ? 58 : 72, letterSpacing: isMobile ? 10 : 16, marginTop: isMobile ? 32 : 0, color:'#c8a030', textShadow:'0 0 40px rgba(200,160,48,0.6), 0 2px 8px rgba(0,0,0,0.9)' }}>
           CORSAIR
@@ -184,25 +175,40 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
           A ROGUELITE OF NAVIGATION & SURVIVAL
         </motion.div>
 
-        {/* Return strip — unfinished business for captains who come back */}
+        {/* Return strip — lifetime stats + unfinished business */}
         {(() => {
-          const pb = getPersonalBest();
+          const stats = getCaptainStats();
           const near = getNearestFeats(undefined, 1).find(n => n.ratio > 0) ?? null;
-          if (pb <= 0 && !near) return null;
+          if (stats.runsPlayed <= 0 && stats.bestScore <= 0 && !near) return null;
           return (
             <motion.div initial={{ opacity:0, y:8 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.75 }}
               style={{
-                flexShrink:0, maxWidth:420, width: isMobile ? '90%' : '100%',
-                padding: isMobile ? '8px 12px' : '10px 16px', borderRadius:10,
+                flexShrink:0, maxWidth:440, width: isMobile ? '90%' : '100%',
+                padding: isMobile ? '10px 12px' : '12px 16px', borderRadius:10,
                 border:'1px solid rgba(136,221,255,0.28)', background:'rgba(8,18,28,0.72)',
-                display:'flex', flexDirection:'column', gap:4, textAlign:'center',
+                display:'flex', flexDirection:'column', gap:8, textAlign:'center',
               }}>
               <div style={{ fontFamily:"'Cinzel', serif", fontSize:10, letterSpacing:2, color:'rgba(136,221,255,0.7)' }}>
                 YOUR TIDE
               </div>
-              <div style={{ fontFamily:"'IM Fell English', cursive", fontSize: isMobile ? 13 : 14, color:'rgba(255,255,255,0.75)', lineHeight:1.35 }}>
-                {pb > 0 && <>Best <span style={{ color:'#eedd44' }}>{pb.toLocaleString()}</span> pts</>}
-                {pb > 0 && <span style={{ color:'rgba(255,255,255,0.35)' }}> · </span>}
+              <div style={{
+                display:'grid',
+                gridTemplateColumns: 'repeat(4, 1fr)',
+                gap: isMobile ? 4 : 8,
+              }}>
+                {[
+                  { label: 'VOYAGES', val: stats.runsPlayed > 0 ? String(stats.runsPlayed) : '—', color: '#88ddff' },
+                  { label: 'BEST', val: stats.bestScore > 0 ? stats.bestScore.toLocaleString() : '—', color: '#eedd44' },
+                  { label: 'TURNS', val: stats.bestTurn > 0 ? String(stats.bestTurn) : '—', color: 'rgba(255,255,255,0.75)' },
+                  { label: 'REACH', val: stats.bestZone > 1 ? zoneLabel(stats.bestZone).replace(/^The /, '') : (stats.runsPlayed > 0 ? 'Coasts' : '—'), color: stats.bestZone >= 3 ? '#ee6688' : stats.bestZone >= 2 ? '#cc88ff' : '#66bb88' },
+                ].map(c => (
+                  <div key={c.label}>
+                    <div style={{ fontFamily:"'Cinzel', serif", fontSize:8, letterSpacing:1, color:'rgba(255,255,255,0.35)', marginBottom:2 }}>{c.label}</div>
+                    <div style={{ fontFamily:"'Cinzel', serif", fontSize: isMobile ? 13 : 15, fontWeight:700, color:c.color, lineHeight:1.1 }}>{c.val}</div>
+                  </div>
+                ))}
+              </div>
+              <div style={{ fontFamily:"'IM Fell English', cursive", fontSize: isMobile ? 12 : 13, color:'rgba(255,255,255,0.65)', lineHeight:1.35 }}>
                 Daily resets <span style={{ color:'#88ddff' }}>{timeLeft}</span>
                 {near && (
                   <>
@@ -213,7 +219,7 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
                 )}
               </div>
               {!dailyDone && (
-                <div style={{ fontFamily:"'Cinzel', serif", fontSize:10, letterSpacing:1, color:'rgba(200,160,48,0.7)', marginTop:2 }}>
+                <div style={{ fontFamily:"'Cinzel', serif", fontSize:10, letterSpacing:1, color:'rgba(200,160,48,0.7)' }}>
                   {address ? 'Daily still open — climb today’s board' : 'Connect to sail the Daily · same seas for every captain'}
                 </div>
               )}
@@ -272,9 +278,11 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
                   </motion.button>
               }
             </div>
-            <div style={{ display: isMobile ? 'none' : 'block', fontSize:10, color:'rgba(238,221,68,0.55)', fontFamily:"'Cinzel', serif", marginTop:10, textAlign:'center', letterSpacing:1 }}>
-              {(enSeptembre || tournoiTermine) && <><Icon name="trophy" size={17} style={{ marginRight:7 }} />{enSeptembre ? 'Starktember is live — the Daily decides who takes the Tide' : 'Starktember is over — the Tide has found its captain'}</>}
-            </div>
+            {enSeptembre && (
+              <div style={{ display: isMobile ? 'none' : 'block', fontSize:10, color:'rgba(238,221,68,0.55)', fontFamily:"'Cinzel', serif", marginTop:10, textAlign:'center', letterSpacing:1 }}>
+                <Icon name="trophy" size={17} style={{ marginRight:7 }} />Starktember is live — the Daily decides who takes the Tide
+              </div>
+            )}
           </div>
           </div>
 
@@ -335,37 +343,6 @@ export default function HomePage({ onPlay, onResume }: { onPlay: (address: strin
                   </div>
                 );
               })()}
-            </div>
-          )}
-
-          {tournoiTermine && (
-            <div style={{ padding:'14px 20px', borderRadius:12, border:'1px solid rgba(238,170,68,0.5)', background:'linear-gradient(135deg, rgba(40,24,4,0.9), rgba(8,10,18,0.9))', width:'100%', maxWidth:360, textAlign:'center' }}>
-              <div style={{ fontSize:11, color:'rgba(238,170,68,0.8)', fontFamily:"'Cinzel', serif", letterSpacing:3, marginBottom:6 }}>
-                STARKTEMBER IS OVER
-              </div>
-              {board[0] ? (
-                <>
-                  <div style={{ fontSize: isMobile ? 10 : 11, color:'rgba(255,255,255,0.5)', fontFamily:"'IM Fell English', cursive", marginBottom:8 }}>
-                    The Starktember Tide goes to
-                  </div>
-                  <div style={{ display:'flex', alignItems:'center', justifyContent:'center', gap:8, marginBottom:4 }}>
-                    <Icon name="crown" size={22}/>
-                    <div style={{ fontSize:22, color:'#FFD700', fontFamily:"'Pirata One', cursive", letterSpacing:1 }}>
-                      {board[0].username ?? `${board[0].wallet_address.slice(0,6)}...${board[0].wallet_address.slice(-4)}`}
-                    </div>
-                  </div>
-                  <div style={{ fontSize:12, color:'#eeaa44', fontFamily:"'Cinzel', serif", marginBottom:10 }}>
-                    {board[0].total.toLocaleString()} pts across {board[0].days_played} Dailies
-                  </div>
-                  <div style={{ fontSize: isMobile ? 11 : 12, color:'rgba(255,255,255,0.65)', fontFamily:"'IM Fell English', cursive", lineHeight:1.4 }}>
-                    Congratulations, captain. Well sailed.<br/>Thank you to every captain who took part.
-                  </div>
-                </>
-              ) : (
-                <div style={{ fontSize:12, color:'rgba(255,255,255,0.65)', fontFamily:"'IM Fell English', cursive", lineHeight:1.4 }}>
-                  Thank you to every captain who took part.
-                </div>
-              )}
             </div>
           )}
 

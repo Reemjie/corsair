@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { FEATS, getUnlockedFeats, getEquippedTitle, setEquippedTitle } from './game/feats';
+import { getCaptainStats, zoneLabel } from './game/progress';
 import { useState } from 'react';
 import { Icon } from './Icon';
 
@@ -7,6 +8,7 @@ export default function FeatsPanel({ onClose }: { onClose: () => void }) {
   const unlocked = new Set(getUnlockedFeats());
   const [equipped, setEquipped] = useState<string | null>(getEquippedTitle());
   const count = FEATS.filter(f => unlocked.has(f.id)).length;
+  const stats = getCaptainStats();
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
@@ -23,6 +25,27 @@ export default function FeatsPanel({ onClose }: { onClose: () => void }) {
         <div style={{ fontFamily:"'Cinzel', serif", fontSize:12, color:'rgba(136,221,255,0.75)', letterSpacing:2, marginBottom:6 }}>
           {count} / {FEATS.length} UNLOCKED
         </div>
+
+        {(stats.runsPlayed > 0 || stats.bestScore > 0) && (
+          <div style={{
+            display:'grid', gridTemplateColumns:'repeat(4, 1fr)', gap:8,
+            marginBottom:12, padding:'10px 12px', borderRadius:10,
+            border:'1px solid rgba(136,221,255,0.22)', background:'rgba(8,18,28,0.55)',
+          }}>
+            {[
+              { label: 'VOYAGES', val: String(stats.runsPlayed), color: '#88ddff' },
+              { label: 'BEST', val: stats.bestScore > 0 ? stats.bestScore.toLocaleString() : '—', color: '#eedd44' },
+              { label: 'TURNS', val: stats.bestTurn > 0 ? String(stats.bestTurn) : '—', color: 'rgba(255,255,255,0.75)' },
+              { label: 'REACH', val: stats.bestZone > 0 ? zoneLabel(stats.bestZone).replace(/^The /, '') : '—', color: stats.bestZone >= 3 ? '#ee6688' : stats.bestZone >= 2 ? '#cc88ff' : '#66bb88' },
+            ].map(c => (
+              <div key={c.label} style={{ textAlign:'center' }}>
+                <div style={{ fontFamily:"'Cinzel', serif", fontSize:8, letterSpacing:1, color:'rgba(255,255,255,0.35)', marginBottom:2 }}>{c.label}</div>
+                <div style={{ fontFamily:"'Cinzel', serif", fontSize:14, fontWeight:700, color:c.color }}>{c.val}</div>
+              </div>
+            ))}
+          </div>
+        )}
+
         <div style={{ fontFamily:"'IM Fell English', cursive", fontSize:13, color:'rgba(255,255,255,0.6)', marginBottom:14, lineHeight:1.45 }}>
           Wear a title to sail under it — it appears on the leaderboard, in your shared runs and on-chain. {equipped ? <span style={{ color:'#eedd44' }}>Currently: {equipped}</span> : <span style={{ opacity:0.6 }}>No title worn.</span>}
         </div>

@@ -7,6 +7,7 @@ import { SHIPS } from './ships';
 
 const PEAKS_KEY = 'corsair_run_peaks';
 const BEST_KEY = 'corsair_best_score';
+const RUNS_KEY = 'corsair_runs_played';
 
 export type RunPeaks = {
   bestScore: number;
@@ -14,6 +15,15 @@ export type RunPeaks = {
   bestZone: number;
   bestHunterSurvived: number;
   bestGoldEnd: number;
+  bestStreak: number;
+};
+
+/** Lifetime captain card — local, guest-friendly. */
+export type CaptainStats = {
+  runsPlayed: number;
+  bestScore: number;
+  bestTurn: number;
+  bestZone: number;
   bestStreak: number;
 };
 
@@ -43,6 +53,37 @@ export function getPersonalBest(): number {
 
 export function setPersonalBest(score: number): void {
   try { localStorage.setItem(BEST_KEY, String(score)); } catch { /* quota */ }
+}
+
+export function getRunsPlayed(): number {
+  try { return parseInt(localStorage.getItem(RUNS_KEY) || '0', 10) || 0; } catch { return 0; }
+}
+
+export function incrementRunsPlayed(): number {
+  const next = getRunsPlayed() + 1;
+  try { localStorage.setItem(RUNS_KEY, String(next)); } catch { /* quota */ }
+  return next;
+}
+
+export function getCaptainStats(): CaptainStats {
+  const peaks = getRunPeaks();
+  return {
+    runsPlayed: getRunsPlayed(),
+    bestScore: peaks.bestScore,
+    bestTurn: peaks.bestTurn,
+    bestZone: peaks.bestZone,
+    bestStreak: peaks.bestStreak,
+  };
+}
+
+const ZONE_LABEL: Record<number, string> = {
+  1: 'The Coasts',
+  2: 'The Storm Sea',
+  3: 'The Abyss',
+};
+
+export function zoneLabel(zone: number): string {
+  return ZONE_LABEL[zone] ?? ZONE_LABEL[1];
 }
 
 export function getRunPeaks(): RunPeaks {
@@ -151,9 +192,10 @@ export function summarizeRunForRetention(args: {
   hunterAttacksSurvived: number;
   peakStreak: number;
   hadStreak5: boolean;
-}): { peaks: RunPeaks; nearest: FeatProgress[]; pb: number; shortfall: number; isNewRecord: boolean } {
+}): { peaks: RunPeaks; nearest: FeatProgress[]; pb: number; shortfall: number; isNewRecord: boolean; runsPlayed: number } {
   const pbBefore = getPersonalBest();
   const isNewRecord = args.score > pbBefore;
+  const runsPlayed = incrementRunsPlayed();
   const peaks = recordRunPeaks({
     bestScore: args.score,
     bestTurn: args.turn,
@@ -169,5 +211,6 @@ export function summarizeRunForRetention(args: {
     pb,
     shortfall: isNewRecord ? 0 : Math.max(0, pb - args.score),
     isNewRecord,
+    runsPlayed,
   };
 }

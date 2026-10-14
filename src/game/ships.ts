@@ -16,7 +16,7 @@ export interface ShipDef {
 
 /** Portrait art under public/ships/{id}.jpg */
 export function shipPortraitUrl(id: string): string {
-  return `${import.meta.env.BASE_URL}ships/${id}.jpg`;
+  return `${import.meta.env.BASE_URL}ships/${id}.jpg?v=2`;
 }
 
 /** Compact map token under public/ships/{id}-token.jpg */
@@ -24,7 +24,7 @@ export function shipTokenUrl(id: string): string {
   return `${import.meta.env.BASE_URL}ships/${id}-token.jpg`;
 }
 
-/** Top-down 3D map piece under public/ships/{id}-top.png */
+/** Top-down map piece under public/ships/{id}-top.png */
 export function shipTopUrl(id: string): string {
   return `${import.meta.env.BASE_URL}ships/${id}-top.png`;
 }

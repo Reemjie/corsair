@@ -20,7 +20,7 @@ const CELLS = [
 
 const UPGRADES = [
   { id: 'ghost',    name: 'Ghost Ship',      desc: '+2 vision on equip. Pirates always avoid you. Cannot dock at ports. Krakens are attracted to you on sea tiles (midgame+). A high-mobility stealth build — ultra fragile, ultra fast.',                                                cost: '80g', color: '#ee6644' },
-  { id: 'rider',    name: 'Storm Rider',     desc: 'Storm immunity — storm cells give you gold, score, and +1 vision instead of killing you. Trade-off: -1 HP every 2 turns, port repairs heal only 50%. Play aggressive, surf the storm front.',                                              cost: '90g', color: '#44cc88' },
+  { id: 'rider',    name: 'Storm Rider',     desc: 'Storm immunity — storm cells give gold and score instead of killing you (Hull+Rider synergy can heal). Trade-off: -1 HP every 2 turns, port repairs heal only 50%. Play aggressive, surf the storm front.',                                              cost: '90g', color: '#44cc88' },
   { id: 'greed',    name: 'Cursed Greed',    desc: 'Gold x1.5 on combat. Cannot repair at port. Corruption scales with wealth: every 200g worsens storms; at 400g+ pirates hit harder; at 600g+ the Hunter stops skipping turns; at 800g frenzy risk. The richer you get, the more the world hunts you.', cost: '60g', color: '#eedd44' },
   { id: 'berserker',name: 'Berserker',       desc: 'Doubles your Power stat immediately. But you also receive twice as much damage from all sources. Best combined with Hull upgrades.',                                                                cost: '60g', color: '#ee6644' },
   { id: 'hunter',   name: 'Treasure Hunter', desc: 'Reveals all treasures on the map and doubles your treasure reward when your combo is at ×3. Downside: storm surges become 15% more likely.',                                                      cost: '60g', color: '#eedd44' },
@@ -55,10 +55,32 @@ export default function HowToPlay({ onClose, onPlay }: { onClose: () => void; on
         style={{ background: 'linear-gradient(135deg, #0a1422 0%, #060e18 100%)', border: '1px solid rgba(200,160,48,0.3)', borderRadius: isMobile ? 0 : 20, padding: isMobile ? 16 : 36, maxWidth: 960, width: '100%', height: isMobile ? '100vh' : 'auto', maxHeight: isMobile ? '100vh' : '88vh', overflowY: 'auto', position: 'relative' }}>
 
         {/* Header */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 32 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
           <div style={{ fontSize: isMobile ? 20 : 30, color: '#c8a030', letterSpacing: isMobile ? 3 : 6 }}>HOW TO PLAY</div>
           <button onClick={onClose} style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.4)', fontSize: 16, cursor: 'pointer', borderRadius: 8, padding: '6px 16px', fontFamily: "'Pirata One', cursive" }}>✕ CLOSE</button>
         </div>
+
+        {/* Briefing video */}
+        <Section title="2-MINUTE BRIEFING">
+          <p style={{ fontFamily: "'IM Fell English', cursive", fontSize: 16, color: 'rgba(255,255,255,0.55)', lineHeight: 1.6, marginBottom: 12 }}>
+            Watch this first — then use the sections below as a reference chart.
+          </p>
+          <div style={{
+            position: 'relative', width: '100%', borderRadius: 12, overflow: 'hidden',
+            border: '1px solid rgba(200,160,48,0.35)', background: '#040810',
+            aspectRatio: '16 / 9',
+          }}>
+            <video
+              controls
+              playsInline
+              preload="metadata"
+              poster={`${BASE}tutorial/poster.jpg`}
+              style={{ display: 'block', width: '100%', height: '100%', objectFit: 'contain', background: '#040810' }}
+            >
+              <source src={`${BASE}tutorial/corsair-tutorial.mp4`} type="video/mp4" />
+            </video>
+          </div>
+        </Section>
 
         {/* Objectif */}
         <Section title="THE GOAL">
@@ -85,7 +107,7 @@ export default function HowToPlay({ onClose, onPlay }: { onClose: () => void; on
               { label: 'GOLD', val: '80g', desc: 'Used to repair your ship and buy upgrades at port. Earned through combat and exploration.', color: '#eedd44' },
               { label: 'VISION', val: '1–4', desc: 'How far you see. Navigation at port, Spyglass, and Ghost Ship stack. Cap 4. Kraken blindness recovers after a few turns; cursed gold is permanent.', color: '#6aaccc' },
               { label: 'POWER', val: '2', desc: 'Reduces damage received in combat. Every point of power directly lowers hull damage.', color: '#ee8844' },
-              { label: 'STORM', val: '18', desc: 'Turns remaining before the storm reaches your position. Always watch this counter.', color: '#ee4444' },
+              { label: 'STORM', val: '22', desc: 'Turns remaining before the storm reaches your position. Always watch this counter.', color: '#ee4444' },
               { label: 'NOTORIETY', val: '0-10', desc: 'Hidden stat. Rises when you fight pirates, falls when you pay tribute. Affects combat rewards and tribute costs.', color: '#cc44ee' },
             ].map(s => (
               <div key={s.label} style={{ background: 'rgba(255,255,255,0.03)', border: `1px solid ${s.color}33`, borderRadius: 10, padding: '12px 16px' }}>
@@ -137,18 +159,18 @@ export default function HowToPlay({ onClose, onPlay }: { onClose: () => void; on
         {/* Score */}
         <Section title="SCORE & COMBO SYSTEM">
           <p style={{ fontFamily: "'IM Fell English', cursive", fontSize: 18, color: 'rgba(255,255,255,0.75)', lineHeight: 1.9, marginBottom: 16 }}>
-            You earn +5 points per move. Combat, treasure, and exploration all add to your score. The key to a high score is the <span style={{ color: '#eedd44' }}>combo multiplier</span>: every time you encounter a dangerous cell (pirates, kraken, storm, rocks, wreck), your combo stack increases by 1 up to a maximum of ×3. Every safe cell decreases it by 1. If you flee or pay tribute, it drops by 2. This means the best scores come from chains of risky decisions — but each one could end your run.
+            You earn +5 points per move. Combat, treasure, and exploration all add to your score. Two related meters climb together when you take risks: the <span style={{ color: '#eedd44' }}>score multiplier</span> (caps at ×3 — boosts points on rewards) and the <span style={{ color: '#ee8844' }}>danger streak</span> (keeps climbing and unlocks world effects below). Every safe sea cell drops the streak by 1; fleeing or paying tribute drops it by 2. Best scores chain risks — each one can end the run.
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)', gap: 8 }}>
             {[
-              { label: '×1 → ×2 → ×3', desc: 'Chain dangers to boost all rewards', color: '#ee8844' },
+              { label: '×1 → ×2 → ×3', desc: 'Score multiplier from chaining dangers (caps at ×3)', color: '#ee8844' },
             { label: 'Streak 2', desc: '+25% gold on all combat and treasure rewards', color: '#eedd44' },
             { label: 'Streak 3', desc: 'The Hunter becomes aggressive — moves every turn', color: '#ee8844' },
             { label: 'Streak 4', desc: '+8% storm surge chance + elite encounters replace pirates', color: '#ee6644' },
             { label: 'Streak 5', desc: 'Cursed waters — random curse triggers (-vision or -20% gold)', color: '#cc44ee' },
             { label: 'Streak 6+', desc: 'Legendary zone — ancient krakens and maelstroms everywhere', color: '#ff2222' },
-              { label: '-1 stack', desc: 'Each safe cell (sea) reduces your combo by 1', color: '#6aaccc' },
-              { label: '-2 stack', desc: 'Fleeing or paying tribute drops combo faster', color: '#ee4444' },
+              { label: '-1 streak', desc: 'Each safe cell (sea) reduces your danger streak by 1', color: '#6aaccc' },
+              { label: '-2 streak', desc: 'Fleeing or paying tribute drops the streak faster', color: '#ee4444' },
               { label: '+200 pts', desc: 'Exploit: survive at exactly 1 HP', color: '#eedd44' },
               { label: '+300 pts', desc: 'Exploit: 5 dangerous cells in a row', color: '#eedd44' },
               { label: '+500 pts', desc: 'Exploit: defeat the Kraken at ≤5 HP', color: '#eedd44' },
