@@ -15,7 +15,7 @@ const AdminPanel = lazy(() => import('./AdminPanel'));
 type Screen = 'home' | 'game' | 'admin';
 
 /** Flip to false when Tideborn polish is done — redeploy. Bypass: ?crew=1 */
-const MAINTENANCE = true;
+const MAINTENANCE = false;
 const CREW_KEY = 'corsair_crew_bypass';
 
 function BootSplash() {

@@ -23,7 +23,7 @@ import { UPGRADES, UPGRADE_ICONS, UPGRADE_CODES, BUILD_COLOR, UpgradeDesc } from
 import { CELL_ICONS } from './corsair/cells';
 import { getMapStep } from './corsair/mapMetrics';
 import {
-  hunterDistLabel, hunterHitDamage, hunterManhattan, hunterModeHint,
+  hunterDistLabel, hunterHitDamage, hunterManhattan,
   hunterModeLabel, hunterThreatLevel,
 } from './corsair/hunterUi';
 import hullImg from '../assets/hull.png';
@@ -616,41 +616,52 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
           style={{ position:'fixed', inset:0, background:'radial-gradient(ellipse at center, transparent 50%, rgba(220,30,30,0.5) 100%)', zIndex:97, pointerEvents:'none' }} />
       )}
 
-      {/* TOP BAR */}
-      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding: isMobile ? '6px 8px' : '16px 28px', background:'rgba(6,11,18,0.92)', borderBottom:'1px solid rgba(255,255,255,0.06)', flexShrink:0, position:'relative', zIndex:5 }}>
-        <div style={{ fontWeight:700, color:'#c8a030', fontFamily:"'Pirata One', cursive", display:'flex', alignItems:'center', gap: isMobile ? 6 : 10 }}>
-          <img src={anchorImg} style={{ width: isMobile ? 28 : 56, height: isMobile ? 28 : 56, objectFit:'contain' }}/>
-          {!isMobile && ' CORSAIR'}
+      {/* TOP BAR — thin chart overlay, not a dashboard slab */}
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding: isMobile ? '5px 8px' : '8px 18px', background:'linear-gradient(180deg, rgba(6,12,20,0.78) 0%, rgba(6,12,20,0.42) 100%)', borderBottom:'1px solid rgba(255,255,255,0.05)', flexShrink:0, position:'relative', zIndex:5, backdropFilter:'blur(6px)' }}>
+        <div style={{ fontWeight:700, color:'#c8a030', fontFamily:"'Pirata One', cursive", display:'flex', alignItems:'center', gap: isMobile ? 6 : 8 }}>
+          <img src={anchorImg} style={{ width: isMobile ? 24 : 36, height: isMobile ? 24 : 36, objectFit:'contain' }}/>
+          {!isMobile && <span style={{ fontSize:18, letterSpacing:3 }}>CORSAIR</span>}
           {(() => {
             const vessel = SHIPS.find(sh => sh.id === (s.shipType ?? 'default')) ?? SHIPS[0];
+            const zoneName = ZONE_CONFIG[s.currentZone ?? 1]?.name ?? 'The Coasts';
             return (
               <div title={vessel.tagline} style={{
-                marginLeft: isMobile ? 0 : 4, padding: isMobile ? '2px 6px 2px 2px' : '3px 10px 3px 3px', borderRadius: 8,
-                border: '1px solid rgba(200,160,48,0.4)', background: 'rgba(200,160,48,0.1)',
-                fontSize: isMobile ? 9 : 11, letterSpacing: 1, color: '#e8d8a8', fontFamily: "'Cinzel', serif", fontWeight: 600,
-                maxWidth: isMobile ? 110 : 180, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+                marginLeft: isMobile ? 0 : 2, padding: isMobile ? '2px 6px 2px 2px' : '2px 8px 2px 2px', borderRadius: 7,
+                border: '1px solid rgba(200,160,48,0.28)', background: 'rgba(200,160,48,0.07)',
+                fontSize: isMobile ? 9 : 10, letterSpacing: 1, color: '#e8d8a8', fontFamily: "'Cinzel', serif", fontWeight: 600,
+                maxWidth: isMobile ? 110 : 200, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
                 display: 'flex', alignItems: 'center', gap: 6,
               }}>
-                <img src={shipPortraitUrl(vessel.id)} alt="" style={{ width: isMobile ? 22 : 28, height: isMobile ? 22 : 28, borderRadius: 5, objectFit: 'cover', flexShrink: 0 }} />
-                {isMobile ? vessel.name.replace(/^The /, '') : vessel.name}
+                <img src={shipPortraitUrl(vessel.id)} alt="" style={{ width: isMobile ? 20 : 24, height: isMobile ? 20 : 24, borderRadius: 4, objectFit: 'cover', flexShrink: 0 }} />
+                <span style={{ display:'flex', flexDirection:'column', lineHeight:1.15, minWidth:0 }}>
+                  <span>{isMobile ? vessel.name.replace(/^The /, '') : vessel.name}</span>
+                  {!isMobile && <span style={{ fontSize:8, letterSpacing:1.5, color:'rgba(170,120,255,0.75)', fontWeight:500 }}>{zoneName.toUpperCase()}</span>}
+                </span>
               </div>
             );
           })()}
         </div>
-        <div style={{ display:'flex', gap: isMobile ? 8 : 24 }}>
+        <div style={{ display:'flex', gap: isMobile ? 8 : 16, alignItems:'flex-end' }}>
           {(isMobile
             ? [{icon:'hull',label:'HULL',val:`${s.ship.hull}/${s.ship.maxHull}`,color:hullColor},{icon:'gold',label:'GOLD',val:s.ship.gold,color:'#eedd44'},{icon:'power',label:'POWER',val:s.ship.power,color:'#ee8844'}]
-            : [{icon:'hull',label:'HULL',val:`${s.ship.hull}/${s.ship.maxHull}`,color:hullColor},{icon:'gold',label:'GOLD',val:s.ship.gold,color:'#eedd44'},{icon:'vision',label:'VISION',val:(s.visionBlind ?? 0) > 0 ? `${s.ship.vision}~` : s.ship.vision,color:(s.visionBlind ?? 0) > 0 ? '#88aacc' : '#6aaccc'},{icon:'power',label:'POWER',val:s.ship.power,color:'#ee8844'},{icon:'turn',label:'TURN',val:s.turn,color:'rgba(255,255,255,0.4)'},{icon:'turn',label:(ZONE_CONFIG[s.currentZone??1]?.name??'The Coasts').toUpperCase(),val:'',color:'#aa44ee'}]
+            : [{icon:'hull',label:'HULL',val:`${s.ship.hull}/${s.ship.maxHull}`,color:hullColor},{icon:'gold',label:'GOLD',val:s.ship.gold,color:'#eedd44'},{icon:'vision',label:'VISION',val:(s.visionBlind ?? 0) > 0 ? `${s.ship.vision}~` : s.ship.vision,color:(s.visionBlind ?? 0) > 0 ? '#88aacc' : '#6aaccc'},{icon:'power',label:'POWER',val:s.ship.power,color:'#ee8844'},{icon:'turn',label:'TURN',val:s.turn,color:'rgba(255,255,255,0.45)'}]
           ).map(st => (
             <div key={st.label} style={{ textAlign:'center' }}>
-              <div style={{ fontSize: isMobile ? 10 : 17, color:'rgba(255,255,255,0.7)', letterSpacing:1, fontFamily:"'Pirata One', cursive" }}>{st.label}</div>
-              <div style={{ display:'flex', alignItems:'center', gap:4, fontWeight:700, color:st.color }}><img src={({hull:hullImg,gold:goldImg,vision:visionImg,power:powerImg,turn:turnImg} as any)[st.icon] || hullImg} style={{ width: isMobile ? 24 : 40, height: isMobile ? 24 : 40, objectFit:'contain' }}/><span style={{ fontSize: isMobile ? 14 : 22, fontFamily:"'Cinzel', serif" }}>{st.val}</span></div>
+              <div style={{ fontSize: isMobile ? 9 : 10, color:'rgba(255,255,255,0.38)', letterSpacing:1.5, fontFamily:"'Cinzel', serif" }}>{st.label}</div>
+              <div style={{ display:'flex', alignItems:'center', gap:3, fontWeight:700, color:st.color }}>
+                <img src={({hull:hullImg,gold:goldImg,vision:visionImg,power:powerImg,turn:turnImg} as any)[st.icon] || hullImg} style={{ width: isMobile ? 18 : 22, height: isMobile ? 18 : 22, objectFit:'contain', opacity:0.9 }}/>
+                <span style={{ fontSize: isMobile ? 13 : 16, fontFamily:"'Cinzel', serif" }}>{st.val}</span>
+              </div>
             </div>
           ))}
         </div>
-        {!isMobile && <div style={{ display:'flex', alignItems:'center', gap:16 }}>
-          <div style={{ fontSize:26, fontWeight:700, color:'#eedd44', display:'flex', alignItems:'center', gap:6 }}><img src={scoreImg} style={{ width:56, height:56, objectFit:'contain' }}/><span style={{ fontFamily:"'Cinzel', serif" }}>{s.score}</span> pts</div>
-          <button onClick={() => setMuted(m => !m)} aria-label={muted ? 'Unmute sound' : 'Mute sound'} title={muted ? 'Unmute sound' : 'Mute sound'} style={{ background:'transparent', border:'1px solid rgba(255,255,255,0.1)', color:'rgba(255,255,255,0.5)', fontSize:11, letterSpacing:1, cursor:'pointer', borderRadius:8, padding:'6px 10px', fontFamily:"'Cinzel', serif" }}>
+        {!isMobile && <div style={{ display:'flex', alignItems:'center', gap:12 }}>
+          <div style={{ fontSize:18, fontWeight:700, color:'#eedd44', display:'flex', alignItems:'center', gap:4 }}>
+            <img src={scoreImg} style={{ width:28, height:28, objectFit:'contain' }}/>
+            <span style={{ fontFamily:"'Cinzel', serif" }}>{s.score}</span>
+            <span style={{ fontSize:11, color:'rgba(238,221,68,0.55)', fontWeight:500 }}>pts</span>
+          </div>
+          <button onClick={() => setMuted(m => !m)} aria-label={muted ? 'Unmute sound' : 'Mute sound'} title={muted ? 'Unmute sound' : 'Mute sound'} style={{ background:'transparent', border:'1px solid rgba(255,255,255,0.08)', color:'rgba(255,255,255,0.4)', fontSize:10, letterSpacing:1, cursor:'pointer', borderRadius:6, padding:'4px 8px', fontFamily:"'Cinzel', serif" }}>
             {muted ? 'MUTE' : 'SOUND'}
           </button>
         </div>}
@@ -704,17 +715,19 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
       {/* MAIN */}
       <div style={{ flex:1, minHeight:0, display:'flex', overflow:'hidden', position:'relative' }}>
 
-        {/* LEFT — Storm panel */}
-        <div style={{ width: isMobile ? 0 : 260, padding: isMobile ? 0 : '16px 12px', overflow:'hidden', display:'flex', flexDirection:'column', gap:10, borderRight: isMobile ? 'none' : '1px solid rgba(255,255,255,0.05)', transition:'width 0.3s' }}>
-          <div style={{ background: stormPct>70?'rgba(180,30,30,0.2)':'rgba(255,255,255,0.03)', border:`1px solid ${stormPct>70?'rgba(220,50,50,0.5)':'rgba(255,255,255,0.08)'}`, borderRadius:10, padding:'12px 10px' }}>
-            <div style={{ fontSize:14, color: stormPct>70?'#ee4444':'rgba(255,255,255,0.3)', letterSpacing:2, marginBottom:6, display:'flex', alignItems:'center', gap:6 }}>
-              <Icon name="storm" size={16} /> STORM
+        {/* LEFT — storm / hunter / ship (narrow rail) */}
+        <div style={{ width: isMobile ? 0 : 200, padding: isMobile ? 0 : '12px 10px', overflow:'hidden', display:'flex', flexDirection:'column', gap:8, borderRight: isMobile ? 'none' : '1px solid rgba(255,255,255,0.04)', transition:'width 0.3s', background: isMobile ? undefined : 'linear-gradient(90deg, rgba(4,10,16,0.55) 0%, rgba(4,10,16,0.15) 100%)' }}>
+          <div style={{ background: stormPct>70?'rgba(180,30,30,0.18)':'rgba(0,0,0,0.22)', border:`1px solid ${stormPct>70?'rgba(220,50,50,0.45)':'rgba(255,255,255,0.06)'}`, borderRadius:8, padding:'8px 9px' }}>
+            <div style={{ fontSize:10, color: stormPct>70?'#ee4444':'rgba(255,255,255,0.32)', letterSpacing:2, marginBottom:4, display:'flex', alignItems:'center', gap:5, fontFamily:"'Cinzel', serif" }}>
+              <Icon name="storm" size={13} /> STORM
             </div>
-            <div style={{ fontSize:29, fontWeight:700, color: stormPct>70?'#ee4444':'#ee8844' }}>{s.stormDistance}</div>
-            <div style={{ fontSize:20, color:'rgba(255,255,255,0.8)', fontFamily:"'IM Fell English', cursive", marginTop:2 }}>turns until impact</div>
-            <div style={{ height:4, background:'rgba(255,255,255,0.06)', borderRadius:2, marginTop:8 }}>
+            <div style={{ display:'flex', alignItems:'baseline', gap:6 }}>
+              <div style={{ fontSize:22, fontWeight:700, color: stormPct>70?'#ee4444':'#ee8844', fontFamily:"'Cinzel', serif", lineHeight:1 }}>{s.stormDistance}</div>
+              <div style={{ fontSize:11, color:'rgba(255,255,255,0.45)', fontFamily:"'IM Fell English', cursive" }}>turns left</div>
+            </div>
+            <div style={{ height:3, background:'rgba(255,255,255,0.06)', borderRadius:2, marginTop:6 }}>
               <motion.div animate={{ width:`${stormPct}%` }} transition={{ duration:0.5 }}
-                style={{ height:4, borderRadius:2, background:`linear-gradient(90deg,#2a5a2a,#ee4444)` }}/>
+                style={{ height:3, borderRadius:2, background:`linear-gradient(90deg,#2a5a2a,#ee4444)` }}/>
             </div>
           </div>
 
@@ -725,102 +738,91 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
             const dmg = hunterHitDamage(s);
             const near = threat === 'critical' || threat === 'danger';
             return (
-            <div style={{ background: threat==='critical' ? 'rgba(180,20,40,0.28)' : near ? 'rgba(180,30,60,0.18)' : 'rgba(180,30,180,0.08)', border:`1px solid ${s.hunter.mode==='frenzy'||threat==='critical'?'rgba(255,60,90,0.75)':near?'rgba(220,50,80,0.55)':s.hunter.mode==='stalking'?'rgba(220,50,220,0.5)':'rgba(255,255,255,0.08)'}`, borderRadius:10, padding:'12px 10px', marginTop:4 }}>
-              <div style={{ fontSize:13, color: near ? '#ff8899' : 'rgba(200,100,220,0.8)', letterSpacing:2, marginBottom:6, display:'flex', alignItems:'center', gap:6 }}>
-                <Icon name="kraken" size={15} /> HUNTER
+            <div style={{ background: threat==='critical' ? 'rgba(180,20,40,0.28)' : near ? 'rgba(180,30,60,0.18)' : 'rgba(180,30,180,0.08)', border:`1px solid ${s.hunter.mode==='frenzy'||threat==='critical'?'rgba(255,60,90,0.75)':near?'rgba(220,50,80,0.55)':s.hunter.mode==='stalking'?'rgba(220,50,220,0.5)':'rgba(255,255,255,0.08)'}`, borderRadius:8, padding:'8px 9px' }}>
+              <div style={{ fontSize:10, color: near ? '#ff8899' : 'rgba(200,100,220,0.8)', letterSpacing:2, marginBottom:4, display:'flex', alignItems:'center', gap:5, fontFamily:"'Cinzel', serif" }}>
+                <Icon name="kraken" size={13} /> HUNTER
               </div>
-              <div style={{ display:'inline-block', padding:'2px 10px', borderRadius:6, fontSize:11, letterSpacing:2, fontFamily:"'Cinzel', serif", marginBottom:4,
+              <div style={{ display:'inline-block', padding:'1px 7px', borderRadius:5, fontSize:10, letterSpacing:1.5, fontFamily:"'Cinzel', serif", marginBottom:4,
                 background: s.hunter.mode==='frenzy' ? 'rgba(220,30,30,0.3)' : s.hunter.mode==='stalking' ? 'rgba(180,30,180,0.3)' : s.hunter.mode==='searching' ? 'rgba(30,100,180,0.3)' : 'rgba(255,255,255,0.06)',
                 color: s.hunter.mode==='frenzy' ? '#ff6666' : s.hunter.mode==='stalking' ? '#dd88ff' : s.hunter.mode==='searching' ? '#66aaff' : 'rgba(255,255,255,0.55)',
                 border: `1px solid ${s.hunter.mode==='frenzy'?'rgba(220,30,30,0.6)':s.hunter.mode==='stalking'?'rgba(180,30,180,0.5)':'rgba(255,255,255,0.1)'}`,
               }}>
-                {hunterModeIcon(s.hunter.mode)}{hunterModeLabel(s.hunter.mode)}
+                {hunterModeIcon(s.hunter.mode, 12)}{hunterModeLabel(s.hunter.mode)}
               </div>
-              <div style={{ fontSize:11, color:'rgba(255,255,255,0.45)', fontFamily:"'IM Fell English', cursive", lineHeight:1.35, marginBottom:8 }}>
-                {hunterModeHint(s.hunter.mode)}
+              <div style={{ fontSize:11, fontWeight:700, color: hDist <= 1 ? '#ff5566' : hDist <= 3 ? '#eeaa66' : 'rgba(255,255,255,0.55)', fontFamily:"'Cinzel', serif", letterSpacing:0.5, marginBottom:2 }}>
+                {hunterDistLabel(hDist)} · ≈−{dmg}
               </div>
-              <div style={{ fontSize:13, fontWeight:700, color: hDist <= 1 ? '#ff5566' : hDist <= 3 ? '#eeaa66' : 'rgba(255,255,255,0.55)', fontFamily:"'Cinzel', serif", letterSpacing:1, marginBottom:4 }}>
-                {hunterDistLabel(hDist)}
-              </div>
-              <div style={{ fontSize:12, color:'#ff8899', fontFamily:"'Cinzel', serif", letterSpacing:1, marginBottom:8 }}>
-                Hit ≈ −{dmg} hull
-              </div>
-              <div style={{ fontSize:11, color:'rgba(255,255,255,0.3)', letterSpacing:1, marginBottom:4 }}>AWARENESS {s.hunter.awareness}%</div>
-              <div style={{ height:4, background:'rgba(255,255,255,0.06)', borderRadius:2 }}>
+              <div style={{ height:3, background:'rgba(255,255,255,0.06)', borderRadius:2, marginTop:4 }}>
                 <motion.div animate={{ width:`${s.hunter.awareness}%` }} transition={{ duration:0.5 }}
-                  style={{ height:4, borderRadius:2, background: s.hunter.awareness>=80?'#ee4444':s.hunter.awareness>=50?'#cc44ee':'#7744aa' }}/>
+                  style={{ height:3, borderRadius:2, background: s.hunter.awareness>=80?'#ee4444':s.hunter.awareness>=50?'#cc44ee':'#7744aa' }}/>
               </div>
-              {s.hunter.awareness >= 80 && (
-                <div style={{ fontSize:10, color:'#ff6677', fontFamily:"'Cinzel', serif", letterSpacing:1, marginTop:6 }}>
-                  HIGH AWARENESS — it will not let go
-                </div>
-              )}
             </div>
             );
           })()}
 
           {/* Upgrades owned */}
-          <div style={{ fontSize:17, color:'rgba(255,255,255,0.6)', letterSpacing:2, marginTop:8 }}>EQUIPPED</div>
+          <div style={{ fontSize:10, color:'rgba(255,255,255,0.35)', letterSpacing:2, marginTop:4, fontFamily:"'Cinzel', serif" }}>EQUIPPED</div>
           {s.ship.upgrades.length === 0
-            ? <div style={{ fontSize:17, color:'rgba(255,255,255,0.5)', fontStyle:'italic' }}>None yet</div>
+            ? <div style={{ fontSize:12, color:'rgba(255,255,255,0.28)', fontStyle:'italic', fontFamily:"'IM Fell English', cursive" }}>None yet</div>
             : s.ship.upgrades.map(id => {
               const u = UPGRADES.find(u=>u.id===id)!;
-              return <div key={id} style={{ fontSize:14, color:BUILD_COLOR[u.build], display:'flex', alignItems:'center', gap:6 }}><img src={UPGRADE_ICONS[id]} style={{width:20,height:20,objectFit:'contain'}}/>{u.name}</div>;
+              return <div key={id} style={{ fontSize:12, color:BUILD_COLOR[u.build], display:'flex', alignItems:'center', gap:5 }}><img src={UPGRADE_ICONS[id]} style={{width:16,height:16,objectFit:'contain'}}/>{u.name}</div>;
             })
           }
-          {s.upgradeToken && <div style={{ fontSize:14, color:'#eedd44', marginTop:4, display:'flex', alignItems:'center', gap:6 }}><Icon name="star" size={14} /> Free upgrade — claim it at a port</div>}
+          {s.upgradeToken && <div style={{ fontSize:11, color:'#eedd44', marginTop:2, display:'flex', alignItems:'center', gap:5 }}><Icon name="star" size={12} /> Free upgrade at port</div>}
 
-          {/* Composants navire */}
-          <div style={{ marginTop:12 }}>
-            <div style={{ fontSize:11, color:'rgba(255,255,255,0.3)', letterSpacing:3, fontFamily:"'Cinzel', serif", marginBottom:10 }}>SHIP</div>
-            <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
+          {/* Composants navire — compact rail */}
+          <div style={{ marginTop:6 }}>
+            <div style={{ fontSize:10, color:'rgba(255,255,255,0.28)', letterSpacing:2, fontFamily:"'Cinzel', serif", marginBottom:6 }}>SHIP</div>
+            <div style={{ display:'flex', flexDirection:'column', gap:6 }}>
               {([
-                { key:'hull',   label:'Hull',   img: hullImg, color:'#44cc88', levels:['20 HP','28 HP','38 HP'], sub:['Integrity','Reinforced','Ironclad'] },
-                { key:'weapon', label:'Weapon', img: powerImg, color:'#ee6644', levels:['P2','P5','P9'],         sub:['Cannons','Iron Guns','Heavy Fire'] },
-                { key:'nav',    label:'Navigation',    img: visionImg, color:'#6aaccc', levels:['V1','V2','V3'],         sub:['Basic','Chart','Star Reader'] },
+                { key:'hull',   label:'Hull',   img: hullImg, color:'#44cc88', sub:['Integrity','Reinforced','Ironclad'] },
+                { key:'weapon', label:'Weapon', img: powerImg, color:'#ee6644', sub:['Cannons','Iron Guns','Heavy Fire'] },
+                { key:'nav',    label:'Nav',    img: visionImg, color:'#6aaccc', sub:['Basic','Chart','Star Reader'] },
               ] as const).map(comp => {
                 const lvl = s.ship.levels[comp.key];
                 const isMaxed = lvl === 2;
                 const gc = comp.color;
                 const romans = ['I','II','III'];
+                // Live ship values — not hardcoded baselines (Merchant −5 hull, Specter +1 vision, etc.)
+                const valueLabel = comp.key === 'hull' ? `${s.ship.maxHull} HP`
+                  : comp.key === 'weapon' ? `P${s.ship.power}`
+                  : `V${s.ship.vision}`;
                 return (
                   <motion.div key={comp.key}
-                    animate={isMaxed ? { filter:[`drop-shadow(0 0 3px ${gc}00)`,`drop-shadow(0 0 8px ${gc}bb)`,`drop-shadow(0 0 3px ${gc}00)`] } : {}}
+                    animate={isMaxed ? { filter:[`drop-shadow(0 0 3px ${gc}00)`,`drop-shadow(0 0 6px ${gc}aa)`,`drop-shadow(0 0 3px ${gc}00)`] } : {}}
                     transition={{ repeat:Infinity, duration:2 }}
-                    style={{ background:`linear-gradient(135deg, rgba(0,0,0,0.4), ${gc}08)`, border:`1px solid ${gc}${isMaxed?'66':'22'}`, borderRadius:10, padding:'8px 10px' }}>
-                    <div style={{ display:'flex', alignItems:'center', gap:8, marginBottom:6 }}>
-                      <img src={comp.img} alt="" style={{ width:22, height:22, objectFit:'contain' }} />
-                      <div style={{ flex:1 }}>
-                        <div style={{ fontSize:13, color: gc, fontFamily:"'Pirata One', cursive", letterSpacing:1 }}>{comp.label}</div>
-                        <div style={{ fontSize:10, color:'rgba(255,255,255,0.3)', fontFamily:"'Cinzel', serif" }}>{comp.sub[lvl]}</div>
+                    style={{ background:`rgba(0,0,0,0.28)`, border:`1px solid ${gc}${isMaxed?'55':'18'}`, borderRadius:7, padding:'6px 7px' }}>
+                    <div style={{ display:'flex', alignItems:'center', gap:6, marginBottom:4 }}>
+                      <img src={comp.img} alt="" style={{ width:16, height:16, objectFit:'contain' }} />
+                      <div style={{ flex:1, minWidth:0 }}>
+                        <div style={{ fontSize:11, color: gc, fontFamily:"'Pirata One', cursive", letterSpacing:0.5 }}>{comp.label}</div>
+                        <div style={{ fontSize:8, color:'rgba(255,255,255,0.28)', fontFamily:"'Cinzel', serif" }}>{comp.sub[lvl]}</div>
                       </div>
-                      <div style={{ fontSize:14, color: gc, fontFamily:"'Cinzel', serif", fontWeight:700 }}>
-                        {comp.levels[lvl]}{isMaxed ? ' ★' : ''}
+                      <div style={{ fontSize:11, color: gc, fontFamily:"'Cinzel', serif", fontWeight:700 }}>
+                        {valueLabel}{isMaxed ? ' ★' : ''}
                       </div>
                     </div>
                     <div style={{ display:'flex', alignItems:'center', gap:0 }}>
                       {[0,1,2].map((i,idx) => (
                         <div key={i} style={{ display:'flex', alignItems:'center' }}>
                           {idx > 0 && (
-                            <div style={{ width:10, height:2, background: i <= lvl ? `${gc}88` : 'rgba(255,255,255,0.08)' }}/>
+                            <div style={{ width:6, height:1, background: i <= lvl ? `${gc}88` : 'rgba(255,255,255,0.08)' }}/>
                           )}
-                          <motion.div
-                            animate={isMaxed && i===2 ? { scale:[1,1.15,1] } : {}}
-                            transition={{ repeat:Infinity, duration:1.5 }}
+                          <div
                             style={{
-                              width:28, height:28,
+                              width:18, height:18,
                               clipPath:'polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)',
                               background: i <= lvl
                                 ? `linear-gradient(135deg, ${gc}dd, ${gc}66)`
                                 : 'rgba(255,255,255,0.05)',
-                              border:'none',
                               display:'flex', alignItems:'center', justifyContent:'center',
-                              boxShadow: i <= lvl ? `0 0 8px ${gc}44` : 'none',
+                              boxShadow: i <= lvl ? `0 0 5px ${gc}33` : 'none',
                             }}>
-                            <span style={{ fontSize:9, color: i <= lvl ? '#000' : 'rgba(255,255,255,0.2)', fontFamily:"'Cinzel', serif", fontWeight:700 }}>
+                            <span style={{ fontSize:7, color: i <= lvl ? '#000' : 'rgba(255,255,255,0.2)', fontFamily:"'Cinzel', serif", fontWeight:700 }}>
                               {romans[i]}
                             </span>
-                          </motion.div>
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -844,11 +846,12 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
           onMove={move}
         />
 
-        {/* RIGHT — Next zone hints + upgrades shop */}
-        <div style={{ width: isMobile ? 0 : 260, minWidth: isMobile ? 0 : 260, padding: isMobile ? 0 : '16px 12px', display: isMobile ? 'none' : 'flex', flexDirection:'column', gap:10, borderLeft:'1px solid rgba(255,255,255,0.05)', pointerEvents: s.showPort ? 'none' : 'auto', opacity: s.showPort ? 0.4 : 1, overflow:'hidden' }}>
-          {/* Upgrades shop */}
-          <div style={{ fontSize:17, color:'rgba(255,255,255,0.9)', letterSpacing:2 }}>UPGRADES</div>
-          <div style={{ display:'flex', flexDirection:'column', gap:5, overflowY:'auto' }}>
+        {/* RIGHT — upgrades catalog (compact at sea, expands in port) */}
+        <div style={{ width: isMobile ? 0 : 200, minWidth: isMobile ? 0 : 200, padding: isMobile ? 0 : '12px 10px', display: isMobile ? 'none' : 'flex', flexDirection:'column', gap:6, borderLeft:'1px solid rgba(255,255,255,0.04)', pointerEvents: s.showPort ? 'none' : 'auto', opacity: s.showPort ? 0.35 : 1, overflow:'hidden', background: 'linear-gradient(270deg, rgba(4,10,16,0.55) 0%, rgba(4,10,16,0.15) 100%)' }}>
+          <div style={{ fontSize:10, color:'rgba(255,255,255,0.4)', letterSpacing:2, fontFamily:"'Cinzel', serif" }}>
+            UPGRADES{!s.showPort && <span style={{ color:'rgba(255,255,255,0.22)', marginLeft:6 }}>· at port</span>}
+          </div>
+          <div style={{ display:'flex', flexDirection:'column', gap:4, overflowY:'auto' }}>
             {UPGRADES.map(upg => {
               const owned = s.ship.upgrades.includes(upg.id as UpgradeId);
               const inCart = cart.includes(upg.id);
@@ -856,18 +859,25 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
               const cost = free ? 0 : upg.cost;
               const canBuy = !owned && !inCart && s.ship.gold >= cost && s.showPort;
               const bc = BUILD_COLOR[upg.build];
+              const showDetail = owned || s.showPort;
               return (
                 <div key={upg.id} onClick={() => { if (!s.showPort) return; if (inCart) { setCart(c => c.filter(x => x !== upg.id)); } else if (canBuy) { setCart(c => [...c, upg.id]); } }}
-                  style={{ background: owned?`${bc}14`:'rgba(255,255,255,0.02)', border:`1px solid ${owned?bc+'44':canBuy?bc+'22':'rgba(255,255,255,0.04)'}`, borderRadius:6, padding:'4px 6px', cursor:canBuy?'pointer':'default', opacity:owned?1:canBuy?0.9:0.3, transition:'all 0.15s' }}>
-                  <div style={{ display:'flex', justifyContent:'space-between' }}>
-                    <span style={{ fontSize:13, fontWeight:600, color:owned?bc:'#ffffff', display:'flex', alignItems:'center', gap:4 }}><img src={UPGRADE_ICONS[upg.id]} style={{width:24,height:24,objectFit:'contain'}}/>{upg.name}</span>
-                    {owned ? <span style={{ fontSize:12, color:bc }}>✓</span>
-                           : inCart ? <span style={{ fontSize:11, color:'#44cc88' }}>✓</span>
-                           : <span style={{ fontSize:12, color:'#eedd44' }}>{free&&s.showPort?'FREE':upg.cost+'g'}</span>}
+                  title={!showDetail ? [...upg.pros, ...upg.cons].join(' · ') : undefined}
+                  style={{ background: owned?`${bc}14`:'rgba(0,0,0,0.2)', border:`1px solid ${owned?bc+'44':canBuy?bc+'22':'rgba(255,255,255,0.04)'}`, borderRadius:6, padding: showDetail ? '5px 6px' : '4px 6px', cursor:canBuy?'pointer':'default', opacity:owned?1:canBuy?0.9:0.45, transition:'all 0.15s' }}>
+                  <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', gap:4 }}>
+                    <span style={{ fontSize:12, fontWeight:600, color:owned?bc:'rgba(255,255,255,0.85)', display:'flex', alignItems:'center', gap:4, minWidth:0 }}>
+                      <img src={UPGRADE_ICONS[upg.id]} style={{width:18,height:18,objectFit:'contain',flexShrink:0}}/>
+                      <span style={{ overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{upg.name}</span>
+                    </span>
+                    {owned ? <span style={{ fontSize:11, color:bc }}>✓</span>
+                           : inCart ? <span style={{ fontSize:10, color:'#44cc88' }}>✓</span>
+                           : <span style={{ fontSize:11, color:'#eedd44', flexShrink:0 }}>{free&&s.showPort?'FREE':upg.cost+'g'}</span>}
                   </div>
-                  <div style={{ marginTop:3 }}>
-                    <UpgradeDesc pros={upg.pros} cons={upg.cons} fontSize={11} opacity={0.5} />
-                  </div>
+                  {showDetail && (
+                    <div style={{ marginTop:3 }}>
+                      <UpgradeDesc pros={upg.pros} cons={upg.cons} fontSize={10} opacity={0.45} />
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -1229,11 +1239,14 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                     {/* Components */}
                     <div style={{ fontSize:12, color:'rgba(255,255,255,0.5)', marginTop:10, marginBottom:6 }}>COMPONENTS</div>
                     {([
-                      { key:'hull', label:'Hull', img: hullImg, color:'#44cc88', levels:['20 HP','28 HP','38 HP'] },
-                      { key:'weapon', label:'Weapon', img: powerImg, color:'#ee6644', levels:['P2','P5','P9'] },
-                      { key:'nav', label:'Nav', img: visionImg, color:'#6aaccc', levels:['V1','V2','V3'] },
+                      { key:'hull', label:'Hull', img: hullImg, color:'#44cc88' },
+                      { key:'weapon', label:'Weapon', img: powerImg, color:'#ee6644' },
+                      { key:'nav', label:'Nav', img: visionImg, color:'#6aaccc' },
                     ] as const).map(comp => {
                       const lvl = s.ship.levels[comp.key];
+                      const valueLabel = comp.key === 'hull' ? `${s.ship.maxHull} HP`
+                        : comp.key === 'weapon' ? `P${s.ship.power}`
+                        : `V${s.ship.vision}`;
                       return (
                         <div key={comp.key} style={{ display:'flex', alignItems:'center', gap:8, marginBottom:6 }}>
                           <img src={comp.img} alt="" style={{ width:18, height:18, objectFit:'contain' }} />
@@ -1243,7 +1256,7 @@ export default function CorsairGame({ walletAddress, account, username, onHome, 
                               <div key={i} style={{ width:14, height:14, borderRadius:3, background: i<=lvl ? comp.color : 'rgba(255,255,255,0.1)', border:`1px solid ${i<=lvl ? comp.color+'88' : 'rgba(255,255,255,0.05)'}` }}/>
                             ))}
                           </div>
-                          <span style={{ color:comp.color, fontSize:12 }}>{comp.levels[lvl]}</span>
+                          <span style={{ color:comp.color, fontSize:12 }}>{valueLabel}</span>
                         </div>
                       );
                     })}
