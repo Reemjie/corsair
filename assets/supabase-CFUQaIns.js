@@ -8330,20 +8330,22 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`), !1;
     };
     ra = async function(e) {
         try {
-            let [t, n] = await Promise.all([
+            let [t, n, r] = await Promise.all([
                 $.from(`corsair_scores`).select(`score, zone, turn`).eq(`wallet_address`, e),
                 $.from(`corsair_runs`).select(`run_id`, {
                     count: `exact`,
                     head: !0
-                }).eq(`wallet_address`, e)
-            ]), r = t.data ?? [], i = 0, a = 1, o = 0;
-            for (let e of r)e.score > i && (i = e.score), (e.zone ?? 1) > a && (a = e.zone ?? 1), (e.turn ?? 0) > o && (o = e.turn ?? 0);
-            let s = n.count ?? 0;
-            return i <= 0 && s <= 0 ? null : {
-                bestScore: i,
-                bestZone: a,
-                bestTurn: o,
-                runsPlayed: s
+                }).eq(`wallet_address`, e),
+                qi(e)
+            ]), i = t.data ?? [], a = 0, o = 1, s = 0;
+            for (let e of i)e.score > a && (a = e.score), (e.zone ?? 1) > o && (o = e.zone ?? 1), (e.turn ?? 0) > s && (s = e.turn ?? 0);
+            let c = n.count ?? 0, l = r.length;
+            return a <= 0 && c <= 0 && l <= 0 ? null : {
+                bestScore: a,
+                bestZone: o,
+                bestTurn: s,
+                runsPlayed: c,
+                nftCount: l
             };
         } catch  {
             return null;
