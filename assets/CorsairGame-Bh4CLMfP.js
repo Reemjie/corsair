@@ -1,8 +1,8 @@
 import { a as e } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as t, n, r, t as i } from "./motion-wKhEcHeU.js";
 import { n as a } from "./walletApi-DYniPf4L.js";
-import { A as o, C as s, D as c, F as l, I as u, J as d, L as f, M as p, N as m, O as h, P as g, R as _, S as ee, T as te, V as ne, Y as v, _ as y, a as re, g as b, h as x, i as S, j as C, k as ie, l as ae, q as w, s as oe, t as se, v as ce, w as le, x as ue, z as de } from "./anchor-DWtx7hw1.js";
-import { S as fe, f as pe, g as me, h as he, m as ge, o as _e, t as ve, x as ye, __tla as __tla_0 } from "./supabase-CFUQaIns.js";
+import { A as o, C as s, D as c, F as l, I as u, J as d, L as f, M as p, N as m, O as h, P as g, R as _, S as ee, T as te, V as ne, Y as v, _ as y, a as re, g as b, h as x, i as S, j as C, k as ie, l as ae, q as w, s as oe, t as se, v as ce, w as le, x as ue, z as de } from "./anchor-DFeV5ZIV.js";
+import { S as fe, f as pe, g as me, h as he, m as ge, o as _e, t as ve, x as ye, __tla as __tla_0 } from "./supabase-Dgulr6L_.js";
 import { l as T, __tla as __tla_1 } from "./wallet-D0U5_iuP.js";
 let gt;
 let __tla = Promise.all([
@@ -3534,42 +3534,51 @@ let __tla = Promise.all([
         }, [
             k.turn
         ]), (0, E.useEffect)(()=>{
-            if (!(!e || !k.gameOver) && !z.current) {
-                if (z.current = !0, _e(W.current, {
-                    score: k.score,
-                    turn: k.turn,
-                    zone: k.currentZone ?? 1,
-                    gold: k.ship.gold,
-                    hull: k.ship.hull,
-                    run_title: k.runTitle
-                }), !U && !Ct.current) {
-                    console.warn(`[approve] skip : seed local, run non soumise`), ce();
+            if (!e || !k.gameOver || z.current) return;
+            if (z.current = !0, _e(W.current, {
+                score: k.score,
+                turn: k.turn,
+                zone: k.currentZone ?? 1,
+                gold: k.ship.gold,
+                hull: k.ship.hull,
+                run_title: k.runTitle
+            }), !U && !Ct.current) {
+                console.warn(`[approve] skip : seed local, run non soumise`), ce();
+                return;
+            }
+            let t = {
+                run_id: W.current,
+                wallet_address: e,
+                seed: k.seed,
+                ship_id: T ?? `default`,
+                is_daily: U,
+                actions: G.current,
+                checks: G.current.flatMap((e, t)=>[
+                        q.current[t * 3] ?? -1,
+                        q.current[t * 3 + 1] ?? -1,
+                        q.current[t * 3 + 2] ?? -1
+                    ]),
+                final_score: k.score,
+                final_turn: k.turn
+            };
+            (async ()=>{
+                try {
+                    await ye(t);
+                } catch (e) {
+                    console.warn(`[runlog]`, e), ue(`runlog`, t);
                     return;
                 }
-                ye({
-                    run_id: W.current,
-                    wallet_address: e,
-                    seed: k.seed,
-                    ship_id: T ?? `default`,
-                    is_daily: U,
-                    actions: G.current,
-                    checks: G.current.flatMap((e, t)=>[
-                            q.current[t * 3] ?? -1,
-                            q.current[t * 3 + 1] ?? -1,
-                            q.current[t * 3 + 2] ?? -1
-                        ]),
-                    final_score: k.score,
-                    final_turn: k.turn
-                }).then(()=>ve(W.current)).then((t)=>{
+                try {
+                    let t = await ve(W.current);
                     t?.approved ? (R(!0), U && C(), t.nft?.minted?.length && rt(t.nft.minted.map((e)=>typeof e == `string` ? e : e.nft))) : (console.warn(`[approve] refuse :`, t?.raison ?? t), U && ge(e, te()).then((e)=>{
                         e || le();
                     }));
-                }).catch((e)=>{
+                } catch (e) {
                     console.warn(`[approve]`, e), ue(`approve`, {
                         run_id: W.current
                     });
-                }), ce();
-            }
+                }
+            })(), ce();
         }, [
             k.gameOver
         ]), (0, E.useEffect)(()=>{

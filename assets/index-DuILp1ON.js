@@ -1,9 +1,9 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-DUPnCAMn.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-CFUQaIns.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-DWtx7hw1.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-CSywOE65.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-Bh4CLMfP.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-Dgulr6L_.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-DFeV5ZIV.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-Dc9G9Bjz.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
 import { a as e, t } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as n, n as r, r as i, t as a } from "./motion-wKhEcHeU.js";
 import { n as o, t as s } from "./walletApi-DYniPf4L.js";
-import { A as c, B as l, C as u, D as d, E as f, F as p, G as m, H as h, I as g, K as _, L as v, M as y, N as b, O as x, P as ee, T as te, U as ne, W as re, _ as S, b as ie, c as ae, d as oe, f as se, k as ce, l as le, m as ue, n as C, o as w, p as de, r as fe, t as pe, u as me, v as T, w as E, y as he } from "./anchor-DWtx7hw1.js";
-import { C as ge, a as _e, c as ve, f as ye, g as be, l as xe, m as Se, p as Ce, r as we, s as Te, t as Ee, w as De, __tla as __tla_0 } from "./supabase-CFUQaIns.js";
+import { A as c, B as l, C as u, D as d, E as f, F as p, G as m, H as h, I as g, K as _, L as v, M as y, N as b, O as x, P as ee, T as te, U as ne, W as re, _ as S, b as ie, c as ae, d as oe, f as se, k as ce, l as le, m as ue, n as C, o as w, p as de, r as fe, t as pe, u as me, v as T, w as E, y as he } from "./anchor-DFeV5ZIV.js";
+import { C as ge, a as _e, c as ve, f as ye, g as be, l as xe, m as Se, p as Ce, r as we, s as Te, t as Ee, w as De, x as Oe, __tla as __tla_0 } from "./supabase-Dgulr6L_.js";
 Promise.all([
     (()=>{
         try {
@@ -32,7 +32,7 @@ Promise.all([
             fetch(e.href, n);
         }
     })();
-    var Oe = t(((e)=>{
+    var D = t(((e)=>{
         function t(e, t) {
             var n = e.length;
             e.push(t);
@@ -233,9 +233,9 @@ Promise.all([
                 }
             };
         };
-    })), D = t(((e, t)=>{
-        t.exports = Oe();
-    })), ke = t(((e)=>{
+    })), ke = t(((e, t)=>{
+        t.exports = D();
+    })), Ae = t(((e)=>{
         var t = n();
         function r(e) {
             var t = `https://react.dev/errors/` + e;
@@ -351,7 +351,7 @@ Promise.all([
         }, e.useFormStatus = function() {
             return c.H.useHostTransitionStatus();
         }, e.version = `19.2.7`;
-    })), Ae = t(((e, t)=>{
+    })), je = t(((e, t)=>{
         function n() {
             if (!(typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ > `u` || typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE != `function`)) try {
                 __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(n);
@@ -359,9 +359,9 @@ Promise.all([
                 console.error(e);
             }
         }
-        n(), t.exports = ke();
-    })), je = t(((e)=>{
-        var t = D(), r = n(), i = Ae();
+        n(), t.exports = Ae();
+    })), Me = t(((e)=>{
+        var t = ke(), r = n(), i = je();
         function a(e) {
             var t = `https://react.dev/errors/` + e;
             if (1 < arguments.length) {
@@ -678,7 +678,7 @@ Promise.all([
                     return ``;
             }
         }
-        function ke(e) {
+        function D(e) {
             try {
                 var t = ``, n = null;
                 do t += Oe(e, n), n = e, e = e.return;
@@ -690,10 +690,10 @@ Error generating stack: ` + e.message + `
 ` + e.stack;
             }
         }
-        var je = Object.prototype.hasOwnProperty, Me = t.unstable_scheduleCallback, O = t.unstable_cancelCallback, Ne = t.unstable_shouldYield, k = t.unstable_requestPaint, Pe = t.unstable_now, Fe = t.unstable_getCurrentPriorityLevel, Ie = t.unstable_ImmediatePriority, Le = t.unstable_UserBlockingPriority, A = t.unstable_NormalPriority, Re = t.unstable_LowPriority, ze = t.unstable_IdlePriority, Be = t.log, Ve = t.unstable_setDisableYieldValue, He = null, Ue = null;
+        var Ae = Object.prototype.hasOwnProperty, Me = t.unstable_scheduleCallback, Ne = t.unstable_cancelCallback, O = t.unstable_shouldYield, Pe = t.unstable_requestPaint, k = t.unstable_now, Fe = t.unstable_getCurrentPriorityLevel, Ie = t.unstable_ImmediatePriority, Le = t.unstable_UserBlockingPriority, Re = t.unstable_NormalPriority, ze = t.unstable_LowPriority, Be = t.unstable_IdlePriority, Ve = t.log, He = t.unstable_setDisableYieldValue, A = null, Ue = null;
         function We(e) {
-            if (typeof Be == `function` && Ve(e), Ue && typeof Ue.setStrictMode == `function`) try {
-                Ue.setStrictMode(He, e);
+            if (typeof Ve == `function` && He(e), Ue && typeof Ue.setStrictMode == `function`) try {
+                Ue.setStrictMode(A, e);
             } catch  {}
         }
         var Ge = Math.clz32 ? Math.clz32 : Je, Ke = Math.log, qe = Math.LN2;
@@ -955,7 +955,7 @@ Error generating stack: ` + e.message + `
         }
         var Mt = RegExp(`^[:A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD][:A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040]*$`), Nt = {}, Pt = {};
         function Ft(e) {
-            return je.call(Pt, e) ? !0 : je.call(Nt, e) ? !1 : Mt.test(e) ? Pt[e] = !0 : (Nt[e] = !0, !1);
+            return Ae.call(Pt, e) ? !0 : Ae.call(Nt, e) ? !1 : Mt.test(e) ? Pt[e] = !0 : (Nt[e] = !0, !1);
         }
         function It(e, t, n) {
             if (Ft(t)) if (n === null) e.removeAttribute(t);
@@ -1916,7 +1916,7 @@ Error generating stack: ` + e.message + `
             if (n.length !== r.length) return !1;
             for(r = 0; r < n.length; r++){
                 var i = n[r];
-                if (!je.call(t, i) || !Ar(e[i], t[i])) return !1;
+                if (!Ae.call(t, i) || !Ar(e[i], t[i])) return !1;
             }
             return !0;
         }
@@ -2156,13 +2156,13 @@ Error generating stack: ` + e.message + `
                 return n === void 0 ? (t = {
                     value: e,
                     source: t,
-                    stack: ke(t)
+                    stack: D(t)
                 }, Ti.set(e, t), t) : n;
             }
             return {
                 value: e,
                 source: t,
-                stack: ke(t)
+                stack: D(t)
             };
         }
         var Di = [], Oi = 0, ki = null, Ai = 0, ji = [], Mi = 0, Ni = null, Pi = 1, Fi = ``;
@@ -2450,7 +2450,7 @@ Error generating stack: ` + e.message + `
         }
         var Ca = C.S;
         C.S = function(e, t) {
-            tu = Pe(), typeof t == `object` && t && typeof t.then == `function` && ba(e, t), Ca !== null && Ca(e, t);
+            tu = k(), typeof t == `object` && t && typeof t.then == `function` && ba(e, t), Ca !== null && Ca(e, t);
         };
         var wa = me(null);
         function Ta() {
@@ -4679,15 +4679,15 @@ Error generating stack: ` + e.message + `
                             }
                             e = e.sibling;
                         }
-                        r.tail !== null && Pe() > nu && (t.flags |= 128, i = !0, Bc(r, !1), t.lanes = 4194304);
+                        r.tail !== null && k() > nu && (t.flags |= 128, i = !0, Bc(r, !1), t.lanes = 4194304);
                     }
                     else {
                         if (!i) if (e = _o(o), e !== null) {
                             if (t.flags |= 128, i = !0, e = e.updateQueue, t.updateQueue = e, zc(t, e), Bc(r, !0), r.tail === null && r.tailMode === `hidden` && !o.alternate && !M) return V(t), null;
-                        } else 2 * Pe() - r.renderingStartTime > nu && n !== 536870912 && (t.flags |= 128, i = !0, Bc(r, !1), t.lanes = 4194304);
+                        } else 2 * k() - r.renderingStartTime > nu && n !== 536870912 && (t.flags |= 128, i = !0, Bc(r, !1), t.lanes = 4194304);
                         r.isBackwards ? (o.sibling = t.child, t.child = o) : (e = r.last, e === null ? t.child = o : e.sibling = o, r.last = o);
                     }
-                    return r.tail === null ? (V(t), null) : (e = r.tail, r.rendering = e, r.tail = e.sibling, r.renderingStartTime = Pe(), e.sibling = null, n = P.current, E(P, i ? n & 1 | 2 : n & 1), M && Ii(t, r.treeForkCount), e);
+                    return r.tail === null ? (V(t), null) : (e = r.tail, r.rendering = e, r.tail = e.sibling, r.renderingStartTime = k(), e.sibling = null, n = P.current, E(P, i ? n & 1 | 2 : n & 1), M && Ii(t, r.treeForkCount), e);
                 case 22:
                 case 23:
                     return go(t), co(), r = t.memoizedState !== null, e === null ? r && (t.flags |= 8192) : e.memoizedState !== null !== r && (t.flags |= 8192), r ? n & 536870912 && !(t.flags & 128) && (V(t), t.subtreeFlags & 6 && (t.flags |= 8192)) : V(t), n = t.updateQueue, n !== null && zc(t, n.retryQueue), n = null, e !== null && e.memoizedState !== null && e.memoizedState.cachePool !== null && (n = e.memoizedState.cachePool.pool), r = null, t.memoizedState !== null && t.memoizedState.cachePool !== null && (r = t.memoizedState.cachePool.pool), r !== n && (t.flags |= 2048), e !== null && T(wa), null;
@@ -5109,7 +5109,7 @@ Error generating stack: ` + e.message + `
         }
         function fl(e, t, n) {
             if (Ue && typeof Ue.onCommitFiberUnmount == `function`) try {
-                Ue.onCommitFiberUnmount(He, n);
+                Ue.onCommitFiberUnmount(A, n);
             } catch  {}
             switch(n.tag){
                 case 26:
@@ -5323,7 +5323,7 @@ Error generating stack: ` + e.message + `
                     _l(t, e), bl(e), r & 4 && (r = e.updateQueue, r !== null && (e.updateQueue = null, gl(e, r)));
                     break;
                 case 13:
-                    _l(t, e), bl(e), e.child.flags & 8192 && e.memoizedState !== null != (n !== null && n.memoizedState !== null) && (eu = Pe()), r & 4 && (r = e.updateQueue, r !== null && (e.updateQueue = null, gl(e, r)));
+                    _l(t, e), bl(e), e.child.flags & 8192 && e.memoizedState !== null != (n !== null && n.memoizedState !== null) && (eu = k()), r & 4 && (r = e.updateQueue, r !== null && (e.updateQueue = null, gl(e, r)));
                     break;
                 case 22:
                     i = e.memoizedState !== null;
@@ -5811,7 +5811,7 @@ Error generating stack: ` + e.message + `
                             default:
                                 throw Error(a(329));
                         }
-                        if ((t & 62914560) === t && (i = eu + 300 - Pe(), 10 < i)) {
+                        if ((t & 62914560) === t && (i = eu + 300 - k(), 10 < i)) {
                             if (yu(r, t, Yl, !Hl), $e(r, 0, !0) !== 0) break a;
                             su = t, r.timeoutHandle = Kd(_u.bind(null, r, n, Ql, ru, $l, t, Yl, ql, Xl, Hl, o, `Throttled`, -0, 0), i);
                             break a;
@@ -5835,7 +5835,7 @@ Error generating stack: ` + e.message + `
                     waitingForViewTransition: !1,
                     unsuspend: cn
                 }, Nl(t, a, d);
-                var m = (a & 62914560) === a ? eu - Pe() : (a & 4194048) === a ? tu - Pe() : 0;
+                var m = (a & 62914560) === a ? eu - k() : (a & 4194048) === a ? tu - k() : 0;
                 if (m = qf(d, m), m !== null) {
                     su = a, e.cancelPendingCommit = m(Lu.bind(null, e, t, a, n, r, i, o, s, c, u, d, null, f, p)), yu(e, a, o, !l);
                     return;
@@ -5957,7 +5957,7 @@ Error generating stack: ` + e.message + `
             var n = W;
             W |= 2;
             var r = Tu(), i = Eu();
-            G !== e || q !== t ? (ru = null, nu = Pe() + 500, Su(e, t)) : Ul = et(e, t);
+            G !== e || q !== t ? (ru = null, nu = k() + 500, Su(e, t)) : Ul = et(e, t);
             a: do try {
                 if (J !== 0 && K !== null) {
                     t = K;
@@ -6025,7 +6025,7 @@ Error generating stack: ` + e.message + `
             return ea = $i = null, C.H = r, C.A = i, W = n, K === null ? (G = null, q = 0, ci(), Y) : 0;
         }
         function ju() {
-            for(; K !== null && !Ne();)Mu(K);
+            for(; K !== null && !O();)Mu(K);
         }
         function Mu(e) {
             var t = Fc(e.alternate, e, Gl);
@@ -6106,7 +6106,7 @@ Error generating stack: ` + e.message + `
             if (W & 6) throw Error(a(327));
             if (t !== null) {
                 if (t === e.current) throw Error(a(177));
-                if (o = t.lanes | t.childLanes, o |= si, at(e, n, o, s, c, l), e === G && (K = G = null, q = 0), ou = t, au = e, su = n, cu = o, lu = i, uu = r, t.subtreeFlags & 10256 || t.flags & 10256 ? (e.callbackNode = null, e.callbackPriority = 0, Xu(A, function() {
+                if (o = t.lanes | t.childLanes, o |= si, at(e, n, o, s, c, l), e === G && (K = G = null, q = 0), ou = t, au = e, su = n, cu = o, lu = i, uu = r, t.subtreeFlags & 10256 || t.flags & 10256 ? (e.callbackNode = null, e.callbackPriority = 0, Xu(Re, function() {
                     return Uu(), null;
                 })) : (e.callbackNode = null, e.callbackPriority = 0), r = (t.flags & 13878) != 0, t.subtreeFlags & 13878 || r) {
                     r = C.T, C.T = null, i = w.p, w.p = 2, s = W, W |= 4;
@@ -6188,12 +6188,12 @@ Error generating stack: ` + e.message + `
         }
         function Bu() {
             if (X === 4 || X === 3) {
-                X = 0, k();
+                X = 0, Pe();
                 var e = au, t = ou, n = su, r = uu;
                 t.subtreeFlags & 10256 || t.flags & 10256 ? X = 5 : (X = 0, ou = au = null, Vu(e, e.pendingLanes));
                 var i = e.pendingLanes;
                 if (i === 0 && (iu = null), ut(n), t = t.stateNode, Ue && typeof Ue.onCommitFiberRoot == `function`) try {
-                    Ue.onCommitFiberRoot(He, t, void 0, (t.current.flags & 128) == 128);
+                    Ue.onCommitFiberRoot(A, t, void 0, (t.current.flags & 128) == 128);
                 } catch  {}
                 if (r !== null) {
                     t = C.T, i = w.p, w.p = 2, C.T = null;
@@ -6228,7 +6228,7 @@ Error generating stack: ` + e.message + `
                 if (X = 0, ou = au = null, su = 0, W & 6) throw Error(a(331));
                 var c = W;
                 if (W |= 4, Il(o.current), Ol(o, o.current, s, n), W = c, id(0, !1), Ue && typeof Ue.onPostCommitFiberRoot == `function`) try {
-                    Ue.onPostCommitFiberRoot(He, o);
+                    Ue.onPostCommitFiberRoot(A, o);
                 } catch  {}
                 return !0;
             } finally{
@@ -6265,7 +6265,7 @@ Error generating stack: ` + e.message + `
         }
         function Ku(e, t, n) {
             var r = e.pingCache;
-            r !== null && r.delete(t), e.pingedLanes |= e.suspendedLanes & n, e.warmLanes &= ~n, G === e && (q & n) === n && (Y === 4 || Y === 3 && (q & 62914560) === q && 300 > Pe() - eu ? !(W & 2) && Su(e, 0) : Jl |= n, Xl === q && (Xl = 0)), rd(e);
+            r !== null && r.delete(t), e.pingedLanes |= e.suspendedLanes & n, e.warmLanes &= ~n, G === e && (q & n) === n && (Y === 4 || Y === 3 && (q & 62914560) === q && 300 > k() - eu ? !(W & 2) && Su(e, 0) : Jl |= n, Xl === q && (Xl = 0)), rd(e);
         }
         function qu(e, t) {
             t === 0 && (t = nt()), e = di(e, t), e !== null && (it(e, t), rd(e));
@@ -6326,7 +6326,7 @@ Error generating stack: ` + e.message + `
             ed = $u = !1;
             var e = 0;
             nd !== 0 && Gd() && (e = nd);
-            for(var t = Pe(), n = null, r = Zu; r !== null;){
+            for(var t = k(), n = null, r = Zu; r !== null;){
                 var i = r.next, a = sd(r, t);
                 a === 0 ? (r.next = null, n === null ? Zu = i : n.next = i, i === null && (Qu = n)) : (n = r, (e !== 0 || a & 3) && (ed = !0)), r = i;
             }
@@ -6337,33 +6337,33 @@ Error generating stack: ` + e.message + `
                 var o = 31 - Ge(a), s = 1 << o, c = i[o];
                 c === -1 ? ((s & n) === 0 || (s & r) !== 0) && (i[o] = tt(s, t)) : c <= t && (e.expiredLanes |= s), a &= ~s;
             }
-            if (t = G, n = q, n = $e(e, e === t ? n : 0, e.cancelPendingCommit !== null || e.timeoutHandle !== -1), r = e.callbackNode, n === 0 || e === t && (J === 2 || J === 9) || e.cancelPendingCommit !== null) return r !== null && r !== null && O(r), e.callbackNode = null, e.callbackPriority = 0;
+            if (t = G, n = q, n = $e(e, e === t ? n : 0, e.cancelPendingCommit !== null || e.timeoutHandle !== -1), r = e.callbackNode, n === 0 || e === t && (J === 2 || J === 9) || e.cancelPendingCommit !== null) return r !== null && r !== null && Ne(r), e.callbackNode = null, e.callbackPriority = 0;
             if (!(n & 3) || et(e, n)) {
                 if (t = n & -n, t === e.callbackPriority) return t;
-                switch(r !== null && O(r), ut(n)){
+                switch(r !== null && Ne(r), ut(n)){
                     case 2:
                     case 8:
                         n = Le;
                         break;
                     case 32:
-                        n = A;
+                        n = Re;
                         break;
                     case 268435456:
-                        n = ze;
+                        n = Be;
                         break;
                     default:
-                        n = A;
+                        n = Re;
                 }
                 return r = cd.bind(null, e), n = Me(n, r), e.callbackPriority = t, e.callbackNode = n, t;
             }
-            return r !== null && r !== null && O(r), e.callbackPriority = 2, e.callbackNode = null, 2;
+            return r !== null && r !== null && Ne(r), e.callbackPriority = 2, e.callbackNode = null, 2;
         }
         function cd(e, t) {
             if (X !== 0 && X !== 5) return e.callbackNode = null, e.callbackPriority = 0, null;
             var n = e.callbackNode;
             if (Hu() && e.callbackNode !== n) return null;
             var r = q;
-            return r = $e(e, e === G ? r : 0, e.cancelPendingCommit !== null || e.timeoutHandle !== -1), r === 0 ? null : (gu(e, r, t), sd(e, Pe()), e.callbackNode != null && e.callbackNode === n ? cd.bind(null, e) : null);
+            return r = $e(e, e === G ? r : 0, e.cancelPendingCommit !== null || e.timeoutHandle !== -1), r === 0 ? null : (gu(e, r, t), sd(e, k()), e.callbackNode != null && e.callbackNode === n ? cd.bind(null, e) : null);
         }
         function ld(e, t) {
             if (Hu()) return null;
@@ -8039,7 +8039,7 @@ Error generating stack: ` + e.message + `
                                             var c = 1 << 31 - Ge(o);
                                             s.entanglements[1] |= c, o &= ~c;
                                         }
-                                        rd(a), !(W & 6) && (nu = Pe() + 500, id(0, !1));
+                                        rd(a), !(W & 6) && (nu = k() + 500, id(0, !1));
                                     }
                                 }
                                 break;
@@ -8159,10 +8159,10 @@ Error generating stack: ` + e.message + `
                             return 2;
                         case Le:
                             return 8;
-                        case A:
                         case Re:
-                            return 32;
                         case ze:
+                            return 32;
+                        case Be:
                             return 268435456;
                         default:
                             return 32;
@@ -8394,7 +8394,7 @@ Error generating stack: ` + e.message + `
         if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ < `u`) {
             var zp = __REACT_DEVTOOLS_GLOBAL_HOOK__;
             if (!zp.isDisabled && zp.supportsFiber) try {
-                He = zp.inject(Rp), Ue = zp;
+                A = zp.inject(Rp), Ue = zp;
             } catch  {}
         }
         e.createRoot = function(e, t) {
@@ -8402,7 +8402,7 @@ Error generating stack: ` + e.message + `
             var n = !1, r = ``, i = Zs, s = Qs, c = $s;
             return t != null && (!0 === t.unstable_strictMode && (n = !0), t.identifierPrefix !== void 0 && (r = t.identifierPrefix), t.onUncaughtError !== void 0 && (i = t.onUncaughtError), t.onCaughtError !== void 0 && (s = t.onCaughtError), t.onRecoverableError !== void 0 && (c = t.onRecoverableError)), t = ep(e, 1, !1, null, null, n, r, null, i, s, c, Pp), e[gt] = t.current, Sd(e), new Fp(t);
         };
-    })), Me = t(((e, t)=>{
+    })), Ne = t(((e, t)=>{
         function n() {
             if (!(typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ > `u` || typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE != `function`)) try {
                 __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(n);
@@ -8410,8 +8410,8 @@ Error generating stack: ` + e.message + `
                 console.error(e);
             }
         }
-        n(), t.exports = je();
-    })), O = e(n(), 1), Ne = e(Me(), 1), k = i(), Pe = `/`, Fe = [
+        n(), t.exports = Me();
+    })), O = e(n(), 1), Pe = e(Ne(), 1), k = i(), Fe = `/`, Ie = [
         {
             icon: `sea`,
             label: `Calm Sea`,
@@ -8487,7 +8487,7 @@ Error generating stack: ` + e.message + `
             color: `#003a5a`,
             legendary: !0
         }
-    ], Ie = [
+    ], Le = [
         {
             id: `ghost`,
             name: `Ghost Ship`,
@@ -8530,7 +8530,7 @@ Error generating stack: ` + e.message + `
             cost: `65g`,
             color: `#44cc88`
         }
-    ], Le = {
+    ], Re = {
         ghost: `upgrades/ghost_ship.png`,
         rider: `upgrades/storm_rider.png`,
         greed: `upgrades/cursed_greed.png`,
@@ -8538,7 +8538,7 @@ Error generating stack: ` + e.message + `
         hunter: `upgrades/treasure_hunter.png`,
         escape: `upgrades/swift_sails.png`
     };
-    function A({ title: e, children: t }) {
+    function ze({ title: e, children: t }) {
         return (0, k.jsxs)(`div`, {
             style: {
                 marginBottom: 36
@@ -8560,7 +8560,7 @@ Error generating stack: ` + e.message + `
             ]
         });
     }
-    function Re({ onClose: e, onPlay: t }) {
+    function Be({ onClose: e, onPlay: t }) {
         let n = window.innerWidth < 768;
         return (0, k.jsx)(a.div, {
             initial: {
@@ -8643,7 +8643,7 @@ Error generating stack: ` + e.message + `
                             })
                         ]
                     }),
-                    (0, k.jsxs)(A, {
+                    (0, k.jsxs)(ze, {
                         title: `2-MINUTE BRIEFING`,
                         children: [
                             (0, k.jsx)(`p`, {
@@ -8670,7 +8670,7 @@ Error generating stack: ` + e.message + `
                                     controls: !0,
                                     playsInline: !0,
                                     preload: `metadata`,
-                                    poster: `${Pe}tutorial/poster.jpg`,
+                                    poster: `${Fe}tutorial/poster.jpg`,
                                     style: {
                                         display: `block`,
                                         width: `100%`,
@@ -8679,14 +8679,14 @@ Error generating stack: ` + e.message + `
                                         background: `#040810`
                                     },
                                     children: (0, k.jsx)(`source`, {
-                                        src: `${Pe}tutorial/corsair-tutorial.mp4`,
+                                        src: `${Fe}tutorial/corsair-tutorial.mp4`,
                                         type: `video/mp4`
                                     })
                                 })
                             })
                         ]
                     }),
-                    (0, k.jsx)(A, {
+                    (0, k.jsx)(ze, {
                         title: `THE GOAL`,
                         children: (0, k.jsx)(`p`, {
                             style: {
@@ -8698,7 +8698,7 @@ Error generating stack: ` + e.message + `
                             children: `You are a lone corsair sailing the northern seas. A deadly storm is chasing you from the south — and it never stops advancing. Your goal is to survive as long as possible, explore the fog-covered map, make smart decisions, and accumulate the highest score. There is no finish line. Every run ends in death. The only question is how far you can go before the sea claims you.`
                         })
                     }),
-                    (0, k.jsxs)(A, {
+                    (0, k.jsxs)(ze, {
                         title: `MOVEMENT & NAVIGATION`,
                         children: [
                             (0, k.jsxs)(`p`, {
@@ -8768,7 +8768,7 @@ Error generating stack: ` + e.message + `
                             })
                         ]
                     }),
-                    (0, k.jsx)(A, {
+                    (0, k.jsx)(ze, {
                         title: `YOUR STATS`,
                         children: (0, k.jsx)(`div`, {
                             style: {
@@ -8853,7 +8853,7 @@ Error generating stack: ` + e.message + `
                                 }, e.label))
                         })
                     }),
-                    (0, k.jsx)(A, {
+                    (0, k.jsx)(ze, {
                         title: `THE STORM`,
                         children: (0, k.jsx)(`div`, {
                             style: {
@@ -8884,7 +8884,7 @@ Error generating stack: ` + e.message + `
                             })
                         })
                     }),
-                    (0, k.jsxs)(A, {
+                    (0, k.jsxs)(ze, {
                         title: `ZONES & PORTALS`,
                         children: [
                             (0, k.jsxs)(`p`, {
@@ -8956,7 +8956,7 @@ Error generating stack: ` + e.message + `
                             })
                         ]
                     }),
-                    (0, k.jsx)(A, {
+                    (0, k.jsx)(ze, {
                         title: `THE CELLS — WHAT YOU WILL ENCOUNTER`,
                         children: (0, k.jsx)(`div`, {
                             style: {
@@ -8964,7 +8964,7 @@ Error generating stack: ` + e.message + `
                                 gridTemplateColumns: n ? `1fr` : `repeat(2, 1fr)`,
                                 gap: 10
                             },
-                            children: Fe.map((e)=>(0, k.jsxs)(`div`, {
+                            children: Ie.map((e)=>(0, k.jsxs)(`div`, {
                                     style: {
                                         background: `${e.color}18`,
                                         border: `1px solid ${e.color}44`,
@@ -8991,7 +8991,7 @@ Error generating stack: ` + e.message + `
                                             children: `LEGENDARY`
                                         }),
                                         (0, k.jsx)(`img`, {
-                                            src: `${Pe}icons/${e.icon}.png`,
+                                            src: `${Fe}icons/${e.icon}.png`,
                                             style: {
                                                 width: 44,
                                                 height: 44,
@@ -9025,7 +9025,7 @@ Error generating stack: ` + e.message + `
                                 }, e.icon))
                         })
                     }),
-                    (0, k.jsxs)(A, {
+                    (0, k.jsxs)(ze, {
                         title: `SCORE & COMBO SYSTEM`,
                         children: [
                             (0, k.jsxs)(`p`, {
@@ -9172,7 +9172,7 @@ Error generating stack: ` + e.message + `
                             })
                         ]
                     }),
-                    (0, k.jsx)(A, {
+                    (0, k.jsx)(ze, {
                         title: `THE PORT — YOUR LIFELINE`,
                         children: (0, k.jsx)(`p`, {
                             style: {
@@ -9184,7 +9184,7 @@ Error generating stack: ` + e.message + `
                             children: `Whenever you land on a port cell and choose to dock, you enter the port. Here you can repair your hull with a Rum Barrel (+8 hull for 25 gold) or a Full Repair (restore all hull for 55 gold). You also see 4 randomly selected upgrades — each port offers a different selection. Click an upgrade to add it to your cart, then press Confirm to purchase. If the selection does not suit your build, you can reroll it for 20 gold. You can only own one of each upgrade per run, so choose wisely. Occasionally, exploring an island grants you an Upgrade Token — your next upgrade at port costs 0 gold, so save it for the most expensive ability.`
                         })
                     }),
-                    (0, k.jsxs)(A, {
+                    (0, k.jsxs)(ze, {
                         title: `SHIP COMPONENTS`,
                         children: [
                             (0, k.jsx)(`p`, {
@@ -9286,7 +9286,7 @@ Error generating stack: ` + e.message + `
                             })
                         ]
                     }),
-                    (0, k.jsxs)(A, {
+                    (0, k.jsxs)(ze, {
                         title: `SPECIAL ABILITIES (MAX 2 PER RUN)`,
                         children: [
                             (0, k.jsx)(`p`, {
@@ -9305,7 +9305,7 @@ Error generating stack: ` + e.message + `
                                     gridTemplateColumns: n ? `1fr` : `repeat(2, 1fr)`,
                                     gap: 10
                                 },
-                                children: Ie.map((e)=>(0, k.jsxs)(`div`, {
+                                children: Le.map((e)=>(0, k.jsxs)(`div`, {
                                         style: {
                                             background: `rgba(255,255,255,0.02)`,
                                             border: `1px solid ${e.color}33`,
@@ -9317,7 +9317,7 @@ Error generating stack: ` + e.message + `
                                         },
                                         children: [
                                             (0, k.jsx)(`img`, {
-                                                src: `${Pe}${Le[e.id]}`,
+                                                src: `${Fe}${Re[e.id]}`,
                                                 style: {
                                                     width: 44,
                                                     height: 44,
@@ -9370,7 +9370,7 @@ Error generating stack: ` + e.message + `
                             })
                         ]
                     }),
-                    (0, k.jsx)(A, {
+                    (0, k.jsx)(ze, {
                         title: `THE HUNTER — SOMETHING IS FOLLOWING YOU`,
                         children: (0, k.jsxs)(`div`, {
                             style: {
@@ -9473,7 +9473,7 @@ Error generating stack: ` + e.message + `
                             ]
                         })
                     }),
-                    (0, k.jsxs)(A, {
+                    (0, k.jsxs)(ze, {
                         title: `PROGRESSION & SHIPS`,
                         children: [
                             (0, k.jsxs)(`div`, {
@@ -9556,7 +9556,7 @@ Error generating stack: ` + e.message + `
                             })
                         ]
                     }),
-                    (0, k.jsxs)(A, {
+                    (0, k.jsxs)(ze, {
                         title: `RELICS — TREASURES OF THE DEEP`,
                         children: [
                             (0, k.jsxs)(`div`, {
@@ -9640,7 +9640,7 @@ Error generating stack: ` + e.message + `
                             })
                         ]
                     }),
-                    (0, k.jsx)(A, {
+                    (0, k.jsx)(ze, {
                         title: `TIPS FOR BEGINNERS`,
                         children: (0, k.jsx)(`div`, {
                             style: {
@@ -9735,7 +9735,7 @@ Error generating stack: ` + e.message + `
             })
         });
     }
-    function ze({ onClose: e }) {
+    function Ve({ onClose: e }) {
         let t = new Set(ne()), [n, r] = (0, O.useState)(h()), [i, s] = (0, O.useState)(()=>C()), [c, u] = (0, O.useState)(0), { address: d } = o(), f = l.filter((e)=>t.has(e.id)).length;
         return (0, O.useEffect)(()=>{
             if (!d) {
@@ -10036,47 +10036,47 @@ Error generating stack: ` + e.message + `
             })
         });
     }
-    var Be = (e)=>e.startsWith(`ipfs://`) ? e.replace(`ipfs://`, `https://ipfs.io/ipfs/`) : e, Ve = `https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images`, He = [
+    var He = (e)=>e.startsWith(`ipfs://`) ? e.replace(`ipfs://`, `https://ipfs.io/ipfs/`) : e, A = `https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images`, Ue = [
         {
             key: `last_port`,
             name: `The Last Port`,
             rarity: `Rare`,
-            image: `${Ve}/08-last_port.jpg`,
+            image: `${A}/08-last_port.jpg`,
             condition: `Visit 2 ports and finish above 500 points.`
         },
         {
             key: `cursed_doubloon`,
             name: `The Cursed Doubloon`,
             rarity: `Rare`,
-            image: `${Ve}/06-cursed_doubloon.jpg`,
+            image: `${A}/06-cursed_doubloon.jpg`,
             condition: `Take the cursed treasure and end the run with 300+ gold.`
         },
         {
             key: `ancient_chart`,
             name: `The Ancient Chart`,
             rarity: `Epic`,
-            image: `${Ve}/02-ancient_chart.jpg`,
+            image: `${A}/02-ancient_chart.jpg`,
             condition: `Find 3 treasures and kill a Kraken in the same voyage.`
         },
         {
             key: `ghost_corsair`,
             name: `The Ghost Corsair`,
             rarity: `Epic`,
-            image: `${Ve}/04-ghost_corsair.jpg`,
+            image: `${A}/04-ghost_corsair.jpg`,
             condition: `Finish above 400 points without fighting a single pirate.`
         },
         {
             key: `blood_moon_tide`,
             name: `The Blood Moon Tide`,
             rarity: `Epic`,
-            image: `${Ve}/09-blood_moon_tide.jpg`,
+            image: `${A}/09-blood_moon_tide.jpg`,
             condition: `Reach a 3-danger streak by turn 8, then survive to turn 20.`
         },
         {
             key: `storm_caller`,
             name: `The Storm Caller`,
             rarity: `Legendary`,
-            image: `${Ve}/03-storm_caller.jpg`,
+            image: `${A}/03-storm_caller.jpg`,
             condition: `Let the storm close to within 2 tiles, and still be afloat on turn 10.`,
             seedBound: !0
         },
@@ -10084,7 +10084,7 @@ Error generating stack: ` + e.message + `
             key: `kraken_eye`,
             name: `The Kraken's Eye`,
             rarity: `Legendary`,
-            image: `${Ve}/01-kraken_eye.jpg`,
+            image: `${A}/01-kraken_eye.jpg`,
             condition: `Kill the Ancient Kraken — the one that only stirs in the deepest water.`,
             seedBound: !0
         },
@@ -10092,7 +10092,7 @@ Error generating stack: ` + e.message + `
             key: `maelstrom_heart`,
             name: `The Maelstrom Heart`,
             rarity: `Legendary`,
-            image: `${Ve}/05-maelstrom_heart.jpg`,
+            image: `${A}/05-maelstrom_heart.jpg`,
             condition: `Be swallowed by a maelstrom and come back out.`,
             seedBound: !0
         },
@@ -10100,7 +10100,7 @@ Error generating stack: ` + e.message + `
             key: `hunters_mark`,
             name: `The Hunter's Mark`,
             rarity: `Legendary`,
-            image: `${Ve}/07-hunters_mark.jpg`,
+            image: `${A}/07-hunters_mark.jpg`,
             condition: `Survive 2 attacks from the Hunter in a single voyage.`,
             seedBound: !0
         },
@@ -10108,7 +10108,7 @@ Error generating stack: ` + e.message + `
             key: `starktember_tide`,
             name: `The Starktember Tide`,
             rarity: `Mythic`,
-            image: `${Ve}/11-starktember_tide.jpg`,
+            image: `${A}/11-starktember_tide.jpg`,
             condition: `Won by iamraheemking with 77,197 points across 26 Dailies. Starktember 2026 — one month, one winner.`,
             eventOnly: !0
         },
@@ -10116,55 +10116,55 @@ Error generating stack: ` + e.message + `
             key: `leviathan`,
             name: `???`,
             rarity: `Mythic`,
-            image: `${Ve}/10-leviathan.jpg`,
+            image: `${A}/10-leviathan.jpg`,
             condition: `Finish above 3,000 points, with a Kraken dead in your wake.`,
             seedBound: !0,
             hidden: !0
         }
-    ], Ue = [
+    ], We = [
         {
             key: `splintered_keel`,
             name: `The Splintered Keel`,
             rarity: `Rare`,
-            image: `${Ve}/12-splintered_keel.jpg`,
+            image: `${A}/12-splintered_keel.jpg`,
             condition: `Drop to 3 hull or less, then survive to turn 15.`
         },
         {
             key: `quiet_hold`,
             name: `The Quiet Hold`,
             rarity: `Rare`,
-            image: `${Ve}/13-quiet_hold.jpg`,
+            image: `${A}/13-quiet_hold.jpg`,
             condition: `Finish with 200+ gold without fighting a single pirate.`
         },
         {
             key: `red_wake`,
             name: `The Red Wake`,
             rarity: `Epic`,
-            image: `${Ve}/14-red_wake.jpg`,
+            image: `${A}/14-red_wake.jpg`,
             condition: `Fight 5 or more pirates in a single voyage.`
         },
         {
             key: `abyss_lantern`,
             name: `The Abyss Lantern`,
             rarity: `Legendary`,
-            image: `${Ve}/15-abyss_lantern.jpg`,
+            image: `${A}/15-abyss_lantern.jpg`,
             condition: `Reach The Abyss and finish with 800+ points.`
         },
         {
             key: `tideborn_crown`,
             name: `The Tideborn Crown`,
             rarity: `Mythic`,
-            image: `${Ve}/16-tideborn_crown.jpg`,
+            image: `${A}/16-tideborn_crown.jpg`,
             condition: `Reach The Abyss, slay the Ancient Kraken, and finish with 2,000+ points.`,
             hidden: !0
         }
-    ], We = {
+    ], Ge = {
         Rare: `#44cc88`,
         Epic: `#aa66ee`,
         Legendary: `#eedd88`,
         Mythic: `#ee5566`
     };
-    function Ge({ nfts: e, supply: t, claimed: n }) {
+    function Ke({ nfts: e, supply: t, claimed: n }) {
         let r = (e)=>t.find((t)=>t.name === e);
         return (0, k.jsx)(`div`, {
             style: {
@@ -10173,7 +10173,7 @@ Error generating stack: ` + e.message + `
                 gap: 12
             },
             children: e.map((e)=>{
-                let t = r(e.key), i = n.includes(e.key), a = t ? t.minted >= t.max_supply : !1, o = We[e.rarity], s = !e.hidden || i;
+                let t = r(e.key), i = n.includes(e.key), a = t ? t.minted >= t.max_supply : !1, o = Ge[e.rarity], s = !e.hidden || i;
                 return (0, k.jsxs)(`div`, {
                     style: {
                         borderRadius: 12,
@@ -10191,7 +10191,7 @@ Error generating stack: ` + e.message + `
                             },
                             children: [
                                 s ? (0, k.jsx)(`img`, {
-                                    src: Be(e.image),
+                                    src: He(e.image),
                                     alt: e.name,
                                     loading: `lazy`,
                                     style: {
@@ -10356,17 +10356,17 @@ Error generating stack: ` + e.message + `
             })
         });
     }
-    function Ke({ onClose: e }) {
+    function qe({ onClose: e }) {
         let { address: t } = o(), [n, r] = (0, O.useState)([]), [i, a] = (0, O.useState)([]);
         return (0, O.useEffect)(()=>{
             Ce().then(r), t && Te(t).then(a);
         }, [
             t
         ]), (0, k.jsx)(`div`, {
-            style: Ye,
+            style: Xe,
             onClick: e,
             children: (0, k.jsxs)(`div`, {
-                style: Xe,
+                style: Ze,
                 onClick: (e)=>e.stopPropagation(),
                 children: [
                     (0, k.jsxs)(`div`, {
@@ -10389,7 +10389,7 @@ Error generating stack: ` + e.message + `
                             }),
                             (0, k.jsx)(`button`, {
                                 onClick: e,
-                                style: Ze,
+                                style: Qe,
                                 children: `✕`
                             })
                         ]
@@ -10404,31 +10404,31 @@ Error generating stack: ` + e.message + `
                         children: `Earned in-game, minted on Starknet. Limited supply — once claimed, the card shows SOLD OUT.`
                     }),
                     (0, k.jsx)(`h2`, {
-                        style: qe,
+                        style: Je,
                         children: `Tideborn — Season 1`
                     }),
                     (0, k.jsx)(`p`, {
-                        style: Je,
+                        style: Ye,
                         children: `A new tide. Fresh conditions. The Crown waits for one captain.`
                     }),
-                    (0, k.jsx)(Ge, {
-                        nfts: Ue,
+                    (0, k.jsx)(Ke, {
+                        nfts: We,
                         supply: n,
                         claimed: i
                     }),
                     (0, k.jsx)(`h2`, {
                         style: {
-                            ...qe,
+                            ...Je,
                             marginTop: 28
                         },
                         children: `Genesis`
                     }),
                     (0, k.jsx)(`p`, {
-                        style: Je,
+                        style: Ye,
                         children: `The original relics. Some still haunt cursed seeds.`
                     }),
-                    (0, k.jsx)(Ge, {
-                        nfts: He,
+                    (0, k.jsx)(Ke, {
+                        nfts: Ue,
                         supply: n,
                         claimed: i
                     }),
@@ -10446,18 +10446,18 @@ Error generating stack: ` + e.message + `
             })
         });
     }
-    var qe = {
+    var Je = {
         fontFamily: `'Pirata One', cursive`,
         fontSize: 20,
         color: `#88c8ee`,
         letterSpacing: 1,
         margin: `0 0 4px`
-    }, Je = {
+    }, Ye = {
         fontFamily: `'IM Fell English', cursive`,
         fontSize: 12,
         color: `rgba(255,255,255,0.4)`,
         margin: `0 0 12px`
-    }, Ye = {
+    }, Xe = {
         position: `fixed`,
         inset: 0,
         zIndex: 1e3,
@@ -10468,14 +10468,14 @@ Error generating stack: ` + e.message + `
         justifyContent: `center`,
         overflowY: `auto`,
         padding: `24px 12px calc(24px + env(safe-area-inset-bottom))`
-    }, Xe = {
+    }, Ze = {
         width: `100%`,
         maxWidth: 860,
         background: `linear-gradient(160deg, #0a0e16, #05080f)`,
         border: `1px solid rgba(200,160,48,0.35)`,
         borderRadius: 16,
         padding: `20px 18px`
-    }, Ze = {
+    }, Qe = {
         width: 34,
         height: 34,
         borderRadius: 8,
@@ -10484,8 +10484,8 @@ Error generating stack: ` + e.message + `
         color: `#eedd88`,
         fontSize: 15,
         cursor: `pointer`
-    }, Qe = (e)=>`/ships/${e}.jpg?v=3`;
-    function $e({ onClose: e }) {
+    }, $e = (e)=>`/ships/${e}.jpg?v=3`;
+    function et({ onClose: e }) {
         let [t, n] = (0, O.useState)(me());
         return (0, k.jsx)(a.div, {
             initial: {
@@ -10603,7 +10603,7 @@ Error generating stack: ` + e.message + `
                                 },
                                 children: [
                                     (0, k.jsx)(`img`, {
-                                        src: Qe(e.id),
+                                        src: $e(e.id),
                                         alt: ``,
                                         style: {
                                             width: 88,
@@ -10712,8 +10712,8 @@ Error generating stack: ` + e.message + `
             })
         });
     }
-    var et = (e)=>`/ships/${e}.jpg?v=3`;
-    function tt({ offers: e, onPick: t }) {
+    var tt = (e)=>`/ships/${e}.jpg?v=3`;
+    function nt({ offers: e, onPick: t }) {
         let [n, i] = (0, O.useState)(null), o = (e)=>{
             n || (i(e), setTimeout(()=>t(e.id), 1500));
         };
@@ -10762,7 +10762,7 @@ Error generating stack: ` + e.message + `
                     },
                     children: [
                         (0, k.jsx)(a.img, {
-                            src: et(n.id),
+                            src: tt(n.id),
                             alt: ``,
                             initial: {
                                 y: 16,
@@ -10894,7 +10894,7 @@ Error generating stack: ` + e.message + `
                                     },
                                     children: [
                                         (0, k.jsx)(`img`, {
-                                            src: et(e.id),
+                                            src: tt(e.id),
                                             alt: ``,
                                             style: {
                                                 width: 96,
@@ -10971,7 +10971,7 @@ Error generating stack: ` + e.message + `
             })
         });
     }
-    var nt = [
+    var rt = [
         {
             version: `1.1`,
             date: `October 2026`,
@@ -11038,7 +11038,7 @@ Error generating stack: ` + e.message + `
             ]
         }
     ];
-    function rt({ onClose: e }) {
+    function it({ onClose: e }) {
         let t = typeof window < `u` && window.innerWidth < 768;
         return (0, k.jsx)(a.div, {
             initial: {
@@ -11137,7 +11137,7 @@ Error generating stack: ` + e.message + `
                             flexDirection: `column`,
                             gap: 22
                         },
-                        children: nt.map((e)=>(0, k.jsxs)(`div`, {
+                        children: rt.map((e)=>(0, k.jsxs)(`div`, {
                                 children: [
                                     (0, k.jsxs)(`div`, {
                                         style: {
@@ -11226,18 +11226,18 @@ Error generating stack: ` + e.message + `
             })
         });
     }
-    var it = [
+    var at = [
         `#FFD700`,
         `#C0C0C0`,
         `#CD7F32`
-    ], at = (e)=>e === 0 ? (0, k.jsx)(S, {
+    ], ot = (e)=>e === 0 ? (0, k.jsx)(S, {
             name: `crown`,
             size: 18
         }) : e === 2 ? (0, k.jsx)(S, {
             name: `skull`,
             size: 16
-        }) : `⚔️`, ot = window.innerWidth < 768;
-    function st({ onClose: e }) {
+        }) : `⚔️`, st = window.innerWidth < 768;
+    function ct({ onClose: e }) {
         let [t, n] = (0, O.useState)(`daily`), [r, i] = (0, O.useState)([]), [o, s] = (0, O.useState)([]), [c, l] = (0, O.useState)(!0);
         (0, O.useEffect)(()=>{
             let e = new Date().toISOString().slice(0, 10);
@@ -11431,9 +11431,9 @@ Error generating stack: ` + e.message + `
                                     alignItems: `center`,
                                     gap: 16,
                                     background: t < 3 ? `rgba(200,160,48,${.08 - t * .02})` : `rgba(255,255,255,0.02)`,
-                                    border: `1px solid ${t < 3 ? it[t] + `44` : `rgba(255,255,255,0.06)`}`,
+                                    border: `1px solid ${t < 3 ? at[t] + `44` : `rgba(255,255,255,0.06)`}`,
                                     borderRadius: 12,
-                                    padding: ot ? `10px 12px` : `14px 18px`
+                                    padding: st ? `10px 12px` : `14px 18px`
                                 },
                                 children: [
                                     (0, k.jsx)(`div`, {
@@ -11441,9 +11441,9 @@ Error generating stack: ` + e.message + `
                                             width: 32,
                                             textAlign: `center`,
                                             fontSize: t < 3 ? 22 : 15,
-                                            color: t < 3 ? it[t] : `rgba(255,255,255,0.25)`
+                                            color: t < 3 ? at[t] : `rgba(255,255,255,0.25)`
                                         },
-                                        children: t < 3 ? at(t) : `#${t + 1}`
+                                        children: t < 3 ? ot(t) : `#${t + 1}`
                                     }),
                                     (0, k.jsxs)(`div`, {
                                         style: {
@@ -11452,14 +11452,14 @@ Error generating stack: ` + e.message + `
                                         children: [
                                             (0, k.jsx)(`div`, {
                                                 style: {
-                                                    fontSize: ot ? 13 : 15,
-                                                    color: t < 3 ? it[t] : `#e8e0d0`
+                                                    fontSize: st ? 13 : 15,
+                                                    color: t < 3 ? at[t] : `#e8e0d0`
                                                 },
                                                 children: e.username ?? u(e.wallet_address)
                                             }),
                                             (0, k.jsxs)(`div`, {
                                                 style: {
-                                                    fontSize: ot ? 11 : 12,
+                                                    fontSize: st ? 11 : 12,
                                                     color: `rgba(255,255,255,0.4)`,
                                                     fontFamily: `'Cinzel', serif`,
                                                     marginTop: 2
@@ -11474,9 +11474,9 @@ Error generating stack: ` + e.message + `
                                     }),
                                     (0, k.jsx)(`div`, {
                                         style: {
-                                            fontSize: ot ? 18 : 22,
+                                            fontSize: st ? 18 : 22,
                                             fontWeight: 700,
-                                            color: t < 3 ? it[t] : `#eedd44`,
+                                            color: t < 3 ? at[t] : `#eedd44`,
                                             fontFamily: `'Cinzel', serif`
                                         },
                                         children: e.score.toLocaleString()
@@ -11506,9 +11506,9 @@ Error generating stack: ` + e.message + `
                                     alignItems: `center`,
                                     gap: 16,
                                     background: t < 3 ? `rgba(200,160,48,${.08 - t * .02})` : `rgba(255,255,255,0.02)`,
-                                    border: `1px solid ${t < 3 ? it[t] + `44` : `rgba(255,255,255,0.06)`}`,
+                                    border: `1px solid ${t < 3 ? at[t] + `44` : `rgba(255,255,255,0.06)`}`,
                                     borderRadius: 12,
-                                    padding: ot ? `10px 12px` : `14px 18px`
+                                    padding: st ? `10px 12px` : `14px 18px`
                                 },
                                 children: [
                                     (0, k.jsx)(`div`, {
@@ -11516,9 +11516,9 @@ Error generating stack: ` + e.message + `
                                             width: 32,
                                             textAlign: `center`,
                                             fontSize: t < 3 ? 22 : 15,
-                                            color: t < 3 ? it[t] : `rgba(255,255,255,0.25)`
+                                            color: t < 3 ? at[t] : `rgba(255,255,255,0.25)`
                                         },
-                                        children: t < 3 ? at(t) : `#${t + 1}`
+                                        children: t < 3 ? ot(t) : `#${t + 1}`
                                     }),
                                     (0, k.jsxs)(`div`, {
                                         style: {
@@ -11533,15 +11533,15 @@ Error generating stack: ` + e.message + `
                                                 },
                                                 children: (0, k.jsx)(`div`, {
                                                     style: {
-                                                        fontSize: ot ? 13 : 15,
-                                                        color: t < 3 ? it[t] : `#e8e0d0`
+                                                        fontSize: st ? 13 : 15,
+                                                        color: t < 3 ? at[t] : `#e8e0d0`
                                                     },
                                                     children: e.username ?? u(e.wallet_address)
                                                 })
                                             }),
                                             (0, k.jsxs)(`div`, {
                                                 style: {
-                                                    fontSize: ot ? 11 : 12,
+                                                    fontSize: st ? 11 : 12,
                                                     color: `rgba(255,255,255,0.4)`,
                                                     fontFamily: `'Cinzel', serif`,
                                                     marginTop: 2
@@ -11558,9 +11558,9 @@ Error generating stack: ` + e.message + `
                                     }),
                                     (0, k.jsx)(`div`, {
                                         style: {
-                                            fontSize: ot ? 18 : 22,
+                                            fontSize: st ? 18 : 22,
                                             fontWeight: 700,
-                                            color: t < 3 ? it[t] : `#eedd44`,
+                                            color: t < 3 ? at[t] : `#eedd44`,
                                             fontFamily: `'Cinzel', serif`
                                         },
                                         children: e.score.toLocaleString()
@@ -11572,7 +11572,7 @@ Error generating stack: ` + e.message + `
             })
         });
     }
-    var ct = [
+    var lt = [
         {
             bg: `scenes/storm.jpg`
         },
@@ -11589,7 +11589,7 @@ Error generating stack: ` + e.message + `
             bg: `scenes/pirate.jpg`
         }
     ];
-    function lt({ onPlay: e, onResume: t }) {
+    function ut({ onPlay: e, onResume: t }) {
         let [n, i] = (0, O.useState)(null), [s, c] = (0, O.useState)([]), l = (()=>{
             let e = new Date;
             return e.getUTCFullYear() === 2026 && e.getUTCMonth() === 8;
@@ -11685,9 +11685,9 @@ Error generating stack: ` + e.message + `
         }, [
             D
         ]);
-        let [Le, A] = (0, O.useState)(0);
+        let [Le, Re] = (0, O.useState)(0);
         return (0, O.useEffect)(()=>{
-            let e = setInterval(()=>A((e)=>(e + 1) % ct.length), 4e3);
+            let e = setInterval(()=>Re((e)=>(e + 1) % lt.length), 4e3);
             return ()=>clearInterval(e);
         }, []), (0, k.jsxs)(`div`, {
             style: {
@@ -11699,7 +11699,7 @@ Error generating stack: ` + e.message + `
                 fontFamily: `'Pirata One', cursive`
             },
             children: [
-                ct.map((e, t)=>(0, k.jsx)(a.div, {
+                lt.map((e, t)=>(0, k.jsx)(a.div, {
                         animate: {
                             opacity: +(t === Le)
                         },
@@ -12812,8 +12812,8 @@ Error generating stack: ` + e.message + `
                                 marginTop: 8,
                                 marginBottom: 4
                             },
-                            children: ct.map((e, t)=>(0, k.jsx)(`div`, {
-                                    onClick: ()=>A(t),
+                            children: lt.map((e, t)=>(0, k.jsx)(`div`, {
+                                    onClick: ()=>Re(t),
                                     style: {
                                         width: 6,
                                         height: 6,
@@ -12828,28 +12828,28 @@ Error generating stack: ` + e.message + `
                 }),
                 (0, k.jsxs)(r, {
                     children: [
-                        h && (0, k.jsx)(Re, {
+                        h && (0, k.jsx)(Be, {
                             onClose: ()=>g(!1),
                             onPlay: async ()=>{
                                 g(!1), await Fe();
                             }
                         }),
-                        ne && (0, k.jsx)(rt, {
+                        ne && (0, k.jsx)(it, {
                             onClose: ()=>re(!1)
                         }),
-                        _ && (0, k.jsx)(ze, {
+                        _ && (0, k.jsx)(Ve, {
                             onClose: ()=>v(!1)
                         }),
-                        x && (0, k.jsx)($e, {
+                        x && (0, k.jsx)(et, {
                             onClose: ()=>ee(!1)
                         }),
-                        y && (0, k.jsx)(Ke, {
+                        y && (0, k.jsx)(qe, {
                             onClose: ()=>b(!1)
                         }),
-                        pe && (0, k.jsx)(st, {
+                        pe && (0, k.jsx)(ct, {
                             onClose: ()=>me(!1)
                         }),
-                        Ce && (0, k.jsx)(tt, {
+                        Ce && (0, k.jsx)(nt, {
                             offers: Ce,
                             onPick: (e)=>{
                                 Ie(e);
@@ -12860,7 +12860,7 @@ Error generating stack: ` + e.message + `
             ]
         });
     }
-    var ut = [
+    var dt = [
         `ghost`,
         `hunter`,
         `rider`,
@@ -12874,7 +12874,7 @@ Error generating stack: ` + e.message + `
         `_reserved10`,
         `_reserved11`,
         `_reserved12`
-    ], dt = new Set([
+    ], ft = new Set([
         `ghost`,
         `hunter`,
         `rider`,
@@ -12882,7 +12882,7 @@ Error generating stack: ` + e.message + `
         `berserker`,
         `escape`
     ]);
-    function ft(e, t, n) {
+    function pt(e, t, n) {
         let r = x(e, t || `default`);
         for (let e of n)if (e === 0) r = y(r, -1, 0);
         else if (e === 1) r = y(r, 0, -1);
@@ -12894,19 +12894,19 @@ Error generating stack: ` + e.message + `
         else if (e === 32) r = v(r, `nav`);
         else if (e === 40) r = ee(r);
         else if (e >= 50 && e < 60) {
-            let t = ut[e - 50];
-            t && dt.has(t) && (r = u(r, t));
+            let t = dt[e - 50];
+            t && ft.has(t) && (r = u(r, t));
         } else e === 60 ? r = b(r, 8, 25) : e === 61 ? r = b(r, r.ship.maxHull, 55) : e === 70 && (r = c(r));
         return r;
     }
-    var pt = (0, O.lazy)(()=>De(()=>import(`./CorsairGame-DUPnCAMn.js`).then(async (m)=>{
+    var mt = (0, O.lazy)(()=>De(()=>import(`./CorsairGame-Bh4CLMfP.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
-            }), __vite__mapDeps([0,1,2,3,4,5,6]))), mt = (0, O.lazy)(()=>De(()=>import(`./AdminPanel-CSywOE65.js`).then(async (m)=>{
+            }), __vite__mapDeps([0,1,2,3,4,5,6]))), ht = (0, O.lazy)(()=>De(()=>import(`./AdminPanel-Dc9G9Bjz.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
-            }), __vite__mapDeps([7,1,2,4]))), ht = `corsair_crew_bypass`;
-    function gt() {
+            }), __vite__mapDeps([7,1,2,4]))), gt = `corsair_crew_bypass`;
+    function _t() {
         return (0, k.jsx)(`div`, {
             style: {
                 height: `100vh`,
@@ -12923,21 +12923,21 @@ Error generating stack: ` + e.message + `
             children: `CORSAIR`
         });
     }
-    function _t() {
+    function vt() {
         try {
-            return new URLSearchParams(window.location.search).has(`crew`) ? !0 : (localStorage.removeItem(ht), !1);
+            return new URLSearchParams(window.location.search).has(`crew`) ? !0 : (localStorage.removeItem(gt), !1);
         } catch  {
             return !1;
         }
     }
-    function vt() {
-        let { address: e, account: t, username: n } = o(), [r, i] = (0, O.useState)(`home`), [a, s] = (0, O.useState)(void 0), [c, l] = (0, O.useState)(!1), [u, d] = (0, O.useState)(void 0), [p, h] = (0, O.useState)(void 0), [g, v] = (0, O.useState)(null), [y, b] = (0, O.useState)(void 0), [x, ee] = (0, O.useState)(0), [te] = (0, O.useState)(()=>_t());
+    function yt() {
+        let { address: e, account: t, username: n } = o(), [r, i] = (0, O.useState)(`home`), [a, s] = (0, O.useState)(void 0), [c, l] = (0, O.useState)(!1), [u, d] = (0, O.useState)(void 0), [p, h] = (0, O.useState)(void 0), [g, v] = (0, O.useState)(null), [y, b] = (0, O.useState)(void 0), [x, ee] = (0, O.useState)(0), [te] = (0, O.useState)(()=>vt());
         (0, O.useEffect)(()=>{
             m(e ?? null), e && _(e);
         }, [
             e
         ]), (0, O.useEffect)(()=>{
-            he(async (e, t)=>e === `approve` ? (await Ee(t.run_id), !0) : e === `score` ? await ge(t.wallet, t.score, t.run_title, t.turn, t.zone, t.seed, t.username) : (await we(t), !0));
+            he(async (e, t)=>e === `runlog` ? (await Oe(t), await Ee(t.run_id), !0) : e === `approve` ? (await Ee(t.run_id), !0) : e === `score` ? await ge(t.wallet, t.score, t.run_title, t.turn, t.zone, t.seed, t.username) : (await we(t), !0));
         }, []), (0, O.useEffect)(()=>{
             let e = ()=>{
                 window.location.hash.replace(`#`, ``) === `admin` && i(`admin`);
@@ -12952,15 +12952,15 @@ Error generating stack: ` + e.message + `
         }, []);
         let re = g ?? n, S = c ? `default` : y ?? me();
         return r === `admin` ? (0, k.jsx)(O.Suspense, {
-            fallback: (0, k.jsx)(gt, {}),
-            children: (0, k.jsx)(mt, {
+            fallback: (0, k.jsx)(_t, {}),
+            children: (0, k.jsx)(ht, {
                 onHome: ()=>{
                     window.location.hash = ``, i(`home`);
                 }
             })
         }) : r === `game` ? (0, k.jsx)(O.Suspense, {
-            fallback: (0, k.jsx)(gt, {}),
-            children: (0, k.jsx)(pt, {
+            fallback: (0, k.jsx)(_t, {}),
+            children: (0, k.jsx)(mt, {
                 walletAddress: e,
                 account: t,
                 username: re,
@@ -12976,11 +12976,11 @@ Error generating stack: ` + e.message + `
                 resumeRunId: p?.run.run_id,
                 resumeActions: p?.run.actions
             }, x)
-        }) : (0, k.jsx)(lt, {
+        }) : (0, k.jsx)(ut, {
             onPlay: ne,
             onResume: (e)=>{
                 try {
-                    let t = ft(e.seed, e.ship_id, e.actions);
+                    let t = pt(e.seed, e.ship_id, e.actions);
                     if (t.gameOver) {
                         T();
                         return;
@@ -12995,16 +12995,16 @@ Error generating stack: ` + e.message + `
             }
         });
     }
-    var yt = (0, O.lazy)(()=>De(()=>import(`./cartridge-x3He-95Y.js`).then(async (m)=>{
+    var bt = (0, O.lazy)(()=>De(()=>import(`./cartridge-x3He-95Y.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }).then((e)=>({
                     default: e.StarknetProvider
-                })), __vite__mapDeps([8,9,3,1,4]))), bt = (0, O.lazy)(()=>De(()=>import(`./LiveWalletBridge-W8MLdVd8.js`).then(async (m)=>{
+                })), __vite__mapDeps([8,9,3,1,4]))), xt = (0, O.lazy)(()=>De(()=>import(`./LiveWalletBridge-W8MLdVd8.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }), __vite__mapDeps([10,1,3,4,9,6])));
-    function xt({ children: e }) {
+    function St({ children: e }) {
         let [t, n] = (0, O.useState)(!1), [r, i] = (0, O.useState)(!1), a = (0, O.useCallback)((e)=>{
             e && i(!0), n(!0);
         }, []), o = (0, O.useMemo)(()=>({
@@ -13025,13 +13025,13 @@ Error generating stack: ` + e.message + `
                 value: o,
                 children: e
             }),
-            children: (0, k.jsx)(yt, {
+            children: (0, k.jsx)(bt, {
                 children: (0, k.jsx)(O.Suspense, {
                     fallback: (0, k.jsx)(s, {
                         value: o,
                         children: e
                     }),
-                    children: (0, k.jsx)(bt, {
+                    children: (0, k.jsx)(xt, {
                         autoConnect: r,
                         children: e
                     })
@@ -13042,9 +13042,9 @@ Error generating stack: ` + e.message + `
             children: e
         });
     }
-    Ne.createRoot(document.getElementById(`root`)).render((0, k.jsx)(O.StrictMode, {
-        children: (0, k.jsx)(xt, {
-            children: (0, k.jsx)(vt, {})
+    Pe.createRoot(document.getElementById(`root`)).render((0, k.jsx)(O.StrictMode, {
+        children: (0, k.jsx)(St, {
+            children: (0, k.jsx)(yt, {})
         })
     }));
 });

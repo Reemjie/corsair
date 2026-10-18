@@ -8278,7 +8278,9 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`), !1;
     };
     Zi = async function(e) {
         let { error: t } = await $.from(`corsair_run_logs`).insert(e);
-        t && console.warn(`[runlog]`, t.message);
+        if (!t) return;
+        let n = `${t.code ?? ``} ${t.message ?? ``}`;
+        if (!/23505|duplicate|unique/i.test(n)) throw console.warn(`[runlog]`, t.message), Error(t.message || `saveRunLog failed`);
     };
     Qi = async function(e) {
         if (e.length === 0) return {};
