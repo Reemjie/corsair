@@ -1,4 +1,4 @@
-let $r, Li, Gi, Xi, Zi, Ri, Bi, Wi, ia, $i, ea, Ui, Yi, Ki, qi, ra, Vi, zi, aa, Qi, ta, Ji, na;
+let Li, Ji, aa, ra, na, zi, Qi, Bi, $i, Yi, ea, Ri, ia, Ki, Xi, Wi, Vi, qi, oa, Ui, Gi, $r, Zi, ta;
 let __tla = (async ()=>{
     function e(e, t) {
         var n = {};
@@ -8192,7 +8192,7 @@ Resources:`;
     };
     var Hi = `0x06c8b06fb6a94f3ae9b26c87b1baacc4a7a1f2e0184870c957728b5d17bd0202`;
     Ui = async function() {
-        let { data: e, error: t } = await $.from(`nft_mints`).select(`id, wallet_address, nft_name, nft_id, status, tx_hash`).order(`id`, {
+        let { data: e, error: t } = await $.from(`nft_mints`).select(`id, wallet_address, nft_name, nft_id, status, tx_hash, run_id`).order(`id`, {
             ascending: !1
         });
         return t ? (console.warn(`[admin] getPendingMints:`, t.message), []) : e ?? [];
@@ -8205,7 +8205,8 @@ Resources:`;
     };
     Gi = async function(e, t, n, r) {
         let i = localStorage.getItem(`corsair_admin_secret`);
-        if (!i) return console.warn(`[admin] cle admin absente`), !1;
+        if (!i) return console.warn(`[admin] cle admin absente — localStorage.setItem("corsair_admin_secret", "...")`), alert(`Admin secret missing. In the console run:
+localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`), !1;
         let { data: a, error: o } = await $.functions.invoke(`admin-mint`, {
             body: {
                 secret: i,
@@ -8327,13 +8328,34 @@ Resources:`;
             console.warn(`[title]`, e?.message ?? e);
         }
     };
-    ra = async function(e, t) {
+    ra = async function(e) {
+        try {
+            let [t, n] = await Promise.all([
+                $.from(`corsair_scores`).select(`score, zone, turn`).eq(`wallet_address`, e),
+                $.from(`corsair_runs`).select(`run_id`, {
+                    count: `exact`,
+                    head: !0
+                }).eq(`wallet_address`, e)
+            ]), r = t.data ?? [], i = 0, a = 1, o = 0;
+            for (let e of r)e.score > i && (i = e.score), (e.zone ?? 1) > a && (a = e.zone ?? 1), (e.turn ?? 0) > o && (o = e.turn ?? 0);
+            let s = n.count ?? 0;
+            return i <= 0 && s <= 0 ? null : {
+                bestScore: i,
+                bestZone: a,
+                bestTurn: o,
+                runsPlayed: s
+            };
+        } catch  {
+            return null;
+        }
+    };
+    ia = async function(e, t) {
         if (t.length !== 8) return !1;
         let n = `${t.slice(0, 4)}-${t.slice(4, 6)}-${t.slice(6, 8)}`, { data: r, error: i } = await $.from(`corsair_daily_scores`).select(`id`).eq(`wallet_address`, e).eq(`date`, n).maybeSingle();
         return i ? !1 : !!r;
     };
-    ia = async function(e, t) {};
-    aa = async function(e) {
+    aa = async function(e, t) {};
+    oa = async function(e) {
         let { data: t, error: n } = await $.functions.invoke(`approve-run`, {
             body: {
                 run_id: e
@@ -8343,4 +8365,4 @@ Resources:`;
         return t;
     };
 })();
-export { $r as C, Li as S, Gi as _, Xi as a, Zi as b, Ri as c, Bi as d, Wi as f, ia as g, $i as h, ea as i, Ui as l, Yi as m, Ki as n, qi as o, ra as p, Vi as r, zi as s, aa as t, Qi as u, ta as v, Ji as x, na as y, __tla };
+export { Li as C, Ji as S, aa as _, ra as a, na as b, zi as c, Qi as d, Bi as f, $i as g, Yi as h, ea as i, Ri as l, ia as m, Ki as n, Xi as o, Wi as p, Vi as r, qi as s, oa as t, Ui as u, Gi as v, $r as w, Zi as x, ta as y, __tla };
