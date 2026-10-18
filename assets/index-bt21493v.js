@@ -1,8 +1,8 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-Bh4CLMfP.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-Dgulr6L_.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-DFeV5ZIV.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-Dc9G9Bjz.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-CCE5helj.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-Dgulr6L_.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-C9WAuztp.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-Dc9G9Bjz.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
 import { a as e, t } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as n, n as r, r as i, t as a } from "./motion-wKhEcHeU.js";
 import { n as o, t as s } from "./walletApi-DYniPf4L.js";
-import { A as c, B as l, C as u, D as d, E as f, F as p, G as m, H as h, I as g, K as _, L as v, M as y, N as b, O as x, P as ee, T as te, U as ne, W as re, _ as S, b as ie, c as ae, d as oe, f as se, k as ce, l as le, m as ue, n as C, o as w, p as de, r as fe, t as pe, u as me, v as T, w as E, y as he } from "./anchor-DFeV5ZIV.js";
+import { A as c, B as l, C as u, D as d, E as f, F as p, G as m, H as h, I as g, K as _, L as v, M as y, N as b, O as x, P as ee, T as te, U as ne, W as re, _ as S, b as ie, c as ae, d as oe, f as se, k as ce, l as le, m as ue, n as C, o as w, p as de, r as fe, t as pe, u as me, v as T, w as E, y as he } from "./anchor-C9WAuztp.js";
 import { C as ge, a as _e, c as ve, f as ye, g as be, l as xe, m as Se, p as Ce, r as we, s as Te, t as Ee, w as De, x as Oe, __tla as __tla_0 } from "./supabase-Dgulr6L_.js";
 Promise.all([
     (()=>{
@@ -9468,7 +9468,7 @@ Error generating stack: ` + e.message + `
                                         lineHeight: 1.9,
                                         margin: 0
                                     },
-                                    children: `The awareness bar fills faster when the Hunter is close to you (≤4 cells), when you are on a danger streak, or if you have the Greed upgrade with 800g+. Passing through storms or ports reduces its awareness. When it lands on your cell, it deals damage reduced by your Power stat. Its icon is always visible on the map — even in the fog as a shadow.`
+                                    children: `Awareness rises faster when the Hunter is close (≤3 cells), on a danger streak ×3+, with high notoriety, or with Cursed Greed as gold piles up. Storms and ports cut its awareness hard. At 600g+ with Greed it stops skipping turns; Treasure Hunter’s mini-map always shows its position — otherwise you only see it inside your vision. A hit deals damage reduced by your Power (min 3).`
                                 })
                             ]
                         })
@@ -12895,7 +12895,7 @@ Error generating stack: ` + e.message + `
         } else e === 60 ? r = b(r, 8, 25) : e === 61 ? r = b(r, r.ship.maxHull, 55) : e === 70 && (r = c(r));
         return r;
     }
-    var mt = (0, O.lazy)(()=>De(()=>import(`./CorsairGame-Bh4CLMfP.js`).then(async (m)=>{
+    var mt = (0, O.lazy)(()=>De(()=>import(`./CorsairGame-CCE5helj.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }), __vite__mapDeps([0,1,2,3,4,5,6]))), ht = (0, O.lazy)(()=>De(()=>import(`./AdminPanel-Dc9G9Bjz.js`).then(async (m)=>{
