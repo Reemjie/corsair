@@ -32,7 +32,7 @@ Promise.all([
             fetch(e.href, n);
         }
     })();
-    var D = t(((e)=>{
+    var ke = t(((e)=>{
         function t(e, t) {
             var n = e.length;
             e.push(t);
@@ -233,9 +233,9 @@ Promise.all([
                 }
             };
         };
-    })), ke = t(((e, t)=>{
-        t.exports = D();
-    })), Ae = t(((e)=>{
+    })), Ae = t(((e, t)=>{
+        t.exports = ke();
+    })), D = t(((e)=>{
         var t = n();
         function r(e) {
             var t = `https://react.dev/errors/` + e;
@@ -359,9 +359,9 @@ Promise.all([
                 console.error(e);
             }
         }
-        n(), t.exports = Ae();
+        n(), t.exports = D();
     })), Me = t(((e)=>{
-        var t = ke(), r = n(), i = je();
+        var t = Ae(), r = n(), i = je();
         function a(e) {
             var t = `https://react.dev/errors/` + e;
             if (1 < arguments.length) {
@@ -678,7 +678,7 @@ Promise.all([
                     return ``;
             }
         }
-        function D(e) {
+        function ke(e) {
             try {
                 var t = ``, n = null;
                 do t += Oe(e, n), n = e, e = e.return;
@@ -690,7 +690,7 @@ Error generating stack: ` + e.message + `
 ` + e.stack;
             }
         }
-        var Ae = Object.prototype.hasOwnProperty, Me = t.unstable_scheduleCallback, Ne = t.unstable_cancelCallback, O = t.unstable_shouldYield, Pe = t.unstable_requestPaint, k = t.unstable_now, Fe = t.unstable_getCurrentPriorityLevel, Ie = t.unstable_ImmediatePriority, Le = t.unstable_UserBlockingPriority, Re = t.unstable_NormalPriority, ze = t.unstable_LowPriority, Be = t.unstable_IdlePriority, Ve = t.log, He = t.unstable_setDisableYieldValue, A = null, Ue = null;
+        var D = Object.prototype.hasOwnProperty, Me = t.unstable_scheduleCallback, Ne = t.unstable_cancelCallback, O = t.unstable_shouldYield, Pe = t.unstable_requestPaint, k = t.unstable_now, Fe = t.unstable_getCurrentPriorityLevel, Ie = t.unstable_ImmediatePriority, Le = t.unstable_UserBlockingPriority, Re = t.unstable_NormalPriority, ze = t.unstable_LowPriority, Be = t.unstable_IdlePriority, Ve = t.log, He = t.unstable_setDisableYieldValue, A = null, Ue = null;
         function We(e) {
             if (typeof Ve == `function` && He(e), Ue && typeof Ue.setStrictMode == `function`) try {
                 Ue.setStrictMode(A, e);
@@ -955,7 +955,7 @@ Error generating stack: ` + e.message + `
         }
         var Mt = RegExp(`^[:A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD][:A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040]*$`), Nt = {}, Pt = {};
         function Ft(e) {
-            return Ae.call(Pt, e) ? !0 : Ae.call(Nt, e) ? !1 : Mt.test(e) ? Pt[e] = !0 : (Nt[e] = !0, !1);
+            return D.call(Pt, e) ? !0 : D.call(Nt, e) ? !1 : Mt.test(e) ? Pt[e] = !0 : (Nt[e] = !0, !1);
         }
         function It(e, t, n) {
             if (Ft(t)) if (n === null) e.removeAttribute(t);
@@ -1916,7 +1916,7 @@ Error generating stack: ` + e.message + `
             if (n.length !== r.length) return !1;
             for(r = 0; r < n.length; r++){
                 var i = n[r];
-                if (!Ae.call(t, i) || !Ar(e[i], t[i])) return !1;
+                if (!D.call(t, i) || !Ar(e[i], t[i])) return !1;
             }
             return !0;
         }
@@ -2156,13 +2156,13 @@ Error generating stack: ` + e.message + `
                 return n === void 0 ? (t = {
                     value: e,
                     source: t,
-                    stack: D(t)
+                    stack: ke(t)
                 }, Ti.set(e, t), t) : n;
             }
             return {
                 value: e,
                 source: t,
-                stack: D(t)
+                stack: ke(t)
             };
         }
         var Di = [], Oi = 0, ki = null, Ai = 0, ji = [], Mi = 0, Ni = null, Pi = 1, Fi = ``;
@@ -11602,59 +11602,64 @@ Error generating stack: ` + e.message + `
         }, [
             l
         ]);
-        let [u, p] = (0, O.useState)(()=>d()), [m] = (0, O.useState)(()=>typeof window < `u` && window.innerWidth < 768), [h, g] = (0, O.useState)(!1), [_, v] = (0, O.useState)(!1), [y, b] = (0, O.useState)(!1), [x, ee] = (0, O.useState)(!1), [ne, re] = (0, O.useState)(!1), [se, ce] = (0, O.useState)([]), [le, ue] = (0, O.useState)(``);
+        let [u, p] = (0, O.useState)(()=>d()), [m] = (0, O.useState)(()=>typeof window < `u` && window.innerWidth < 768), [h, g] = (0, O.useState)(()=>typeof window < `u` && window.innerHeight < 860);
         (0, O.useEffect)(()=>{
-            ve(new Date().toISOString().slice(0, 10)).then((e)=>ce(e.slice(0, 3)));
+            let e = ()=>g(window.innerHeight < 860);
+            return window.addEventListener(`resize`, e), ()=>window.removeEventListener(`resize`, e);
+        }, []);
+        let [_, v] = (0, O.useState)(!1), [y, b] = (0, O.useState)(!1), [x, ee] = (0, O.useState)(!1), [ne, re] = (0, O.useState)(!1), [se, ce] = (0, O.useState)(!1), [le, ue] = (0, O.useState)([]), [pe, me] = (0, O.useState)(``);
+        (0, O.useEffect)(()=>{
+            ve(new Date().toISOString().slice(0, 10)).then((e)=>ue(e.slice(0, 3)));
         }, []), (0, O.useEffect)(()=>{
             let e = ()=>{
                 let e = Date.now(), t = new Date(e), n = Date.UTC(t.getUTCFullYear(), t.getUTCMonth(), t.getUTCDate() + 1, 0, 0, 0), r = Math.max(0, n - e);
-                ue(`${String(Math.floor(r / 36e5)).padStart(2, `0`)}:${String(Math.floor(r % 36e5 / 6e4)).padStart(2, `0`)}:${String(Math.floor(r % 6e4 / 1e3)).padStart(2, `0`)}`);
+                me(`${String(Math.floor(r / 36e5)).padStart(2, `0`)}:${String(Math.floor(r % 36e5 / 6e4)).padStart(2, `0`)}:${String(Math.floor(r % 6e4 / 1e3)).padStart(2, `0`)}`);
             };
             e();
             let t = setInterval(e, 1e3);
             return ()=>clearInterval(t);
         }, []);
-        let [pe, me] = (0, O.useState)(!1), [T, he] = (0, O.useState)(!1), [ge, xe] = (0, O.useState)(!1), [Ce, we] = (0, O.useState)(null), [Te, Ee] = (0, O.useState)(0), [De, Oe] = (0, O.useState)(0), { address: D, username: ke, connecting: Ae, connect: je, disconnect: Me, openProfile: Ne } = o();
+        let [T, he] = (0, O.useState)(!1), [ge, xe] = (0, O.useState)(!1), [Ce, we] = (0, O.useState)(!1), [Te, Ee] = (0, O.useState)(null), [De, Oe] = (0, O.useState)(0), [ke, Ae] = (0, O.useState)(0), { address: D, username: je, connecting: Me, connect: Ne, disconnect: Pe, openProfile: Fe } = o();
         (0, O.useEffect)(()=>{
             if (!D) {
-                Oe(0);
+                Ae(0);
                 return;
             }
             let e = !1;
             return _e(D).then((t)=>{
-                e || !t || (w(t), Oe(t.nftCount), Ee((e)=>e + 1));
+                e || !t || (w(t), Ae(t.nftCount), Oe((e)=>e + 1));
             }), ()=>{
                 e = !0;
             };
         }, [
             D
         ]);
-        let Pe = async (t)=>{
+        let Ie = async (t)=>{
             if (!D) return;
-            he(!0), xe(!1);
+            xe(!0), we(!1);
             let n = await be(D);
-            if (he(!1), !n) {
-                xe(!0);
+            if (xe(!1), !n) {
+                we(!0);
                 return;
             }
-            e(D, ke, n.seed, !1, n.seed_token, t);
-        }, Fe = async ()=>{
+            e(D, je, n.seed, !1, n.seed_token, t);
+        }, Le = async ()=>{
             let t = oe();
             if (t.length >= 2) {
-                we(de(3));
+                Ee(de(3));
                 return;
             }
             if (!D) {
                 e(null, `Captain`, Math.floor(Math.random() * 999999), !1, void 0, t[0]?.id);
                 return;
             }
-            await Pe(t[0]?.id);
-        }, Ie = async (t)=>{
-            if (we(null), !D) {
+            await Ie(t[0]?.id);
+        }, Re = async (t)=>{
+            if (Ee(null), !D) {
                 e(null, `Captain`, Math.floor(Math.random() * 999999), !1, void 0, t);
                 return;
             }
-            await Pe(t);
+            await Ie(t);
         };
         (0, O.useEffect)(()=>{
             if (!D) {
@@ -11685,9 +11690,9 @@ Error generating stack: ` + e.message + `
         }, [
             D
         ]);
-        let [Le, Re] = (0, O.useState)(0);
+        let [ze, He] = (0, O.useState)(0);
         return (0, O.useEffect)(()=>{
-            let e = setInterval(()=>Re((e)=>(e + 1) % lt.length), 4e3);
+            let e = setInterval(()=>He((e)=>(e + 1) % lt.length), 4e3);
             return ()=>clearInterval(e);
         }, []), (0, k.jsxs)(`div`, {
             style: {
@@ -11701,7 +11706,7 @@ Error generating stack: ` + e.message + `
             children: [
                 lt.map((e, t)=>(0, k.jsx)(a.div, {
                         animate: {
-                            opacity: +(t === Le)
+                            opacity: +(t === ze)
                         },
                         transition: {
                             duration: 1.5
@@ -11736,7 +11741,7 @@ Error generating stack: ` + e.message + `
                         },
                         children: [
                             (0, k.jsx)(`div`, {
-                                onClick: ()=>Ne(),
+                                onClick: ()=>Fe(),
                                 style: {
                                     fontFamily: `'Cinzel', serif`,
                                     fontSize: m ? 9 : 11,
@@ -11747,10 +11752,10 @@ Error generating stack: ` + e.message + `
                                     padding: m ? `3px 8px` : `6px 14px`,
                                     cursor: `pointer`
                                 },
-                                children: ke ?? `${D.slice(0, 6)}...${D.slice(-4)}`
+                                children: je ?? `${D.slice(0, 6)}...${D.slice(-4)}`
                             }),
                             (0, k.jsx)(`button`, {
-                                onClick: Me,
+                                onClick: Pe,
                                 style: {
                                     background: `transparent`,
                                     border: `1px solid rgba(255,255,255,0.1)`,
@@ -11768,8 +11773,8 @@ Error generating stack: ` + e.message + `
                         whileHover: {
                             scale: 1.05
                         },
-                        onClick: je,
-                        disabled: Ae,
+                        onClick: Ne,
+                        disabled: Me,
                         style: {
                             padding: `8px 20px`,
                             borderRadius: 8,
@@ -11781,1078 +11786,1069 @@ Error generating stack: ` + e.message + `
                             cursor: `pointer`,
                             fontFamily: `'Pirata One', cursive`
                         },
-                        children: Ae ? `CONNECTING...` : `CONNECT WALLET`
+                        children: Me ? `CONNECTING...` : `CONNECT WALLET`
                     })
                 }),
-                (0, k.jsxs)(`div`, {
+                (0, k.jsx)(`div`, {
                     style: {
                         position: `relative`,
                         zIndex: 10,
                         height: `100%`,
-                        display: `flex`,
-                        flexDirection: `column`,
-                        alignItems: `center`,
-                        justifyContent: m ? `flex-start` : `center`,
-                        gap: m ? 12 : 24,
                         overflowY: `auto`,
-                        paddingTop: m ? 44 : 0,
-                        paddingBottom: m ? 32 : 28
+                        WebkitOverflowScrolling: `touch`
                     },
-                    children: [
-                        (0, k.jsx)(a.div, {
-                            initial: {
-                                opacity: 0,
-                                y: 20
-                            },
-                            animate: {
-                                opacity: 1,
-                                y: 0
-                            },
-                            transition: {
-                                delay: .3
-                            },
-                            style: {
-                                flexShrink: 0,
-                                fontSize: m ? 58 : 72,
-                                letterSpacing: m ? 10 : 16,
-                                marginTop: m ? 32 : 0,
-                                color: `#c8a030`,
-                                textShadow: `0 0 40px rgba(200,160,48,0.6), 0 2px 8px rgba(0,0,0,0.9)`
-                            },
-                            children: `CORSAIR`
-                        }),
-                        (0, k.jsx)(a.div, {
-                            initial: {
-                                opacity: 0
-                            },
-                            animate: {
-                                opacity: 1
-                            },
-                            transition: {
-                                delay: .6
-                            },
-                            style: {
-                                flexShrink: 0,
-                                fontFamily: `'Cinzel', serif`,
-                                fontSize: m ? 10 : 13,
-                                letterSpacing: m ? 3 : 6,
-                                color: `rgba(255,255,255,0.7)`,
-                                marginTop: m ? -6 : -16,
-                                textShadow: `0 1px 4px rgba(0,0,0,0.9)`,
-                                textAlign: `center`,
-                                width: `100%`
-                            },
-                            children: `A ROGUELITE OF NAVIGATION & SURVIVAL`
-                        }),
-                        (()=>{
-                            let e = C(), t = fe(void 0, 1).find((e)=>e.ratio > 0) ?? null;
-                            return e.runsPlayed <= 0 && e.bestScore <= 0 && !t ? null : (0, k.jsxs)(a.div, {
+                    children: (0, k.jsxs)(`div`, {
+                        style: {
+                            minHeight: `100%`,
+                            boxSizing: `border-box`,
+                            display: `flex`,
+                            flexDirection: `column`,
+                            alignItems: `center`,
+                            justifyContent: m || h ? `flex-start` : `center`,
+                            gap: m || h ? 10 : 16,
+                            paddingTop: m ? 48 : h ? 36 : 28,
+                            paddingBottom: m || h ? 28 : 36,
+                            paddingLeft: 12,
+                            paddingRight: 12
+                        },
+                        children: [
+                            (0, k.jsx)(a.div, {
                                 initial: {
                                     opacity: 0,
-                                    y: 8
+                                    y: 20
                                 },
                                 animate: {
                                     opacity: 1,
                                     y: 0
                                 },
                                 transition: {
-                                    delay: .75
+                                    delay: .3
                                 },
                                 style: {
                                     flexShrink: 0,
-                                    maxWidth: 440,
-                                    width: m ? `90%` : `100%`,
-                                    padding: m ? `10px 12px` : `12px 16px`,
-                                    borderRadius: 10,
-                                    border: `1px solid rgba(136,221,255,0.28)`,
-                                    background: `rgba(8,18,28,0.72)`,
-                                    display: `flex`,
-                                    flexDirection: `column`,
-                                    gap: 8,
-                                    textAlign: `center`
+                                    fontSize: m ? 52 : h ? 56 : 72,
+                                    letterSpacing: m ? 10 : h ? 12 : 16,
+                                    color: `#c8a030`,
+                                    textShadow: `0 0 40px rgba(200,160,48,0.6), 0 2px 8px rgba(0,0,0,0.9)`,
+                                    lineHeight: 1
                                 },
-                                children: [
-                                    (0, k.jsx)(`div`, {
-                                        style: {
-                                            fontFamily: `'Cinzel', serif`,
-                                            fontSize: 10,
-                                            letterSpacing: 2,
-                                            color: `rgba(136,221,255,0.7)`
-                                        },
-                                        children: `YOUR TIDE`
-                                    }),
-                                    (0, k.jsx)(`div`, {
-                                        style: {
-                                            display: `grid`,
-                                            gridTemplateColumns: m ? `repeat(3, 1fr)` : `repeat(5, 1fr)`,
-                                            gap: m ? 6 : 8,
-                                            rowGap: 8
-                                        },
-                                        children: [
-                                            {
-                                                label: `VOYAGES`,
-                                                val: e.runsPlayed > 0 ? String(e.runsPlayed) : `—`,
-                                                color: `#88ddff`
-                                            },
-                                            {
-                                                label: `BEST`,
-                                                val: e.bestScore > 0 ? e.bestScore.toLocaleString() : `—`,
-                                                color: `#eedd44`
-                                            },
-                                            {
-                                                label: `MAX TURN`,
-                                                val: e.bestTurn > 0 ? String(e.bestTurn) : `—`,
-                                                color: `rgba(255,255,255,0.8)`
-                                            },
-                                            {
-                                                label: `REACH`,
-                                                val: e.bestZone > 1 ? ae(e.bestZone).replace(/^The /, ``) : e.bestScore > 0 || e.runsPlayed > 0 ? `Coasts` : `—`,
-                                                color: e.bestZone >= 3 ? `#ee6688` : e.bestZone >= 2 ? `#cc88ff` : `#66bb88`
-                                            },
-                                            {
-                                                label: `RELICS`,
-                                                val: D ? String(De) : `—`,
-                                                color: `#d4a531`
-                                            }
-                                        ].map((e)=>(0, k.jsxs)(`div`, {
-                                                children: [
-                                                    (0, k.jsx)(`div`, {
-                                                        style: {
-                                                            fontFamily: `'Cinzel', serif`,
-                                                            fontSize: 8,
-                                                            letterSpacing: 1,
-                                                            color: `rgba(255,255,255,0.35)`,
-                                                            marginBottom: 2
-                                                        },
-                                                        children: e.label
-                                                    }),
-                                                    (0, k.jsx)(`div`, {
-                                                        style: {
-                                                            fontFamily: `'Cinzel', serif`,
-                                                            fontSize: m ? 13 : 15,
-                                                            fontWeight: 700,
-                                                            color: e.color,
-                                                            lineHeight: 1.1
-                                                        },
-                                                        children: e.val
-                                                    })
-                                                ]
-                                            }, e.label))
-                                    }),
-                                    (0, k.jsxs)(`div`, {
-                                        style: {
-                                            fontFamily: `'IM Fell English', cursive`,
-                                            fontSize: m ? 12 : 13,
-                                            color: `rgba(255,255,255,0.65)`,
-                                            lineHeight: 1.35
-                                        },
-                                        children: [
-                                            `Daily resets `,
-                                            (0, k.jsx)(`span`, {
-                                                style: {
-                                                    color: `#88ddff`
-                                                },
-                                                children: le
-                                            }),
-                                            t && (0, k.jsxs)(k.Fragment, {
-                                                children: [
-                                                    (0, k.jsx)(`span`, {
-                                                        style: {
-                                                            color: `rgba(255,255,255,0.35)`
-                                                        },
-                                                        children: ` · `
-                                                    }),
-                                                    `Near: `,
-                                                    (0, k.jsx)(`span`, {
-                                                        style: {
-                                                            color: `#a8d8ff`
-                                                        },
-                                                        children: t.feat.name
-                                                    }),
-                                                    ` `,
-                                                    `(`,
-                                                    Math.round(t.ratio * 100),
-                                                    `%)`
-                                                ]
-                                            })
-                                        ]
-                                    }),
-                                    !u && (0, k.jsx)(`div`, {
-                                        style: {
-                                            fontFamily: `'Cinzel', serif`,
-                                            fontSize: 10,
-                                            letterSpacing: 1,
-                                            color: `rgba(200,160,48,0.7)`
-                                        },
-                                        children: D ? `Daily still open — climb today’s board` : `Connect to sail the Daily · same seas for every captain`
-                                    })
-                                ]
-                            });
-                        })(),
-                        (0, k.jsxs)(a.div, {
-                            initial: {
-                                opacity: 0,
-                                y: 20
-                            },
-                            animate: {
-                                opacity: 1,
-                                y: 0
-                            },
-                            transition: {
-                                delay: .9
-                            },
-                            style: {
-                                flexShrink: 0,
-                                display: `flex`,
-                                flexDirection: `column`,
-                                alignItems: `center`,
-                                gap: 12,
-                                marginTop: 16
-                            },
-                            children: [
-                                (0, k.jsxs)(`div`, {
+                                children: `CORSAIR`
+                            }),
+                            (0, k.jsx)(a.div, {
+                                initial: {
+                                    opacity: 0
+                                },
+                                animate: {
+                                    opacity: 1
+                                },
+                                transition: {
+                                    delay: .6
+                                },
+                                style: {
+                                    flexShrink: 0,
+                                    fontFamily: `'Cinzel', serif`,
+                                    fontSize: m || h ? 10 : 13,
+                                    letterSpacing: m ? 3 : h ? 4 : 6,
+                                    color: `rgba(255,255,255,0.7)`,
+                                    marginTop: -4,
+                                    textShadow: `0 1px 4px rgba(0,0,0,0.9)`,
+                                    textAlign: `center`,
+                                    width: `100%`
+                                },
+                                children: `A ROGUELITE OF NAVIGATION & SURVIVAL`
+                            }),
+                            (()=>{
+                                let e = C(), t = fe(void 0, 1).find((e)=>e.ratio > 0) ?? null;
+                                return e.runsPlayed <= 0 && e.bestScore <= 0 && !t ? null : (0, k.jsxs)(a.div, {
+                                    initial: {
+                                        opacity: 0,
+                                        y: 8
+                                    },
+                                    animate: {
+                                        opacity: 1,
+                                        y: 0
+                                    },
+                                    transition: {
+                                        delay: .75
+                                    },
                                     style: {
+                                        flexShrink: 0,
+                                        maxWidth: 440,
+                                        width: `100%`,
+                                        padding: m || h ? `8px 10px` : `12px 16px`,
+                                        borderRadius: 10,
+                                        border: `1px solid rgba(136,221,255,0.28)`,
+                                        background: `rgba(8,18,28,0.72)`,
                                         display: `flex`,
                                         flexDirection: `column`,
-                                        alignItems: `center`,
-                                        gap: 10
+                                        gap: h || m ? 6 : 8,
+                                        textAlign: `center`,
+                                        boxSizing: `border-box`
                                     },
                                     children: [
-                                        (0, k.jsxs)(`div`, {
+                                        (0, k.jsx)(`div`, {
                                             style: {
-                                                display: `flex`,
-                                                flexDirection: `column`,
-                                                alignItems: `center`,
-                                                gap: 8,
-                                                width: m ? `88%` : `auto`
+                                                fontFamily: `'Cinzel', serif`,
+                                                fontSize: 10,
+                                                letterSpacing: 2,
+                                                color: `rgba(136,221,255,0.7)`
+                                            },
+                                            children: `YOUR TIDE`
+                                        }),
+                                        (0, k.jsx)(`div`, {
+                                            style: {
+                                                display: `grid`,
+                                                gridTemplateColumns: m ? `repeat(3, 1fr)` : `repeat(5, 1fr)`,
+                                                gap: m ? 6 : 8,
+                                                rowGap: 8
                                             },
                                             children: [
-                                                (0, k.jsxs)(`div`, {
-                                                    style: {
-                                                        display: `flex`,
-                                                        gap: 16,
-                                                        width: `100%`
-                                                    },
+                                                {
+                                                    label: `VOYAGES`,
+                                                    val: e.runsPlayed > 0 ? String(e.runsPlayed) : `—`,
+                                                    color: `#88ddff`
+                                                },
+                                                {
+                                                    label: `BEST`,
+                                                    val: e.bestScore > 0 ? e.bestScore.toLocaleString() : `—`,
+                                                    color: `#eedd44`
+                                                },
+                                                {
+                                                    label: `MAX TURN`,
+                                                    val: e.bestTurn > 0 ? String(e.bestTurn) : `—`,
+                                                    color: `rgba(255,255,255,0.8)`
+                                                },
+                                                {
+                                                    label: `REACH`,
+                                                    val: e.bestZone > 1 ? ae(e.bestZone).replace(/^The /, ``) : e.bestScore > 0 || e.runsPlayed > 0 ? `Coasts` : `—`,
+                                                    color: e.bestZone >= 3 ? `#ee6688` : e.bestZone >= 2 ? `#cc88ff` : `#66bb88`
+                                                },
+                                                {
+                                                    label: `RELICS`,
+                                                    val: D ? String(ke) : `—`,
+                                                    color: `#d4a531`
+                                                }
+                                            ].map((e)=>(0, k.jsxs)(`div`, {
                                                     children: [
-                                                        (0, k.jsx)(a.button, {
-                                                            whileHover: {
-                                                                scale: 1.05,
-                                                                boxShadow: `0 0 30px rgba(200,160,48,0.4)`
-                                                            },
-                                                            whileTap: {
-                                                                scale: .97
-                                                            },
-                                                            disabled: T,
-                                                            onClick: ()=>{
-                                                                Fe();
-                                                            },
+                                                        (0, k.jsx)(`div`, {
                                                             style: {
-                                                                padding: m ? `20px 0` : `16px 48px`,
-                                                                width: m ? `100%` : `auto`,
-                                                                borderRadius: 12,
-                                                                border: `2px solid rgba(200,160,48,0.9)`,
-                                                                background: m ? `rgba(200,160,48,0.38)` : `rgba(200,160,48,0.25)`,
-                                                                color: m ? `#e8c250` : `#c8a030`,
-                                                                fontSize: m ? 28 : 22,
-                                                                letterSpacing: 4,
-                                                                cursor: T ? `wait` : `pointer`,
-                                                                fontFamily: `'Pirata One', cursive`,
-                                                                opacity: T ? .7 : 1
+                                                                fontFamily: `'Cinzel', serif`,
+                                                                fontSize: 8,
+                                                                letterSpacing: 1,
+                                                                color: `rgba(255,255,255,0.35)`,
+                                                                marginBottom: 2
                                                             },
-                                                            children: T ? `PREPARING…` : `PLAY`
+                                                            children: e.label
                                                         }),
-                                                        (0, k.jsx)(a.button, {
-                                                            whileHover: {
-                                                                scale: 1.05
-                                                            },
-                                                            whileTap: {
-                                                                scale: .97
-                                                            },
-                                                            onClick: ()=>me(!0),
+                                                        (0, k.jsx)(`div`, {
                                                             style: {
-                                                                display: m ? `none` : `block`,
-                                                                padding: `16px 32px`,
-                                                                borderRadius: 12,
-                                                                border: `1px solid rgba(200,160,48,0.7)`,
-                                                                background: `rgba(200,160,48,0.18)`,
-                                                                color: `rgba(200,160,48,0.95)`,
-                                                                fontSize: 16,
-                                                                letterSpacing: 3,
-                                                                cursor: `pointer`,
-                                                                fontFamily: `'Pirata One', cursive`
+                                                                fontFamily: `'Cinzel', serif`,
+                                                                fontSize: m ? 13 : 15,
+                                                                fontWeight: 700,
+                                                                color: e.color,
+                                                                lineHeight: 1.1
                                                             },
-                                                            children: `LEADERBOARD`
+                                                            children: e.val
                                                         })
                                                     ]
-                                                }),
-                                                !D && (0, k.jsx)(`div`, {
-                                                    style: {
-                                                        fontSize: 11,
-                                                        color: `rgba(255,255,255,0.45)`,
-                                                        fontFamily: `'Cinzel', serif`,
-                                                        letterSpacing: 1,
-                                                        textAlign: `center`
-                                                    },
-                                                    children: `No wallet needed · connect later to climb the board`
-                                                }),
-                                                ge && (0, k.jsx)(`div`, {
-                                                    style: {
-                                                        fontSize: 11,
-                                                        color: `rgba(238,100,100,0.85)`,
-                                                        fontFamily: `'Cinzel', serif`,
-                                                        letterSpacing: 1,
-                                                        textAlign: `center`
-                                                    },
-                                                    children: `Harbor unreachable — check your connection and try again`
-                                                })
-                                            ]
+                                                }, e.label))
                                         }),
-                                        (0, k.jsxs)(`div`, {
+                                        t && (0, k.jsxs)(`div`, {
                                             style: {
-                                                padding: m ? `12px 14px` : `16px 20px`,
-                                                borderRadius: 16,
-                                                border: `2px solid rgba(200,160,48,0.5)`,
-                                                background: `linear-gradient(135deg, rgba(30,20,5,0.9), rgba(10,15,25,0.9))`,
-                                                maxWidth: 380,
-                                                width: `100%`,
-                                                boxShadow: `0 0 24px rgba(200,160,48,0.15)`
+                                                fontFamily: `'IM Fell English', cursive`,
+                                                fontSize: m || h ? 11 : 13,
+                                                color: `rgba(255,255,255,0.65)`,
+                                                lineHeight: 1.35
                                             },
                                             children: [
-                                                (0, k.jsx)(`div`, {
+                                                `Near: `,
+                                                (0, k.jsx)(`span`, {
                                                     style: {
-                                                        display: `flex`,
-                                                        alignItems: `center`,
-                                                        gap: 14
+                                                        color: `#a8d8ff`
                                                     },
-                                                    children: (0, k.jsxs)(`div`, {
+                                                    children: t.feat.name
+                                                }),
+                                                ` `,
+                                                `(`,
+                                                Math.round(t.ratio * 100),
+                                                `%)`
+                                            ]
+                                        })
+                                    ]
+                                });
+                            })(),
+                            (0, k.jsxs)(a.div, {
+                                initial: {
+                                    opacity: 0,
+                                    y: 20
+                                },
+                                animate: {
+                                    opacity: 1,
+                                    y: 0
+                                },
+                                transition: {
+                                    delay: .9
+                                },
+                                style: {
+                                    flexShrink: 0,
+                                    display: `flex`,
+                                    flexDirection: `column`,
+                                    alignItems: `center`,
+                                    gap: h || m ? 8 : 12,
+                                    width: `100%`,
+                                    maxWidth: 440
+                                },
+                                children: [
+                                    (0, k.jsxs)(`div`, {
+                                        style: {
+                                            display: `flex`,
+                                            flexDirection: `column`,
+                                            alignItems: `center`,
+                                            gap: h || m ? 8 : 10,
+                                            width: `100%`
+                                        },
+                                        children: [
+                                            (0, k.jsxs)(`div`, {
+                                                style: {
+                                                    display: `flex`,
+                                                    flexDirection: `column`,
+                                                    alignItems: `center`,
+                                                    gap: 6,
+                                                    width: m ? `100%` : `auto`,
+                                                    maxWidth: `100%`
+                                                },
+                                                children: [
+                                                    (0, k.jsxs)(`div`, {
                                                         style: {
-                                                            flex: 1,
-                                                            textAlign: `left`
+                                                            display: `flex`,
+                                                            gap: 12,
+                                                            width: `100%`,
+                                                            justifyContent: `center`
+                                                        },
+                                                        children: [
+                                                            (0, k.jsx)(a.button, {
+                                                                whileHover: {
+                                                                    scale: 1.05,
+                                                                    boxShadow: `0 0 30px rgba(200,160,48,0.4)`
+                                                                },
+                                                                whileTap: {
+                                                                    scale: .97
+                                                                },
+                                                                disabled: ge,
+                                                                onClick: ()=>{
+                                                                    Le();
+                                                                },
+                                                                style: {
+                                                                    padding: m ? `16px 0` : h ? `12px 36px` : `16px 48px`,
+                                                                    width: m ? `100%` : `auto`,
+                                                                    borderRadius: 12,
+                                                                    border: `2px solid rgba(200,160,48,0.9)`,
+                                                                    background: m ? `rgba(200,160,48,0.38)` : `rgba(200,160,48,0.25)`,
+                                                                    color: m ? `#e8c250` : `#c8a030`,
+                                                                    fontSize: m ? 26 : h ? 18 : 22,
+                                                                    letterSpacing: 4,
+                                                                    cursor: ge ? `wait` : `pointer`,
+                                                                    fontFamily: `'Pirata One', cursive`,
+                                                                    opacity: ge ? .7 : 1
+                                                                },
+                                                                children: ge ? `PREPARING…` : `PLAY`
+                                                            }),
+                                                            (0, k.jsx)(a.button, {
+                                                                whileHover: {
+                                                                    scale: 1.05
+                                                                },
+                                                                whileTap: {
+                                                                    scale: .97
+                                                                },
+                                                                onClick: ()=>he(!0),
+                                                                style: {
+                                                                    display: m ? `none` : `block`,
+                                                                    padding: h ? `12px 24px` : `16px 32px`,
+                                                                    borderRadius: 12,
+                                                                    border: `1px solid rgba(200,160,48,0.7)`,
+                                                                    background: `rgba(200,160,48,0.18)`,
+                                                                    color: `rgba(200,160,48,0.95)`,
+                                                                    fontSize: h ? 14 : 16,
+                                                                    letterSpacing: 3,
+                                                                    cursor: `pointer`,
+                                                                    fontFamily: `'Pirata One', cursive`
+                                                                },
+                                                                children: `LEADERBOARD`
+                                                            })
+                                                        ]
+                                                    }),
+                                                    !D && !h && (0, k.jsx)(`div`, {
+                                                        style: {
+                                                            fontSize: 11,
+                                                            color: `rgba(255,255,255,0.45)`,
+                                                            fontFamily: `'Cinzel', serif`,
+                                                            letterSpacing: 1,
+                                                            textAlign: `center`
+                                                        },
+                                                        children: `No wallet needed · connect later to climb the board`
+                                                    }),
+                                                    Ce && (0, k.jsx)(`div`, {
+                                                        style: {
+                                                            fontSize: 11,
+                                                            color: `rgba(238,100,100,0.85)`,
+                                                            fontFamily: `'Cinzel', serif`,
+                                                            letterSpacing: 1,
+                                                            textAlign: `center`
+                                                        },
+                                                        children: `Harbor unreachable — check your connection and try again`
+                                                    })
+                                                ]
+                                            }),
+                                            (0, k.jsxs)(`div`, {
+                                                style: {
+                                                    padding: m || h ? `10px 12px` : `14px 18px`,
+                                                    borderRadius: 14,
+                                                    border: `2px solid rgba(200,160,48,0.5)`,
+                                                    background: `linear-gradient(135deg, rgba(30,20,5,0.9), rgba(10,15,25,0.9))`,
+                                                    maxWidth: 380,
+                                                    width: `100%`,
+                                                    boxShadow: `0 0 24px rgba(200,160,48,0.15)`,
+                                                    boxSizing: `border-box`
+                                                },
+                                                children: [
+                                                    (0, k.jsx)(`div`, {
+                                                        style: {
+                                                            display: `flex`,
+                                                            alignItems: `center`,
+                                                            gap: 14
+                                                        },
+                                                        children: (0, k.jsxs)(`div`, {
+                                                            style: {
+                                                                flex: 1,
+                                                                textAlign: `left`
+                                                            },
+                                                            children: [
+                                                                (0, k.jsxs)(`div`, {
+                                                                    style: {
+                                                                        fontSize: h ? 13 : 15,
+                                                                        color: `#c8a030`,
+                                                                        letterSpacing: 2,
+                                                                        fontFamily: `'Pirata One', cursive`,
+                                                                        display: `flex`,
+                                                                        alignItems: `center`,
+                                                                        gap: 7
+                                                                    },
+                                                                    children: [
+                                                                        (0, k.jsx)(S, {
+                                                                            name: `sun`,
+                                                                            size: h ? 16 : 19
+                                                                        }),
+                                                                        `DAILY CHALLENGE`
+                                                                    ]
+                                                                }),
+                                                                (0, k.jsx)(`div`, {
+                                                                    style: {
+                                                                        display: m || h ? `none` : `block`,
+                                                                        fontSize: 12,
+                                                                        color: `rgba(255,255,255,0.65)`,
+                                                                        fontFamily: `'IM Fell English', cursive`,
+                                                                        marginTop: 2,
+                                                                        lineHeight: 1.4
+                                                                    },
+                                                                    children: `One run a day · blind map · climb the board`
+                                                                })
+                                                            ]
+                                                        })
+                                                    }),
+                                                    (0, k.jsxs)(`div`, {
+                                                        style: {
+                                                            display: `flex`,
+                                                            alignItems: `center`,
+                                                            justifyContent: `space-between`,
+                                                            marginTop: h || m ? 8 : 12,
+                                                            gap: 10
                                                         },
                                                         children: [
                                                             (0, k.jsxs)(`div`, {
                                                                 style: {
-                                                                    fontSize: 15,
-                                                                    color: `#c8a030`,
-                                                                    letterSpacing: 2,
-                                                                    fontFamily: `'Pirata One', cursive`,
-                                                                    display: `flex`,
-                                                                    alignItems: `center`,
-                                                                    gap: 7
+                                                                    fontSize: 11,
+                                                                    color: `rgba(136,221,255,0.8)`,
+                                                                    fontFamily: `'Cinzel', serif`,
+                                                                    letterSpacing: 1
                                                                 },
                                                                 children: [
-                                                                    (0, k.jsx)(S, {
-                                                                        name: `sun`,
-                                                                        size: 19
+                                                                    `Resets `,
+                                                                    (0, k.jsx)(`span`, {
+                                                                        style: {
+                                                                            color: `#88ddff`,
+                                                                            fontWeight: 700
+                                                                        },
+                                                                        children: pe
                                                                     }),
-                                                                    `DAILY CHALLENGE`
+                                                                    ` `,
+                                                                    (0, k.jsx)(`span`, {
+                                                                        style: {
+                                                                            opacity: .5
+                                                                        },
+                                                                        children: `UTC`
+                                                                    })
                                                                 ]
                                                             }),
-                                                            (0, k.jsx)(`div`, {
+                                                            u ? (0, k.jsxs)(`div`, {
                                                                 style: {
-                                                                    display: m ? `none` : `block`,
-                                                                    fontSize: 12,
-                                                                    color: `rgba(255,255,255,0.65)`,
-                                                                    fontFamily: `'IM Fell English', cursive`,
-                                                                    marginTop: 2,
-                                                                    lineHeight: 1.4
+                                                                    fontSize: 11,
+                                                                    color: `rgba(136,221,255,0.55)`,
+                                                                    fontFamily: `'Cinzel', serif`,
+                                                                    textAlign: `right`
                                                                 },
-                                                                children: `One run a day · blind map · climb the board`
+                                                                children: [
+                                                                    `Already played ·`,
+                                                                    (0, k.jsx)(`br`, {}),
+                                                                    `back at 00:00 UTC`
+                                                                ]
+                                                            }) : (0, k.jsx)(a.button, {
+                                                                whileHover: {
+                                                                    scale: 1.04,
+                                                                    boxShadow: `0 0 20px rgba(200,160,48,0.4)`
+                                                                },
+                                                                whileTap: {
+                                                                    scale: .96
+                                                                },
+                                                                onClick: ()=>{
+                                                                    D ? e(D, je, f(), !0) : Ne();
+                                                                },
+                                                                style: {
+                                                                    padding: `10px 20px`,
+                                                                    borderRadius: 10,
+                                                                    border: `2px solid rgba(200,160,48,0.8)`,
+                                                                    background: `rgba(200,160,48,0.2)`,
+                                                                    color: `#c8a030`,
+                                                                    fontSize: 13,
+                                                                    letterSpacing: 2,
+                                                                    cursor: `pointer`,
+                                                                    fontFamily: `'Pirata One', cursive`,
+                                                                    fontWeight: 700,
+                                                                    whiteSpace: `nowrap`
+                                                                },
+                                                                children: D ? `PLAY · 1 TRY` : `CONNECT · 1 TRY`
                                                             })
                                                         ]
+                                                    }),
+                                                    l && (0, k.jsxs)(`div`, {
+                                                        style: {
+                                                            display: m ? `none` : `block`,
+                                                            fontSize: 10,
+                                                            color: `rgba(238,221,68,0.55)`,
+                                                            fontFamily: `'Cinzel', serif`,
+                                                            marginTop: 10,
+                                                            textAlign: `center`,
+                                                            letterSpacing: 1
+                                                        },
+                                                        children: [
+                                                            (0, k.jsx)(S, {
+                                                                name: `trophy`,
+                                                                size: 17,
+                                                                style: {
+                                                                    marginRight: 7
+                                                                }
+                                                            }),
+                                                            `Starktember is live — the Daily decides who takes the Tide`
+                                                        ]
                                                     })
-                                                }),
-                                                (0, k.jsxs)(`div`, {
+                                                ]
+                                            })
+                                        ]
+                                    }),
+                                    le.length > 0 && !h && (0, k.jsxs)(`div`, {
+                                        style: {
+                                            padding: `10px 20px`,
+                                            borderRadius: 12,
+                                            border: `1px solid rgba(200,160,48,0.2)`,
+                                            background: `rgba(0,0,0,0.4)`,
+                                            width: `100%`,
+                                            maxWidth: 360,
+                                            boxSizing: `border-box`
+                                        },
+                                        children: [
+                                            (0, k.jsxs)(`div`, {
+                                                style: {
+                                                    fontSize: 11,
+                                                    color: `rgba(200,160,48,0.6)`,
+                                                    fontFamily: `'Cinzel', serif`,
+                                                    letterSpacing: 3,
+                                                    marginBottom: 8,
+                                                    textAlign: `center`,
+                                                    display: `flex`,
+                                                    alignItems: `center`,
+                                                    justifyContent: `center`,
+                                                    gap: 6
+                                                },
+                                                children: [
+                                                    (0, k.jsx)(S, {
+                                                        name: `sun`,
+                                                        size: 14
+                                                    }),
+                                                    `TODAY'S TOP`
+                                                ]
+                                            }),
+                                            le.map((e, t)=>(0, k.jsxs)(`div`, {
                                                     style: {
                                                         display: `flex`,
                                                         alignItems: `center`,
-                                                        justifyContent: `space-between`,
-                                                        marginTop: 12,
-                                                        gap: 10
+                                                        gap: 8,
+                                                        marginBottom: 4
                                                     },
                                                     children: [
-                                                        (0, k.jsxs)(`div`, {
+                                                        (0, k.jsx)(`div`, {
+                                                            style: {
+                                                                fontSize: 13,
+                                                                color: t === 0 ? `#FFD700` : t === 1 ? `#C0C0C0` : `#CD7F32`,
+                                                                width: 16,
+                                                                textAlign: `center`
+                                                            },
+                                                            children: t === 0 ? (0, k.jsx)(S, {
+                                                                name: `crown`,
+                                                                size: 19
+                                                            }) : [
+                                                                ``,
+                                                                `⚔️`,
+                                                                `🏴‍☠️`
+                                                            ][t]
+                                                        }),
+                                                        (0, k.jsx)(`div`, {
+                                                            style: {
+                                                                flex: 1,
+                                                                fontSize: 13,
+                                                                color: `rgba(255,255,255,0.7)`,
+                                                                fontFamily: `'Cinzel', serif`,
+                                                                overflow: `hidden`,
+                                                                textOverflow: `ellipsis`,
+                                                                whiteSpace: `nowrap`
+                                                            },
+                                                            children: e.username ?? `${e.wallet_address.slice(0, 6)}...${e.wallet_address.slice(-4)}`
+                                                        }),
+                                                        (0, k.jsx)(`div`, {
+                                                            style: {
+                                                                fontSize: 13,
+                                                                color: `#eedd44`,
+                                                                fontFamily: `'Cinzel', serif`
+                                                            },
+                                                            children: e.score.toLocaleString()
+                                                        })
+                                                    ]
+                                                }, t))
+                                        ]
+                                    }),
+                                    l && (0, k.jsxs)(`div`, {
+                                        style: {
+                                            padding: `12px 20px`,
+                                            borderRadius: 12,
+                                            border: `1px solid rgba(238,170,68,0.35)`,
+                                            background: `linear-gradient(135deg, rgba(30,18,4,0.85), rgba(8,10,18,0.85))`,
+                                            width: `100%`,
+                                            maxWidth: 360
+                                        },
+                                        children: [
+                                            (0, k.jsx)(`div`, {
+                                                style: {
+                                                    fontSize: 11,
+                                                    color: `rgba(238,170,68,0.8)`,
+                                                    fontFamily: `'Cinzel', serif`,
+                                                    letterSpacing: 3,
+                                                    textAlign: `center`,
+                                                    marginBottom: 2
+                                                },
+                                                children: `STARKTEMBER`
+                                            }),
+                                            (0, k.jsx)(`div`, {
+                                                style: {
+                                                    fontSize: m ? 9 : 10,
+                                                    color: `rgba(255,255,255,0.45)`,
+                                                    fontFamily: `'IM Fell English', cursive`,
+                                                    textAlign: `center`,
+                                                    marginBottom: 8
+                                                },
+                                                children: `Highest total across the month · one relic, one winner`
+                                            }),
+                                            (0, k.jsx)(`div`, {
+                                                style: {
+                                                    fontSize: m ? 9 : 10,
+                                                    color: `rgba(238,170,68,0.7)`,
+                                                    fontFamily: `'Cinzel', serif`,
+                                                    letterSpacing: 1,
+                                                    textAlign: `center`,
+                                                    marginBottom: 8
+                                                },
+                                                children: `ONLY THE DAILY CHALLENGE COUNTS`
+                                            }),
+                                            s.length === 0 ? (0, k.jsx)(`div`, {
+                                                style: {
+                                                    fontSize: 11,
+                                                    color: `rgba(255,255,255,0.35)`,
+                                                    fontFamily: `'Cinzel', serif`,
+                                                    textAlign: `center`,
+                                                    padding: `6px 0`
+                                                },
+                                                children: `No captain has sailed yet.`
+                                            }) : s.slice(0, 5).map((e, t)=>(0, k.jsxs)(`div`, {
+                                                    style: {
+                                                        display: `flex`,
+                                                        alignItems: `center`,
+                                                        gap: 8,
+                                                        marginBottom: 4
+                                                    },
+                                                    children: [
+                                                        (0, k.jsx)(`div`, {
                                                             style: {
                                                                 fontSize: 12,
-                                                                color: `rgba(136,221,255,0.8)`,
+                                                                color: t === 0 ? `#FFD700` : `rgba(255,255,255,0.4)`,
+                                                                width: 16,
+                                                                textAlign: `center`
+                                                            },
+                                                            children: t === 0 ? (0, k.jsx)(S, {
+                                                                name: `crown`,
+                                                                size: 17
+                                                            }) : t + 1
+                                                        }),
+                                                        (0, k.jsx)(`div`, {
+                                                            style: {
+                                                                flex: 1,
+                                                                fontSize: 12,
+                                                                color: `rgba(255,255,255,0.75)`,
                                                                 fontFamily: `'Cinzel', serif`,
-                                                                letterSpacing: 1
+                                                                overflow: `hidden`,
+                                                                textOverflow: `ellipsis`,
+                                                                whiteSpace: `nowrap`
+                                                            },
+                                                            children: e.username ?? `${e.wallet_address.slice(0, 6)}...${e.wallet_address.slice(-4)}`
+                                                        }),
+                                                        (0, k.jsxs)(`div`, {
+                                                            style: {
+                                                                fontSize: 10,
+                                                                color: `rgba(255,255,255,0.3)`,
+                                                                fontFamily: `'Cinzel', serif`
                                                             },
                                                             children: [
-                                                                `⏳ Resets in `,
-                                                                (0, k.jsx)(`span`, {
-                                                                    style: {
-                                                                        color: `#88ddff`,
-                                                                        fontWeight: 700
-                                                                    },
-                                                                    children: le
-                                                                }),
-                                                                ` `,
-                                                                (0, k.jsx)(`span`, {
-                                                                    style: {
-                                                                        opacity: .5
-                                                                    },
-                                                                    children: `UTC`
-                                                                })
+                                                                e.days_played,
+                                                                `d`
                                                             ]
                                                         }),
-                                                        u ? (0, k.jsxs)(`div`, {
+                                                        (0, k.jsx)(`div`, {
                                                             style: {
-                                                                fontSize: 11,
-                                                                color: `rgba(136,221,255,0.55)`,
+                                                                fontSize: 12,
+                                                                color: `#eeaa44`,
                                                                 fontFamily: `'Cinzel', serif`,
+                                                                minWidth: 52,
+                                                                textAlign: `right`
+                                                            },
+                                                            children: e.total.toLocaleString()
+                                                        })
+                                                    ]
+                                                }, e.wallet_address)),
+                                            (()=>{
+                                                if (!D) return null;
+                                                let e = (e)=>e.toLowerCase().replace(/^0x0*/, ``), t = s.find((t)=>e(t.wallet_address) === e(D));
+                                                if (!t || t.rank <= 5) return null;
+                                                let n = s[0];
+                                                return (0, k.jsxs)(`div`, {
+                                                    style: {
+                                                        display: `flex`,
+                                                        alignItems: `center`,
+                                                        gap: 8,
+                                                        marginTop: 8,
+                                                        paddingTop: 8,
+                                                        borderTop: `1px solid rgba(238,170,68,0.18)`
+                                                    },
+                                                    children: [
+                                                        (0, k.jsx)(`div`, {
+                                                            style: {
+                                                                fontSize: 12,
+                                                                color: `rgba(238,170,68,0.9)`,
+                                                                width: 16,
+                                                                textAlign: `center`
+                                                            },
+                                                            children: t.rank
+                                                        }),
+                                                        (0, k.jsx)(`div`, {
+                                                            style: {
+                                                                flex: 1,
+                                                                fontSize: 12,
+                                                                color: `rgba(255,255,255,0.9)`,
+                                                                fontFamily: `'Cinzel', serif`
+                                                            },
+                                                            children: `You`
+                                                        }),
+                                                        (0, k.jsxs)(`div`, {
+                                                            style: {
+                                                                fontSize: 10,
+                                                                color: `rgba(255,255,255,0.3)`,
+                                                                fontFamily: `'Cinzel', serif`
+                                                            },
+                                                            children: [
+                                                                t.days_played,
+                                                                `d`
+                                                            ]
+                                                        }),
+                                                        (0, k.jsx)(`div`, {
+                                                            style: {
+                                                                fontSize: 12,
+                                                                color: `#eeaa44`,
+                                                                fontFamily: `'Cinzel', serif`,
+                                                                minWidth: 52,
+                                                                textAlign: `right`
+                                                            },
+                                                            children: t.total.toLocaleString()
+                                                        }),
+                                                        (0, k.jsxs)(`div`, {
+                                                            style: {
+                                                                fontSize: 10,
+                                                                color: `rgba(255,255,255,0.35)`,
+                                                                fontFamily: `'Cinzel', serif`,
+                                                                minWidth: 56,
                                                                 textAlign: `right`
                                                             },
                                                             children: [
-                                                                `Already played ·`,
-                                                                (0, k.jsx)(`br`, {}),
-                                                                `back at 00:00 UTC`
+                                                                `-`,
+                                                                (n.total - t.total).toLocaleString()
                                                             ]
-                                                        }) : (0, k.jsx)(a.button, {
-                                                            whileHover: {
-                                                                scale: 1.04,
-                                                                boxShadow: `0 0 20px rgba(200,160,48,0.4)`
-                                                            },
-                                                            whileTap: {
-                                                                scale: .96
-                                                            },
-                                                            onClick: ()=>{
-                                                                D ? e(D, ke, f(), !0) : je();
-                                                            },
-                                                            style: {
-                                                                padding: `10px 20px`,
-                                                                borderRadius: 10,
-                                                                border: `2px solid rgba(200,160,48,0.8)`,
-                                                                background: `rgba(200,160,48,0.2)`,
-                                                                color: `#c8a030`,
-                                                                fontSize: 13,
-                                                                letterSpacing: 2,
-                                                                cursor: `pointer`,
-                                                                fontFamily: `'Pirata One', cursive`,
-                                                                fontWeight: 700,
-                                                                whiteSpace: `nowrap`
-                                                            },
-                                                            children: D ? `PLAY · 1 TRY` : `CONNECT · 1 TRY`
                                                         })
                                                     ]
-                                                }),
-                                                l && (0, k.jsxs)(`div`, {
-                                                    style: {
-                                                        display: m ? `none` : `block`,
-                                                        fontSize: 10,
-                                                        color: `rgba(238,221,68,0.55)`,
-                                                        fontFamily: `'Cinzel', serif`,
-                                                        marginTop: 10,
-                                                        textAlign: `center`,
-                                                        letterSpacing: 1
-                                                    },
-                                                    children: [
-                                                        (0, k.jsx)(S, {
-                                                            name: `trophy`,
-                                                            size: 17,
-                                                            style: {
-                                                                marginRight: 7
-                                                            }
-                                                        }),
-                                                        `Starktember is live — the Daily decides who takes the Tide`
-                                                    ]
-                                                })
-                                            ]
-                                        })
-                                    ]
-                                }),
-                                se.length > 0 && (0, k.jsxs)(`div`, {
-                                    style: {
-                                        padding: `10px 20px`,
-                                        borderRadius: 12,
-                                        border: `1px solid rgba(200,160,48,0.2)`,
-                                        background: `rgba(0,0,0,0.4)`,
-                                        width: `100%`,
-                                        maxWidth: 360
-                                    },
-                                    children: [
-                                        (0, k.jsxs)(`div`, {
-                                            style: {
-                                                fontSize: 11,
-                                                color: `rgba(200,160,48,0.6)`,
-                                                fontFamily: `'Cinzel', serif`,
-                                                letterSpacing: 3,
-                                                marginBottom: 8,
-                                                textAlign: `center`,
-                                                display: `flex`,
-                                                alignItems: `center`,
-                                                justifyContent: `center`,
-                                                gap: 6
-                                            },
-                                            children: [
-                                                (0, k.jsx)(S, {
-                                                    name: `sun`,
-                                                    size: 14
-                                                }),
-                                                `TODAY'S TOP`
-                                            ]
-                                        }),
-                                        se.map((e, t)=>(0, k.jsxs)(`div`, {
+                                                });
+                                            })()
+                                        ]
+                                    }),
+                                    !l && !h && (0, k.jsxs)(`div`, {
+                                        style: {
+                                            padding: m ? `12px 14px` : `14px 20px`,
+                                            borderRadius: 12,
+                                            border: `1px solid rgba(136,200,238,0.45)`,
+                                            background: `linear-gradient(135deg, rgba(8,28,48,0.92), rgba(6,12,22,0.92))`,
+                                            width: `100%`,
+                                            maxWidth: 360,
+                                            textAlign: `center`,
+                                            boxShadow: `0 0 20px rgba(80,160,220,0.12)`,
+                                            boxSizing: `border-box`
+                                        },
+                                        children: [
+                                            (0, k.jsx)(`div`, {
                                                 style: {
-                                                    display: `flex`,
-                                                    alignItems: `center`,
-                                                    gap: 8,
-                                                    marginBottom: 4
+                                                    fontSize: 11,
+                                                    color: `rgba(136,200,238,0.9)`,
+                                                    fontFamily: `'Cinzel', serif`,
+                                                    letterSpacing: 3,
+                                                    marginBottom: 6
+                                                },
+                                                children: `TIDEBORN · SEASON 1`
+                                            }),
+                                            (0, k.jsxs)(`div`, {
+                                                style: {
+                                                    fontSize: m ? 13 : 14,
+                                                    color: `rgba(255,255,255,0.78)`,
+                                                    fontFamily: `'IM Fell English', cursive`,
+                                                    lineHeight: 1.4,
+                                                    marginBottom: 10
                                                 },
                                                 children: [
-                                                    (0, k.jsx)(`div`, {
-                                                        style: {
-                                                            fontSize: 13,
-                                                            color: t === 0 ? `#FFD700` : t === 1 ? `#C0C0C0` : `#CD7F32`,
-                                                            width: 16,
-                                                            textAlign: `center`
-                                                        },
-                                                        children: t === 0 ? (0, k.jsx)(S, {
-                                                            name: `crown`,
-                                                            size: 19
-                                                        }) : [
-                                                            ``,
-                                                            `⚔️`,
-                                                            `🏴‍☠️`
-                                                        ][t]
-                                                    }),
-                                                    (0, k.jsx)(`div`, {
-                                                        style: {
-                                                            flex: 1,
-                                                            fontSize: 13,
-                                                            color: `rgba(255,255,255,0.7)`,
-                                                            fontFamily: `'Cinzel', serif`,
-                                                            overflow: `hidden`,
-                                                            textOverflow: `ellipsis`,
-                                                            whiteSpace: `nowrap`
-                                                        },
-                                                        children: e.username ?? `${e.wallet_address.slice(0, 6)}...${e.wallet_address.slice(-4)}`
-                                                    }),
-                                                    (0, k.jsx)(`div`, {
-                                                        style: {
-                                                            fontSize: 13,
-                                                            color: `#eedd44`,
-                                                            fontFamily: `'Cinzel', serif`
-                                                        },
-                                                        children: e.score.toLocaleString()
-                                                    })
+                                                    `Five new relics. Fresh conditions.`,
+                                                    (0, k.jsx)(`br`, {}),
+                                                    `The Crown waits in The Abyss — one copy, ever.`
                                                 ]
-                                            }, t))
-                                    ]
-                                }),
-                                l && (0, k.jsxs)(`div`, {
-                                    style: {
-                                        padding: `12px 20px`,
-                                        borderRadius: 12,
-                                        border: `1px solid rgba(238,170,68,0.35)`,
-                                        background: `linear-gradient(135deg, rgba(30,18,4,0.85), rgba(8,10,18,0.85))`,
-                                        width: `100%`,
-                                        maxWidth: 360
-                                    },
-                                    children: [
-                                        (0, k.jsx)(`div`, {
-                                            style: {
-                                                fontSize: 11,
-                                                color: `rgba(238,170,68,0.8)`,
-                                                fontFamily: `'Cinzel', serif`,
-                                                letterSpacing: 3,
-                                                textAlign: `center`,
-                                                marginBottom: 2
-                                            },
-                                            children: `STARKTEMBER`
-                                        }),
-                                        (0, k.jsx)(`div`, {
-                                            style: {
-                                                fontSize: m ? 9 : 10,
-                                                color: `rgba(255,255,255,0.45)`,
-                                                fontFamily: `'IM Fell English', cursive`,
-                                                textAlign: `center`,
-                                                marginBottom: 8
-                                            },
-                                            children: `Highest total across the month · one relic, one winner`
-                                        }),
-                                        (0, k.jsx)(`div`, {
-                                            style: {
-                                                fontSize: m ? 9 : 10,
-                                                color: `rgba(238,170,68,0.7)`,
-                                                fontFamily: `'Cinzel', serif`,
-                                                letterSpacing: 1,
-                                                textAlign: `center`,
-                                                marginBottom: 8
-                                            },
-                                            children: `ONLY THE DAILY CHALLENGE COUNTS`
-                                        }),
-                                        s.length === 0 ? (0, k.jsx)(`div`, {
-                                            style: {
-                                                fontSize: 11,
-                                                color: `rgba(255,255,255,0.35)`,
-                                                fontFamily: `'Cinzel', serif`,
-                                                textAlign: `center`,
-                                                padding: `6px 0`
-                                            },
-                                            children: `No captain has sailed yet.`
-                                        }) : s.slice(0, 5).map((e, t)=>(0, k.jsxs)(`div`, {
+                                            }),
+                                            (0, k.jsx)(a.button, {
+                                                whileHover: {
+                                                    scale: 1.04
+                                                },
+                                                whileTap: {
+                                                    scale: .97
+                                                },
+                                                onClick: ()=>ee(!0),
                                                 style: {
+                                                    padding: `8px 18px`,
+                                                    borderRadius: 10,
+                                                    border: `1px solid rgba(136,200,238,0.65)`,
+                                                    background: `rgba(136,200,238,0.12)`,
+                                                    color: `#88c8ee`,
+                                                    fontSize: 12,
+                                                    letterSpacing: 2,
+                                                    cursor: `pointer`,
+                                                    fontFamily: `'Pirata One', cursive`
+                                                },
+                                                children: `VIEW RELICS`
+                                            })
+                                        ]
+                                    }),
+                                    n && n.actions.length > 0 && t && (0, k.jsxs)(a.button, {
+                                        whileHover: {
+                                            scale: 1.05
+                                        },
+                                        whileTap: {
+                                            scale: .97
+                                        },
+                                        onClick: ()=>t(n),
+                                        style: {
+                                            padding: `12px 32px`,
+                                            borderRadius: 12,
+                                            border: `1px solid rgba(68,204,136,0.6)`,
+                                            background: `rgba(68,204,136,0.12)`,
+                                            color: `#44cc88`,
+                                            fontSize: 14,
+                                            letterSpacing: 3,
+                                            cursor: `pointer`,
+                                            fontFamily: `'Pirata One', cursive`
+                                        },
+                                        children: [
+                                            `⚓ RESUME VOYAGE — `,
+                                            n.score,
+                                            ` pts, turn `,
+                                            n.turn
+                                        ]
+                                    }),
+                                    (0, k.jsxs)(`div`, {
+                                        style: {
+                                            display: `flex`,
+                                            gap: h || m ? 8 : 12,
+                                            justifyContent: `center`,
+                                            flexWrap: `wrap`,
+                                            alignItems: `center`
+                                        },
+                                        children: [
+                                            (0, k.jsx)(a.button, {
+                                                whileHover: {
+                                                    scale: 1.05
+                                                },
+                                                whileTap: {
+                                                    scale: .97
+                                                },
+                                                onClick: ()=>v(!0),
+                                                style: {
+                                                    padding: m || h ? `8px 12px` : `12px 32px`,
+                                                    borderRadius: 12,
+                                                    border: m ? `1px solid rgba(255,255,255,0.25)` : `1px solid rgba(255,255,255,0.5)`,
+                                                    background: m ? `rgba(255,255,255,0.06)` : `rgba(255,255,255,0.12)`,
+                                                    color: m ? `rgba(255,255,255,0.7)` : `rgba(255,255,255,0.85)`,
+                                                    fontSize: m || h ? 11 : 14,
+                                                    letterSpacing: m || h ? 1 : 3,
+                                                    cursor: `pointer`,
+                                                    fontFamily: `'Pirata One', cursive`
+                                                },
+                                                children: `HOW TO PLAY`
+                                            }),
+                                            (0, k.jsxs)(a.button, {
+                                                whileHover: {
+                                                    scale: 1.04
+                                                },
+                                                whileTap: {
+                                                    scale: .96
+                                                },
+                                                onClick: ()=>ce(!0),
+                                                style: {
+                                                    padding: m || h ? `8px 12px` : `12px 26px`,
+                                                    borderRadius: 12,
+                                                    border: `1px solid rgba(68,204,170,0.45)`,
+                                                    background: `rgba(68,204,170,0.07)`,
+                                                    color: `rgba(100,220,190,0.95)`,
+                                                    fontSize: m || h ? 11 : 14,
+                                                    letterSpacing: m || h ? 1 : 3,
+                                                    cursor: `pointer`,
+                                                    fontFamily: `'Pirata One', cursive`,
                                                     display: `flex`,
-                                                    alignItems: `center`,
-                                                    gap: 8,
-                                                    marginBottom: 4
+                                                    alignItems: `center`
                                                 },
                                                 children: [
-                                                    (0, k.jsx)(`div`, {
+                                                    (0, k.jsx)(S, {
+                                                        name: `star`,
+                                                        size: m || h ? 16 : 22,
                                                         style: {
-                                                            fontSize: 12,
-                                                            color: t === 0 ? `#FFD700` : `rgba(255,255,255,0.4)`,
-                                                            width: 16,
-                                                            textAlign: `center`
-                                                        },
-                                                        children: t === 0 ? (0, k.jsx)(S, {
-                                                            name: `crown`,
-                                                            size: 17
-                                                        }) : t + 1
+                                                            marginRight: m || h ? 5 : 8
+                                                        }
                                                     }),
-                                                    (0, k.jsx)(`div`, {
-                                                        style: {
-                                                            flex: 1,
-                                                            fontSize: 12,
-                                                            color: `rgba(255,255,255,0.75)`,
-                                                            fontFamily: `'Cinzel', serif`,
-                                                            overflow: `hidden`,
-                                                            textOverflow: `ellipsis`,
-                                                            whiteSpace: `nowrap`
-                                                        },
-                                                        children: e.username ?? `${e.wallet_address.slice(0, 6)}...${e.wallet_address.slice(-4)}`
-                                                    }),
-                                                    (0, k.jsxs)(`div`, {
-                                                        style: {
-                                                            fontSize: 10,
-                                                            color: `rgba(255,255,255,0.3)`,
-                                                            fontFamily: `'Cinzel', serif`
-                                                        },
-                                                        children: [
-                                                            e.days_played,
-                                                            `d`
-                                                        ]
-                                                    }),
-                                                    (0, k.jsx)(`div`, {
-                                                        style: {
-                                                            fontSize: 12,
-                                                            color: `#eeaa44`,
-                                                            fontFamily: `'Cinzel', serif`,
-                                                            minWidth: 52,
-                                                            textAlign: `right`
-                                                        },
-                                                        children: e.total.toLocaleString()
-                                                    })
+                                                    `PATCH NOTES`
                                                 ]
-                                            }, e.wallet_address)),
-                                        (()=>{
-                                            if (!D) return null;
-                                            let e = (e)=>e.toLowerCase().replace(/^0x0*/, ``), t = s.find((t)=>e(t.wallet_address) === e(D));
-                                            if (!t || t.rank <= 5) return null;
-                                            let n = s[0];
-                                            return (0, k.jsxs)(`div`, {
+                                            })
+                                        ]
+                                    }),
+                                    (0, k.jsxs)(`div`, {
+                                        style: {
+                                            display: `flex`,
+                                            gap: h || m ? 8 : 12,
+                                            justifyContent: `center`,
+                                            flexWrap: `wrap`
+                                        },
+                                        children: [
+                                            m && (0, k.jsxs)(a.button, {
+                                                whileTap: {
+                                                    scale: .96
+                                                },
+                                                onClick: ()=>he(!0),
                                                 style: {
+                                                    padding: `8px 12px`,
+                                                    borderRadius: 12,
+                                                    border: `1px solid rgba(200,160,48,0.45)`,
+                                                    background: `rgba(200,160,48,0.07)`,
+                                                    color: `rgba(200,160,48,0.9)`,
+                                                    fontSize: 11,
+                                                    letterSpacing: 1,
+                                                    cursor: `pointer`,
+                                                    fontFamily: `'Pirata One', cursive`,
                                                     display: `flex`,
-                                                    alignItems: `center`,
-                                                    gap: 8,
-                                                    marginTop: 8,
-                                                    paddingTop: 8,
-                                                    borderTop: `1px solid rgba(238,170,68,0.18)`
+                                                    alignItems: `center`
                                                 },
                                                 children: [
-                                                    (0, k.jsx)(`div`, {
+                                                    (0, k.jsx)(S, {
+                                                        name: `crown`,
+                                                        size: 16,
                                                         style: {
-                                                            fontSize: 12,
-                                                            color: `rgba(238,170,68,0.9)`,
-                                                            width: 16,
-                                                            textAlign: `center`
-                                                        },
-                                                        children: t.rank
+                                                            marginRight: 5
+                                                        }
                                                     }),
-                                                    (0, k.jsx)(`div`, {
-                                                        style: {
-                                                            flex: 1,
-                                                            fontSize: 12,
-                                                            color: `rgba(255,255,255,0.9)`,
-                                                            fontFamily: `'Cinzel', serif`
-                                                        },
-                                                        children: `You`
-                                                    }),
-                                                    (0, k.jsxs)(`div`, {
-                                                        style: {
-                                                            fontSize: 10,
-                                                            color: `rgba(255,255,255,0.3)`,
-                                                            fontFamily: `'Cinzel', serif`
-                                                        },
-                                                        children: [
-                                                            t.days_played,
-                                                            `d`
-                                                        ]
-                                                    }),
-                                                    (0, k.jsx)(`div`, {
-                                                        style: {
-                                                            fontSize: 12,
-                                                            color: `#eeaa44`,
-                                                            fontFamily: `'Cinzel', serif`,
-                                                            minWidth: 52,
-                                                            textAlign: `right`
-                                                        },
-                                                        children: t.total.toLocaleString()
-                                                    }),
-                                                    (0, k.jsxs)(`div`, {
-                                                        style: {
-                                                            fontSize: 10,
-                                                            color: `rgba(255,255,255,0.35)`,
-                                                            fontFamily: `'Cinzel', serif`,
-                                                            minWidth: 56,
-                                                            textAlign: `right`
-                                                        },
-                                                        children: [
-                                                            `-`,
-                                                            (n.total - t.total).toLocaleString()
-                                                        ]
-                                                    })
+                                                    `BOARD`
                                                 ]
-                                            });
-                                        })()
-                                    ]
-                                }),
-                                !l && (0, k.jsxs)(`div`, {
-                                    style: {
-                                        padding: m ? `12px 14px` : `14px 20px`,
-                                        borderRadius: 12,
-                                        border: `1px solid rgba(136,200,238,0.45)`,
-                                        background: `linear-gradient(135deg, rgba(8,28,48,0.92), rgba(6,12,22,0.92))`,
-                                        width: `100%`,
-                                        maxWidth: 360,
-                                        textAlign: `center`,
-                                        boxShadow: `0 0 20px rgba(80,160,220,0.12)`
-                                    },
-                                    children: [
-                                        (0, k.jsx)(`div`, {
-                                            style: {
-                                                fontSize: 11,
-                                                color: `rgba(136,200,238,0.9)`,
-                                                fontFamily: `'Cinzel', serif`,
-                                                letterSpacing: 3,
-                                                marginBottom: 6
-                                            },
-                                            children: `TIDEBORN · SEASON 1`
-                                        }),
-                                        (0, k.jsxs)(`div`, {
-                                            style: {
-                                                fontSize: m ? 13 : 14,
-                                                color: `rgba(255,255,255,0.78)`,
-                                                fontFamily: `'IM Fell English', cursive`,
-                                                lineHeight: 1.4,
-                                                marginBottom: 10
-                                            },
-                                            children: [
-                                                `Five new relics. Fresh conditions.`,
-                                                (0, k.jsx)(`br`, {}),
-                                                `The Crown waits in The Abyss — one copy, ever.`
-                                            ]
-                                        }),
-                                        (0, k.jsx)(a.button, {
-                                            whileHover: {
-                                                scale: 1.04
-                                            },
-                                            whileTap: {
-                                                scale: .97
-                                            },
-                                            onClick: ()=>b(!0),
-                                            style: {
-                                                padding: `8px 18px`,
-                                                borderRadius: 10,
-                                                border: `1px solid rgba(136,200,238,0.65)`,
-                                                background: `rgba(136,200,238,0.12)`,
-                                                color: `#88c8ee`,
-                                                fontSize: 12,
-                                                letterSpacing: 2,
-                                                cursor: `pointer`,
-                                                fontFamily: `'Pirata One', cursive`
-                                            },
-                                            children: `VIEW RELICS`
-                                        })
-                                    ]
-                                }),
-                                n && n.actions.length > 0 && t && (0, k.jsxs)(a.button, {
-                                    whileHover: {
-                                        scale: 1.05
-                                    },
-                                    whileTap: {
-                                        scale: .97
-                                    },
-                                    onClick: ()=>t(n),
-                                    style: {
-                                        padding: `12px 32px`,
-                                        borderRadius: 12,
-                                        border: `1px solid rgba(68,204,136,0.6)`,
-                                        background: `rgba(68,204,136,0.12)`,
-                                        color: `#44cc88`,
-                                        fontSize: 14,
-                                        letterSpacing: 3,
-                                        cursor: `pointer`,
-                                        fontFamily: `'Pirata One', cursive`
-                                    },
-                                    children: [
-                                        `⚓ RESUME VOYAGE — `,
-                                        n.score,
-                                        ` pts, turn `,
-                                        n.turn
-                                    ]
-                                }),
-                                (0, k.jsxs)(`div`, {
-                                    style: {
-                                        display: `flex`,
-                                        gap: 12,
-                                        justifyContent: `center`,
-                                        flexWrap: `wrap`,
-                                        alignItems: `center`
-                                    },
-                                    children: [
-                                        (0, k.jsx)(a.button, {
-                                            whileHover: {
-                                                scale: 1.05
-                                            },
-                                            whileTap: {
-                                                scale: .97
-                                            },
-                                            onClick: ()=>g(!0),
-                                            style: {
-                                                padding: m ? `9px 12px` : `12px 32px`,
-                                                borderRadius: 12,
-                                                border: m ? `1px solid rgba(255,255,255,0.25)` : `1px solid rgba(255,255,255,0.5)`,
-                                                background: m ? `rgba(255,255,255,0.06)` : `rgba(255,255,255,0.12)`,
-                                                color: m ? `rgba(255,255,255,0.7)` : `rgba(255,255,255,0.85)`,
-                                                fontSize: m ? 11 : 14,
-                                                letterSpacing: m ? 1 : 3,
-                                                cursor: `pointer`,
-                                                fontFamily: `'Pirata One', cursive`
-                                            },
-                                            children: `HOW TO PLAY`
-                                        }),
-                                        (0, k.jsxs)(a.button, {
-                                            whileHover: {
-                                                scale: 1.04
-                                            },
-                                            whileTap: {
-                                                scale: .96
-                                            },
-                                            onClick: ()=>re(!0),
-                                            style: {
-                                                padding: m ? `9px 12px` : `12px 26px`,
-                                                borderRadius: 12,
-                                                border: `1px solid rgba(68,204,170,0.45)`,
-                                                background: `rgba(68,204,170,0.07)`,
-                                                color: `rgba(100,220,190,0.95)`,
-                                                fontSize: m ? 11 : 14,
-                                                letterSpacing: m ? 1 : 3,
-                                                cursor: `pointer`,
-                                                fontFamily: `'Pirata One', cursive`,
-                                                display: `flex`,
-                                                alignItems: `center`
-                                            },
-                                            children: [
-                                                (0, k.jsx)(S, {
-                                                    name: `star`,
-                                                    size: m ? 16 : 22,
-                                                    style: {
-                                                        marginRight: m ? 5 : 8
-                                                    }
-                                                }),
-                                                `PATCH NOTES`
-                                            ]
-                                        })
-                                    ]
-                                }),
-                                (0, k.jsxs)(`div`, {
-                                    style: {
-                                        display: `flex`,
-                                        gap: 12,
-                                        justifyContent: `center`,
-                                        flexWrap: `wrap`
-                                    },
-                                    children: [
-                                        m && (0, k.jsxs)(a.button, {
-                                            whileTap: {
-                                                scale: .96
-                                            },
-                                            onClick: ()=>me(!0),
-                                            style: {
-                                                padding: `9px 12px`,
-                                                borderRadius: 12,
-                                                border: `1px solid rgba(200,160,48,0.45)`,
-                                                background: `rgba(200,160,48,0.07)`,
-                                                color: `rgba(200,160,48,0.9)`,
-                                                fontSize: 11,
-                                                letterSpacing: 1,
-                                                cursor: `pointer`,
-                                                fontFamily: `'Pirata One', cursive`,
-                                                display: `flex`,
-                                                alignItems: `center`
-                                            },
-                                            children: [
-                                                (0, k.jsx)(S, {
-                                                    name: `crown`,
-                                                    size: 16,
-                                                    style: {
-                                                        marginRight: 5
-                                                    }
-                                                }),
-                                                `BOARD`
-                                            ]
-                                        }),
-                                        (0, k.jsxs)(a.button, {
-                                            whileHover: {
-                                                scale: 1.04
-                                            },
-                                            whileTap: {
-                                                scale: .96
-                                            },
-                                            onClick: ()=>v(!0),
-                                            style: {
-                                                padding: m ? `9px 12px` : `12px 26px`,
-                                                borderRadius: 12,
-                                                border: `1px solid rgba(238,221,68,0.45)`,
-                                                background: `rgba(238,221,68,0.07)`,
-                                                color: `rgba(238,221,68,0.9)`,
-                                                fontSize: m ? 11 : 14,
-                                                letterSpacing: m ? 1 : 3,
-                                                cursor: `pointer`,
-                                                fontFamily: `'Pirata One', cursive`,
-                                                display: `flex`,
-                                                alignItems: `center`
-                                            },
-                                            children: [
-                                                (0, k.jsx)(S, {
-                                                    name: `fleurdelys`,
-                                                    size: m ? 16 : 22,
-                                                    style: {
-                                                        marginRight: m ? 5 : 8
-                                                    }
-                                                }),
-                                                `FEATS`
-                                            ]
-                                        }),
-                                        (0, k.jsxs)(a.button, {
-                                            whileHover: {
-                                                scale: 1.04
-                                            },
-                                            whileTap: {
-                                                scale: .96
-                                            },
-                                            onClick: ()=>ee(!0),
-                                            style: {
-                                                padding: m ? `9px 12px` : `12px 26px`,
-                                                borderRadius: 12,
-                                                border: `1px solid rgba(136,221,255,0.45)`,
-                                                background: `rgba(136,221,255,0.07)`,
-                                                color: `rgba(136,221,255,0.9)`,
-                                                fontSize: m ? 11 : 14,
-                                                letterSpacing: m ? 1 : 3,
-                                                cursor: `pointer`,
-                                                fontFamily: `'Pirata One', cursive`,
-                                                display: `flex`,
-                                                alignItems: `center`
-                                            },
-                                            children: [
-                                                (0, k.jsx)(S, {
-                                                    name: `ship`,
-                                                    size: m ? 16 : 22,
-                                                    style: {
-                                                        marginRight: m ? 5 : 8
-                                                    }
-                                                }),
-                                                `SHIPS`
-                                            ]
-                                        }),
-                                        (0, k.jsxs)(a.button, {
-                                            whileHover: {
-                                                scale: 1.04
-                                            },
-                                            whileTap: {
-                                                scale: .96
-                                            },
-                                            onClick: ()=>b(!0),
-                                            style: {
-                                                padding: m ? `9px 12px` : `12px 26px`,
-                                                borderRadius: 12,
-                                                border: `1px solid rgba(170,102,238,0.45)`,
-                                                background: `rgba(170,102,238,0.07)`,
-                                                color: `rgba(200,150,255,0.9)`,
-                                                fontSize: m ? 11 : 14,
-                                                letterSpacing: m ? 1 : 3,
-                                                cursor: `pointer`,
-                                                fontFamily: `'Pirata One', cursive`,
-                                                display: `flex`,
-                                                alignItems: `center`
-                                            },
-                                            children: [
-                                                (0, k.jsx)(S, {
-                                                    name: `fleurdelys`,
-                                                    size: m ? 16 : 22,
-                                                    style: {
-                                                        marginRight: m ? 5 : 8
-                                                    }
-                                                }),
-                                                `NFTS`
-                                            ]
-                                        })
-                                    ]
-                                })
-                            ]
-                        }),
-                        (0, k.jsx)(`div`, {
-                            style: {
-                                flexShrink: 0,
-                                display: `flex`,
-                                gap: 8,
-                                marginTop: 8,
-                                marginBottom: 4
-                            },
-                            children: lt.map((e, t)=>(0, k.jsx)(`div`, {
-                                    onClick: ()=>Re(t),
-                                    style: {
-                                        width: 6,
-                                        height: 6,
-                                        borderRadius: `50%`,
-                                        background: t === Le ? `rgba(200,160,48,0.8)` : `rgba(255,255,255,0.15)`,
-                                        cursor: `pointer`,
-                                        transition: `background 0.3s`
-                                    }
-                                }, t))
-                        })
-                    ]
+                                            }),
+                                            (0, k.jsxs)(a.button, {
+                                                whileHover: {
+                                                    scale: 1.04
+                                                },
+                                                whileTap: {
+                                                    scale: .96
+                                                },
+                                                onClick: ()=>b(!0),
+                                                style: {
+                                                    padding: m || h ? `8px 12px` : `12px 26px`,
+                                                    borderRadius: 12,
+                                                    border: `1px solid rgba(238,221,68,0.45)`,
+                                                    background: `rgba(238,221,68,0.07)`,
+                                                    color: `rgba(238,221,68,0.9)`,
+                                                    fontSize: m || h ? 11 : 14,
+                                                    letterSpacing: m || h ? 1 : 3,
+                                                    cursor: `pointer`,
+                                                    fontFamily: `'Pirata One', cursive`,
+                                                    display: `flex`,
+                                                    alignItems: `center`
+                                                },
+                                                children: [
+                                                    (0, k.jsx)(S, {
+                                                        name: `fleurdelys`,
+                                                        size: m || h ? 16 : 22,
+                                                        style: {
+                                                            marginRight: m || h ? 5 : 8
+                                                        }
+                                                    }),
+                                                    `FEATS`
+                                                ]
+                                            }),
+                                            (0, k.jsxs)(a.button, {
+                                                whileHover: {
+                                                    scale: 1.04
+                                                },
+                                                whileTap: {
+                                                    scale: .96
+                                                },
+                                                onClick: ()=>re(!0),
+                                                style: {
+                                                    padding: m || h ? `8px 12px` : `12px 26px`,
+                                                    borderRadius: 12,
+                                                    border: `1px solid rgba(136,221,255,0.45)`,
+                                                    background: `rgba(136,221,255,0.07)`,
+                                                    color: `rgba(136,221,255,0.9)`,
+                                                    fontSize: m || h ? 11 : 14,
+                                                    letterSpacing: m || h ? 1 : 3,
+                                                    cursor: `pointer`,
+                                                    fontFamily: `'Pirata One', cursive`,
+                                                    display: `flex`,
+                                                    alignItems: `center`
+                                                },
+                                                children: [
+                                                    (0, k.jsx)(S, {
+                                                        name: `ship`,
+                                                        size: m || h ? 16 : 22,
+                                                        style: {
+                                                            marginRight: m || h ? 5 : 8
+                                                        }
+                                                    }),
+                                                    `SHIPS`
+                                                ]
+                                            }),
+                                            (0, k.jsxs)(a.button, {
+                                                whileHover: {
+                                                    scale: 1.04
+                                                },
+                                                whileTap: {
+                                                    scale: .96
+                                                },
+                                                onClick: ()=>ee(!0),
+                                                style: {
+                                                    padding: m || h ? `8px 12px` : `12px 26px`,
+                                                    borderRadius: 12,
+                                                    border: `1px solid rgba(170,102,238,0.45)`,
+                                                    background: `rgba(170,102,238,0.07)`,
+                                                    color: `rgba(200,150,255,0.9)`,
+                                                    fontSize: m || h ? 11 : 14,
+                                                    letterSpacing: m || h ? 1 : 3,
+                                                    cursor: `pointer`,
+                                                    fontFamily: `'Pirata One', cursive`,
+                                                    display: `flex`,
+                                                    alignItems: `center`
+                                                },
+                                                children: [
+                                                    (0, k.jsx)(S, {
+                                                        name: `fleurdelys`,
+                                                        size: m || h ? 16 : 22,
+                                                        style: {
+                                                            marginRight: m || h ? 5 : 8
+                                                        }
+                                                    }),
+                                                    `NFTS`
+                                                ]
+                                            })
+                                        ]
+                                    })
+                                ]
+                            }),
+                            (0, k.jsx)(`div`, {
+                                style: {
+                                    flexShrink: 0,
+                                    display: `flex`,
+                                    gap: 8,
+                                    marginTop: 4,
+                                    paddingBottom: 4
+                                },
+                                children: lt.map((e, t)=>(0, k.jsx)(`div`, {
+                                        onClick: ()=>He(t),
+                                        style: {
+                                            width: 6,
+                                            height: 6,
+                                            borderRadius: `50%`,
+                                            background: t === ze ? `rgba(200,160,48,0.8)` : `rgba(255,255,255,0.15)`,
+                                            cursor: `pointer`,
+                                            transition: `background 0.3s`
+                                        }
+                                    }, t))
+                            })
+                        ]
+                    })
                 }),
                 (0, k.jsxs)(r, {
                     children: [
-                        h && (0, k.jsx)(Be, {
-                            onClose: ()=>g(!1),
+                        _ && (0, k.jsx)(Be, {
+                            onClose: ()=>v(!1),
                             onPlay: async ()=>{
-                                g(!1), await Fe();
+                                v(!1), await Le();
                             }
                         }),
-                        ne && (0, k.jsx)(it, {
-                            onClose: ()=>re(!1)
+                        se && (0, k.jsx)(it, {
+                            onClose: ()=>ce(!1)
                         }),
-                        _ && (0, k.jsx)(Ve, {
-                            onClose: ()=>v(!1)
-                        }),
-                        x && (0, k.jsx)(et, {
-                            onClose: ()=>ee(!1)
-                        }),
-                        y && (0, k.jsx)(qe, {
+                        y && (0, k.jsx)(Ve, {
                             onClose: ()=>b(!1)
                         }),
-                        pe && (0, k.jsx)(ct, {
-                            onClose: ()=>me(!1)
+                        ne && (0, k.jsx)(et, {
+                            onClose: ()=>re(!1)
                         }),
-                        Ce && (0, k.jsx)(nt, {
-                            offers: Ce,
+                        x && (0, k.jsx)(qe, {
+                            onClose: ()=>ee(!1)
+                        }),
+                        T && (0, k.jsx)(ct, {
+                            onClose: ()=>he(!1)
+                        }),
+                        Te && (0, k.jsx)(nt, {
+                            offers: Te,
                             onPick: (e)=>{
-                                Ie(e);
+                                Re(e);
                             }
                         })
                     ]
