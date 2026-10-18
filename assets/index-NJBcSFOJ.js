@@ -1,9 +1,9 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-Ck3SW9qH.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-CFUQaIns.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-CoYpRKT5.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-CSywOE65.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-DUPnCAMn.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-CFUQaIns.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-DWtx7hw1.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-CSywOE65.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
 import { a as e, t } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as n, n as r, r as i, t as a } from "./motion-wKhEcHeU.js";
 import { n as o, t as s } from "./walletApi-DYniPf4L.js";
-import { C as c, D as l, E as u, F as d, G as f, H as p, I as m, M as h, N as g, O as _, P as v, T as y, U as b, V as x, W as ee, _ as S, b as te, c as ne, d as re, f as ie, j as ae, k as oe, l as se, m as ce, n as le, o as ue, p as C, r as w, t as de, u as fe, v as pe, w as me, y as T, z as E } from "./anchor-CoYpRKT5.js";
-import { C as he, a as ge, c as _e, f as ve, g as ye, l as be, m as xe, p as Se, r as Ce, s as we, t as Te, w as Ee, __tla as __tla_0 } from "./supabase-CFUQaIns.js";
+import { A as c, B as l, C as u, D as d, E as f, F as p, G as m, H as h, I as g, K as _, L as v, M as y, N as b, O as x, P as ee, T as te, U as ne, W as re, _ as S, b as ie, c as ae, d as oe, f as se, k as ce, l as le, m as ue, n as C, o as w, p as de, r as fe, t as pe, u as me, v as T, w as E, y as he } from "./anchor-DWtx7hw1.js";
+import { C as ge, a as _e, c as ve, f as ye, g as be, l as xe, m as Se, p as Ce, r as we, s as Te, t as Ee, w as De, __tla as __tla_0 } from "./supabase-CFUQaIns.js";
 Promise.all([
     (()=>{
         try {
@@ -32,7 +32,7 @@ Promise.all([
             fetch(e.href, n);
         }
     })();
-    var De = t(((e)=>{
+    var Oe = t(((e)=>{
         function t(e, t) {
             var n = e.length;
             e.push(t);
@@ -90,22 +90,22 @@ Promise.all([
                 t !== null && ce(x, t.startTime - e);
             }
         }
-        var ee = !1, S = -1, te = 5, ne = -1;
-        function re() {
-            return g ? !0 : !(e.unstable_now() - ne < te);
+        var ee = !1, te = -1, ne = 5, re = -1;
+        function S() {
+            return g ? !0 : !(e.unstable_now() - re < ne);
         }
         function ie() {
             if (g = !1, ee) {
                 var t = e.unstable_now();
-                ne = t;
+                re = t;
                 var i = !0;
                 try {
                     a: {
-                        m = !1, h && (h = !1, v(S), S = -1), p = !0;
+                        m = !1, h && (h = !1, v(te), te = -1), p = !0;
                         var a = f;
                         try {
                             b: {
-                                for(b(t), d = n(c); d !== null && !(d.expirationTime > t && re());){
+                                for(b(t), d = n(c); d !== null && !(d.expirationTime > t && S());){
                                     var o = d.callback;
                                     if (typeof o == `function`) {
                                         d.callback = null, f = d.priorityLevel;
@@ -148,14 +148,14 @@ Promise.all([
             _(ie, 0);
         };
         function ce(t, n) {
-            S = _(function() {
+            te = _(function() {
                 t(e.unstable_now());
             }, n);
         }
         e.unstable_IdlePriority = 5, e.unstable_ImmediatePriority = 1, e.unstable_LowPriority = 4, e.unstable_NormalPriority = 3, e.unstable_Profiling = null, e.unstable_UserBlockingPriority = 2, e.unstable_cancelCallback = function(e) {
             e.callback = null;
         }, e.unstable_forceFrameRate = function(e) {
-            0 > e || 125 < e ? console.error(`forceFrameRate takes a positive int between 0 and 125, forcing frame rates higher than 125 fps is not supported`) : te = 0 < e ? Math.floor(1e3 / e) : 5;
+            0 > e || 125 < e ? console.error(`forceFrameRate takes a positive int between 0 and 125, forcing frame rates higher than 125 fps is not supported`) : ne = 0 < e ? Math.floor(1e3 / e) : 5;
         }, e.unstable_getCurrentPriorityLevel = function() {
             return f;
         }, e.unstable_next = function(e) {
@@ -220,8 +220,8 @@ Promise.all([
                 startTime: a,
                 expirationTime: s,
                 sortIndex: -1
-            }, a > o ? (r.sortIndex = a, t(l, r), n(c) === null && r === n(l) && (h ? (v(S), S = -1) : h = !0, ce(x, a - o))) : (r.sortIndex = s, t(c, r), m || p || (m = !0, ee || (ee = !0, ae()))), r;
-        }, e.unstable_shouldYield = re, e.unstable_wrapCallback = function(e) {
+            }, a > o ? (r.sortIndex = a, t(l, r), n(c) === null && r === n(l) && (h ? (v(te), te = -1) : h = !0, ce(x, a - o))) : (r.sortIndex = s, t(c, r), m || p || (m = !0, ee || (ee = !0, ae()))), r;
+        }, e.unstable_shouldYield = S, e.unstable_wrapCallback = function(e) {
             var t = f;
             return function() {
                 var n = f;
@@ -234,8 +234,8 @@ Promise.all([
             };
         };
     })), D = t(((e, t)=>{
-        t.exports = De();
-    })), Oe = t(((e)=>{
+        t.exports = Oe();
+    })), ke = t(((e)=>{
         var t = n();
         function r(e) {
             var t = `https://react.dev/errors/` + e;
@@ -351,7 +351,7 @@ Promise.all([
         }, e.useFormStatus = function() {
             return c.H.useHostTransitionStatus();
         }, e.version = `19.2.7`;
-    })), ke = t(((e, t)=>{
+    })), Ae = t(((e, t)=>{
         function n() {
             if (!(typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ > `u` || typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE != `function`)) try {
                 __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(n);
@@ -359,9 +359,9 @@ Promise.all([
                 console.error(e);
             }
         }
-        n(), t.exports = Oe();
-    })), Ae = t(((e)=>{
-        var t = D(), r = n(), i = ke();
+        n(), t.exports = ke();
+    })), je = t(((e)=>{
+        var t = D(), r = n(), i = Ae();
         function a(e) {
             var t = `https://react.dev/errors/` + e;
             if (1 < arguments.length) {
@@ -467,7 +467,7 @@ Promise.all([
             }
             return null;
         }
-        var p = Object.assign, m = Symbol.for(`react.element`), h = Symbol.for(`react.transitional.element`), g = Symbol.for(`react.portal`), _ = Symbol.for(`react.fragment`), v = Symbol.for(`react.strict_mode`), y = Symbol.for(`react.profiler`), b = Symbol.for(`react.consumer`), x = Symbol.for(`react.context`), ee = Symbol.for(`react.forward_ref`), S = Symbol.for(`react.suspense`), te = Symbol.for(`react.suspense_list`), ne = Symbol.for(`react.memo`), re = Symbol.for(`react.lazy`), ie = Symbol.for(`react.activity`), ae = Symbol.for(`react.memo_cache_sentinel`), oe = Symbol.iterator;
+        var p = Object.assign, m = Symbol.for(`react.element`), h = Symbol.for(`react.transitional.element`), g = Symbol.for(`react.portal`), _ = Symbol.for(`react.fragment`), v = Symbol.for(`react.strict_mode`), y = Symbol.for(`react.profiler`), b = Symbol.for(`react.consumer`), x = Symbol.for(`react.context`), ee = Symbol.for(`react.forward_ref`), te = Symbol.for(`react.suspense`), ne = Symbol.for(`react.suspense_list`), re = Symbol.for(`react.memo`), S = Symbol.for(`react.lazy`), ie = Symbol.for(`react.activity`), ae = Symbol.for(`react.memo_cache_sentinel`), oe = Symbol.iterator;
         function se(e) {
             return typeof e != `object` || !e ? null : (e = oe && e[oe] || e[`@@iterator`], typeof e == `function` ? e : null);
         }
@@ -483,9 +483,9 @@ Promise.all([
                     return `Profiler`;
                 case v:
                     return `StrictMode`;
-                case S:
-                    return `Suspense`;
                 case te:
+                    return `Suspense`;
+                case ne:
                     return `SuspenseList`;
                 case ie:
                     return `Activity`;
@@ -500,9 +500,9 @@ Promise.all([
                 case ee:
                     var t = e.render;
                     return e = e.displayName, e ||= (e = t.displayName || t.name || ``, e === `` ? `ForwardRef` : `ForwardRef(` + e + `)`), e;
-                case ne:
-                    return t = e.displayName || null, t === null ? le(e.type) || `Memo` : t;
                 case re:
+                    return t = e.displayName || null, t === null ? le(e.type) || `Memo` : t;
+                case S:
                     t = e._payload, e = e._init;
                     try {
                         return le(e(t));
@@ -678,7 +678,7 @@ Promise.all([
                     return ``;
             }
         }
-        function Ae(e) {
+        function ke(e) {
             try {
                 var t = ``, n = null;
                 do t += Oe(e, n), n = e, e = e.return;
@@ -690,7 +690,7 @@ Error generating stack: ` + e.message + `
 ` + e.stack;
             }
         }
-        var je = Object.prototype.hasOwnProperty, O = t.unstable_scheduleCallback, Me = t.unstable_cancelCallback, k = t.unstable_shouldYield, Ne = t.unstable_requestPaint, Pe = t.unstable_now, Fe = t.unstable_getCurrentPriorityLevel, Ie = t.unstable_ImmediatePriority, A = t.unstable_UserBlockingPriority, Le = t.unstable_NormalPriority, Re = t.unstable_LowPriority, ze = t.unstable_IdlePriority, Be = t.log, Ve = t.unstable_setDisableYieldValue, He = null, Ue = null;
+        var je = Object.prototype.hasOwnProperty, Me = t.unstable_scheduleCallback, O = t.unstable_cancelCallback, Ne = t.unstable_shouldYield, k = t.unstable_requestPaint, Pe = t.unstable_now, Fe = t.unstable_getCurrentPriorityLevel, Ie = t.unstable_ImmediatePriority, Le = t.unstable_UserBlockingPriority, A = t.unstable_NormalPriority, Re = t.unstable_LowPriority, ze = t.unstable_IdlePriority, Be = t.log, Ve = t.unstable_setDisableYieldValue, He = null, Ue = null;
         function We(e) {
             if (typeof Be == `function` && Ve(e), Ue && typeof Ue.setStrictMode == `function`) try {
                 Ue.setStrictMode(He, e);
@@ -2106,10 +2106,10 @@ Error generating stack: ` + e.message + `
                     break;
                 case y:
                     return e = gi(12, n, t, i | 2), e.elementType = y, e.lanes = o, e;
-                case S:
-                    return e = gi(13, n, t, i), e.elementType = S, e.lanes = o, e;
                 case te:
-                    return e = gi(19, n, t, i), e.elementType = te, e.lanes = o, e;
+                    return e = gi(13, n, t, i), e.elementType = te, e.lanes = o, e;
+                case ne:
+                    return e = gi(19, n, t, i), e.elementType = ne, e.lanes = o, e;
                 default:
                     if (typeof e == `object` && e) switch(e.$$typeof){
                         case x:
@@ -2121,10 +2121,10 @@ Error generating stack: ` + e.message + `
                         case ee:
                             s = 11;
                             break a;
-                        case ne:
+                        case re:
                             s = 14;
                             break a;
-                        case re:
+                        case S:
                             s = 16, r = null;
                             break a;
                     }
@@ -2156,13 +2156,13 @@ Error generating stack: ` + e.message + `
                 return n === void 0 ? (t = {
                     value: e,
                     source: t,
-                    stack: Ae(t)
+                    stack: ke(t)
                 }, Ti.set(e, t), t) : n;
             }
             return {
                 value: e,
                 source: t,
-                stack: Ae(t)
+                stack: ke(t)
             };
         }
         var Di = [], Oi = 0, ki = null, Ai = 0, ji = [], Mi = 0, Ni = null, Pi = 1, Fi = ``;
@@ -2564,7 +2564,7 @@ Error generating stack: ` + e.message + `
             }
             function l(e, t, n, r) {
                 var a = n.type;
-                return a === _ ? d(e, t, n.props.children, r, n.key) : t !== null && (t.elementType === a || typeof a == `object` && a && a.$$typeof === re && Pa(a) === t.type) ? (t = i(t, n.props), Va(t, n), t.return = e, t) : (t = bi(n.type, n.key, n.props, null, e.mode, r), Va(t, n), t.return = e, t);
+                return a === _ ? d(e, t, n.props.children, r, n.key) : t !== null && (t.elementType === a || typeof a == `object` && a && a.$$typeof === S && Pa(a) === t.type) ? (t = i(t, n.props), Va(t, n), t.return = e, t) : (t = bi(n.type, n.key, n.props, null, e.mode, r), Va(t, n), t.return = e, t);
             }
             function u(e, t, n, r) {
                 return t === null || t.tag !== 4 || t.stateNode.containerInfo !== n.containerInfo || t.stateNode.implementation !== n.implementation ? (t = wi(n, e.mode, r), t.return = e, t) : (t = i(t, n.children || []), t.return = e, t);
@@ -2580,7 +2580,7 @@ Error generating stack: ` + e.message + `
                             return n = bi(t.type, t.key, t.props, null, e.mode, n), Va(n, t), n.return = e, n;
                         case g:
                             return t = wi(t, e.mode, n), t.return = e, t;
-                        case re:
+                        case S:
                             return t = Pa(t), f(e, t, n);
                     }
                     if (ue(t) || se(t)) return t = xi(t, e.mode, n, null), t.return = e, t;
@@ -2599,7 +2599,7 @@ Error generating stack: ` + e.message + `
                             return n.key === i ? l(e, t, n, r) : null;
                         case g:
                             return n.key === i ? u(e, t, n, r) : null;
-                        case re:
+                        case S:
                             return n = Pa(n), p(e, t, n, r);
                     }
                     if (ue(n) || se(n)) return i === null ? d(e, t, n, r, null) : null;
@@ -2617,7 +2617,7 @@ Error generating stack: ` + e.message + `
                             return e = e.get(r.key === null ? n : r.key) || null, l(t, e, r, i);
                         case g:
                             return e = e.get(r.key === null ? n : r.key) || null, u(t, e, r, i);
-                        case re:
+                        case S:
                             return r = Pa(r), m(e, t, n, r, i);
                     }
                     if (ue(r) || se(r)) return e = e.get(n) || null, d(t, e, r, i, null);
@@ -2680,7 +2680,7 @@ Error generating stack: ` + e.message + `
                                                 n(e, r.sibling), c = i(r, o.props.children), c.return = e, e = c;
                                                 break a;
                                             }
-                                        } else if (r.elementType === l || typeof l == `object` && l && l.$$typeof === re && Pa(l) === r.type) {
+                                        } else if (r.elementType === l || typeof l == `object` && l && l.$$typeof === S && Pa(l) === r.type) {
                                             n(e, r.sibling), c = i(r, o.props), Va(c, o), c.return = e, e = c;
                                             break a;
                                         }
@@ -2708,7 +2708,7 @@ Error generating stack: ` + e.message + `
                                 c = wi(o, e.mode, c), c.return = e, e = c;
                             }
                             return s(e);
-                        case re:
+                        case S:
                             return o = Pa(o), b(e, r, o, c);
                     }
                     if (ue(o)) return v(e, r, o, c);
@@ -4384,7 +4384,7 @@ Error generating stack: ` + e.message + `
                                 if (i === ee) {
                                     t.tag = 11, t = cc(null, t, e, r, n);
                                     break a;
-                                } else if (i === ne) {
+                                } else if (i === re) {
                                     t.tag = 14, t = lc(null, t, e, r, n);
                                     break a;
                                 }
@@ -6025,7 +6025,7 @@ Error generating stack: ` + e.message + `
             return ea = $i = null, C.H = r, C.A = i, W = n, K === null ? (G = null, q = 0, ci(), Y) : 0;
         }
         function ju() {
-            for(; K !== null && !k();)Mu(K);
+            for(; K !== null && !Ne();)Mu(K);
         }
         function Mu(e) {
             var t = Fc(e.alternate, e, Gl);
@@ -6106,7 +6106,7 @@ Error generating stack: ` + e.message + `
             if (W & 6) throw Error(a(327));
             if (t !== null) {
                 if (t === e.current) throw Error(a(177));
-                if (o = t.lanes | t.childLanes, o |= si, at(e, n, o, s, c, l), e === G && (K = G = null, q = 0), ou = t, au = e, su = n, cu = o, lu = i, uu = r, t.subtreeFlags & 10256 || t.flags & 10256 ? (e.callbackNode = null, e.callbackPriority = 0, Xu(Le, function() {
+                if (o = t.lanes | t.childLanes, o |= si, at(e, n, o, s, c, l), e === G && (K = G = null, q = 0), ou = t, au = e, su = n, cu = o, lu = i, uu = r, t.subtreeFlags & 10256 || t.flags & 10256 ? (e.callbackNode = null, e.callbackPriority = 0, Xu(A, function() {
                     return Uu(), null;
                 })) : (e.callbackNode = null, e.callbackPriority = 0), r = (t.flags & 13878) != 0, t.subtreeFlags & 13878 || r) {
                     r = C.T, C.T = null, i = w.p, w.p = 2, s = W, W |= 4;
@@ -6188,7 +6188,7 @@ Error generating stack: ` + e.message + `
         }
         function Bu() {
             if (X === 4 || X === 3) {
-                X = 0, Ne();
+                X = 0, k();
                 var e = au, t = ou, n = su, r = uu;
                 t.subtreeFlags & 10256 || t.flags & 10256 ? X = 5 : (X = 0, ou = au = null, Vu(e, e.pendingLanes));
                 var i = e.pendingLanes;
@@ -6294,7 +6294,7 @@ Error generating stack: ` + e.message + `
             r !== null && r.delete(t), qu(e, n);
         }
         function Xu(e, t) {
-            return O(e, t);
+            return Me(e, t);
         }
         var Zu = null, Qu = null, $u = !1, ed = !1, td = !1, nd = 0;
         function rd(e) {
@@ -6337,26 +6337,26 @@ Error generating stack: ` + e.message + `
                 var o = 31 - Ge(a), s = 1 << o, c = i[o];
                 c === -1 ? ((s & n) === 0 || (s & r) !== 0) && (i[o] = tt(s, t)) : c <= t && (e.expiredLanes |= s), a &= ~s;
             }
-            if (t = G, n = q, n = $e(e, e === t ? n : 0, e.cancelPendingCommit !== null || e.timeoutHandle !== -1), r = e.callbackNode, n === 0 || e === t && (J === 2 || J === 9) || e.cancelPendingCommit !== null) return r !== null && r !== null && Me(r), e.callbackNode = null, e.callbackPriority = 0;
+            if (t = G, n = q, n = $e(e, e === t ? n : 0, e.cancelPendingCommit !== null || e.timeoutHandle !== -1), r = e.callbackNode, n === 0 || e === t && (J === 2 || J === 9) || e.cancelPendingCommit !== null) return r !== null && r !== null && O(r), e.callbackNode = null, e.callbackPriority = 0;
             if (!(n & 3) || et(e, n)) {
                 if (t = n & -n, t === e.callbackPriority) return t;
-                switch(r !== null && Me(r), ut(n)){
+                switch(r !== null && O(r), ut(n)){
                     case 2:
                     case 8:
-                        n = A;
+                        n = Le;
                         break;
                     case 32:
-                        n = Le;
+                        n = A;
                         break;
                     case 268435456:
                         n = ze;
                         break;
                     default:
-                        n = Le;
+                        n = A;
                 }
-                return r = cd.bind(null, e), n = O(n, r), e.callbackPriority = t, e.callbackNode = n, t;
+                return r = cd.bind(null, e), n = Me(n, r), e.callbackPriority = t, e.callbackNode = n, t;
             }
-            return r !== null && r !== null && Me(r), e.callbackPriority = 2, e.callbackNode = null, 2;
+            return r !== null && r !== null && O(r), e.callbackPriority = 2, e.callbackNode = null, 2;
         }
         function cd(e, t) {
             if (X !== 0 && X !== 5) return e.callbackNode = null, e.callbackPriority = 0, null;
@@ -6371,7 +6371,7 @@ Error generating stack: ` + e.message + `
         }
         function ud() {
             Yd(function() {
-                W & 6 ? O(Ie, ad) : od();
+                W & 6 ? Me(Ie, ad) : od();
             });
         }
         function dd() {
@@ -8157,9 +8157,9 @@ Error generating stack: ` + e.message + `
                     switch(Fe()){
                         case Ie:
                             return 2;
-                        case A:
-                            return 8;
                         case Le:
+                            return 8;
+                        case A:
                         case Re:
                             return 32;
                         case ze:
@@ -8402,7 +8402,7 @@ Error generating stack: ` + e.message + `
             var n = !1, r = ``, i = Zs, s = Qs, c = $s;
             return t != null && (!0 === t.unstable_strictMode && (n = !0), t.identifierPrefix !== void 0 && (r = t.identifierPrefix), t.onUncaughtError !== void 0 && (i = t.onUncaughtError), t.onCaughtError !== void 0 && (s = t.onCaughtError), t.onRecoverableError !== void 0 && (c = t.onRecoverableError)), t = ep(e, 1, !1, null, null, n, r, null, i, s, c, Pp), e[gt] = t.current, Sd(e), new Fp(t);
         };
-    })), je = t(((e, t)=>{
+    })), Me = t(((e, t)=>{
         function n() {
             if (!(typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ > `u` || typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE != `function`)) try {
                 __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(n);
@@ -8410,8 +8410,8 @@ Error generating stack: ` + e.message + `
                 console.error(e);
             }
         }
-        n(), t.exports = Ae();
-    })), O = e(n(), 1), Me = e(je(), 1), k = i(), Ne = `/`, Pe = [
+        n(), t.exports = je();
+    })), O = e(n(), 1), Ne = e(Me(), 1), k = i(), Pe = `/`, Fe = [
         {
             icon: `sea`,
             label: `Calm Sea`,
@@ -8487,7 +8487,7 @@ Error generating stack: ` + e.message + `
             color: `#003a5a`,
             legendary: !0
         }
-    ], Fe = [
+    ], Ie = [
         {
             id: `ghost`,
             name: `Ghost Ship`,
@@ -8530,7 +8530,7 @@ Error generating stack: ` + e.message + `
             cost: `65g`,
             color: `#44cc88`
         }
-    ], Ie = {
+    ], Le = {
         ghost: `upgrades/ghost_ship.png`,
         rider: `upgrades/storm_rider.png`,
         greed: `upgrades/cursed_greed.png`,
@@ -8560,7 +8560,7 @@ Error generating stack: ` + e.message + `
             ]
         });
     }
-    function Le({ onClose: e, onPlay: t }) {
+    function Re({ onClose: e, onPlay: t }) {
         let n = window.innerWidth < 768;
         return (0, k.jsx)(a.div, {
             initial: {
@@ -8670,7 +8670,7 @@ Error generating stack: ` + e.message + `
                                     controls: !0,
                                     playsInline: !0,
                                     preload: `metadata`,
-                                    poster: `${Ne}tutorial/poster.jpg`,
+                                    poster: `${Pe}tutorial/poster.jpg`,
                                     style: {
                                         display: `block`,
                                         width: `100%`,
@@ -8679,7 +8679,7 @@ Error generating stack: ` + e.message + `
                                         background: `#040810`
                                     },
                                     children: (0, k.jsx)(`source`, {
-                                        src: `${Ne}tutorial/corsair-tutorial.mp4`,
+                                        src: `${Pe}tutorial/corsair-tutorial.mp4`,
                                         type: `video/mp4`
                                     })
                                 })
@@ -8964,7 +8964,7 @@ Error generating stack: ` + e.message + `
                                 gridTemplateColumns: n ? `1fr` : `repeat(2, 1fr)`,
                                 gap: 10
                             },
-                            children: Pe.map((e)=>(0, k.jsxs)(`div`, {
+                            children: Fe.map((e)=>(0, k.jsxs)(`div`, {
                                     style: {
                                         background: `${e.color}18`,
                                         border: `1px solid ${e.color}44`,
@@ -8991,7 +8991,7 @@ Error generating stack: ` + e.message + `
                                             children: `LEGENDARY`
                                         }),
                                         (0, k.jsx)(`img`, {
-                                            src: `${Ne}icons/${e.icon}.png`,
+                                            src: `${Pe}icons/${e.icon}.png`,
                                             style: {
                                                 width: 44,
                                                 height: 44,
@@ -9305,7 +9305,7 @@ Error generating stack: ` + e.message + `
                                     gridTemplateColumns: n ? `1fr` : `repeat(2, 1fr)`,
                                     gap: 10
                                 },
-                                children: Fe.map((e)=>(0, k.jsxs)(`div`, {
+                                children: Ie.map((e)=>(0, k.jsxs)(`div`, {
                                         style: {
                                             background: `rgba(255,255,255,0.02)`,
                                             border: `1px solid ${e.color}33`,
@@ -9317,7 +9317,7 @@ Error generating stack: ` + e.message + `
                                         },
                                         children: [
                                             (0, k.jsx)(`img`, {
-                                                src: `${Ne}${Ie[e.id]}`,
+                                                src: `${Pe}${Le[e.id]}`,
                                                 style: {
                                                     width: 44,
                                                     height: 44,
@@ -9735,18 +9735,18 @@ Error generating stack: ` + e.message + `
             })
         });
     }
-    function Re({ onClose: e }) {
-        let t = new Set(p()), [n, r] = (0, O.useState)(x()), [i, s] = (0, O.useState)(()=>le()), [c, l] = (0, O.useState)(0), { address: u } = o(), d = E.filter((e)=>t.has(e.id)).length;
+    function ze({ onClose: e }) {
+        let t = new Set(ne()), [n, r] = (0, O.useState)(h()), [i, s] = (0, O.useState)(()=>C()), [c, u] = (0, O.useState)(0), { address: d } = o(), f = l.filter((e)=>t.has(e.id)).length;
         return (0, O.useEffect)(()=>{
-            if (!u) {
-                s(le()), l(0);
+            if (!d) {
+                s(C()), u(0);
                 return;
             }
-            ge(u).then((e)=>{
-                e ? (s(ue(e)), l(e.nftCount)) : (s(le()), l(0));
+            _e(d).then((e)=>{
+                e ? (s(w(e)), u(e.nftCount)) : (s(C()), u(0));
             });
         }, [
-            u
+            d
         ]), (0, k.jsx)(a.div, {
             initial: {
                 opacity: 0
@@ -9837,9 +9837,9 @@ Error generating stack: ` + e.message + `
                             marginBottom: 6
                         },
                         children: [
-                            d,
+                            f,
                             ` / `,
-                            E.length,
+                            l.length,
                             ` UNLOCKED`
                         ]
                     }),
@@ -9872,12 +9872,12 @@ Error generating stack: ` + e.message + `
                             },
                             {
                                 label: `REACH`,
-                                val: i.bestZone > 1 ? ne(i.bestZone).replace(/^The /, ``) : i.bestScore > 0 || i.runsPlayed > 0 ? `Coasts` : `—`,
+                                val: i.bestZone > 1 ? ae(i.bestZone).replace(/^The /, ``) : i.bestScore > 0 || i.runsPlayed > 0 ? `Coasts` : `—`,
                                 color: i.bestZone >= 3 ? `#ee6688` : i.bestZone >= 2 ? `#cc88ff` : `#66bb88`
                             },
                             {
                                 label: `RELICS`,
-                                val: u ? String(c) : `—`,
+                                val: d ? String(c) : `—`,
                                 color: `#d4a531`
                             }
                         ].map((e)=>(0, k.jsxs)(`div`, {
@@ -9939,7 +9939,7 @@ Error generating stack: ` + e.message + `
                             flexDirection: `column`,
                             gap: 10
                         },
-                        children: E.map((e)=>{
+                        children: l.map((e)=>{
                             let i = t.has(e.id), a = n === e.title;
                             return (0, k.jsxs)(`div`, {
                                 style: {
@@ -10012,7 +10012,7 @@ Error generating stack: ` + e.message + `
                                     i && (0, k.jsx)(`button`, {
                                         onClick: ()=>{
                                             let t = a ? null : e.title;
-                                            b(t), r(t);
+                                            re(t), r(t);
                                         },
                                         style: {
                                             padding: `7px 12px`,
@@ -10036,47 +10036,47 @@ Error generating stack: ` + e.message + `
             })
         });
     }
-    var ze = (e)=>e.startsWith(`ipfs://`) ? e.replace(`ipfs://`, `https://ipfs.io/ipfs/`) : e, Be = `https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images`, Ve = [
+    var Be = (e)=>e.startsWith(`ipfs://`) ? e.replace(`ipfs://`, `https://ipfs.io/ipfs/`) : e, Ve = `https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images`, He = [
         {
             key: `last_port`,
             name: `The Last Port`,
             rarity: `Rare`,
-            image: `${Be}/08-last_port.jpg`,
+            image: `${Ve}/08-last_port.jpg`,
             condition: `Visit 2 ports and finish above 500 points.`
         },
         {
             key: `cursed_doubloon`,
             name: `The Cursed Doubloon`,
             rarity: `Rare`,
-            image: `${Be}/06-cursed_doubloon.jpg`,
+            image: `${Ve}/06-cursed_doubloon.jpg`,
             condition: `Take the cursed treasure and end the run with 300+ gold.`
         },
         {
             key: `ancient_chart`,
             name: `The Ancient Chart`,
             rarity: `Epic`,
-            image: `${Be}/02-ancient_chart.jpg`,
+            image: `${Ve}/02-ancient_chart.jpg`,
             condition: `Find 3 treasures and kill a Kraken in the same voyage.`
         },
         {
             key: `ghost_corsair`,
             name: `The Ghost Corsair`,
             rarity: `Epic`,
-            image: `${Be}/04-ghost_corsair.jpg`,
+            image: `${Ve}/04-ghost_corsair.jpg`,
             condition: `Finish above 400 points without fighting a single pirate.`
         },
         {
             key: `blood_moon_tide`,
             name: `The Blood Moon Tide`,
             rarity: `Epic`,
-            image: `${Be}/09-blood_moon_tide.jpg`,
+            image: `${Ve}/09-blood_moon_tide.jpg`,
             condition: `Reach a 3-danger streak by turn 8, then survive to turn 20.`
         },
         {
             key: `storm_caller`,
             name: `The Storm Caller`,
             rarity: `Legendary`,
-            image: `${Be}/03-storm_caller.jpg`,
+            image: `${Ve}/03-storm_caller.jpg`,
             condition: `Let the storm close to within 2 tiles, and still be afloat on turn 10.`,
             seedBound: !0
         },
@@ -10084,7 +10084,7 @@ Error generating stack: ` + e.message + `
             key: `kraken_eye`,
             name: `The Kraken's Eye`,
             rarity: `Legendary`,
-            image: `${Be}/01-kraken_eye.jpg`,
+            image: `${Ve}/01-kraken_eye.jpg`,
             condition: `Kill the Ancient Kraken — the one that only stirs in the deepest water.`,
             seedBound: !0
         },
@@ -10092,7 +10092,7 @@ Error generating stack: ` + e.message + `
             key: `maelstrom_heart`,
             name: `The Maelstrom Heart`,
             rarity: `Legendary`,
-            image: `${Be}/05-maelstrom_heart.jpg`,
+            image: `${Ve}/05-maelstrom_heart.jpg`,
             condition: `Be swallowed by a maelstrom and come back out.`,
             seedBound: !0
         },
@@ -10100,7 +10100,7 @@ Error generating stack: ` + e.message + `
             key: `hunters_mark`,
             name: `The Hunter's Mark`,
             rarity: `Legendary`,
-            image: `${Be}/07-hunters_mark.jpg`,
+            image: `${Ve}/07-hunters_mark.jpg`,
             condition: `Survive 2 attacks from the Hunter in a single voyage.`,
             seedBound: !0
         },
@@ -10108,7 +10108,7 @@ Error generating stack: ` + e.message + `
             key: `starktember_tide`,
             name: `The Starktember Tide`,
             rarity: `Mythic`,
-            image: `${Be}/11-starktember_tide.jpg`,
+            image: `${Ve}/11-starktember_tide.jpg`,
             condition: `Won by iamraheemking with 77,197 points across 26 Dailies. Starktember 2026 — one month, one winner.`,
             eventOnly: !0
         },
@@ -10116,55 +10116,55 @@ Error generating stack: ` + e.message + `
             key: `leviathan`,
             name: `???`,
             rarity: `Mythic`,
-            image: `${Be}/10-leviathan.jpg`,
+            image: `${Ve}/10-leviathan.jpg`,
             condition: `Finish above 3,000 points, with a Kraken dead in your wake.`,
             seedBound: !0,
             hidden: !0
         }
-    ], He = [
+    ], Ue = [
         {
             key: `splintered_keel`,
             name: `The Splintered Keel`,
             rarity: `Rare`,
-            image: `${Be}/12-splintered_keel.jpg`,
+            image: `${Ve}/12-splintered_keel.jpg`,
             condition: `Drop to 3 hull or less, then survive to turn 15.`
         },
         {
             key: `quiet_hold`,
             name: `The Quiet Hold`,
             rarity: `Rare`,
-            image: `${Be}/13-quiet_hold.jpg`,
+            image: `${Ve}/13-quiet_hold.jpg`,
             condition: `Finish with 200+ gold without fighting a single pirate.`
         },
         {
             key: `red_wake`,
             name: `The Red Wake`,
             rarity: `Epic`,
-            image: `${Be}/14-red_wake.jpg`,
+            image: `${Ve}/14-red_wake.jpg`,
             condition: `Fight 5 or more pirates in a single voyage.`
         },
         {
             key: `abyss_lantern`,
             name: `The Abyss Lantern`,
             rarity: `Legendary`,
-            image: `${Be}/15-abyss_lantern.jpg`,
+            image: `${Ve}/15-abyss_lantern.jpg`,
             condition: `Reach The Abyss and finish with 800+ points.`
         },
         {
             key: `tideborn_crown`,
             name: `The Tideborn Crown`,
             rarity: `Mythic`,
-            image: `${Be}/16-tideborn_crown.jpg`,
+            image: `${Ve}/16-tideborn_crown.jpg`,
             condition: `Reach The Abyss, slay the Ancient Kraken, and finish with 2,000+ points.`,
             hidden: !0
         }
-    ], Ue = {
+    ], We = {
         Rare: `#44cc88`,
         Epic: `#aa66ee`,
         Legendary: `#eedd88`,
         Mythic: `#ee5566`
     };
-    function We({ nfts: e, supply: t, claimed: n }) {
+    function Ge({ nfts: e, supply: t, claimed: n }) {
         let r = (e)=>t.find((t)=>t.name === e);
         return (0, k.jsx)(`div`, {
             style: {
@@ -10173,7 +10173,7 @@ Error generating stack: ` + e.message + `
                 gap: 12
             },
             children: e.map((e)=>{
-                let t = r(e.key), i = n.includes(e.key), a = t ? t.minted >= t.max_supply : !1, o = Ue[e.rarity], s = !e.hidden || i;
+                let t = r(e.key), i = n.includes(e.key), a = t ? t.minted >= t.max_supply : !1, o = We[e.rarity], s = !e.hidden || i;
                 return (0, k.jsxs)(`div`, {
                     style: {
                         borderRadius: 12,
@@ -10191,7 +10191,7 @@ Error generating stack: ` + e.message + `
                             },
                             children: [
                                 s ? (0, k.jsx)(`img`, {
-                                    src: ze(e.image),
+                                    src: Be(e.image),
                                     alt: e.name,
                                     loading: `lazy`,
                                     style: {
@@ -10356,17 +10356,17 @@ Error generating stack: ` + e.message + `
             })
         });
     }
-    function Ge({ onClose: e }) {
+    function Ke({ onClose: e }) {
         let { address: t } = o(), [n, r] = (0, O.useState)([]), [i, a] = (0, O.useState)([]);
         return (0, O.useEffect)(()=>{
-            Se().then(r), t && we(t).then(a);
+            Ce().then(r), t && Te(t).then(a);
         }, [
             t
         ]), (0, k.jsx)(`div`, {
-            style: Je,
+            style: Ye,
             onClick: e,
             children: (0, k.jsxs)(`div`, {
-                style: Ye,
+                style: Xe,
                 onClick: (e)=>e.stopPropagation(),
                 children: [
                     (0, k.jsxs)(`div`, {
@@ -10389,7 +10389,7 @@ Error generating stack: ` + e.message + `
                             }),
                             (0, k.jsx)(`button`, {
                                 onClick: e,
-                                style: Xe,
+                                style: Ze,
                                 children: `✕`
                             })
                         ]
@@ -10404,31 +10404,31 @@ Error generating stack: ` + e.message + `
                         children: `Earned in-game, minted on Starknet. Limited supply — once claimed, the card shows SOLD OUT.`
                     }),
                     (0, k.jsx)(`h2`, {
-                        style: Ke,
+                        style: qe,
                         children: `Tideborn — Season 1`
                     }),
                     (0, k.jsx)(`p`, {
-                        style: qe,
+                        style: Je,
                         children: `A new tide. Fresh conditions. The Crown waits for one captain.`
                     }),
-                    (0, k.jsx)(We, {
-                        nfts: He,
+                    (0, k.jsx)(Ge, {
+                        nfts: Ue,
                         supply: n,
                         claimed: i
                     }),
                     (0, k.jsx)(`h2`, {
                         style: {
-                            ...Ke,
+                            ...qe,
                             marginTop: 28
                         },
                         children: `Genesis`
                     }),
                     (0, k.jsx)(`p`, {
-                        style: qe,
+                        style: Je,
                         children: `The original relics. Some still haunt cursed seeds.`
                     }),
-                    (0, k.jsx)(We, {
-                        nfts: Ve,
+                    (0, k.jsx)(Ge, {
+                        nfts: He,
                         supply: n,
                         claimed: i
                     }),
@@ -10446,18 +10446,18 @@ Error generating stack: ` + e.message + `
             })
         });
     }
-    var Ke = {
+    var qe = {
         fontFamily: `'Pirata One', cursive`,
         fontSize: 20,
         color: `#88c8ee`,
         letterSpacing: 1,
         margin: `0 0 4px`
-    }, qe = {
+    }, Je = {
         fontFamily: `'IM Fell English', cursive`,
         fontSize: 12,
         color: `rgba(255,255,255,0.4)`,
         margin: `0 0 12px`
-    }, Je = {
+    }, Ye = {
         position: `fixed`,
         inset: 0,
         zIndex: 1e3,
@@ -10468,14 +10468,14 @@ Error generating stack: ` + e.message + `
         justifyContent: `center`,
         overflowY: `auto`,
         padding: `24px 12px calc(24px + env(safe-area-inset-bottom))`
-    }, Ye = {
+    }, Xe = {
         width: `100%`,
         maxWidth: 860,
         background: `linear-gradient(160deg, #0a0e16, #05080f)`,
         border: `1px solid rgba(200,160,48,0.35)`,
         borderRadius: 16,
         padding: `20px 18px`
-    }, Xe = {
+    }, Ze = {
         width: 34,
         height: 34,
         borderRadius: 8,
@@ -10484,9 +10484,9 @@ Error generating stack: ` + e.message + `
         color: `#eedd88`,
         fontSize: 15,
         cursor: `pointer`
-    }, Ze = (e)=>`/ships/${e}.jpg?v=3`;
-    function Qe({ onClose: e }) {
-        let [t, n] = (0, O.useState)(fe());
+    }, Qe = (e)=>`/ships/${e}.jpg?v=3`;
+    function $e({ onClose: e }) {
+        let [t, n] = (0, O.useState)(me());
         return (0, k.jsx)(a.div, {
             initial: {
                 opacity: 0
@@ -10584,11 +10584,11 @@ Error generating stack: ` + e.message + `
                             flexDirection: `column`,
                             gap: 10
                         },
-                        children: se.map((e)=>{
-                            let r = ie(e.id), i = t === e.id;
+                        children: le.map((e)=>{
+                            let r = se(e.id), i = t === e.id;
                             return (0, k.jsxs)(`div`, {
                                 onClick: ()=>{
-                                    r && (ce(e.id), n(e.id));
+                                    r && (ue(e.id), n(e.id));
                                 },
                                 style: {
                                     padding: 0,
@@ -10603,7 +10603,7 @@ Error generating stack: ` + e.message + `
                                 },
                                 children: [
                                     (0, k.jsx)(`img`, {
-                                        src: Ze(e.id),
+                                        src: Qe(e.id),
                                         alt: ``,
                                         style: {
                                             width: 88,
@@ -10712,8 +10712,8 @@ Error generating stack: ` + e.message + `
             })
         });
     }
-    var $e = (e)=>`/ships/${e}.jpg?v=3`;
-    function et({ offers: e, onPick: t }) {
+    var et = (e)=>`/ships/${e}.jpg?v=3`;
+    function tt({ offers: e, onPick: t }) {
         let [n, i] = (0, O.useState)(null), o = (e)=>{
             n || (i(e), setTimeout(()=>t(e.id), 1500));
         };
@@ -10762,7 +10762,7 @@ Error generating stack: ` + e.message + `
                     },
                     children: [
                         (0, k.jsx)(a.img, {
-                            src: $e(n.id),
+                            src: et(n.id),
                             alt: ``,
                             initial: {
                                 y: 16,
@@ -10894,7 +10894,7 @@ Error generating stack: ` + e.message + `
                                     },
                                     children: [
                                         (0, k.jsx)(`img`, {
-                                            src: $e(e.id),
+                                            src: et(e.id),
                                             alt: ``,
                                             style: {
                                                 width: 96,
@@ -10971,7 +10971,7 @@ Error generating stack: ` + e.message + `
             })
         });
     }
-    var tt = [
+    var nt = [
         {
             version: `1.1`,
             date: `October 2026`,
@@ -11038,7 +11038,7 @@ Error generating stack: ` + e.message + `
             ]
         }
     ];
-    function nt({ onClose: e }) {
+    function rt({ onClose: e }) {
         let t = typeof window < `u` && window.innerWidth < 768;
         return (0, k.jsx)(a.div, {
             initial: {
@@ -11137,7 +11137,7 @@ Error generating stack: ` + e.message + `
                             flexDirection: `column`,
                             gap: 22
                         },
-                        children: tt.map((e)=>(0, k.jsxs)(`div`, {
+                        children: nt.map((e)=>(0, k.jsxs)(`div`, {
                                 children: [
                                     (0, k.jsxs)(`div`, {
                                         style: {
@@ -11226,24 +11226,24 @@ Error generating stack: ` + e.message + `
             })
         });
     }
-    var rt = [
+    var it = [
         `#FFD700`,
         `#C0C0C0`,
         `#CD7F32`
-    ], it = (e)=>e === 0 ? (0, k.jsx)(S, {
+    ], at = (e)=>e === 0 ? (0, k.jsx)(S, {
             name: `crown`,
             size: 18
         }) : e === 2 ? (0, k.jsx)(S, {
             name: `skull`,
             size: 16
-        }) : `⚔️`, at = window.innerWidth < 768;
-    function ot({ onClose: e }) {
+        }) : `⚔️`, ot = window.innerWidth < 768;
+    function st({ onClose: e }) {
         let [t, n] = (0, O.useState)(`daily`), [r, i] = (0, O.useState)([]), [o, s] = (0, O.useState)([]), [c, l] = (0, O.useState)(!0);
         (0, O.useEffect)(()=>{
             let e = new Date().toISOString().slice(0, 10);
             Promise.all([
-                be(),
-                _e(e)
+                xe(),
+                ve(e)
             ]).then(([e, t])=>{
                 i(e), s(t), l(!1);
             });
@@ -11311,7 +11311,7 @@ Error generating stack: ` + e.message + `
                                 },
                                 children: [
                                     (0, k.jsx)(`img`, {
-                                        src: de,
+                                        src: pe,
                                         style: {
                                             width: 36,
                                             height: 36,
@@ -11431,9 +11431,9 @@ Error generating stack: ` + e.message + `
                                     alignItems: `center`,
                                     gap: 16,
                                     background: t < 3 ? `rgba(200,160,48,${.08 - t * .02})` : `rgba(255,255,255,0.02)`,
-                                    border: `1px solid ${t < 3 ? rt[t] + `44` : `rgba(255,255,255,0.06)`}`,
+                                    border: `1px solid ${t < 3 ? it[t] + `44` : `rgba(255,255,255,0.06)`}`,
                                     borderRadius: 12,
-                                    padding: at ? `10px 12px` : `14px 18px`
+                                    padding: ot ? `10px 12px` : `14px 18px`
                                 },
                                 children: [
                                     (0, k.jsx)(`div`, {
@@ -11441,9 +11441,9 @@ Error generating stack: ` + e.message + `
                                             width: 32,
                                             textAlign: `center`,
                                             fontSize: t < 3 ? 22 : 15,
-                                            color: t < 3 ? rt[t] : `rgba(255,255,255,0.25)`
+                                            color: t < 3 ? it[t] : `rgba(255,255,255,0.25)`
                                         },
-                                        children: t < 3 ? it(t) : `#${t + 1}`
+                                        children: t < 3 ? at(t) : `#${t + 1}`
                                     }),
                                     (0, k.jsxs)(`div`, {
                                         style: {
@@ -11452,21 +11452,21 @@ Error generating stack: ` + e.message + `
                                         children: [
                                             (0, k.jsx)(`div`, {
                                                 style: {
-                                                    fontSize: at ? 13 : 15,
-                                                    color: t < 3 ? rt[t] : `#e8e0d0`
+                                                    fontSize: ot ? 13 : 15,
+                                                    color: t < 3 ? it[t] : `#e8e0d0`
                                                 },
                                                 children: e.username ?? u(e.wallet_address)
                                             }),
                                             (0, k.jsxs)(`div`, {
                                                 style: {
-                                                    fontSize: at ? 11 : 12,
+                                                    fontSize: ot ? 11 : 12,
                                                     color: `rgba(255,255,255,0.4)`,
                                                     fontFamily: `'Cinzel', serif`,
                                                     marginTop: 2
                                                 },
                                                 children: [
                                                     `☀ Daily · `,
-                                                    e.seed != null && _(e.date) ? `Seed ${e.seed} · ` : `Blind map · `,
+                                                    e.seed != null && ce(e.date) ? `Seed ${e.seed} · ` : `Blind map · `,
                                                     d(e.submitted_at)
                                                 ]
                                             })
@@ -11474,9 +11474,9 @@ Error generating stack: ` + e.message + `
                                     }),
                                     (0, k.jsx)(`div`, {
                                         style: {
-                                            fontSize: at ? 18 : 22,
+                                            fontSize: ot ? 18 : 22,
                                             fontWeight: 700,
-                                            color: t < 3 ? rt[t] : `#eedd44`,
+                                            color: t < 3 ? it[t] : `#eedd44`,
                                             fontFamily: `'Cinzel', serif`
                                         },
                                         children: e.score.toLocaleString()
@@ -11506,9 +11506,9 @@ Error generating stack: ` + e.message + `
                                     alignItems: `center`,
                                     gap: 16,
                                     background: t < 3 ? `rgba(200,160,48,${.08 - t * .02})` : `rgba(255,255,255,0.02)`,
-                                    border: `1px solid ${t < 3 ? rt[t] + `44` : `rgba(255,255,255,0.06)`}`,
+                                    border: `1px solid ${t < 3 ? it[t] + `44` : `rgba(255,255,255,0.06)`}`,
                                     borderRadius: 12,
-                                    padding: at ? `10px 12px` : `14px 18px`
+                                    padding: ot ? `10px 12px` : `14px 18px`
                                 },
                                 children: [
                                     (0, k.jsx)(`div`, {
@@ -11516,9 +11516,9 @@ Error generating stack: ` + e.message + `
                                             width: 32,
                                             textAlign: `center`,
                                             fontSize: t < 3 ? 22 : 15,
-                                            color: t < 3 ? rt[t] : `rgba(255,255,255,0.25)`
+                                            color: t < 3 ? it[t] : `rgba(255,255,255,0.25)`
                                         },
-                                        children: t < 3 ? it(t) : `#${t + 1}`
+                                        children: t < 3 ? at(t) : `#${t + 1}`
                                     }),
                                     (0, k.jsxs)(`div`, {
                                         style: {
@@ -11533,15 +11533,15 @@ Error generating stack: ` + e.message + `
                                                 },
                                                 children: (0, k.jsx)(`div`, {
                                                     style: {
-                                                        fontSize: at ? 13 : 15,
-                                                        color: t < 3 ? rt[t] : `#e8e0d0`
+                                                        fontSize: ot ? 13 : 15,
+                                                        color: t < 3 ? it[t] : `#e8e0d0`
                                                     },
                                                     children: e.username ?? u(e.wallet_address)
                                                 })
                                             }),
                                             (0, k.jsxs)(`div`, {
                                                 style: {
-                                                    fontSize: at ? 11 : 12,
+                                                    fontSize: ot ? 11 : 12,
                                                     color: `rgba(255,255,255,0.4)`,
                                                     fontFamily: `'Cinzel', serif`,
                                                     marginTop: 2
@@ -11558,9 +11558,9 @@ Error generating stack: ` + e.message + `
                                     }),
                                     (0, k.jsx)(`div`, {
                                         style: {
-                                            fontSize: at ? 18 : 22,
+                                            fontSize: ot ? 18 : 22,
                                             fontWeight: 700,
-                                            color: t < 3 ? rt[t] : `#eedd44`,
+                                            color: t < 3 ? it[t] : `#eedd44`,
                                             fontFamily: `'Cinzel', serif`
                                         },
                                         children: e.score.toLocaleString()
@@ -11572,7 +11572,7 @@ Error generating stack: ` + e.message + `
             })
         });
     }
-    var st = [
+    var ct = [
         {
             bg: `scenes/storm.jpg`
         },
@@ -11589,90 +11589,105 @@ Error generating stack: ` + e.message + `
             bg: `scenes/pirate.jpg`
         }
     ];
-    function ct({ onPlay: e, onResume: t }) {
+    function lt({ onPlay: e, onResume: t }) {
         let [n, i] = (0, O.useState)(null), [s, c] = (0, O.useState)([]), l = (()=>{
             let e = new Date;
             return e.getUTCFullYear() === 2026 && e.getUTCMonth() === 8;
         })();
         (0, O.useEffect)(()=>{
             if (!l) return;
-            ve().then(c);
-            let e = setInterval(()=>ve().then(c), 12e4);
+            ye().then(c);
+            let e = setInterval(()=>ye().then(c), 12e4);
             return ()=>clearInterval(e);
         }, [
             l
         ]);
-        let [d, f] = (0, O.useState)(()=>u()), [p] = (0, O.useState)(()=>typeof window < `u` && window.innerWidth < 768), [m, h] = (0, O.useState)(!1), [g, _] = (0, O.useState)(!1), [v, b] = (0, O.useState)(!1), [x, ee] = (0, O.useState)(!1), [ie, ae] = (0, O.useState)(!1), [oe, se] = (0, O.useState)([]), [ce, de] = (0, O.useState)(``);
+        let [u, p] = (0, O.useState)(()=>d()), [m] = (0, O.useState)(()=>typeof window < `u` && window.innerWidth < 768), [h, g] = (0, O.useState)(!1), [_, v] = (0, O.useState)(!1), [y, b] = (0, O.useState)(!1), [x, ee] = (0, O.useState)(!1), [ne, re] = (0, O.useState)(!1), [se, ce] = (0, O.useState)([]), [le, ue] = (0, O.useState)(``);
         (0, O.useEffect)(()=>{
-            _e(new Date().toISOString().slice(0, 10)).then((e)=>se(e.slice(0, 3)));
+            ve(new Date().toISOString().slice(0, 10)).then((e)=>ce(e.slice(0, 3)));
         }, []), (0, O.useEffect)(()=>{
             let e = ()=>{
                 let e = Date.now(), t = new Date(e), n = Date.UTC(t.getUTCFullYear(), t.getUTCMonth(), t.getUTCDate() + 1, 0, 0, 0), r = Math.max(0, n - e);
-                de(`${String(Math.floor(r / 36e5)).padStart(2, `0`)}:${String(Math.floor(r % 36e5 / 6e4)).padStart(2, `0`)}:${String(Math.floor(r % 6e4 / 1e3)).padStart(2, `0`)}`);
+                ue(`${String(Math.floor(r / 36e5)).padStart(2, `0`)}:${String(Math.floor(r % 36e5 / 6e4)).padStart(2, `0`)}:${String(Math.floor(r % 6e4 / 1e3)).padStart(2, `0`)}`);
             };
             e();
             let t = setInterval(e, 1e3);
             return ()=>clearInterval(t);
         }, []);
-        let [fe, pe] = (0, O.useState)(!1), [T, E] = (0, O.useState)(!1), [he, be] = (0, O.useState)(!1), [Se, Ce] = (0, O.useState)(null), [we, Te] = (0, O.useState)(0), [Ee, De] = (0, O.useState)(0), { address: D, username: Oe, connecting: ke, connect: Ae, disconnect: je, openProfile: Me } = o();
+        let [pe, me] = (0, O.useState)(!1), [T, he] = (0, O.useState)(!1), [ge, xe] = (0, O.useState)(!1), [Ce, we] = (0, O.useState)(null), [Te, Ee] = (0, O.useState)(0), [De, Oe] = (0, O.useState)(0), { address: D, username: ke, connecting: Ae, connect: je, disconnect: Me, openProfile: Ne } = o();
         (0, O.useEffect)(()=>{
             if (!D) {
-                De(0);
+                Oe(0);
                 return;
             }
             let e = !1;
-            return ge(D).then((t)=>{
-                e || !t || (ue(t), De(t.nftCount), Te((e)=>e + 1));
+            return _e(D).then((t)=>{
+                e || !t || (w(t), Oe(t.nftCount), Ee((e)=>e + 1));
             }), ()=>{
                 e = !0;
             };
         }, [
             D
         ]);
-        let Ne = async (t)=>{
+        let Pe = async (t)=>{
             if (!D) return;
-            E(!0), be(!1);
-            let n = await ye(D);
-            if (E(!1), !n) {
-                be(!0);
+            he(!0), xe(!1);
+            let n = await be(D);
+            if (he(!1), !n) {
+                xe(!0);
                 return;
             }
-            e(D, Oe, n.seed, !1, n.seed_token, t);
-        }, Pe = async ()=>{
-            let t = re();
+            e(D, ke, n.seed, !1, n.seed_token, t);
+        }, Fe = async ()=>{
+            let t = oe();
             if (t.length >= 2) {
-                Ce(C(3));
+                we(de(3));
                 return;
             }
             if (!D) {
                 e(null, `Captain`, Math.floor(Math.random() * 999999), !1, void 0, t[0]?.id);
                 return;
             }
-            await Ne(t[0]?.id);
-        }, Fe = async (t)=>{
-            if (Ce(null), !D) {
+            await Pe(t[0]?.id);
+        }, Ie = async (t)=>{
+            if (we(null), !D) {
                 e(null, `Captain`, Math.floor(Math.random() * 999999), !1, void 0, t);
                 return;
             }
-            await Ne(t);
+            await Pe(t);
         };
         (0, O.useEffect)(()=>{
             if (!D) {
-                f(u());
+                p(d());
                 return;
             }
-            xe(D, me()).then((e)=>f(e || u()));
+            let e = !1;
+            return Se(D, te()).then((t)=>{
+                if (e) return;
+                if (t) {
+                    p(!0);
+                    return;
+                }
+                let n = ie();
+                if (n?.is_daily && n.wallet_address === D && n.actions.length > 0) {
+                    p(!0);
+                    return;
+                }
+                d() && E(), p(!1);
+            }), ()=>{
+                e = !0;
+            };
         }, [
             D
         ]), (0, O.useEffect)(()=>{
-            let e = te();
+            let e = ie();
             e && D && e.wallet_address === D ? i(e) : i(null);
         }, [
             D
         ]);
-        let [Ie, A] = (0, O.useState)(0);
+        let [Le, A] = (0, O.useState)(0);
         return (0, O.useEffect)(()=>{
-            let e = setInterval(()=>A((e)=>(e + 1) % st.length), 4e3);
+            let e = setInterval(()=>A((e)=>(e + 1) % ct.length), 4e3);
             return ()=>clearInterval(e);
         }, []), (0, k.jsxs)(`div`, {
             style: {
@@ -11684,9 +11699,9 @@ Error generating stack: ` + e.message + `
                 fontFamily: `'Pirata One', cursive`
             },
             children: [
-                st.map((e, t)=>(0, k.jsx)(a.div, {
+                ct.map((e, t)=>(0, k.jsx)(a.div, {
                         animate: {
-                            opacity: +(t === Ie)
+                            opacity: +(t === Le)
                         },
                         transition: {
                             duration: 1.5
@@ -11709,8 +11724,8 @@ Error generating stack: ` + e.message + `
                 (0, k.jsx)(`div`, {
                     style: {
                         position: `absolute`,
-                        top: p ? 8 : 20,
-                        right: p ? 8 : 24,
+                        top: m ? 8 : 20,
+                        right: m ? 8 : 24,
                         zIndex: 20
                     },
                     children: D ? (0, k.jsxs)(`div`, {
@@ -11721,29 +11736,29 @@ Error generating stack: ` + e.message + `
                         },
                         children: [
                             (0, k.jsx)(`div`, {
-                                onClick: ()=>Me(),
+                                onClick: ()=>Ne(),
                                 style: {
                                     fontFamily: `'Cinzel', serif`,
-                                    fontSize: p ? 9 : 11,
+                                    fontSize: m ? 9 : 11,
                                     color: `rgba(200,160,48,0.8)`,
-                                    letterSpacing: p ? 1 : 2,
+                                    letterSpacing: m ? 1 : 2,
                                     border: `1px solid rgba(200,160,48,0.3)`,
                                     borderRadius: 8,
-                                    padding: p ? `3px 8px` : `6px 14px`,
+                                    padding: m ? `3px 8px` : `6px 14px`,
                                     cursor: `pointer`
                                 },
-                                children: Oe ?? `${D.slice(0, 6)}...${D.slice(-4)}`
+                                children: ke ?? `${D.slice(0, 6)}...${D.slice(-4)}`
                             }),
                             (0, k.jsx)(`button`, {
-                                onClick: je,
+                                onClick: Me,
                                 style: {
                                     background: `transparent`,
                                     border: `1px solid rgba(255,255,255,0.1)`,
                                     color: `rgba(255,255,255,0.3)`,
-                                    fontSize: p ? 9 : 11,
+                                    fontSize: m ? 9 : 11,
                                     cursor: `pointer`,
                                     borderRadius: 6,
-                                    padding: p ? `3px 6px` : `6px 10px`,
+                                    padding: m ? `3px 6px` : `6px 10px`,
                                     fontFamily: `'Cinzel', serif`
                                 },
                                 children: `DISCONNECT`
@@ -11753,8 +11768,8 @@ Error generating stack: ` + e.message + `
                         whileHover: {
                             scale: 1.05
                         },
-                        onClick: Ae,
-                        disabled: ke,
+                        onClick: je,
+                        disabled: Ae,
                         style: {
                             padding: `8px 20px`,
                             borderRadius: 8,
@@ -11766,7 +11781,7 @@ Error generating stack: ` + e.message + `
                             cursor: `pointer`,
                             fontFamily: `'Pirata One', cursive`
                         },
-                        children: ke ? `CONNECTING...` : `CONNECT WALLET`
+                        children: Ae ? `CONNECTING...` : `CONNECT WALLET`
                     })
                 }),
                 (0, k.jsxs)(`div`, {
@@ -11777,11 +11792,11 @@ Error generating stack: ` + e.message + `
                         display: `flex`,
                         flexDirection: `column`,
                         alignItems: `center`,
-                        justifyContent: p ? `flex-start` : `center`,
-                        gap: p ? 12 : 24,
+                        justifyContent: m ? `flex-start` : `center`,
+                        gap: m ? 12 : 24,
                         overflowY: `auto`,
-                        paddingTop: p ? 44 : 0,
-                        paddingBottom: p ? 32 : 28
+                        paddingTop: m ? 44 : 0,
+                        paddingBottom: m ? 32 : 28
                     },
                     children: [
                         (0, k.jsx)(a.div, {
@@ -11798,9 +11813,9 @@ Error generating stack: ` + e.message + `
                             },
                             style: {
                                 flexShrink: 0,
-                                fontSize: p ? 58 : 72,
-                                letterSpacing: p ? 10 : 16,
-                                marginTop: p ? 32 : 0,
+                                fontSize: m ? 58 : 72,
+                                letterSpacing: m ? 10 : 16,
+                                marginTop: m ? 32 : 0,
                                 color: `#c8a030`,
                                 textShadow: `0 0 40px rgba(200,160,48,0.6), 0 2px 8px rgba(0,0,0,0.9)`
                             },
@@ -11819,10 +11834,10 @@ Error generating stack: ` + e.message + `
                             style: {
                                 flexShrink: 0,
                                 fontFamily: `'Cinzel', serif`,
-                                fontSize: p ? 10 : 13,
-                                letterSpacing: p ? 3 : 6,
+                                fontSize: m ? 10 : 13,
+                                letterSpacing: m ? 3 : 6,
                                 color: `rgba(255,255,255,0.7)`,
-                                marginTop: p ? -6 : -16,
+                                marginTop: m ? -6 : -16,
                                 textShadow: `0 1px 4px rgba(0,0,0,0.9)`,
                                 textAlign: `center`,
                                 width: `100%`
@@ -11830,7 +11845,7 @@ Error generating stack: ` + e.message + `
                             children: `A ROGUELITE OF NAVIGATION & SURVIVAL`
                         }),
                         (()=>{
-                            let e = le(), t = w(void 0, 1).find((e)=>e.ratio > 0) ?? null;
+                            let e = C(), t = fe(void 0, 1).find((e)=>e.ratio > 0) ?? null;
                             return e.runsPlayed <= 0 && e.bestScore <= 0 && !t ? null : (0, k.jsxs)(a.div, {
                                 initial: {
                                     opacity: 0,
@@ -11846,8 +11861,8 @@ Error generating stack: ` + e.message + `
                                 style: {
                                     flexShrink: 0,
                                     maxWidth: 440,
-                                    width: p ? `90%` : `100%`,
-                                    padding: p ? `10px 12px` : `12px 16px`,
+                                    width: m ? `90%` : `100%`,
+                                    padding: m ? `10px 12px` : `12px 16px`,
                                     borderRadius: 10,
                                     border: `1px solid rgba(136,221,255,0.28)`,
                                     background: `rgba(8,18,28,0.72)`,
@@ -11869,8 +11884,8 @@ Error generating stack: ` + e.message + `
                                     (0, k.jsx)(`div`, {
                                         style: {
                                             display: `grid`,
-                                            gridTemplateColumns: p ? `repeat(3, 1fr)` : `repeat(5, 1fr)`,
-                                            gap: p ? 6 : 8,
+                                            gridTemplateColumns: m ? `repeat(3, 1fr)` : `repeat(5, 1fr)`,
+                                            gap: m ? 6 : 8,
                                             rowGap: 8
                                         },
                                         children: [
@@ -11891,12 +11906,12 @@ Error generating stack: ` + e.message + `
                                             },
                                             {
                                                 label: `REACH`,
-                                                val: e.bestZone > 1 ? ne(e.bestZone).replace(/^The /, ``) : e.bestScore > 0 || e.runsPlayed > 0 ? `Coasts` : `—`,
+                                                val: e.bestZone > 1 ? ae(e.bestZone).replace(/^The /, ``) : e.bestScore > 0 || e.runsPlayed > 0 ? `Coasts` : `—`,
                                                 color: e.bestZone >= 3 ? `#ee6688` : e.bestZone >= 2 ? `#cc88ff` : `#66bb88`
                                             },
                                             {
                                                 label: `RELICS`,
-                                                val: D ? String(Ee) : `—`,
+                                                val: D ? String(De) : `—`,
                                                 color: `#d4a531`
                                             }
                                         ].map((e)=>(0, k.jsxs)(`div`, {
@@ -11914,7 +11929,7 @@ Error generating stack: ` + e.message + `
                                                     (0, k.jsx)(`div`, {
                                                         style: {
                                                             fontFamily: `'Cinzel', serif`,
-                                                            fontSize: p ? 13 : 15,
+                                                            fontSize: m ? 13 : 15,
                                                             fontWeight: 700,
                                                             color: e.color,
                                                             lineHeight: 1.1
@@ -11927,7 +11942,7 @@ Error generating stack: ` + e.message + `
                                     (0, k.jsxs)(`div`, {
                                         style: {
                                             fontFamily: `'IM Fell English', cursive`,
-                                            fontSize: p ? 12 : 13,
+                                            fontSize: m ? 12 : 13,
                                             color: `rgba(255,255,255,0.65)`,
                                             lineHeight: 1.35
                                         },
@@ -11937,7 +11952,7 @@ Error generating stack: ` + e.message + `
                                                 style: {
                                                     color: `#88ddff`
                                                 },
-                                                children: ce
+                                                children: le
                                             }),
                                             t && (0, k.jsxs)(k.Fragment, {
                                                 children: [
@@ -11962,7 +11977,7 @@ Error generating stack: ` + e.message + `
                                             })
                                         ]
                                     }),
-                                    !d && (0, k.jsx)(`div`, {
+                                    !u && (0, k.jsx)(`div`, {
                                         style: {
                                             fontFamily: `'Cinzel', serif`,
                                             fontSize: 10,
@@ -12009,7 +12024,7 @@ Error generating stack: ` + e.message + `
                                                 flexDirection: `column`,
                                                 alignItems: `center`,
                                                 gap: 8,
-                                                width: p ? `88%` : `auto`
+                                                width: m ? `88%` : `auto`
                                             },
                                             children: [
                                                 (0, k.jsxs)(`div`, {
@@ -12029,16 +12044,16 @@ Error generating stack: ` + e.message + `
                                                             },
                                                             disabled: T,
                                                             onClick: ()=>{
-                                                                Pe();
+                                                                Fe();
                                                             },
                                                             style: {
-                                                                padding: p ? `20px 0` : `16px 48px`,
-                                                                width: p ? `100%` : `auto`,
+                                                                padding: m ? `20px 0` : `16px 48px`,
+                                                                width: m ? `100%` : `auto`,
                                                                 borderRadius: 12,
                                                                 border: `2px solid rgba(200,160,48,0.9)`,
-                                                                background: p ? `rgba(200,160,48,0.38)` : `rgba(200,160,48,0.25)`,
-                                                                color: p ? `#e8c250` : `#c8a030`,
-                                                                fontSize: p ? 28 : 22,
+                                                                background: m ? `rgba(200,160,48,0.38)` : `rgba(200,160,48,0.25)`,
+                                                                color: m ? `#e8c250` : `#c8a030`,
+                                                                fontSize: m ? 28 : 22,
                                                                 letterSpacing: 4,
                                                                 cursor: T ? `wait` : `pointer`,
                                                                 fontFamily: `'Pirata One', cursive`,
@@ -12053,9 +12068,9 @@ Error generating stack: ` + e.message + `
                                                             whileTap: {
                                                                 scale: .97
                                                             },
-                                                            onClick: ()=>pe(!0),
+                                                            onClick: ()=>me(!0),
                                                             style: {
-                                                                display: p ? `none` : `block`,
+                                                                display: m ? `none` : `block`,
                                                                 padding: `16px 32px`,
                                                                 borderRadius: 12,
                                                                 border: `1px solid rgba(200,160,48,0.7)`,
@@ -12080,7 +12095,7 @@ Error generating stack: ` + e.message + `
                                                     },
                                                     children: `No wallet needed · connect later to climb the board`
                                                 }),
-                                                he && (0, k.jsx)(`div`, {
+                                                ge && (0, k.jsx)(`div`, {
                                                     style: {
                                                         fontSize: 11,
                                                         color: `rgba(238,100,100,0.85)`,
@@ -12094,7 +12109,7 @@ Error generating stack: ` + e.message + `
                                         }),
                                         (0, k.jsxs)(`div`, {
                                             style: {
-                                                padding: p ? `12px 14px` : `16px 20px`,
+                                                padding: m ? `12px 14px` : `16px 20px`,
                                                 borderRadius: 16,
                                                 border: `2px solid rgba(200,160,48,0.5)`,
                                                 background: `linear-gradient(135deg, rgba(30,20,5,0.9), rgba(10,15,25,0.9))`,
@@ -12135,7 +12150,7 @@ Error generating stack: ` + e.message + `
                                                             }),
                                                             (0, k.jsx)(`div`, {
                                                                 style: {
-                                                                    display: p ? `none` : `block`,
+                                                                    display: m ? `none` : `block`,
                                                                     fontSize: 12,
                                                                     color: `rgba(255,255,255,0.65)`,
                                                                     fontFamily: `'IM Fell English', cursive`,
@@ -12170,7 +12185,7 @@ Error generating stack: ` + e.message + `
                                                                         color: `#88ddff`,
                                                                         fontWeight: 700
                                                                     },
-                                                                    children: ce
+                                                                    children: le
                                                                 }),
                                                                 ` `,
                                                                 (0, k.jsx)(`span`, {
@@ -12181,7 +12196,7 @@ Error generating stack: ` + e.message + `
                                                                 })
                                                             ]
                                                         }),
-                                                        d ? (0, k.jsxs)(`div`, {
+                                                        u ? (0, k.jsxs)(`div`, {
                                                             style: {
                                                                 fontSize: 11,
                                                                 color: `rgba(136,221,255,0.55)`,
@@ -12202,7 +12217,7 @@ Error generating stack: ` + e.message + `
                                                                 scale: .96
                                                             },
                                                             onClick: ()=>{
-                                                                D ? e(D, Oe, y(), !0) : Ae();
+                                                                D ? e(D, ke, f(), !0) : je();
                                                             },
                                                             style: {
                                                                 padding: `10px 20px`,
@@ -12223,7 +12238,7 @@ Error generating stack: ` + e.message + `
                                                 }),
                                                 l && (0, k.jsxs)(`div`, {
                                                     style: {
-                                                        display: p ? `none` : `block`,
+                                                        display: m ? `none` : `block`,
                                                         fontSize: 10,
                                                         color: `rgba(238,221,68,0.55)`,
                                                         fontFamily: `'Cinzel', serif`,
@@ -12246,7 +12261,7 @@ Error generating stack: ` + e.message + `
                                         })
                                     ]
                                 }),
-                                oe.length > 0 && (0, k.jsxs)(`div`, {
+                                se.length > 0 && (0, k.jsxs)(`div`, {
                                     style: {
                                         padding: `10px 20px`,
                                         borderRadius: 12,
@@ -12277,7 +12292,7 @@ Error generating stack: ` + e.message + `
                                                 `TODAY'S TOP`
                                             ]
                                         }),
-                                        oe.map((e, t)=>(0, k.jsxs)(`div`, {
+                                        se.map((e, t)=>(0, k.jsxs)(`div`, {
                                                 style: {
                                                     display: `flex`,
                                                     alignItems: `center`,
@@ -12348,7 +12363,7 @@ Error generating stack: ` + e.message + `
                                         }),
                                         (0, k.jsx)(`div`, {
                                             style: {
-                                                fontSize: p ? 9 : 10,
+                                                fontSize: m ? 9 : 10,
                                                 color: `rgba(255,255,255,0.45)`,
                                                 fontFamily: `'IM Fell English', cursive`,
                                                 textAlign: `center`,
@@ -12358,7 +12373,7 @@ Error generating stack: ` + e.message + `
                                         }),
                                         (0, k.jsx)(`div`, {
                                             style: {
-                                                fontSize: p ? 9 : 10,
+                                                fontSize: m ? 9 : 10,
                                                 color: `rgba(238,170,68,0.7)`,
                                                 fontFamily: `'Cinzel', serif`,
                                                 letterSpacing: 1,
@@ -12505,7 +12520,7 @@ Error generating stack: ` + e.message + `
                                 }),
                                 !l && (0, k.jsxs)(`div`, {
                                     style: {
-                                        padding: p ? `12px 14px` : `14px 20px`,
+                                        padding: m ? `12px 14px` : `14px 20px`,
                                         borderRadius: 12,
                                         border: `1px solid rgba(136,200,238,0.45)`,
                                         background: `linear-gradient(135deg, rgba(8,28,48,0.92), rgba(6,12,22,0.92))`,
@@ -12527,7 +12542,7 @@ Error generating stack: ` + e.message + `
                                         }),
                                         (0, k.jsxs)(`div`, {
                                             style: {
-                                                fontSize: p ? 13 : 14,
+                                                fontSize: m ? 13 : 14,
                                                 color: `rgba(255,255,255,0.78)`,
                                                 fontFamily: `'IM Fell English', cursive`,
                                                 lineHeight: 1.4,
@@ -12604,15 +12619,15 @@ Error generating stack: ` + e.message + `
                                             whileTap: {
                                                 scale: .97
                                             },
-                                            onClick: ()=>h(!0),
+                                            onClick: ()=>g(!0),
                                             style: {
-                                                padding: p ? `9px 12px` : `12px 32px`,
+                                                padding: m ? `9px 12px` : `12px 32px`,
                                                 borderRadius: 12,
-                                                border: p ? `1px solid rgba(255,255,255,0.25)` : `1px solid rgba(255,255,255,0.5)`,
-                                                background: p ? `rgba(255,255,255,0.06)` : `rgba(255,255,255,0.12)`,
-                                                color: p ? `rgba(255,255,255,0.7)` : `rgba(255,255,255,0.85)`,
-                                                fontSize: p ? 11 : 14,
-                                                letterSpacing: p ? 1 : 3,
+                                                border: m ? `1px solid rgba(255,255,255,0.25)` : `1px solid rgba(255,255,255,0.5)`,
+                                                background: m ? `rgba(255,255,255,0.06)` : `rgba(255,255,255,0.12)`,
+                                                color: m ? `rgba(255,255,255,0.7)` : `rgba(255,255,255,0.85)`,
+                                                fontSize: m ? 11 : 14,
+                                                letterSpacing: m ? 1 : 3,
                                                 cursor: `pointer`,
                                                 fontFamily: `'Pirata One', cursive`
                                             },
@@ -12625,15 +12640,15 @@ Error generating stack: ` + e.message + `
                                             whileTap: {
                                                 scale: .96
                                             },
-                                            onClick: ()=>ae(!0),
+                                            onClick: ()=>re(!0),
                                             style: {
-                                                padding: p ? `9px 12px` : `12px 26px`,
+                                                padding: m ? `9px 12px` : `12px 26px`,
                                                 borderRadius: 12,
                                                 border: `1px solid rgba(68,204,170,0.45)`,
                                                 background: `rgba(68,204,170,0.07)`,
                                                 color: `rgba(100,220,190,0.95)`,
-                                                fontSize: p ? 11 : 14,
-                                                letterSpacing: p ? 1 : 3,
+                                                fontSize: m ? 11 : 14,
+                                                letterSpacing: m ? 1 : 3,
                                                 cursor: `pointer`,
                                                 fontFamily: `'Pirata One', cursive`,
                                                 display: `flex`,
@@ -12642,9 +12657,9 @@ Error generating stack: ` + e.message + `
                                             children: [
                                                 (0, k.jsx)(S, {
                                                     name: `star`,
-                                                    size: p ? 16 : 22,
+                                                    size: m ? 16 : 22,
                                                     style: {
-                                                        marginRight: p ? 5 : 8
+                                                        marginRight: m ? 5 : 8
                                                     }
                                                 }),
                                                 `PATCH NOTES`
@@ -12660,11 +12675,11 @@ Error generating stack: ` + e.message + `
                                         flexWrap: `wrap`
                                     },
                                     children: [
-                                        p && (0, k.jsxs)(a.button, {
+                                        m && (0, k.jsxs)(a.button, {
                                             whileTap: {
                                                 scale: .96
                                             },
-                                            onClick: ()=>pe(!0),
+                                            onClick: ()=>me(!0),
                                             style: {
                                                 padding: `9px 12px`,
                                                 borderRadius: 12,
@@ -12696,15 +12711,15 @@ Error generating stack: ` + e.message + `
                                             whileTap: {
                                                 scale: .96
                                             },
-                                            onClick: ()=>_(!0),
+                                            onClick: ()=>v(!0),
                                             style: {
-                                                padding: p ? `9px 12px` : `12px 26px`,
+                                                padding: m ? `9px 12px` : `12px 26px`,
                                                 borderRadius: 12,
                                                 border: `1px solid rgba(238,221,68,0.45)`,
                                                 background: `rgba(238,221,68,0.07)`,
                                                 color: `rgba(238,221,68,0.9)`,
-                                                fontSize: p ? 11 : 14,
-                                                letterSpacing: p ? 1 : 3,
+                                                fontSize: m ? 11 : 14,
+                                                letterSpacing: m ? 1 : 3,
                                                 cursor: `pointer`,
                                                 fontFamily: `'Pirata One', cursive`,
                                                 display: `flex`,
@@ -12713,9 +12728,9 @@ Error generating stack: ` + e.message + `
                                             children: [
                                                 (0, k.jsx)(S, {
                                                     name: `fleurdelys`,
-                                                    size: p ? 16 : 22,
+                                                    size: m ? 16 : 22,
                                                     style: {
-                                                        marginRight: p ? 5 : 8
+                                                        marginRight: m ? 5 : 8
                                                     }
                                                 }),
                                                 `FEATS`
@@ -12730,13 +12745,13 @@ Error generating stack: ` + e.message + `
                                             },
                                             onClick: ()=>ee(!0),
                                             style: {
-                                                padding: p ? `9px 12px` : `12px 26px`,
+                                                padding: m ? `9px 12px` : `12px 26px`,
                                                 borderRadius: 12,
                                                 border: `1px solid rgba(136,221,255,0.45)`,
                                                 background: `rgba(136,221,255,0.07)`,
                                                 color: `rgba(136,221,255,0.9)`,
-                                                fontSize: p ? 11 : 14,
-                                                letterSpacing: p ? 1 : 3,
+                                                fontSize: m ? 11 : 14,
+                                                letterSpacing: m ? 1 : 3,
                                                 cursor: `pointer`,
                                                 fontFamily: `'Pirata One', cursive`,
                                                 display: `flex`,
@@ -12745,9 +12760,9 @@ Error generating stack: ` + e.message + `
                                             children: [
                                                 (0, k.jsx)(S, {
                                                     name: `ship`,
-                                                    size: p ? 16 : 22,
+                                                    size: m ? 16 : 22,
                                                     style: {
-                                                        marginRight: p ? 5 : 8
+                                                        marginRight: m ? 5 : 8
                                                     }
                                                 }),
                                                 `SHIPS`
@@ -12762,13 +12777,13 @@ Error generating stack: ` + e.message + `
                                             },
                                             onClick: ()=>b(!0),
                                             style: {
-                                                padding: p ? `9px 12px` : `12px 26px`,
+                                                padding: m ? `9px 12px` : `12px 26px`,
                                                 borderRadius: 12,
                                                 border: `1px solid rgba(170,102,238,0.45)`,
                                                 background: `rgba(170,102,238,0.07)`,
                                                 color: `rgba(200,150,255,0.9)`,
-                                                fontSize: p ? 11 : 14,
-                                                letterSpacing: p ? 1 : 3,
+                                                fontSize: m ? 11 : 14,
+                                                letterSpacing: m ? 1 : 3,
                                                 cursor: `pointer`,
                                                 fontFamily: `'Pirata One', cursive`,
                                                 display: `flex`,
@@ -12777,9 +12792,9 @@ Error generating stack: ` + e.message + `
                                             children: [
                                                 (0, k.jsx)(S, {
                                                     name: `fleurdelys`,
-                                                    size: p ? 16 : 22,
+                                                    size: m ? 16 : 22,
                                                     style: {
-                                                        marginRight: p ? 5 : 8
+                                                        marginRight: m ? 5 : 8
                                                     }
                                                 }),
                                                 `NFTS`
@@ -12797,13 +12812,13 @@ Error generating stack: ` + e.message + `
                                 marginTop: 8,
                                 marginBottom: 4
                             },
-                            children: st.map((e, t)=>(0, k.jsx)(`div`, {
+                            children: ct.map((e, t)=>(0, k.jsx)(`div`, {
                                     onClick: ()=>A(t),
                                     style: {
                                         width: 6,
                                         height: 6,
                                         borderRadius: `50%`,
-                                        background: t === Ie ? `rgba(200,160,48,0.8)` : `rgba(255,255,255,0.15)`,
+                                        background: t === Le ? `rgba(200,160,48,0.8)` : `rgba(255,255,255,0.15)`,
                                         cursor: `pointer`,
                                         transition: `background 0.3s`
                                     }
@@ -12813,31 +12828,31 @@ Error generating stack: ` + e.message + `
                 }),
                 (0, k.jsxs)(r, {
                     children: [
-                        m && (0, k.jsx)(Le, {
-                            onClose: ()=>h(!1),
+                        h && (0, k.jsx)(Re, {
+                            onClose: ()=>g(!1),
                             onPlay: async ()=>{
-                                h(!1), await Pe();
+                                g(!1), await Fe();
                             }
                         }),
-                        ie && (0, k.jsx)(nt, {
-                            onClose: ()=>ae(!1)
+                        ne && (0, k.jsx)(rt, {
+                            onClose: ()=>re(!1)
                         }),
-                        g && (0, k.jsx)(Re, {
-                            onClose: ()=>_(!1)
+                        _ && (0, k.jsx)(ze, {
+                            onClose: ()=>v(!1)
                         }),
-                        x && (0, k.jsx)(Qe, {
+                        x && (0, k.jsx)($e, {
                             onClose: ()=>ee(!1)
                         }),
-                        v && (0, k.jsx)(Ge, {
+                        y && (0, k.jsx)(Ke, {
                             onClose: ()=>b(!1)
                         }),
-                        fe && (0, k.jsx)(ot, {
-                            onClose: ()=>pe(!1)
+                        pe && (0, k.jsx)(st, {
+                            onClose: ()=>me(!1)
                         }),
-                        Se && (0, k.jsx)(et, {
-                            offers: Se,
+                        Ce && (0, k.jsx)(tt, {
+                            offers: Ce,
                             onPick: (e)=>{
-                                Fe(e);
+                                Ie(e);
                             }
                         })
                     ]
@@ -12845,7 +12860,7 @@ Error generating stack: ` + e.message + `
             ]
         });
     }
-    var lt = [
+    var ut = [
         `ghost`,
         `hunter`,
         `rider`,
@@ -12859,7 +12874,7 @@ Error generating stack: ` + e.message + `
         `_reserved10`,
         `_reserved11`,
         `_reserved12`
-    ], ut = new Set([
+    ], dt = new Set([
         `ghost`,
         `hunter`,
         `rider`,
@@ -12867,31 +12882,31 @@ Error generating stack: ` + e.message + `
         `berserker`,
         `escape`
     ]);
-    function dt(e, t, n) {
-        let r = l(e, t || `default`);
-        for (let e of n)if (e === 0) r = ae(r, -1, 0);
-        else if (e === 1) r = ae(r, 0, -1);
-        else if (e === 2) r = ae(r, 1, 0);
-        else if (e >= 10 && e < 20) r = v(r, e - 10);
-        else if (e === 20) r = d(r);
-        else if (e === 30) r = m(r, `hull`);
-        else if (e === 31) r = m(r, `weapon`);
-        else if (e === 32) r = m(r, `nav`);
-        else if (e === 40) r = g(r);
+    function ft(e, t, n) {
+        let r = x(e, t || `default`);
+        for (let e of n)if (e === 0) r = y(r, -1, 0);
+        else if (e === 1) r = y(r, 0, -1);
+        else if (e === 2) r = y(r, 1, 0);
+        else if (e >= 10 && e < 20) r = p(r, e - 10);
+        else if (e === 20) r = g(r);
+        else if (e === 30) r = v(r, `hull`);
+        else if (e === 31) r = v(r, `weapon`);
+        else if (e === 32) r = v(r, `nav`);
+        else if (e === 40) r = ee(r);
         else if (e >= 50 && e < 60) {
-            let t = lt[e - 50];
-            t && ut.has(t) && (r = c(r, t));
-        } else e === 60 ? r = h(r, 8, 25) : e === 61 ? r = h(r, r.ship.maxHull, 55) : e === 70 && (r = oe(r));
+            let t = ut[e - 50];
+            t && dt.has(t) && (r = u(r, t));
+        } else e === 60 ? r = b(r, 8, 25) : e === 61 ? r = b(r, r.ship.maxHull, 55) : e === 70 && (r = c(r));
         return r;
     }
-    var ft = (0, O.lazy)(()=>Ee(()=>import(`./CorsairGame-Ck3SW9qH.js`).then(async (m)=>{
+    var pt = (0, O.lazy)(()=>De(()=>import(`./CorsairGame-DUPnCAMn.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
-            }), __vite__mapDeps([0,1,2,3,4,5,6]))), pt = (0, O.lazy)(()=>Ee(()=>import(`./AdminPanel-CSywOE65.js`).then(async (m)=>{
+            }), __vite__mapDeps([0,1,2,3,4,5,6]))), mt = (0, O.lazy)(()=>De(()=>import(`./AdminPanel-CSywOE65.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
-            }), __vite__mapDeps([7,1,2,4]))), mt = `corsair_crew_bypass`;
-    function ht() {
+            }), __vite__mapDeps([7,1,2,4]))), ht = `corsair_crew_bypass`;
+    function gt() {
         return (0, k.jsx)(`div`, {
             style: {
                 height: `100vh`,
@@ -12908,88 +12923,88 @@ Error generating stack: ` + e.message + `
             children: `CORSAIR`
         });
     }
-    function gt() {
+    function _t() {
         try {
-            return new URLSearchParams(window.location.search).has(`crew`) ? !0 : (localStorage.removeItem(mt), !1);
+            return new URLSearchParams(window.location.search).has(`crew`) ? !0 : (localStorage.removeItem(ht), !1);
         } catch  {
             return !1;
         }
     }
-    function _t() {
-        let { address: e, account: t, username: n } = o(), [r, i] = (0, O.useState)(`home`), [a, s] = (0, O.useState)(void 0), [c, l] = (0, O.useState)(!1), [u, d] = (0, O.useState)(void 0), [p, m] = (0, O.useState)(void 0), [h, g] = (0, O.useState)(null), [_, v] = (0, O.useState)(void 0), [b, x] = (0, O.useState)(0), [S] = (0, O.useState)(()=>gt());
+    function vt() {
+        let { address: e, account: t, username: n } = o(), [r, i] = (0, O.useState)(`home`), [a, s] = (0, O.useState)(void 0), [c, l] = (0, O.useState)(!1), [u, d] = (0, O.useState)(void 0), [p, h] = (0, O.useState)(void 0), [g, v] = (0, O.useState)(null), [y, b] = (0, O.useState)(void 0), [x, ee] = (0, O.useState)(0), [te] = (0, O.useState)(()=>_t());
         (0, O.useEffect)(()=>{
-            ee(e ?? null), e && f(e);
+            m(e ?? null), e && _(e);
         }, [
             e
         ]), (0, O.useEffect)(()=>{
-            T(async (e, t)=>e === `approve` ? (await Te(t.run_id), !0) : e === `score` ? await he(t.wallet, t.score, t.run_title, t.turn, t.zone, t.seed, t.username) : (await Ce(t), !0));
+            he(async (e, t)=>e === `approve` ? (await Ee(t.run_id), !0) : e === `score` ? await ge(t.wallet, t.score, t.run_title, t.turn, t.zone, t.seed, t.username) : (await we(t), !0));
         }, []), (0, O.useEffect)(()=>{
             let e = ()=>{
                 window.location.hash.replace(`#`, ``) === `admin` && i(`admin`);
             };
             return e(), window.addEventListener(`hashchange`, e), ()=>window.removeEventListener(`hashchange`, e);
         }, []);
-        let te = (e, t, n, r, a, o)=>{
-            g(t ?? null), m(void 0), s(n), l(!!r), d(a), v(r ? `default` : o), x((e)=>e + 1), i(`game`);
+        let ne = (e, t, n, r, a, o)=>{
+            v(t ?? null), h(void 0), s(n), l(!!r), d(a), b(r ? `default` : o), ee((e)=>e + 1), i(`game`);
         };
         (0, O.useEffect)(()=>{
-            new URLSearchParams(window.location.search).has(`guest`) && te(null, `Guest`, Math.floor(Math.random() * 999999), !1, void 0);
+            new URLSearchParams(window.location.search).has(`guest`) && ne(null, `Guest`, Math.floor(Math.random() * 999999), !1, void 0);
         }, []);
-        let ne = h ?? n, re = c ? `default` : _ ?? fe();
+        let re = g ?? n, S = c ? `default` : y ?? me();
         return r === `admin` ? (0, k.jsx)(O.Suspense, {
-            fallback: (0, k.jsx)(ht, {}),
-            children: (0, k.jsx)(pt, {
+            fallback: (0, k.jsx)(gt, {}),
+            children: (0, k.jsx)(mt, {
                 onHome: ()=>{
                     window.location.hash = ``, i(`home`);
                 }
             })
         }) : r === `game` ? (0, k.jsx)(O.Suspense, {
-            fallback: (0, k.jsx)(ht, {}),
-            children: (0, k.jsx)(ft, {
+            fallback: (0, k.jsx)(gt, {}),
+            children: (0, k.jsx)(pt, {
                 walletAddress: e,
                 account: t,
-                username: ne,
+                username: re,
                 onHome: ()=>i(`home`),
                 onPlayDaily: ()=>{
-                    e && te(e, n, y(), !0);
+                    e && ne(e, n, f(), !0);
                 },
                 dailySeed: a,
                 isDaily: c,
                 seedToken: u,
-                shipId: p ? p.run.ship_id : re,
+                shipId: p ? p.run.ship_id : S,
                 resumeState: p?.state,
                 resumeRunId: p?.run.run_id,
                 resumeActions: p?.run.actions
-            }, b)
-        }) : (0, k.jsx)(ct, {
-            onPlay: te,
+            }, x)
+        }) : (0, k.jsx)(lt, {
+            onPlay: ne,
             onResume: (e)=>{
                 try {
-                    let t = dt(e.seed, e.ship_id, e.actions);
+                    let t = ft(e.seed, e.ship_id, e.actions);
                     if (t.gameOver) {
-                        pe();
+                        T();
                         return;
                     }
-                    m({
+                    h({
                         state: t,
                         run: e
-                    }), l(e.is_daily), s(e.is_daily ? e.seed : void 0), x((e)=>e + 1), i(`game`);
+                    }), l(e.is_daily), s(e.is_daily ? e.seed : void 0), ee((e)=>e + 1), i(`game`);
                 } catch (e) {
-                    console.warn(`Replay failed, clearing saved run:`, e), pe();
+                    console.warn(`Replay failed, clearing saved run:`, e), T();
                 }
             }
         });
     }
-    var vt = (0, O.lazy)(()=>Ee(()=>import(`./cartridge-x3He-95Y.js`).then(async (m)=>{
+    var yt = (0, O.lazy)(()=>De(()=>import(`./cartridge-x3He-95Y.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }).then((e)=>({
                     default: e.StarknetProvider
-                })), __vite__mapDeps([8,9,3,1,4]))), yt = (0, O.lazy)(()=>Ee(()=>import(`./LiveWalletBridge-W8MLdVd8.js`).then(async (m)=>{
+                })), __vite__mapDeps([8,9,3,1,4]))), bt = (0, O.lazy)(()=>De(()=>import(`./LiveWalletBridge-W8MLdVd8.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }), __vite__mapDeps([10,1,3,4,9,6])));
-    function bt({ children: e }) {
+    function xt({ children: e }) {
         let [t, n] = (0, O.useState)(!1), [r, i] = (0, O.useState)(!1), a = (0, O.useCallback)((e)=>{
             e && i(!0), n(!0);
         }, []), o = (0, O.useMemo)(()=>({
@@ -13010,13 +13025,13 @@ Error generating stack: ` + e.message + `
                 value: o,
                 children: e
             }),
-            children: (0, k.jsx)(vt, {
+            children: (0, k.jsx)(yt, {
                 children: (0, k.jsx)(O.Suspense, {
                     fallback: (0, k.jsx)(s, {
                         value: o,
                         children: e
                     }),
-                    children: (0, k.jsx)(yt, {
+                    children: (0, k.jsx)(bt, {
                         autoConnect: r,
                         children: e
                     })
@@ -13027,9 +13042,9 @@ Error generating stack: ` + e.message + `
             children: e
         });
     }
-    Me.createRoot(document.getElementById(`root`)).render((0, k.jsx)(O.StrictMode, {
-        children: (0, k.jsx)(bt, {
-            children: (0, k.jsx)(_t, {})
+    Ne.createRoot(document.getElementById(`root`)).render((0, k.jsx)(O.StrictMode, {
+        children: (0, k.jsx)(xt, {
+            children: (0, k.jsx)(vt, {})
         })
     }));
 });
