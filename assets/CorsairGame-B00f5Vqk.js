@@ -1,8 +1,8 @@
 import { a as e } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as t, n, r, t as i } from "./motion-wKhEcHeU.js";
 import { n as a } from "./walletApi-DYniPf4L.js";
-import { A as o, B as s, C as c, F as l, G as u, H as d, I as f, J as p, K as m, L as h, M as g, O as _, P as v, R as y, S as ee, T as b, U as x, V as te, W as ne, a as re, c as S, d as ie, et as C, f as w, g as T, j as E, k as ae, m as oe, nt as se, o as ce, r as le, s as ue, t as de, tt as D, w as O, z as fe } from "./anchor-F3In-gwJ.js";
-import { C as pe, _ as me, g as he, h as ge, p as _e, s as ve, t as ye, w as be, __tla as __tla_0 } from "./supabase-QwHEeLRl.js";
+import { A as o, B as s, C as c, F as l, G as u, H as d, I as f, J as p, K as m, L as h, M as g, O as _, P as v, R as y, S as ee, T as b, U as x, V as te, W as ne, a as re, c as S, d as ie, et as C, f as w, g as T, j as E, k as ae, m as oe, nt as se, o as ce, r as le, s as ue, t as de, tt as D, w as O, z as fe } from "./anchor-BxrvFrJR.js";
+import { T as pe, _ as me, c as he, g as ge, m as _e, n as ve, v as ye, w as be, __tla as __tla_0 } from "./supabase-C5K4zmsK.js";
 import { l as xe, __tla as __tla_1 } from "./wallet-D0U5_iuP.js";
 let Tt;
 let __tla = Promise.all([
@@ -4252,7 +4252,7 @@ let __tla = Promise.all([
         ]);
         let Pt = (0, k.useRef)(0);
         (0, k.useEffect)(()=>{
-            e && (le || be({
+            e && (le || pe({
                 run_id: G.current,
                 wallet_address: e,
                 username: r ?? null,
@@ -4261,7 +4261,7 @@ let __tla = Promise.all([
                 seed_token: C ?? null
             }));
         }, []), (0, k.useEffect)(()=>{
-            !e || A.gameOver || A.turn - Pt.current < 3 || (Pt.current = A.turn, he(G.current, {
+            !e || A.gameOver || A.turn - Pt.current < 3 || (Pt.current = A.turn, me(G.current, {
                 score: A.score,
                 turn: A.turn,
                 zone: A.currentZone ?? 1,
@@ -4298,7 +4298,7 @@ let __tla = Promise.all([
                 kind: `sending`
             });
             try {
-                await pe(t);
+                await be(t);
             } catch (e) {
                 console.warn(`[runlog]`, e), _(`runlog`, t), B({
                     kind: `queued`,
@@ -4307,7 +4307,7 @@ let __tla = Promise.all([
                 return;
             }
             try {
-                let t = await ye(G.current);
+                let t = await ve(G.current);
                 if (t?.approved) {
                     if (Qe(!0), B({
                         kind: `ok`,
@@ -4340,7 +4340,7 @@ let __tla = Promise.all([
                     return;
                 }
                 if (!it.current) {
-                    if (it.current = !0, ve(G.current, {
+                    if (it.current = !0, he(G.current, {
                         score: A.score,
                         turn: A.turn,
                         zone: A.currentZone ?? 1,
@@ -4570,7 +4570,7 @@ let __tla = Promise.all([
         }, hn = async ()=>{
             if (e) {
                 Mt(!0), At(!1);
-                let t = await me(e);
+                let t = await ye(e);
                 if (Mt(!1), !t) {
                     At(!0);
                     return;
@@ -4579,7 +4579,7 @@ let __tla = Promise.all([
                 let n = l(t.seed, w ?? `default`);
                 K.current = [], J.current = [], Pt.current = 0, G.current = crypto.randomUUID(), it.current = !1, Qe(!1), B({
                     kind: `idle`
-                }), rt(!1), ot([]), ct([]), be({
+                }), rt(!1), ot([]), ct([]), pe({
                     run_id: G.current,
                     wallet_address: e,
                     username: r ?? null,

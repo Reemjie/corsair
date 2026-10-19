@@ -1,4 +1,4 @@
-let ea, $r, aa, Li, na, ra, Ji, Xi, Wi, ta, Qi, sa, Vi, zi, Gi, qi, oa, Bi, Yi, $i, la, Ri, ca, Zi, ia, Ki;
+let aa, $r, Li, ia, Zi, Qi, Vi, Ki, $i, Ri, Wi, sa, Gi, Yi, Xi, Bi, la, ra, ta, qi, oa, Hi, zi, na, ea, Ji, ca;
 let __tla = (async ()=>{
     function e(e, t) {
         var n = {};
@@ -8190,7 +8190,8 @@ Resources:`;
             };
         }
     };
-    var Hi = {
+    let Ui;
+    Hi = {
         kraken_eye: `ipfs://QmVnXgMYLnyMdUSbDXPqrFmWZJBNke7wPWvpn3ou86fKAX`,
         ancient_chart: `ipfs://QmbXeEXsfmgrfi1SoWvKJmcLhXqCZH4fCg5LNbYX7c1zLh`,
         storm_caller: `ipfs://Qmb54sRo5vJydXJ9m3L23fSCYMbqGkJkHsMfVD9bce1Pmv`,
@@ -8206,12 +8207,18 @@ Resources:`;
         red_wake: `https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/meta/red_wake.json`,
         abyss_lantern: `https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/meta/abyss_lantern.json`,
         tideborn_crown: `https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/meta/tideborn_crown.json`
-    }, Ui = `0x06c8b06fb6a94f3ae9b26c87b1baacc4a7a1f2e0184870c957728b5d17bd0202`;
+    };
+    Ui = `0x06c8b06fb6a94f3ae9b26c87b1baacc4a7a1f2e0184870c957728b5d17bd0202`;
     Wi = async function() {
-        let { data: e, error: t } = await $.from(`nft_mints`).select(`id, wallet_address, nft_name, nft_id, status, tx_hash, token_id, run_id`).order(`id`, {
+        let e = await $.from(`nft_mints`).select(`id, wallet_address, nft_name, nft_id, status, tx_hash, token_id, run_id`).order(`id`, {
             ascending: !1
         });
-        return t ? (console.warn(`[admin] getPendingMints:`, t.message), []) : e ?? [];
+        if (!e.error) return e.data ?? [];
+        console.warn(`[admin] getPendingMints (token_id):`, e.error.message);
+        let { data: t, error: n } = await $.from(`nft_mints`).select(`id, wallet_address, nft_name, nft_id, status, tx_hash, run_id`).order(`id`, {
+            ascending: !1
+        });
+        return n ? (console.warn(`[admin] getPendingMints:`, n.message), []) : t ?? [];
     };
     Gi = async function() {
         let { data: e, error: t } = await $.from(`nft_conditions`).select(`name, minted, max_supply`).order(`name`, {
@@ -8396,4 +8403,4 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`), !1;
         return t;
     };
 })();
-export { ea as C, $r as E, aa as S, Li as T, na as _, ra as a, Ji as b, Xi as c, Wi as d, ta as f, Qi as g, sa as h, Vi as i, zi as l, Gi as m, qi as n, oa as o, Bi as p, Yi as r, $i as s, la as t, Ri as u, ca as v, Zi as w, ia as x, Ki as y, __tla };
+export { aa as C, $r as D, Li as E, ia as S, Zi as T, Qi as _, Vi as a, Ki as b, $i as c, Ri as d, Wi as f, sa as g, Gi as h, Yi as i, Xi as l, Bi as m, la as n, ra as o, ta as p, qi as r, oa as s, Hi as t, zi as u, na as v, ea as w, Ji as x, ca as y, __tla };
