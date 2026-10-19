@@ -1,8 +1,8 @@
 import { a as e } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as t, n, r, t as i } from "./motion-wKhEcHeU.js";
 import { n as a } from "./walletApi-DYniPf4L.js";
-import { A as o, B as s, C as c, F as l, G as u, H as d, I as f, J as p, K as m, L as h, M as g, O as _, P as v, R as y, S as ee, T as b, U as x, V as te, W as ne, a as re, c as S, d as ie, et as C, f as w, g as T, j as E, k as ae, m as oe, nt as se, o as ce, r as le, s as ue, t as de, tt as D, w as O, z as fe } from "./anchor-BmF_8Elr.js";
-import { S as pe, f as me, g as he, h as ge, m as _e, o as ve, t as ye, x as be, __tla as __tla_0 } from "./supabase-D1x7Wzn0.js";
+import { A as o, B as s, C as c, F as l, G as u, H as d, I as f, J as p, K as m, L as h, M as g, O as _, P as v, R as y, S as ee, T as b, U as x, V as te, W as ne, a as re, c as ie, d as ae, et as S, f as C, g as w, j as T, k as oe, m as se, nt as ce, o as le, r as ue, s as de, t as fe, tt as E, w as D, z as pe } from "./anchor-BmF_8Elr.js";
+import { S as me, f as O, g as he, h as ge, m as _e, o as ve, t as ye, x as be, __tla as __tla_0 } from "./supabase-D1x7Wzn0.js";
 import { l as xe, __tla as __tla_1 } from "./wallet-D0U5_iuP.js";
 let Tt;
 let __tla = Promise.all([
@@ -17,7 +17,7 @@ let __tla = Promise.all([
         } catch  {}
     })()
 ]).then(async ()=>{
-    var k = e(t(), 1), Se = `corsair_onboard_v1`;
+    var k = e(t(), 1), Se = `corsair_onboard_v2`;
     function A() {
         try {
             return new Set(JSON.parse(localStorage.getItem(Se) ?? `[]`));
@@ -39,23 +39,23 @@ let __tla = Promise.all([
         return !t.has(`sail`) && e.turn === 0 && !e.event && !e.showPort && !e.gameOver ? {
             id: `sail`,
             title: `SET SAIL`,
-            text: `Move with ← ↑ → (or A / W / D). Sail north. The storm climbs from the south.`
+            text: `← ↑ → north. Storm rises from the south.`
         } : !t.has(`danger`) && e.event && e.event.choices.some((e)=>e.risk === `risky` || e.risk === `bold`) ? {
             id: `danger`,
             title: `A CHOICE`,
-            text: `Risky choices pay more — and can sink you. Read both options before you commit.`
-        } : !t.has(`storm`) && e.turn > 0 && e.stormDistance <= 8 && !e.gameOver ? {
+            text: `Bold pays more. Safe keeps you alive.`
+        } : !t.has(`storm`) && e.turn > 0 && e.stormDistance <= 6 && !e.gameOver ? {
             id: `storm`,
             title: `THE STORM`,
-            text: `Only ${e.stormDistance} turns left. Islands and Kraken Pacts buy you time.`
+            text: `${e.stormDistance} turns left. Island ritual or Kraken Pact buys time.`
         } : !t.has(`port`) && e.showPort ? {
             id: `port`,
-            title: `SAFE HARBOR`,
-            text: `Repair, upgrade hull / cannons / navigation, then leave. Max two special abilities per run.`
+            title: `PORT`,
+            text: `Repair. Upgrade. Max 2 specials. Then leave.`
         } : !t.has(`hunter`) && e.hunter?.active && !e.gameOver ? {
             id: `hunter`,
             title: `THE HUNTER`,
-            text: `It tracks you. Purple tiles hint its next move. Ports and storms lower its awareness.`
+            text: `Watch the bar. Ports & storms calm it.`
         } : null;
     }
     var j = {
@@ -79,7 +79,7 @@ let __tla = Promise.all([
         } catch  {}
     }
     var N = r();
-    function Oe({ tip: e, isMobile: t, onDismiss: n }) {
+    function P({ tip: e, isMobile: t, onDismiss: n }) {
         return (0, N.jsxs)(i.button, {
             type: `button`,
             initial: {
@@ -92,49 +92,50 @@ let __tla = Promise.all([
             },
             onClick: n,
             style: {
-                maxWidth: 440,
-                margin: `0 12px 10px`,
-                padding: `10px 14px`,
-                border: `1px solid rgba(200,160,48,0.35)`,
+                maxWidth: 360,
+                margin: `0 12px 8px`,
+                padding: `8px 12px`,
+                border: `1px solid rgba(200,160,48,0.4)`,
                 borderRadius: 10,
-                background: `rgba(12,18,28,0.82)`,
-                color: `rgba(255,255,255,0.85)`,
+                background: `rgba(12,18,28,0.9)`,
+                color: `rgba(255,255,255,0.9)`,
                 textAlign: `left`,
                 cursor: `pointer`,
-                fontFamily: `'IM Fell English', cursive`
+                fontFamily: `'IM Fell English', cursive`,
+                boxShadow: `0 4px 20px rgba(0,0,0,0.45)`
             },
             children: [
                 (0, N.jsx)(`div`, {
                     style: {
-                        fontSize: 11,
+                        fontSize: 10,
                         letterSpacing: 2,
                         color: `#c8a030`,
                         fontFamily: `'Cinzel', serif`,
-                        marginBottom: 4
+                        marginBottom: 3
                     },
                     children: e.title
                 }),
                 (0, N.jsx)(`div`, {
                     style: {
-                        fontSize: t ? 13 : 15,
-                        lineHeight: 1.35
+                        fontSize: t ? 13 : 14,
+                        lineHeight: 1.3
                     },
                     children: e.text
                 }),
                 (0, N.jsx)(`div`, {
                     style: {
-                        fontSize: 10,
+                        fontSize: 9,
                         letterSpacing: 1,
-                        color: `rgba(255,255,255,0.35)`,
+                        color: `rgba(255,255,255,0.3)`,
                         fontFamily: `'Cinzel', serif`,
-                        marginTop: 6
+                        marginTop: 4
                     },
-                    children: `TAP TO DISMISS`
+                    children: `TAP`
                 })
             ]
         });
     }
-    var P = {
+    var F = {
         search: `/assets/search-CSNg3Ko5.png`,
         lurks: `/assets/lurks-BB0IX5ES.png`,
         fight: `/assets/fight-g8Kc5AC3.png`,
@@ -154,36 +155,36 @@ let __tla = Promise.all([
         cursed: `/assets/cursed-DmavkUs_.png`,
         sacrifice: `/assets/sacrifice-KlI9xYLE.png`,
         cover: `/assets/cover-B_e5YbfY.png`
-    }, F = (e)=>`/scenes/${e}`, I = {
-        1: F(`island.jpg`),
-        2: F(`storm.jpg`),
-        3: F(`ancient_kraken.jpg`)
-    }, L = {
-        kraken: F(`kraken.jpg`),
-        ancient_kraken: F(`ancient_kraken.jpg`),
-        storm: F(`storm.jpg`),
-        island: F(`island.jpg`),
-        treasure: F(`treasure.jpg`),
-        cursed_treasure: F(`cursed_treasure.jpg`),
-        pirate: F(`pirate.jpg`),
-        port: F(`port.jpg`),
-        rocks: F(`rocks.jpg`),
-        wreck: F(`wreck.jpg`),
-        maelstrom: F(`maelstrom.jpg`)
+    }, I = (e)=>`/scenes/${e}`, L = {
+        1: I(`island.jpg`),
+        2: I(`storm.jpg`),
+        3: I(`ancient_kraken.jpg`)
+    }, R = {
+        kraken: I(`kraken.jpg`),
+        ancient_kraken: I(`ancient_kraken.jpg`),
+        storm: I(`storm.jpg`),
+        island: I(`island.jpg`),
+        treasure: I(`treasure.jpg`),
+        cursed_treasure: I(`cursed_treasure.jpg`),
+        pirate: I(`pirate.jpg`),
+        port: I(`port.jpg`),
+        rocks: I(`rocks.jpg`),
+        wreck: I(`wreck.jpg`),
+        maelstrom: I(`maelstrom.jpg`)
+    }, Oe = {
+        kraken: I(`kraken.mp4`),
+        ancient_kraken: I(`ancient_kraken.mp4`),
+        storm: I(`storm.mp4`),
+        island: I(`island.mp4`),
+        treasure: I(`treasure.mp4`),
+        cursed_treasure: I(`cursed_treasure.mp4`),
+        pirate: I(`pirate.mp4`),
+        port: I(`port.mp4`),
+        rocks: I(`rocks.mp4`),
+        wreck: I(`wreck.mp4`),
+        maelstrom: I(`maelstrom.mp4`),
+        death: I(`death.mp4`)
     }, ke = {
-        kraken: F(`kraken.mp4`),
-        ancient_kraken: F(`ancient_kraken.mp4`),
-        storm: F(`storm.mp4`),
-        island: F(`island.mp4`),
-        treasure: F(`treasure.mp4`),
-        cursed_treasure: F(`cursed_treasure.mp4`),
-        pirate: F(`pirate.mp4`),
-        port: F(`port.mp4`),
-        rocks: F(`rocks.mp4`),
-        wreck: F(`wreck.mp4`),
-        maelstrom: F(`maelstrom.mp4`),
-        death: F(`death.mp4`)
-    }, Ae = {
         kraken: `The Kraken Rises`,
         ancient_kraken: `The Ancient One Awakens`,
         storm: `Into the Storm`,
@@ -197,19 +198,19 @@ let __tla = Promise.all([
         death: `Your Voyage Ends`,
         maelstrom: `The Maelstrom`
     };
-    function je(e) {
+    function Ae(e) {
         let t = e.match(/(?:lose|pay|costs?|spend)\s*(\d+)\s*(?:gold\b|g\b)|(?:^|\s)-(\d+)\s*gold\b/i);
         return t ? parseInt(t[1] ?? t[2]) : 0;
     }
-    function Me(e, t) {
-        let n = je(e);
+    function je(e, t) {
+        let n = Ae(e);
         return n === 0 || t >= n;
     }
-    function Ne(e, t, n) {
+    function Me(e, t, n) {
         return t === `port` && e.label === `Dock` && (n ?? []).includes(`ghost`) ? `Ghost Ship cannot dock` : null;
     }
-    function Pe(e, t, n, r, i) {
-        let a = Ne(e, t, i);
+    function Ne(e, t, n, r, i) {
+        let a = Me(e, t, i);
         if (a) return a + ` — sail on.`;
         if (e.label === `Pact` && t === `kraken`) {
             let e = (n ?? []).includes(`storm_heart`);
@@ -217,17 +218,17 @@ let __tla = Promise.all([
         }
         return e.desc;
     }
-    function Fe(e) {
+    function Pe(e) {
         return e === `safe` ? `#44cc88` : e === `risky` ? `#eedd44` : `#ee6644`;
     }
-    var Ie = {
+    var Fe = {
         escape: `/assets/swift_sails-YMobDX4v.png`,
         ghost: `/assets/ghost_ship-4jaVs07k.png`,
         hunter: `/assets/treasure_hunter-C9jnAyZy.png`,
         rider: `/assets/storm_rider-BjRGnDwr.png`,
         greed: `/assets/cursed_greed-BlVfcQDt.png`,
         berserker: `/assets/berserker-B9haxHEY.png`
-    }, Le = [
+    }, Ie = [
         `ghost`,
         `hunter`,
         `rider`,
@@ -241,7 +242,7 @@ let __tla = Promise.all([
         `_reserved10`,
         `_reserved11`,
         `_reserved12`
-    ], R = D.upgrades.costs, Re = Math.round(D.storm.hunterSurgeBonus * 100), ze = [
+    ], Le = E.upgrades.costs, Re = Math.round(E.storm.hunterSurgeBonus * 100), ze = [
         {
             id: `ghost`,
             name: `Ghost Ship`,
@@ -251,7 +252,7 @@ let __tla = Promise.all([
             cons: [
                 `Cannot dock at ports. Krakens attracted on sea cells.`
             ],
-            cost: R.ghost,
+            cost: Le.ghost,
             icon: `ghost`,
             build: `combat`
         },
@@ -265,7 +266,7 @@ let __tla = Promise.all([
             cons: [
                 `-1 HP every 2 turns. Repairs -50%.`
             ],
-            cost: R.rider,
+            cost: Le.rider,
             icon: `rider`,
             build: `escape`
         },
@@ -273,12 +274,12 @@ let __tla = Promise.all([
             id: `greed`,
             name: `Cursed Greed`,
             pros: [
-                `Gold x${D.greed.goldMultiplier} on combat.`
+                `Gold x${E.greed.goldMultiplier} on combat.`
             ],
             cons: [
                 `Cannot repair at port. Storm worsens every 200g. Pirates hit harder at 400g+. Hunter aggro at 600g+.`
             ],
-            cost: R.greed,
+            cost: Le.greed,
             icon: `greed`,
             build: `gold`
         },
@@ -291,7 +292,7 @@ let __tla = Promise.all([
             cons: [
                 `All damage received x2.`
             ],
-            cost: R.berserker,
+            cost: Le.berserker,
             icon: `berserker`,
             build: `combat`
         },
@@ -304,7 +305,7 @@ let __tla = Promise.all([
             cons: [
                 `Storm surges +${Re}% more frequent.`
             ],
-            cost: R.hunter,
+            cost: Le.hunter,
             icon: `hunter`,
             build: `gold`
         },
@@ -315,7 +316,7 @@ let __tla = Promise.all([
                 `Skip one dangerous event per run with no consequences. Save for the worst moment.`
             ],
             cons: [],
-            cost: R.escape,
+            cost: Le.escape,
             icon: `escape`,
             build: `escape`
         }
@@ -403,7 +404,7 @@ let __tla = Promise.all([
                 marginTop: e === `compact` ? 8 : 0
             },
             children: t.choices.map((c, l)=>{
-                let u = Fe(c.risk), d = Ne(c, t.cellType, s), p = !d && Me(c.desc, r) && !d, m = Pe(c, t.cellType, o, a, s), h = e === `scene` ? 1.04 : 1.02, g = e === `scene` ? .96 : .98, _ = d ? `rgba(120,120,140,0.45)` : p ? `${u}55` : `rgba(255,255,255,0.1)`;
+                let u = Pe(c.risk), d = Me(c, t.cellType, s), p = !d && je(c.desc, r) && !d, m = Ne(c, t.cellType, o, a, s), h = e === `scene` ? 1.04 : 1.02, g = e === `scene` ? .96 : .98, _ = d ? `rgba(120,120,140,0.45)` : p ? `${u}55` : `rgba(255,255,255,0.1)`;
                 return (0, N.jsxs)(i.button, {
                     whileHover: {
                         scale: p ? h : 1
@@ -434,7 +435,7 @@ let __tla = Promise.all([
                         filter: d ? `grayscale(0.85)` : void 0
                     },
                     children: [
-                        P[c.icon] ? (0, N.jsxs)(`div`, {
+                        F[c.icon] ? (0, N.jsxs)(`div`, {
                             style: {
                                 marginBottom: e === `scene` ? 12 : 6,
                                 textAlign: e === `scene` ? `center` : `left`,
@@ -442,7 +443,7 @@ let __tla = Promise.all([
                             },
                             children: [
                                 (0, N.jsx)(`img`, {
-                                    src: P[c.icon],
+                                    src: F[c.icon],
                                     alt: ``,
                                     style: {
                                         width: e === `scene` ? 72 : 40,
@@ -546,7 +547,7 @@ let __tla = Promise.all([
             },
             children: [
                 (0, N.jsx)(`img`, {
-                    src: Ie.escape,
+                    src: Fe.escape,
                     alt: ``,
                     style: {
                         width: 28,
@@ -614,12 +615,12 @@ let __tla = Promise.all([
                 overflowY: `auto`
             },
             children: [
-                L[t.cellType] && (0, N.jsx)(`div`, {
+                R[t.cellType] && (0, N.jsx)(`div`, {
                     style: {
                         position: `absolute`,
                         inset: 0,
                         zIndex: 0,
-                        backgroundImage: `url(${L[t.cellType]})`,
+                        backgroundImage: `url(${R[t.cellType]})`,
                         backgroundSize: `cover`,
                         backgroundPosition: `center`
                     }
@@ -669,7 +670,7 @@ let __tla = Promise.all([
                                 justifyContent: `center`,
                                 marginBottom: 12
                             },
-                            children: (0, N.jsx)(Oe, {
+                            children: (0, N.jsx)(P, {
                                 tip: u,
                                 isMobile: n,
                                 onDismiss: d
@@ -691,7 +692,7 @@ let __tla = Promise.all([
                                     textShadow: `0 2px 20px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.7)`,
                                     lineHeight: 1.1
                                 },
-                                children: Ae[t.cellType] ?? t.cellType
+                                children: ke[t.cellType] ?? t.cellType
                             })
                         }),
                         h,
@@ -752,7 +753,7 @@ let __tla = Promise.all([
                                 },
                                 children: t.cellType.charAt(0).toUpperCase() + t.cellType.slice(1).replace(`_`, ` `)
                             }),
-                            u && d && (0, N.jsx)(Oe, {
+                            u && d && (0, N.jsx)(P, {
                                 tip: u,
                                 isMobile: n,
                                 onDismiss: d
@@ -827,7 +828,7 @@ let __tla = Promise.all([
                                     })
                                 ]
                             }),
-                            u && d && (0, N.jsx)(Oe, {
+                            u && d && (0, N.jsx)(P, {
                                 tip: u,
                                 isMobile: t,
                                 onDismiss: d
@@ -1046,7 +1047,7 @@ let __tla = Promise.all([
                                         },
                                         children: [
                                             (0, N.jsx)(`img`, {
-                                                src: Ie[e.id],
+                                                src: Fe[e.id],
                                                 alt: ``,
                                                 style: {
                                                     width: 44,
@@ -1226,7 +1227,7 @@ let __tla = Promise.all([
                             cursor: `pointer`
                         },
                         children: [
-                            (0, N.jsx)(O, {
+                            (0, N.jsx)(D, {
                                 name: `anchor`,
                                 size: 22,
                                 style: {
@@ -1495,7 +1496,7 @@ let __tla = Promise.all([
                             color: `#88ddff`
                         },
                         children: [
-                            (0, N.jsx)(O, {
+                            (0, N.jsx)(D, {
                                 name: `sun`,
                                 size: 18
                             }),
@@ -1695,7 +1696,33 @@ let __tla = Promise.all([
             }
         });
     }
-    function tt({ open: e, state: t, isMobile: r, isDailyRun: a, personalBest: o, isNewRecord: s, newFeats: c, nearFeats: l, submitStatus: d, onRetrySubmit: p, nftMinted: m, walletAddress: h, account: _, onChainDone: y, setOnChainDone: ee, submitting: b, setSubmitting: x, connecting: te, onConnect: ne, showGuestDailyCta: S, onPlayDaily: ie, rangMois: C, harborDown: T, restarting: E, onRestart: ae, onHome: oe }) {
+    function tt({ open: e, state: t, isMobile: r, isDailyRun: a, personalBest: o, isNewRecord: s, newFeats: c, nearFeats: l, submitStatus: d, onRetrySubmit: p, nftMinted: m, walletAddress: h, account: _, onChainDone: y, setOnChainDone: ee, submitting: b, setSubmitting: x, connecting: te, onConnect: ne, showGuestDailyCta: ie, onPlayDaily: ae, rangMois: S, harborDown: w, restarting: T, onRestart: oe, onHome: se }) {
+        let [ce, fe] = (0, k.useState)(!1), E = C(), pe = E <= 1, me = !a && !v() && !!ae && !!h, O = ie || me, he = Qe(t.log), ge = {
+            padding: r ? `16px 36px` : `18px 48px`,
+            borderRadius: 14,
+            border: O ? `2px solid rgba(136,221,255,0.85)` : `2px solid rgba(200,160,48,0.85)`,
+            background: O ? `linear-gradient(135deg, rgba(30,90,120,0.85) 0%, rgba(20,50,70,0.9) 100%)` : `linear-gradient(135deg, rgba(120,90,20,0.75) 0%, rgba(60,45,10,0.9) 100%)`,
+            color: O ? `#a8e8ff` : `#f0d878`,
+            cursor: T && !O ? `wait` : `pointer`,
+            fontSize: r ? 22 : 26,
+            fontWeight: 700,
+            letterSpacing: 3,
+            fontFamily: `'Pirata One', cursive`,
+            boxShadow: O ? `0 0 28px rgba(80,180,220,0.35)` : `0 0 28px rgba(200,160,48,0.35)`,
+            opacity: T && !O ? .7 : 1,
+            width: r ? `min(92vw, 360px)` : void 0,
+            textAlign: `center`
+        }, _e = {
+            padding: `10px 22px`,
+            borderRadius: 10,
+            border: `1px solid rgba(255,255,255,0.18)`,
+            background: `rgba(0,0,0,0.35)`,
+            color: `rgba(255,255,255,0.55)`,
+            cursor: `pointer`,
+            fontSize: 14,
+            letterSpacing: 2,
+            fontFamily: `'Pirata One', cursive`
+        };
         return (0, N.jsx)(n, {
             children: e && (0, N.jsxs)(i.div, {
                 initial: {
@@ -1714,10 +1741,11 @@ let __tla = Promise.all([
                     display: `flex`,
                     flexDirection: `column`,
                     alignItems: `center`,
-                    justifyContent: `center`,
+                    justifyContent: `flex-start`,
                     background: `radial-gradient(ellipse at center, #1a0505 0%, #050008 50%, #000000 100%)`,
                     overflow: `hidden`,
-                    overflowY: `auto`
+                    overflowY: `auto`,
+                    padding: r ? `24px 12px calc(28px + env(safe-area-inset-bottom))` : `40px 24px 48px`
                 },
                 children: [
                     (0, N.jsx)(i.div, {
@@ -1739,604 +1767,421 @@ let __tla = Promise.all([
                             pointerEvents: `none`
                         }
                     }),
-                    (0, N.jsx)(i.div, {
-                        initial: {
-                            scale: 0,
-                            rotate: -20
-                        },
-                        animate: {
-                            scale: 1,
-                            rotate: 0
-                        },
-                        transition: {
-                            type: `spring`,
-                            stiffness: 120,
-                            delay: .2
-                        },
+                    (0, N.jsxs)(`div`, {
                         style: {
-                            marginBottom: 8,
-                            filter: `drop-shadow(0 0 30px rgba(220,30,30,0.8))`
-                        },
-                        children: (0, N.jsx)(O, {
-                            name: `skull`,
-                            size: 130
-                        })
-                    }),
-                    (0, N.jsx)(i.div, {
-                        initial: {
-                            opacity: 0,
-                            y: 20
-                        },
-                        animate: {
-                            opacity: 1,
-                            y: 0
-                        },
-                        transition: {
-                            delay: .5
-                        },
-                        style: {
-                            fontSize: r ? 42 : 72,
-                            fontWeight: 700,
-                            color: `#ee4444`,
-                            fontFamily: `'Pirata One', cursive`,
-                            letterSpacing: r ? 3 : 6,
-                            textShadow: `0 0 40px rgba(220,30,30,0.8), 0 0 80px rgba(220,30,30,0.4)`,
-                            marginBottom: 8
-                        },
-                        children: `SHIPWRECKED`
-                    }),
-                    (0, N.jsx)(i.div, {
-                        initial: {
-                            opacity: 0
-                        },
-                        animate: {
-                            opacity: 1
-                        },
-                        transition: {
-                            delay: .7
-                        },
-                        style: {
-                            fontSize: r ? 16 : 24,
-                            color: `rgba(200,160,48,0.8)`,
-                            fontFamily: `'Cinzel', serif`,
-                            letterSpacing: r ? 2 : 4,
-                            marginBottom: 4,
-                            textAlign: `center`
-                        },
-                        children: t.runTitle
-                    }),
-                    (0, N.jsxs)(i.div, {
-                        initial: {
-                            opacity: 0
-                        },
-                        animate: {
-                            opacity: 1
-                        },
-                        transition: {
-                            delay: .9
-                        },
-                        style: {
-                            fontSize: r ? 15 : 20,
-                            color: `rgba(255,255,255,0.35)`,
-                            fontFamily: `'IM Fell English', cursive`,
-                            marginBottom: 16,
-                            maxWidth: r ? `90vw` : 600,
-                            textAlign: `center`,
-                            fontStyle: `italic`,
-                            padding: r ? `0 16px` : 0
-                        },
-                        children: [
-                            `"`,
-                            t.log,
-                            `"`
-                        ]
-                    }),
-                    (()=>{
-                        let e = Qe(t.log);
-                        return (0, N.jsxs)(i.div, {
-                            initial: {
-                                opacity: 0
-                            },
-                            animate: {
-                                opacity: 1
-                            },
-                            transition: {
-                                delay: 1
-                            },
-                            style: {
-                                display: `flex`,
-                                flexDirection: `column`,
-                                gap: 4,
-                                alignItems: `center`,
-                                marginBottom: 16,
-                                padding: `10px 18px`,
-                                borderRadius: 12,
-                                background: `rgba(150,0,0,0.12)`,
-                                border: `1px solid rgba(220,60,60,0.25)`,
-                                maxWidth: r ? `90vw` : 560
-                            },
-                            children: [
-                                (0, N.jsxs)(`div`, {
-                                    style: {
-                                        fontSize: r ? 13 : 15,
-                                        color: `#ee6655`,
-                                        fontFamily: `'Cinzel', serif`,
-                                        letterSpacing: 2
-                                    },
-                                    children: [
-                                        (0, N.jsx)(O, {
-                                            name: `anchor`,
-                                            size: 16,
-                                            style: {
-                                                marginRight: 6
-                                            }
-                                        }),
-                                        `Sunk by: `,
-                                        e.name
-                                    ]
-                                }),
-                                (0, N.jsx)(`div`, {
-                                    style: {
-                                        fontSize: r ? 12 : 14,
-                                        color: `rgba(255,255,255,0.55)`,
-                                        fontFamily: `'IM Fell English', cursive`,
-                                        textAlign: `center`
-                                    },
-                                    children: e.tip
-                                })
-                            ]
-                        });
-                    })(),
-                    c.length > 0 && (0, N.jsx)(i.div, {
-                        initial: {
-                            opacity: 0,
-                            scale: .9
-                        },
-                        animate: {
-                            opacity: 1,
-                            scale: 1
-                        },
-                        transition: {
-                            delay: 1.4,
-                            type: `spring`
-                        },
-                        style: {
+                            position: `relative`,
+                            zIndex: 1,
+                            width: `100%`,
+                            maxWidth: 560,
                             display: `flex`,
                             flexDirection: `column`,
-                            gap: 6,
-                            alignItems: `center`,
-                            marginBottom: 16,
-                            padding: `12px 22px`,
-                            borderRadius: 12,
-                            background: `rgba(200,160,48,0.12)`,
-                            border: `1px solid rgba(238,221,68,0.55)`,
-                            boxShadow: `0 0 24px rgba(238,221,68,0.15)`,
-                            maxWidth: r ? `90vw` : 560
+                            alignItems: `center`
                         },
-                        children: c.map((e)=>(0, N.jsxs)(`div`, {
+                        children: [
+                            (0, N.jsx)(i.div, {
+                                initial: {
+                                    scale: 0,
+                                    rotate: -20
+                                },
+                                animate: {
+                                    scale: 1,
+                                    rotate: 0
+                                },
+                                transition: {
+                                    type: `spring`,
+                                    stiffness: 120,
+                                    delay: .15
+                                },
+                                style: {
+                                    marginBottom: 4,
+                                    filter: `drop-shadow(0 0 30px rgba(220,30,30,0.8))`
+                                },
+                                children: (0, N.jsx)(D, {
+                                    name: `skull`,
+                                    size: r ? 72 : 100
+                                })
+                            }),
+                            (0, N.jsx)(i.div, {
+                                initial: {
+                                    opacity: 0,
+                                    y: 16
+                                },
+                                animate: {
+                                    opacity: 1,
+                                    y: 0
+                                },
+                                transition: {
+                                    delay: .35
+                                },
+                                style: {
+                                    fontSize: r ? 36 : 56,
+                                    fontWeight: 700,
+                                    color: `#ee4444`,
+                                    fontFamily: `'Pirata One', cursive`,
+                                    letterSpacing: r ? 3 : 5,
+                                    textShadow: `0 0 40px rgba(220,30,30,0.8)`,
+                                    marginBottom: 2,
+                                    lineHeight: 1.05
+                                },
+                                children: `SHIPWRECKED`
+                            }),
+                            (0, N.jsx)(i.div, {
+                                initial: {
+                                    opacity: 0
+                                },
+                                animate: {
+                                    opacity: 1
+                                },
+                                transition: {
+                                    delay: .45
+                                },
+                                style: {
+                                    fontSize: r ? 14 : 18,
+                                    color: `rgba(200,160,48,0.75)`,
+                                    fontFamily: `'Cinzel', serif`,
+                                    letterSpacing: 2,
+                                    marginBottom: 10,
+                                    textAlign: `center`
+                                },
+                                children: t.runTitle
+                            }),
+                            (0, N.jsxs)(i.div, {
+                                initial: {
+                                    opacity: 0
+                                },
+                                animate: {
+                                    opacity: 1
+                                },
+                                transition: {
+                                    delay: .55
+                                },
                                 style: {
                                     display: `flex`,
+                                    flexDirection: `column`,
+                                    gap: 3,
                                     alignItems: `center`,
-                                    gap: 10
+                                    marginBottom: 14,
+                                    padding: `8px 16px`,
+                                    borderRadius: 10,
+                                    background: `rgba(150,0,0,0.14)`,
+                                    border: `1px solid rgba(220,60,60,0.28)`,
+                                    maxWidth: `100%`
                                 },
                                 children: [
-                                    (0, N.jsx)(O, {
-                                        name: e.icon,
-                                        size: 26
+                                    (0, N.jsxs)(`div`, {
+                                        style: {
+                                            fontSize: r ? 12 : 14,
+                                            color: `#ee6655`,
+                                            fontFamily: `'Cinzel', serif`,
+                                            letterSpacing: 2
+                                        },
+                                        children: [
+                                            `Sunk by `,
+                                            he.name
+                                        ]
+                                    }),
+                                    (0, N.jsx)(`div`, {
+                                        style: {
+                                            fontSize: r ? 12 : 13,
+                                            color: `rgba(255,255,255,0.5)`,
+                                            fontFamily: `'IM Fell English', cursive`,
+                                            textAlign: `center`,
+                                            lineHeight: 1.35
+                                        },
+                                        children: he.tip
+                                    })
+                                ]
+                            }),
+                            (0, N.jsxs)(i.div, {
+                                initial: {
+                                    opacity: 0,
+                                    y: 8
+                                },
+                                animate: {
+                                    opacity: 1,
+                                    y: 0
+                                },
+                                transition: {
+                                    delay: .65
+                                },
+                                style: {
+                                    textAlign: `center`,
+                                    marginBottom: 6
+                                },
+                                children: [
+                                    (0, N.jsx)(`div`, {
+                                        style: {
+                                            fontSize: 11,
+                                            letterSpacing: 3,
+                                            color: `rgba(255,255,255,0.35)`,
+                                            fontFamily: `'Cinzel', serif`
+                                        },
+                                        children: `SCORE`
                                     }),
                                     (0, N.jsxs)(`div`, {
                                         style: {
-                                            textAlign: `left`
+                                            fontSize: r ? 40 : 52,
+                                            color: `#eedd44`,
+                                            fontFamily: `'Cinzel', serif`,
+                                            fontWeight: 700,
+                                            lineHeight: 1.05
                                         },
                                         children: [
-                                            (0, N.jsxs)(`div`, {
+                                            t.score.toLocaleString(),
+                                            (0, N.jsx)(`span`, {
                                                 style: {
-                                                    fontFamily: `'Pirata One', cursive`,
-                                                    fontSize: r ? 15 : 17,
-                                                    color: `#eedd44`,
-                                                    letterSpacing: 1
+                                                    fontSize: r ? 16 : 20,
+                                                    color: `rgba(238,221,68,0.55)`,
+                                                    marginLeft: 6
                                                 },
-                                                children: [
-                                                    `NEW FEAT: `,
-                                                    e.name
-                                                ]
+                                                children: `pts`
+                                            })
+                                        ]
+                                    }),
+                                    s && (0, N.jsx)(`div`, {
+                                        style: {
+                                            fontSize: 12,
+                                            color: `#44ffaa`,
+                                            fontFamily: `'Cinzel', serif`,
+                                            letterSpacing: 2,
+                                            marginTop: 4
+                                        },
+                                        children: `NEW BEST`
+                                    }),
+                                    !s && o > t.score && (0, N.jsxs)(`div`, {
+                                        style: {
+                                            fontSize: 12,
+                                            color: `rgba(255,255,255,0.4)`,
+                                            fontFamily: `'IM Fell English', cursive`,
+                                            marginTop: 4
+                                        },
+                                        children: [
+                                            `Best `,
+                                            o.toLocaleString(),
+                                            ` · `,
+                                            o - t.score,
+                                            ` short`
+                                        ]
+                                    })
+                                ]
+                            }),
+                            pe && (0, N.jsx)(i.div, {
+                                initial: {
+                                    opacity: 0
+                                },
+                                animate: {
+                                    opacity: 1
+                                },
+                                transition: {
+                                    delay: .7
+                                },
+                                style: {
+                                    fontSize: 13,
+                                    color: `rgba(255,255,255,0.5)`,
+                                    fontFamily: `'IM Fell English', cursive`,
+                                    textAlign: `center`,
+                                    marginBottom: 10,
+                                    maxWidth: 340
+                                },
+                                children: `Every captain sinks the first time. The next voyage is where legends start.`
+                            }),
+                            (0, N.jsxs)(i.div, {
+                                initial: {
+                                    opacity: 0,
+                                    y: 12
+                                },
+                                animate: {
+                                    opacity: 1,
+                                    y: 0
+                                },
+                                transition: {
+                                    delay: .8
+                                },
+                                style: {
+                                    display: `flex`,
+                                    flexDirection: `column`,
+                                    alignItems: `center`,
+                                    gap: 10,
+                                    marginTop: 8,
+                                    marginBottom: 14,
+                                    width: `100%`
+                                },
+                                children: [
+                                    w && (0, N.jsx)(`div`, {
+                                        style: {
+                                            fontSize: 12,
+                                            color: `rgba(238,100,100,0.85)`,
+                                            fontFamily: `'Cinzel', serif`,
+                                            letterSpacing: 1,
+                                            textAlign: `center`
+                                        },
+                                        children: `Harbor unreachable — try again when you're online`
+                                    }),
+                                    O && ae ? (0, N.jsx)(i.button, {
+                                        whileHover: {
+                                            scale: 1.03
+                                        },
+                                        whileTap: {
+                                            scale: .97
+                                        },
+                                        onClick: ae,
+                                        style: ge,
+                                        children: `PLAY DAILY · 1 TRY`
+                                    }) : (0, N.jsx)(i.button, {
+                                        whileHover: {
+                                            scale: 1.03
+                                        },
+                                        whileTap: {
+                                            scale: .97
+                                        },
+                                        onClick: oe,
+                                        disabled: T,
+                                        style: ge,
+                                        children: T ? `PREPARING…` : `SAIL AGAIN`
+                                    }),
+                                    (0, N.jsxs)(`div`, {
+                                        style: {
+                                            display: `flex`,
+                                            gap: 10,
+                                            flexWrap: `wrap`,
+                                            justifyContent: `center`,
+                                            alignItems: `center`
+                                        },
+                                        children: [
+                                            O && (0, N.jsx)(i.button, {
+                                                whileHover: {
+                                                    scale: 1.04
+                                                },
+                                                whileTap: {
+                                                    scale: .97
+                                                },
+                                                onClick: oe,
+                                                disabled: T,
+                                                style: _e,
+                                                children: T ? `…` : `Sail free run`
                                             }),
-                                            (0, N.jsxs)(`div`, {
-                                                style: {
-                                                    fontFamily: `'Cinzel', serif`,
-                                                    fontSize: r ? 10 : 11,
-                                                    color: `rgba(238,221,68,0.75)`,
-                                                    letterSpacing: 1.5
+                                            !O && me && ae && (0, N.jsx)(i.button, {
+                                                whileHover: {
+                                                    scale: 1.04
                                                 },
-                                                children: [
-                                                    `TITLE UNLOCKED: `,
-                                                    e.title
-                                                ]
+                                                whileTap: {
+                                                    scale: .97
+                                                },
+                                                onClick: ae,
+                                                style: {
+                                                    ..._e,
+                                                    borderColor: `rgba(136,221,255,0.4)`,
+                                                    color: `#88ddff`
+                                                },
+                                                children: `Daily · 1 try`
+                                            }),
+                                            !h && (0, N.jsx)(i.button, {
+                                                whileHover: {
+                                                    scale: 1.04
+                                                },
+                                                whileTap: {
+                                                    scale: .97
+                                                },
+                                                onClick: ne,
+                                                disabled: te,
+                                                style: {
+                                                    ..._e,
+                                                    borderColor: `rgba(200,160,48,0.4)`,
+                                                    color: `#c8a030`
+                                                },
+                                                children: te ? `…` : `Connect wallet`
+                                            }),
+                                            (0, N.jsx)(i.button, {
+                                                whileHover: {
+                                                    scale: 1.04
+                                                },
+                                                whileTap: {
+                                                    scale: .97
+                                                },
+                                                onClick: se,
+                                                style: {
+                                                    ..._e,
+                                                    border: `none`,
+                                                    color: `rgba(255,255,255,0.28)`
+                                                },
+                                                children: `← Menu`
                                             })
                                         ]
                                     })
                                 ]
-                            }, e.id))
-                    }),
-                    (l.length > 0 || !s && o > t.score) && (0, N.jsxs)(i.div, {
-                        initial: {
-                            opacity: 0,
-                            y: 8
-                        },
-                        animate: {
-                            opacity: 1,
-                            y: 0
-                        },
-                        transition: {
-                            delay: 1.35
-                        },
-                        style: {
-                            marginBottom: 18,
-                            padding: r ? `12px 14px` : `14px 20px`,
-                            borderRadius: 12,
-                            border: `1px solid rgba(136,221,255,0.35)`,
-                            background: `rgba(10,24,40,0.75)`,
-                            maxWidth: r ? `92vw` : 520,
-                            width: `100%`
-                        },
-                        children: [
-                            (0, N.jsx)(`div`, {
-                                style: {
-                                    fontFamily: `'Cinzel', serif`,
-                                    fontSize: 11,
-                                    letterSpacing: 3,
-                                    color: `rgba(136,221,255,0.85)`,
-                                    marginBottom: 8,
-                                    textAlign: `center`
-                                },
-                                children: `STILL ON THE TIDE`
                             }),
-                            !s && o > t.score && (0, N.jsxs)(`div`, {
-                                style: {
-                                    fontFamily: `'IM Fell English', cursive`,
-                                    fontSize: r ? 14 : 15,
-                                    color: `rgba(255,255,255,0.75)`,
-                                    textAlign: `center`,
-                                    marginBottom: l.length ? 8 : 0
-                                },
-                                children: [
-                                    o - t.score,
-                                    ` pts short of your best (`,
-                                    o.toLocaleString(),
-                                    `)`
-                                ]
-                            }),
-                            l.map((e)=>(0, N.jsxs)(`div`, {
-                                    style: {
-                                        marginTop: 8
-                                    },
-                                    children: [
-                                        (0, N.jsxs)(`div`, {
-                                            style: {
-                                                display: `flex`,
-                                                justifyContent: `space-between`,
-                                                gap: 8,
-                                                alignItems: `baseline`,
-                                                marginBottom: 4
-                                            },
-                                            children: [
-                                                (0, N.jsx)(`div`, {
-                                                    style: {
-                                                        fontFamily: `'Pirata One', cursive`,
-                                                        fontSize: 15,
-                                                        color: `#c8e8ff`
-                                                    },
-                                                    children: e.feat.name
-                                                }),
-                                                (0, N.jsxs)(`div`, {
-                                                    style: {
-                                                        fontFamily: `'Cinzel', serif`,
-                                                        fontSize: 11,
-                                                        color: `rgba(255,255,255,0.45)`
-                                                    },
-                                                    children: [
-                                                        Math.round(e.ratio * 100),
-                                                        `%`
-                                                    ]
-                                                })
-                                            ]
-                                        }),
-                                        (0, N.jsx)(`div`, {
-                                            style: {
-                                                height: 4,
-                                                borderRadius: 2,
-                                                background: `rgba(255,255,255,0.08)`,
-                                                overflow: `hidden`,
-                                                marginBottom: 4
-                                            },
-                                            children: (0, N.jsx)(`div`, {
-                                                style: {
-                                                    height: `100%`,
-                                                    width: `${Math.round(e.ratio * 100)}%`,
-                                                    background: `linear-gradient(90deg,#2a6a8a,#88ddff)`,
-                                                    borderRadius: 2
-                                                }
-                                            })
-                                        }),
-                                        (0, N.jsx)(`div`, {
-                                            style: {
-                                                fontFamily: `'IM Fell English', cursive`,
-                                                fontSize: 13,
-                                                color: `rgba(255,255,255,0.55)`
-                                            },
-                                            children: e.line
-                                        })
-                                    ]
-                                }, e.feat.id)),
-                            !a && !v() && ie && h && (0, N.jsx)(`div`, {
-                                style: {
-                                    marginTop: 12,
-                                    fontSize: 12,
-                                    color: `rgba(200,160,48,0.75)`,
-                                    fontFamily: `'Cinzel', serif`,
-                                    letterSpacing: 1,
-                                    textAlign: `center`
-                                },
-                                children: `Daily still open today — same seas as every captain.`
-                            }),
-                            !a && !v() && !h && (0, N.jsx)(`div`, {
-                                style: {
-                                    marginTop: 12,
-                                    fontSize: 12,
-                                    color: `rgba(200,160,48,0.75)`,
-                                    fontFamily: `'Cinzel', serif`,
-                                    letterSpacing: 1,
-                                    textAlign: `center`
-                                },
-                                children: `Connect to sail today’s Daily and climb the board.`
-                            })
-                        ]
-                    }),
-                    (0, N.jsx)(i.div, {
-                        initial: {
-                            opacity: 0,
-                            y: 10
-                        },
-                        animate: {
-                            opacity: 1,
-                            y: 0
-                        },
-                        transition: {
-                            delay: 1.1
-                        },
-                        style: {
-                            display: `flex`,
-                            gap: r ? 16 : 32,
-                            marginBottom: r ? 16 : 28,
-                            flexWrap: r ? `wrap` : `nowrap`,
-                            justifyContent: `center`,
-                            padding: r ? `0 16px` : 0
-                        },
-                        children: [
-                            {
-                                label: `SCORE`,
-                                val: `${t.score} pts`,
-                                color: `#eedd44`
-                            },
-                            {
-                                label: `BEST`,
-                                val: `${Math.max(o, t.score)} pts`,
-                                color: s ? `#44ffaa` : `rgba(255,255,255,0.3)`
-                            },
-                            {
-                                label: `TURNS`,
-                                val: t.turn,
-                                color: `rgba(255,255,255,0.6)`
-                            },
-                            {
-                                label: `GOLD`,
-                                val: t.ship.gold,
-                                color: `#eedd44`
-                            },
-                            {
-                                label: `HULL`,
-                                val: `${t.ship.hull}/${t.ship.maxHull}`,
-                                color: t.ship.hull <= 5 ? `#ee4444` : t.ship.hull <= 10 ? `#ee8844` : `#44cc88`
-                            },
-                            {
-                                label: `VOYAGES`,
-                                val: w(),
-                                color: `#88ddff`
-                            }
-                        ].map((e)=>(0, N.jsxs)(`div`, {
-                                style: {
-                                    textAlign: `center`
-                                },
-                                children: [
-                                    (0, N.jsx)(`div`, {
-                                        style: {
-                                            fontSize: r ? 10 : 13,
-                                            color: `rgba(255,255,255,0.3)`,
-                                            letterSpacing: r ? 1 : 3,
-                                            fontFamily: `'Cinzel', serif`
-                                        },
-                                        children: e.label
-                                    }),
-                                    (0, N.jsx)(`div`, {
-                                        style: {
-                                            fontSize: r ? 20 : 28,
-                                            color: e.color,
-                                            fontFamily: `'Cinzel', serif`,
-                                            fontWeight: 700
-                                        },
-                                        children: e.val
-                                    })
-                                ]
-                            }, e.label))
-                    }),
-                    t.scoreBreakdown && (0, N.jsxs)(i.div, {
-                        initial: {
-                            opacity: 0
-                        },
-                        animate: {
-                            opacity: 1
-                        },
-                        transition: {
-                            delay: 1.1
-                        },
-                        style: {
-                            marginBottom: 16,
-                            padding: `12px 20px`,
-                            borderRadius: 10,
-                            border: `1px solid rgba(255,255,255,0.08)`,
-                            background: `rgba(0,0,0,0.3)`,
-                            width: `100%`,
-                            maxWidth: 400
-                        },
-                        children: [
-                            (0, N.jsx)(`div`, {
-                                style: {
-                                    fontSize: 11,
-                                    color: `rgba(255,255,255,0.3)`,
-                                    letterSpacing: 3,
-                                    fontFamily: `'Cinzel', serif`,
-                                    marginBottom: 8,
-                                    textAlign: `center`
-                                },
-                                children: `SCORE BREAKDOWN`
-                            }),
-                            [
-                                {
-                                    label: `MOVEMENT`,
-                                    val: t.scoreBreakdown.movement,
-                                    color: `#6aaccc`
-                                },
-                                {
-                                    label: `COMBAT`,
-                                    val: t.scoreBreakdown.combat,
-                                    color: `#ee6644`
-                                },
-                                {
-                                    label: `TREASURE`,
-                                    val: t.scoreBreakdown.treasure,
-                                    color: `#eedd44`
-                                },
-                                {
-                                    label: `STREAKS`,
-                                    val: t.scoreBreakdown.streaks,
-                                    color: `#cc44ee`
-                                },
-                                {
-                                    label: `FEATS`,
-                                    val: t.scoreBreakdown.achievements,
-                                    color: `#44cc88`
-                                },
-                                ...t.scoreBreakdown.other > 0 ? [
-                                    {
-                                        label: `BONUS`,
-                                        val: t.scoreBreakdown.other,
-                                        color: `#aaaaff`
-                                    }
-                                ] : []
-                            ].filter((e)=>e.val > 0).map((e)=>(0, N.jsxs)(`div`, {
-                                    style: {
-                                        display: `flex`,
-                                        justifyContent: `space-between`,
-                                        marginBottom: 3
-                                    },
-                                    children: [
-                                        (0, N.jsx)(`span`, {
-                                            style: {
-                                                fontSize: 11,
-                                                color: `rgba(255,255,255,0.4)`,
-                                                fontFamily: `'Cinzel', serif`,
-                                                letterSpacing: 1
-                                            },
-                                            children: e.label
-                                        }),
-                                        (0, N.jsxs)(`span`, {
-                                            style: {
-                                                fontSize: 12,
-                                                color: e.color,
-                                                fontFamily: `'Cinzel', serif`,
-                                                fontWeight: 700
-                                            },
-                                            children: [
-                                                e.val.toLocaleString(),
-                                                ` pts`
-                                            ]
-                                        })
-                                    ]
-                                }, e.label))
-                        ]
-                    }),
-                    (0, N.jsxs)(i.div, {
-                        initial: {
-                            opacity: 0
-                        },
-                        animate: {
-                            opacity: 1
-                        },
-                        transition: {
-                            delay: 1.3
-                        },
-                        style: {
-                            fontSize: 13,
-                            color: `rgba(255,255,255,0.25)`,
-                            fontFamily: `'Cinzel', serif`,
-                            letterSpacing: 2,
-                            marginBottom: 24,
-                            display: `flex`,
-                            flexDirection: `column`,
-                            alignItems: `center`,
-                            gap: 8
-                        },
-                        children: [
-                            (0, N.jsx)(`div`, {
-                                children: a ? f() ? `Seed: ${t.seed} — Daily Key: ${g()}` : `Blind daily — seed revealed at 00:00 UTC` : `Seed: ${t.seed} — challenge your crew!`
-                            }),
-                            a && (0, N.jsxs)(`div`, {
-                                style: {
-                                    display: `inline-flex`,
-                                    alignItems: `center`,
-                                    gap: 6,
-                                    padding: `4px 14px`,
-                                    borderRadius: 20,
-                                    border: `1px solid rgba(100,200,255,0.5)`,
-                                    background: `rgba(0,30,60,0.7)`,
-                                    color: `#88ddff`,
-                                    fontSize: 12,
-                                    fontFamily: `'Cinzel', serif`,
-                                    letterSpacing: 2
-                                },
-                                children: [
-                                    `☀ DAILY RUN — `,
-                                    new Date().toLocaleDateString(`en-US`, {
-                                        month: `short`,
-                                        day: `numeric`,
-                                        year: `numeric`
-                                    })
-                                ]
-                            })
-                        ]
-                    }),
-                    (0, N.jsxs)(i.div, {
-                        initial: {
-                            opacity: 0,
-                            y: 10
-                        },
-                        animate: {
-                            opacity: 1,
-                            y: 0
-                        },
-                        transition: {
-                            delay: 1.5
-                        },
-                        style: {
-                            display: `flex`,
-                            flexDirection: `column`,
-                            alignItems: `center`,
-                            gap: 12
-                        },
-                        children: [
                             (0, N.jsx)($e, {
                                 status: d,
                                 onRetry: p
+                            }),
+                            c.length > 0 && (0, N.jsx)(i.div, {
+                                initial: {
+                                    opacity: 0,
+                                    scale: .95
+                                },
+                                animate: {
+                                    opacity: 1,
+                                    scale: 1
+                                },
+                                transition: {
+                                    delay: 1
+                                },
+                                style: {
+                                    display: `flex`,
+                                    flexDirection: `column`,
+                                    gap: 6,
+                                    alignItems: `center`,
+                                    marginTop: 12,
+                                    marginBottom: 8,
+                                    padding: `10px 18px`,
+                                    borderRadius: 12,
+                                    background: `rgba(200,160,48,0.12)`,
+                                    border: `1px solid rgba(238,221,68,0.5)`,
+                                    width: `100%`
+                                },
+                                children: c.map((e)=>(0, N.jsxs)(`div`, {
+                                        style: {
+                                            display: `flex`,
+                                            alignItems: `center`,
+                                            gap: 10
+                                        },
+                                        children: [
+                                            (0, N.jsx)(D, {
+                                                name: e.icon,
+                                                size: 22
+                                            }),
+                                            (0, N.jsxs)(`div`, {
+                                                style: {
+                                                    textAlign: `left`
+                                                },
+                                                children: [
+                                                    (0, N.jsxs)(`div`, {
+                                                        style: {
+                                                            fontFamily: `'Pirata One', cursive`,
+                                                            fontSize: 15,
+                                                            color: `#eedd44`
+                                                        },
+                                                        children: [
+                                                            `NEW FEAT: `,
+                                                            e.name
+                                                        ]
+                                                    }),
+                                                    (0, N.jsxs)(`div`, {
+                                                        style: {
+                                                            fontFamily: `'Cinzel', serif`,
+                                                            fontSize: 10,
+                                                            color: `rgba(238,221,68,0.7)`,
+                                                            letterSpacing: 1
+                                                        },
+                                                        children: [
+                                                            `TITLE: `,
+                                                            e.title
+                                                        ]
+                                                    })
+                                                ]
+                                            })
+                                        ]
+                                    }, e.id))
                             }),
                             m.length > 0 && (0, N.jsx)(i.div, {
                                 initial: {
@@ -2352,22 +2197,22 @@ let __tla = Promise.all([
                                     alignItems: `center`,
                                     gap: 12,
                                     width: `100%`,
-                                    maxWidth: 360,
+                                    marginTop: 10,
                                     padding: `10px 14px`,
                                     borderRadius: 12,
                                     border: `1px solid rgba(200,160,48,0.45)`,
                                     background: `rgba(20,16,8,0.75)`
                                 },
                                 children: (()=>{
-                                    let e = re(m[0]), t = e ? le[e.rarity] : `#eedd88`;
+                                    let e = re(m[0]), t = e ? ue[e.rarity] : `#eedd88`;
                                     return (0, N.jsxs)(N.Fragment, {
                                         children: [
                                             e && (0, N.jsx)(`img`, {
-                                                src: ce(e.image),
+                                                src: le(e.image),
                                                 alt: ``,
                                                 style: {
-                                                    width: 48,
-                                                    height: 64,
+                                                    width: 44,
+                                                    height: 58,
                                                     objectFit: `cover`,
                                                     borderRadius: 6,
                                                     border: `1px solid ${t}`,
@@ -2383,7 +2228,7 @@ let __tla = Promise.all([
                                                 children: [
                                                     (0, N.jsx)(`div`, {
                                                         style: {
-                                                            fontSize: 11,
+                                                            fontSize: 10,
                                                             letterSpacing: 2,
                                                             color: t,
                                                             fontFamily: `'Cinzel', serif`
@@ -2392,24 +2237,14 @@ let __tla = Promise.all([
                                                     }),
                                                     (0, N.jsx)(`div`, {
                                                         style: {
-                                                            fontSize: 15,
+                                                            fontSize: 14,
                                                             color: `#f0e6c8`,
                                                             fontFamily: `'Pirata One', cursive`,
-                                                            letterSpacing: 1,
                                                             overflow: `hidden`,
                                                             textOverflow: `ellipsis`,
                                                             whiteSpace: `nowrap`
                                                         },
-                                                        children: m.map(ue).join(` · `)
-                                                    }),
-                                                    (0, N.jsx)(`div`, {
-                                                        style: {
-                                                            fontSize: 11,
-                                                            color: `rgba(255,255,255,0.4)`,
-                                                            fontFamily: `'Cinzel', serif`,
-                                                            marginTop: 2
-                                                        },
-                                                        children: `Mint to wallet soon`
+                                                        children: m.map(de).join(` · `)
                                                     })
                                                 ]
                                             })
@@ -2417,264 +2252,372 @@ let __tla = Promise.all([
                                     });
                                 })()
                             }),
-                            _ && !y && (0, N.jsx)(i.button, {
-                                whileHover: {
-                                    scale: 1.05
-                                },
-                                disabled: b,
-                                onClick: async ()=>{
-                                    x(!0);
-                                    try {
-                                        await Ye(_, t.score, t.seed, t.turn, t.currentZone ?? 1, t.runTitle);
-                                    } catch (e) {
-                                        console.warn(`On-chain submit failed:`, e);
-                                    }
-                                    ee(!0), x(!1);
-                                },
+                            (0, N.jsx)(`button`, {
+                                type: `button`,
+                                onClick: ()=>fe((e)=>!e),
                                 style: {
-                                    padding: `12px 32px`,
-                                    borderRadius: 10,
-                                    border: `1px solid rgba(200,160,48,0.4)`,
-                                    background: `rgba(200,160,48,0.1)`,
-                                    color: `#c8a030`,
-                                    fontSize: 16,
-                                    letterSpacing: 3,
-                                    cursor: `pointer`,
-                                    fontFamily: `'Pirata One', cursive`
-                                },
-                                children: b ? `ENGRAVING...` : (0, N.jsxs)(N.Fragment, {
-                                    children: [
-                                        (0, N.jsx)(O, {
-                                            name: `anchor`,
-                                            size: 16,
-                                            style: {
-                                                marginRight: 6
-                                            }
-                                        }),
-                                        `ENGRAVE ON STARKNET`
-                                    ]
-                                })
-                            }),
-                            _ && (0, N.jsx)(`div`, {
-                                style: {
-                                    fontSize: 11,
-                                    color: `rgba(255,255,255,0.35)`,
+                                    marginTop: 18,
+                                    padding: `8px 16px`,
+                                    borderRadius: 8,
+                                    border: `1px solid rgba(255,255,255,0.12)`,
+                                    background: `transparent`,
+                                    color: `rgba(255,255,255,0.4)`,
+                                    fontSize: 12,
                                     letterSpacing: 2,
                                     fontFamily: `'Cinzel', serif`,
-                                    textAlign: `center`,
-                                    marginTop: -4
+                                    cursor: `pointer`
                                 },
-                                children: `OPTIONAL — CARVES THIS VOYAGE INTO STARKNET FOREVER`
+                                children: ce ? `▲ HIDE DETAILS` : `▼ VOYAGE DETAILS`
                             }),
-                            !h && (0, N.jsxs)(`div`, {
-                                style: {
-                                    display: `flex`,
-                                    flexDirection: `column`,
-                                    alignItems: `center`,
-                                    gap: 8,
-                                    marginBottom: 4
-                                },
-                                children: [
-                                    (0, N.jsx)(`div`, {
-                                        style: {
-                                            fontSize: 13,
-                                            color: `rgba(255,255,255,0.55)`,
-                                            fontFamily: `'IM Fell English', cursive`,
-                                            textAlign: `center`,
-                                            maxWidth: 360
-                                        },
-                                        children: `This run stayed local. Connect a wallet to submit scores, play the Daily, and earn NFTs.`
-                                    }),
-                                    (0, N.jsx)(i.button, {
-                                        whileHover: {
-                                            scale: 1.05
-                                        },
-                                        whileTap: {
-                                            scale: .97
-                                        },
-                                        onClick: ne,
-                                        disabled: te,
-                                        style: {
-                                            padding: `12px 28px`,
-                                            borderRadius: 10,
-                                            border: `1px solid rgba(200,160,48,0.55)`,
-                                            background: `rgba(200,160,48,0.12)`,
-                                            color: `#c8a030`,
-                                            cursor: `pointer`,
-                                            fontSize: 15,
-                                            letterSpacing: 2,
-                                            fontFamily: `'Pirata One', cursive`
-                                        },
-                                        children: te ? `CONNECTING...` : `CONNECT WALLET`
-                                    })
-                                ]
-                            }),
-                            S && ie && (0, N.jsxs)(`div`, {
-                                style: {
-                                    display: `flex`,
-                                    flexDirection: `column`,
-                                    alignItems: `center`,
-                                    gap: 8,
-                                    marginBottom: 4
-                                },
-                                children: [
-                                    (0, N.jsx)(`div`, {
-                                        style: {
-                                            fontSize: 13,
-                                            color: `rgba(255,255,255,0.55)`,
-                                            fontFamily: `'IM Fell English', cursive`,
-                                            textAlign: `center`,
-                                            maxWidth: 360
-                                        },
-                                        children: `Wallet linked. This run stayed local — sail the Daily to climb today's board.`
-                                    }),
-                                    (0, N.jsx)(i.button, {
-                                        whileHover: {
-                                            scale: 1.05
-                                        },
-                                        whileTap: {
-                                            scale: .97
-                                        },
-                                        onClick: ie,
-                                        style: {
-                                            padding: `12px 28px`,
-                                            borderRadius: 10,
-                                            border: `2px solid rgba(200,160,48,0.75)`,
-                                            background: `rgba(200,160,48,0.18)`,
-                                            color: `#c8a030`,
-                                            cursor: `pointer`,
-                                            fontSize: 16,
-                                            letterSpacing: 2,
-                                            fontFamily: `'Pirata One', cursive`
-                                        },
-                                        children: `PLAY DAILY · 1 TRY`
-                                    })
-                                ]
-                            }),
-                            (()=>{
-                                let e = new Date().toLocaleDateString(`en-US`, {
-                                    month: `short`,
-                                    day: `numeric`
-                                }), n = {
-                                    legendary: 3,
-                                    rare: 2,
-                                    common: 1
-                                }, i = (t.relics ?? []).map((e)=>u(e)).filter((e)=>!!e).sort((e, t)=>(n[t.rarity] ?? 0) - (n[e.rarity] ?? 0))[0], o = i ? `\nFound the ${i.name} relic along the way.` : ``, s = C ? `\n⚔️ #${C.rank} in Starktember — ${C.total.toLocaleString()} pts across the month.` : ``, c = a ? `☀️ Daily Challenge — ${e} — ${t.score} pts before the storm claimed me.\nSame sea for every captain today. Can you beat me?${s}${o}\n⚓ @PlayCorsair\nhttps://playcorsair.xyz/\n\n#Tideborn #Starknet` : `🏴\u200d☠️ ${t.runTitle} — ${t.score} pts before the storm claimed me.\n${t.turn} turns · ${t.ship.gold} gold · No mercy.${o}\nSame waters, seed ${t.seed}. Dare to sail further? ⚓ @PlayCorsair\nhttps://playcorsair.xyz/\n\n#Tideborn #Starknet`, l = Qe(t.log);
-                                return (0, N.jsx)(Xe, {
-                                    isMobile: r,
-                                    onShare: ()=>{
-                                        Ze(c);
+                            (0, N.jsx)(n, {
+                                children: ce && (0, N.jsxs)(i.div, {
+                                    initial: {
+                                        opacity: 0,
+                                        height: 0
                                     },
-                                    payload: {
-                                        score: t.score,
-                                        turn: t.turn,
-                                        gold: t.ship.gold,
-                                        runTitle: t.runTitle,
-                                        seed: t.seed,
-                                        deathName: l.name,
-                                        isDaily: a,
-                                        text: c
-                                    }
-                                });
-                            })(),
-                            (0, N.jsxs)(`div`, {
-                                style: {
-                                    display: `flex`,
-                                    flexDirection: `column`,
-                                    alignItems: `center`,
-                                    gap: 8
-                                },
-                                children: [
-                                    T && (0, N.jsx)(`div`, {
-                                        style: {
-                                            fontSize: 12,
-                                            color: `rgba(238,100,100,0.85)`,
-                                            fontFamily: `'Cinzel', serif`,
-                                            letterSpacing: 1,
-                                            textAlign: `center`
-                                        },
-                                        children: `Harbor unreachable — try Sail again when you're back online`
-                                    }),
-                                    (0, N.jsxs)(`div`, {
-                                        style: {
-                                            display: `flex`,
-                                            gap: 12,
-                                            flexWrap: `wrap`,
-                                            justifyContent: `center`
-                                        },
-                                        children: [
-                                            !a && !v() && ie && h && (0, N.jsx)(i.button, {
-                                                whileHover: {
-                                                    scale: 1.05
+                                    animate: {
+                                        opacity: 1,
+                                        height: `auto`
+                                    },
+                                    exit: {
+                                        opacity: 0,
+                                        height: 0
+                                    },
+                                    style: {
+                                        overflow: `hidden`,
+                                        width: `100%`,
+                                        marginTop: 12
+                                    },
+                                    children: [
+                                        (0, N.jsxs)(`div`, {
+                                            style: {
+                                                fontSize: r ? 13 : 16,
+                                                color: `rgba(255,255,255,0.35)`,
+                                                fontFamily: `'IM Fell English', cursive`,
+                                                marginBottom: 14,
+                                                textAlign: `center`,
+                                                fontStyle: `italic`
+                                            },
+                                            children: [
+                                                `"`,
+                                                t.log,
+                                                `"`
+                                            ]
+                                        }),
+                                        (0, N.jsx)(`div`, {
+                                            style: {
+                                                display: `flex`,
+                                                gap: 16,
+                                                marginBottom: 14,
+                                                flexWrap: `wrap`,
+                                                justifyContent: `center`
+                                            },
+                                            children: [
+                                                {
+                                                    label: `TURNS`,
+                                                    val: t.turn,
+                                                    color: `rgba(255,255,255,0.6)`
                                                 },
-                                                whileTap: {
-                                                    scale: .97
+                                                {
+                                                    label: `GOLD`,
+                                                    val: t.ship.gold,
+                                                    color: `#eedd44`
                                                 },
-                                                onClick: ie,
-                                                style: {
-                                                    padding: `14px 28px`,
-                                                    borderRadius: 12,
-                                                    border: `2px solid rgba(136,221,255,0.7)`,
-                                                    background: `rgba(30,80,110,0.45)`,
-                                                    color: `#88ddff`,
-                                                    cursor: `pointer`,
-                                                    fontSize: 18,
-                                                    fontWeight: 700,
-                                                    letterSpacing: 2,
-                                                    fontFamily: `'Pirata One', cursive`,
-                                                    boxShadow: `0 0 20px rgba(100,180,220,0.2)`
+                                                {
+                                                    label: `HULL`,
+                                                    val: `${t.ship.hull}/${t.ship.maxHull}`,
+                                                    color: t.ship.hull <= 5 ? `#ee4444` : `#44cc88`
                                                 },
-                                                children: `PLAY DAILY · 1 TRY`
-                                            }),
-                                            (0, N.jsx)(i.button, {
-                                                whileHover: {
-                                                    scale: 1.05
+                                                {
+                                                    label: `VOYAGES`,
+                                                    val: E,
+                                                    color: `#88ddff`
+                                                }
+                                            ].map((e)=>(0, N.jsxs)(`div`, {
+                                                    style: {
+                                                        textAlign: `center`
+                                                    },
+                                                    children: [
+                                                        (0, N.jsx)(`div`, {
+                                                            style: {
+                                                                fontSize: 10,
+                                                                color: `rgba(255,255,255,0.3)`,
+                                                                letterSpacing: 2,
+                                                                fontFamily: `'Cinzel', serif`
+                                                            },
+                                                            children: e.label
+                                                        }),
+                                                        (0, N.jsx)(`div`, {
+                                                            style: {
+                                                                fontSize: 18,
+                                                                color: e.color,
+                                                                fontFamily: `'Cinzel', serif`,
+                                                                fontWeight: 700
+                                                            },
+                                                            children: e.val
+                                                        })
+                                                    ]
+                                                }, e.label))
+                                        }),
+                                        t.scoreBreakdown && (0, N.jsxs)(`div`, {
+                                            style: {
+                                                marginBottom: 14,
+                                                padding: `10px 16px`,
+                                                borderRadius: 10,
+                                                border: `1px solid rgba(255,255,255,0.08)`,
+                                                background: `rgba(0,0,0,0.3)`
+                                            },
+                                            children: [
+                                                (0, N.jsx)(`div`, {
+                                                    style: {
+                                                        fontSize: 10,
+                                                        color: `rgba(255,255,255,0.3)`,
+                                                        letterSpacing: 2,
+                                                        fontFamily: `'Cinzel', serif`,
+                                                        marginBottom: 6,
+                                                        textAlign: `center`
+                                                    },
+                                                    children: `BREAKDOWN`
+                                                }),
+                                                [
+                                                    {
+                                                        label: `MOVEMENT`,
+                                                        val: t.scoreBreakdown.movement,
+                                                        color: `#6aaccc`
+                                                    },
+                                                    {
+                                                        label: `COMBAT`,
+                                                        val: t.scoreBreakdown.combat,
+                                                        color: `#ee6644`
+                                                    },
+                                                    {
+                                                        label: `TREASURE`,
+                                                        val: t.scoreBreakdown.treasure,
+                                                        color: `#eedd44`
+                                                    },
+                                                    {
+                                                        label: `STREAKS`,
+                                                        val: t.scoreBreakdown.streaks,
+                                                        color: `#cc44ee`
+                                                    },
+                                                    {
+                                                        label: `FEATS`,
+                                                        val: t.scoreBreakdown.achievements,
+                                                        color: `#44cc88`
+                                                    },
+                                                    ...t.scoreBreakdown.other > 0 ? [
+                                                        {
+                                                            label: `BONUS`,
+                                                            val: t.scoreBreakdown.other,
+                                                            color: `#aaaaff`
+                                                        }
+                                                    ] : []
+                                                ].filter((e)=>e.val > 0).map((e)=>(0, N.jsxs)(`div`, {
+                                                        style: {
+                                                            display: `flex`,
+                                                            justifyContent: `space-between`,
+                                                            marginBottom: 2
+                                                        },
+                                                        children: [
+                                                            (0, N.jsx)(`span`, {
+                                                                style: {
+                                                                    fontSize: 11,
+                                                                    color: `rgba(255,255,255,0.4)`,
+                                                                    fontFamily: `'Cinzel', serif`
+                                                                },
+                                                                children: e.label
+                                                            }),
+                                                            (0, N.jsx)(`span`, {
+                                                                style: {
+                                                                    fontSize: 12,
+                                                                    color: e.color,
+                                                                    fontFamily: `'Cinzel', serif`,
+                                                                    fontWeight: 700
+                                                                },
+                                                                children: e.val.toLocaleString()
+                                                            })
+                                                        ]
+                                                    }, e.label))
+                                            ]
+                                        }),
+                                        l.length > 0 && (0, N.jsxs)(`div`, {
+                                            style: {
+                                                marginBottom: 14,
+                                                padding: `12px 14px`,
+                                                borderRadius: 10,
+                                                border: `1px solid rgba(136,221,255,0.3)`,
+                                                background: `rgba(10,24,40,0.65)`
+                                            },
+                                            children: [
+                                                (0, N.jsx)(`div`, {
+                                                    style: {
+                                                        fontFamily: `'Cinzel', serif`,
+                                                        fontSize: 10,
+                                                        letterSpacing: 2,
+                                                        color: `rgba(136,221,255,0.8)`,
+                                                        marginBottom: 8,
+                                                        textAlign: `center`
+                                                    },
+                                                    children: `STILL ON THE TIDE`
+                                                }),
+                                                l.map((e)=>(0, N.jsxs)(`div`, {
+                                                        style: {
+                                                            marginTop: 6
+                                                        },
+                                                        children: [
+                                                            (0, N.jsxs)(`div`, {
+                                                                style: {
+                                                                    display: `flex`,
+                                                                    justifyContent: `space-between`,
+                                                                    marginBottom: 3
+                                                                },
+                                                                children: [
+                                                                    (0, N.jsx)(`div`, {
+                                                                        style: {
+                                                                            fontFamily: `'Pirata One', cursive`,
+                                                                            fontSize: 14,
+                                                                            color: `#c8e8ff`
+                                                                        },
+                                                                        children: e.feat.name
+                                                                    }),
+                                                                    (0, N.jsxs)(`div`, {
+                                                                        style: {
+                                                                            fontFamily: `'Cinzel', serif`,
+                                                                            fontSize: 10,
+                                                                            color: `rgba(255,255,255,0.4)`
+                                                                        },
+                                                                        children: [
+                                                                            Math.round(e.ratio * 100),
+                                                                            `%`
+                                                                        ]
+                                                                    })
+                                                                ]
+                                                            }),
+                                                            (0, N.jsx)(`div`, {
+                                                                style: {
+                                                                    height: 3,
+                                                                    borderRadius: 2,
+                                                                    background: `rgba(255,255,255,0.08)`,
+                                                                    overflow: `hidden`,
+                                                                    marginBottom: 3
+                                                                },
+                                                                children: (0, N.jsx)(`div`, {
+                                                                    style: {
+                                                                        height: `100%`,
+                                                                        width: `${Math.round(e.ratio * 100)}%`,
+                                                                        background: `linear-gradient(90deg,#2a6a8a,#88ddff)`
+                                                                    }
+                                                                })
+                                                            }),
+                                                            (0, N.jsx)(`div`, {
+                                                                style: {
+                                                                    fontFamily: `'IM Fell English', cursive`,
+                                                                    fontSize: 12,
+                                                                    color: `rgba(255,255,255,0.5)`
+                                                                },
+                                                                children: e.line
+                                                            })
+                                                        ]
+                                                    }, e.feat.id))
+                                            ]
+                                        }),
+                                        (0, N.jsx)(`div`, {
+                                            style: {
+                                                fontSize: 11,
+                                                color: `rgba(255,255,255,0.25)`,
+                                                fontFamily: `'Cinzel', serif`,
+                                                letterSpacing: 1,
+                                                marginBottom: 12,
+                                                textAlign: `center`
+                                            },
+                                            children: a ? f() ? `Seed ${t.seed} · Daily ${g()}` : `Blind daily — seed at 00:00 UTC` : `Seed ${t.seed}`
+                                        }),
+                                        _ && !y && (0, N.jsxs)(`div`, {
+                                            style: {
+                                                display: `flex`,
+                                                flexDirection: `column`,
+                                                alignItems: `center`,
+                                                gap: 6,
+                                                marginBottom: 12
+                                            },
+                                            children: [
+                                                (0, N.jsx)(i.button, {
+                                                    whileHover: {
+                                                        scale: 1.04
+                                                    },
+                                                    disabled: b,
+                                                    onClick: async ()=>{
+                                                        x(!0);
+                                                        try {
+                                                            await Ye(_, t.score, t.seed, t.turn, t.currentZone ?? 1, t.runTitle);
+                                                        } catch (e) {
+                                                            console.warn(`On-chain submit failed:`, e);
+                                                        }
+                                                        ee(!0), x(!1);
+                                                    },
+                                                    style: {
+                                                        padding: `10px 24px`,
+                                                        borderRadius: 8,
+                                                        border: `1px solid rgba(200,160,48,0.35)`,
+                                                        background: `rgba(200,160,48,0.08)`,
+                                                        color: `#c8a030`,
+                                                        fontSize: 14,
+                                                        letterSpacing: 2,
+                                                        cursor: `pointer`,
+                                                        fontFamily: `'Pirata One', cursive`
+                                                    },
+                                                    children: b ? `ENGRAVING...` : (0, N.jsxs)(N.Fragment, {
+                                                        children: [
+                                                            (0, N.jsx)(D, {
+                                                                name: `anchor`,
+                                                                size: 14,
+                                                                style: {
+                                                                    marginRight: 6
+                                                                }
+                                                            }),
+                                                            `ENGRAVE ON STARKNET`
+                                                        ]
+                                                    })
+                                                }),
+                                                (0, N.jsx)(`div`, {
+                                                    style: {
+                                                        fontSize: 10,
+                                                        color: `rgba(255,255,255,0.3)`,
+                                                        letterSpacing: 1,
+                                                        fontFamily: `'Cinzel', serif`
+                                                    },
+                                                    children: `OPTIONAL`
+                                                })
+                                            ]
+                                        }),
+                                        (()=>{
+                                            let e = new Date().toLocaleDateString(`en-US`, {
+                                                month: `short`,
+                                                day: `numeric`
+                                            }), n = {
+                                                legendary: 3,
+                                                rare: 2,
+                                                common: 1
+                                            }, i = (t.relics ?? []).map((e)=>u(e)).filter((e)=>!!e).sort((e, t)=>(n[t.rarity] ?? 0) - (n[e.rarity] ?? 0))[0], o = i ? `\nFound the ${i.name} relic along the way.` : ``, s = S ? `\n⚔️ #${S.rank} in Starktember — ${S.total.toLocaleString()} pts across the month.` : ``, c = a ? `☀️ Daily Challenge — ${e} — ${t.score} pts before the storm claimed me.\nSame sea for every captain today. Can you beat me?${s}${o}\n⚓ @PlayCorsair\nhttps://playcorsair.xyz/\n\n#Tideborn #Starknet` : `🏴\u200d☠️ ${t.runTitle} — ${t.score} pts before the storm claimed me.\n${t.turn} turns · ${t.ship.gold} gold · No mercy.${o}\nSame waters, seed ${t.seed}. Dare to sail further? ⚓ @PlayCorsair\nhttps://playcorsair.xyz/\n\n#Tideborn #Starknet`;
+                                            return (0, N.jsx)(Xe, {
+                                                isMobile: r,
+                                                onShare: ()=>{
+                                                    Ze(c);
                                                 },
-                                                whileTap: {
-                                                    scale: .97
-                                                },
-                                                onClick: ae,
-                                                disabled: E,
-                                                style: {
-                                                    padding: `14px 36px`,
-                                                    borderRadius: 12,
-                                                    border: `2px solid rgba(200,160,48,0.6)`,
-                                                    background: `rgba(80,60,10,0.5)`,
-                                                    color: `#c8a030`,
-                                                    cursor: E ? `wait` : `pointer`,
-                                                    fontSize: 20,
-                                                    fontWeight: 700,
-                                                    letterSpacing: 2,
-                                                    fontFamily: `'Pirata One', cursive`,
-                                                    boxShadow: `0 0 20px rgba(200,160,48,0.2)`,
-                                                    opacity: E ? .7 : 1
-                                                },
-                                                children: E ? `PREPARING…` : `SAIL AGAIN`
-                                            }),
-                                            (0, N.jsx)(i.button, {
-                                                whileHover: {
-                                                    scale: 1.05
-                                                },
-                                                whileTap: {
-                                                    scale: .97
-                                                },
-                                                onClick: oe,
-                                                style: {
-                                                    padding: `14px 24px`,
-                                                    borderRadius: 12,
-                                                    border: `1px solid rgba(255,255,255,0.1)`,
-                                                    background: `transparent`,
-                                                    color: `rgba(255,255,255,0.3)`,
-                                                    cursor: `pointer`,
-                                                    fontSize: 14,
-                                                    letterSpacing: 2,
-                                                    fontFamily: `'Pirata One', cursive`
-                                                },
-                                                children: `← MENU`
-                                            })
-                                        ]
-                                    })
-                                ]
+                                                payload: {
+                                                    score: t.score,
+                                                    turn: t.turn,
+                                                    gold: t.ship.gold,
+                                                    runTitle: t.runTitle,
+                                                    seed: t.seed,
+                                                    deathName: he.name,
+                                                    isDaily: a,
+                                                    text: c
+                                                }
+                                            });
+                                        })()
+                                    ]
+                                })
                             })
                         ]
                     })
@@ -2685,7 +2628,7 @@ let __tla = Promise.all([
     function nt({ queue: e, isMobile: t, onDismiss: r }) {
         let a = e[0] ?? null;
         if (!a) return null;
-        let o = re(a), s = o?.name ?? ue(a), c = o?.rarity ?? `Rare`, l = le[c], u = S(a), d = o ? ce(o.image) : null, f = e.length - 1;
+        let o = re(a), s = o?.name ?? de(a), c = o?.rarity ?? `Rare`, l = ue[c], u = ie(a), d = o ? le(o.image) : null, f = e.length - 1;
         return (0, N.jsx)(n, {
             children: (0, N.jsxs)(i.div, {
                 initial: {
@@ -3207,8 +3150,8 @@ let __tla = Promise.all([
         return t?.active ? Math.abs(t.x - e.ship.x) + Math.abs(t.y - e.ship.y) : 99;
     }
     function ht(e) {
-        let t = (e.relics ?? []).includes(`black_flag`) ? 2 : 0, n = Math.max(D.hunter.minDamage, D.hunter.baseDamage - e.ship.power) + t;
-        return C(e.ship.upgrades, n);
+        let t = (e.relics ?? []).includes(`black_flag`) ? 2 : 0, n = Math.max(E.hunter.minDamage, E.hunter.baseDamage - e.ship.power) + t;
+        return S(e.ship.upgrades, n);
     }
     function gt(e) {
         return e === `frenzy` ? `ENRAGED` : e === `stalking` ? `STALKING` : e === `searching` ? `SEARCHING` : `TRACKING`;
@@ -3222,7 +3165,7 @@ let __tla = Promise.all([
     function yt(e) {
         if (!e.hunter?.active) return `calm`;
         let t = mt(e);
-        return t <= 1 || e.hunter.mode === `frenzy` ? `critical` : t <= 3 || e.hunter.awareness >= D.hunter.frenzyAwareness ? `danger` : t <= 5 || e.hunter.mode === `stalking` || e.hunter.awareness >= D.hunter.stalkingAwareness ? `watch` : `calm`;
+        return t <= 1 || e.hunter.mode === `frenzy` ? `critical` : t <= 3 || e.hunter.awareness >= E.hunter.frenzyAwareness ? `danger` : t <= 5 || e.hunter.mode === `stalking` || e.hunter.awareness >= E.hunter.stalkingAwareness ? `watch` : `calm`;
     }
     function bt(e) {
         if (!e.hunter?.active) return ``;
@@ -3379,7 +3322,7 @@ let __tla = Promise.all([
                     pointerEvents: `none`
                 },
                 children: [
-                    (0, N.jsx)(O, {
+                    (0, N.jsx)(D, {
                         name: `kraken`,
                         size: t ? 14 : 16
                     }),
@@ -3427,7 +3370,7 @@ let __tla = Promise.all([
                                 gap: 4
                             },
                             children: [
-                                (0, N.jsx)(O, {
+                                (0, N.jsx)(D, {
                                     name: `storm`,
                                     size: 13
                                 }),
@@ -3440,7 +3383,7 @@ let __tla = Promise.all([
                             style: {
                                 color: `#cc44ee`
                             },
-                            children: se[e.currentZone ?? 1]?.name ?? `The Coasts`
+                            children: ce[e.currentZone ?? 1]?.name ?? `The Coasts`
                         }),
                         (0, N.jsxs)(`span`, {
                             style: {
@@ -3450,7 +3393,7 @@ let __tla = Promise.all([
                                 gap: 4
                             },
                             children: [
-                                (0, N.jsx)(O, {
+                                (0, N.jsx)(D, {
                                     name: `star`,
                                     size: 13
                                 }),
@@ -3461,7 +3404,7 @@ let __tla = Promise.all([
                         })
                     ]
                 }),
-                a && !e.event && !e.showPort && !e.gameOver && (0, N.jsx)(Oe, {
+                a && !e.event && !e.showPort && !e.gameOver && (0, N.jsx)(P, {
                     tip: a,
                     isMobile: t,
                     onDismiss: o
@@ -3485,7 +3428,7 @@ let __tla = Promise.all([
                                         background: e.ship.vision >= 4 ? `radial-gradient(circle at 50% 50%, transparent 55%, rgba(8,15,24,0.35) 78%, rgba(8,15,24,0.7) 100%)` : `radial-gradient(circle at 50% 65%, transparent 28%, rgba(8,15,24,0.45) 55%, rgba(8,15,24,0.85) 78%)`
                                     }
                                 }),
-                                I[e.currentZone ?? 1] && (0, N.jsx)(`div`, {
+                                L[e.currentZone ?? 1] && (0, N.jsx)(`div`, {
                                     "aria-hidden": !0,
                                     style: {
                                         position: `absolute`,
@@ -3493,7 +3436,7 @@ let __tla = Promise.all([
                                         zIndex: 0,
                                         borderRadius: 14,
                                         overflow: `hidden`,
-                                        backgroundImage: `url(${I[e.currentZone ?? 1]})`,
+                                        backgroundImage: `url(${L[e.currentZone ?? 1]})`,
                                         backgroundSize: `cover`,
                                         backgroundPosition: `center`,
                                         opacity: .14,
@@ -3562,7 +3505,7 @@ let __tla = Promise.all([
                                                 visited: !1,
                                                 value: 0,
                                                 stormed: !1
-                                            }, f = e.ship.x + n, p = e.ship.y + t, m = e.hunter?.active && e.hunter.x === f && e.hunter.y === p, h = e.hunter?.active ? mt(e) : 99, g = n === 0 && t === 0, _ = d.revealed || d.visited, v = d.stormed, y = e.ship.upgrades.includes(`rider`), ee = y && (v || _ && d.type === `storm`), b = y && g && v, x = e.ship.upgrades.includes(`ghost`) && d.type === `port`, te = e.stormDistance <= 0 ? -1 : e.grid.length + 2 - Math.floor((10 - e.stormDistance) / 3), ne = v && o === te, re = e.currentZone ?? 1, S = g || _ && !m, ie = m ? e.hunter?.mode === `frenzy` ? `#3a0612` : `#2a0830` : S ? `transparent` : xt[re] ?? xt[1], C = l < 56, w = Math.round(l * (C ? 1.02 : .96)), T = !g && !m && _ && d.type !== `sea` ? x ? `#6a6a78` : y && d.type === `storm` ? `#44ddaa` : dt[d.type] ?? null : null, E = C ? 2 : 1.5, ae = C ? 1.38 : 1.22, oe = C ? 1.32 : 1.2, se = C ? 5 : 3;
+                                            }, f = e.ship.x + n, p = e.ship.y + t, m = e.hunter?.active && e.hunter.x === f && e.hunter.y === p, h = e.hunter?.active ? mt(e) : 99, g = n === 0 && t === 0, _ = d.revealed || d.visited, v = d.stormed, y = e.ship.upgrades.includes(`rider`), ee = y && (v || _ && d.type === `storm`), b = y && g && v, x = e.ship.upgrades.includes(`ghost`) && d.type === `port`, te = e.stormDistance <= 0 ? -1 : e.grid.length + 2 - Math.floor((10 - e.stormDistance) / 3), ne = v && o === te, re = e.currentZone ?? 1, ie = g || _ && !m, ae = m ? e.hunter?.mode === `frenzy` ? `#3a0612` : `#2a0830` : ie ? `transparent` : xt[re] ?? xt[1], S = l < 56, C = Math.round(l * (S ? 1.02 : .96)), w = !g && !m && _ && d.type !== `sea` ? x ? `#6a6a78` : y && d.type === `storm` ? `#44ddaa` : dt[d.type] ?? null : null, T = S ? 2 : 1.5, oe = S ? 1.38 : 1.22, se = S ? 1.32 : 1.2, ce = S ? 5 : 3;
                                             return (0, N.jsxs)(i.div, {
                                                 className: ne ? y ? `storm-front-rider` : `storm-front` : void 0,
                                                 initial: _ ? {
@@ -3576,20 +3519,20 @@ let __tla = Promise.all([
                                                 style: {
                                                     width: l,
                                                     height: l,
-                                                    background: S ? lt(re) : ie,
-                                                    border: g ? h <= 1 ? `2px solid #ee4466` : b ? `2px solid #44eebb` : `1px solid rgba(120,190,200,0.45)` : m ? `2px solid ${e.hunter?.mode === `frenzy` ? `#ff4466` : e.hunter?.mode === `stalking` ? `#dd66ff` : `#aa44cc`}` : v ? y ? `1.5px solid rgba(60,220,180,0.55)` : `1px solid #cc222244` : T ? `${E}px solid ${T}${C ? `cc` : `99`}` : S ? `1px solid rgba(255,255,255,0.10)` : `1px solid rgba(255,255,255,0.04)`,
+                                                    background: ie ? lt(re) : ae,
+                                                    border: g ? h <= 1 ? `2px solid #ee4466` : b ? `2px solid #44eebb` : `1px solid rgba(120,190,200,0.45)` : m ? `2px solid ${e.hunter?.mode === `frenzy` ? `#ff4466` : e.hunter?.mode === `stalking` ? `#dd66ff` : `#aa44cc`}` : v ? y ? `1.5px solid rgba(60,220,180,0.55)` : `1px solid #cc222244` : w ? `${T}px solid ${w}${S ? `cc` : `99`}` : ie ? `1px solid rgba(255,255,255,0.10)` : `1px solid rgba(255,255,255,0.04)`,
                                                     borderRadius: 5,
                                                     display: `flex`,
                                                     alignItems: `center`,
                                                     justifyContent: `center`,
                                                     fontSize: g ? 26 : 20,
-                                                    boxShadow: m ? `0 0 ${h <= 2 ? 22 : 14}px ${e.hunter?.mode === `frenzy` ? `rgba(255,60,80,0.85)` : `rgba(200,60,220,0.75)`}` : g ? h <= 1 ? `0 0 18px rgba(238,68,102,0.5)` : b ? `0 0 16px rgba(60,220,180,0.55)` : `0 0 10px rgba(20,60,80,0.35)` : ee && !g ? `0 0 ${C ? 10 : 7}px rgba(60,200,170,0.45), inset 0 0 ${C ? 12 : 8}px rgba(40,180,150,0.18)` : T ? `0 0 ${C ? 12 : 8}px ${T}${C ? `66` : `44`}, inset 0 0 ${C ? 14 : 10}px ${T}${C ? `28` : `18`}` : `none`,
+                                                    boxShadow: m ? `0 0 ${h <= 2 ? 22 : 14}px ${e.hunter?.mode === `frenzy` ? `rgba(255,60,80,0.85)` : `rgba(200,60,220,0.75)`}` : g ? h <= 1 ? `0 0 18px rgba(238,68,102,0.5)` : b ? `0 0 16px rgba(60,220,180,0.55)` : `0 0 10px rgba(20,60,80,0.35)` : ee && !g ? `0 0 ${S ? 10 : 7}px rgba(60,200,170,0.45), inset 0 0 ${S ? 12 : 8}px rgba(40,180,150,0.18)` : w ? `0 0 ${S ? 12 : 8}px ${w}${S ? `66` : `44`}, inset 0 0 ${S ? 14 : 10}px ${w}${S ? `28` : `18`}` : `none`,
                                                     position: `relative`,
                                                     cursor: `default`,
                                                     overflow: `hidden`
                                                 },
                                                 children: [
-                                                    S && (0, N.jsx)(V, {
+                                                    ie && (0, N.jsx)(V, {
                                                         zone: re,
                                                         x: f,
                                                         y: p,
@@ -3628,7 +3571,7 @@ let __tla = Promise.all([
                                                                 },
                                                                 children: (0, N.jsx)(rt, {
                                                                     shipId: e.shipType ?? `default`,
-                                                                    size: Math.round(l * (C ? .98 : .92)),
+                                                                    size: Math.round(l * (S ? .98 : .92)),
                                                                     lurchX: r.x,
                                                                     lurchY: r.y
                                                                 })
@@ -3742,8 +3685,8 @@ let __tla = Promise.all([
                                                             src: `/icons/portal.png?v=9`,
                                                             alt: ``,
                                                             style: {
-                                                                width: w,
-                                                                height: w,
+                                                                width: C,
+                                                                height: C,
                                                                 objectFit: `contain`,
                                                                 filter: `drop-shadow(0 0 8px #aa77ff)`
                                                             }
@@ -3751,13 +3694,13 @@ let __tla = Promise.all([
                                                     }),
                                                     !m && !g && _ && d.type !== `sea` && (0, N.jsxs)(N.Fragment, {
                                                         children: [
-                                                            T && !d.visited && (0, N.jsx)(`div`, {
+                                                            w && !d.visited && (0, N.jsx)(`div`, {
                                                                 "aria-hidden": !0,
                                                                 style: {
                                                                     position: `absolute`,
-                                                                    inset: C ? `8%` : `14%`,
+                                                                    inset: S ? `8%` : `14%`,
                                                                     borderRadius: `50%`,
-                                                                    background: `radial-gradient(circle, ${T}${C ? `55` : `38`} 0%, ${T}00 70%)`,
+                                                                    background: `radial-gradient(circle, ${w}${S ? `55` : `38`} 0%, ${w}00 70%)`,
                                                                     pointerEvents: `none`,
                                                                     zIndex: 0
                                                                 }
@@ -3767,13 +3710,13 @@ let __tla = Promise.all([
                                                                 alt: ``,
                                                                 title: x ? `Ghost Ship cannot dock` : void 0,
                                                                 style: {
-                                                                    width: w,
-                                                                    height: w,
+                                                                    width: C,
+                                                                    height: C,
                                                                     opacity: d.visited ? .45 : x ? .4 : 1,
                                                                     objectFit: `contain`,
                                                                     position: `relative`,
                                                                     zIndex: 1,
-                                                                    filter: d.visited ? `brightness(1.05) contrast(1.1)` : x ? `grayscale(1) brightness(0.7) contrast(0.9)` : `brightness(${ae}) contrast(${oe}) drop-shadow(0 0 ${se}px ${T ?? `#88aacc`}${C ? `cc` : `88`})`
+                                                                    filter: d.visited ? `brightness(1.05) contrast(1.1)` : x ? `grayscale(1) brightness(0.7) contrast(0.9)` : `brightness(${oe}) contrast(${se}) drop-shadow(0 0 ${ce}px ${w ?? `#88aacc`}${S ? `cc` : `88`})`
                                                                 }
                                                             }),
                                                             x && !d.visited && (0, N.jsx)(`div`, {
@@ -3828,8 +3771,8 @@ let __tla = Promise.all([
                                                             (0, N.jsx)(`img`, {
                                                                 src: `/icons/hunter.png?v=9`,
                                                                 style: {
-                                                                    width: w,
-                                                                    height: w,
+                                                                    width: C,
+                                                                    height: C,
                                                                     objectFit: `contain`
                                                                 }
                                                             }),
@@ -3944,20 +3887,20 @@ let __tla = Promise.all([
                                         gap: 2
                                     },
                                     children: [
-                                        (0, N.jsx)(O, {
+                                        (0, N.jsx)(D, {
                                             name: `fire`,
                                             size: t ? 16 : 22
                                         }),
-                                        (0, N.jsx)(O, {
+                                        (0, N.jsx)(D, {
                                             name: `fire`,
                                             size: t ? 16 : 22
                                         }),
-                                        (0, N.jsx)(O, {
+                                        (0, N.jsx)(D, {
                                             name: `fire`,
                                             size: t ? 16 : 22
                                         })
                                     ]
-                                }) : (0, N.jsx)(O, {
+                                }) : (0, N.jsx)(D, {
                                     name: `fire`,
                                     size: t ? 16 : 20
                                 }),
@@ -4109,14 +4052,14 @@ let __tla = Promise.all([
                         gap: 6
                     },
                     children: [
-                        (0, N.jsx)(O, {
+                        (0, N.jsx)(D, {
                             name: `vortex`,
                             size: 14
                         }),
                         ` `,
                         e.portalHint,
                         ` `,
-                        (0, N.jsx)(O, {
+                        (0, N.jsx)(D, {
                             name: `vortex`,
                             size: 14
                         })
@@ -4179,23 +4122,23 @@ let __tla = Promise.all([
             ]
         });
     }
-    var Ct = `/icons/gold.png`, wt = (e, t = 14)=>(0, N.jsx)(O, {
+    var Ct = `/icons/gold.png`, wt = (e, t = 14)=>(0, N.jsx)(D, {
             name: e === `frenzy` ? `lightning` : e === `stalking` ? `eye` : e === `searching` ? `mist` : `compass`,
             size: t,
             style: {
                 marginRight: 5
             }
         });
-    Tt = function({ walletAddress: e, account: t, username: r, onHome: c, onPlayDaily: f, dailySeed: re, isDaily: S, seedToken: C, shipId: w, resumeState: ce, resumeRunId: le, resumeActions: ue }) {
-        let { connect: xe, connecting: Se } = a(), [A, j] = (0, k.useState)(()=>ce ?? l(re, w ?? `default`)), Te = (0, k.useRef)(!e), [Ee, Oe] = (0, k.useState)(()=>!v()), [P, F] = (0, k.useState)(null), [je, Me] = (0, k.useState)(!1), [Ne, Pe] = (0, k.useState)([]), [Fe, R] = (0, k.useState)([]), [Re, Ve] = (0, k.useState)([]), Ue = (0, k.useRef)(0), [z, Ye] = (0, k.useState)(null), Xe = (0, k.useRef)((A.relics ?? []).length), [Ze, Qe] = (0, k.useState)(!1), [$e, B] = (0, k.useState)({
+    Tt = function({ walletAddress: e, account: t, username: r, onHome: c, onPlayDaily: f, dailySeed: re, isDaily: ie, seedToken: S, shipId: C, resumeState: le, resumeRunId: ue, resumeActions: de }) {
+        let { connect: xe, connecting: Se } = a(), [A, j] = (0, k.useState)(()=>le ?? l(re, C ?? `default`)), Te = (0, k.useRef)(!e), [Ee, P] = (0, k.useState)(()=>!v()), [F, I] = (0, k.useState)(null), [Ae, je] = (0, k.useState)(!1), [Me, Ne] = (0, k.useState)([]), [Pe, Le] = (0, k.useState)([]), [Re, Ve] = (0, k.useState)([]), Ue = (0, k.useRef)(0), [z, Ye] = (0, k.useState)(null), Xe = (0, k.useRef)((A.relics ?? []).length), [Ze, Qe] = (0, k.useState)(!1), [$e, B] = (0, k.useState)({
             kind: `idle`
-        }), [et, rt] = (0, k.useState)(!1), it = (0, k.useRef)(!1), [at, ot] = (0, k.useState)([]), [st, ct] = (0, k.useState)([]), [V, lt] = (0, k.useState)(null), [H, dt] = (0, k.useState)(0), [ft, _t] = (0, k.useState)(()=>ie()), [bt, xt] = (0, k.useState)(!1), [Tt, Et] = (0, k.useState)(!1), [U, Dt] = (0, k.useState)(window.innerWidth < 768), W = S === !0, Ot = (0, k.useRef)(C), [kt, At] = (0, k.useState)(!1), [jt, Mt] = (0, k.useState)(!1);
+        }), [et, rt] = (0, k.useState)(!1), it = (0, k.useRef)(!1), [at, ot] = (0, k.useState)([]), [st, ct] = (0, k.useState)([]), [V, lt] = (0, k.useState)(null), [H, dt] = (0, k.useState)(0), [ft, _t] = (0, k.useState)(()=>ae()), [bt, xt] = (0, k.useState)(!1), [Tt, Et] = (0, k.useState)(!1), [U, Dt] = (0, k.useState)(window.innerWidth < 768), W = ie === !0, Ot = (0, k.useRef)(S), [kt, At] = (0, k.useState)(!1), [jt, Mt] = (0, k.useState)(!1);
         (0, k.useEffect)(()=>{
             if (A.gameOver) {
-                F(null);
+                I(null);
                 return;
             }
-            A.turn > 0 && Ce(`sail`), F(we(A));
+            A.turn > 0 && Ce(`sail`), I(we(A));
         }, [
             A.turn,
             A.event,
@@ -4205,37 +4148,37 @@ let __tla = Promise.all([
             A.gameOver
         ]);
         let Nt = ()=>{
-            P && (Ce(P.id), F(null));
+            F && (Ce(F.id), I(null));
         };
         (0, k.useEffect)(()=>{
             W && (y(), e && g());
         }, []), (0, k.useEffect)(()=>{
             if (!e) {
-                Oe(!v());
+                P(!v());
                 return;
             }
             _e(e, g()).then((e)=>{
                 if (e) {
-                    Oe(!1);
+                    P(!1);
                     return;
                 }
-                v() && E(), Oe(!0);
+                v() && T(), P(!0);
             });
         }, [
             e
         ]);
-        let G = (0, k.useRef)(le ?? crypto.randomUUID()), K = (0, k.useRef)(ue ? [
-            ...ue
+        let G = (0, k.useRef)(ue ?? crypto.randomUUID()), K = (0, k.useRef)(de ? [
+            ...de
         ] : []), q = (e)=>{
             K.current.push(e);
         }, J = (0, k.useRef)([]);
         (0, k.useEffect)(()=>{
             let t = e;
-            !t || A.gameOver || K.current.length !== 0 && ae({
+            !t || A.gameOver || K.current.length !== 0 && oe({
                 run_id: G.current,
                 wallet_address: t,
                 seed: A.seed,
-                ship_id: w ?? `default`,
+                ship_id: C ?? `default`,
                 is_daily: W,
                 actions: K.current,
                 turn: A.turn,
@@ -4252,13 +4195,13 @@ let __tla = Promise.all([
         ]);
         let Pt = (0, k.useRef)(0);
         (0, k.useEffect)(()=>{
-            e && (le || pe({
+            e && (ue || me({
                 run_id: G.current,
                 wallet_address: e,
                 username: r ?? null,
                 seed: A.seed,
                 is_daily: W,
-                seed_token: C ?? null
+                seed_token: S ?? null
             }));
         }, []), (0, k.useEffect)(()=>{
             !e || A.gameOver || A.turn - Pt.current < 3 || (Pt.current = A.turn, ge(G.current, {
@@ -4275,7 +4218,7 @@ let __tla = Promise.all([
                 run_id: G.current,
                 wallet_address: e,
                 seed: A.seed,
-                ship_id: w ?? `default`,
+                ship_id: C ?? `default`,
                 is_daily: W,
                 actions: K.current,
                 checks: K.current.flatMap((e, t)=>[
@@ -4320,7 +4263,7 @@ let __tla = Promise.all([
                     kind: `rejected`,
                     raison: t?.raison ?? void 0
                 }), W && _e(e, g()).then((e)=>{
-                    e || E();
+                    e || T();
                 });
             } catch (e) {
                 console.warn(`[approve]`, e), _(`approve`, {
@@ -4376,7 +4319,7 @@ let __tla = Promise.all([
         let [Y, X] = (0, k.useState)(null), [Lt, Rt] = (0, k.useState)(!1), zt = (0, k.useRef)(null), Bt = (0, k.useRef)(new Set), [Vt, Ht] = (0, k.useState)(null);
         (0, k.useEffect)(()=>{
             let t = new Date, n = t.getUTCFullYear() === 2026 && t.getUTCMonth() === 8;
-            !A.gameOver || !W || !e || !n || Ze && me().then((t)=>{
+            !A.gameOver || !W || !e || !n || Ze && O().then((t)=>{
                 let n = (e)=>e.toLowerCase().replace(/^0x0*/, ``), r = t.find((t)=>n(t.wallet_address) === n(e));
                 r && Ht({
                     rank: r.rank,
@@ -4431,14 +4374,14 @@ let __tla = Promise.all([
             A.ship.vision
         ]);
         let [Jt, Yt] = (0, k.useState)(!1), [Z, Xt] = (0, k.useState)(null), [Zt, Qt] = (0, k.useState)(null), [$t, en] = (0, k.useState)(0), tn = ()=>{
-            Me(!0), setTimeout(()=>Me(!1), 400);
+            je(!0), setTimeout(()=>je(!1), 400);
         }, nn = (e)=>{
             Qt(e), setTimeout(()=>Qt(null), 150);
         }, Q = A, rn = Math.min(100, (1 - Q.stormDistance / 10) * 100), an = Q.ship.hull <= 5 ? `#ee4444` : Q.ship.hull <= 10 ? `#ee8844` : `#44cc88`, on = !Q.escapeUsed && Q.ship.upgrades.includes(`escape`) && Q.event && Q.event.choices[0].risk !== `safe`;
         (0, k.useEffect)(()=>{
             if (A.gameOver) return;
             let e = A.event?.cellType;
-            e && (!ke[e] && !L[e] || Bt.current.has(e) || X(e));
+            e && (!Oe[e] && !R[e] || Bt.current.has(e) || X(e));
         }, [
             A.event?.cellType,
             A.gameOver
@@ -4458,7 +4401,7 @@ let __tla = Promise.all([
         (0, k.useEffect)(()=>{
             let e = A.currentZone ?? 1;
             if (e > sn.current) {
-                let t = sn.current, n = se[e], r = se[t]?.transitionText ?? [];
+                let t = sn.current, n = ce[e], r = ce[t]?.transitionText ?? [];
                 lt({
                     lines: r.length > 0 ? [
                         ...r,
@@ -4492,8 +4435,8 @@ let __tla = Promise.all([
         ]), (0, k.useEffect)(()=>{
             if (A.gameOver) {
                 let e = p(A);
-                e.length > 0 && (R(e), M(`streak`));
-                let t = oe({
+                e.length > 0 && (Le(e), M(`streak`));
+                let t = se({
                     score: A.score,
                     turn: A.turn,
                     zone: A.currentZone ?? 1,
@@ -4557,7 +4500,7 @@ let __tla = Promise.all([
             A.turn
         ]);
         let dn = (e, t)=>{
-            q(e === -1 ? 0 : e === 1 ? 2 : 1), j((n)=>fe(n, e, t));
+            q(e === -1 ? 0 : e === 1 ? 2 : 1), j((n)=>pe(n, e, t));
         }, fn = (e)=>{
             q(10 + e), j((t)=>{
                 let n = d(t, e);
@@ -4576,10 +4519,10 @@ let __tla = Promise.all([
                     return;
                 }
                 Ot.current = t.seed_token;
-                let n = l(t.seed, w ?? `default`);
+                let n = l(t.seed, C ?? `default`);
                 K.current = [], J.current = [], Pt.current = 0, G.current = crypto.randomUUID(), it.current = !1, Qe(!1), B({
                     kind: `idle`
-                }), rt(!1), ot([]), ct([]), pe({
+                }), rt(!1), ot([]), ct([]), me({
                     run_id: G.current,
                     wallet_address: e,
                     username: r ?? null,
@@ -4589,7 +4532,7 @@ let __tla = Promise.all([
                 }), j(n);
                 return;
             }
-            let t = l(void 0, w ?? `default`);
+            let t = l(void 0, C ?? `default`);
             K.current = [], J.current = [], Pt.current = 0, G.current = crypto.randomUUID(), it.current = !1, Qe(!1), B({
                 kind: `idle`
             }), rt(!1), ot([]), ct([]), j(t);
@@ -4648,7 +4591,7 @@ let __tla = Promise.all([
         }, [
             A
         ]), (0, N.jsxs)(i.div, {
-            animate: je ? {
+            animate: Ae ? {
                 x: [
                     0,
                     -8,
@@ -4701,7 +4644,7 @@ let __tla = Promise.all([
                             style: {
                                 position: `absolute`,
                                 inset: 0,
-                                backgroundImage: `url(${I[Q.currentZone ?? 1] ?? I[1]})`,
+                                backgroundImage: `url(${L[Q.currentZone ?? 1] ?? L[1]})`,
                                 backgroundSize: `cover`,
                                 backgroundPosition: `center`,
                                 filter: `saturate(0.7) brightness(0.8)`
@@ -4816,7 +4759,7 @@ let __tla = Promise.all([
                             },
                             children: [
                                 (0, N.jsx)(`img`, {
-                                    src: de,
+                                    src: fe,
                                     style: {
                                         width: U ? 24 : 36,
                                         height: U ? 24 : 36,
@@ -4831,7 +4774,7 @@ let __tla = Promise.all([
                                     children: `CORSAIR`
                                 }),
                                 (()=>{
-                                    let e = T.find((e)=>e.id === (Q.shipType ?? `default`)) ?? T[0], t = se[Q.currentZone ?? 1]?.name ?? `The Coasts`;
+                                    let e = w.find((e)=>e.id === (Q.shipType ?? `default`)) ?? w[0], t = ce[Q.currentZone ?? 1]?.name ?? `The Coasts`;
                                     return (0, N.jsxs)(`div`, {
                                         title: e.tagline,
                                         style: {
@@ -5149,7 +5092,7 @@ let __tla = Promise.all([
                                     gap: 8
                                 },
                                 children: [
-                                    (0, N.jsx)(O, {
+                                    (0, N.jsx)(D, {
                                         name: `kraken`,
                                         size: 15,
                                         style: {
@@ -5213,7 +5156,7 @@ let __tla = Promise.all([
                                                 height: 3,
                                                 borderRadius: 2,
                                                 width: `${Q.hunter.awareness}%`,
-                                                background: Q.hunter.awareness >= D.hunter.frenzyAwareness ? `#ee4444` : Q.hunter.awareness >= D.hunter.stalkingAwareness ? `#cc44ee` : `#7744aa`,
+                                                background: Q.hunter.awareness >= E.hunter.frenzyAwareness ? `#ee4444` : Q.hunter.awareness >= E.hunter.stalkingAwareness ? `#cc44ee` : `#7744aa`,
                                                 transition: `width 0.5s`
                                             }
                                         })
@@ -5277,7 +5220,7 @@ let __tla = Promise.all([
                                                 fontFamily: `'Cinzel', serif`
                                             },
                                             children: [
-                                                (0, N.jsx)(O, {
+                                                (0, N.jsx)(D, {
                                                     name: `storm`,
                                                     size: 13
                                                 }),
@@ -5356,7 +5299,7 @@ let __tla = Promise.all([
                                                     fontFamily: `'Cinzel', serif`
                                                 },
                                                 children: [
-                                                    (0, N.jsx)(O, {
+                                                    (0, N.jsx)(D, {
                                                         name: `kraken`,
                                                         size: 13
                                                     }),
@@ -5413,7 +5356,7 @@ let __tla = Promise.all([
                                                     style: {
                                                         height: 3,
                                                         borderRadius: 2,
-                                                        background: Q.hunter.awareness >= D.hunter.frenzyAwareness ? `#ee4444` : Q.hunter.awareness >= D.hunter.stalkingAwareness ? `#cc44ee` : `#7744aa`
+                                                        background: Q.hunter.awareness >= E.hunter.frenzyAwareness ? `#ee4444` : Q.hunter.awareness >= E.hunter.stalkingAwareness ? `#cc44ee` : `#7744aa`
                                                     }
                                                 })
                                             })
@@ -5450,7 +5393,7 @@ let __tla = Promise.all([
                                         },
                                         children: [
                                             (0, N.jsx)(`img`, {
-                                                src: Ie[e],
+                                                src: Fe[e],
                                                 style: {
                                                     width: 16,
                                                     height: 16,
@@ -5499,7 +5442,7 @@ let __tla = Promise.all([
                                         gap: 5
                                     },
                                     children: [
-                                        (0, N.jsx)(O, {
+                                        (0, N.jsx)(D, {
                                             name: `star`,
                                             size: 12
                                         }),
@@ -5702,7 +5645,7 @@ let __tla = Promise.all([
                             isMobile: U,
                             slide: Wt,
                             lurch: Kt,
-                            onboard: P,
+                            onboard: F,
                             onDismissOnboard: Nt,
                             onMove: dn
                         }),
@@ -5747,10 +5690,10 @@ let __tla = Promise.all([
                                         overflowY: `auto`
                                     },
                                     children: ze.map((e)=>{
-                                        let t = Q.ship.upgrades.includes(e.id), n = Ne.includes(e.id), r = Q.upgradeToken && Q.showPort, i = r ? 0 : e.cost, a = !t && !n && Q.ship.gold >= i && Q.showPort, o = Be[e.build], s = t || Q.showPort;
+                                        let t = Q.ship.upgrades.includes(e.id), n = Me.includes(e.id), r = Q.upgradeToken && Q.showPort, i = r ? 0 : e.cost, a = !t && !n && Q.ship.gold >= i && Q.showPort, o = Be[e.build], s = t || Q.showPort;
                                         return (0, N.jsxs)(`div`, {
                                             onClick: ()=>{
-                                                Q.showPort && (n ? Pe((t)=>t.filter((t)=>t !== e.id)) : a && Pe((t)=>[
+                                                Q.showPort && (n ? Ne((t)=>t.filter((t)=>t !== e.id)) : a && Ne((t)=>[
                                                         ...t,
                                                         e.id
                                                     ]));
@@ -5789,7 +5732,7 @@ let __tla = Promise.all([
                                                             },
                                                             children: [
                                                                 (0, N.jsx)(`img`, {
-                                                                    src: Ie[e.id],
+                                                                    src: Fe[e.id],
                                                                     style: {
                                                                         width: 18,
                                                                         height: 18,
@@ -5849,8 +5792,8 @@ let __tla = Promise.all([
                     ]
                 }),
                 (0, N.jsx)(n, {
-                    children: Y && (ke[Y] || L[Y] || Y === `death`) && (()=>{
-                        let e = !U && !!ke[Y], t = Y === `death` ? I[Q.currentZone ?? 1] ?? L.storm : L[Y] ?? null;
+                    children: Y && (Oe[Y] || R[Y] || Y === `death`) && (()=>{
+                        let e = !U && !!Oe[Y], t = Y === `death` ? L[Q.currentZone ?? 1] ?? R.storm : R[Y] ?? null;
                         return (0, N.jsxs)(i.div, {
                             initial: {
                                 opacity: 0
@@ -5877,7 +5820,7 @@ let __tla = Promise.all([
                             },
                             children: [
                                 e ? (0, N.jsx)(i.video, {
-                                    src: ke[Y],
+                                    src: Oe[Y],
                                     autoPlay: !0,
                                     muted: $,
                                     playsInline: !0,
@@ -5951,7 +5894,7 @@ let __tla = Promise.all([
                                                 letterSpacing: 3,
                                                 textShadow: `0 2px 30px rgba(0,0,0,0.95)`
                                             },
-                                            children: Ae[Y] ?? ``
+                                            children: ke[Y] ?? ``
                                         }),
                                         (0, N.jsx)(`div`, {
                                             style: {
@@ -5996,12 +5939,12 @@ let __tla = Promise.all([
                             background: `radial-gradient(ellipse at center, rgba(8,6,20,0.75) 0%, rgba(2,3,8,0.96) 100%)`
                         },
                         children: [
-                            I[V.zone] && (0, N.jsx)(`div`, {
+                            L[V.zone] && (0, N.jsx)(`div`, {
                                 style: {
                                     position: `absolute`,
                                     inset: 0,
                                     zIndex: 0,
-                                    backgroundImage: `url(${I[V.zone]})`,
+                                    backgroundImage: `url(${L[V.zone]})`,
                                     backgroundSize: `cover`,
                                     backgroundPosition: `center`,
                                     opacity: .28,
@@ -6036,7 +5979,7 @@ let __tla = Promise.all([
                                     marginBottom: 28,
                                     filter: `drop-shadow(0 0 28px rgba(136,102,255,0.55))`
                                 },
-                                children: (0, N.jsx)(O, {
+                                children: (0, N.jsx)(D, {
                                     name: `vortex`,
                                     size: U ? 72 : 96
                                 })
@@ -6336,7 +6279,7 @@ let __tla = Promise.all([
                     })()
                 }),
                 (0, N.jsx)(n, {
-                    children: Q.event && !Y && !Q.gameOver && !Q.showPort && Ae[Q.event.cellType] && (0, N.jsx)(We, {
+                    children: Q.event && !Y && !Q.gameOver && !Q.showPort && ke[Q.event.cellType] && (0, N.jsx)(We, {
                         variant: `scene`,
                         event: Q.event,
                         isMobile: U,
@@ -6345,7 +6288,7 @@ let __tla = Promise.all([
                         relics: Q.relics,
                         upgrades: Q.ship.upgrades,
                         score: Q.score,
-                        onboard: P,
+                        onboard: F,
                         onDismissOnboard: Nt,
                         onChoose: fn,
                         canEscape: !!on,
@@ -6353,7 +6296,7 @@ let __tla = Promise.all([
                     }, `event-scene`)
                 }),
                 (0, N.jsx)(n, {
-                    children: Q.event && !Y && !Q.gameOver && !Q.showPort && Q.event.cellType && !L[Q.event.cellType] && (0, N.jsx)(We, {
+                    children: Q.event && !Y && !Q.gameOver && !Q.showPort && Q.event.cellType && !R[Q.event.cellType] && (0, N.jsx)(We, {
                         variant: `compact`,
                         event: Q.event,
                         isMobile: U,
@@ -6362,7 +6305,7 @@ let __tla = Promise.all([
                         relics: Q.relics,
                         upgrades: Q.ship.upgrades,
                         cellIcon: ut[Q.event.cellType],
-                        onboard: P,
+                        onboard: F,
                         onDismissOnboard: Nt,
                         onChoose: fn,
                         canEscape: !!on,
@@ -6376,9 +6319,9 @@ let __tla = Promise.all([
                     portUpgrades: Q.portUpgrades,
                     upgradeToken: !!Q.upgradeToken,
                     maxedComponents: Q.maxedComponents,
-                    cart: Ne,
-                    setCart: Pe,
-                    onboard: P,
+                    cart: Me,
+                    setCart: Ne,
+                    onboard: F,
                     onDismissOnboard: Nt,
                     onUpgradeComponent: mn,
                     onReroll: ()=>{
@@ -6389,12 +6332,12 @@ let __tla = Promise.all([
                         q(n), j((n)=>s(n, e, t));
                     },
                     onSetSail: ()=>{
-                        for (let e of Ne)q(50 + Le.indexOf(e));
+                        for (let e of Me)q(50 + Ie.indexOf(e));
                         q(70), j((e)=>{
                             let t = e;
-                            for (let e of Ne)t = o(t, e);
+                            for (let e of Me)t = o(t, e);
                             return h(t);
-                        }), Pe([]);
+                        }), Ne([]);
                     }
                 }),
                 (0, N.jsx)(tt, {
@@ -6404,7 +6347,7 @@ let __tla = Promise.all([
                     isDailyRun: W,
                     personalBest: ft,
                     isNewRecord: bt,
-                    newFeats: Fe,
+                    newFeats: Pe,
                     nearFeats: Re,
                     submitStatus: $e,
                     onRetrySubmit: ()=>{
@@ -6582,7 +6525,7 @@ let __tla = Promise.all([
                                         alignItems: `center`,
                                         justifyContent: `center`
                                     },
-                                    children: (0, N.jsx)(O, {
+                                    children: (0, N.jsx)(D, {
                                         name: `anchor`,
                                         size: 22
                                     })
@@ -6606,7 +6549,7 @@ let __tla = Promise.all([
                                         alignItems: `center`,
                                         justifyContent: `center`
                                     },
-                                    children: (0, N.jsx)(O, {
+                                    children: (0, N.jsx)(D, {
                                         name: `swords`,
                                         size: 22
                                     })
@@ -6684,7 +6627,7 @@ let __tla = Promise.all([
                                                     },
                                                     children: [
                                                         (0, N.jsx)(`img`, {
-                                                            src: Ie[e],
+                                                            src: Fe[e],
                                                             style: {
                                                                 width: 18,
                                                                 height: 18,
@@ -6705,7 +6648,7 @@ let __tla = Promise.all([
                                                     gap: 5
                                                 },
                                                 children: [
-                                                    (0, N.jsx)(O, {
+                                                    (0, N.jsx)(D, {
                                                         name: `star`,
                                                         size: 12
                                                     }),
@@ -6827,7 +6770,7 @@ let __tla = Promise.all([
                                                             },
                                                             children: [
                                                                 (0, N.jsx)(`img`, {
-                                                                    src: Ie[e.id],
+                                                                    src: Fe[e.id],
                                                                     style: {
                                                                         width: 20,
                                                                         height: 20,
