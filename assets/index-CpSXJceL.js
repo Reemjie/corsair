@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-CrrC4suk.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-Dgulr6L_.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-BcFE0MqH.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-Dc9G9Bjz.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-DOYcIJbq.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-Dgulr6L_.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-BcFE0MqH.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-Dc9G9Bjz.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
 import { a as e, t } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as n, n as r, r as i, t as a } from "./motion-wKhEcHeU.js";
 import { n as o, t as s } from "./walletApi-DYniPf4L.js";
@@ -12767,7 +12767,7 @@ Error generating stack: ` + e.message + `
         } else e === 60 ? r = u(r, 8, 25) : e === 61 ? r = u(r, r.ship.maxHull, 55) : e === 70 && (r = g(r));
         return r;
     }
-    var pt = (0, O.lazy)(()=>D(()=>import(`./CorsairGame-CrrC4suk.js`).then(async (m)=>{
+    var pt = (0, O.lazy)(()=>D(()=>import(`./CorsairGame-DOYcIJbq.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }), __vite__mapDeps([0,1,2,3,4,5,6]))), mt = (0, O.lazy)(()=>D(()=>import(`./AdminPanel-Dc9G9Bjz.js`).then(async (m)=>{

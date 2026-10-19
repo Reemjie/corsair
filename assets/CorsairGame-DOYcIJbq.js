@@ -2739,22 +2739,22 @@ let __tla = Promise.all([
                         },
                         style: {
                             position: `relative`,
-                            marginBottom: 22
+                            marginBottom: 22,
+                            width: t ? 180 : 230,
+                            aspectRatio: `3 / 4`,
+                            display: `flex`,
+                            alignItems: `center`,
+                            justifyContent: `center`
                         },
                         onClick: (e)=>e.stopPropagation(),
                         children: [
                             (0, j.jsx)(i.div, {
                                 "aria-hidden": !0,
                                 animate: {
-                                    scale: [
-                                        1,
-                                        1.12,
-                                        1
-                                    ],
                                     opacity: [
-                                        .5,
+                                        .55,
                                         .2,
-                                        .5
+                                        .55
                                     ]
                                 },
                                 transition: {
@@ -2764,22 +2764,19 @@ let __tla = Promise.all([
                                 },
                                 style: {
                                     position: `absolute`,
-                                    left: `50%`,
-                                    top: `50%`,
-                                    transform: `translate(-50%, -50%)`,
-                                    width: t ? 220 : 280,
-                                    height: t ? 280 : 360,
-                                    borderRadius: 24,
+                                    inset: t ? -16 : -22,
+                                    borderRadius: 22,
                                     border: `2px solid ${l}`,
-                                    boxShadow: `0 0 50px ${l}55`
+                                    boxShadow: `0 0 50px ${l}55`,
+                                    pointerEvents: `none`
                                 }
                             }),
                             (0, j.jsx)(`div`, {
                                 style: {
                                     position: `relative`,
                                     zIndex: 1,
-                                    width: t ? 180 : 230,
-                                    aspectRatio: `3 / 4`,
+                                    width: `100%`,
+                                    height: `100%`,
                                     borderRadius: 16,
                                     overflow: `hidden`,
                                     border: `2px solid ${l}`,
