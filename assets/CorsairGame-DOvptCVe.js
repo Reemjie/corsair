@@ -1046,74 +1046,116 @@ let __tla = Promise.all([
                             })
                         ]
                     }),
-                    (0, k.jsx)(`div`, {
-                        style: {
-                            display: `flex`,
-                            gap: 8,
-                            marginBottom: 16
-                        },
-                        children: [
+                    (()=>{
+                        let e = r.upgrades.includes(`greed`), t = r.upgrades.includes(`rider`) && !e, n = [
                             {
                                 label: `Rum Barrel`,
-                                desc: `+8 hull`,
+                                baseDesc: `+8 hull`,
                                 cost: 25,
                                 gain: 8,
-                                code: 60
+                                code: 60,
+                                heal: t ? 4 : 8
                             },
                             {
                                 label: `Full Repair`,
-                                desc: `Restore all`,
+                                baseDesc: `Restore all`,
                                 cost: 55,
                                 gain: r.maxHull,
-                                code: 61
+                                code: 61,
+                                heal: t ? Math.floor(r.maxHull / 2) : r.maxHull
                             }
-                        ].map((e)=>(0, k.jsxs)(i.button, {
-                                whileTap: {
-                                    scale: .97
-                                },
-                                onClick: ()=>h(e.gain, e.cost, e.code),
-                                disabled: r.gold < e.cost || r.hull >= r.maxHull,
-                                style: {
-                                    flex: 1,
-                                    padding: `10px 8px`,
-                                    borderRadius: 10,
-                                    border: `1px solid rgba(68,204,136,0.3)`,
-                                    background: `rgba(68,204,136,0.08)`,
-                                    cursor: r.gold >= e.cost && r.hull < r.maxHull ? `pointer` : `not-allowed`,
-                                    opacity: r.gold >= e.cost && r.hull < r.maxHull ? 1 : .4,
-                                    textAlign: `center`
-                                },
-                                children: [
-                                    (0, k.jsx)(`div`, {
-                                        style: {
-                                            fontSize: 13,
-                                            color: `#44cc88`,
-                                            fontFamily: `'Pirata One', cursive`
-                                        },
-                                        children: e.label
-                                    }),
-                                    (0, k.jsx)(`div`, {
-                                        style: {
-                                            fontSize: 11,
-                                            color: `rgba(255,255,255,0.5)`
-                                        },
-                                        children: e.desc
-                                    }),
-                                    (0, k.jsxs)(`div`, {
-                                        style: {
-                                            fontSize: 12,
-                                            color: `#eedd44`,
-                                            marginTop: 4
-                                        },
-                                        children: [
-                                            `◆ `,
-                                            e.cost,
-                                            `g`
-                                        ]
+                        ];
+                        return (0, k.jsxs)(k.Fragment, {
+                            children: [
+                                e && (0, k.jsx)(`div`, {
+                                    style: {
+                                        marginBottom: 8,
+                                        padding: `8px 12px`,
+                                        borderRadius: 8,
+                                        border: `1px solid rgba(180,160,80,0.4)`,
+                                        background: `rgba(40,35,15,0.55)`,
+                                        fontFamily: `'IM Fell English', cursive`,
+                                        fontSize: 14,
+                                        color: `rgba(220,200,140,0.85)`,
+                                        textAlign: `center`
+                                    },
+                                    children: `Cursed Greed refuses the dry dock — repairs are sealed.`
+                                }),
+                                t && (0, k.jsx)(`div`, {
+                                    style: {
+                                        marginBottom: 8,
+                                        padding: `6px 12px`,
+                                        borderRadius: 8,
+                                        border: `1px solid rgba(68,204,136,0.28)`,
+                                        background: `rgba(20,40,30,0.45)`,
+                                        fontFamily: `'IM Fell English', cursive`,
+                                        fontSize: 13,
+                                        color: `rgba(140,220,180,0.8)`,
+                                        textAlign: `center`
+                                    },
+                                    children: `Storm Rider — port repairs heal only half.`
+                                }),
+                                (0, k.jsx)(`div`, {
+                                    style: {
+                                        display: `flex`,
+                                        gap: 8,
+                                        marginBottom: 16
+                                    },
+                                    children: n.map((n)=>{
+                                        let a = r.gold >= n.cost && r.hull < r.maxHull && !e, o = e ? `Cursed Greed blocks repairs` : t ? `+${n.heal} hull (half)` : n.baseDesc;
+                                        return (0, k.jsxs)(i.button, {
+                                            whileTap: {
+                                                scale: a ? .97 : 1
+                                            },
+                                            onClick: ()=>{
+                                                a && h(n.gain, n.cost, n.code);
+                                            },
+                                            disabled: !a,
+                                            title: e ? `Cursed Greed prevents repairs` : void 0,
+                                            "aria-disabled": !a,
+                                            style: {
+                                                flex: 1,
+                                                padding: `10px 8px`,
+                                                borderRadius: 10,
+                                                textAlign: `center`,
+                                                border: `1px solid ${e ? `rgba(120,120,140,0.4)` : `rgba(68,204,136,0.3)`}`,
+                                                background: e ? `linear-gradient(135deg, rgba(12,12,18,0.9) 0%, rgba(40,40,55,0.45) 100%)` : `rgba(68,204,136,0.08)`,
+                                                cursor: a ? `pointer` : `not-allowed`,
+                                                opacity: e ? .55 : a ? 1 : .4,
+                                                filter: e ? `grayscale(0.85)` : void 0
+                                            },
+                                            children: [
+                                                (0, k.jsx)(`div`, {
+                                                    style: {
+                                                        fontSize: 13,
+                                                        color: e ? `rgba(160,160,180,0.75)` : `#44cc88`,
+                                                        fontFamily: `'Pirata One', cursive`
+                                                    },
+                                                    children: n.label
+                                                }),
+                                                (0, k.jsx)(`div`, {
+                                                    style: {
+                                                        fontSize: 11,
+                                                        color: e ? `rgba(180,170,200,0.65)` : `rgba(255,255,255,0.5)`
+                                                    },
+                                                    children: o
+                                                }),
+                                                (0, k.jsx)(`div`, {
+                                                    style: {
+                                                        fontSize: 12,
+                                                        color: e ? `rgba(140,140,160,0.7)` : `#eedd44`,
+                                                        marginTop: 4,
+                                                        letterSpacing: +!!e
+                                                    },
+                                                    children: e ? `BLOCKED` : `◆ ${n.cost}g`
+                                                })
+                                            ]
+                                        }, n.label);
                                     })
-                                ]
-                            }, e.label))
-                    }),
+                                })
+                            ]
+                        });
+                    })(),
                     (0, k.jsxs)(i.button, {
                         whileHover: {
                             scale: 1.02
