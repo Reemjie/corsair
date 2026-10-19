@@ -1,8 +1,8 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-DOYcIJbq.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-Dgulr6L_.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-BcFE0MqH.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-Dc9G9Bjz.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-Dv8qI9vX.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-Dgulr6L_.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-hKl3bmED.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-Dc9G9Bjz.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
 import { a as e, t } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as n, n as r, r as i, t as a } from "./motion-wKhEcHeU.js";
 import { n as o, t as s } from "./walletApi-DYniPf4L.js";
-import { $ as c, A as l, B as u, D as d, E as f, F as p, H as m, I as h, L as g, M as _, N as v, P as y, Q as b, T as x, U as ee, V as te, W as ne, X as re, Y as ie, Z as ae, _ as oe, b as se, g as ce, h as le, i as ue, j as de, l as S, n as C, o as fe, p as pe, q as me, r as he, t as w, u as T, v as ge, w as E, x as _e, y as ve, z as ye } from "./anchor-BcFE0MqH.js";
+import { $ as c, A as l, B as u, D as d, E as f, F as p, H as m, I as h, L as g, M as _, N as v, P as y, Q as b, T as x, U as ee, V as te, W as ne, X as re, Y as ie, Z as ae, _ as oe, b as se, g as ce, h as le, i as ue, j as de, l as S, n as C, o as fe, p as pe, q as me, r as he, t as w, u as T, v as ge, w as E, x as _e, y as ve, z as ye } from "./anchor-hKl3bmED.js";
 import { C as be, a as xe, c as Se, f as Ce, g as we, l as Te, m as Ee, p as De, r as Oe, s as ke, t as Ae, w as D, x as je, __tla as __tla_0 } from "./supabase-Dgulr6L_.js";
 Promise.all([
     (()=>{
@@ -9388,7 +9388,7 @@ Error generating stack: ` + e.message + `
                                         lineHeight: 1.9,
                                         marginBottom: 12
                                     },
-                                    children: `The Hunter appears after you have sailed deep enough into a zone — turn 12 on The Coasts, turn 8 on The Storm Sea, turn 6 in The Abyss (counted from when you entered that zone). It spawns on the opposite side of the map and begins tracking you. Four modes show in the left panel (or top bar on mobile):`
+                                    children: `The Hunter appears after you have sailed deep enough into a zone — turn 10 on The Coasts, turn 7 on The Storm Sea, turn 5 in The Abyss (counted from when you entered that zone). It spawns on the opposite side of the map already on your trail. Four modes show in the left panel (or top bar on mobile):`
                                 }),
                                 (0, k.jsx)(`div`, {
                                     style: {
@@ -9407,13 +9407,13 @@ Error generating stack: ` + e.message + `
                                         {
                                             icon: `eye`,
                                             mode: `STALKING`,
-                                            desc: `Moves every turn, following you directly. Awareness 50%+. Start worrying.`,
+                                            desc: `Moves every turn, following you directly. Awareness 35%+. Start worrying.`,
                                             color: `#dd88ff`
                                         },
                                         {
                                             icon: `lightning`,
                                             mode: `ENRAGED`,
-                                            desc: `Moves twice per turn. Awareness 80%+. Run.`,
+                                            desc: `Moves twice per turn. Awareness 65%+. Run.`,
                                             color: `#ff6666`
                                         },
                                         {
@@ -9670,7 +9670,7 @@ Error generating stack: ` + e.message + `
                                     color: `#ee8844`
                                 },
                                 {
-                                    tip: `Watch the Hunter awareness bar. Pass through storms or ports to reduce it. When it goes ENRAGED (80%+), it moves twice per turn — prioritize escaping over exploring.`,
+                                    tip: `Watch the Hunter awareness bar. Pass through storms or ports to reduce it. When it goes ENRAGED (65%+), it moves twice per turn — prioritize escaping over exploring.`,
                                     color: `#6aaccc`
                                 }
                             ].map((e, t)=>(0, k.jsxs)(`div`, {
@@ -10844,6 +10844,27 @@ Error generating stack: ` + e.message + `
         });
     }
     var nt = [
+        {
+            version: `1.1.1`,
+            date: `October 2026`,
+            headline: `Menace & clearer upgrades`,
+            sections: [
+                {
+                    title: `The Hunter`,
+                    items: [
+                        `Spawns earlier (turn 10 / 7 / 5 by zone) and starts already on your trail.`,
+                        `Awareness builds faster; STALKING at 35%, ENRAGED at 65%.`
+                    ]
+                },
+                {
+                    title: `Upgrades`,
+                    items: [
+                        `Storm Rider: stormed tiles glow teal — surf feedback on the map.`,
+                        `Swift Sails: louder escape button + READY / USED in the equipped list.`
+                    ]
+                }
+            ]
+        },
         {
             version: `1.1`,
             date: `October 2026`,
@@ -12767,7 +12788,7 @@ Error generating stack: ` + e.message + `
         } else e === 60 ? r = u(r, 8, 25) : e === 61 ? r = u(r, r.ship.maxHull, 55) : e === 70 && (r = g(r));
         return r;
     }
-    var pt = (0, O.lazy)(()=>D(()=>import(`./CorsairGame-DOYcIJbq.js`).then(async (m)=>{
+    var pt = (0, O.lazy)(()=>D(()=>import(`./CorsairGame-Dv8qI9vX.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }), __vite__mapDeps([0,1,2,3,4,5,6]))), mt = (0, O.lazy)(()=>D(()=>import(`./AdminPanel-Dc9G9Bjz.js`).then(async (m)=>{
