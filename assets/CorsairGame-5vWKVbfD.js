@@ -1,8 +1,8 @@
 import { a as e } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as t, n, r, t as i } from "./motion-wKhEcHeU.js";
 import { n as a } from "./walletApi-DYniPf4L.js";
-import { A as o, B as s, C as c, F as l, G as u, H as d, I as f, J as p, K as m, L as h, M as g, O as _, P as v, R as y, S as ee, T as b, U as x, V as te, W as ne, a as re, c as S, d as ie, et as C, f as w, g as T, j as E, k as ae, m as oe, nt as se, o as ce, r as le, s as ue, t as de, tt as D, w as O, z as fe } from "./anchor-BxrvFrJR.js";
-import { T as pe, _ as me, c as he, g as ge, m as _e, n as ve, v as ye, w as be, __tla as __tla_0 } from "./supabase-C5K4zmsK.js";
+import { A as o, B as s, C as c, F as l, G as u, H as d, I as f, J as p, K as m, L as h, M as g, O as _, P as v, R as y, S as ee, T as b, U as x, V as te, W as ne, a as re, c as S, d as ie, et as C, f as w, g as T, j as E, k as ae, m as oe, nt as se, o as ce, r as le, s as ue, t as de, tt as D, w as O, z as fe } from "./anchor-BmF_8Elr.js";
+import { S as pe, f as me, g as he, h as ge, m as _e, o as ve, t as ye, x as be, __tla as __tla_0 } from "./supabase-D1x7Wzn0.js";
 import { l as xe, __tla as __tla_1 } from "./wallet-D0U5_iuP.js";
 let Tt;
 let __tla = Promise.all([
@@ -4214,7 +4214,7 @@ let __tla = Promise.all([
                 Oe(!v());
                 return;
             }
-            ge(e, g()).then((e)=>{
+            _e(e, g()).then((e)=>{
                 if (e) {
                     Oe(!1);
                     return;
@@ -4261,7 +4261,7 @@ let __tla = Promise.all([
                 seed_token: C ?? null
             }));
         }, []), (0, k.useEffect)(()=>{
-            !e || A.gameOver || A.turn - Pt.current < 3 || (Pt.current = A.turn, me(G.current, {
+            !e || A.gameOver || A.turn - Pt.current < 3 || (Pt.current = A.turn, ge(G.current, {
                 score: A.score,
                 turn: A.turn,
                 zone: A.currentZone ?? 1,
@@ -4307,7 +4307,7 @@ let __tla = Promise.all([
                 return;
             }
             try {
-                let t = await ve(G.current);
+                let t = await ye(G.current);
                 if (t?.approved) {
                     if (Qe(!0), B({
                         kind: `ok`,
@@ -4319,7 +4319,7 @@ let __tla = Promise.all([
                 } else console.warn(`[approve] refuse :`, t?.raison ?? t), B({
                     kind: `rejected`,
                     raison: t?.raison ?? void 0
-                }), W && ge(e, g()).then((e)=>{
+                }), W && _e(e, g()).then((e)=>{
                     e || E();
                 });
             } catch (e) {
@@ -4340,7 +4340,7 @@ let __tla = Promise.all([
                     return;
                 }
                 if (!it.current) {
-                    if (it.current = !0, he(G.current, {
+                    if (it.current = !0, ve(G.current, {
                         score: A.score,
                         turn: A.turn,
                         zone: A.currentZone ?? 1,
@@ -4376,7 +4376,7 @@ let __tla = Promise.all([
         let [Y, X] = (0, k.useState)(null), [Lt, Rt] = (0, k.useState)(!1), zt = (0, k.useRef)(null), Bt = (0, k.useRef)(new Set), [Vt, Ht] = (0, k.useState)(null);
         (0, k.useEffect)(()=>{
             let t = new Date, n = t.getUTCFullYear() === 2026 && t.getUTCMonth() === 8;
-            !A.gameOver || !W || !e || !n || Ze && _e().then((t)=>{
+            !A.gameOver || !W || !e || !n || Ze && me().then((t)=>{
                 let n = (e)=>e.toLowerCase().replace(/^0x0*/, ``), r = t.find((t)=>n(t.wallet_address) === n(e));
                 r && Ht({
                     rank: r.rank,
@@ -4570,7 +4570,7 @@ let __tla = Promise.all([
         }, hn = async ()=>{
             if (e) {
                 Mt(!0), At(!1);
-                let t = await ye(e);
+                let t = await he(e);
                 if (Mt(!1), !t) {
                     At(!0);
                     return;
