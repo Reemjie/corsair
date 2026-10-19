@@ -1,4 +1,4 @@
-let Li, Ji, aa, ra, na, zi, Qi, Bi, $i, Yi, ea, Ri, ia, Ki, Xi, Wi, Vi, qi, oa, Ui, Gi, $r, Zi, ta;
+let ea, $r, aa, Li, na, ra, Ji, Xi, Wi, ta, Qi, sa, Vi, zi, Gi, qi, oa, Bi, Yi, $i, la, Ri, ca, Zi, ia, Ki;
 let __tla = (async ()=>{
     function e(e, t) {
         var n = {};
@@ -8190,20 +8190,36 @@ Resources:`;
             };
         }
     };
-    var Hi = `0x06c8b06fb6a94f3ae9b26c87b1baacc4a7a1f2e0184870c957728b5d17bd0202`;
-    Ui = async function() {
-        let { data: e, error: t } = await $.from(`nft_mints`).select(`id, wallet_address, nft_name, nft_id, status, tx_hash, run_id`).order(`id`, {
+    var Hi = {
+        kraken_eye: `ipfs://QmVnXgMYLnyMdUSbDXPqrFmWZJBNke7wPWvpn3ou86fKAX`,
+        ancient_chart: `ipfs://QmbXeEXsfmgrfi1SoWvKJmcLhXqCZH4fCg5LNbYX7c1zLh`,
+        storm_caller: `ipfs://Qmb54sRo5vJydXJ9m3L23fSCYMbqGkJkHsMfVD9bce1Pmv`,
+        ghost_corsair: `ipfs://QmQXuYjxb99HrTmHSZWnTg2tTktiHd2o4yTdTrSbRXsQFG`,
+        maelstrom_heart: `ipfs://QmXDXm9cAQ3g5bkYQyqKpnRG1uN7tndvjtfobcyDgD2pQa`,
+        cursed_doubloon: `ipfs://QmRGSBiu4exYzt8hbQMGK5g4AEvSi23KJpaoog9MV9cHBe`,
+        hunters_mark: `ipfs://QmNTmrM9GAeAtPY8jJcQ8FSLrSEfbovnmv7yxQbxn1bEi6`,
+        last_port: `ipfs://QmPnXkYVFQqVKJcY87dQkSte8bKWQiYVY8KTfDBPMGB1wA`,
+        blood_moon_tide: `ipfs://QmRQMW4ybuayF4S4yRwKzHHEpQWLbbJXtrYroAAB3rjx2M`,
+        leviathan: `ipfs://QmNnwHkhNawMF1K2cEzfitNUAzWRoAaqAF3hxheULKxj19`,
+        splintered_keel: `https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/meta/splintered_keel.json`,
+        quiet_hold: `https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/meta/quiet_hold.json`,
+        red_wake: `https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/meta/red_wake.json`,
+        abyss_lantern: `https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/meta/abyss_lantern.json`,
+        tideborn_crown: `https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images/meta/tideborn_crown.json`
+    }, Ui = `0x06c8b06fb6a94f3ae9b26c87b1baacc4a7a1f2e0184870c957728b5d17bd0202`;
+    Wi = async function() {
+        let { data: e, error: t } = await $.from(`nft_mints`).select(`id, wallet_address, nft_name, nft_id, status, tx_hash, token_id, run_id`).order(`id`, {
             ascending: !1
         });
         return t ? (console.warn(`[admin] getPendingMints:`, t.message), []) : e ?? [];
     };
-    Wi = async function() {
+    Gi = async function() {
         let { data: e, error: t } = await $.from(`nft_conditions`).select(`name, minted, max_supply`).order(`name`, {
             ascending: !0
         });
         return t ? (console.warn(`[admin] getSupply:`, t.message), []) : e ?? [];
     };
-    Gi = async function(e, t, n, r) {
+    Ki = async function(e, t, n, r) {
         let i = localStorage.getItem(`corsair_admin_secret`);
         if (!i) return console.warn(`[admin] cle admin absente — localStorage.setItem("corsair_admin_secret", "...")`), alert(`Admin secret missing. In the console run:
 localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`), !1;
@@ -8222,20 +8238,31 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`), !1;
         }
         return !0;
     };
-    Ki = function(e, t) {
+    qi = function(e, t) {
         return `sncast --account corsair_deployer_mainnet invoke \\
-  --contract-address ${Hi} \\
+  --contract-address ${Ui} \\
   --function mint \\
   --arguments '${e}' \\
   --network mainnet`;
     };
-    qi = async function(e) {
+    Ji = function(e) {
+        return Hi[e] ?? null;
+    };
+    Yi = function(e, t) {
+        let n = Hi[t];
+        return n ? `sncast --account corsair_deployer_mainnet invoke \\
+  --contract-address ${Ui} \\
+  --function set_token_uri \\
+  --arguments ${e},'${n}' \\
+  --network mainnet` : null;
+    };
+    Xi = async function(e) {
         let { data: t, error: n } = await $.from(`nft_mints`).select(`nft_name, wallet_address`);
         if (n || !t) return [];
         let r = (e)=>`0x` + e.toLowerCase().replace(/^0x0*/, ``), i = r(e);
         return t.filter((e)=>r(e.wallet_address) === i).map((e)=>e.nft_name);
     };
-    Ji = async function(e) {
+    Zi = async function(e) {
         try {
             let { error: t } = await $.functions.invoke(`player-write`, {
                 body: {
@@ -8248,7 +8275,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`), !1;
             console.warn(`[runs] start:`, e?.message ?? e);
         }
     };
-    Yi = async function(e, t) {
+    Qi = async function(e, t) {
         try {
             let { error: n } = await $.functions.invoke(`player-write`, {
                 body: {
@@ -8262,7 +8289,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`), !1;
             console.warn(`[runs] heartbeat:`, e?.message ?? e);
         }
     };
-    Xi = async function(e, t) {
+    $i = async function(e, t) {
         try {
             let { error: n } = await $.functions.invoke(`player-write`, {
                 body: {
@@ -8276,13 +8303,13 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`), !1;
             console.warn(`[runs] finish:`, e?.message ?? e);
         }
     };
-    Zi = async function(e) {
+    ea = async function(e) {
         let { error: t } = await $.from(`corsair_run_logs`).insert(e);
         if (!t) return;
         let n = `${t.code ?? ``} ${t.message ?? ``}`;
         if (!/23505|duplicate|unique/i.test(n)) throw console.warn(`[runlog]`, t.message), Error(t.message || `saveRunLog failed`);
     };
-    Qi = async function(e) {
+    ta = async function(e) {
         if (e.length === 0) return {};
         let { data: t, error: n } = await $.from(`corsair_run_verdicts`).select(`run_id, verified, replay_score, final_score`).in(`run_id`, e);
         if (n || !t) return console.warn(`[verdicts]`, n?.message), {};
@@ -8290,7 +8317,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`), !1;
         for (let e of t)r[e.run_id] = e;
         return r;
     };
-    $i = async function(e) {
+    na = async function(e) {
         try {
             let { data: t, error: n } = await $.functions.invoke(`issue-seed`, {
                 body: {
@@ -8305,7 +8332,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`), !1;
             return console.warn(`[seed] emission impossible`), null;
         }
     };
-    ea = async function(e) {
+    ra = async function(e) {
         let [t, n] = await Promise.all([
             $.from(`player_feats`).select(`feat_id`).eq(`wallet_address`, e),
             $.from(`player_titles`).select(`title`).eq(`wallet_address`, e).maybeSingle()
@@ -8315,8 +8342,8 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`), !1;
             title: n.data?.title ?? null
         };
     };
-    ta = async function(e, t) {};
-    na = async function(e, t) {
+    ia = async function(e, t) {};
+    aa = async function(e, t) {
         try {
             let { error: n } = await $.functions.invoke(`player-write`, {
                 body: {
@@ -8330,7 +8357,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`), !1;
             console.warn(`[title]`, e?.message ?? e);
         }
     };
-    ra = async function(e) {
+    oa = async function(e) {
         try {
             let [t, n, r] = await Promise.all([
                 $.from(`corsair_scores`).select(`score, zone, turn`).eq(`wallet_address`, e),
@@ -8338,7 +8365,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`), !1;
                     count: `exact`,
                     head: !0
                 }).eq(`wallet_address`, e),
-                qi(e)
+                Xi(e)
             ]), i = t.data ?? [], a = 0, o = 1, s = 0;
             for (let e of i)e.score > a && (a = e.score), (e.zone ?? 1) > o && (o = e.zone ?? 1), (e.turn ?? 0) > s && (s = e.turn ?? 0);
             let c = n.count ?? 0, l = r.length;
@@ -8353,13 +8380,13 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`), !1;
             return null;
         }
     };
-    ia = async function(e, t) {
+    sa = async function(e, t) {
         if (t.length !== 8) return !1;
         let n = `${t.slice(0, 4)}-${t.slice(4, 6)}-${t.slice(6, 8)}`, { data: r, error: i } = await $.from(`corsair_daily_scores`).select(`id`).eq(`wallet_address`, e).eq(`date`, n).maybeSingle();
         return i ? !1 : !!r;
     };
-    aa = async function(e, t) {};
-    oa = async function(e) {
+    ca = async function(e, t) {};
+    la = async function(e) {
         let { data: t, error: n } = await $.functions.invoke(`approve-run`, {
             body: {
                 run_id: e
@@ -8369,4 +8396,4 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`), !1;
         return t;
     };
 })();
-export { Li as C, Ji as S, aa as _, ra as a, na as b, zi as c, Qi as d, Bi as f, $i as g, Yi as h, ea as i, Ri as l, ia as m, Ki as n, Xi as o, Wi as p, Vi as r, qi as s, oa as t, Ui as u, Gi as v, $r as w, Zi as x, ta as y, __tla };
+export { ea as C, $r as E, aa as S, Li as T, na as _, ra as a, Ji as b, Xi as c, Wi as d, ta as f, Qi as g, sa as h, Vi as i, zi as l, Gi as m, qi as n, oa as o, Bi as p, Yi as r, $i as s, la as t, Ri as u, ca as v, Zi as w, ia as x, Ki as y, __tla };
