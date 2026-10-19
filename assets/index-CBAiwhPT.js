@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-D6aDwugX.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-Dgulr6L_.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-BcFE0MqH.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-Dc9G9Bjz.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-CrrC4suk.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-Dgulr6L_.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-BcFE0MqH.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-Dc9G9Bjz.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
 import { a as e, t } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as n, n as r, r as i, t as a } from "./motion-wKhEcHeU.js";
 import { n as o, t as s } from "./walletApi-DYniPf4L.js";
@@ -12767,7 +12767,7 @@ Error generating stack: ` + e.message + `
         } else e === 60 ? r = u(r, 8, 25) : e === 61 ? r = u(r, r.ship.maxHull, 55) : e === 70 && (r = g(r));
         return r;
     }
-    var pt = (0, O.lazy)(()=>D(()=>import(`./CorsairGame-D6aDwugX.js`).then(async (m)=>{
+    var pt = (0, O.lazy)(()=>D(()=>import(`./CorsairGame-CrrC4suk.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }), __vite__mapDeps([0,1,2,3,4,5,6]))), mt = (0, O.lazy)(()=>D(()=>import(`./AdminPanel-Dc9G9Bjz.js`).then(async (m)=>{
@@ -12805,7 +12805,28 @@ Error generating stack: ` + e.message + `
         }, [
             e
         ]), (0, O.useEffect)(()=>{
-            f(async (e, t)=>e === `runlog` ? (await je(t), await Ae(t.run_id), !0) : e === `approve` ? (await Ae(t.run_id), !0) : e === `score` ? await be(t.wallet, t.score, t.run_title, t.turn, t.zone, t.seed, t.username) : (await Oe(t), !0));
+            f(async (e, t)=>{
+                if (e === `runlog`) {
+                    await je(t);
+                    let e = await Ae(t.run_id);
+                    return window.dispatchEvent(new CustomEvent(`corsair-sync`, {
+                        detail: {
+                            run_id: t.run_id,
+                            approved: !!e?.approved
+                        }
+                    })), !0;
+                }
+                if (e === `approve`) {
+                    let e = await Ae(t.run_id);
+                    return window.dispatchEvent(new CustomEvent(`corsair-sync`, {
+                        detail: {
+                            run_id: t.run_id,
+                            approved: !!e?.approved
+                        }
+                    })), !0;
+                }
+                return e === `score` ? await be(t.wallet, t.score, t.run_title, t.turn, t.zone, t.seed, t.username) : (await Oe(t), !0);
+            });
         }, []), (0, O.useEffect)(()=>{
             let e = ()=>{
                 window.location.hash.replace(`#`, ``) === `admin` && i(`admin`);
