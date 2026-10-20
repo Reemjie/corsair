@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-TsUCwxa9.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-D1x7Wzn0.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-BmF_8Elr.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-BA2hW68c.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-D8lSb7Wm.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-D1x7Wzn0.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-BmF_8Elr.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-BA2hW68c.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
 import { a as e, t } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as n, n as r, r as i, t as a } from "./motion-wKhEcHeU.js";
 import { n as o, t as s } from "./walletApi-DYniPf4L.js";
@@ -10845,6 +10845,20 @@ Error generating stack: ` + e.message + `
     }
     var nt = [
         {
+            version: `1.1.3`,
+            date: `October 2026`,
+            headline: `Smoother decks & louder relics`,
+            sections: [
+                {
+                    title: `Surface`,
+                    items: [
+                        `Notch-safe top bar and mobile drawers.`,
+                        `NFT unlock plays a relic sting; scene/Hunter overlays are leaner on mobile.`
+                    ]
+                }
+            ]
+        },
+        {
             version: `1.1.2`,
             date: `October 2026`,
             headline: `First voyage, clearer wreck`,
@@ -12802,7 +12816,7 @@ Error generating stack: ` + e.message + `
         } else e === 60 ? r = u(r, 8, 25) : e === 61 ? r = u(r, r.ship.maxHull, 55) : e === 70 && (r = g(r));
         return r;
     }
-    var pt = (0, O.lazy)(()=>D(()=>import(`./CorsairGame-TsUCwxa9.js`).then(async (m)=>{
+    var pt = (0, O.lazy)(()=>D(()=>import(`./CorsairGame-D8lSb7Wm.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }), __vite__mapDeps([0,1,2,3,4,5,6]))), mt = (0, O.lazy)(()=>D(()=>import(`./AdminPanel-BA2hW68c.js`).then(async (m)=>{
