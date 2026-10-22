@@ -1,4 +1,4 @@
-let Yi, ra, Zi, Ji, na, Ri, la, ei, fa, pa, Wi, ya, Gi, ma, Hi, ca, zi, Bi, ba, aa, ua, Xi, ia, va, xa, da, ga, Sa, ha, Qi, oa, sa, ea, Vi;
+let Zi, ia, ea, da, Yi, la, oa, ma, ta, _a, $i, Ri, Qi, sa, zi, Ta, Vi, Da, na, Hi, Bi, ca, ba, pa, Ji, va, ha, ya, wa, fa, Ca, Ea, xa, Xi, Wi, ga, Gi, ua, ei;
 let __tla = (async ()=>{
     function e(e, t) {
         var n = {};
@@ -8257,23 +8257,106 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
     Zi = function(e) {
         return `https://eyahboeaekejmcgknsty.supabase.co/functions/v1/nft-metadata/${e}`;
     };
-    Qi = function(e, t) {
+    Qi = async function(e) {
+        try {
+            let { data: t, error: n } = await Q.functions.invoke(`tournament-register`, {
+                body: {
+                    action: `status`,
+                    wallet_address: e ?? void 0
+                }
+            });
+            return n || !t?.ok ? {
+                ok: !1,
+                count: 0,
+                registered: !1,
+                open: !1,
+                error: n?.message ?? t?.error
+            } : t;
+        } catch (e) {
+            return {
+                ok: !1,
+                count: 0,
+                registered: !1,
+                open: !1,
+                error: String(e)
+            };
+        }
+    };
+    $i = async function(e, t) {
+        try {
+            let { data: n, error: r } = await Q.functions.invoke(`tournament-register`, {
+                body: {
+                    action: `register`,
+                    wallet_address: e,
+                    username: t ?? null
+                }
+            });
+            return r || !n?.ok ? {
+                ok: !1,
+                error: n?.error ?? r?.message ?? `failed`
+            } : n;
+        } catch (e) {
+            return {
+                ok: !1,
+                error: String(e)
+            };
+        }
+    };
+    ea = async function() {
+        let e = Ki();
+        if (!e) return {
+            ok: !1,
+            count: 0,
+            registrations: [],
+            error: `no secret`
+        };
+        let { data: t, error: n } = await Q.functions.invoke(`tournament-register`, {
+            body: {
+                action: `list`,
+                secret: e
+            }
+        });
+        return n || !t?.ok ? {
+            ok: !1,
+            count: 0,
+            registrations: [],
+            error: t?.error ?? n?.message
+        } : t;
+    };
+    ta = async function() {
+        let e = Ki();
+        if (!e) return {
+            ok: !1,
+            error: `no secret`
+        };
+        let { data: t, error: n } = await Q.functions.invoke(`tournament-register`, {
+            body: {
+                action: `queue_marks`,
+                secret: e
+            }
+        });
+        return n || !t?.ok ? {
+            ok: !1,
+            error: t?.error ?? n?.message
+        } : t;
+    };
+    na = function(e, t) {
         return `sncast --account corsair_deployer_mainnet invoke \\
   --contract-address ${Ui} \\
   --function mint \\
   --arguments '${e}' \\
   --network mainnet`;
     };
-    var $i = (e)=>`0x` + e.toLowerCase().replace(/^0x0*/, ``);
-    ea = async function(e) {
+    var ra = (e)=>`0x` + e.toLowerCase().replace(/^0x0*/, ``);
+    ia = async function(e) {
         let { data: t, error: n } = await Q.from(`nft_mints`).select(`nft_name, wallet_address, status, token_id`).in(`status`, [
             `pending`,
             `minted`
         ]);
         if (n || !t) return [];
-        let r = $i(e), i = new Map;
+        let r = ra(e), i = new Map;
         for (let e of t){
-            if ($i(e.wallet_address) !== r) continue;
+            if (ra(e.wallet_address) !== r) continue;
             let t = e.status === `minted` ? `minted` : `pending`, n = i.get(e.nft_name);
             (!n || t === `minted` && n.status !== `minted`) && i.set(e.nft_name, {
                 nft_name: e.nft_name,
@@ -8285,10 +8368,10 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             ...i.values()
         ];
     };
-    async function ta(e) {
-        return (await ea(e)).map((e)=>e.nft_name);
+    async function aa(e) {
+        return (await ia(e)).map((e)=>e.nft_name);
     }
-    na = async function(e) {
+    oa = async function(e) {
         try {
             let { error: t } = await Q.functions.invoke(`player-write`, {
                 body: {
@@ -8301,7 +8384,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             console.warn(`[runs] start:`, e?.message ?? e);
         }
     };
-    ra = async function(e, t) {
+    sa = async function(e, t) {
         try {
             let { error: n } = await Q.functions.invoke(`player-write`, {
                 body: {
@@ -8315,7 +8398,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             console.warn(`[runs] heartbeat:`, e?.message ?? e);
         }
     };
-    ia = async function(e, t) {
+    ca = async function(e, t) {
         try {
             let { error: n } = await Q.functions.invoke(`player-write`, {
                 body: {
@@ -8329,13 +8412,13 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             console.warn(`[runs] finish:`, e?.message ?? e);
         }
     };
-    aa = async function(e) {
+    la = async function(e) {
         let { error: t } = await Q.from(`corsair_run_logs`).insert(e);
         if (!t) return;
         let n = `${t.code ?? ``} ${t.message ?? ``}`;
         if (!/23505|duplicate|unique/i.test(n)) throw console.warn(`[runlog]`, t.message), Error(t.message || `saveRunLog failed`);
     };
-    oa = async function(e) {
+    ua = async function(e) {
         if (e.length === 0) return {};
         let { data: t, error: n } = await Q.from(`corsair_run_verdicts`).select(`run_id, verified, replay_score, final_score`).in(`run_id`, e);
         if (n || !t) return console.warn(`[verdicts]`, n?.message), {};
@@ -8343,7 +8426,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
         for (let e of t)r[e.run_id] = e;
         return r;
     };
-    sa = async function(e) {
+    da = async function(e) {
         try {
             let { data: t, error: n } = await Q.functions.invoke(`issue-seed`, {
                 body: {
@@ -8358,7 +8441,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             return console.warn(`[seed] emission impossible`), null;
         }
     };
-    ca = async function(e) {
+    fa = async function(e) {
         let [t, n] = await Promise.all([
             Q.from(`player_feats`).select(`feat_id`).eq(`wallet_address`, e),
             Q.from(`player_titles`).select(`title`).eq(`wallet_address`, e).maybeSingle()
@@ -8368,8 +8451,8 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             title: n.data?.title ?? null
         };
     };
-    la = async function(e, t) {};
-    ua = async function(e, t) {
+    pa = async function(e, t) {};
+    ma = async function(e, t) {
         try {
             let { error: n } = await Q.functions.invoke(`player-write`, {
                 body: {
@@ -8383,7 +8466,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             console.warn(`[title]`, e?.message ?? e);
         }
     };
-    da = async function(e) {
+    ha = async function(e) {
         try {
             let [t, n, r] = await Promise.all([
                 Q.from(`corsair_scores`).select(`score, zone, turn`).eq(`wallet_address`, e),
@@ -8391,7 +8474,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
                     count: `exact`,
                     head: !0
                 }).eq(`wallet_address`, e),
-                ta(e)
+                aa(e)
             ]), i = t.data ?? [], a = 0, o = 1, s = 0;
             for (let e of i)e.score > a && (a = e.score), (e.zone ?? 1) > o && (o = e.zone ?? 1), (e.turn ?? 0) > s && (s = e.turn ?? 0);
             let c = n.count ?? 0, l = r.length;
@@ -8406,13 +8489,13 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             return null;
         }
     };
-    fa = async function(e, t) {
+    ga = async function(e, t) {
         if (t.length !== 8) return !1;
         let n = `${t.slice(0, 4)}-${t.slice(4, 6)}-${t.slice(6, 8)}`, { data: r, error: i } = await Q.from(`corsair_daily_scores`).select(`id`).eq(`wallet_address`, e).eq(`date`, n).maybeSingle();
         return i ? !1 : !!r;
     };
-    pa = async function(e, t) {};
-    ma = async function(e) {
+    _a = async function(e, t) {};
+    va = async function(e) {
         let { data: t, error: n } = await Q.functions.invoke(`approve-run`, {
             body: {
                 run_id: e
@@ -8421,9 +8504,9 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
         if (n) throw n;
         return t;
     };
-    let $, _a;
+    let $, Sa;
     $ = `https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images`;
-    ha = [
+    ya = [
         {
             key: `last_port`,
             name: `The Last Port`,
@@ -8520,7 +8603,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             hidden: !0
         }
     ];
-    ga = [
+    ba = [
         {
             key: `splintered_keel`,
             name: `The Splintered Keel`,
@@ -8563,28 +8646,60 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             hidden: !0
         }
     ];
-    _a = [
-        ...ga,
-        ...ha
+    xa = [
+        {
+            key: `binding_mark`,
+            name: `The Binding Mark`,
+            rarity: `Rare`,
+            image: `${$}/17-binding_mark.jpg`,
+            condition: `Join The Binding. Every captain who registers receives this mark when inscriptions close.`,
+            season: `event`,
+            eventOnly: !0
+        },
+        {
+            key: `brother_eli`,
+            name: `Brother Eli`,
+            rarity: `Mythic`,
+            image: `${$}/18-brother_eli.jpg`,
+            condition: `Win The Binding final Daily — one copy.`,
+            season: `event`,
+            eventOnly: !0,
+            hidden: !0
+        },
+        {
+            key: `lil_duckie`,
+            name: `Lil Duckie`,
+            rarity: `Legendary`,
+            image: `${$}/19-lil_duckie.jpg`,
+            condition: `Finish second in The Binding final Daily — one copy.`,
+            season: `event`,
+            eventOnly: !0,
+            hidden: !0
+        }
     ];
-    va = {
+    Sa = [
+        ...xa,
+        ...ba,
+        ...ya
+    ];
+    Ca = {
         Rare: `#44cc88`,
         Epic: `#aa66ee`,
         Legendary: `#eedd88`,
         Mythic: `#ee5566`
     };
-    ya = function(e) {
+    wa = function(e) {
         return e.startsWith(`ipfs://`) ? e.replace(`ipfs://`, `https://ipfs.io/ipfs/`) : e;
     };
-    ba = function(e) {
-        return _a.find((t)=>t.key === e) ?? null;
+    Ta = function(e) {
+        return Sa.find((t)=>t.key === e) ?? null;
     };
-    xa = function(e) {
-        return ba(e)?.name ?? e.replace(/_/g, ` `).replace(/\b\w/g, (e)=>e.toUpperCase());
+    Ea = function(e) {
+        return Ta(e)?.name ?? e.replace(/_/g, ` `).replace(/\b\w/g, (e)=>e.toUpperCase());
     };
-    Sa = function(e) {
-        let t = ba(e);
-        return t?.season === `tideborn` ? `Tideborn` : t?.season === `genesis` ? `Genesis` : `Corsair`;
+    Da = function(e) {
+        let t = Ta(e);
+        return t?.season === `tideborn` ? `Tideborn` : t?.season === `genesis` ? `Genesis` : t?.season === `event` ? `The Binding` : `Corsair`;
     };
 })();
-export { Yi as A, ra as C, Zi as D, Ji as E, na as M, Ri as N, la as O, ei as P, fa as S, pa as T, Wi as _, ya as a, Gi as b, ma as c, Hi as d, ca as f, zi as g, Bi as h, ba as i, aa as j, ua as k, Xi as l, ia as m, va as n, xa as o, da as p, ga as r, Sa as s, ha as t, Qi as u, oa as v, sa as w, ea as x, Vi as y, __tla };
+export { Zi as A, ia as C, ea as D, da as E, Yi as F, la as I, oa as L, ma as M, ta as N, _a as O, $i as P, Ri as R, Qi as S, sa as T, zi as _, Ta as a, Vi as b, Da as c, na as d, Hi as f, Bi as g, ca as h, ba as i, pa as j, Ji as k, va as l, ha as m, ya as n, wa as o, fa as p, Ca as r, Ea as s, xa as t, Xi as u, Wi as v, ga as w, Gi as x, ua as y, ei as z, __tla };
