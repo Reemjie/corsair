@@ -8303,25 +8303,21 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
         }
     };
     ea = async function() {
-        let e = Ki();
-        if (!e) return {
-            ok: !1,
-            count: 0,
-            registrations: [],
-            error: `no secret`
-        };
-        let { data: t, error: n } = await Q.functions.invoke(`tournament-register`, {
-            body: {
-                action: `list`,
-                secret: e
-            }
+        let { data: e, error: t } = await Q.from(`tournament_registrations`).select(`id, wallet_address, username, registered_at`).eq(`tournament_id`, `binding_2026_01`).order(`registered_at`, {
+            ascending: !0
         });
-        return n || !t?.ok ? {
+        if (t) return console.warn(`[binding] list:`, t.message), {
             ok: !1,
             count: 0,
             registrations: [],
-            error: t?.error ?? n?.message
-        } : t;
+            error: t.message
+        };
+        let n = e ?? [];
+        return {
+            ok: !0,
+            count: n.length,
+            registrations: n
+        };
     };
     ta = async function() {
         let e = Ki();
