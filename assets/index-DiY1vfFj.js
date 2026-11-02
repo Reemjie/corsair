@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-Bwun8TiH.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/nftCatalog-1g6-JGwD.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-BpvpfAT-.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-BMSuSfaz.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-DsA-EmJx.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/nftCatalog-1g6-JGwD.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-BpvpfAT-.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-BMSuSfaz.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
 import { a as e, t } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as n, n as r, r as i, t as a } from "./motion-wKhEcHeU.js";
 import { n as o, t as s } from "./walletApi-DYniPf4L.js";
@@ -13439,7 +13439,7 @@ Error generating stack: ` + e.message + `
         } else e === 60 ? r = d(r, 8, 25) : e === 61 ? r = d(r, r.ship.maxHull, 55) : e === 70 && (r = v(r));
         return r;
     }
-    var Ot = (0, D.lazy)(()=>Re(()=>import(`./CorsairGame-Bwun8TiH.js`).then(async (m)=>{
+    var Ot = (0, D.lazy)(()=>Re(()=>import(`./CorsairGame-DsA-EmJx.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }), __vite__mapDeps([0,1,2,3,4,5,6]))), kt = (0, D.lazy)(()=>Re(()=>import(`./AdminPanel-BMSuSfaz.js`).then(async (m)=>{
@@ -13549,7 +13549,7 @@ Error generating stack: ` + e.message + `
                     p({
                         state: t,
                         run: e
-                    }), l(e.is_daily), s(e.is_daily ? e.seed : void 0), x((e)=>e + 1), i(`game`);
+                    }), l(e.is_daily), s(e.seed), d(e.is_daily ? void 0 : e.seed_token ?? void 0), v(e.ship_id), x((e)=>e + 1), i(`game`);
                 } catch (e) {
                     console.warn(`Replay failed, clearing saved run:`, e), T();
                 }
