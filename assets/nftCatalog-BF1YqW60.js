@@ -1,4 +1,4 @@
-let sa, Z, da, Oa, wa, fa, qi, Gi, ca, ti, Wi, Ea, Aa, ja, pa, ma, Ca, ia, Na, Ji, Li, Ui, $i, Ha, Da, Wa, ya, ta, va, Ta, La, ua, Pa, Fa, Ma, Ia, Va, ka, Ki, Ba, Ua, Ra, la, Qi, xa, ea, ra, Zi;
+let ca, Z, fa, ka, Ta, pa, qi, Gi, la, ti, Wi, Da, ja, Ma, ma, ha, wa, aa, Pa, Ji, Li, Ui, ea, Ua, Oa, Ga, ba, na, ya, Ea, Ra, da, Fa, Ia, Na, La, Ha, Aa, Ki, Va, Wa, za, ua, Qi, Sa, ta, ia, Zi;
 let __tla = (async ()=>{
     function e(e, t) {
         var n = {};
@@ -8327,20 +8327,29 @@ Resources:`;
         }).limit(20);
         return t ? [] : e;
     };
-    $i = async function(e) {
+    function $i(e) {
+        let t = Ri(e);
+        for (let e of Li){
+            if (Ri(e.a.wallet) === t) return e.a.username;
+            if (Ri(e.b.wallet) === t) return e.b.username;
+        }
+        return null;
+    }
+    ea = async function(e) {
         let { data: t, error: n } = await Q.from(`corsair_daily_scores`).select(`id, wallet_address, username, score, date, submitted_at`).eq(`date`, e).order(`score`, {
             ascending: !1
         }).limit(20);
         return n ? (console.warn(`[daily board]`, n.message), []) : (t ?? []).map((e)=>({
                 ...e,
-                seed: null
+                seed: null,
+                username: e.username || $i(e.wallet_address)
             }));
     };
-    ea = async function() {
+    ta = async function() {
         let { data: e, error: t } = await Q.from(`starktember_board`).select(`rank, wallet_address, username, total, days_played, best_day`).limit(50);
         return t ? (console.warn(`[starktember]`, t.message), []) : e ?? [];
     };
-    ta = async function(e) {
+    na = async function(e) {
         try {
             return await (await fetch(`https://eyahboeaekejmcgknsty.supabase.co/functions/v1/check-nft-conditions`, {
                 method: `POST`,
@@ -8356,8 +8365,8 @@ Resources:`;
             };
         }
     };
-    var na = `0x06c8b06fb6a94f3ae9b26c87b1baacc4a7a1f2e0184870c957728b5d17bd0202`;
-    ra = async function() {
+    var ra = `0x06c8b06fb6a94f3ae9b26c87b1baacc4a7a1f2e0184870c957728b5d17bd0202`;
+    ia = async function() {
         let e = await Q.from(`nft_mints`).select(`id, wallet_address, nft_name, nft_id, status, tx_hash, token_id, run_id`).order(`id`, {
             ascending: !1
         });
@@ -8368,19 +8377,19 @@ Resources:`;
         });
         return n ? (console.warn(`[admin] getPendingMints:`, n.message), []) : t ?? [];
     };
-    ia = async function() {
+    aa = async function() {
         let { data: e, error: t } = await Q.from(`nft_conditions`).select(`name, minted, max_supply`).order(`name`, {
             ascending: !0
         });
         return t ? (console.warn(`[admin] getSupply:`, t.message), []) : e ?? [];
     };
-    function aa() {
+    function oa() {
         let e = localStorage.getItem(`corsair_admin_secret`);
         return e || (console.warn(`[admin] cle admin absente — localStorage.setItem("corsair_admin_secret", "...")`), alert(`Admin secret missing. In the console run:
 localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
     }
-    async function oa(e) {
-        let t = aa();
+    async function sa(e) {
+        let t = oa();
         if (!t) return {
             ok: !1,
             error: `no secret`
@@ -8400,30 +8409,30 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
         }
         return i;
     }
-    sa = async function(e, t, n, r) {
+    ca = async function(e, t, n, r) {
         let i = {
             action: `mark`,
             id: e,
             tx_hash: t,
             nft_name: n
         };
-        return r != null && r > 0 && (i.token_id = r), oa(i);
+        return r != null && r > 0 && (i.token_id = r), sa(i);
     };
-    ca = async function(e) {
-        return oa({
+    la = async function(e) {
+        return sa({
             action: `resync`,
             id: e
         });
     };
-    la = async function() {
-        return oa({
+    ua = async function() {
+        return sa({
             action: `audit`
         });
     };
-    ua = function(e) {
+    da = function(e) {
         return `https://eyahboeaekejmcgknsty.supabase.co/functions/v1/nft-metadata/${e}`;
     };
-    da = async function(e) {
+    fa = async function(e) {
         try {
             let { data: t, error: n } = await Q.functions.invoke(`tournament-register`, {
                 body: {
@@ -8448,7 +8457,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             };
         }
     };
-    fa = async function(e, t) {
+    pa = async function(e, t) {
         try {
             let { data: n, error: r } = await Q.functions.invoke(`tournament-register`, {
                 body: {
@@ -8468,7 +8477,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             };
         }
     };
-    pa = async function() {
+    ma = async function() {
         let { data: e, error: t } = await Q.from(`tournament_registrations`).select(`id, wallet_address, username, registered_at`).eq(`tournament_id`, `binding_2026_01`).order(`registered_at`, {
             ascending: !0
         });
@@ -8485,8 +8494,8 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             registrations: n
         };
     };
-    ma = async function() {
-        let e = aa();
+    ha = async function() {
+        let e = oa();
         if (!e) return {
             ok: !1,
             error: `no secret`
@@ -8502,10 +8511,10 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             error: t?.error ?? n?.message
         } : t;
     };
-    var ha = `corsair_binding_board_v1`;
-    function ga() {
+    var ga = `corsair_binding_board_v1`;
+    function _a() {
         try {
-            let e = localStorage.getItem(ha);
+            let e = localStorage.getItem(ga);
             if (!e) return null;
             let t = JSON.parse(e);
             return !t?.rows?.length || t.at && Date.now() - t.at > 36 * 36e5 ? null : t.rows;
@@ -8513,15 +8522,15 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             return null;
         }
     }
-    function _a(e) {
+    function va(e) {
         try {
-            localStorage.setItem(ha, JSON.stringify({
+            localStorage.setItem(ga, JSON.stringify({
                 at: Date.now(),
                 rows: e
             }));
         } catch  {}
     }
-    va = async function() {
+    ya = async function() {
         let e = Bi(), t = new Map;
         if (e.length > 0) {
             let n = Q.from(`corsair_daily_scores`).select(`wallet_address, score, date`).in(`date`, e).limit(2e3), { data: r, error: i } = await Promise.race([
@@ -8540,7 +8549,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             }
         }
         if (e.length > 0 && t.size === 0) {
-            let e = ga();
+            let e = _a();
             if (e) return e;
         }
         let n = Hi(Li.map((n)=>{
@@ -8567,25 +8576,28 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
                 days: r
             };
         }));
-        return t.size > 0 && _a(n), n;
+        return t.size > 0 && va(n), n;
     };
-    ya = function(e, t) {
+    ba = function(e, t) {
         return `sncast --account corsair_deployer_mainnet invoke \\
-  --contract-address ${na} \\
+  --contract-address ${ra} \\
   --function mint \\
   --arguments '${e}' \\
-  --network mainnet`;
+  --network mainnet \\
+  --l1-gas 5000 --l1-gas-price 2000000000000 \\
+  --l2-gas 5000000 --l2-gas-price 12000000000 \\
+  --l1-data-gas 5000 --l1-data-gas-price 2000000000000`;
     };
-    var ba = (e)=>`0x` + e.toLowerCase().replace(/^0x0*/, ``);
-    xa = async function(e) {
+    var xa = (e)=>`0x` + e.toLowerCase().replace(/^0x0*/, ``);
+    Sa = async function(e) {
         let { data: t, error: n } = await Q.from(`nft_mints`).select(`nft_name, wallet_address, status, token_id`).in(`status`, [
             `pending`,
             `minted`
         ]);
         if (n || !t) return [];
-        let r = ba(e), i = new Map;
+        let r = xa(e), i = new Map;
         for (let e of t){
-            if (ba(e.wallet_address) !== r) continue;
+            if (xa(e.wallet_address) !== r) continue;
             let t = e.status === `minted` ? `minted` : `pending`, n = i.get(e.nft_name);
             (!n || t === `minted` && n.status !== `minted`) && i.set(e.nft_name, {
                 nft_name: e.nft_name,
@@ -8597,10 +8609,10 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             ...i.values()
         ];
     };
-    async function Sa(e) {
-        return (await xa(e)).map((e)=>e.nft_name);
+    async function Ca(e) {
+        return (await Sa(e)).map((e)=>e.nft_name);
     }
-    Ca = async function(e) {
+    wa = async function(e) {
         try {
             let { error: t } = await Q.functions.invoke(`player-write`, {
                 body: {
@@ -8613,7 +8625,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             console.warn(`[runs] start:`, e?.message ?? e);
         }
     };
-    wa = async function(e, t) {
+    Ta = async function(e, t) {
         try {
             let { error: n } = await Q.functions.invoke(`player-write`, {
                 body: {
@@ -8627,7 +8639,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             console.warn(`[runs] heartbeat:`, e?.message ?? e);
         }
     };
-    Ta = async function(e, t) {
+    Ea = async function(e, t) {
         try {
             let { error: n } = await Q.functions.invoke(`player-write`, {
                 body: {
@@ -8641,13 +8653,13 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             console.warn(`[runs] finish:`, e?.message ?? e);
         }
     };
-    Ea = async function(e) {
+    Da = async function(e) {
         let { error: t } = await Q.from(`corsair_run_logs`).insert(e);
         if (!t) return;
         let n = `${t.code ?? ``} ${t.message ?? ``}`;
         if (!/23505|duplicate|unique/i.test(n)) throw console.warn(`[runlog]`, t.message), Error(t.message || `saveRunLog failed`);
     };
-    Da = async function(e) {
+    Oa = async function(e) {
         if (e.length === 0) return {};
         let { data: t, error: n } = await Q.from(`corsair_run_verdicts`).select(`run_id, verified, replay_score, final_score`).in(`run_id`, e);
         if (n || !t) return console.warn(`[verdicts]`, n?.message), {};
@@ -8655,7 +8667,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
         for (let e of t)r[e.run_id] = e;
         return r;
     };
-    Oa = async function(e) {
+    ka = async function(e) {
         try {
             let { data: t, error: n } = await Q.functions.invoke(`issue-seed`, {
                 body: {
@@ -8670,7 +8682,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             return console.warn(`[seed] emission impossible`), null;
         }
     };
-    ka = async function(e) {
+    Aa = async function(e) {
         let [t, n] = await Promise.all([
             Q.from(`player_feats`).select(`feat_id`).eq(`wallet_address`, e),
             Q.from(`player_titles`).select(`title`).eq(`wallet_address`, e).maybeSingle()
@@ -8680,8 +8692,8 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             title: n.data?.title ?? null
         };
     };
-    Aa = async function(e, t) {};
-    ja = async function(e, t) {
+    ja = async function(e, t) {};
+    Ma = async function(e, t) {
         try {
             let { error: n } = await Q.functions.invoke(`player-write`, {
                 body: {
@@ -8695,7 +8707,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             console.warn(`[title]`, e?.message ?? e);
         }
     };
-    Ma = async function(e) {
+    Na = async function(e) {
         try {
             let [t, n, r] = await Promise.all([
                 Q.from(`corsair_scores`).select(`score, zone, turn`).eq(`wallet_address`, e),
@@ -8703,7 +8715,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
                     count: `exact`,
                     head: !0
                 }).eq(`wallet_address`, e),
-                Sa(e)
+                Ca(e)
             ]), i = t.data ?? [], a = 0, o = 1, s = 0;
             for (let e of i)e.score > a && (a = e.score), (e.zone ?? 1) > o && (o = e.zone ?? 1), (e.turn ?? 0) > s && (s = e.turn ?? 0);
             let c = n.count ?? 0, l = r.length;
@@ -8718,13 +8730,13 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             return null;
         }
     };
-    Na = async function(e, t) {
+    Pa = async function(e, t) {
         if (t.length !== 8) return !1;
         let n = `${t.slice(0, 4)}-${t.slice(4, 6)}-${t.slice(6, 8)}`, { data: r, error: i } = await Q.from(`corsair_daily_scores`).select(`id`).eq(`wallet_address`, e).eq(`date`, n).maybeSingle();
         return i ? !1 : !!r;
     };
-    Pa = async function(e, t) {};
-    Fa = async function(e) {
+    Fa = async function(e, t) {};
+    Ia = async function(e) {
         let { data: t, error: n } = await Q.functions.invoke(`approve-run`, {
             body: {
                 run_id: e
@@ -8733,9 +8745,9 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
         if (n) throw n;
         return t;
     };
-    let $, za;
+    let $, Ba;
     $ = `https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images`;
-    Ia = [
+    La = [
         {
             key: `last_port`,
             name: `The Last Port`,
@@ -8832,7 +8844,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             hidden: !0
         }
     ];
-    La = [
+    Ra = [
         {
             key: `splintered_keel`,
             name: `The Splintered Keel`,
@@ -8875,7 +8887,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             hidden: !0
         }
     ];
-    Ra = [
+    za = [
         {
             key: `binding_mark`,
             name: `The Binding Mark`,
@@ -8906,29 +8918,29 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             hidden: !0
         }
     ];
-    za = [
+    Ba = [
+        ...za,
         ...Ra,
-        ...La,
-        ...Ia
+        ...La
     ];
-    Ba = {
+    Va = {
         Rare: `#44cc88`,
         Epic: `#aa66ee`,
         Legendary: `#eedd88`,
         Mythic: `#ee5566`
     };
-    Va = function(e) {
+    Ha = function(e) {
         return e.startsWith(`ipfs://`) ? e.replace(`ipfs://`, `https://ipfs.io/ipfs/`) : e;
     };
-    Ha = function(e) {
-        return za.find((t)=>t.key === e) ?? null;
-    };
     Ua = function(e) {
-        return Ha(e)?.name ?? e.replace(/_/g, ` `).replace(/\b\w/g, (e)=>e.toUpperCase());
+        return Ba.find((t)=>t.key === e) ?? null;
     };
     Wa = function(e) {
-        let t = Ha(e);
+        return Ua(e)?.name ?? e.replace(/_/g, ` `).replace(/\b\w/g, (e)=>e.toUpperCase());
+    };
+    Ga = function(e) {
+        let t = Ua(e);
         return t?.season === `tideborn` ? `Tideborn` : t?.season === `genesis` ? `Genesis` : t?.season === `event` ? `The Binding` : `Corsair`;
     };
 })();
-export { sa as A, Z as B, da as C, Oa as D, wa as E, fa as F, qi as G, Gi as H, ca as I, ti as J, Wi as K, Ea as L, Aa as M, ja as N, pa as O, ma as P, Ca as R, ia as S, Na as T, Ji as U, Li as V, Ui as W, $i as _, Ha as a, Da as b, Wa as c, ya as d, ta as f, va as g, Ta as h, La as i, ua as j, Pa as k, Fa as l, Ma as m, Ia as n, Va as o, ka as p, Ki as q, Ba as r, Ua as s, Ra as t, la as u, Qi as v, xa as w, ea as x, ra as y, Zi as z, __tla };
+export { ca as A, Z as B, fa as C, ka as D, Ta as E, pa as F, qi as G, Gi as H, la as I, ti as J, Wi as K, Da as L, ja as M, Ma as N, ma as O, ha as P, wa as R, aa as S, Pa as T, Ji as U, Li as V, Ui as W, ea as _, Ua as a, Oa as b, Ga as c, ba as d, na as f, ya as g, Ea as h, Ra as i, da as j, Fa as k, Ia as l, Na as m, La as n, Ha as o, Aa as p, Ki as q, Va as r, Wa as s, za as t, ua as u, Qi as v, Sa as w, ta as x, ia as y, Zi as z, __tla };

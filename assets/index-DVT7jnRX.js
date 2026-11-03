@@ -1,9 +1,9 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-g8U2AJ0c.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/nftCatalog-CmNKcLDL.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-BS6Uj4Uc.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-MQTUFvjJ.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-uHUlPA3s.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/nftCatalog-BF1YqW60.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-BffsoZ39.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-Ci8BI4Nv.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
 import { a as e, t } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as n, n as r, r as i, t as a } from "./motion-wKhEcHeU.js";
 import { n as o, t as s } from "./walletApi-DYniPf4L.js";
-import { A as c, D as l, E as u, F as d, G as f, H as p, I as m, J as h, K as g, L as _, M as v, O as y, P as b, R as x, T as ee, W as te, _ as S, b as ne, c as re, d as ie, f as ae, j as oe, k as se, l as ce, m as le, n as ue, o as C, p as w, q as de, r as fe, t as pe, u as me, v as T, w as E, y as he, z as ge } from "./anchor-BS6Uj4Uc.js";
-import { B as _e, C as ve, D as ye, F as be, G as xe, H as Se, J as Ce, K as we, L as Te, S as Ee, T as De, U as Oe, V as ke, W as Ae, _ as je, f as Me, g as Ne, i as Pe, l as Fe, m as Ie, n as Le, o as Re, q as ze, r as Be, t as Ve, v as He, w as Ue, x as We, z as Ge, __tla as __tla_0 } from "./nftCatalog-CmNKcLDL.js";
+import { A as c, D as l, E as u, F as d, G as f, H as p, I as m, J as h, K as g, L as _, M as v, O as y, P as b, R as x, T as ee, W as te, _ as S, b as ne, c as re, d as ie, f as ae, j as oe, k as se, l as ce, m as le, n as ue, o as C, p as w, q as de, r as fe, t as pe, u as me, v as T, w as E, y as he, z as ge } from "./anchor-BffsoZ39.js";
+import { B as _e, C as ve, D as ye, F as be, G as xe, H as Se, J as Ce, K as we, L as Te, S as Ee, T as De, U as Oe, V as ke, W as Ae, _ as je, f as Me, g as Ne, i as Pe, l as Fe, m as Ie, n as Le, o as Re, q as ze, r as Be, t as Ve, v as He, w as Ue, x as We, z as Ge, __tla as __tla_0 } from "./nftCatalog-BF1YqW60.js";
 Promise.all([
     (()=>{
         try {
@@ -13498,10 +13498,10 @@ Error generating stack: ` + e.message + `
         } else e === 60 ? r = d(r, 8, 25) : e === 61 ? r = d(r, r.ship.maxHull, 55) : e === 70 && (r = v(r));
         return r;
     }
-    var kt = (0, D.lazy)(()=>Ce(()=>import(`./CorsairGame-g8U2AJ0c.js`).then(async (m)=>{
+    var kt = (0, D.lazy)(()=>Ce(()=>import(`./CorsairGame-uHUlPA3s.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
-            }), __vite__mapDeps([0,1,2,3,4,5,6]))), At = (0, D.lazy)(()=>Ce(()=>import(`./AdminPanel-MQTUFvjJ.js`).then(async (m)=>{
+            }), __vite__mapDeps([0,1,2,3,4,5,6]))), At = (0, D.lazy)(()=>Ce(()=>import(`./AdminPanel-Ci8BI4Nv.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }), __vite__mapDeps([7,1,2,4]))), jt = `corsair_crew_bypass`;
