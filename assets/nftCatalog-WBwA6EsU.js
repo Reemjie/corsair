@@ -8308,10 +8308,13 @@ Resources:`;
         return t ? [] : e;
     };
     Qi = async function(e) {
-        let { data: t, error: n } = await Q.from(`corsair_daily_board`).select(`*`).eq(`date`, e).order(`score`, {
+        let { data: t, error: n } = await Q.from(`corsair_daily_scores`).select(`id, wallet_address, username, score, date, submitted_at`).eq(`date`, e).order(`score`, {
             ascending: !1
         }).limit(20);
-        return n ? [] : t;
+        return n ? (console.warn(`[daily board]`, n.message), []) : (t ?? []).map((e)=>({
+                ...e,
+                seed: null
+            }));
     };
     $i = async function() {
         let { data: e, error: t } = await Q.from(`starktember_board`).select(`rank, wallet_address, username, total, days_played, best_day`).limit(50);

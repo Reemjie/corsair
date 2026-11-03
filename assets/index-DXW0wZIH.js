@@ -1,9 +1,9 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-DsA-EmJx.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/nftCatalog-1g6-JGwD.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-BpvpfAT-.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-BMSuSfaz.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-yMilkc7V.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/nftCatalog-WBwA6EsU.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/anchor-DxMKovKP.js","assets/walletApi-DYniPf4L.js","assets/AdminPanel-wrSwehoW.js","assets/cartridge-x3He-95Y.js","assets/cartridge-CyqXvNdM.js","assets/LiveWalletBridge-W8MLdVd8.js"])))=>i.map(i=>d[i]);
 import { a as e, t } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as n, n as r, r as i, t as a } from "./motion-wKhEcHeU.js";
 import { n as o, t as s } from "./walletApi-DYniPf4L.js";
-import { A as c, D as l, E as u, F as d, G as f, H as p, I as m, J as h, K as g, L as _, M as v, O as y, P as b, R as x, T as ee, W as te, _ as S, b as ne, c as re, d as ie, f as ae, j as oe, k as se, l as ce, m as le, n as ue, o as C, p as w, q as de, r as fe, t as pe, u as me, v as T, w as E, y as he, z as ge } from "./anchor-BpvpfAT-.js";
-import { B as _e, C as ve, D as ye, F as be, G as xe, H as Se, K as Ce, L as we, S as Te, T as Ee, U as De, V as Oe, W as ke, _ as Ae, f as je, g as Me, i as Ne, l as Pe, m as Fe, n as Ie, o as Le, q as Re, r as ze, t as Be, v as Ve, w as He, x as Ue, z as We, __tla as __tla_0 } from "./nftCatalog-1g6-JGwD.js";
+import { A as c, D as l, E as u, F as d, G as f, H as p, I as m, J as h, K as g, L as _, M as v, O as y, P as b, R as x, T as ee, W as te, _ as S, b as ne, c as re, d as ie, f as ae, j as oe, k as se, l as ce, m as le, n as ue, o as C, p as w, q as de, r as fe, t as pe, u as me, v as T, w as E, y as he, z as ge } from "./anchor-DxMKovKP.js";
+import { B as _e, C as ve, D as ye, F as be, G as xe, H as Se, K as Ce, L as we, S as Te, T as Ee, U as De, V as Oe, W as ke, _ as Ae, f as je, g as Me, i as Ne, l as Pe, m as Fe, n as Ie, o as Le, q as Re, r as ze, t as Be, v as Ve, w as He, x as Ue, z as We, __tla as __tla_0 } from "./nftCatalog-WBwA6EsU.js";
 Promise.all([
     (()=>{
         try {
@@ -11448,13 +11448,17 @@ Error generating stack: ` + e.message + `
     function St({ onClose: e }) {
         let [t, n] = (0, D.useState)(`daily`), [r, i] = (0, D.useState)([]), [o, s] = (0, D.useState)([]), [c, l] = (0, D.useState)(!0);
         (0, D.useEffect)(()=>{
-            let e = new Date().toISOString().slice(0, 10);
-            Promise.all([
-                Ve(),
-                Ae(e)
-            ]).then(([e, t])=>{
-                i(e), s(t), l(!1);
-            });
+            let e = !1, t = new Date().toISOString().slice(0, 10);
+            return l(!0), Promise.all([
+                Ve().catch(()=>[]),
+                Ae(t).catch(()=>[])
+            ]).then(([t, n])=>{
+                e || (i(t ?? []), s(n ?? []));
+            }).finally(()=>{
+                e || l(!1);
+            }), ()=>{
+                e = !0;
+            };
         }, []);
         let u = (e)=>`${e.slice(0, 6)}...${e.slice(-4)}`, d = (e)=>new Date(e).toLocaleDateString(`en-GB`, {
                 day: `2-digit`,
@@ -11817,7 +11821,7 @@ Error generating stack: ` + e.message + `
         }, []);
         let [_, v] = (0, D.useState)(!1), [b, x] = (0, D.useState)(!1), [ee, te] = (0, D.useState)(!1), [ae, oe] = (0, D.useState)(!1), [ce, le] = (0, D.useState)(!1), [de, pe] = (0, D.useState)(!1), [me, T] = (0, D.useState)([]), [he, ge] = (0, D.useState)(``);
         (0, D.useEffect)(()=>{
-            Ae(new Date().toISOString().slice(0, 10)).then((e)=>T(e.slice(0, 3)));
+            Ae(new Date().toISOString().slice(0, 10)).then((e)=>T(e.slice(0, 3))).catch(()=>T([]));
         }, []), (0, D.useEffect)(()=>{
             let e = ()=>{
                 let e = Date.now(), t = new Date(e), n = Date.UTC(t.getUTCFullYear(), t.getUTCMonth(), t.getUTCDate() + 1, 0, 0, 0), r = Math.max(0, n - e);
@@ -13489,10 +13493,10 @@ Error generating stack: ` + e.message + `
         } else e === 60 ? r = d(r, 8, 25) : e === 61 ? r = d(r, r.ship.maxHull, 55) : e === 70 && (r = v(r));
         return r;
     }
-    var Ot = (0, D.lazy)(()=>Re(()=>import(`./CorsairGame-DsA-EmJx.js`).then(async (m)=>{
+    var Ot = (0, D.lazy)(()=>Re(()=>import(`./CorsairGame-yMilkc7V.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
-            }), __vite__mapDeps([0,1,2,3,4,5,6]))), kt = (0, D.lazy)(()=>Re(()=>import(`./AdminPanel-BMSuSfaz.js`).then(async (m)=>{
+            }), __vite__mapDeps([0,1,2,3,4,5,6]))), kt = (0, D.lazy)(()=>Re(()=>import(`./AdminPanel-wrSwehoW.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }), __vite__mapDeps([7,1,2,4]))), At = `corsair_crew_bypass`;
