@@ -11846,9 +11846,9 @@ Error generating stack: ` + e.message + `
                     e || $e(t);
                 });
             t();
-            let n = setInterval(t, 6e4);
-            return ()=>{
-                e = !0, clearInterval(n);
+            let n = setInterval(t, 2e4), r = ()=>t();
+            return window.addEventListener(`focus`, r), ()=>{
+                e = !0, clearInterval(n), window.removeEventListener(`focus`, r);
             };
         }, [
             ut
@@ -12858,34 +12858,52 @@ Error generating stack: ` + e.message + `
                                                     lineHeight: 1.45
                                                 },
                                                 children: [
-                                                    (0, O.jsx)(`div`, {
+                                                    (0, O.jsxs)(`div`, {
                                                         style: {
-                                                            fontSize: 10,
-                                                            letterSpacing: 2,
-                                                            color: `#e8c250`,
+                                                            display: `flex`,
+                                                            alignItems: `center`,
+                                                            justifyContent: `space-between`,
+                                                            gap: 8,
                                                             marginBottom: 8
                                                         },
-                                                        children: ut ? `DUO BOARD` : `THE BONDS`
+                                                        children: [
+                                                            (0, O.jsx)(`div`, {
+                                                                style: {
+                                                                    fontSize: 10,
+                                                                    letterSpacing: 2,
+                                                                    color: `#e8c250`
+                                                                },
+                                                                children: ut ? `LIVE STANDINGS` : `THE BONDS`
+                                                            }),
+                                                            ut && (0, O.jsx)(`div`, {
+                                                                style: {
+                                                                    fontSize: 9,
+                                                                    letterSpacing: 1.5,
+                                                                    color: `rgba(136,221,255,0.75)`
+                                                                },
+                                                                children: `UPDATES LIVE`
+                                                            })
+                                                        ]
                                                     }),
-                                                    ut && Qe.length > 0 ? Qe.map((e, t)=>(0, O.jsxs)(`div`, {
+                                                    ut ? Qe.length > 0 ? Qe.map((e, t)=>{
+                                                        let n = e.days.length ? e.days[e.days.length - 1].duo : 0, r = t === 0 ? `🥇` : t === 1 ? `🥈` : t === 2 ? `🥉` : `${t + 1}.`;
+                                                        return (0, O.jsxs)(`div`, {
                                                             style: {
                                                                 display: `flex`,
                                                                 gap: 8,
                                                                 alignItems: `baseline`,
-                                                                padding: `4px 0`,
+                                                                padding: `5px 0`,
                                                                 borderBottom: t < Qe.length - 1 ? `1px solid rgba(255,255,255,0.06)` : `none`
                                                             },
                                                             children: [
-                                                                (0, O.jsxs)(`span`, {
+                                                                (0, O.jsx)(`span`, {
                                                                     style: {
-                                                                        width: 22,
-                                                                        color: `#e8c250`,
-                                                                        flexShrink: 0
+                                                                        width: 28,
+                                                                        flexShrink: 0,
+                                                                        color: t < 3 ? `#f0d878` : `rgba(238,200,80,0.55)`,
+                                                                        fontSize: t < 3 ? 13 : 11
                                                                     },
-                                                                    children: [
-                                                                        t + 1,
-                                                                        `.`
-                                                                    ]
+                                                                    children: r
                                                                 }),
                                                                 (0, O.jsxs)(`span`, {
                                                                     style: {
@@ -12900,16 +12918,48 @@ Error generating stack: ` + e.message + `
                                                                         e.b.username
                                                                     ]
                                                                 }),
-                                                                (0, O.jsx)(`span`, {
+                                                                (0, O.jsxs)(`span`, {
                                                                     style: {
-                                                                        color: `#f0d878`,
-                                                                        fontWeight: 700,
-                                                                        flexShrink: 0
+                                                                        display: `flex`,
+                                                                        flexDirection: `column`,
+                                                                        alignItems: `flex-end`,
+                                                                        flexShrink: 0,
+                                                                        lineHeight: 1.2
                                                                     },
-                                                                    children: e.total
+                                                                    children: [
+                                                                        (0, O.jsx)(`span`, {
+                                                                            style: {
+                                                                                color: `#f0d878`,
+                                                                                fontWeight: 700,
+                                                                                fontSize: 13
+                                                                            },
+                                                                            children: e.total.toLocaleString(`en-US`)
+                                                                        }),
+                                                                        e.days.length > 1 && (0, O.jsxs)(`span`, {
+                                                                            style: {
+                                                                                fontSize: 9,
+                                                                                color: `rgba(180,220,255,0.55)`,
+                                                                                letterSpacing: .5
+                                                                            },
+                                                                            children: [
+                                                                                `today `,
+                                                                                n.toLocaleString(`en-US`)
+                                                                            ]
+                                                                        })
+                                                                    ]
                                                                 })
                                                             ]
-                                                        }, e.id)) : Oe.map((e, t)=>(0, O.jsxs)(`div`, {
+                                                        }, e.id);
+                                                    }) : (0, O.jsx)(`div`, {
+                                                        style: {
+                                                            padding: `10px 0`,
+                                                            textAlign: `center`,
+                                                            fontFamily: `'IM Fell English', cursive`,
+                                                            color: `rgba(255,248,230,0.45)`,
+                                                            fontSize: 13
+                                                        },
+                                                        children: `Reading the harbor board…`
+                                                    }) : Oe.map((e, t)=>(0, O.jsxs)(`div`, {
                                                             style: {
                                                                 display: `flex`,
                                                                 gap: 8,
