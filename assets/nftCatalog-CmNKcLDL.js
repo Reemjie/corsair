@@ -1,4 +1,4 @@
-let oa, Z, ua, wa, ba, da, Ui, Wi, sa, Gi, Sa, Ea, Da, fa, pa, ya, ra, ka, qi, Li, Ki, Qi, Ra, Ca, Ba, ha, ea, ma, xa, Na, la, Aa, ja, Oa, Ma, La, Ta, ti, Ia, za, Pa, ca, Zi, _a, $i, na, Xi;
+let sa, Z, da, Oa, wa, fa, qi, Gi, ca, ti, Wi, Ea, Aa, ja, pa, ma, Ca, ia, Na, Ji, Li, Ui, $i, Ha, Da, Wa, ya, ta, va, Ta, La, ua, Pa, Fa, Ma, Ia, Va, ka, Ki, Ba, Ua, Ra, la, Qi, xa, ea, ra, Zi;
 let __tla = (async ()=>{
     function e(e, t) {
         var n = {};
@@ -903,29 +903,29 @@ new RealtimeClient(url, { transport: ws })`
         return t.protocol = t.protocol.replace(/^ws/i, `http`), t.pathname = t.pathname.replace(/\/+$/, ``).replace(/\/socket\/websocket$/i, ``).replace(/\/socket$/i, ``).replace(/\/websocket$/i, ``), t.pathname === `` || t.pathname === `/` ? t.pathname = `/api/broadcast` : t.pathname += `/api/broadcast`, t.href;
     }, ke = (e)=>typeof e == `function` ? e : function() {
             return e;
-        }, Ae = typeof self < `u` ? self : null, je = typeof window < `u` ? window : null, b = Ae || je || globalThis, Me = `2.0.0`, Ne = 1e4, Pe = 1e3, x = {
+        }, Ae = typeof self < `u` ? self : null, b = typeof window < `u` ? window : null, x = Ae || b || globalThis, je = `2.0.0`, Me = 1e4, Ne = 1e3, S = {
         connecting: 0,
         open: 1,
         closing: 2,
         closed: 3
-    }, S = {
+    }, C = {
         closed: `closed`,
         errored: `errored`,
         joined: `joined`,
         joining: `joining`,
         leaving: `leaving`
-    }, C = {
+    }, w = {
         close: `phx_close`,
         error: `phx_error`,
         join: `phx_join`,
         reply: `phx_reply`,
         leave: `phx_leave`
-    }, Fe = {
+    }, Pe = {
         longpoll: `longpoll`,
         websocket: `websocket`
-    }, Ie = {
+    }, Fe = {
         complete: 4
-    }, Le = `base64url.bearer.phx.`, Re = class {
+    }, Ie = `base64url.bearer.phx.`, Le = class {
         constructor(e, t, n, r){
             this.channel = e, this.event = t, this.payload = n || function() {
                 return {};
@@ -980,7 +980,7 @@ new RealtimeClient(url, { transport: ws })`
                 response: t
             });
         }
-    }, ze = class {
+    }, Re = class {
         constructor(e, t){
             this.callback = e, this.timerCalc = t, this.timer = void 0, this.tries = 0;
         }
@@ -992,23 +992,23 @@ new RealtimeClient(url, { transport: ws })`
                 this.tries += 1, this.callback();
             }, this.timerCalc(this.tries + 1));
         }
-    }, Be = class {
+    }, ze = class {
         constructor(e, t, n){
-            this.state = S.closed, this.topic = e, this.params = ke(t || {}), this.socket = n, this.bindings = [], this.bindingRef = 0, this.timeout = this.socket.timeout, this.joinedOnce = !1, this.joinPush = new Re(this, C.join, this.params, this.timeout), this.pushBuffer = [], this.stateChangeRefs = [], this.rejoinTimer = new ze(()=>{
+            this.state = C.closed, this.topic = e, this.params = ke(t || {}), this.socket = n, this.bindings = [], this.bindingRef = 0, this.timeout = this.socket.timeout, this.joinedOnce = !1, this.joinPush = new Le(this, w.join, this.params, this.timeout), this.pushBuffer = [], this.stateChangeRefs = [], this.rejoinTimer = new Re(()=>{
                 this.socket.isConnected() && this.rejoin();
             }, this.socket.rejoinAfterMs), this.stateChangeRefs.push(this.socket.onError(()=>this.rejoinTimer.reset())), this.stateChangeRefs.push(this.socket.onOpen(()=>{
                 this.rejoinTimer.reset(), this.isErrored() && this.rejoin();
             })), this.joinPush.receive(`ok`, ()=>{
-                this.state = S.joined, this.rejoinTimer.reset(), this.pushBuffer.forEach((e)=>e.send()), this.pushBuffer = [];
+                this.state = C.joined, this.rejoinTimer.reset(), this.pushBuffer.forEach((e)=>e.send()), this.pushBuffer = [];
             }), this.joinPush.receive(`error`, (e)=>{
-                this.state = S.errored, this.socket.hasLogger() && this.socket.log(`channel`, `error ${this.topic}`, e), this.socket.isConnected() && this.rejoinTimer.scheduleTimeout();
+                this.state = C.errored, this.socket.hasLogger() && this.socket.log(`channel`, `error ${this.topic}`, e), this.socket.isConnected() && this.rejoinTimer.scheduleTimeout();
             }), this.onClose(()=>{
-                this.rejoinTimer.reset(), this.socket.hasLogger() && this.socket.log(`channel`, `close ${this.topic}`), this.state = S.closed, this.socket.remove(this);
+                this.rejoinTimer.reset(), this.socket.hasLogger() && this.socket.log(`channel`, `close ${this.topic}`), this.state = C.closed, this.socket.remove(this);
             }), this.onError((e)=>{
-                this.socket.hasLogger() && this.socket.log(`channel`, `error ${this.topic}`, e), this.isJoining() && this.joinPush.reset(), this.state = S.errored, this.socket.isConnected() && this.rejoinTimer.scheduleTimeout();
+                this.socket.hasLogger() && this.socket.log(`channel`, `error ${this.topic}`, e), this.isJoining() && this.joinPush.reset(), this.state = C.errored, this.socket.isConnected() && this.rejoinTimer.scheduleTimeout();
             }), this.joinPush.receive(`timeout`, ()=>{
-                this.socket.hasLogger() && this.socket.log(`channel`, `timeout ${this.topic}`, this.joinPush.timeout), new Re(this, C.leave, ke({}), this.timeout).send(), this.state = S.errored, this.joinPush.reset(), this.socket.isConnected() && this.rejoinTimer.scheduleTimeout();
-            }), this.on(C.reply, (e, t)=>{
+                this.socket.hasLogger() && this.socket.log(`channel`, `timeout ${this.topic}`, this.joinPush.timeout), new Le(this, w.leave, ke({}), this.timeout).send(), this.state = C.errored, this.joinPush.reset(), this.socket.isConnected() && this.rejoinTimer.scheduleTimeout();
+            }), this.on(w.reply, (e, t)=>{
                 this.trigger(this.replyEventName(t), e);
             });
         }
@@ -1017,13 +1017,13 @@ new RealtimeClient(url, { transport: ws })`
             return this.timeout = e, this.joinedOnce = !0, this.rejoin(), this.joinPush;
         }
         teardown() {
-            this.pushBuffer.forEach((e)=>e.destroy()), this.pushBuffer = [], this.rejoinTimer.reset(), this.joinPush.destroy(), this.state = S.closed, this.bindings = [];
+            this.pushBuffer.forEach((e)=>e.destroy()), this.pushBuffer = [], this.rejoinTimer.reset(), this.joinPush.destroy(), this.state = C.closed, this.bindings = [];
         }
         onClose(e) {
-            this.on(C.close, e);
+            this.on(w.close, e);
         }
         onError(e) {
-            return this.on(C.error, (t)=>e(t));
+            return this.on(w.error, (t)=>e(t));
         }
         on(e, t) {
             let n = this.bindingRef++;
@@ -1041,16 +1041,16 @@ new RealtimeClient(url, { transport: ws })`
         }
         push(e, t, n = this.timeout) {
             if (t ||= {}, !this.joinedOnce) throw Error(`tried to push '${e}' to '${this.topic}' before joining. Use channel.join() before pushing events`);
-            let r = new Re(this, e, function() {
+            let r = new Le(this, e, function() {
                 return t;
             }, n);
             return this.canPush() ? r.send() : (r.startTimeout(), this.pushBuffer.push(r)), r;
         }
         leave(e = this.timeout) {
-            this.rejoinTimer.reset(), this.joinPush.cancelTimeout(), this.state = S.leaving;
+            this.rejoinTimer.reset(), this.joinPush.cancelTimeout(), this.state = C.leaving;
             let t = ()=>{
-                this.socket.hasLogger() && this.socket.log(`channel`, `leave ${this.topic}`), this.trigger(C.close, `leave`);
-            }, n = new Re(this, C.leave, ke({}), e);
+                this.socket.hasLogger() && this.socket.log(`channel`, `leave ${this.topic}`), this.trigger(w.close, `leave`);
+            }, n = new Le(this, w.leave, ke({}), e);
             return n.receive(`ok`, ()=>t()).receive(`timeout`, ()=>t()), n.send(), this.canPush() || n.trigger(`ok`, {}), n;
         }
         onMessage(e, t, n) {
@@ -1071,7 +1071,7 @@ new RealtimeClient(url, { transport: ws })`
             return this.joinPush.ref;
         }
         rejoin(e = this.timeout) {
-            this.isLeaving() || (this.socket.leaveOpenTopic(this.topic), this.state = S.joining, this.joinPush.resend(e));
+            this.isLeaving() || (this.socket.leaveOpenTopic(this.topic), this.state = C.joining, this.joinPush.resend(e));
         }
         trigger(e, t, n, r) {
             let i = this.onMessage(e, t, n, r);
@@ -1083,29 +1083,29 @@ new RealtimeClient(url, { transport: ws })`
             return `chan_reply_${e}`;
         }
         isClosed() {
-            return this.state === S.closed;
+            return this.state === C.closed;
         }
         isErrored() {
-            return this.state === S.errored;
+            return this.state === C.errored;
         }
         isJoined() {
-            return this.state === S.joined;
+            return this.state === C.joined;
         }
         isJoining() {
-            return this.state === S.joining;
+            return this.state === C.joining;
         }
         isLeaving() {
-            return this.state === S.leaving;
+            return this.state === C.leaving;
         }
-    }, Ve = class {
+    }, Be = class {
         static request(e, t, n, r, i, a, o) {
-            if (b.XDomainRequest) {
-                let n = new b.XDomainRequest;
+            if (x.XDomainRequest) {
+                let n = new x.XDomainRequest;
                 return this.xdomainRequest(n, e, t, r, i, a, o);
-            } else if (b.XMLHttpRequest) {
-                let s = new b.XMLHttpRequest;
+            } else if (x.XMLHttpRequest) {
+                let s = new x.XMLHttpRequest;
                 return this.xhrRequest(s, e, t, n, r, i, a, o);
-            } else if (b.fetch && b.AbortController) return this.fetchRequest(e, t, n, r, i, a, o);
+            } else if (x.fetch && x.AbortController) return this.fetchRequest(e, t, n, r, i, a, o);
             else throw Error(`No suitable XMLHttpRequest implementation found`);
         }
         static fetchRequest(e, t, n, r, i, a, o) {
@@ -1114,7 +1114,7 @@ new RealtimeClient(url, { transport: ws })`
                 headers: n,
                 body: r
             }, c = null;
-            return i && (c = new AbortController, setTimeout(()=>c.abort(), i), s.signal = c.signal), b.fetch(t, s).then((e)=>e.text()).then((e)=>this.parseJSON(e)).then((e)=>o && o(e)).catch((e)=>{
+            return i && (c = new AbortController, setTimeout(()=>c.abort(), i), s.signal = c.signal), x.fetch(t, s).then((e)=>e.text()).then((e)=>this.parseJSON(e)).then((e)=>o && o(e)).catch((e)=>{
                 e.name === `AbortError` && a ? a() : o && o(null);
             }), c;
         }
@@ -1128,7 +1128,7 @@ new RealtimeClient(url, { transport: ws })`
             e.open(t, n, !0), e.timeout = a;
             for (let [t, n] of Object.entries(r))e.setRequestHeader(t, n);
             return e.onerror = ()=>s && s(null), e.onreadystatechange = ()=>{
-                e.readyState === Ie.complete && s && s(this.parseJSON(e.responseText));
+                e.readyState === Fe.complete && s && s(this.parseJSON(e.responseText));
             }, o && (e.ontimeout = o), e.send(i), e;
         }
         static parseJSON(e) {
@@ -1151,30 +1151,30 @@ new RealtimeClient(url, { transport: ws })`
         static appendParams(e, t) {
             return Object.keys(t).length === 0 ? e : `${e}${e.match(/\?/) ? `&` : `?`}${this.serialize(t)}`;
         }
-    }, He = (e)=>{
+    }, Ve = (e)=>{
         let t = ``, n = new Uint8Array(e), r = n.byteLength;
         for(let e = 0; e < r; e++)t += String.fromCharCode(n[e]);
         return btoa(t);
-    }, w = class {
+    }, He = class {
         constructor(e, t){
-            t && t.length === 2 && t[1].startsWith(Le) && (this.authToken = atob(t[1].slice(Le.length))), this.endPoint = null, this.token = null, this.skipHeartbeat = !0, this.reqs = new Set, this.awaitingBatchAck = !1, this.currentBatch = null, this.currentBatchTimer = null, this.batchBuffer = [], this.onopen = function() {}, this.onerror = function() {}, this.onmessage = function() {}, this.onclose = function() {}, this.pollEndpoint = this.normalizeEndpoint(e), this.readyState = x.connecting, setTimeout(()=>this.poll(), 0);
+            t && t.length === 2 && t[1].startsWith(Ie) && (this.authToken = atob(t[1].slice(Ie.length))), this.endPoint = null, this.token = null, this.skipHeartbeat = !0, this.reqs = new Set, this.awaitingBatchAck = !1, this.currentBatch = null, this.currentBatchTimer = null, this.batchBuffer = [], this.onopen = function() {}, this.onerror = function() {}, this.onmessage = function() {}, this.onclose = function() {}, this.pollEndpoint = this.normalizeEndpoint(e), this.readyState = S.connecting, setTimeout(()=>this.poll(), 0);
         }
         normalizeEndpoint(e) {
-            return e.replace(`ws://`, `http://`).replace(`wss://`, `https://`).replace(RegExp(`(.*)/` + Fe.websocket), `$1/` + Fe.longpoll);
+            return e.replace(`ws://`, `http://`).replace(`wss://`, `https://`).replace(RegExp(`(.*)/` + Pe.websocket), `$1/` + Pe.longpoll);
         }
         endpointURL() {
-            return Ve.appendParams(this.pollEndpoint, {
+            return Be.appendParams(this.pollEndpoint, {
                 token: this.token
             });
         }
         closeAndRetry(e, t, n) {
-            this.close(e, t, n), this.readyState = x.connecting;
+            this.close(e, t, n), this.readyState = S.connecting;
         }
         ontimeout() {
             this.onerror(`timeout`), this.closeAndRetry(1005, `timeout`, !1);
         }
         isActive() {
-            return this.readyState === x.open || this.readyState === x.connecting;
+            return this.readyState === S.open || this.readyState === S.connecting;
         }
         poll() {
             let e = {
@@ -1201,7 +1201,7 @@ new RealtimeClient(url, { transport: ws })`
                         this.poll();
                         break;
                     case 410:
-                        this.readyState = x.open, this.onopen({}), this.poll();
+                        this.readyState = S.open, this.onopen({}), this.poll();
                         break;
                     case 403:
                         this.onerror(403), this.close(1008, `forbidden`, !1);
@@ -1216,7 +1216,7 @@ new RealtimeClient(url, { transport: ws })`
             });
         }
         send(e) {
-            typeof e != `string` && (e = He(e)), this.currentBatch ? this.currentBatch.push(e) : this.awaitingBatchAck ? this.batchBuffer.push(e) : (this.currentBatch = [
+            typeof e != `string` && (e = Ve(e)), this.currentBatch ? this.currentBatch.push(e) : this.awaitingBatchAck ? this.batchBuffer.push(e) : (this.currentBatch = [
                 e
             ], this.currentBatchTimer = setTimeout(()=>{
                 this.batchSend(this.currentBatch), this.currentBatch = null;
@@ -1232,7 +1232,7 @@ new RealtimeClient(url, { transport: ws })`
         }
         close(e, t, n) {
             for (let e of this.reqs)e.abort();
-            this.readyState = x.closed;
+            this.readyState = S.closed;
             let r = Object.assign({
                 code: 1e3,
                 reason: void 0,
@@ -1246,7 +1246,7 @@ new RealtimeClient(url, { transport: ws })`
         }
         ajax(e, t, n, r, i) {
             let a;
-            a = Ve.request(e, this.endpointURL(), t, n, this.timeout, ()=>{
+            a = Be.request(e, this.endpointURL(), t, n, this.timeout, ()=>{
                 this.reqs.delete(a), r();
             }, (e)=>{
                 this.reqs.delete(a), this.isActive() && i(e);
@@ -1411,7 +1411,7 @@ new RealtimeClient(url, { transport: ws })`
                 join_ref: c,
                 ref: l,
                 topic: u,
-                event: C.reply,
+                event: w.reply,
                 payload: f
             };
         },
@@ -1434,18 +1434,18 @@ new RealtimeClient(url, { transport: ws })`
                 close: [],
                 error: [],
                 message: []
-            }, this.channels = [], this.sendBuffer = [], this.ref = 0, this.fallbackRef = null, this.timeout = t.timeout || Ne, this.transport = t.transport || b.WebSocket || w, this.conn = void 0, this.primaryPassedHealthCheck = !1, this.longPollFallbackMs = t.longPollFallbackMs, this.fallbackTimer = null;
+            }, this.channels = [], this.sendBuffer = [], this.ref = 0, this.fallbackRef = null, this.timeout = t.timeout || Me, this.transport = t.transport || x.WebSocket || He, this.conn = void 0, this.primaryPassedHealthCheck = !1, this.longPollFallbackMs = t.longPollFallbackMs, this.fallbackTimer = null;
             let n = null;
             try {
-                n = b && b.sessionStorage;
+                n = x && x.sessionStorage;
             } catch  {}
-            this.sessionStore = t.sessionStorage || n, this.establishedConnections = 0, this.defaultEncoder = We.encode.bind(We), this.defaultDecoder = We.decode.bind(We), this.closeWasClean = !0, this.disconnecting = !1, this.binaryType = t.binaryType || `arraybuffer`, this.connectClock = 1, this.pageHidden = !1, this.encode = void 0, this.decode = void 0, this.transport === w ? (this.encode = this.defaultEncoder, this.decode = this.defaultDecoder) : (this.encode = t.encode || this.defaultEncoder, this.decode = t.decode || this.defaultDecoder);
+            this.sessionStore = t.sessionStorage || n, this.establishedConnections = 0, this.defaultEncoder = We.encode.bind(We), this.defaultDecoder = We.decode.bind(We), this.closeWasClean = !0, this.disconnecting = !1, this.binaryType = t.binaryType || `arraybuffer`, this.connectClock = 1, this.pageHidden = !1, this.encode = void 0, this.decode = void 0, this.transport === He ? (this.encode = this.defaultEncoder, this.decode = this.defaultDecoder) : (this.encode = t.encode || this.defaultEncoder, this.decode = t.decode || this.defaultDecoder);
             let r = null;
-            je && je.addEventListener && (je.addEventListener(`pagehide`, (e)=>{
+            b && b.addEventListener && (b.addEventListener(`pagehide`, (e)=>{
                 this.conn && (this.disconnect(), r = this.connectClock);
-            }), je.addEventListener(`pageshow`, (e)=>{
+            }), b.addEventListener(`pageshow`, (e)=>{
                 r === this.connectClock && (r = null, this.connect());
-            }), je.addEventListener(`visibilitychange`, ()=>{
+            }), b.addEventListener(`visibilitychange`, ()=>{
                 document.visibilityState === `hidden` ? this.pageHidden = !0 : (this.pageHidden = !1, !this.isConnected() && !this.closeWasClean && this.teardown(()=>this.connect()));
             })), this.heartbeatIntervalMs = t.heartbeatIntervalMs || 3e4, this.autoSendHeartbeat = t.autoSendHeartbeat ?? !0, this.heartbeatCallback = t.heartbeatCallback ?? (()=>{}), this.rejoinAfterMs = (e)=>t.rejoinAfterMs ? t.rejoinAfterMs(e) : [
                     1e3,
@@ -1463,7 +1463,7 @@ new RealtimeClient(url, { transport: ws })`
                     2e3
                 ][e - 1] || 5e3, this.logger = t.logger || null, !this.logger && t.debug && (this.logger = (e, t, n)=>{
                 console.log(`${e}: ${t}`, n);
-            }), this.longpollerTimeout = t.longpollerTimeout || 2e4, this.params = ke(t.params || {}), this.endPoint = `${e}/${Fe.websocket}`, this.vsn = t.vsn || Me, this.heartbeatTimeoutTimer = null, this.heartbeatTimer = null, this.heartbeatSentAt = null, this.pendingHeartbeatRef = null, this.reconnectTimer = new ze(()=>{
+            }), this.longpollerTimeout = t.longpollerTimeout || 2e4, this.params = ke(t.params || {}), this.endPoint = `${e}/${Pe.websocket}`, this.vsn = t.vsn || je, this.heartbeatTimeoutTimer = null, this.heartbeatTimer = null, this.heartbeatSentAt = null, this.pendingHeartbeatRef = null, this.reconnectTimer = new Re(()=>{
                 if (this.pageHidden) {
                     this.log(`Not reconnecting as page is hidden!`), this.teardown();
                     return;
@@ -1474,7 +1474,7 @@ new RealtimeClient(url, { transport: ws })`
             }, this.reconnectAfterMs), this.authToken = t.authToken;
         }
         getLongPollTransport() {
-            return w;
+            return He;
         }
         replaceTransport(e) {
             this.connectClock++, this.closeWasClean = !0, clearTimeout(this.fallbackTimer), this.reconnectTimer.reset(), this.conn &&= (this.conn.close(), null), this.transport = e;
@@ -1483,7 +1483,7 @@ new RealtimeClient(url, { transport: ws })`
             return location.protocol.match(/^https/) ? `wss` : `ws`;
         }
         endPointURL() {
-            let e = Ve.appendParams(Ve.appendParams(this.endPoint, this.params()), {
+            let e = Be.appendParams(Be.appendParams(this.endPoint, this.params()), {
                 vsn: this.vsn
             });
             return e.charAt(0) === `/` ? e.charAt(1) === `/` ? `${this.protocol()}:${e}` : `${this.protocol()}://${location.host}${e}` : e;
@@ -1494,7 +1494,7 @@ new RealtimeClient(url, { transport: ws })`
             }, t, n);
         }
         connect(e) {
-            e && (console && console.log(`passing params to connect is deprecated. Instead pass :params to the Socket constructor`), this.params = ke(e)), !(this.conn && !this.disconnecting) && (this.longPollFallbackMs && this.transport !== w ? this.connectWithFallback(w, this.longPollFallbackMs) : this.transportConnect());
+            e && (console && console.log(`passing params to connect is deprecated. Instead pass :params to the Socket constructor`), this.params = ke(e)), !(this.conn && !this.disconnecting) && (this.longPollFallbackMs && this.transport !== He ? this.connectWithFallback(He, this.longPollFallbackMs) : this.transportConnect());
         }
         log(e, t, n) {
             this.logger && this.logger(e, t, n);
@@ -1551,7 +1551,7 @@ new RealtimeClient(url, { transport: ws })`
         }
         transportName(e) {
             switch(e){
-                case w:
+                case He:
                     return `LongPoll`;
                 default:
                     return e.name;
@@ -1562,7 +1562,7 @@ new RealtimeClient(url, { transport: ws })`
             let e;
             this.authToken && (e = [
                 `phoenix`,
-                `${Le}${btoa(this.authToken).replace(/=/g, ``)}`
+                `${Ie}${btoa(this.authToken).replace(/=/g, ``)}`
             ]), this.conn = new this.transport(this.endPointURL(), e), this.conn.binaryType = this.binaryType, this.conn.timeout = this.longpollerTimeout, this.conn.onopen = ()=>this.onConnOpen(), this.conn.onerror = (e)=>this.onConnError(e), this.conn.onmessage = (e)=>this.onConnMessage(e), this.conn.onclose = (e)=>this.onConnClose(e);
         }
         getSession(e) {
@@ -1608,7 +1608,7 @@ new RealtimeClient(url, { transport: ws })`
                 } catch (e) {
                     this.log(`error`, `error in heartbeat callback`, e);
                 }
-                this.triggerChanError(Error(`heartbeat timeout`)), this.closeWasClean = !1, this.teardown(()=>this.reconnectTimer.scheduleTimeout(), Pe, `heartbeat timeout`);
+                this.triggerChanError(Error(`heartbeat timeout`)), this.closeWasClean = !1, this.teardown(()=>this.reconnectTimer.scheduleTimeout(), Ne, `heartbeat timeout`);
             }
         }
         resetHeartbeat() {
@@ -1633,7 +1633,7 @@ new RealtimeClient(url, { transport: ws })`
             }, 150 * n);
         }
         waitForSocketClosed(e, t, n = 1) {
-            if (n === 5 || e.readyState === x.closed) {
+            if (n === 5 || e.readyState === S.closed) {
                 t();
                 return;
             }
@@ -1651,16 +1651,16 @@ new RealtimeClient(url, { transport: ws })`
         }
         triggerChanError(e) {
             this.channels.forEach((t)=>{
-                t.isErrored() || t.isLeaving() || t.isClosed() || t.trigger(C.error, e);
+                t.isErrored() || t.isLeaving() || t.isClosed() || t.trigger(w.error, e);
             });
         }
         connectionState() {
             switch(this.conn && this.conn.readyState){
-                case x.connecting:
+                case S.connecting:
                     return `connecting`;
-                case x.open:
+                case S.open:
                     return `open`;
-                case x.closing:
+                case S.closing:
                     return `closing`;
                 default:
                     return `closed`;
@@ -1676,7 +1676,7 @@ new RealtimeClient(url, { transport: ws })`
             for(let t in this.stateChangeCallbacks)this.stateChangeCallbacks[t] = this.stateChangeCallbacks[t].filter(([t])=>e.indexOf(t) === -1);
         }
         channel(e, t = {}) {
-            let n = new Be(e, t, this);
+            let n = new ze(e, t, this);
             return this.channels.push(n), n;
         }
         push(e) {
@@ -8250,27 +8250,47 @@ Resources:`;
             ...e
         ].sort((e, t)=>t.total - e.total || e.id - t.id);
     }
-    Ui = function() {
+    Ui = function(e = Bi()) {
+        return Hi(Li.map((t)=>({
+                id: t.id,
+                a: {
+                    username: t.a.username,
+                    wallet: t.a.wallet
+                },
+                b: {
+                    username: t.b.username,
+                    wallet: t.b.wallet
+                },
+                total: 0,
+                days: e.map((e)=>({
+                        date: e,
+                        scoreA: null,
+                        scoreB: null,
+                        duo: 0
+                    }))
+            })));
+    };
+    Wi = function() {
         return !0;
     };
-    Wi = function(e = Date.now()) {
+    Gi = function(e = Date.now()) {
         let t = e;
         if (t < Date.parse(Z.regOpen)) return `upcoming`;
         if (t <= Date.parse(Z.regClose)) return `registration`;
         let n = new Date(t).toISOString().slice(0, 10);
         return n < Z.weekStart ? `closed` : n <= Z.weekEnd ? `week` : n === Z.finalDay ? `final` : `ended`;
     };
-    Gi = function(e = Date.now()) {
-        return Wi(e) === `registration`;
+    Ki = function(e = Date.now()) {
+        return Gi(e) === `registration`;
     };
-    Ki = function() {
+    qi = function() {
         return `Register by ${new Date(Z.regClose).toLocaleDateString(`en-GB`, {
             day: `numeric`,
             month: `short`,
             timeZone: `UTC`
         })} · UTC`;
     };
-    qi = function(e) {
+    Ji = function(e) {
         let t = new Date(Z.regClose).toLocaleDateString(`en-GB`, {
             day: `numeric`,
             month: `short`,
@@ -8288,8 +8308,8 @@ Resources:`;
         ].join(`
 `);
     };
-    var Ji = `https://eyahboeaekejmcgknsty.supabase.co`, Yi = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5YWhib2VhZWtlam1jZ2tuc3R5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyNjQ2NDIsImV4cCI6MjA4ODg0MDY0Mn0.utkttOZq0ilQgpd-6Shl3aH7dscaTwygzpl1G1krOPk`, Q = Fi(Ji, Yi);
-    Xi = async function(e, t, n, r, i, a, o) {
+    var Yi = `https://eyahboeaekejmcgknsty.supabase.co`, Xi = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5YWhib2VhZWtlam1jZ2tuc3R5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyNjQ2NDIsImV4cCI6MjA4ODg0MDY0Mn0.utkttOZq0ilQgpd-6Shl3aH7dscaTwygzpl1G1krOPk`, Q = Fi(Yi, Xi);
+    Zi = async function(e, t, n, r, i, a, o) {
         let { error: s } = await Q.from(`corsair_scores`).insert({
             wallet_address: e,
             username: o ?? null,
@@ -8301,13 +8321,13 @@ Resources:`;
         });
         return !s;
     };
-    Zi = async function() {
+    Qi = async function() {
         let { data: e, error: t } = await Q.from(`corsair_scores`).select(`*`).order(`score`, {
             ascending: !1
         }).limit(20);
         return t ? [] : e;
     };
-    Qi = async function(e) {
+    $i = async function(e) {
         let { data: t, error: n } = await Q.from(`corsair_daily_scores`).select(`id, wallet_address, username, score, date, submitted_at`).eq(`date`, e).order(`score`, {
             ascending: !1
         }).limit(20);
@@ -8316,17 +8336,17 @@ Resources:`;
                 seed: null
             }));
     };
-    $i = async function() {
+    ea = async function() {
         let { data: e, error: t } = await Q.from(`starktember_board`).select(`rank, wallet_address, username, total, days_played, best_day`).limit(50);
         return t ? (console.warn(`[starktember]`, t.message), []) : e ?? [];
     };
-    ea = async function(e) {
+    ta = async function(e) {
         try {
             return await (await fetch(`https://eyahboeaekejmcgknsty.supabase.co/functions/v1/check-nft-conditions`, {
                 method: `POST`,
                 headers: {
                     "Content-Type": `application/json`,
-                    Authorization: `Bearer ${Yi}`
+                    Authorization: `Bearer ${Xi}`
                 },
                 body: JSON.stringify(e)
             })).json();
@@ -8336,8 +8356,8 @@ Resources:`;
             };
         }
     };
-    var ta = `0x06c8b06fb6a94f3ae9b26c87b1baacc4a7a1f2e0184870c957728b5d17bd0202`;
-    na = async function() {
+    var na = `0x06c8b06fb6a94f3ae9b26c87b1baacc4a7a1f2e0184870c957728b5d17bd0202`;
+    ra = async function() {
         let e = await Q.from(`nft_mints`).select(`id, wallet_address, nft_name, nft_id, status, tx_hash, token_id, run_id`).order(`id`, {
             ascending: !1
         });
@@ -8348,19 +8368,19 @@ Resources:`;
         });
         return n ? (console.warn(`[admin] getPendingMints:`, n.message), []) : t ?? [];
     };
-    ra = async function() {
+    ia = async function() {
         let { data: e, error: t } = await Q.from(`nft_conditions`).select(`name, minted, max_supply`).order(`name`, {
             ascending: !0
         });
         return t ? (console.warn(`[admin] getSupply:`, t.message), []) : e ?? [];
     };
-    function ia() {
+    function aa() {
         let e = localStorage.getItem(`corsair_admin_secret`);
         return e || (console.warn(`[admin] cle admin absente — localStorage.setItem("corsair_admin_secret", "...")`), alert(`Admin secret missing. In the console run:
 localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
     }
-    async function aa(e) {
-        let t = ia();
+    async function oa(e) {
+        let t = aa();
         if (!t) return {
             ok: !1,
             error: `no secret`
@@ -8380,30 +8400,30 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
         }
         return i;
     }
-    oa = async function(e, t, n, r) {
+    sa = async function(e, t, n, r) {
         let i = {
             action: `mark`,
             id: e,
             tx_hash: t,
             nft_name: n
         };
-        return r != null && r > 0 && (i.token_id = r), aa(i);
+        return r != null && r > 0 && (i.token_id = r), oa(i);
     };
-    sa = async function(e) {
-        return aa({
+    ca = async function(e) {
+        return oa({
             action: `resync`,
             id: e
         });
     };
-    ca = async function() {
-        return aa({
+    la = async function() {
+        return oa({
             action: `audit`
         });
     };
-    la = function(e) {
+    ua = function(e) {
         return `https://eyahboeaekejmcgknsty.supabase.co/functions/v1/nft-metadata/${e}`;
     };
-    ua = async function(e) {
+    da = async function(e) {
         try {
             let { data: t, error: n } = await Q.functions.invoke(`tournament-register`, {
                 body: {
@@ -8428,7 +8448,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             };
         }
     };
-    da = async function(e, t) {
+    fa = async function(e, t) {
         try {
             let { data: n, error: r } = await Q.functions.invoke(`tournament-register`, {
                 body: {
@@ -8448,7 +8468,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             };
         }
     };
-    fa = async function() {
+    pa = async function() {
         let { data: e, error: t } = await Q.from(`tournament_registrations`).select(`id, wallet_address, username, registered_at`).eq(`tournament_id`, `binding_2026_01`).order(`registered_at`, {
             ascending: !0
         });
@@ -8465,8 +8485,8 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             registrations: n
         };
     };
-    pa = async function() {
-        let e = ia();
+    ma = async function() {
+        let e = aa();
         if (!e) return {
             ok: !1,
             error: `no secret`
@@ -8482,17 +8502,48 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             error: t?.error ?? n?.message
         } : t;
     };
-    ma = async function() {
+    var ha = `corsair_binding_board_v1`;
+    function ga() {
+        try {
+            let e = localStorage.getItem(ha);
+            if (!e) return null;
+            let t = JSON.parse(e);
+            return !t?.rows?.length || t.at && Date.now() - t.at > 36 * 36e5 ? null : t.rows;
+        } catch  {
+            return null;
+        }
+    }
+    function _a(e) {
+        try {
+            localStorage.setItem(ha, JSON.stringify({
+                at: Date.now(),
+                rows: e
+            }));
+        } catch  {}
+    }
+    va = async function() {
         let e = Bi(), t = new Map;
         if (e.length > 0) {
-            let { data: n, error: r } = await Q.from(`corsair_daily_scores`).select(`wallet_address, score, date`).in(`date`, e).limit(2e3);
-            r && console.warn(`[binding board]`, r.message);
-            for (let e of n ?? []){
+            let n = Q.from(`corsair_daily_scores`).select(`wallet_address, score, date`).in(`date`, e).limit(2e3), { data: r, error: i } = await Promise.race([
+                n,
+                new Promise((e)=>setTimeout(()=>e({
+                            data: null,
+                            error: {
+                                message: `timeout`
+                            }
+                        }), 8e3))
+            ]);
+            i && console.warn(`[binding board]`, i.message);
+            for (let e of r ?? []){
                 let n = Ri(e.wallet_address), r = e.date, i = Number(e.score) || 0, a = `${n}|${r}`, o = t.get(a);
                 (o === void 0 || i > o) && t.set(a, i);
             }
         }
-        return Hi(Li.map((n)=>{
+        if (e.length > 0 && t.size === 0) {
+            let e = ga();
+            if (e) return e;
+        }
+        let n = Hi(Li.map((n)=>{
             let r = e.map((e)=>{
                 let r = t.get(`${Ri(n.a.wallet)}|${e}`) ?? null, i = t.get(`${Ri(n.b.wallet)}|${e}`) ?? null, a = r, o = i;
                 return {
@@ -8516,24 +8567,25 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
                 days: r
             };
         }));
+        return t.size > 0 && _a(n), n;
     };
-    ha = function(e, t) {
+    ya = function(e, t) {
         return `sncast --account corsair_deployer_mainnet invoke \\
-  --contract-address ${ta} \\
+  --contract-address ${na} \\
   --function mint \\
   --arguments '${e}' \\
   --network mainnet`;
     };
-    var ga = (e)=>`0x` + e.toLowerCase().replace(/^0x0*/, ``);
-    _a = async function(e) {
+    var ba = (e)=>`0x` + e.toLowerCase().replace(/^0x0*/, ``);
+    xa = async function(e) {
         let { data: t, error: n } = await Q.from(`nft_mints`).select(`nft_name, wallet_address, status, token_id`).in(`status`, [
             `pending`,
             `minted`
         ]);
         if (n || !t) return [];
-        let r = ga(e), i = new Map;
+        let r = ba(e), i = new Map;
         for (let e of t){
-            if (ga(e.wallet_address) !== r) continue;
+            if (ba(e.wallet_address) !== r) continue;
             let t = e.status === `minted` ? `minted` : `pending`, n = i.get(e.nft_name);
             (!n || t === `minted` && n.status !== `minted`) && i.set(e.nft_name, {
                 nft_name: e.nft_name,
@@ -8545,10 +8597,10 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             ...i.values()
         ];
     };
-    async function va(e) {
-        return (await _a(e)).map((e)=>e.nft_name);
+    async function Sa(e) {
+        return (await xa(e)).map((e)=>e.nft_name);
     }
-    ya = async function(e) {
+    Ca = async function(e) {
         try {
             let { error: t } = await Q.functions.invoke(`player-write`, {
                 body: {
@@ -8561,7 +8613,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             console.warn(`[runs] start:`, e?.message ?? e);
         }
     };
-    ba = async function(e, t) {
+    wa = async function(e, t) {
         try {
             let { error: n } = await Q.functions.invoke(`player-write`, {
                 body: {
@@ -8575,7 +8627,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             console.warn(`[runs] heartbeat:`, e?.message ?? e);
         }
     };
-    xa = async function(e, t) {
+    Ta = async function(e, t) {
         try {
             let { error: n } = await Q.functions.invoke(`player-write`, {
                 body: {
@@ -8589,13 +8641,13 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             console.warn(`[runs] finish:`, e?.message ?? e);
         }
     };
-    Sa = async function(e) {
+    Ea = async function(e) {
         let { error: t } = await Q.from(`corsair_run_logs`).insert(e);
         if (!t) return;
         let n = `${t.code ?? ``} ${t.message ?? ``}`;
         if (!/23505|duplicate|unique/i.test(n)) throw console.warn(`[runlog]`, t.message), Error(t.message || `saveRunLog failed`);
     };
-    Ca = async function(e) {
+    Da = async function(e) {
         if (e.length === 0) return {};
         let { data: t, error: n } = await Q.from(`corsair_run_verdicts`).select(`run_id, verified, replay_score, final_score`).in(`run_id`, e);
         if (n || !t) return console.warn(`[verdicts]`, n?.message), {};
@@ -8603,7 +8655,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
         for (let e of t)r[e.run_id] = e;
         return r;
     };
-    wa = async function(e) {
+    Oa = async function(e) {
         try {
             let { data: t, error: n } = await Q.functions.invoke(`issue-seed`, {
                 body: {
@@ -8618,7 +8670,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             return console.warn(`[seed] emission impossible`), null;
         }
     };
-    Ta = async function(e) {
+    ka = async function(e) {
         let [t, n] = await Promise.all([
             Q.from(`player_feats`).select(`feat_id`).eq(`wallet_address`, e),
             Q.from(`player_titles`).select(`title`).eq(`wallet_address`, e).maybeSingle()
@@ -8628,8 +8680,8 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             title: n.data?.title ?? null
         };
     };
-    Ea = async function(e, t) {};
-    Da = async function(e, t) {
+    Aa = async function(e, t) {};
+    ja = async function(e, t) {
         try {
             let { error: n } = await Q.functions.invoke(`player-write`, {
                 body: {
@@ -8643,7 +8695,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             console.warn(`[title]`, e?.message ?? e);
         }
     };
-    Oa = async function(e) {
+    Ma = async function(e) {
         try {
             let [t, n, r] = await Promise.all([
                 Q.from(`corsair_scores`).select(`score, zone, turn`).eq(`wallet_address`, e),
@@ -8651,7 +8703,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
                     count: `exact`,
                     head: !0
                 }).eq(`wallet_address`, e),
-                va(e)
+                Sa(e)
             ]), i = t.data ?? [], a = 0, o = 1, s = 0;
             for (let e of i)e.score > a && (a = e.score), (e.zone ?? 1) > o && (o = e.zone ?? 1), (e.turn ?? 0) > s && (s = e.turn ?? 0);
             let c = n.count ?? 0, l = r.length;
@@ -8666,13 +8718,13 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             return null;
         }
     };
-    ka = async function(e, t) {
+    Na = async function(e, t) {
         if (t.length !== 8) return !1;
         let n = `${t.slice(0, 4)}-${t.slice(4, 6)}-${t.slice(6, 8)}`, { data: r, error: i } = await Q.from(`corsair_daily_scores`).select(`id`).eq(`wallet_address`, e).eq(`date`, n).maybeSingle();
         return i ? !1 : !!r;
     };
-    Aa = async function(e, t) {};
-    ja = async function(e) {
+    Pa = async function(e, t) {};
+    Fa = async function(e) {
         let { data: t, error: n } = await Q.functions.invoke(`approve-run`, {
             body: {
                 run_id: e
@@ -8681,9 +8733,9 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
         if (n) throw n;
         return t;
     };
-    let $, Fa;
+    let $, za;
     $ = `https://eyahboeaekejmcgknsty.supabase.co/storage/v1/object/public/nft-images`;
-    Ma = [
+    Ia = [
         {
             key: `last_port`,
             name: `The Last Port`,
@@ -8780,7 +8832,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             hidden: !0
         }
     ];
-    Na = [
+    La = [
         {
             key: `splintered_keel`,
             name: `The Splintered Keel`,
@@ -8823,7 +8875,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             hidden: !0
         }
     ];
-    Pa = [
+    Ra = [
         {
             key: `binding_mark`,
             name: `The Binding Mark`,
@@ -8854,29 +8906,29 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             hidden: !0
         }
     ];
-    Fa = [
-        ...Pa,
-        ...Na,
-        ...Ma
+    za = [
+        ...Ra,
+        ...La,
+        ...Ia
     ];
-    Ia = {
+    Ba = {
         Rare: `#44cc88`,
         Epic: `#aa66ee`,
         Legendary: `#eedd88`,
         Mythic: `#ee5566`
     };
-    La = function(e) {
+    Va = function(e) {
         return e.startsWith(`ipfs://`) ? e.replace(`ipfs://`, `https://ipfs.io/ipfs/`) : e;
     };
-    Ra = function(e) {
-        return Fa.find((t)=>t.key === e) ?? null;
+    Ha = function(e) {
+        return za.find((t)=>t.key === e) ?? null;
     };
-    za = function(e) {
-        return Ra(e)?.name ?? e.replace(/_/g, ` `).replace(/\b\w/g, (e)=>e.toUpperCase());
+    Ua = function(e) {
+        return Ha(e)?.name ?? e.replace(/_/g, ` `).replace(/\b\w/g, (e)=>e.toUpperCase());
     };
-    Ba = function(e) {
-        let t = Ra(e);
+    Wa = function(e) {
+        let t = Ha(e);
         return t?.season === `tideborn` ? `Tideborn` : t?.season === `genesis` ? `Genesis` : t?.season === `event` ? `The Binding` : `Corsair`;
     };
 })();
-export { oa as A, Z as B, ua as C, wa as D, ba as E, da as F, Ui as G, Wi as H, sa as I, Gi as K, Sa as L, Ea as M, Da as N, fa as O, pa as P, ya as R, ra as S, ka as T, qi as U, Li as V, Ki as W, Qi as _, Ra as a, Ca as b, Ba as c, ha as d, ea as f, ma as g, xa as h, Na as i, la as j, Aa as k, ja as l, Oa as m, Ma as n, La as o, Ta as p, ti as q, Ia as r, za as s, Pa as t, ca as u, Zi as v, _a as w, $i as x, na as y, Xi as z, __tla };
+export { sa as A, Z as B, da as C, Oa as D, wa as E, fa as F, qi as G, Gi as H, ca as I, ti as J, Wi as K, Ea as L, Aa as M, ja as N, pa as O, ma as P, Ca as R, ia as S, Na as T, Ji as U, Li as V, Ui as W, $i as _, Ha as a, Da as b, Wa as c, ya as d, ta as f, va as g, Ta as h, La as i, ua as j, Pa as k, Fa as l, Ma as m, Ia as n, Va as o, ka as p, Ki as q, Ba as r, Ua as s, Ra as t, la as u, Qi as v, xa as w, ea as x, ra as y, Zi as z, __tla };
