@@ -3,10 +3,11 @@ import { mainnet } from "@starknet-react/chains";
 import { StarknetConfig, jsonRpcProvider, voyager } from "@starknet-react/core";
 import type { Chain } from "@starknet-react/chains";
 import type { ReactNode } from "react";
+import { STARKNET_MAINNET_RPC } from "./rpc";
 
 export const cartridgeConnector = new ControllerConnector({
   chains: [
-    { rpcUrl: "https://api.cartridge.gg/x/starknet/mainnet" },
+    { rpcUrl: STARKNET_MAINNET_RPC },
   ],
   defaultChainId: "0x534e5f4d41494e",
   policies: {
@@ -22,8 +23,9 @@ export const cartridgeConnector = new ControllerConnector({
 
 function rpc(chain: Chain) {
   if (chain.id === mainnet.id)
-    return { nodeUrl: "https://api.cartridge.gg/x/starknet/mainnet" };
-  return { nodeUrl: "https://api.cartridge.gg/x/starknet/sepolia" };
+    return { nodeUrl: STARKNET_MAINNET_RPC };
+  // Cartridge sepolia slot is discontinued (410); keep mainnet-only.
+  return { nodeUrl: STARKNET_MAINNET_RPC };
 }
 
 export function StarknetProvider({ children }: { children: ReactNode }) {

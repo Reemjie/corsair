@@ -1,4 +1,5 @@
 import { RpcProvider, Contract, type Abi } from 'starknet';
+import { STARKNET_MAINNET_RPC } from './rpc';
 
 const CONTRACT_ADDRESS = '0x01396d5df31922799610a9710bc69c5cb59c3427b400403d43c198de5d0003e3';
 
@@ -26,7 +27,7 @@ const ABI = [
   },
 ] as const;
 
-export const provider = new RpcProvider({ nodeUrl: 'https://api.cartridge.gg/x/starknet/mainnet' });
+export const provider = new RpcProvider({ nodeUrl: STARKNET_MAINNET_RPC });
 
 export function getCorsairContract(account?: any) {
   return new Contract({
