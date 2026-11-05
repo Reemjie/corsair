@@ -1,0 +1,1 @@
+var e=`https://starknet-rpc.publicnode.com`;export{e as t};

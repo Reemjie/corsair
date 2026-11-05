@@ -1,6 +1,7 @@
 import { r as e } from "./motion-wKhEcHeU.js";
 import { c as t, n, r, s as i, t as a, __tla as __tla_0 } from "./wallet-D0U5_iuP.js";
-let s, l;
+import { t as o } from "./rpc-BQNg8r_c.js";
+let c, u;
 let __tla = Promise.all([
     (()=>{
         try {
@@ -8,12 +9,12 @@ let __tla = Promise.all([
         } catch  {}
     })()
 ]).then(async ()=>{
-    let o;
-    o = e();
-    s = new a({
+    let s;
+    s = e();
+    c = new a({
         chains: [
             {
-                rpcUrl: `https://api.cartridge.gg/x/starknet/mainnet`
+                rpcUrl: o
             }
         ],
         defaultChainId: `0x534e5f4d41494e`,
@@ -30,27 +31,25 @@ let __tla = Promise.all([
             }
         }
     });
-    function c(e) {
-        return e.id === t.id ? {
-            nodeUrl: `https://api.cartridge.gg/x/starknet/mainnet`
-        } : {
-            nodeUrl: `https://api.cartridge.gg/x/starknet/sepolia`
+    function l(e) {
+        return e.id, t.id, {
+            nodeUrl: o
         };
     }
-    l = function({ children: e }) {
-        return (0, o.jsx)(n, {
+    u = function({ children: e }) {
+        return (0, s.jsx)(n, {
             chains: [
                 t
             ],
             provider: r({
-                rpc: c
+                rpc: l
             }),
             connectors: [
-                s
+                c
             ],
             explorer: i,
             children: e
         });
     };
 });
-export { s as n, l as t, __tla };
+export { c as n, u as t, __tla };

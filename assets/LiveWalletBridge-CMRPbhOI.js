@@ -2,7 +2,7 @@ import { a as e } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as t, r as n } from "./motion-wKhEcHeU.js";
 import { t as r } from "./walletApi-DYniPf4L.js";
 import { a as i, i as a, o, __tla as __tla_0 } from "./wallet-D0U5_iuP.js";
-import { n as s, __tla as __tla_1 } from "./cartridge-CyqXvNdM.js";
+import { n as s, __tla as __tla_1 } from "./cartridge-DlFwJFjQ.js";
 let u;
 let __tla = Promise.all([
     (()=>{
