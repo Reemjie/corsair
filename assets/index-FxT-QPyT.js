@@ -12431,6 +12431,7 @@ Error generating stack: ` + e.message + `
                                                                 onClick: ()=>{
                                                                     Pt();
                                                                 },
+                                                                title: `Practice voyage — random seed, not the Daily`,
                                                                 style: {
                                                                     padding: b ? `16px 0` : x ? `12px 36px` : `16px 48px`,
                                                                     width: b ? `100%` : `auto`,
@@ -12438,13 +12439,13 @@ Error generating stack: ` + e.message + `
                                                                     border: `2px solid rgba(200,160,48,0.9)`,
                                                                     background: b ? `rgba(200,160,48,0.38)` : `rgba(200,160,48,0.25)`,
                                                                     color: b ? `#e8c250` : `#c8a030`,
-                                                                    fontSize: b ? 26 : x ? 18 : 22,
-                                                                    letterSpacing: 4,
+                                                                    fontSize: b ? 22 : x ? 16 : 20,
+                                                                    letterSpacing: 3,
                                                                     cursor: ze ? `wait` : `pointer`,
                                                                     fontFamily: `'Pirata One', cursive`,
                                                                     opacity: ze ? .7 : 1
                                                                 },
-                                                                children: ze ? `PREPARING…` : `PLAY`
+                                                                children: ze ? `PREPARING…` : `FREE SAIL`
                                                             }),
                                                             (0, D.jsx)(a.button, {
                                                                 whileHover: {
@@ -12470,7 +12471,7 @@ Error generating stack: ` + e.message + `
                                                             })
                                                         ]
                                                     }),
-                                                    !A && !x && (0, D.jsx)(`div`, {
+                                                    (0, D.jsxs)(`div`, {
                                                         style: {
                                                             fontSize: 11,
                                                             color: `rgba(255,255,255,0.45)`,
@@ -12478,7 +12479,16 @@ Error generating stack: ` + e.message + `
                                                             letterSpacing: 1,
                                                             textAlign: `center`
                                                         },
-                                                        children: `No wallet needed · connect later to climb the board`
+                                                        children: [
+                                                            `Practice · any seed · `,
+                                                            (0, D.jsx)(`span`, {
+                                                                style: {
+                                                                    color: `rgba(136,221,255,0.75)`
+                                                                },
+                                                                children: `not the Daily`
+                                                            }),
+                                                            !A && !x ? ` · connect later to climb the board` : ``
+                                                        ]
                                                     }),
                                                     Ve && (0, D.jsx)(`div`, {
                                                         style: {
@@ -12618,7 +12628,7 @@ Error generating stack: ` + e.message + `
                                                                     fontWeight: 700,
                                                                     whiteSpace: `nowrap`
                                                                 },
-                                                                children: A ? `PLAY · 1 TRY` : `CONNECT · 1 TRY`
+                                                                children: A ? `DAILY · 1 TRY` : `CONNECT · DAILY`
                                                             })
                                                         ]
                                                     }),
