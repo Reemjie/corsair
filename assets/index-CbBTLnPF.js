@@ -1,9 +1,9 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-Bvl5NEwt.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-L-29MAGv.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/ReplayScreen-B52tmJh_.js","assets/anchor-BMeuRHCM.js","assets/walletApi-DYniPf4L.js","assets/nftCatalog-DgS71tPf.js","assets/rpc-BQNg8r_c.js","assets/AdminPanel-DPOvr3OH.js","assets/ReplayScreen-DJpEuGba.js","assets/cartridge-exYVfj4S.js","assets/cartridge-DlFwJFjQ.js","assets/LiveWalletBridge-CMRPbhOI.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-BSwfaWSH.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-L-29MAGv.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/ReplayScreen-CF-swF1_.js","assets/anchor-BDNxsdhC.js","assets/walletApi-DYniPf4L.js","assets/nftCatalog-DgS71tPf.js","assets/rpc-BQNg8r_c.js","assets/AdminPanel-DPOvr3OH.js","assets/ReplayScreen-BP7Q-g_1.js","assets/cartridge-exYVfj4S.js","assets/cartridge-DlFwJFjQ.js","assets/LiveWalletBridge-CMRPbhOI.js"])))=>i.map(i=>d[i]);
 import { a as e, t } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as n, n as r, r as i, t as a } from "./motion-wKhEcHeU.js";
 import { n as o, t as s } from "./walletApi-DYniPf4L.js";
-import { c, d as l, h as u, l as d, n as f, o as p, r as m, t as h, u as g } from "./anchor-BMeuRHCM.js";
-import { D as _, E as v, G as y, H as b, J as x, K as ee, O as te, S as ne, W as re, _ as ie, b as ae, g as oe, j as se, k as ce, q as le, t as ue, v as de, w as S, x as C, y as fe } from "./ReplayScreen-B52tmJh_.js";
+import { c, d as l, h as u, l as d, n as f, o as p, r as m, t as h, u as g } from "./anchor-BDNxsdhC.js";
+import { D as _, E as v, G as y, H as b, J as x, K as ee, O as te, S as ne, W as re, _ as ie, b as ae, g as oe, j as se, k as ce, q as le, t as ue, v as de, w as S, x as C, y as fe } from "./ReplayScreen-CF-swF1_.js";
 import { A as pe, B as me, F as he, H as w, I as T, L as ge, M as _e, O as ve, P as ye, R as be, V as xe, _ as Se, b as Ce, d as we, g as Te, h as Ee, i as De, l as Oe, m as ke, o as Ae, s as je, t as Me, u as Ne, v as Pe, z as Fe, __tla as __tla_0 } from "./supabase-L-29MAGv.js";
 import { i as Ie, n as Le, o as Re, r as ze, t as Be } from "./nftCatalog-DgS71tPf.js";
 Promise.all([
@@ -11946,11 +11946,13 @@ Error generating stack: ` + e.message + `
                 viewer_wallet: A ?? void 0,
                 date: n
             });
-            ht(null), r.ok && pt({
+            if (ht(null), !r.ok) return;
+            let i = new Date().toISOString().slice(0, 10);
+            pt({
                 seed: r.seed,
                 shipId: r.ship_id,
                 actions: r.actions,
-                label: `${t} · Daily ${n}`,
+                label: n === i ? `${t} · Daily ${n} (yours)` : `${t} · Daily ${n}`,
                 finalScore: r.final_score
             });
         };
@@ -13622,13 +13624,13 @@ Error generating stack: ` + e.message + `
             ]
         });
     }
-    var St = (0, E.lazy)(()=>w(()=>import(`./CorsairGame-Bvl5NEwt.js`).then(async (m)=>{
+    var St = (0, E.lazy)(()=>w(()=>import(`./CorsairGame-BSwfaWSH.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }), __vite__mapDeps([0,1,2,3,4,5,6,7,8,9]))), Ct = (0, E.lazy)(()=>w(()=>import(`./AdminPanel-DPOvr3OH.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
-            }), __vite__mapDeps([10,1,2,4,8]))), wt = (0, E.lazy)(()=>w(()=>import(`./ReplayScreen-DJpEuGba.js`).then(async (m)=>{
+            }), __vite__mapDeps([10,1,2,4,8]))), wt = (0, E.lazy)(()=>w(()=>import(`./ReplayScreen-BP7Q-g_1.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }), __vite__mapDeps([11,5,1,2,4]))), Tt = `corsair_crew_bypass`;
