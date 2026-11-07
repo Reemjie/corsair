@@ -8378,7 +8378,8 @@ Resources:`;
         return n ? (console.warn(`[admin] getPendingMints:`, n.message), []) : t ?? [];
     };
     var ia = new Set([
-        `brother_eli`
+        `brother_eli`,
+        `lil_duckie`
     ]);
     aa = async function() {
         let { data: e, error: t } = await $.from(`nft_conditions`).select(`name, minted, max_supply`).order(`name`, {
