@@ -8163,8 +8163,8 @@ Resources:`;
         championUsername: `nexonik`,
         runnerUpUsername: `zyro`,
         championScore: 7403,
-        runnerUpScore: null,
-        forfeit: !0,
+        runnerUpScore: 1571,
+        forfeit: !1,
         weekTotal: 21322
     };
     Ri = [

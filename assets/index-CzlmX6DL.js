@@ -1,10 +1,10 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-DghgE6QA.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-DMmTmRgx.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/ReplayScreen-D5KyNMv_.js","assets/anchor-Dqdp5Kpi.js","assets/walletApi-DYniPf4L.js","assets/nftCatalog-DIFDcNUi.js","assets/rpc-BQNg8r_c.js","assets/AdminPanel-BwdxBEXN.js","assets/ReplayScreen-C1m6XJIR.js","assets/cartridge-exYVfj4S.js","assets/cartridge-DlFwJFjQ.js","assets/LiveWalletBridge-CMRPbhOI.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-DNXT9lGt.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-COraZBBm.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/ReplayScreen-DBRHcDh5.js","assets/anchor-5y0SEeb8.js","assets/walletApi-DYniPf4L.js","assets/nftCatalog-DIFDcNUi.js","assets/rpc-BQNg8r_c.js","assets/AdminPanel-BWiyOvl6.js","assets/ReplayScreen-sYlZXXxr.js","assets/cartridge-exYVfj4S.js","assets/cartridge-DlFwJFjQ.js","assets/LiveWalletBridge-CMRPbhOI.js"])))=>i.map(i=>d[i]);
 import { a as e, t } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as n, n as r, r as i, t as a } from "./motion-wKhEcHeU.js";
 import { n as o, t as s } from "./walletApi-DYniPf4L.js";
-import { c, d as l, h as u, l as d, n as f, o as p, r as m, t as h, u as g } from "./anchor-Dqdp5Kpi.js";
-import { D as _, E as v, G as y, H as b, J as x, K as ee, O as te, S as ne, W as re, _ as ie, b as ae, g as oe, j as se, k as ce, q as le, t as ue, v as de, w as S, x as C, y as fe } from "./ReplayScreen-D5KyNMv_.js";
-import { A as pe, B as me, F as he, H as ge, I as w, L as _e, M as ve, O as ye, P as be, R as xe, U as Se, V as Ce, W as we, _ as Te, b as Ee, d as De, g as Oe, h as ke, i as Ae, l as je, m as Me, o as Ne, s as Pe, t as Fe, u as Ie, v as Le, z as Re, __tla as __tla_0 } from "./supabase-DMmTmRgx.js";
+import { c, d as l, h as u, l as d, n as f, o as p, r as m, t as h, u as g } from "./anchor-5y0SEeb8.js";
+import { D as _, E as v, G as y, H as b, J as x, K as ee, O as te, S as ne, W as re, _ as ie, b as ae, g as oe, j as se, k as ce, q as le, t as ue, v as de, w as S, x as C, y as fe } from "./ReplayScreen-DBRHcDh5.js";
+import { A as pe, B as me, F as he, H as ge, I as w, L as _e, M as ve, O as ye, P as be, R as xe, U as Se, V as Ce, W as we, _ as Te, b as Ee, d as De, g as Oe, h as ke, i as Ae, l as je, m as Me, o as Ne, s as Pe, t as Fe, u as Ie, v as Le, z as Re, __tla as __tla_0 } from "./supabase-COraZBBm.js";
 import { i as ze, n as Be, o as Ve, r as He, t as Ue } from "./nftCatalog-DIFDcNUi.js";
 Promise.all([
     (()=>{
@@ -13115,7 +13115,7 @@ Error generating stack: ` + e.message + `
                                                         children: [
                                                             `vs `,
                                                             w.runnerUpUsername,
-                                                            w.forfeit ? ` — no-show · forfeit` : w.runnerUpScore == null ? `` : ` · ${w.runnerUpScore.toLocaleString(`en-US`)}`
+                                                            w.runnerUpScore == null ? w.forfeit ? ` — no-show · forfeit` : `` : ` · ${w.runnerUpScore.toLocaleString(`en-US`)}`
                                                         ]
                                                     }),
                                                     (0, E.jsxs)(`div`, {
@@ -13496,8 +13496,8 @@ Error generating stack: ` + e.message + `
                                                                 children: [
                                                                     `· Final Daily `,
                                                                     w.championScore.toLocaleString(`en-US`),
-                                                                    ` · `,
-                                                                    w.forfeit ? `opponent no-show` : `1v1 won`
+                                                                    ` vs `,
+                                                                    w.runnerUpScore?.toLocaleString(`en-US`) ?? `—`
                                                                 ]
                                                             }),
                                                             (0, E.jsxs)(`div`, {
@@ -13967,13 +13967,13 @@ Error generating stack: ` + e.message + `
             ]
         });
     }
-    var Et = (0, T.lazy)(()=>we(()=>import(`./CorsairGame-DghgE6QA.js`).then(async (m)=>{
+    var Et = (0, T.lazy)(()=>we(()=>import(`./CorsairGame-DNXT9lGt.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
-            }), __vite__mapDeps([0,1,2,3,4,5,6,7,8,9]))), Dt = (0, T.lazy)(()=>we(()=>import(`./AdminPanel-BwdxBEXN.js`).then(async (m)=>{
+            }), __vite__mapDeps([0,1,2,3,4,5,6,7,8,9]))), Dt = (0, T.lazy)(()=>we(()=>import(`./AdminPanel-BWiyOvl6.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
-            }), __vite__mapDeps([10,1,2,4,8]))), A = (0, T.lazy)(()=>we(()=>import(`./ReplayScreen-C1m6XJIR.js`).then(async (m)=>{
+            }), __vite__mapDeps([10,1,2,4,8]))), A = (0, T.lazy)(()=>we(()=>import(`./ReplayScreen-sYlZXXxr.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }), __vite__mapDeps([11,5,1,2,4]))), j = `corsair_crew_bypass`;
