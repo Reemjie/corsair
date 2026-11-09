@@ -1,4 +1,4 @@
-let ka, Ui, ca, ga, Pa, Li, Q, Wi, qi, Xi, da, ma, Z, Hi, La, Na, ti, Gi, Ca, Ma, ja, Da, Zi, ra, pa, aa, ta, Ta, la, ba, ea, ua, Oa, Aa, xa, Fa, Ra, $i, Ia, fa, ha, Ea, Ki;
+let Aa, qi, la, _a, Fa, Ri, Ki, Li, Gi, Zi, fa, ha, Z, Ji, Ra, Pa, Q, Wi, ti, wa, Na, Ma, Oa, Qi, ia, ma, oa, na, Ea, ua, xa, ta, da, ka, ja, Sa, Ia, za, ea, La, pa, ga, Da, Ui;
 let __tla = (async ()=>{
     function e(e, t) {
         var n = {};
@@ -8158,7 +8158,16 @@ Resources:`;
         prize1: `brother_eli`,
         prize2: `lil_duckie`
     };
-    Li = [
+    Li = {
+        sealed: !0,
+        championUsername: `nexonik`,
+        runnerUpUsername: `zyro`,
+        championScore: 7403,
+        runnerUpScore: null,
+        forfeit: !0,
+        weekTotal: 21322
+    };
+    Ri = [
         {
             id: 1,
             a: {
@@ -8233,25 +8242,25 @@ Resources:`;
             return e.toLowerCase();
         }
     };
-    function Ri() {
+    function zi() {
         let e = [], t = Date.parse(Z.weekStart + `T00:00:00.000Z`), n = Date.parse(Z.weekEnd + `T00:00:00.000Z`);
         for(; t <= n;)e.push(new Date(t).toISOString().slice(0, 10)), t += 864e5;
         return e;
     }
-    function zi(e = Date.now()) {
+    function Bi(e = Date.now()) {
         let t = new Date(e).toISOString().slice(0, 10);
-        return t < Z.weekStart ? [] : Ri().filter((e)=>e <= t);
+        return t < Z.weekStart ? [] : zi().filter((e)=>e <= t);
     }
-    function Bi(e, t) {
+    function Vi(e, t) {
         return Math.max(e ?? 0, t ?? 0);
     }
-    function Vi(e) {
+    function Hi(e) {
         return [
             ...e
         ].sort((e, t)=>t.total - e.total || e.id - t.id);
     }
-    Hi = function(e = zi()) {
-        return Vi(Li.map((t)=>({
+    Ui = function(e = Bi()) {
+        return Hi(Ri.map((t)=>({
                 id: t.id,
                 a: {
                     username: t.a.username,
@@ -8270,27 +8279,27 @@ Resources:`;
                     }))
             })));
     };
-    Ui = function() {
+    Wi = function() {
         return !0;
     };
-    Wi = function(e = Date.now()) {
+    Gi = function(e = Date.now()) {
         let t = e;
         if (t < Date.parse(Z.regOpen)) return `upcoming`;
         if (t <= Date.parse(Z.regClose)) return `registration`;
         let n = new Date(t).toISOString().slice(0, 10);
         return n < Z.weekStart ? `closed` : n <= Z.weekEnd ? `week` : n === Z.finalDay ? `final` : `ended`;
     };
-    Gi = function(e = Date.now()) {
-        return Wi(e) === `registration`;
+    Ki = function(e = Date.now()) {
+        return Gi(e) === `registration`;
     };
-    Ki = function() {
+    qi = function() {
         return `Register by ${new Date(Z.regClose).toLocaleDateString(`en-GB`, {
             day: `numeric`,
             month: `short`,
             timeZone: `UTC`
         })} · UTC`;
     };
-    qi = function(e) {
+    Ji = function(e) {
         let t = new Date(Z.regClose).toLocaleDateString(`en-GB`, {
             day: `numeric`,
             month: `short`,
@@ -8308,8 +8317,8 @@ Resources:`;
         ].join(`
 `);
     };
-    var Ji = `https://eyahboeaekejmcgknsty.supabase.co`, Yi = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5YWhib2VhZWtlam1jZ2tuc3R5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyNjQ2NDIsImV4cCI6MjA4ODg0MDY0Mn0.utkttOZq0ilQgpd-6Shl3aH7dscaTwygzpl1G1krOPk`, $ = Fi(Ji, Yi);
-    Xi = async function(e, t, n, r, i, a, o) {
+    var Yi = `https://eyahboeaekejmcgknsty.supabase.co`, Xi = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5YWhib2VhZWtlam1jZ2tuc3R5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyNjQ2NDIsImV4cCI6MjA4ODg0MDY0Mn0.utkttOZq0ilQgpd-6Shl3aH7dscaTwygzpl1G1krOPk`, $ = Fi(Yi, Xi);
+    Zi = async function(e, t, n, r, i, a, o) {
         let { error: s } = await $.from(`corsair_scores`).insert({
             wallet_address: e,
             username: o ?? null,
@@ -8321,41 +8330,41 @@ Resources:`;
         });
         return !s;
     };
-    Zi = async function() {
+    Qi = async function() {
         let { data: e, error: t } = await $.from(`corsair_scores`).select(`*`).order(`score`, {
             ascending: !1
         }).limit(20);
         return t ? [] : e;
     };
-    function Qi(e) {
+    function $i(e) {
         let t = Q(e);
-        for (let e of Li){
+        for (let e of Ri){
             if (Q(e.a.wallet) === t) return e.a.username;
             if (Q(e.b.wallet) === t) return e.b.username;
         }
         return null;
     }
-    $i = async function(e) {
+    ea = async function(e) {
         let { data: t, error: n } = await $.from(`corsair_daily_scores`).select(`id, wallet_address, username, score, date, submitted_at`).eq(`date`, e).order(`score`, {
             ascending: !1
         }).limit(20);
         return n ? (console.warn(`[daily board]`, n.message), []) : (t ?? []).map((e)=>({
                 ...e,
                 seed: null,
-                username: e.username || Qi(e.wallet_address)
+                username: e.username || $i(e.wallet_address)
             }));
     };
-    ea = async function() {
+    ta = async function() {
         let { data: e, error: t } = await $.from(`starktember_board`).select(`rank, wallet_address, username, total, days_played, best_day`).limit(50);
         return t ? (console.warn(`[starktember]`, t.message), []) : e ?? [];
     };
-    ta = async function(e) {
+    na = async function(e) {
         try {
             return await (await fetch(`https://eyahboeaekejmcgknsty.supabase.co/functions/v1/check-nft-conditions`, {
                 method: `POST`,
                 headers: {
                     "Content-Type": `application/json`,
-                    Authorization: `Bearer ${Yi}`
+                    Authorization: `Bearer ${Xi}`
                 },
                 body: JSON.stringify(e)
             })).json();
@@ -8365,8 +8374,8 @@ Resources:`;
             };
         }
     };
-    var na = `0x06c8b06fb6a94f3ae9b26c87b1baacc4a7a1f2e0184870c957728b5d17bd0202`;
-    ra = async function() {
+    var ra = `0x06c8b06fb6a94f3ae9b26c87b1baacc4a7a1f2e0184870c957728b5d17bd0202`;
+    ia = async function() {
         let e = await $.from(`nft_mints`).select(`id, wallet_address, nft_name, nft_id, status, tx_hash, token_id, run_id`).order(`id`, {
             ascending: !1
         });
@@ -8377,23 +8386,23 @@ Resources:`;
         });
         return n ? (console.warn(`[admin] getPendingMints:`, n.message), []) : t ?? [];
     };
-    var ia = new Set([
+    var aa = new Set([
         `brother_eli`,
         `lil_duckie`
     ]);
-    aa = async function() {
+    oa = async function() {
         let { data: e, error: t } = await $.from(`nft_conditions`).select(`name, minted, max_supply`).order(`name`, {
             ascending: !0
         });
-        return t ? (console.warn(`[admin] getSupply:`, t.message), []) : (e ?? []).filter((e)=>!ia.has(e.name));
+        return t ? (console.warn(`[admin] getSupply:`, t.message), []) : (e ?? []).filter((e)=>!aa.has(e.name));
     };
-    function oa() {
+    function sa() {
         let e = localStorage.getItem(`corsair_admin_secret`);
         return e || (console.warn(`[admin] cle admin absente — localStorage.setItem("corsair_admin_secret", "...")`), alert(`Admin secret missing. In the console run:
 localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
     }
-    async function sa(e) {
-        let t = oa();
+    async function ca(e) {
+        let t = sa();
         if (!t) return {
             ok: !1,
             error: `no secret`
@@ -8413,35 +8422,35 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
         }
         return i;
     }
-    ca = async function(e, t, n, r) {
+    la = async function(e, t, n, r) {
         let i = {
             action: `mark`,
             id: e,
             tx_hash: t,
             nft_name: n
         };
-        return r != null && r > 0 && (i.token_id = r), sa(i);
+        return r != null && r > 0 && (i.token_id = r), ca(i);
     };
-    la = async function(e) {
-        return sa({
+    ua = async function(e) {
+        return ca({
             action: `resync`,
             id: e
         });
     };
-    ua = async function() {
-        return sa({
+    da = async function() {
+        return ca({
             action: `audit`
         });
     };
-    da = async function() {
-        return sa({
+    fa = async function() {
+        return ca({
             action: `sync_supply`
         });
     };
-    fa = function(e) {
+    pa = function(e) {
         return `https://eyahboeaekejmcgknsty.supabase.co/functions/v1/nft-metadata/${e}`;
     };
-    pa = async function(e) {
+    ma = async function(e) {
         try {
             let { data: t, error: n } = await $.functions.invoke(`tournament-register`, {
                 body: {
@@ -8466,7 +8475,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             };
         }
     };
-    ma = async function(e, t) {
+    ha = async function(e, t) {
         try {
             let { data: n, error: r } = await $.functions.invoke(`tournament-register`, {
                 body: {
@@ -8486,7 +8495,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             };
         }
     };
-    ha = async function() {
+    ga = async function() {
         let { data: e, error: t } = await $.from(`tournament_registrations`).select(`id, wallet_address, username, registered_at`).eq(`tournament_id`, `binding_2026_01`).order(`registered_at`, {
             ascending: !0
         });
@@ -8503,8 +8512,8 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             registrations: n
         };
     };
-    ga = async function() {
-        let e = oa();
+    _a = async function() {
+        let e = sa();
         if (!e) return {
             ok: !1,
             error: `no secret`
@@ -8520,10 +8529,10 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             error: t?.error ?? n?.message
         } : t;
     };
-    var _a = `corsair_binding_board_v1`;
-    function va() {
+    var va = `corsair_binding_board_v1`;
+    function ya() {
         try {
-            let e = localStorage.getItem(_a);
+            let e = localStorage.getItem(va);
             if (!e) return null;
             let t = JSON.parse(e);
             return !t?.rows?.length || t.at && Date.now() - t.at > 36 * 36e5 ? null : t.rows;
@@ -8531,16 +8540,16 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             return null;
         }
     }
-    function ya(e) {
+    function ba(e) {
         try {
-            localStorage.setItem(_a, JSON.stringify({
+            localStorage.setItem(va, JSON.stringify({
                 at: Date.now(),
                 rows: e
             }));
         } catch  {}
     }
-    ba = async function() {
-        let e = zi(), t = new Map;
+    xa = async function() {
+        let e = Bi(), t = new Map;
         if (e.length > 0) {
             let n = $.from(`corsair_daily_scores`).select(`wallet_address, score, date`).in(`date`, e).limit(2e3), { data: r, error: i } = await Promise.race([
                 n,
@@ -8558,17 +8567,17 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             }
         }
         if (e.length > 0 && t.size === 0) {
-            let e = va();
+            let e = ya();
             if (e) return e;
         }
-        let n = Vi(Li.map((n)=>{
+        let n = Hi(Ri.map((n)=>{
             let r = e.map((e)=>{
                 let r = t.get(`${Q(n.a.wallet)}|${e}`) ?? null, i = t.get(`${Q(n.b.wallet)}|${e}`) ?? null, a = r, o = i;
                 return {
                     date: e,
                     scoreA: a,
                     scoreB: o,
-                    duo: Bi(a, o)
+                    duo: Vi(a, o)
                 };
             });
             return {
@@ -8585,25 +8594,25 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
                 days: r
             };
         }));
-        return t.size > 0 && ya(n), n;
+        return t.size > 0 && ba(n), n;
     };
-    xa = function(e, t) {
+    Sa = function(e, t) {
         return `sncast --account corsair_deployer_mainnet invoke \\
-  --contract-address ${na} \\
+  --contract-address ${ra} \\
   --function mint \\
   --arguments '${e}' \\
   --network mainnet`;
     };
-    var Sa = (e)=>`0x` + e.toLowerCase().replace(/^0x0*/, ``);
-    Ca = async function(e) {
+    var Ca = (e)=>`0x` + e.toLowerCase().replace(/^0x0*/, ``);
+    wa = async function(e) {
         let { data: t, error: n } = await $.from(`nft_mints`).select(`nft_name, wallet_address, status, token_id`).in(`status`, [
             `pending`,
             `minted`
         ]);
         if (n || !t) return [];
-        let r = Sa(e), i = new Map;
+        let r = Ca(e), i = new Map;
         for (let e of t){
-            if (Sa(e.wallet_address) !== r) continue;
+            if (Ca(e.wallet_address) !== r) continue;
             let t = e.status === `minted` ? `minted` : `pending`, n = i.get(e.nft_name);
             (!n || t === `minted` && n.status !== `minted`) && i.set(e.nft_name, {
                 nft_name: e.nft_name,
@@ -8615,10 +8624,10 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             ...i.values()
         ];
     };
-    async function wa(e) {
-        return (await Ca(e)).map((e)=>e.nft_name);
+    async function Ta(e) {
+        return (await wa(e)).map((e)=>e.nft_name);
     }
-    Ta = async function(e) {
+    Ea = async function(e) {
         try {
             let { error: t } = await $.functions.invoke(`player-write`, {
                 body: {
@@ -8631,7 +8640,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             console.warn(`[runs] start:`, e?.message ?? e);
         }
     };
-    Ea = async function(e, t) {
+    Da = async function(e, t) {
         try {
             let { error: n } = await $.functions.invoke(`player-write`, {
                 body: {
@@ -8645,7 +8654,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             console.warn(`[runs] heartbeat:`, e?.message ?? e);
         }
     };
-    Da = async function(e, t) {
+    Oa = async function(e, t) {
         try {
             let { error: n } = await $.functions.invoke(`player-write`, {
                 body: {
@@ -8659,7 +8668,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             console.warn(`[runs] finish:`, e?.message ?? e);
         }
     };
-    Oa = async function(e) {
+    ka = async function(e) {
         try {
             let { data: t, error: n } = await $.functions.invoke(`get-run-replay`, {
                 body: e
@@ -8678,13 +8687,13 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             };
         }
     };
-    ka = async function(e) {
+    Aa = async function(e) {
         let { error: t } = await $.from(`corsair_run_logs`).insert(e);
         if (!t) return;
         let n = `${t.code ?? ``} ${t.message ?? ``}`;
         if (!/23505|duplicate|unique/i.test(n)) throw console.warn(`[runlog]`, t.message), Error(t.message || `saveRunLog failed`);
     };
-    Aa = async function(e) {
+    ja = async function(e) {
         if (e.length === 0) return {};
         let { data: t, error: n } = await $.from(`corsair_run_verdicts`).select(`run_id, verified, replay_score, final_score`).in(`run_id`, e);
         if (n || !t) return console.warn(`[verdicts]`, n?.message), {};
@@ -8692,7 +8701,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
         for (let e of t)r[e.run_id] = e;
         return r;
     };
-    ja = async function(e) {
+    Ma = async function(e) {
         try {
             let { data: t, error: n } = await $.functions.invoke(`issue-seed`, {
                 body: {
@@ -8707,7 +8716,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             return console.warn(`[seed] emission impossible`), null;
         }
     };
-    Ma = async function(e) {
+    Na = async function(e) {
         let [t, n] = await Promise.all([
             $.from(`player_feats`).select(`feat_id`).eq(`wallet_address`, e),
             $.from(`player_titles`).select(`title`).eq(`wallet_address`, e).maybeSingle()
@@ -8717,8 +8726,8 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             title: n.data?.title ?? null
         };
     };
-    Na = async function(e, t) {};
-    Pa = async function(e, t) {
+    Pa = async function(e, t) {};
+    Fa = async function(e, t) {
         try {
             let { error: n } = await $.functions.invoke(`player-write`, {
                 body: {
@@ -8732,7 +8741,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             console.warn(`[title]`, e?.message ?? e);
         }
     };
-    Fa = async function(e) {
+    Ia = async function(e) {
         try {
             let [t, n, r] = await Promise.all([
                 $.from(`corsair_scores`).select(`score, zone, turn`).eq(`wallet_address`, e),
@@ -8740,7 +8749,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
                     count: `exact`,
                     head: !0
                 }).eq(`wallet_address`, e),
-                wa(e)
+                Ta(e)
             ]), i = t.data ?? [], a = 0, o = 1, s = 0;
             for (let e of i)e.score > a && (a = e.score), (e.zone ?? 1) > o && (o = e.zone ?? 1), (e.turn ?? 0) > s && (s = e.turn ?? 0);
             let c = n.count ?? 0, l = r.length;
@@ -8755,13 +8764,13 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             return null;
         }
     };
-    Ia = async function(e, t) {
+    La = async function(e, t) {
         if (t.length !== 8) return !1;
         let n = `${t.slice(0, 4)}-${t.slice(4, 6)}-${t.slice(6, 8)}`, { data: r, error: i } = await $.from(`corsair_daily_scores`).select(`id`).eq(`wallet_address`, e).eq(`date`, n).maybeSingle();
         return i ? !1 : !!r;
     };
-    La = async function(e, t) {};
-    Ra = async function(e) {
+    Ra = async function(e, t) {};
+    za = async function(e) {
         let { data: t, error: n } = await $.functions.invoke(`approve-run`, {
             body: {
                 run_id: e
@@ -8771,4 +8780,4 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
         return t;
     };
 })();
-export { ka as A, Ui as B, ca as C, ga as D, Pa as E, Li as F, Q as H, Wi as I, qi as L, Xi as M, da as N, ma as O, Z as P, Hi as R, La as S, Na as T, ti as U, Gi as V, Ca as _, Ma as a, ja as b, Da as c, Zi as d, ra as f, pa as g, aa as h, ta as i, Ta as j, la as k, ba as l, ea as m, ua as n, Oa as o, Aa as p, xa as r, Fa as s, Ra as t, $i as u, Ia as v, fa as w, ha as x, Ea as y, Ki as z, __tla };
+export { Aa as A, qi as B, la as C, _a as D, Fa as E, Ri as F, Ki as H, Li as I, Gi as L, Zi as M, fa as N, ha as O, Z as P, Ji as R, Ra as S, Pa as T, Q as U, Wi as V, ti as W, wa as _, Na as a, Ma as b, Oa as c, Qi as d, ia as f, ma as g, oa as h, na as i, Ea as j, ua as k, xa as l, ta as m, da as n, ka as o, ja as p, Sa as r, Ia as s, za as t, ea as u, La as v, pa as w, ga as x, Da as y, Ui as z, __tla };
