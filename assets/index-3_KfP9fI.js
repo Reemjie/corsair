@@ -1,11 +1,11 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-DNXT9lGt.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-COraZBBm.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/ReplayScreen-DBRHcDh5.js","assets/anchor-5y0SEeb8.js","assets/walletApi-DYniPf4L.js","assets/nftCatalog-DIFDcNUi.js","assets/rpc-BQNg8r_c.js","assets/AdminPanel-BWiyOvl6.js","assets/ReplayScreen-sYlZXXxr.js","assets/cartridge-exYVfj4S.js","assets/cartridge-DlFwJFjQ.js","assets/LiveWalletBridge-CMRPbhOI.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-Bg0jFgNW.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-COraZBBm.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/ReplayScreen-DBRHcDh5.js","assets/anchor-5y0SEeb8.js","assets/walletApi-DYniPf4L.js","assets/nftCatalog-3Mir_rrL.js","assets/rpc-BQNg8r_c.js","assets/AdminPanel-DzGUugrv.js","assets/ReplayScreen-sYlZXXxr.js","assets/cartridge-exYVfj4S.js","assets/cartridge-DlFwJFjQ.js","assets/LiveWalletBridge-CMRPbhOI.js"])))=>i.map(i=>d[i]);
 import { a as e, t } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as n, n as r, r as i, t as a } from "./motion-wKhEcHeU.js";
 import { n as o, t as s } from "./walletApi-DYniPf4L.js";
 import { c, d as l, h as u, l as d, n as f, o as p, r as m, t as h, u as g } from "./anchor-5y0SEeb8.js";
 import { D as _, E as v, G as y, H as b, J as x, K as ee, O as te, S as ne, W as re, _ as ie, b as ae, g as oe, j as se, k as ce, q as le, t as ue, v as de, w as S, x as C, y as fe } from "./ReplayScreen-DBRHcDh5.js";
 import { A as pe, B as me, F as he, H as ge, I as w, L as _e, M as ve, O as ye, P as be, R as xe, U as Se, V as Ce, W as we, _ as Te, b as Ee, d as De, g as Oe, h as ke, i as Ae, l as je, m as Me, o as Ne, s as Pe, t as Fe, u as Ie, v as Le, z as Re, __tla as __tla_0 } from "./supabase-COraZBBm.js";
-import { i as ze, n as Be, o as Ve, r as He, t as Ue } from "./nftCatalog-DIFDcNUi.js";
+import { i as ze, n as Be, o as Ve, r as He, t as Ue } from "./nftCatalog-3Mir_rrL.js";
 Promise.all([
     (()=>{
         try {
@@ -10038,7 +10038,7 @@ Error generating stack: ` + e.message + `
             })
         });
     }
-    var rt = Ue.filter((e)=>e.key === `binding_mark` || e.key === `brother_eli`);
+    var rt = Ue.filter((e)=>e.key === `binding_mark` || e.key === `brother_eli` || e.key === `lil_duckie`);
     function it({ nfts: e, supply: t, claims: n }) {
         let r = (e)=>t.find((t)=>t.name === e), i = (e)=>n.find((t)=>t.nft_name === e);
         return (0, E.jsx)(`div`, {
@@ -10307,7 +10307,7 @@ Error generating stack: ` + e.message + `
                             }),
                             (0, E.jsx)(`p`, {
                                 style: st,
-                                children: `Duo tournament sealed. Binding Mark for every captain — Brother Eli claimed by nexonik.`
+                                children: `Duo tournament sealed. Mark for every captain — Brother Eli to nexonik, Lil Duckie to zyro.`
                             }),
                             (0, E.jsx)(it, {
                                 nfts: rt,
@@ -13115,7 +13115,8 @@ Error generating stack: ` + e.message + `
                                                         children: [
                                                             `vs `,
                                                             w.runnerUpUsername,
-                                                            w.runnerUpScore == null ? w.forfeit ? ` — no-show · forfeit` : `` : ` · ${w.runnerUpScore.toLocaleString(`en-US`)}`
+                                                            w.runnerUpScore == null ? w.forfeit ? ` — no-show · forfeit` : `` : ` · ${w.runnerUpScore.toLocaleString(`en-US`)}`,
+                                                            ` · Lil Duckie`
                                                         ]
                                                     }),
                                                     (0, E.jsxs)(`div`, {
@@ -13967,10 +13968,10 @@ Error generating stack: ` + e.message + `
             ]
         });
     }
-    var Et = (0, T.lazy)(()=>we(()=>import(`./CorsairGame-DNXT9lGt.js`).then(async (m)=>{
+    var Et = (0, T.lazy)(()=>we(()=>import(`./CorsairGame-Bg0jFgNW.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
-            }), __vite__mapDeps([0,1,2,3,4,5,6,7,8,9]))), Dt = (0, T.lazy)(()=>we(()=>import(`./AdminPanel-BWiyOvl6.js`).then(async (m)=>{
+            }), __vite__mapDeps([0,1,2,3,4,5,6,7,8,9]))), Dt = (0, T.lazy)(()=>we(()=>import(`./AdminPanel-DzGUugrv.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }), __vite__mapDeps([10,1,2,4,8]))), A = (0, T.lazy)(()=>we(()=>import(`./ReplayScreen-sYlZXXxr.js`).then(async (m)=>{
