@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-D6zxfivG.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-COraZBBm.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/ReplayScreen-B1qW6C3R.js","assets/anchor-BmbNTLnB.js","assets/walletApi-DYniPf4L.js","assets/nftCatalog-3Mir_rrL.js","assets/rpc-BQNg8r_c.js","assets/AdminPanel-DzGUugrv.js","assets/ReplayScreen-D7AvWWXm.js","assets/cartridge-exYVfj4S.js","assets/cartridge-DlFwJFjQ.js","assets/LiveWalletBridge-CMRPbhOI.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-mg_t8il1.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-COraZBBm.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/ReplayScreen-B1qW6C3R.js","assets/anchor-BmbNTLnB.js","assets/walletApi-DYniPf4L.js","assets/nftCatalog-3Mir_rrL.js","assets/rpc-BQNg8r_c.js","assets/AdminPanel-DzGUugrv.js","assets/ReplayScreen-D7AvWWXm.js","assets/cartridge-exYVfj4S.js","assets/cartridge-DlFwJFjQ.js","assets/LiveWalletBridge-CMRPbhOI.js"])))=>i.map(i=>d[i]);
 import { a as e, t } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as n, n as r, r as i, t as a } from "./motion-wKhEcHeU.js";
 import { n as o, t as s } from "./walletApi-DYniPf4L.js";
@@ -13995,7 +13995,7 @@ Error generating stack: ` + e.message + `
             ]
         });
     }
-    var Et = (0, D.lazy)(()=>Ce(()=>import(`./CorsairGame-D6zxfivG.js`).then(async (m)=>{
+    var Et = (0, D.lazy)(()=>Ce(()=>import(`./CorsairGame-mg_t8il1.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }), __vite__mapDeps([0,1,2,3,4,5,6,7,8,9]))), Dt = (0, D.lazy)(()=>Ce(()=>import(`./AdminPanel-DzGUugrv.js`).then(async (m)=>{
