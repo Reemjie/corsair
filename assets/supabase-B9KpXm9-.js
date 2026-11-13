@@ -1,4 +1,4 @@
-let Aa, qi, la, _a, Fa, Ri, Ki, Li, Gi, Zi, fa, ha, Z, Ji, Ra, Pa, Q, Wi, ti, wa, Na, Ma, Oa, Qi, ia, ma, oa, na, Ea, ua, xa, ta, da, ka, ja, Sa, Ia, za, ea, La, pa, ga, Da, Ui;
+let oa, Sa, va, ia, Vi, ei, Ii, Hi, ma, zi, sa, la, ha, xa, Ea, ga, Qi, ya, Ta, fa, Xi, Q, Gi, Ji, ea, aa, _a, Yi, ua, wa, Da, Ki, ba, Ca, ra, ca;
 let __tla = (async ()=>{
     function e(e, t) {
         var n = {};
@@ -903,29 +903,29 @@ new RealtimeClient(url, { transport: ws })`
         return t.protocol = t.protocol.replace(/^ws/i, `http`), t.pathname = t.pathname.replace(/\/+$/, ``).replace(/\/socket\/websocket$/i, ``).replace(/\/socket$/i, ``).replace(/\/websocket$/i, ``), t.pathname === `` || t.pathname === `/` ? t.pathname = `/api/broadcast` : t.pathname += `/api/broadcast`, t.href;
     }, ke = (e)=>typeof e == `function` ? e : function() {
             return e;
-        }, Ae = typeof self < `u` ? self : null, je = typeof window < `u` ? window : null, b = Ae || je || globalThis, Me = `2.0.0`, Ne = 1e4, Pe = 1e3, x = {
+        }, Ae = typeof self < `u` ? self : null, b = typeof window < `u` ? window : null, x = Ae || b || globalThis, je = `2.0.0`, Me = 1e4, Ne = 1e3, S = {
         connecting: 0,
         open: 1,
         closing: 2,
         closed: 3
-    }, S = {
+    }, C = {
         closed: `closed`,
         errored: `errored`,
         joined: `joined`,
         joining: `joining`,
         leaving: `leaving`
-    }, C = {
+    }, w = {
         close: `phx_close`,
         error: `phx_error`,
         join: `phx_join`,
         reply: `phx_reply`,
         leave: `phx_leave`
-    }, Fe = {
+    }, Pe = {
         longpoll: `longpoll`,
         websocket: `websocket`
-    }, Ie = {
+    }, Fe = {
         complete: 4
-    }, Le = `base64url.bearer.phx.`, Re = class {
+    }, Ie = `base64url.bearer.phx.`, Le = class {
         constructor(e, t, n, r){
             this.channel = e, this.event = t, this.payload = n || function() {
                 return {};
@@ -980,7 +980,7 @@ new RealtimeClient(url, { transport: ws })`
                 response: t
             });
         }
-    }, ze = class {
+    }, Re = class {
         constructor(e, t){
             this.callback = e, this.timerCalc = t, this.timer = void 0, this.tries = 0;
         }
@@ -992,23 +992,23 @@ new RealtimeClient(url, { transport: ws })`
                 this.tries += 1, this.callback();
             }, this.timerCalc(this.tries + 1));
         }
-    }, Be = class {
+    }, ze = class {
         constructor(e, t, n){
-            this.state = S.closed, this.topic = e, this.params = ke(t || {}), this.socket = n, this.bindings = [], this.bindingRef = 0, this.timeout = this.socket.timeout, this.joinedOnce = !1, this.joinPush = new Re(this, C.join, this.params, this.timeout), this.pushBuffer = [], this.stateChangeRefs = [], this.rejoinTimer = new ze(()=>{
+            this.state = C.closed, this.topic = e, this.params = ke(t || {}), this.socket = n, this.bindings = [], this.bindingRef = 0, this.timeout = this.socket.timeout, this.joinedOnce = !1, this.joinPush = new Le(this, w.join, this.params, this.timeout), this.pushBuffer = [], this.stateChangeRefs = [], this.rejoinTimer = new Re(()=>{
                 this.socket.isConnected() && this.rejoin();
             }, this.socket.rejoinAfterMs), this.stateChangeRefs.push(this.socket.onError(()=>this.rejoinTimer.reset())), this.stateChangeRefs.push(this.socket.onOpen(()=>{
                 this.rejoinTimer.reset(), this.isErrored() && this.rejoin();
             })), this.joinPush.receive(`ok`, ()=>{
-                this.state = S.joined, this.rejoinTimer.reset(), this.pushBuffer.forEach((e)=>e.send()), this.pushBuffer = [];
+                this.state = C.joined, this.rejoinTimer.reset(), this.pushBuffer.forEach((e)=>e.send()), this.pushBuffer = [];
             }), this.joinPush.receive(`error`, (e)=>{
-                this.state = S.errored, this.socket.hasLogger() && this.socket.log(`channel`, `error ${this.topic}`, e), this.socket.isConnected() && this.rejoinTimer.scheduleTimeout();
+                this.state = C.errored, this.socket.hasLogger() && this.socket.log(`channel`, `error ${this.topic}`, e), this.socket.isConnected() && this.rejoinTimer.scheduleTimeout();
             }), this.onClose(()=>{
-                this.rejoinTimer.reset(), this.socket.hasLogger() && this.socket.log(`channel`, `close ${this.topic}`), this.state = S.closed, this.socket.remove(this);
+                this.rejoinTimer.reset(), this.socket.hasLogger() && this.socket.log(`channel`, `close ${this.topic}`), this.state = C.closed, this.socket.remove(this);
             }), this.onError((e)=>{
-                this.socket.hasLogger() && this.socket.log(`channel`, `error ${this.topic}`, e), this.isJoining() && this.joinPush.reset(), this.state = S.errored, this.socket.isConnected() && this.rejoinTimer.scheduleTimeout();
+                this.socket.hasLogger() && this.socket.log(`channel`, `error ${this.topic}`, e), this.isJoining() && this.joinPush.reset(), this.state = C.errored, this.socket.isConnected() && this.rejoinTimer.scheduleTimeout();
             }), this.joinPush.receive(`timeout`, ()=>{
-                this.socket.hasLogger() && this.socket.log(`channel`, `timeout ${this.topic}`, this.joinPush.timeout), new Re(this, C.leave, ke({}), this.timeout).send(), this.state = S.errored, this.joinPush.reset(), this.socket.isConnected() && this.rejoinTimer.scheduleTimeout();
-            }), this.on(C.reply, (e, t)=>{
+                this.socket.hasLogger() && this.socket.log(`channel`, `timeout ${this.topic}`, this.joinPush.timeout), new Le(this, w.leave, ke({}), this.timeout).send(), this.state = C.errored, this.joinPush.reset(), this.socket.isConnected() && this.rejoinTimer.scheduleTimeout();
+            }), this.on(w.reply, (e, t)=>{
                 this.trigger(this.replyEventName(t), e);
             });
         }
@@ -1017,13 +1017,13 @@ new RealtimeClient(url, { transport: ws })`
             return this.timeout = e, this.joinedOnce = !0, this.rejoin(), this.joinPush;
         }
         teardown() {
-            this.pushBuffer.forEach((e)=>e.destroy()), this.pushBuffer = [], this.rejoinTimer.reset(), this.joinPush.destroy(), this.state = S.closed, this.bindings = [];
+            this.pushBuffer.forEach((e)=>e.destroy()), this.pushBuffer = [], this.rejoinTimer.reset(), this.joinPush.destroy(), this.state = C.closed, this.bindings = [];
         }
         onClose(e) {
-            this.on(C.close, e);
+            this.on(w.close, e);
         }
         onError(e) {
-            return this.on(C.error, (t)=>e(t));
+            return this.on(w.error, (t)=>e(t));
         }
         on(e, t) {
             let n = this.bindingRef++;
@@ -1041,16 +1041,16 @@ new RealtimeClient(url, { transport: ws })`
         }
         push(e, t, n = this.timeout) {
             if (t ||= {}, !this.joinedOnce) throw Error(`tried to push '${e}' to '${this.topic}' before joining. Use channel.join() before pushing events`);
-            let r = new Re(this, e, function() {
+            let r = new Le(this, e, function() {
                 return t;
             }, n);
             return this.canPush() ? r.send() : (r.startTimeout(), this.pushBuffer.push(r)), r;
         }
         leave(e = this.timeout) {
-            this.rejoinTimer.reset(), this.joinPush.cancelTimeout(), this.state = S.leaving;
+            this.rejoinTimer.reset(), this.joinPush.cancelTimeout(), this.state = C.leaving;
             let t = ()=>{
-                this.socket.hasLogger() && this.socket.log(`channel`, `leave ${this.topic}`), this.trigger(C.close, `leave`);
-            }, n = new Re(this, C.leave, ke({}), e);
+                this.socket.hasLogger() && this.socket.log(`channel`, `leave ${this.topic}`), this.trigger(w.close, `leave`);
+            }, n = new Le(this, w.leave, ke({}), e);
             return n.receive(`ok`, ()=>t()).receive(`timeout`, ()=>t()), n.send(), this.canPush() || n.trigger(`ok`, {}), n;
         }
         onMessage(e, t, n) {
@@ -1071,7 +1071,7 @@ new RealtimeClient(url, { transport: ws })`
             return this.joinPush.ref;
         }
         rejoin(e = this.timeout) {
-            this.isLeaving() || (this.socket.leaveOpenTopic(this.topic), this.state = S.joining, this.joinPush.resend(e));
+            this.isLeaving() || (this.socket.leaveOpenTopic(this.topic), this.state = C.joining, this.joinPush.resend(e));
         }
         trigger(e, t, n, r) {
             let i = this.onMessage(e, t, n, r);
@@ -1083,29 +1083,29 @@ new RealtimeClient(url, { transport: ws })`
             return `chan_reply_${e}`;
         }
         isClosed() {
-            return this.state === S.closed;
+            return this.state === C.closed;
         }
         isErrored() {
-            return this.state === S.errored;
+            return this.state === C.errored;
         }
         isJoined() {
-            return this.state === S.joined;
+            return this.state === C.joined;
         }
         isJoining() {
-            return this.state === S.joining;
+            return this.state === C.joining;
         }
         isLeaving() {
-            return this.state === S.leaving;
+            return this.state === C.leaving;
         }
-    }, Ve = class {
+    }, Be = class {
         static request(e, t, n, r, i, a, o) {
-            if (b.XDomainRequest) {
-                let n = new b.XDomainRequest;
+            if (x.XDomainRequest) {
+                let n = new x.XDomainRequest;
                 return this.xdomainRequest(n, e, t, r, i, a, o);
-            } else if (b.XMLHttpRequest) {
-                let s = new b.XMLHttpRequest;
+            } else if (x.XMLHttpRequest) {
+                let s = new x.XMLHttpRequest;
                 return this.xhrRequest(s, e, t, n, r, i, a, o);
-            } else if (b.fetch && b.AbortController) return this.fetchRequest(e, t, n, r, i, a, o);
+            } else if (x.fetch && x.AbortController) return this.fetchRequest(e, t, n, r, i, a, o);
             else throw Error(`No suitable XMLHttpRequest implementation found`);
         }
         static fetchRequest(e, t, n, r, i, a, o) {
@@ -1114,7 +1114,7 @@ new RealtimeClient(url, { transport: ws })`
                 headers: n,
                 body: r
             }, c = null;
-            return i && (c = new AbortController, setTimeout(()=>c.abort(), i), s.signal = c.signal), b.fetch(t, s).then((e)=>e.text()).then((e)=>this.parseJSON(e)).then((e)=>o && o(e)).catch((e)=>{
+            return i && (c = new AbortController, setTimeout(()=>c.abort(), i), s.signal = c.signal), x.fetch(t, s).then((e)=>e.text()).then((e)=>this.parseJSON(e)).then((e)=>o && o(e)).catch((e)=>{
                 e.name === `AbortError` && a ? a() : o && o(null);
             }), c;
         }
@@ -1128,7 +1128,7 @@ new RealtimeClient(url, { transport: ws })`
             e.open(t, n, !0), e.timeout = a;
             for (let [t, n] of Object.entries(r))e.setRequestHeader(t, n);
             return e.onerror = ()=>s && s(null), e.onreadystatechange = ()=>{
-                e.readyState === Ie.complete && s && s(this.parseJSON(e.responseText));
+                e.readyState === Fe.complete && s && s(this.parseJSON(e.responseText));
             }, o && (e.ontimeout = o), e.send(i), e;
         }
         static parseJSON(e) {
@@ -1151,30 +1151,30 @@ new RealtimeClient(url, { transport: ws })`
         static appendParams(e, t) {
             return Object.keys(t).length === 0 ? e : `${e}${e.match(/\?/) ? `&` : `?`}${this.serialize(t)}`;
         }
-    }, He = (e)=>{
+    }, Ve = (e)=>{
         let t = ``, n = new Uint8Array(e), r = n.byteLength;
         for(let e = 0; e < r; e++)t += String.fromCharCode(n[e]);
         return btoa(t);
-    }, w = class {
+    }, He = class {
         constructor(e, t){
-            t && t.length === 2 && t[1].startsWith(Le) && (this.authToken = atob(t[1].slice(Le.length))), this.endPoint = null, this.token = null, this.skipHeartbeat = !0, this.reqs = new Set, this.awaitingBatchAck = !1, this.currentBatch = null, this.currentBatchTimer = null, this.batchBuffer = [], this.onopen = function() {}, this.onerror = function() {}, this.onmessage = function() {}, this.onclose = function() {}, this.pollEndpoint = this.normalizeEndpoint(e), this.readyState = x.connecting, setTimeout(()=>this.poll(), 0);
+            t && t.length === 2 && t[1].startsWith(Ie) && (this.authToken = atob(t[1].slice(Ie.length))), this.endPoint = null, this.token = null, this.skipHeartbeat = !0, this.reqs = new Set, this.awaitingBatchAck = !1, this.currentBatch = null, this.currentBatchTimer = null, this.batchBuffer = [], this.onopen = function() {}, this.onerror = function() {}, this.onmessage = function() {}, this.onclose = function() {}, this.pollEndpoint = this.normalizeEndpoint(e), this.readyState = S.connecting, setTimeout(()=>this.poll(), 0);
         }
         normalizeEndpoint(e) {
-            return e.replace(`ws://`, `http://`).replace(`wss://`, `https://`).replace(RegExp(`(.*)/` + Fe.websocket), `$1/` + Fe.longpoll);
+            return e.replace(`ws://`, `http://`).replace(`wss://`, `https://`).replace(RegExp(`(.*)/` + Pe.websocket), `$1/` + Pe.longpoll);
         }
         endpointURL() {
-            return Ve.appendParams(this.pollEndpoint, {
+            return Be.appendParams(this.pollEndpoint, {
                 token: this.token
             });
         }
         closeAndRetry(e, t, n) {
-            this.close(e, t, n), this.readyState = x.connecting;
+            this.close(e, t, n), this.readyState = S.connecting;
         }
         ontimeout() {
             this.onerror(`timeout`), this.closeAndRetry(1005, `timeout`, !1);
         }
         isActive() {
-            return this.readyState === x.open || this.readyState === x.connecting;
+            return this.readyState === S.open || this.readyState === S.connecting;
         }
         poll() {
             let e = {
@@ -1201,7 +1201,7 @@ new RealtimeClient(url, { transport: ws })`
                         this.poll();
                         break;
                     case 410:
-                        this.readyState = x.open, this.onopen({}), this.poll();
+                        this.readyState = S.open, this.onopen({}), this.poll();
                         break;
                     case 403:
                         this.onerror(403), this.close(1008, `forbidden`, !1);
@@ -1216,7 +1216,7 @@ new RealtimeClient(url, { transport: ws })`
             });
         }
         send(e) {
-            typeof e != `string` && (e = He(e)), this.currentBatch ? this.currentBatch.push(e) : this.awaitingBatchAck ? this.batchBuffer.push(e) : (this.currentBatch = [
+            typeof e != `string` && (e = Ve(e)), this.currentBatch ? this.currentBatch.push(e) : this.awaitingBatchAck ? this.batchBuffer.push(e) : (this.currentBatch = [
                 e
             ], this.currentBatchTimer = setTimeout(()=>{
                 this.batchSend(this.currentBatch), this.currentBatch = null;
@@ -1232,7 +1232,7 @@ new RealtimeClient(url, { transport: ws })`
         }
         close(e, t, n) {
             for (let e of this.reqs)e.abort();
-            this.readyState = x.closed;
+            this.readyState = S.closed;
             let r = Object.assign({
                 code: 1e3,
                 reason: void 0,
@@ -1246,7 +1246,7 @@ new RealtimeClient(url, { transport: ws })`
         }
         ajax(e, t, n, r, i) {
             let a;
-            a = Ve.request(e, this.endpointURL(), t, n, this.timeout, ()=>{
+            a = Be.request(e, this.endpointURL(), t, n, this.timeout, ()=>{
                 this.reqs.delete(a), r();
             }, (e)=>{
                 this.reqs.delete(a), this.isActive() && i(e);
@@ -1411,7 +1411,7 @@ new RealtimeClient(url, { transport: ws })`
                 join_ref: c,
                 ref: l,
                 topic: u,
-                event: C.reply,
+                event: w.reply,
                 payload: f
             };
         },
@@ -1434,18 +1434,18 @@ new RealtimeClient(url, { transport: ws })`
                 close: [],
                 error: [],
                 message: []
-            }, this.channels = [], this.sendBuffer = [], this.ref = 0, this.fallbackRef = null, this.timeout = t.timeout || Ne, this.transport = t.transport || b.WebSocket || w, this.conn = void 0, this.primaryPassedHealthCheck = !1, this.longPollFallbackMs = t.longPollFallbackMs, this.fallbackTimer = null;
+            }, this.channels = [], this.sendBuffer = [], this.ref = 0, this.fallbackRef = null, this.timeout = t.timeout || Me, this.transport = t.transport || x.WebSocket || He, this.conn = void 0, this.primaryPassedHealthCheck = !1, this.longPollFallbackMs = t.longPollFallbackMs, this.fallbackTimer = null;
             let n = null;
             try {
-                n = b && b.sessionStorage;
+                n = x && x.sessionStorage;
             } catch  {}
-            this.sessionStore = t.sessionStorage || n, this.establishedConnections = 0, this.defaultEncoder = We.encode.bind(We), this.defaultDecoder = We.decode.bind(We), this.closeWasClean = !0, this.disconnecting = !1, this.binaryType = t.binaryType || `arraybuffer`, this.connectClock = 1, this.pageHidden = !1, this.encode = void 0, this.decode = void 0, this.transport === w ? (this.encode = this.defaultEncoder, this.decode = this.defaultDecoder) : (this.encode = t.encode || this.defaultEncoder, this.decode = t.decode || this.defaultDecoder);
+            this.sessionStore = t.sessionStorage || n, this.establishedConnections = 0, this.defaultEncoder = We.encode.bind(We), this.defaultDecoder = We.decode.bind(We), this.closeWasClean = !0, this.disconnecting = !1, this.binaryType = t.binaryType || `arraybuffer`, this.connectClock = 1, this.pageHidden = !1, this.encode = void 0, this.decode = void 0, this.transport === He ? (this.encode = this.defaultEncoder, this.decode = this.defaultDecoder) : (this.encode = t.encode || this.defaultEncoder, this.decode = t.decode || this.defaultDecoder);
             let r = null;
-            je && je.addEventListener && (je.addEventListener(`pagehide`, (e)=>{
+            b && b.addEventListener && (b.addEventListener(`pagehide`, (e)=>{
                 this.conn && (this.disconnect(), r = this.connectClock);
-            }), je.addEventListener(`pageshow`, (e)=>{
+            }), b.addEventListener(`pageshow`, (e)=>{
                 r === this.connectClock && (r = null, this.connect());
-            }), je.addEventListener(`visibilitychange`, ()=>{
+            }), b.addEventListener(`visibilitychange`, ()=>{
                 document.visibilityState === `hidden` ? this.pageHidden = !0 : (this.pageHidden = !1, !this.isConnected() && !this.closeWasClean && this.teardown(()=>this.connect()));
             })), this.heartbeatIntervalMs = t.heartbeatIntervalMs || 3e4, this.autoSendHeartbeat = t.autoSendHeartbeat ?? !0, this.heartbeatCallback = t.heartbeatCallback ?? (()=>{}), this.rejoinAfterMs = (e)=>t.rejoinAfterMs ? t.rejoinAfterMs(e) : [
                     1e3,
@@ -1463,7 +1463,7 @@ new RealtimeClient(url, { transport: ws })`
                     2e3
                 ][e - 1] || 5e3, this.logger = t.logger || null, !this.logger && t.debug && (this.logger = (e, t, n)=>{
                 console.log(`${e}: ${t}`, n);
-            }), this.longpollerTimeout = t.longpollerTimeout || 2e4, this.params = ke(t.params || {}), this.endPoint = `${e}/${Fe.websocket}`, this.vsn = t.vsn || Me, this.heartbeatTimeoutTimer = null, this.heartbeatTimer = null, this.heartbeatSentAt = null, this.pendingHeartbeatRef = null, this.reconnectTimer = new ze(()=>{
+            }), this.longpollerTimeout = t.longpollerTimeout || 2e4, this.params = ke(t.params || {}), this.endPoint = `${e}/${Pe.websocket}`, this.vsn = t.vsn || je, this.heartbeatTimeoutTimer = null, this.heartbeatTimer = null, this.heartbeatSentAt = null, this.pendingHeartbeatRef = null, this.reconnectTimer = new Re(()=>{
                 if (this.pageHidden) {
                     this.log(`Not reconnecting as page is hidden!`), this.teardown();
                     return;
@@ -1474,7 +1474,7 @@ new RealtimeClient(url, { transport: ws })`
             }, this.reconnectAfterMs), this.authToken = t.authToken;
         }
         getLongPollTransport() {
-            return w;
+            return He;
         }
         replaceTransport(e) {
             this.connectClock++, this.closeWasClean = !0, clearTimeout(this.fallbackTimer), this.reconnectTimer.reset(), this.conn &&= (this.conn.close(), null), this.transport = e;
@@ -1483,7 +1483,7 @@ new RealtimeClient(url, { transport: ws })`
             return location.protocol.match(/^https/) ? `wss` : `ws`;
         }
         endPointURL() {
-            let e = Ve.appendParams(Ve.appendParams(this.endPoint, this.params()), {
+            let e = Be.appendParams(Be.appendParams(this.endPoint, this.params()), {
                 vsn: this.vsn
             });
             return e.charAt(0) === `/` ? e.charAt(1) === `/` ? `${this.protocol()}:${e}` : `${this.protocol()}://${location.host}${e}` : e;
@@ -1494,7 +1494,7 @@ new RealtimeClient(url, { transport: ws })`
             }, t, n);
         }
         connect(e) {
-            e && (console && console.log(`passing params to connect is deprecated. Instead pass :params to the Socket constructor`), this.params = ke(e)), !(this.conn && !this.disconnecting) && (this.longPollFallbackMs && this.transport !== w ? this.connectWithFallback(w, this.longPollFallbackMs) : this.transportConnect());
+            e && (console && console.log(`passing params to connect is deprecated. Instead pass :params to the Socket constructor`), this.params = ke(e)), !(this.conn && !this.disconnecting) && (this.longPollFallbackMs && this.transport !== He ? this.connectWithFallback(He, this.longPollFallbackMs) : this.transportConnect());
         }
         log(e, t, n) {
             this.logger && this.logger(e, t, n);
@@ -1551,7 +1551,7 @@ new RealtimeClient(url, { transport: ws })`
         }
         transportName(e) {
             switch(e){
-                case w:
+                case He:
                     return `LongPoll`;
                 default:
                     return e.name;
@@ -1562,7 +1562,7 @@ new RealtimeClient(url, { transport: ws })`
             let e;
             this.authToken && (e = [
                 `phoenix`,
-                `${Le}${btoa(this.authToken).replace(/=/g, ``)}`
+                `${Ie}${btoa(this.authToken).replace(/=/g, ``)}`
             ]), this.conn = new this.transport(this.endPointURL(), e), this.conn.binaryType = this.binaryType, this.conn.timeout = this.longpollerTimeout, this.conn.onopen = ()=>this.onConnOpen(), this.conn.onerror = (e)=>this.onConnError(e), this.conn.onmessage = (e)=>this.onConnMessage(e), this.conn.onclose = (e)=>this.onConnClose(e);
         }
         getSession(e) {
@@ -1608,7 +1608,7 @@ new RealtimeClient(url, { transport: ws })`
                 } catch (e) {
                     this.log(`error`, `error in heartbeat callback`, e);
                 }
-                this.triggerChanError(Error(`heartbeat timeout`)), this.closeWasClean = !1, this.teardown(()=>this.reconnectTimer.scheduleTimeout(), Pe, `heartbeat timeout`);
+                this.triggerChanError(Error(`heartbeat timeout`)), this.closeWasClean = !1, this.teardown(()=>this.reconnectTimer.scheduleTimeout(), Ne, `heartbeat timeout`);
             }
         }
         resetHeartbeat() {
@@ -1633,7 +1633,7 @@ new RealtimeClient(url, { transport: ws })`
             }, 150 * n);
         }
         waitForSocketClosed(e, t, n = 1) {
-            if (n === 5 || e.readyState === x.closed) {
+            if (n === 5 || e.readyState === S.closed) {
                 t();
                 return;
             }
@@ -1651,16 +1651,16 @@ new RealtimeClient(url, { transport: ws })`
         }
         triggerChanError(e) {
             this.channels.forEach((t)=>{
-                t.isErrored() || t.isLeaving() || t.isClosed() || t.trigger(C.error, e);
+                t.isErrored() || t.isLeaving() || t.isClosed() || t.trigger(w.error, e);
             });
         }
         connectionState() {
             switch(this.conn && this.conn.readyState){
-                case x.connecting:
+                case S.connecting:
                     return `connecting`;
-                case x.open:
+                case S.open:
                     return `open`;
-                case x.closing:
+                case S.closing:
                     return `closing`;
                 default:
                     return `closed`;
@@ -1676,7 +1676,7 @@ new RealtimeClient(url, { transport: ws })`
             for(let t in this.stateChangeCallbacks)this.stateChangeCallbacks[t] = this.stateChangeCallbacks[t].filter(([t])=>e.indexOf(t) === -1);
         }
         channel(e, t = {}) {
-            let n = new Be(e, t, this);
+            let n = new ze(e, t, this);
             return this.channels.push(n), n;
         }
         push(e) {
@@ -3938,9 +3938,9 @@ Option 2: Install and provide the "ws" package:
             t[n] = e;
         }), t;
     }
-    var qn = (e)=>e ? (...t)=>e(...t) : (...e)=>fetch(...e), Jn = (e)=>typeof e == `object` && !!e && `status` in e && `ok` in e && `json` in e && typeof e.json == `function`, Yn = async (e, t, n)=>{
+    var qn = (e)=>e ? (...t)=>e(...t) : (...e)=>fetch(...e), Jn = (e)=>typeof e == `object` && !!e && `status` in e && `ok` in e && `json` in e && typeof e.json == `function`, B = async (e, t, n)=>{
         await e.setItem(t, JSON.stringify(n));
-    }, B = async (e, t)=>{
+    }, V = async (e, t)=>{
         let n = await e.getItem(t);
         if (!n) return null;
         try {
@@ -3948,17 +3948,17 @@ Option 2: Install and provide the "ws" package:
         } catch  {
             return null;
         }
-    }, V = async (e, t)=>{
+    }, H = async (e, t)=>{
         await e.removeItem(t);
-    }, Xn = class e {
+    }, Yn = class e {
         constructor(){
             this.promise = new e.promiseConstructor((e, t)=>{
                 this.resolve = e, this.reject = t;
             });
         }
     };
-    Xn.promiseConstructor = Promise;
-    function Zn(e) {
+    Yn.promiseConstructor = Promise;
+    function Xn(e) {
         let t = e.split(`.`);
         if (t.length !== 3) throw new Mn(`Invalid JWT structure`);
         for(let e = 0; e < t.length; e++)if (!_n.test(t[e])) throw new Mn(`JWT not in base64url format`);
@@ -3972,12 +3972,12 @@ Option 2: Install and provide the "ws" package:
             }
         };
     }
-    async function Qn(e) {
+    async function Zn(e) {
         return await new Promise((t)=>{
             setTimeout(()=>t(null), e);
         });
     }
-    function $n(e, t) {
+    function Qn(e, t) {
         return new Promise((n, r)=>{
             (async ()=>{
                 for(let i = 0; i < 1 / 0; i++)try {
@@ -3995,51 +3995,51 @@ Option 2: Install and provide the "ws" package:
             })();
         });
     }
-    function er(e) {
+    function $n(e) {
         return (`0` + e.toString(16)).substr(-2);
     }
-    function tr() {
+    function er() {
         let e = new Uint32Array(56);
         if (typeof crypto > `u`) {
             let e = ``;
             for(let t = 0; t < 56; t++)e += `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~`.charAt(Math.floor(Math.random() * 66));
             return e;
         }
-        return crypto.getRandomValues(e), Array.from(e, er).join(``);
+        return crypto.getRandomValues(e), Array.from(e, $n).join(``);
     }
-    async function nr(e) {
+    async function tr(e) {
         let t = new TextEncoder().encode(e), n = await crypto.subtle.digest(`SHA-256`, t), r = new Uint8Array(n);
         return Array.from(r).map((e)=>String.fromCharCode(e)).join(``);
     }
-    async function rr(e) {
+    async function nr(e) {
         if (!(typeof crypto < `u` && crypto.subtle !== void 0 && typeof TextEncoder < `u`)) return console.warn(`WebCrypto API is not supported. Code challenge method will default to use plain instead of sha256.`), e;
-        let t = await nr(e);
+        let t = await tr(e);
         return btoa(t).replace(/\+/g, `-`).replace(/\//g, `_`).replace(/=+$/, ``);
     }
-    async function H(e, t, n = !1) {
-        let r = tr(), i = r;
-        n && (i += `/recovery`), await Yn(e, `${t}-code-verifier`, i);
-        let a = await rr(r);
+    async function U(e, t, n = !1) {
+        let r = er(), i = r;
+        n && (i += `/recovery`), await B(e, `${t}-code-verifier`, i);
+        let a = await nr(r);
         return [
             a,
             r === a ? `plain` : `s256`
         ];
     }
-    var ir = /^2[0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])$/i;
-    function ar(e) {
+    var rr = /^2[0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])$/i;
+    function ir(e) {
         let t = e.headers.get(hn);
-        if (!t || !t.match(ir)) return null;
+        if (!t || !t.match(rr)) return null;
         try {
             return new Date(`${t}T00:00:00.0Z`);
         } catch  {
             return null;
         }
     }
-    function or(e) {
+    function ar(e) {
         if (!e) throw Error(`Missing exp claim`);
         if (e <= Math.floor(Date.now() / 1e3)) throw Error(`JWT has expired`);
     }
-    function sr(e) {
+    function or(e) {
         switch(e){
             case `RS256`:
                 return {
@@ -4060,14 +4060,14 @@ Option 2: Install and provide the "ws" package:
                 throw Error(`Invalid alg claim`);
         }
     }
-    var cr = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
-    function U(e) {
-        if (!cr.test(e)) throw Error(`@supabase/auth-js: Expected parameter to be UUID but is not`);
-    }
+    var sr = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
     function W(e) {
+        if (!sr.test(e)) throw Error(`@supabase/auth-js: Expected parameter to be UUID but is not`);
+    }
+    function G(e) {
         if (!e.passkey) throw Error("@supabase/auth-js: the passkey API is experimental and disabled by default. Enable it by passing `auth: { experimental: { passkey: true } }` to createClient (or to the GoTrueClient constructor).");
     }
-    function lr() {
+    function cr() {
         return new Proxy({}, {
             get: (e, t)=>{
                 if (t === `__isUserNotAvailableProxy`) return !0;
@@ -4085,7 +4085,7 @@ Option 2: Install and provide the "ws" package:
             }
         });
     }
-    function ur(e, t) {
+    function lr(e, t) {
         return new Proxy(e, {
             get: (e, n, r)=>{
                 if (n === `__isInsecureUserWarningProxy`) return !0;
@@ -4097,10 +4097,10 @@ Option 2: Install and provide the "ws" package:
             }
         });
     }
-    function dr(e) {
+    function ur(e) {
         return JSON.parse(JSON.stringify(e));
     }
-    var G = (e)=>{
+    var K = (e)=>{
         if (typeof e == `object` && e) {
             let t = e;
             if (typeof t.msg == `string`) return t.msg;
@@ -4109,7 +4109,7 @@ Option 2: Install and provide the "ws" package:
             if (typeof t.error == `string`) return t.error;
         }
         return JSON.stringify(e);
-    }, fr = [
+    }, dr = [
         502,
         503,
         504,
@@ -4120,23 +4120,23 @@ Option 2: Install and provide the "ws" package:
         524,
         530
     ];
-    async function pr(e) {
-        if (!Jn(e)) throw new Dn(G(e), 0);
-        if (fr.includes(e.status)) throw new Dn(G(e), e.status);
+    async function fr(e) {
+        if (!Jn(e)) throw new Dn(K(e), 0);
+        if (dr.includes(e.status)) throw new Dn(K(e), e.status);
         let t;
         try {
             t = await e.json();
         } catch (e) {
-            throw new M(G(e), e);
+            throw new M(K(e), e);
         }
-        let n, r = ar(e);
+        let n, r = ir(e);
         if (r && r.getTime() >= gn[`2024-01-01`].timestamp && typeof t == `object` && t && typeof t.code == `string` ? n = t.code : typeof t == `object` && t && typeof t.error_code == `string` && (n = t.error_code), !n) {
-            if (typeof t == `object` && t && typeof t.weak_password == `object` && t.weak_password && Array.isArray(t.weak_password.reasons) && t.weak_password.reasons.length && t.weak_password.reasons.reduce((e, t)=>e && typeof t == `string`, !0)) throw new jn(G(t), e.status, t.weak_password.reasons);
-        } else if (n === `weak_password`) throw new jn(G(t), e.status, t.weak_password?.reasons || []);
+            if (typeof t == `object` && t && typeof t.weak_password == `object` && t.weak_password && Array.isArray(t.weak_password.reasons) && t.weak_password.reasons.length && t.weak_password.reasons.reduce((e, t)=>e && typeof t == `string`, !0)) throw new jn(K(t), e.status, t.weak_password.reasons);
+        } else if (n === `weak_password`) throw new jn(K(t), e.status, t.weak_password?.reasons || []);
         else if (n === `session_not_found`) throw new P;
-        throw new yn(G(t), e.status || 500, n);
+        throw new yn(K(t), e.status || 500, n);
     }
-    var mr = (e, t, n, r)=>{
+    var pr = (e, t, n, r)=>{
         let i = {
             method: e,
             headers: t?.headers || {}
@@ -4145,12 +4145,12 @@ Option 2: Install and provide the "ws" package:
             "Content-Type": `application/json;charset=UTF-8`
         }, t?.headers), i.body = JSON.stringify(r), Object.assign(Object.assign({}, i), n));
     };
-    async function K(e, t, n, r) {
+    async function q(e, t, n, r) {
         let i = Object.assign({}, r?.headers);
         i[`X-Supabase-Api-Version`] || (i[hn] = gn[`2024-01-01`].name), r?.jwt && (i.Authorization = `Bearer ${r.jwt}`);
         let a = r?.query ?? {};
         r?.redirectTo && (a.redirect_to = r.redirectTo);
-        let o = await hr(e, t, n + (Object.keys(a).length ? `?` + new URLSearchParams(a).toString() : ``), {
+        let o = await mr(e, t, n + (Object.keys(a).length ? `?` + new URLSearchParams(a).toString() : ``), {
             headers: i,
             noResolveJson: r?.noResolveJson
         }, {}, r?.body);
@@ -4159,23 +4159,23 @@ Option 2: Install and provide the "ws" package:
             error: null
         };
     }
-    async function hr(e, t, n, r, i, a) {
-        let o = mr(t, r, i, a), s;
+    async function mr(e, t, n, r, i, a) {
+        let o = pr(t, r, i, a), s;
         try {
             s = await e(n, Object.assign({}, o));
         } catch (e) {
-            throw console.error(e), new Dn(G(e), 0);
+            throw console.error(e), new Dn(K(e), 0);
         }
-        if (s.ok || await pr(s), r?.noResolveJson) return s;
+        if (s.ok || await fr(s), r?.noResolveJson) return s;
         try {
             return await s.json();
         } catch (e) {
-            await pr(e);
+            await fr(e);
         }
     }
-    function q(e) {
+    function J(e) {
         let t = null;
-        br(e) && (t = Object.assign({}, e), e.expires_at || (t.expires_at = Un(e.expires_in)));
+        yr(e) && (t = Object.assign({}, e), e.expires_at || (t.expires_at = Un(e.expires_in)));
         let n = e.user ?? (typeof e?.id == `string` ? e : null);
         return {
             data: {
@@ -4185,11 +4185,11 @@ Option 2: Install and provide the "ws" package:
             error: null
         };
     }
-    function gr(e) {
-        let t = q(e);
+    function hr(e) {
+        let t = J(e);
         return !t.error && e.weak_password && typeof e.weak_password == `object` && Array.isArray(e.weak_password.reasons) && e.weak_password.reasons.length && e.weak_password.message && typeof e.weak_password.message == `string` && e.weak_password.reasons.reduce((e, t)=>e && typeof t == `string`, !0) && (t.data.weak_password = e.weak_password), t;
     }
-    function J(e) {
+    function Y(e) {
         return {
             data: {
                 user: e.user ?? e
@@ -4197,13 +4197,13 @@ Option 2: Install and provide the "ws" package:
             error: null
         };
     }
-    function _r(e) {
+    function gr(e) {
         return {
             data: e,
             error: null
         };
     }
-    function vr(t) {
+    function _r(t) {
         let { action_link: n, email_otp: r, hashed_token: i, redirect_to: a, verification_type: o } = t, s = e(t, [
             `action_link`,
             `email_otp`,
@@ -4225,17 +4225,17 @@ Option 2: Install and provide the "ws" package:
             error: null
         };
     }
-    function yr(e) {
+    function vr(e) {
         return e;
     }
-    function br(e) {
+    function yr(e) {
         return !!e.access_token && !!e.refresh_token && !!e.expires_in;
     }
-    var xr = [
+    var br = [
         `global`,
         `local`,
         `others`
-    ], Sr = class {
+    ], xr = class {
         constructor({ url: e = ``, headers: t = {}, fetch: n, experimental: r }){
             this.url = e, this.headers = t, this.fetch = qn(n), this.experimental = r ?? {}, this.mfa = {
                 listFactors: this._listFactors.bind(this),
@@ -4258,10 +4258,10 @@ Option 2: Install and provide the "ws" package:
                 deletePasskey: this._adminDeletePasskey.bind(this)
             };
         }
-        async signOut(e, t = xr[0]) {
-            if (xr.indexOf(t) < 0) throw Error(`@supabase/auth-js: Parameter scope must be one of ${xr.join(`, `)}`);
+        async signOut(e, t = br[0]) {
+            if (br.indexOf(t) < 0) throw Error(`@supabase/auth-js: Parameter scope must be one of ${br.join(`, `)}`);
             try {
-                return await K(this.fetch, `POST`, `${this.url}/logout?scope=${t}`, {
+                return await q(this.fetch, `POST`, `${this.url}/logout?scope=${t}`, {
                     headers: this.headers,
                     jwt: e,
                     noResolveJson: !0
@@ -4279,14 +4279,14 @@ Option 2: Install and provide the "ws" package:
         }
         async inviteUserByEmail(e, t = {}) {
             try {
-                return await K(this.fetch, `POST`, `${this.url}/invite`, {
+                return await q(this.fetch, `POST`, `${this.url}/invite`, {
                     body: {
                         email: e,
                         data: t.data
                     },
                     headers: this.headers,
                     redirectTo: t.redirectTo,
-                    xform: J
+                    xform: Y
                 });
             } catch (e) {
                 if (j(e)) return {
@@ -4303,10 +4303,10 @@ Option 2: Install and provide the "ws" package:
                 let { options: n } = t, r = e(t, [
                     `options`
                 ]), i = Object.assign(Object.assign({}, r), n);
-                return `newEmail` in r && (i.new_email = r?.newEmail, delete i.newEmail), await K(this.fetch, `POST`, `${this.url}/admin/generate_link`, {
+                return `newEmail` in r && (i.new_email = r?.newEmail, delete i.newEmail), await q(this.fetch, `POST`, `${this.url}/admin/generate_link`, {
                     body: i,
                     headers: this.headers,
-                    xform: vr,
+                    xform: _r,
                     redirectTo: n?.redirectTo
                 });
             } catch (e) {
@@ -4322,10 +4322,10 @@ Option 2: Install and provide the "ws" package:
         }
         async createUser(e) {
             try {
-                return await K(this.fetch, `POST`, `${this.url}/admin/users`, {
+                return await q(this.fetch, `POST`, `${this.url}/admin/users`, {
                     body: e,
                     headers: this.headers,
-                    xform: J
+                    xform: Y
                 });
             } catch (e) {
                 if (j(e)) return {
@@ -4343,14 +4343,14 @@ Option 2: Install and provide the "ws" package:
                     nextPage: null,
                     lastPage: 0,
                     total: 0
-                }, n = await K(this.fetch, `GET`, `${this.url}/admin/users`, {
+                }, n = await q(this.fetch, `GET`, `${this.url}/admin/users`, {
                     headers: this.headers,
                     noResolveJson: !0,
                     query: {
                         page: (e?.page)?.toString() ?? ``,
                         per_page: (e?.perPage)?.toString() ?? ``
                     },
-                    xform: yr
+                    xform: vr
                 });
                 if (n.error) throw n.error;
                 let r = await n.json(), i = n.headers.get(`x-total-count`) ?? 0, a = n.headers.get(`link`)?.split(`,`) ?? [];
@@ -4372,11 +4372,11 @@ Option 2: Install and provide the "ws" package:
             }
         }
         async getUserById(e) {
-            U(e);
+            W(e);
             try {
-                return await K(this.fetch, `GET`, `${this.url}/admin/users/${e}`, {
+                return await q(this.fetch, `GET`, `${this.url}/admin/users/${e}`, {
                     headers: this.headers,
-                    xform: J
+                    xform: Y
                 });
             } catch (e) {
                 if (j(e)) return {
@@ -4389,12 +4389,12 @@ Option 2: Install and provide the "ws" package:
             }
         }
         async updateUserById(e, t) {
-            U(e);
+            W(e);
             try {
-                return await K(this.fetch, `PUT`, `${this.url}/admin/users/${e}`, {
+                return await q(this.fetch, `PUT`, `${this.url}/admin/users/${e}`, {
                     body: t,
                     headers: this.headers,
-                    xform: J
+                    xform: Y
                 });
             } catch (e) {
                 if (j(e)) return {
@@ -4407,14 +4407,14 @@ Option 2: Install and provide the "ws" package:
             }
         }
         async deleteUser(e, t = !1) {
-            U(e);
+            W(e);
             try {
-                return await K(this.fetch, `DELETE`, `${this.url}/admin/users/${e}`, {
+                return await q(this.fetch, `DELETE`, `${this.url}/admin/users/${e}`, {
                     headers: this.headers,
                     body: {
                         should_soft_delete: t
                     },
-                    xform: J
+                    xform: Y
                 });
             } catch (e) {
                 if (j(e)) return {
@@ -4427,9 +4427,9 @@ Option 2: Install and provide the "ws" package:
             }
         }
         async _listFactors(e) {
-            U(e.userId);
+            W(e.userId);
             try {
-                let { data: t, error: n } = await K(this.fetch, `GET`, `${this.url}/admin/users/${e.userId}/factors`, {
+                let { data: t, error: n } = await q(this.fetch, `GET`, `${this.url}/admin/users/${e.userId}/factors`, {
                     headers: this.headers,
                     xform: (e)=>({
                             data: {
@@ -4451,10 +4451,10 @@ Option 2: Install and provide the "ws" package:
             }
         }
         async _deleteFactor(e) {
-            U(e.userId), U(e.id);
+            W(e.userId), W(e.id);
             try {
                 return {
-                    data: await K(this.fetch, `DELETE`, `${this.url}/admin/users/${e.userId}/factors/${e.id}`, {
+                    data: await q(this.fetch, `DELETE`, `${this.url}/admin/users/${e.userId}/factors/${e.id}`, {
                         headers: this.headers
                     }),
                     error: null
@@ -4473,14 +4473,14 @@ Option 2: Install and provide the "ws" package:
                     nextPage: null,
                     lastPage: 0,
                     total: 0
-                }, n = await K(this.fetch, `GET`, `${this.url}/admin/oauth/clients`, {
+                }, n = await q(this.fetch, `GET`, `${this.url}/admin/oauth/clients`, {
                     headers: this.headers,
                     noResolveJson: !0,
                     query: {
                         page: (e?.page)?.toString() ?? ``,
                         per_page: (e?.perPage)?.toString() ?? ``
                     },
-                    xform: yr
+                    xform: vr
                 });
                 if (n.error) throw n.error;
                 let r = await n.json(), i = n.headers.get(`x-total-count`) ?? 0, a = n.headers.get(`link`)?.split(`,`) ?? [];
@@ -4503,7 +4503,7 @@ Option 2: Install and provide the "ws" package:
         }
         async _createOAuthClient(e) {
             try {
-                return await K(this.fetch, `POST`, `${this.url}/admin/oauth/clients`, {
+                return await q(this.fetch, `POST`, `${this.url}/admin/oauth/clients`, {
                     body: e,
                     headers: this.headers,
                     xform: (e)=>({
@@ -4521,7 +4521,7 @@ Option 2: Install and provide the "ws" package:
         }
         async _getOAuthClient(e) {
             try {
-                return await K(this.fetch, `GET`, `${this.url}/admin/oauth/clients/${e}`, {
+                return await q(this.fetch, `GET`, `${this.url}/admin/oauth/clients/${e}`, {
                     headers: this.headers,
                     xform: (e)=>({
                             data: e,
@@ -4538,7 +4538,7 @@ Option 2: Install and provide the "ws" package:
         }
         async _updateOAuthClient(e, t) {
             try {
-                return await K(this.fetch, `PUT`, `${this.url}/admin/oauth/clients/${e}`, {
+                return await q(this.fetch, `PUT`, `${this.url}/admin/oauth/clients/${e}`, {
                     body: t,
                     headers: this.headers,
                     xform: (e)=>({
@@ -4556,7 +4556,7 @@ Option 2: Install and provide the "ws" package:
         }
         async _deleteOAuthClient(e) {
             try {
-                return await K(this.fetch, `DELETE`, `${this.url}/admin/oauth/clients/${e}`, {
+                return await q(this.fetch, `DELETE`, `${this.url}/admin/oauth/clients/${e}`, {
                     headers: this.headers,
                     noResolveJson: !0
                 }), {
@@ -4573,7 +4573,7 @@ Option 2: Install and provide the "ws" package:
         }
         async _regenerateOAuthClientSecret(e) {
             try {
-                return await K(this.fetch, `POST`, `${this.url}/admin/oauth/clients/${e}/regenerate_secret`, {
+                return await q(this.fetch, `POST`, `${this.url}/admin/oauth/clients/${e}/regenerate_secret`, {
                     headers: this.headers,
                     xform: (e)=>({
                             data: e,
@@ -4591,7 +4591,7 @@ Option 2: Install and provide the "ws" package:
         async _listCustomProviders(e) {
             try {
                 let t = {};
-                return e?.type && (t.type = e.type), await K(this.fetch, `GET`, `${this.url}/admin/custom-providers`, {
+                return e?.type && (t.type = e.type), await q(this.fetch, `GET`, `${this.url}/admin/custom-providers`, {
                     headers: this.headers,
                     query: t,
                     xform: (e)=>({
@@ -4613,7 +4613,7 @@ Option 2: Install and provide the "ws" package:
         }
         async _createCustomProvider(e) {
             try {
-                return await K(this.fetch, `POST`, `${this.url}/admin/custom-providers`, {
+                return await q(this.fetch, `POST`, `${this.url}/admin/custom-providers`, {
                     body: e,
                     headers: this.headers,
                     xform: (e)=>({
@@ -4631,7 +4631,7 @@ Option 2: Install and provide the "ws" package:
         }
         async _getCustomProvider(e) {
             try {
-                return await K(this.fetch, `GET`, `${this.url}/admin/custom-providers/${e}`, {
+                return await q(this.fetch, `GET`, `${this.url}/admin/custom-providers/${e}`, {
                     headers: this.headers,
                     xform: (e)=>({
                             data: e,
@@ -4648,7 +4648,7 @@ Option 2: Install and provide the "ws" package:
         }
         async _updateCustomProvider(e, t) {
             try {
-                return await K(this.fetch, `PUT`, `${this.url}/admin/custom-providers/${e}`, {
+                return await q(this.fetch, `PUT`, `${this.url}/admin/custom-providers/${e}`, {
                     body: t,
                     headers: this.headers,
                     xform: (e)=>({
@@ -4666,7 +4666,7 @@ Option 2: Install and provide the "ws" package:
         }
         async _deleteCustomProvider(e) {
             try {
-                return await K(this.fetch, `DELETE`, `${this.url}/admin/custom-providers/${e}`, {
+                return await q(this.fetch, `DELETE`, `${this.url}/admin/custom-providers/${e}`, {
                     headers: this.headers,
                     noResolveJson: !0
                 }), {
@@ -4682,9 +4682,9 @@ Option 2: Install and provide the "ws" package:
             }
         }
         async _adminListPasskeys(e) {
-            W(this.experimental), U(e.userId);
+            G(this.experimental), W(e.userId);
             try {
-                return await K(this.fetch, `GET`, `${this.url}/admin/users/${e.userId}/passkeys`, {
+                return await q(this.fetch, `GET`, `${this.url}/admin/users/${e.userId}/passkeys`, {
                     headers: this.headers,
                     xform: (e)=>({
                             data: e,
@@ -4700,9 +4700,9 @@ Option 2: Install and provide the "ws" package:
             }
         }
         async _adminDeletePasskey(e) {
-            W(this.experimental), U(e.userId), U(e.passkeyId);
+            G(this.experimental), W(e.userId), W(e.passkeyId);
             try {
-                return await K(this.fetch, `DELETE`, `${this.url}/admin/users/${e.userId}/passkeys/${e.passkeyId}`, {
+                return await q(this.fetch, `DELETE`, `${this.url}/admin/users/${e.userId}/passkeys/${e.passkeyId}`, {
                     headers: this.headers,
                     noResolveJson: !0
                 }), {
@@ -4718,7 +4718,7 @@ Option 2: Install and provide the "ws" package:
             }
         }
     };
-    function Cr(e = {}) {
+    function Sr(e = {}) {
         return {
             getItem: (t)=>e[t] || null,
             setItem: (t, n)=>{
@@ -4730,12 +4730,12 @@ Option 2: Install and provide the "ws" package:
         };
     }
     globalThis && Gn() && globalThis.localStorage && globalThis.localStorage.getItem(`supabase.gotrue-js.locks.debug`);
-    var wr = class extends Error {
+    var Cr = class extends Error {
         constructor(e){
             super(e), this.isAcquireTimeout = !0;
         }
     };
-    function Tr() {
+    function wr() {
         if (typeof globalThis != `object`) try {
             Object.defineProperty(Object.prototype, "__magic__", {
                 get: function() {
@@ -4747,18 +4747,18 @@ Option 2: Install and provide the "ws" package:
             typeof self < `u` && (self.globalThis = self);
         }
     }
-    function Er(e) {
+    function Tr(e) {
         if (!/^0x[a-fA-F0-9]{40}$/.test(e)) throw Error(`@supabase/auth-js: Address "${e}" is invalid.`);
         return e.toLowerCase();
     }
-    function Dr(e) {
+    function Er(e) {
         return parseInt(e, 16);
     }
-    function Or(e) {
+    function Dr(e) {
         let t = new TextEncoder().encode(e);
         return `0x` + Array.from(t, (e)=>e.toString(16).padStart(2, `0`)).join(``);
     }
-    function kr(e) {
+    function Or(e) {
         let { chainId: t, domain: n, expirationTime: r, issuedAt: i = new Date, nonce: a, notBefore: o, requestId: s, resources: c, scheme: l, uri: u, version: d } = e;
         if (!Number.isInteger(t)) throw Error(`@supabase/auth-js: Invalid SIWE message field "chainId". Chain ID must be a EIP-155 chain ID. Provided value: ${t}`);
         if (!n) throw Error(`@supabase/auth-js: Invalid SIWE message field "domain". Domain must be provided.`);
@@ -4767,7 +4767,7 @@ Option 2: Install and provide the "ws" package:
         if (d !== `1`) throw Error(`@supabase/auth-js: Invalid SIWE message field "version". Version must be '1'. Provided value: ${d}`);
         if (e.statement?.includes(`
 `)) throw Error(`@supabase/auth-js: Invalid SIWE message field "statement". Statement must not include '\\n'. Provided value: ${e.statement}`);
-        let f = Er(e.address), p = `${l ? `${l}://${n}` : n} wants you to sign in with your Ethereum account:\n${f}\n\n${e.statement ? `${e.statement}\n` : ``}`, m = `URI: ${u}\nVersion: ${d}\nChain ID: ${t}${a ? `\nNonce: ${a}` : ``}\nIssued At: ${i.toISOString()}`;
+        let f = Tr(e.address), p = `${l ? `${l}://${n}` : n} wants you to sign in with your Ethereum account:\n${f}\n\n${e.statement ? `${e.statement}\n` : ``}`, m = `URI: ${u}\nVersion: ${d}\nChain ID: ${t}${a ? `\nNonce: ${a}` : ``}\nIssued At: ${i.toISOString()}`;
         if (r && (m += `\nExpiration Time: ${r.toISOString()}`), o && (m += `\nNot Before: ${o.toISOString()}`), s && (m += `\nRequest ID: ${s}`), c) {
             let e = `
 Resources:`;
@@ -4779,7 +4779,7 @@ Resources:`;
         }
         return `${p}\n${m}`;
     }
-    var Y = class extends Error {
+    var X = class extends Error {
         constructor({ message: e, code: t, cause: n, name: r }){
             super(e, {
                 cause: n
@@ -4792,7 +4792,7 @@ Resources:`;
                 code: this.code
             };
         }
-    }, Ar = class extends Y {
+    }, kr = class extends X {
         constructor(e, t){
             super({
                 code: `ERROR_PASSTHROUGH_SEE_CAUSE_PROPERTY`,
@@ -4801,117 +4801,117 @@ Resources:`;
             }), this.name = `WebAuthnUnknownError`, this.originalError = t;
         }
     };
-    function jr({ error: e, options: t }) {
+    function Ar({ error: e, options: t }) {
         let { publicKey: n } = t;
         if (!n) throw Error(`options was missing required publicKey property`);
         if (e.name === `AbortError`) {
-            if (t.signal instanceof AbortSignal) return new Y({
+            if (t.signal instanceof AbortSignal) return new X({
                 message: `Registration ceremony was sent an abort signal`,
                 code: `ERROR_CEREMONY_ABORTED`,
                 cause: e
             });
         } else if (e.name === `ConstraintError`) {
-            if (n.authenticatorSelection?.requireResidentKey === !0) return new Y({
+            if (n.authenticatorSelection?.requireResidentKey === !0) return new X({
                 message: `Discoverable credentials were required but no available authenticator supported it`,
                 code: `ERROR_AUTHENTICATOR_MISSING_DISCOVERABLE_CREDENTIAL_SUPPORT`,
                 cause: e
             });
-            if (t.mediation === `conditional` && n.authenticatorSelection?.userVerification === `required`) return new Y({
+            if (t.mediation === `conditional` && n.authenticatorSelection?.userVerification === `required`) return new X({
                 message: `User verification was required during automatic registration but it could not be performed`,
                 code: `ERROR_AUTO_REGISTER_USER_VERIFICATION_FAILURE`,
                 cause: e
             });
-            if (n.authenticatorSelection?.userVerification === `required`) return new Y({
+            if (n.authenticatorSelection?.userVerification === `required`) return new X({
                 message: `User verification was required but no available authenticator supported it`,
                 code: `ERROR_AUTHENTICATOR_MISSING_USER_VERIFICATION_SUPPORT`,
                 cause: e
             });
-        } else if (e.name === `InvalidStateError`) return new Y({
+        } else if (e.name === `InvalidStateError`) return new X({
             message: `The authenticator was previously registered`,
             code: `ERROR_AUTHENTICATOR_PREVIOUSLY_REGISTERED`,
             cause: e
         });
-        else if (e.name === `NotAllowedError`) return new Y({
+        else if (e.name === `NotAllowedError`) return new X({
             message: e.message,
             code: `ERROR_PASSTHROUGH_SEE_CAUSE_PROPERTY`,
             cause: e
         });
-        else if (e.name === `NotSupportedError`) return n.pubKeyCredParams.filter((e)=>e.type === `public-key`).length === 0 ? new Y({
+        else if (e.name === `NotSupportedError`) return n.pubKeyCredParams.filter((e)=>e.type === `public-key`).length === 0 ? new X({
             message: `No entry in pubKeyCredParams was of type "public-key"`,
             code: `ERROR_MALFORMED_PUBKEYCREDPARAMS`,
             cause: e
-        }) : new Y({
+        }) : new X({
             message: `No available authenticator supported any of the specified pubKeyCredParams algorithms`,
             code: `ERROR_AUTHENTICATOR_NO_SUPPORTED_PUBKEYCREDPARAMS_ALG`,
             cause: e
         });
         else if (e.name === `SecurityError`) {
             let t = window.location.hostname;
-            if (!Rr(t)) return new Y({
+            if (!Lr(t)) return new X({
                 message: `${window.location.hostname} is an invalid domain`,
                 code: `ERROR_INVALID_DOMAIN`,
                 cause: e
             });
-            if (n.rp.id !== t) return new Y({
+            if (n.rp.id !== t) return new X({
                 message: `The RP ID "${n.rp.id}" is invalid for this domain`,
                 code: `ERROR_INVALID_RP_ID`,
                 cause: e
             });
         } else if (e.name === `TypeError`) {
-            if (n.user.id.byteLength < 1 || n.user.id.byteLength > 64) return new Y({
+            if (n.user.id.byteLength < 1 || n.user.id.byteLength > 64) return new X({
                 message: `User ID was not between 1 and 64 characters`,
                 code: `ERROR_INVALID_USER_ID_LENGTH`,
                 cause: e
             });
-        } else if (e.name === `UnknownError`) return new Y({
+        } else if (e.name === `UnknownError`) return new X({
             message: `The authenticator was unable to process the specified options, or could not create a new credential`,
             code: `ERROR_AUTHENTICATOR_GENERAL_ERROR`,
             cause: e
         });
-        return new Y({
+        return new X({
             message: `a Non-Webauthn related error has occurred`,
             code: `ERROR_PASSTHROUGH_SEE_CAUSE_PROPERTY`,
             cause: e
         });
     }
-    function Mr({ error: e, options: t }) {
+    function jr({ error: e, options: t }) {
         let { publicKey: n } = t;
         if (!n) throw Error(`options was missing required publicKey property`);
         if (e.name === `AbortError`) {
-            if (t.signal instanceof AbortSignal) return new Y({
+            if (t.signal instanceof AbortSignal) return new X({
                 message: `Authentication ceremony was sent an abort signal`,
                 code: `ERROR_CEREMONY_ABORTED`,
                 cause: e
             });
-        } else if (e.name === `NotAllowedError`) return new Y({
+        } else if (e.name === `NotAllowedError`) return new X({
             message: e.message,
             code: `ERROR_PASSTHROUGH_SEE_CAUSE_PROPERTY`,
             cause: e
         });
         else if (e.name === `SecurityError`) {
             let t = window.location.hostname;
-            if (!Rr(t)) return new Y({
+            if (!Lr(t)) return new X({
                 message: `${window.location.hostname} is an invalid domain`,
                 code: `ERROR_INVALID_DOMAIN`,
                 cause: e
             });
-            if (n.rpId !== t) return new Y({
+            if (n.rpId !== t) return new X({
                 message: `The RP ID "${n.rpId}" is invalid for this domain`,
                 code: `ERROR_INVALID_RP_ID`,
                 cause: e
             });
-        } else if (e.name === `UnknownError`) return new Y({
+        } else if (e.name === `UnknownError`) return new X({
             message: `The authenticator was unable to process the specified options, or could not create a new assertion signature`,
             code: `ERROR_AUTHENTICATOR_GENERAL_ERROR`,
             cause: e
         });
-        return new Y({
+        return new X({
             message: `a Non-Webauthn related error has occurred`,
             code: `ERROR_PASSTHROUGH_SEE_CAUSE_PROPERTY`,
             cause: e
         });
     }
-    var Nr = new class {
+    var Mr = new class {
         createNewAbortSignal() {
             if (this.controller) {
                 let e = Error(`Cancelling existing WebAuthn API call for new one`);
@@ -4927,7 +4927,7 @@ Resources:`;
             }
         }
     };
-    function Pr(t) {
+    function Nr(t) {
         if (!t) throw Error(`Credential creation options are required`);
         if (typeof PublicKeyCredential < `u` && `parseCreationOptionsFromJSON` in PublicKeyCredential && typeof PublicKeyCredential.parseCreationOptionsFromJSON == `function`) return PublicKeyCredential.parseCreationOptionsFromJSON(t);
         let { challenge: n, user: r, excludeCredentials: i } = t, a = e(t, [
@@ -4953,7 +4953,7 @@ Resources:`;
         }
         return c;
     }
-    function Fr(t) {
+    function Pr(t) {
         if (!t) throw Error(`Credential request options are required`);
         if (typeof PublicKeyCredential < `u` && `parseRequestOptionsFromJSON` in PublicKeyCredential && typeof PublicKeyCredential.parseRequestOptionsFromJSON == `function`) return PublicKeyCredential.parseRequestOptionsFromJSON(t);
         let { challenge: n, allowCredentials: r } = t, i = e(t, [
@@ -4975,7 +4975,7 @@ Resources:`;
         }
         return o;
     }
-    function Ir(e) {
+    function Fr(e) {
         if (`toJSON` in e && typeof e.toJSON == `function`) return e.toJSON();
         let t = e;
         return {
@@ -4990,7 +4990,7 @@ Resources:`;
             authenticatorAttachment: t.authenticatorAttachment ?? void 0
         };
     }
-    function Lr(e) {
+    function Ir(e) {
         if (`toJSON` in e && typeof e.toJSON == `function`) return e.toJSON();
         let t = e, n = e.getClientExtensionResults(), r = e.response;
         return {
@@ -5007,13 +5007,13 @@ Resources:`;
             authenticatorAttachment: t.authenticatorAttachment ?? void 0
         };
     }
-    function Rr(e) {
+    function Lr(e) {
         return e === `localhost` || /^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$/i.test(e);
     }
-    function zr() {
+    function Rr() {
         return !!(R() && `PublicKeyCredential` in window && window.PublicKeyCredential && `credentials` in navigator && typeof (navigator == null ? void 0 : navigator.credentials)?.create == `function` && typeof (navigator == null ? void 0 : navigator.credentials)?.get == `function`);
     }
-    async function Br(e) {
+    async function zr(e) {
         try {
             let t = await navigator.credentials.create(e);
             return t ? t instanceof PublicKeyCredential ? {
@@ -5021,10 +5021,33 @@ Resources:`;
                 error: null
             } : {
                 data: null,
-                error: new Ar(`Browser returned unexpected credential type`, t)
+                error: new kr(`Browser returned unexpected credential type`, t)
             } : {
                 data: null,
-                error: new Ar(`Empty credential response`, t)
+                error: new kr(`Empty credential response`, t)
+            };
+        } catch (t) {
+            return {
+                data: null,
+                error: Ar({
+                    error: t,
+                    options: e
+                })
+            };
+        }
+    }
+    async function Br(e) {
+        try {
+            let t = await navigator.credentials.get(e);
+            return t ? t instanceof PublicKeyCredential ? {
+                data: t,
+                error: null
+            } : {
+                data: null,
+                error: new kr(`Browser returned unexpected credential type`, t)
+            } : {
+                data: null,
+                error: new kr(`Empty credential response`, t)
             };
         } catch (t) {
             return {
@@ -5036,30 +5059,7 @@ Resources:`;
             };
         }
     }
-    async function Vr(e) {
-        try {
-            let t = await navigator.credentials.get(e);
-            return t ? t instanceof PublicKeyCredential ? {
-                data: t,
-                error: null
-            } : {
-                data: null,
-                error: new Ar(`Browser returned unexpected credential type`, t)
-            } : {
-                data: null,
-                error: new Ar(`Empty credential response`, t)
-            };
-        } catch (t) {
-            return {
-                data: null,
-                error: Mr({
-                    error: t,
-                    options: e
-                })
-            };
-        }
-    }
-    var Hr = {
+    var Vr = {
         hints: [
             `security-key`
         ],
@@ -5070,14 +5070,14 @@ Resources:`;
             residentKey: `discouraged`
         },
         attestation: `direct`
-    }, Ur = {
+    }, Hr = {
         userVerification: `preferred`,
         hints: [
             `security-key`
         ],
         attestation: `direct`
     };
-    function Wr(...e) {
+    function Ur(...e) {
         let t = (e)=>typeof e == `object` && !!e && !Array.isArray(e), n = (e)=>e instanceof ArrayBuffer || ArrayBuffer.isView(e), r = {};
         for (let i of e)if (i) for(let e in i){
             let a = i[e];
@@ -5085,18 +5085,18 @@ Resources:`;
             else if (n(a)) r[e] = a;
             else if (t(a)) {
                 let n = r[e];
-                t(n) ? r[e] = Wr(n, a) : r[e] = Wr(a);
+                t(n) ? r[e] = Ur(n, a) : r[e] = Ur(a);
             } else r[e] = a;
         }
         return r;
     }
+    function Wr(e, t) {
+        return Ur(Vr, e, t || {});
+    }
     function Gr(e, t) {
-        return Wr(Hr, e, t || {});
+        return Ur(Hr, e, t || {});
     }
-    function Kr(e, t) {
-        return Wr(Ur, e, t || {});
-    }
-    var qr = class {
+    var Kr = class {
         constructor(e){
             this.client = e, this.enroll = this._enroll.bind(this), this.challenge = this._challenge.bind(this), this.verify = this._verify.bind(this), this.authenticate = this._authenticate.bind(this), this.register = this._register.bind(this);
         }
@@ -5115,7 +5115,7 @@ Resources:`;
                     data: null,
                     error: o
                 };
-                let s = r ?? Nr.createNewAbortSignal();
+                let s = r ?? Mr.createNewAbortSignal();
                 if (a.webauthn.type === `create`) {
                     let { user: e } = a.webauthn.credential_options.publicKey;
                     if (!e.name) {
@@ -5131,8 +5131,8 @@ Resources:`;
                 switch(a.webauthn.type){
                     case `create`:
                         {
-                            let { data: t, error: n } = await Br({
-                                publicKey: Gr(a.webauthn.credential_options.publicKey, i?.create),
+                            let { data: t, error: n } = await zr({
+                                publicKey: Wr(a.webauthn.credential_options.publicKey, i?.create),
                                 signal: s
                             });
                             return t ? {
@@ -5152,7 +5152,7 @@ Resources:`;
                         }
                     case `request`:
                         {
-                            let t = Kr(a.webauthn.credential_options.publicKey, i?.request), { data: n, error: r } = await Vr(Object.assign(Object.assign({}, a.webauthn.credential_options), {
+                            let t = Gr(a.webauthn.credential_options.publicKey, i?.request), { data: n, error: r } = await Br(Object.assign(Object.assign({}, a.webauthn.credential_options), {
                                 publicKey: t,
                                 signal: s
                             }));
@@ -5197,7 +5197,7 @@ Resources:`;
                 error: new vn(`rpId is required for WebAuthn authentication`)
             };
             try {
-                if (!zr()) return {
+                if (!Rr()) return {
                     data: null,
                     error: new M(`Browser does not support WebAuthn`, null)
                 };
@@ -5244,7 +5244,7 @@ Resources:`;
                 error: new vn(`rpId is required for WebAuthn registration`)
             };
             try {
-                if (!zr()) return {
+                if (!Rr()) return {
                     data: null,
                     error: new M(`Browser does not support WebAuthn`, null)
                 };
@@ -5292,8 +5292,8 @@ Resources:`;
             }
         }
     };
-    Tr();
-    var Jr = {
+    wr();
+    var qr = {
         url: fn,
         storageKey: pn,
         autoRefreshToken: !0,
@@ -5307,34 +5307,34 @@ Resources:`;
         lockAcquireTimeout: 5e3,
         skipAutoInitialize: !1,
         experimental: {}
-    }, Yr = {}, Xr = class e {
+    }, Jr = {}, Yr = class e {
         get jwks() {
-            return Yr[this.storageKey]?.jwks ?? {
+            return Jr[this.storageKey]?.jwks ?? {
                 keys: []
             };
         }
         set jwks(e) {
-            Yr[this.storageKey] = Object.assign(Object.assign({}, Yr[this.storageKey]), {
+            Jr[this.storageKey] = Object.assign(Object.assign({}, Jr[this.storageKey]), {
                 jwks: e
             });
         }
         get jwks_cached_at() {
-            return Yr[this.storageKey]?.cachedAt ?? -(2 ** 53 - 1);
+            return Jr[this.storageKey]?.cachedAt ?? -(2 ** 53 - 1);
         }
         set jwks_cached_at(e) {
-            Yr[this.storageKey] = Object.assign(Object.assign({}, Yr[this.storageKey]), {
+            Jr[this.storageKey] = Object.assign(Object.assign({}, Jr[this.storageKey]), {
                 cachedAt: e
             });
         }
         constructor(t){
             var n;
             this.userStorage = null, this.memoryStorage = null, this.stateChangeEmitters = new Map, this.autoRefreshTicker = null, this.autoRefreshTickTimeout = null, this.visibilityChangedCallback = null, this.refreshingDeferred = null, this._sessionRemovalEpoch = 0, this.initializePromise = null, this.detectSessionInUrl = !0, this.hasCustomAuthorizationHeader = !1, this.suppressGetSessionWarning = !1, this.lock = null, this.lockAcquired = !1, this.pendingInLock = [], this.broadcastChannel = null, this.logger = console.log;
-            let r = Object.assign(Object.assign({}, Jr), t);
+            let r = Object.assign(Object.assign({}, qr), t);
             if (this.storageKey = r.storageKey, this.instanceID = e.nextInstanceID[this.storageKey] ?? 0, e.nextInstanceID[this.storageKey] = this.instanceID + 1, this.logDebugMessages = !!r.debug, typeof r.debug == `function` && (this.logger = r.debug), this.instanceID > 0 && R()) {
                 let e = `${this._logPrefix()} Multiple GoTrueClient instances detected in the same browser context. It is not an error, but this should be avoided as it may produce undefined behavior when used concurrently under the same storage key.`;
                 console.warn(e), this.logDebugMessages && console.trace(e);
             }
-            if (this.persistSession = r.persistSession, this.autoRefreshToken = r.autoRefreshToken, this.experimental = r.experimental ?? {}, this.admin = new Sr({
+            if (this.persistSession = r.persistSession, this.autoRefreshToken = r.autoRefreshToken, this.experimental = r.experimental ?? {}, this.admin = new xr({
                 url: r.url,
                 headers: r.headers,
                 fetch: r.fetch,
@@ -5349,7 +5349,7 @@ Resources:`;
                 listFactors: this._listFactors.bind(this),
                 challengeAndVerify: this._challengeAndVerify.bind(this),
                 getAuthenticatorAssuranceLevel: this._getAuthenticatorAssuranceLevel.bind(this),
-                webauthn: new qr(this)
+                webauthn: new Kr(this)
             }, this.oauth = {
                 getAuthorizationDetails: this._getAuthorizationDetails.bind(this),
                 approveAuthorization: this._approveAuthorization.bind(this),
@@ -5364,7 +5364,7 @@ Resources:`;
                 list: this._listPasskeys.bind(this),
                 update: this._updatePasskey.bind(this),
                 delete: this._deletePasskey.bind(this)
-            }, this.persistSession ? (r.storage ? this.storage = r.storage : Gn() ? this.storage = globalThis.localStorage : (this.memoryStorage = {}, this.storage = Cr(this.memoryStorage)), r.userStorage && (this.userStorage = r.userStorage)) : (this.memoryStorage = {}, this.storage = Cr(this.memoryStorage)), R() && globalThis.BroadcastChannel && this.persistSession && this.storageKey) {
+            }, this.persistSession ? (r.storage ? this.storage = r.storage : Gn() ? this.storage = globalThis.localStorage : (this.memoryStorage = {}, this.storage = Sr(this.memoryStorage)), r.userStorage && (this.userStorage = r.userStorage)) : (this.memoryStorage = {}, this.storage = Sr(this.memoryStorage)), R() && globalThis.BroadcastChannel && this.persistSession && this.storageKey) {
                 try {
                     this.broadcastChannel = new globalThis.BroadcastChannel(this.storageKey);
                 } catch (e) {
@@ -5437,7 +5437,7 @@ Resources:`;
         }
         async signInAnonymously(e) {
             try {
-                let { data: t, error: n } = await K(this.fetch, `POST`, `${this.url}/signup`, {
+                let { data: t, error: n } = await q(this.fetch, `POST`, `${this.url}/signup`, {
                     headers: this.headers,
                     body: {
                         data: e?.options?.data ?? {},
@@ -5445,7 +5445,7 @@ Resources:`;
                             captcha_token: e?.options?.captchaToken
                         }
                     },
-                    xform: q
+                    xform: J
                 });
                 if (n || !t) return this._returnResult({
                     data: {
@@ -5478,7 +5478,7 @@ Resources:`;
                 let t;
                 if (`email` in e) {
                     let { email: n, password: r, options: i } = e, a = null, o = null;
-                    this.flowType === `pkce` && ([a, o] = await H(this.storage, this.storageKey)), t = await K(this.fetch, `POST`, `${this.url}/signup`, {
+                    this.flowType === `pkce` && ([a, o] = await U(this.storage, this.storageKey)), t = await q(this.fetch, `POST`, `${this.url}/signup`, {
                         headers: this.headers,
                         redirectTo: i?.emailRedirectTo,
                         body: {
@@ -5491,11 +5491,11 @@ Resources:`;
                             code_challenge: a,
                             code_challenge_method: o
                         },
-                        xform: q
+                        xform: J
                     });
                 } else if (`phone` in e) {
                     let { phone: n, password: r, options: i } = e;
-                    t = await K(this.fetch, `POST`, `${this.url}/signup`, {
+                    t = await q(this.fetch, `POST`, `${this.url}/signup`, {
                         headers: this.headers,
                         body: {
                             phone: n,
@@ -5506,11 +5506,11 @@ Resources:`;
                                 captcha_token: i?.captchaToken
                             }
                         },
-                        xform: q
+                        xform: J
                     });
                 } else throw new Sn(`You must provide either an email or phone number and a password`);
                 let { data: n, error: r } = t;
-                if (r || !n) return await V(this.storage, `${this.storageKey}-code-verifier`), this._returnResult({
+                if (r || !n) return await H(this.storage, `${this.storageKey}-code-verifier`), this._returnResult({
                     data: {
                         user: null,
                         session: null
@@ -5526,7 +5526,7 @@ Resources:`;
                     error: null
                 });
             } catch (e) {
-                if (await V(this.storage, `${this.storageKey}-code-verifier`), j(e)) return this._returnResult({
+                if (await H(this.storage, `${this.storageKey}-code-verifier`), j(e)) return this._returnResult({
                     data: {
                         user: null,
                         session: null
@@ -5541,7 +5541,7 @@ Resources:`;
                 let t;
                 if (`email` in e) {
                     let { email: n, password: r, options: i } = e;
-                    t = await K(this.fetch, `POST`, `${this.url}/token?grant_type=password`, {
+                    t = await q(this.fetch, `POST`, `${this.url}/token?grant_type=password`, {
                         headers: this.headers,
                         body: {
                             email: n,
@@ -5550,11 +5550,11 @@ Resources:`;
                                 captcha_token: i?.captchaToken
                             }
                         },
-                        xform: gr
+                        xform: hr
                     });
                 } else if (`phone` in e) {
                     let { phone: n, password: r, options: i } = e;
-                    t = await K(this.fetch, `POST`, `${this.url}/token?grant_type=password`, {
+                    t = await q(this.fetch, `POST`, `${this.url}/token?grant_type=password`, {
                         headers: this.headers,
                         body: {
                             phone: n,
@@ -5563,7 +5563,7 @@ Resources:`;
                                 captcha_token: i?.captchaToken
                             }
                         },
-                        xform: gr
+                        xform: hr
                     });
                 } else throw new Sn(`You must provide either an email or phone number and a password`);
                 let { data: n, error: r } = t;
@@ -5646,10 +5646,10 @@ Resources:`;
                     throw Error(`@supabase/auth-js: Wallet method eth_requestAccounts is missing or invalid`);
                 });
                 if (!l || l.length === 0) throw Error(`@supabase/auth-js: No accounts available. Please ensure the wallet is connected.`);
-                let u = Er(l[0]), d = o?.signInWithEthereum?.chainId;
-                d ||= Dr(await s.request({
+                let u = Tr(l[0]), d = o?.signInWithEthereum?.chainId;
+                d ||= Er(await s.request({
                     method: `eth_chainId`
-                })), t = kr({
+                })), t = Or({
                     domain: c.host,
                     address: u,
                     statement: a,
@@ -5665,13 +5665,13 @@ Resources:`;
                 }), n = await s.request({
                     method: `personal_sign`,
                     params: [
-                        Or(t),
+                        Dr(t),
                         u
                     ]
                 });
             }
             try {
-                let { data: r, error: i } = await K(this.fetch, `POST`, `${this.url}/token?grant_type=web3`, {
+                let { data: r, error: i } = await q(this.fetch, `POST`, `${this.url}/token?grant_type=web3`, {
                     headers: this.headers,
                     body: Object.assign({
                         chain: `ethereum`,
@@ -5682,7 +5682,7 @@ Resources:`;
                             captcha_token: e.options?.captchaToken
                         }
                     } : null),
-                    xform: q
+                    xform: J
                 });
                 if (i) throw i;
                 if (!r || !r.session || !r.user) {
@@ -5782,7 +5782,7 @@ Resources:`;
                 }
             }
             try {
-                let { data: r, error: i } = await K(this.fetch, `POST`, `${this.url}/token?grant_type=web3`, {
+                let { data: r, error: i } = await q(this.fetch, `POST`, `${this.url}/token?grant_type=web3`, {
                     headers: this.headers,
                     body: Object.assign({
                         chain: `solana`,
@@ -5793,7 +5793,7 @@ Resources:`;
                             captcha_token: e.options?.captchaToken
                         }
                     } : null),
-                    xform: q
+                    xform: J
                 });
                 if (i) throw i;
                 if (!r || !r.session || !r.user) {
@@ -5822,18 +5822,18 @@ Resources:`;
             }
         }
         async _exchangeCodeForSession(e) {
-            let [t, n] = (await B(this.storage, `${this.storageKey}-code-verifier`) ?? ``).split(`/`);
+            let [t, n] = (await V(this.storage, `${this.storageKey}-code-verifier`) ?? ``).split(`/`);
             try {
                 if (!t && this.flowType === `pkce`) throw new En;
-                let { data: r, error: i } = await K(this.fetch, `POST`, `${this.url}/token?grant_type=pkce`, {
+                let { data: r, error: i } = await q(this.fetch, `POST`, `${this.url}/token?grant_type=pkce`, {
                     headers: this.headers,
                     body: {
                         auth_code: e,
                         code_verifier: t
                     },
-                    xform: q
+                    xform: J
                 });
-                if (await V(this.storage, `${this.storageKey}-code-verifier`), i) throw i;
+                if (await H(this.storage, `${this.storageKey}-code-verifier`), i) throw i;
                 if (!r || !r.session || !r.user) {
                     let e = new F;
                     return this._returnResult({
@@ -5852,7 +5852,7 @@ Resources:`;
                     error: i
                 });
             } catch (e) {
-                if (await V(this.storage, `${this.storageKey}-code-verifier`), j(e)) return this._returnResult({
+                if (await H(this.storage, `${this.storageKey}-code-verifier`), j(e)) return this._returnResult({
                     data: {
                         user: null,
                         session: null,
@@ -5865,7 +5865,7 @@ Resources:`;
         }
         async signInWithIdToken(e) {
             try {
-                let { options: t, provider: n, token: r, access_token: i, nonce: a } = e, { data: o, error: s } = await K(this.fetch, `POST`, `${this.url}/token?grant_type=id_token`, {
+                let { options: t, provider: n, token: r, access_token: i, nonce: a } = e, { data: o, error: s } = await q(this.fetch, `POST`, `${this.url}/token?grant_type=id_token`, {
                     headers: this.headers,
                     body: {
                         provider: n,
@@ -5876,7 +5876,7 @@ Resources:`;
                             captcha_token: t?.captchaToken
                         }
                     },
-                    xform: q
+                    xform: J
                 });
                 if (s) return this._returnResult({
                     data: {
@@ -5914,8 +5914,8 @@ Resources:`;
             try {
                 if (`email` in e) {
                     let { email: t, options: n } = e, r = null, i = null;
-                    this.flowType === `pkce` && ([r, i] = await H(this.storage, this.storageKey));
-                    let { error: a } = await K(this.fetch, `POST`, `${this.url}/otp`, {
+                    this.flowType === `pkce` && ([r, i] = await U(this.storage, this.storageKey));
+                    let { error: a } = await q(this.fetch, `POST`, `${this.url}/otp`, {
                         headers: this.headers,
                         body: {
                             email: t,
@@ -5938,7 +5938,7 @@ Resources:`;
                     });
                 }
                 if (`phone` in e) {
-                    let { phone: t, options: n } = e, { data: r, error: i } = await K(this.fetch, `POST`, `${this.url}/otp`, {
+                    let { phone: t, options: n } = e, { data: r, error: i } = await q(this.fetch, `POST`, `${this.url}/otp`, {
                         headers: this.headers,
                         body: {
                             phone: t,
@@ -5961,7 +5961,7 @@ Resources:`;
                 }
                 throw new Sn(`You must provide either an email or phone number.`);
             } catch (e) {
-                if (await V(this.storage, `${this.storageKey}-code-verifier`), j(e)) return this._returnResult({
+                if (await H(this.storage, `${this.storageKey}-code-verifier`), j(e)) return this._returnResult({
                     data: {
                         user: null,
                         session: null
@@ -5975,7 +5975,7 @@ Resources:`;
             try {
                 let t, n;
                 `options` in e && (t = e.options?.redirectTo, n = e.options?.captchaToken);
-                let { data: r, error: i } = await K(this.fetch, `POST`, `${this.url}/verify`, {
+                let { data: r, error: i } = await q(this.fetch, `POST`, `${this.url}/verify`, {
                     headers: this.headers,
                     body: Object.assign(Object.assign({}, e), {
                         gotrue_meta_security: {
@@ -5983,7 +5983,7 @@ Resources:`;
                         }
                     }),
                     redirectTo: t,
-                    xform: q
+                    xform: J
                 });
                 if (i) throw i;
                 if (!r) throw Error(`An error occurred on token verification.`);
@@ -6009,8 +6009,8 @@ Resources:`;
         async signInWithSSO(e) {
             try {
                 let t = null, n = null;
-                this.flowType === `pkce` && ([t, n] = await H(this.storage, this.storageKey));
-                let r = await K(this.fetch, `POST`, `${this.url}/sso`, {
+                this.flowType === `pkce` && ([t, n] = await U(this.storage, this.storageKey));
+                let r = await q(this.fetch, `POST`, `${this.url}/sso`, {
                     body: Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, `providerId` in e ? {
                         provider_id: e.providerId
                     } : null), `domain` in e ? {
@@ -6027,11 +6027,11 @@ Resources:`;
                         code_challenge_method: n
                     }),
                     headers: this.headers,
-                    xform: _r
+                    xform: gr
                 });
                 return r.data?.url && R() && !e.options?.skipBrowserRedirect && window.location.assign(r.data.url), this._returnResult(r);
             } catch (e) {
-                if (await V(this.storage, `${this.storageKey}-code-verifier`), j(e)) return this._returnResult({
+                if (await H(this.storage, `${this.storageKey}-code-verifier`), j(e)) return this._returnResult({
                     data: null,
                     error: e
                 });
@@ -6047,7 +6047,7 @@ Resources:`;
                     let { data: { session: t }, error: n } = e;
                     if (n) throw n;
                     if (!t) throw new P;
-                    let { error: r } = await K(this.fetch, `GET`, `${this.url}/reauthenticate`, {
+                    let { error: r } = await q(this.fetch, `GET`, `${this.url}/reauthenticate`, {
                         headers: this.headers,
                         jwt: t.access_token
                     });
@@ -6075,8 +6075,8 @@ Resources:`;
                 let t = `${this.url}/resend`;
                 if (`email` in e) {
                     let { email: n, type: r, options: i } = e, a = null, o = null;
-                    this.flowType === `pkce` && ([a, o] = await H(this.storage, this.storageKey));
-                    let { error: s } = await K(this.fetch, `POST`, t, {
+                    this.flowType === `pkce` && ([a, o] = await U(this.storage, this.storageKey));
+                    let { error: s } = await q(this.fetch, `POST`, t, {
                         headers: this.headers,
                         body: {
                             email: n,
@@ -6089,7 +6089,7 @@ Resources:`;
                         },
                         redirectTo: i?.emailRedirectTo
                     });
-                    return s && await V(this.storage, `${this.storageKey}-code-verifier`), this._returnResult({
+                    return s && await H(this.storage, `${this.storageKey}-code-verifier`), this._returnResult({
                         data: {
                             user: null,
                             session: null
@@ -6097,7 +6097,7 @@ Resources:`;
                         error: s
                     });
                 } else if (`phone` in e) {
-                    let { phone: n, type: r, options: i } = e, { data: a, error: o } = await K(this.fetch, `POST`, t, {
+                    let { phone: n, type: r, options: i } = e, { data: a, error: o } = await q(this.fetch, `POST`, t, {
                         headers: this.headers,
                         body: {
                             phone: n,
@@ -6118,7 +6118,7 @@ Resources:`;
                 }
                 throw new Sn(`You must provide either an email or phone number and a type`);
             } catch (e) {
-                if (await V(this.storage, `${this.storageKey}-code-verifier`), j(e)) return this._returnResult({
+                if (await H(this.storage, `${this.storageKey}-code-verifier`), j(e)) return this._returnResult({
                     data: {
                         user: null,
                         session: null
@@ -6177,7 +6177,7 @@ Resources:`;
         async __loadSession() {
             this._debug(`#__loadSession()`, `begin`), this.lock != null && !this.lockAcquired && this._debug(`#__loadSession()`, `used outside of an acquired lock!`, Error().stack);
             try {
-                let e = null, t = await B(this.storage, this.storageKey);
+                let e = null, t = await V(this.storage, this.storageKey);
                 if (this._debug(`#getSession()`, `session from storage`, t), t !== null && (this._isValidSession(t) ? e = t : (this._debug(`#getSession()`, `session from storage is not valid`), await this._removeSession())), !e) return {
                     data: {
                         session: null
@@ -6187,14 +6187,14 @@ Resources:`;
                 let n = e.expires_at ? e.expires_at * 1e3 - Date.now() < dn : !1;
                 if (this._debug(`#__loadSession()`, `session has${n ? `` : ` not`} expired`, `expires_at`, e.expires_at), !n) {
                     if (this.userStorage) {
-                        let t = await B(this.userStorage, this.storageKey + `-user`);
-                        t?.user ? e.user = t.user : e.user = lr();
+                        let t = await V(this.userStorage, this.storageKey + `-user`);
+                        t?.user ? e.user = t.user : e.user = cr();
                     }
                     if (this.storage.isServer && e.user && !e.user.__isUserNotAvailableProxy) {
                         let t = {
                             value: this.suppressGetSessionWarning
                         };
-                        e.user = ur(e.user, t), t.value && (this.suppressGetSessionWarning = !0);
+                        e.user = lr(e.user, t), t.value && (this.suppressGetSessionWarning = !0);
                     }
                     return {
                         data: {
@@ -6227,10 +6227,10 @@ Resources:`;
         }
         async _getUser(e) {
             try {
-                return e ? await K(this.fetch, `GET`, `${this.url}/user`, {
+                return e ? await q(this.fetch, `GET`, `${this.url}/user`, {
                     headers: this.headers,
                     jwt: e,
-                    xform: J
+                    xform: Y
                 }) : await this._useSession(async (e)=>{
                     let { data: t, error: n } = e;
                     if (n) throw n;
@@ -6239,14 +6239,14 @@ Resources:`;
                             user: null
                         },
                         error: new P
-                    } : await K(this.fetch, `GET`, `${this.url}/user`, {
+                    } : await q(this.fetch, `GET`, `${this.url}/user`, {
                         headers: this.headers,
                         jwt: t.session?.access_token ?? void 0,
-                        xform: J
+                        xform: Y
                     });
                 });
             } catch (e) {
-                if (j(e)) return xn(e) && (await this._removeSession(), await V(this.storage, `${this.storageKey}-code-verifier`)), this._returnResult({
+                if (j(e)) return xn(e) && (await this._removeSession(), await H(this.storage, `${this.storageKey}-code-verifier`)), this._returnResult({
                     data: {
                         user: null
                     },
@@ -6265,8 +6265,8 @@ Resources:`;
                     if (i) throw i;
                     if (!r.session) throw new P;
                     let a = r.session, o = null, s = null;
-                    this.flowType === `pkce` && e.email != null && ([o, s] = await H(this.storage, this.storageKey));
-                    let { data: c, error: l } = await K(this.fetch, `PUT`, `${this.url}/user`, {
+                    this.flowType === `pkce` && e.email != null && ([o, s] = await U(this.storage, this.storageKey));
+                    let { data: c, error: l } = await q(this.fetch, `PUT`, `${this.url}/user`, {
                         headers: this.headers,
                         redirectTo: t?.emailRedirectTo,
                         body: Object.assign(Object.assign({}, e), {
@@ -6274,7 +6274,7 @@ Resources:`;
                             code_challenge_method: s
                         }),
                         jwt: a.access_token,
-                        xform: J
+                        xform: Y
                     });
                     if (l) throw l;
                     return a.user = c.user, await this._saveSession(a), await this._notifyAllSubscribers(`USER_UPDATED`, a), this._returnResult({
@@ -6285,7 +6285,7 @@ Resources:`;
                     });
                 });
             } catch (e) {
-                if (await V(this.storage, `${this.storageKey}-code-verifier`), j(e)) return this._returnResult({
+                if (await H(this.storage, `${this.storageKey}-code-verifier`), j(e)) return this._returnResult({
                     data: {
                         user: null
                     },
@@ -6300,7 +6300,7 @@ Resources:`;
         async _setSession(e) {
             try {
                 if (!e.access_token || !e.refresh_token) throw new P;
-                let t = Date.now() / 1e3, n = t, r = !0, i = null, { payload: a } = Zn(e.access_token);
+                let t = Date.now() / 1e3, n = t, r = !0, i = null, { payload: a } = Xn(e.access_token);
                 if (a.exp && (n = a.exp, r = n <= t), r) {
                     let { data: t, error: n } = await this._callRefreshToken(e.refresh_token);
                     if (n) return this._returnResult({
@@ -6469,7 +6469,7 @@ Resources:`;
             return typeof this.detectSessionInUrl == `function` ? this.detectSessionInUrl(new URL(window.location.href), e) : !!(e.access_token || e.error || e.error_description || e.error_code);
         }
         async _isPKCECallback(e) {
-            let t = await B(this.storage, `${this.storageKey}-code-verifier`);
+            let t = await V(this.storage, `${this.storageKey}-code-verifier`);
             return !!(e.code && t);
         }
         async signOut(e = {
@@ -6492,7 +6492,7 @@ Resources:`;
                         error: t
                     });
                 }
-                return e !== `others` && (await this._removeSession(), await V(this.storage, `${this.storageKey}-code-verifier`)), this._returnResult({
+                return e !== `others` && (await this._removeSession(), await H(this.storage, `${this.storageKey}-code-verifier`)), this._returnResult({
                     error: null
                 });
             });
@@ -6528,9 +6528,9 @@ Resources:`;
         }
         async resetPasswordForEmail(e, t = {}) {
             let n = null, r = null;
-            this.flowType === `pkce` && ([n, r] = await H(this.storage, this.storageKey, !0));
+            this.flowType === `pkce` && ([n, r] = await U(this.storage, this.storageKey, !0));
             try {
-                return await K(this.fetch, `POST`, `${this.url}/recover`, {
+                return await q(this.fetch, `POST`, `${this.url}/recover`, {
                     body: {
                         email: e,
                         code_challenge: n,
@@ -6543,7 +6543,7 @@ Resources:`;
                     redirectTo: t.redirectTo
                 });
             } catch (e) {
-                if (await V(this.storage, `${this.storageKey}-code-verifier`), j(e)) return this._returnResult({
+                if (await H(this.storage, `${this.storageKey}-code-verifier`), j(e)) return this._returnResult({
                     data: null,
                     error: e
                 });
@@ -6582,7 +6582,7 @@ Resources:`;
                         queryParams: e.options?.queryParams,
                         skipBrowserRedirect: !0
                     });
-                    return await K(this.fetch, `GET`, i, {
+                    return await q(this.fetch, `GET`, i, {
                         headers: this.headers,
                         jwt: n.session?.access_token ?? void 0
                     });
@@ -6611,7 +6611,7 @@ Resources:`;
                 try {
                     let { error: n, data: { session: r } } = t;
                     if (n) throw n;
-                    let { options: i, provider: a, token: o, access_token: s, nonce: c } = e, { data: l, error: u } = await K(this.fetch, `POST`, `${this.url}/token?grant_type=id_token`, {
+                    let { options: i, provider: a, token: o, access_token: s, nonce: c } = e, { data: l, error: u } = await q(this.fetch, `POST`, `${this.url}/token?grant_type=id_token`, {
                         headers: this.headers,
                         jwt: r?.access_token ?? void 0,
                         body: {
@@ -6624,7 +6624,7 @@ Resources:`;
                                 captcha_token: i?.captchaToken
                             }
                         },
-                        xform: q
+                        xform: J
                     });
                     return u ? this._returnResult({
                         data: {
@@ -6643,7 +6643,7 @@ Resources:`;
                         error: u
                     }));
                 } catch (e) {
-                    if (await V(this.storage, `${this.storageKey}-code-verifier`), j(e)) return this._returnResult({
+                    if (await H(this.storage, `${this.storageKey}-code-verifier`), j(e)) return this._returnResult({
                         data: {
                             user: null,
                             session: null
@@ -6659,7 +6659,7 @@ Resources:`;
                 return await this._useSession(async (t)=>{
                     let { data: n, error: r } = t;
                     if (r) throw r;
-                    return await K(this.fetch, `DELETE`, `${this.url}/user/identities/${e.identity_id}`, {
+                    return await q(this.fetch, `DELETE`, `${this.url}/user/identities/${e.identity_id}`, {
                         headers: this.headers,
                         jwt: n.session?.access_token ?? void 0
                     });
@@ -6677,12 +6677,12 @@ Resources:`;
             this._debug(t, `begin`);
             try {
                 let n = Date.now();
-                return await $n(async (n)=>(n > 0 && await Qn(200 * 2 ** (n - 1)), this._debug(t, `refreshing attempt`, n), await K(this.fetch, `POST`, `${this.url}/token?grant_type=refresh_token`, {
+                return await Qn(async (n)=>(n > 0 && await Zn(200 * 2 ** (n - 1)), this._debug(t, `refreshing attempt`, n), await q(this.fetch, `POST`, `${this.url}/token?grant_type=refresh_token`, {
                         body: {
                             refresh_token: e
                         },
                         headers: this.headers,
-                        xform: q
+                        xform: J
                     })), (e, t)=>{
                     let r = 200 * 2 ** e;
                     return t && On(t) && Date.now() + r - n < 3e4;
@@ -6721,15 +6721,15 @@ Resources:`;
             let e = `#_recoverAndRefresh()`;
             this._debug(e, `begin`);
             try {
-                let t = await B(this.storage, this.storageKey);
+                let t = await V(this.storage, this.storageKey);
                 if (t && this.userStorage) {
-                    let e = await B(this.userStorage, this.storageKey + `-user`);
+                    let e = await V(this.userStorage, this.storageKey + `-user`);
                     !this.storage.isServer && Object.is(this.storage, this.userStorage) && !e && (e = {
                         user: t.user
-                    }, await Yn(this.userStorage, this.storageKey + `-user`, e)), t.user = e?.user ?? lr();
+                    }, await B(this.userStorage, this.storageKey + `-user`, e)), t.user = e?.user ?? cr();
                 } else if (t && !t.user && !t.user) {
-                    let e = await B(this.storage, this.storageKey + `-user`);
-                    e && e?.user ? (t.user = e.user, await V(this.storage, this.storageKey + `-user`), await Yn(this.storage, this.storageKey, t)) : t.user = lr();
+                    let e = await V(this.storage, this.storageKey + `-user`);
+                    e && e?.user ? (t.user = e.user, await H(this.storage, this.storageKey + `-user`), await B(this.storage, this.storageKey, t)) : t.user = cr();
                 }
                 if (this._debug(e, `session from storage`, t), !this._isValidSession(t)) {
                     this._debug(e, `session is not valid`), t !== null && await this._removeSession();
@@ -6762,11 +6762,11 @@ Resources:`;
             let r = `#_callRefreshToken()`;
             this._debug(r, `begin`);
             try {
-                this.refreshingDeferred = new Xn;
-                let t = await B(this.storage, this.storageKey), { data: n, error: i } = await this._refreshAccessToken(e);
+                this.refreshingDeferred = new Yn;
+                let t = await V(this.storage, this.storageKey), { data: n, error: i } = await this._refreshAccessToken(e);
                 if (i) throw i;
                 if (!n.session) throw new P;
-                let a = await B(this.storage, this.storageKey);
+                let a = await V(this.storage, this.storageKey);
                 if (t !== null && (a === null || a.refresh_token !== t.refresh_token)) {
                     this._debug(r, `commit guard: storage changed since refresh started, discarding rotated tokens`, {
                         startedWith: `present`,
@@ -6780,7 +6780,7 @@ Resources:`;
                 }
                 let o = this._sessionRemovalEpoch;
                 if (await this._saveSession(n.session), this._sessionRemovalEpoch !== o) {
-                    this._debug(r, `commit guard (post-save): _removeSession ran during _saveSession, undoing write`), await V(this.storage, this.storageKey), this.userStorage && await V(this.userStorage, this.storageKey + `-user`);
+                    this._debug(r, `commit guard (post-save): _removeSession ran during _saveSession, undoing write`), await H(this.storage, this.storageKey), this.userStorage && await H(this.userStorage, this.storageKey + `-user`);
                     let e = {
                         data: null,
                         error: new kn
@@ -6830,23 +6830,23 @@ Resources:`;
             }
         }
         async _saveSession(e) {
-            this._debug(`#_saveSession()`, e), this.suppressGetSessionWarning = !0, await V(this.storage, `${this.storageKey}-code-verifier`);
+            this._debug(`#_saveSession()`, e), this.suppressGetSessionWarning = !0, await H(this.storage, `${this.storageKey}-code-verifier`);
             let t = Object.assign({}, e), n = t.user && t.user.__isUserNotAvailableProxy === !0;
             if (this.userStorage) {
-                !n && t.user && await Yn(this.userStorage, this.storageKey + `-user`, {
+                !n && t.user && await B(this.userStorage, this.storageKey + `-user`, {
                     user: t.user
                 });
                 let e = Object.assign({}, t);
                 delete e.user;
-                let r = dr(e);
-                await Yn(this.storage, this.storageKey, r);
+                let r = ur(e);
+                await B(this.storage, this.storageKey, r);
             } else {
-                let e = dr(t);
-                await Yn(this.storage, this.storageKey, e);
+                let e = ur(t);
+                await B(this.storage, this.storageKey, e);
             }
         }
         async _removeSession() {
-            this._sessionRemovalEpoch += 1, this._debug(`#_removeSession()`), this.suppressGetSessionWarning = !1, await V(this.storage, this.storageKey), await V(this.storage, this.storageKey + `-code-verifier`), await V(this.storage, this.storageKey + `-user`), this.userStorage && await V(this.userStorage, this.storageKey + `-user`), await this._notifyAllSubscribers(`SIGNED_OUT`, null);
+            this._sessionRemovalEpoch += 1, this._debug(`#_removeSession()`), this.suppressGetSessionWarning = !1, await H(this.storage, this.storageKey), await H(this.storage, this.storageKey + `-code-verifier`), await H(this.storage, this.storageKey + `-user`), this.userStorage && await H(this.userStorage, this.storageKey + `-user`), await this._notifyAllSubscribers(`SIGNED_OUT`, null);
         }
         _removeVisibilityChangedCallback() {
             this._debug(`#_removeVisibilityChangedCallback()`);
@@ -6908,7 +6908,7 @@ Resources:`;
                         }
                     });
                 } catch (e) {
-                    if (e instanceof wr) this._debug(`auto refresh token tick lock not available`);
+                    if (e instanceof Cr) this._debug(`auto refresh token tick lock not available`);
                     else throw e;
                 }
                 return;
@@ -6974,7 +6974,7 @@ Resources:`;
                 `provider=${encodeURIComponent(t)}`
             ];
             if (n?.redirectTo && r.push(`redirect_to=${encodeURIComponent(n.redirectTo)}`), n?.scopes && r.push(`scopes=${encodeURIComponent(n.scopes)}`), this.flowType === `pkce`) {
-                let [e, t] = await H(this.storage, this.storageKey), n = new URLSearchParams({
+                let [e, t] = await U(this.storage, this.storageKey), n = new URLSearchParams({
                     code_challenge: `${encodeURIComponent(e)}`,
                     code_challenge_method: `${encodeURIComponent(t)}`
                 });
@@ -6993,7 +6993,7 @@ Resources:`;
                     return r ? this._returnResult({
                         data: null,
                         error: r
-                    }) : await K(this.fetch, `DELETE`, `${this.url}/factors/${e.factorId}`, {
+                    }) : await q(this.fetch, `DELETE`, `${this.url}/factors/${e.factorId}`, {
                         headers: this.headers,
                         jwt: n?.session?.access_token
                     });
@@ -7021,7 +7021,7 @@ Resources:`;
                         phone: e.phone
                     } : e.factorType === `totp` ? {
                         issuer: e.issuer
-                    } : {}), { data: a, error: o } = await K(this.fetch, `POST`, `${this.url}/factors`, {
+                    } : {}), { data: a, error: o } = await q(this.fetch, `POST`, `${this.url}/factors`, {
                         body: i,
                         headers: this.headers,
                         jwt: n?.session?.access_token
@@ -7055,11 +7055,11 @@ Resources:`;
                             challenge_id: e.challengeId
                         }, `webauthn` in e ? {
                             webauthn: Object.assign(Object.assign({}, e.webauthn), {
-                                credential_response: e.webauthn.type === `create` ? Ir(e.webauthn.credential_response) : Lr(e.webauthn.credential_response)
+                                credential_response: e.webauthn.type === `create` ? Fr(e.webauthn.credential_response) : Ir(e.webauthn.credential_response)
                             })
                         } : {
                             code: e.code
-                        }), { data: a, error: o } = await K(this.fetch, `POST`, `${this.url}/factors/${e.factorId}/verify`, {
+                        }), { data: a, error: o } = await q(this.fetch, `POST`, `${this.url}/factors/${e.factorId}/verify`, {
                             body: i,
                             headers: this.headers,
                             jwt: n?.session?.access_token
@@ -7093,7 +7093,7 @@ Resources:`;
                             data: null,
                             error: r
                         });
-                        let i = await K(this.fetch, `POST`, `${this.url}/factors/${e.factorId}/challenge`, {
+                        let i = await q(this.fetch, `POST`, `${this.url}/factors/${e.factorId}/challenge`, {
                             body: e,
                             headers: this.headers,
                             jwt: n?.session?.access_token
@@ -7110,7 +7110,7 @@ Resources:`;
                                     data: Object.assign(Object.assign({}, a), {
                                         webauthn: Object.assign(Object.assign({}, a.webauthn), {
                                             credential_options: Object.assign(Object.assign({}, a.webauthn.credential_options), {
-                                                publicKey: Pr(a.webauthn.credential_options.publicKey)
+                                                publicKey: Nr(a.webauthn.credential_options.publicKey)
                                             })
                                         })
                                     }),
@@ -7121,7 +7121,7 @@ Resources:`;
                                     data: Object.assign(Object.assign({}, a), {
                                         webauthn: Object.assign(Object.assign({}, a.webauthn), {
                                             credential_options: Object.assign(Object.assign({}, a.webauthn.credential_options), {
-                                                publicKey: Fr(a.webauthn.credential_options.publicKey)
+                                                publicKey: Pr(a.webauthn.credential_options.publicKey)
                                             })
                                         })
                                     }),
@@ -7172,7 +7172,7 @@ Resources:`;
         }
         async _getAuthenticatorAssuranceLevel(e) {
             if (e) try {
-                let { payload: t } = Zn(e), n = null;
+                let { payload: t } = Xn(e), n = null;
                 t.aal && (n = t.aal);
                 let r = n, { data: { user: i }, error: a } = await this.getUser(e);
                 if (a) return this._returnResult({
@@ -7209,7 +7209,7 @@ Resources:`;
                 },
                 error: null
             };
-            let { payload: r } = Zn(t.access_token), i = null;
+            let { payload: r } = Xn(t.access_token), i = null;
             r.aal && (i = r.aal);
             let a = i;
             (t.user.factors?.filter((e)=>e.status === `verified`) ?? []).length > 0 && (a = `aal2`);
@@ -7230,7 +7230,7 @@ Resources:`;
                     return r ? this._returnResult({
                         data: null,
                         error: r
-                    }) : n ? await K(this.fetch, `GET`, `${this.url}/oauth/authorizations/${e}`, {
+                    }) : n ? await q(this.fetch, `GET`, `${this.url}/oauth/authorizations/${e}`, {
                         headers: this.headers,
                         jwt: n.access_token,
                         xform: (e)=>({
@@ -7262,7 +7262,7 @@ Resources:`;
                         data: null,
                         error: new P
                     });
-                    let a = await K(this.fetch, `POST`, `${this.url}/oauth/authorizations/${e}/consent`, {
+                    let a = await q(this.fetch, `POST`, `${this.url}/oauth/authorizations/${e}/consent`, {
                         headers: this.headers,
                         jwt: r.access_token,
                         body: {
@@ -7295,7 +7295,7 @@ Resources:`;
                         data: null,
                         error: new P
                     });
-                    let a = await K(this.fetch, `POST`, `${this.url}/oauth/authorizations/${e}/consent`, {
+                    let a = await q(this.fetch, `POST`, `${this.url}/oauth/authorizations/${e}/consent`, {
                         headers: this.headers,
                         jwt: r.access_token,
                         body: {
@@ -7323,7 +7323,7 @@ Resources:`;
                     return n ? this._returnResult({
                         data: null,
                         error: n
-                    }) : t ? await K(this.fetch, `GET`, `${this.url}/user/oauth/grants`, {
+                    }) : t ? await q(this.fetch, `GET`, `${this.url}/user/oauth/grants`, {
                         headers: this.headers,
                         jwt: t.access_token,
                         xform: (e)=>({
@@ -7350,7 +7350,7 @@ Resources:`;
                     return r ? this._returnResult({
                         data: null,
                         error: r
-                    }) : n ? (await K(this.fetch, `DELETE`, `${this.url}/user/oauth/grants`, {
+                    }) : n ? (await q(this.fetch, `DELETE`, `${this.url}/user/oauth/grants`, {
                         headers: this.headers,
                         jwt: n.access_token,
                         query: {
@@ -7380,7 +7380,7 @@ Resources:`;
             if (n) return n;
             let r = Date.now();
             if (n = this.jwks.keys.find((t)=>t.kid === e), n && this.jwks_cached_at + 6e5 > r) return n;
-            let { data: i, error: a } = await K(this.fetch, `GET`, `${this.url}/.well-known/jwks.json`, {
+            let { data: i, error: a } = await q(this.fetch, `GET`, `${this.url}/.well-known/jwks.json`, {
                 headers: this.headers
             });
             if (a) throw a;
@@ -7397,9 +7397,9 @@ Resources:`;
                     });
                     n = e.session.access_token;
                 }
-                let { header: r, payload: i, signature: a, raw: { header: o, payload: s } } = Zn(n);
+                let { header: r, payload: i, signature: a, raw: { header: o, payload: s } } = Xn(n);
                 if (!t?.allowExpired) try {
-                    or(i.exp);
+                    ar(i.exp);
                 } catch (e) {
                     throw new Mn(e instanceof Error ? e.message : `JWT validation failed`);
                 }
@@ -7418,7 +7418,7 @@ Resources:`;
                         error: null
                     };
                 }
-                let l = sr(r.alg), u = await crypto.subtle.importKey(`jwk`, c, l, !0, [
+                let l = or(r.alg), u = await crypto.subtle.importKey(`jwk`, c, l, !0, [
                     `verify`
                 ]);
                 if (!await crypto.subtle.verify(l, u, a, Hn(`${o}.${s}`))) throw new Mn(`Invalid JWT signature`);
@@ -7439,9 +7439,9 @@ Resources:`;
             }
         }
         async signInWithPasskey(e) {
-            W(this.experimental);
+            G(this.experimental);
             try {
-                if (!zr()) return this._returnResult({
+                if (!Rr()) return this._returnResult({
                     data: null,
                     error: new M(`Browser does not support WebAuthn`, null)
                 });
@@ -7454,15 +7454,15 @@ Resources:`;
                     data: null,
                     error: n
                 });
-                let { data: r, error: i } = await Vr({
-                    publicKey: Fr(t.options),
-                    signal: e?.options?.signal ?? Nr.createNewAbortSignal()
+                let { data: r, error: i } = await Br({
+                    publicKey: Pr(t.options),
+                    signal: e?.options?.signal ?? Mr.createNewAbortSignal()
                 });
                 if (i || !r) return this._returnResult({
                     data: null,
                     error: i ?? new M(`WebAuthn ceremony failed`, null)
                 });
-                let a = Lr(r);
+                let a = Ir(r);
                 return this._verifyPasskeyAuthentication({
                     challengeId: t.challenge_id,
                     credential: a
@@ -7476,9 +7476,9 @@ Resources:`;
             }
         }
         async registerPasskey(e) {
-            W(this.experimental);
+            G(this.experimental);
             try {
-                if (!zr()) return this._returnResult({
+                if (!Rr()) return this._returnResult({
                     data: null,
                     error: new M(`Browser does not support WebAuthn`, null)
                 });
@@ -7487,15 +7487,15 @@ Resources:`;
                     data: null,
                     error: n
                 });
-                let { data: r, error: i } = await Br({
-                    publicKey: Pr(t.options),
-                    signal: e?.options?.signal ?? Nr.createNewAbortSignal()
+                let { data: r, error: i } = await zr({
+                    publicKey: Nr(t.options),
+                    signal: e?.options?.signal ?? Mr.createNewAbortSignal()
                 });
                 if (i || !r) return this._returnResult({
                     data: null,
                     error: i ?? new M(`WebAuthn ceremony failed`, null)
                 });
-                let a = Ir(r);
+                let a = Fr(r);
                 return this._verifyPasskeyRegistration({
                     challengeId: t.challenge_id,
                     credential: a
@@ -7509,7 +7509,7 @@ Resources:`;
             }
         }
         async _startPasskeyRegistration() {
-            W(this.experimental);
+            G(this.experimental);
             try {
                 return await this._useSession(async (e)=>{
                     let { data: { session: t }, error: n } = e;
@@ -7521,7 +7521,7 @@ Resources:`;
                         data: null,
                         error: new P
                     });
-                    let { data: r, error: i } = await K(this.fetch, `POST`, `${this.url}/passkeys/registration/options`, {
+                    let { data: r, error: i } = await q(this.fetch, `POST`, `${this.url}/passkeys/registration/options`, {
                         headers: this.headers,
                         jwt: t.access_token,
                         body: {}
@@ -7543,7 +7543,7 @@ Resources:`;
             }
         }
         async _verifyPasskeyRegistration(e) {
-            W(this.experimental);
+            G(this.experimental);
             try {
                 return await this._useSession(async (t)=>{
                     let { data: { session: n }, error: r } = t;
@@ -7555,7 +7555,7 @@ Resources:`;
                         data: null,
                         error: new P
                     });
-                    let { data: i, error: a } = await K(this.fetch, `POST`, `${this.url}/passkeys/registration/verify`, {
+                    let { data: i, error: a } = await q(this.fetch, `POST`, `${this.url}/passkeys/registration/verify`, {
                         headers: this.headers,
                         jwt: n.access_token,
                         body: {
@@ -7580,9 +7580,9 @@ Resources:`;
             }
         }
         async _startPasskeyAuthentication(e) {
-            W(this.experimental);
+            G(this.experimental);
             try {
-                let { data: t, error: n } = await K(this.fetch, `POST`, `${this.url}/passkeys/authentication/options`, {
+                let { data: t, error: n } = await q(this.fetch, `POST`, `${this.url}/passkeys/authentication/options`, {
                     headers: this.headers,
                     body: {
                         gotrue_meta_security: {
@@ -7606,15 +7606,15 @@ Resources:`;
             }
         }
         async _verifyPasskeyAuthentication(e) {
-            W(this.experimental);
+            G(this.experimental);
             try {
-                let { data: t, error: n } = await K(this.fetch, `POST`, `${this.url}/passkeys/authentication/verify`, {
+                let { data: t, error: n } = await q(this.fetch, `POST`, `${this.url}/passkeys/authentication/verify`, {
                     headers: this.headers,
                     body: {
                         challenge_id: e.challengeId,
                         credential: e.credential
                     },
-                    xform: q
+                    xform: J
                 });
                 return n ? this._returnResult({
                     data: null,
@@ -7632,7 +7632,7 @@ Resources:`;
             }
         }
         async _listPasskeys() {
-            W(this.experimental);
+            G(this.experimental);
             try {
                 return await this._useSession(async (e)=>{
                     let { data: { session: t }, error: n } = e;
@@ -7644,7 +7644,7 @@ Resources:`;
                         data: null,
                         error: new P
                     });
-                    let { data: r, error: i } = await K(this.fetch, `GET`, `${this.url}/passkeys`, {
+                    let { data: r, error: i } = await q(this.fetch, `GET`, `${this.url}/passkeys`, {
                         headers: this.headers,
                         jwt: t.access_token,
                         xform: (e)=>({
@@ -7669,7 +7669,7 @@ Resources:`;
             }
         }
         async _updatePasskey(e) {
-            W(this.experimental);
+            G(this.experimental);
             try {
                 return await this._useSession(async (t)=>{
                     let { data: { session: n }, error: r } = t;
@@ -7681,7 +7681,7 @@ Resources:`;
                         data: null,
                         error: new P
                     });
-                    let { data: i, error: a } = await K(this.fetch, `PATCH`, `${this.url}/passkeys/${e.passkeyId}`, {
+                    let { data: i, error: a } = await q(this.fetch, `PATCH`, `${this.url}/passkeys/${e.passkeyId}`, {
                         headers: this.headers,
                         jwt: n.access_token,
                         body: {
@@ -7705,7 +7705,7 @@ Resources:`;
             }
         }
         async _deletePasskey(e) {
-            W(this.experimental);
+            G(this.experimental);
             try {
                 return await this._useSession(async (t)=>{
                     let { data: { session: n }, error: r } = t;
@@ -7717,7 +7717,7 @@ Resources:`;
                         data: null,
                         error: new P
                     });
-                    let { error: i } = await K(this.fetch, `DELETE`, `${this.url}/passkeys/${e.passkeyId}`, {
+                    let { error: i } = await q(this.fetch, `DELETE`, `${this.url}/passkeys/${e.passkeyId}`, {
                         headers: this.headers,
                         jwt: n.access_token,
                         noResolveJson: !0
@@ -7739,15 +7739,15 @@ Resources:`;
             }
         }
     };
-    Xr.nextInstanceID = {};
-    let Zr, Qr, $r, ei, ni, ri, ii;
-    Zr = Xr;
-    Qr = `modulepreload`;
-    $r = function(e) {
+    Yr.nextInstanceID = {};
+    let Xr, Zr, Qr, $r, ti, ni, ri;
+    Xr = Yr;
+    Zr = `modulepreload`;
+    Qr = function(e) {
         return `/` + e;
     };
-    ei = {};
-    ti = function(e, t, n) {
+    $r = {};
+    ei = function(e, t, n) {
         let r = Promise.resolve();
         if (t && t.length > 0) {
             let e = document.getElementsByTagName(`link`), i = document.querySelector(`meta[property=csp-nonce]`), a = i?.nonce || i?.getAttribute(`nonce`);
@@ -7761,8 +7761,8 @@ Resources:`;
                         }))));
             }
             r = o(t.map((t)=>{
-                if (t = $r(t, n), t in ei) return;
-                ei[t] = !0;
+                if (t = Qr(t, n), t in $r) return;
+                $r[t] = !0;
                 let r = t.endsWith(`.css`), i = r ? `[rel="stylesheet"]` : ``;
                 if (n) for(let n = e.length - 1; n >= 0; n--){
                     let i = e[n];
@@ -7770,7 +7770,7 @@ Resources:`;
                 }
                 else if (document.querySelector(`link[href="${t}"]${i}`)) return;
                 let o = document.createElement(`link`);
-                if (o.rel = r ? `stylesheet` : Qr, r || (o.as = `script`), o.crossOrigin = ``, o.href = t, a && o.setAttribute(`nonce`, a), document.head.appendChild(o), r) return new Promise((e, n)=>{
+                if (o.rel = r ? `stylesheet` : Zr, r || (o.as = `script`), o.crossOrigin = ``, o.href = t, a && o.setAttribute(`nonce`, a), document.head.appendChild(o), r) return new Promise((e, n)=>{
                     o.addEventListener(`load`, e), o.addEventListener(`error`, ()=>n(Error(`Unable to preload CSS for ${t}`)));
                 });
             }));
@@ -7786,29 +7786,29 @@ Resources:`;
             return e().catch(i);
         });
     };
-    ni = `2.108.1`;
-    ri = ``;
-    typeof Deno < `u` ? (ri = `deno`, ii = Deno.version?.deno) : typeof document < `u` ? ri = `web` : typeof navigator < `u` && navigator.product === `ReactNative` ? ri = `react-native` : (ri = `node`, ii = typeof process < `u` ? process.version?.replace(/^v/, ``) : void 0);
-    var ai = [
-        `runtime=${ri}`
+    ti = `2.108.1`;
+    ni = ``;
+    typeof Deno < `u` ? (ni = `deno`, ri = Deno.version?.deno) : typeof document < `u` ? ni = `web` : typeof navigator < `u` && navigator.product === `ReactNative` ? ni = `react-native` : (ni = `node`, ri = typeof process < `u` ? process.version?.replace(/^v/, ``) : void 0);
+    var ii = [
+        `runtime=${ni}`
     ];
-    ii && ai.push(`runtime-version=${ii}`);
-    var oi = {
+    ri && ii.push(`runtime-version=${ri}`);
+    var ai = {
         headers: {
-            "X-Client-Info": `supabase-js/${ni}; ${ai.join(`; `)}`
+            "X-Client-Info": `supabase-js/${ti}; ${ii.join(`; `)}`
         }
-    }, si = {
+    }, oi = {
         schema: `public`
-    }, ci = {
+    }, si = {
         autoRefreshToken: !0,
         persistSession: !0,
         detectSessionInUrl: !0,
         flowType: `implicit`
-    }, li = {}, ui = {
+    }, ci = {}, li = {
         enabled: !1,
         respectSamplingDecision: !0
     };
-    function di(e, t, n, r) {
+    function ui(e, t, n, r) {
         function i(e) {
             return e instanceof n ? e : new n(function(t) {
                 t(e);
@@ -7835,17 +7835,17 @@ Resources:`;
             c((r = r.apply(e, t || [])).next());
         });
     }
-    var fi = null, pi = `@opentelemetry/api`;
-    function mi() {
-        return fi === null && (fi = ti(()=>import(pi).then(async (m)=>{
+    var di = null, fi = `@opentelemetry/api`;
+    function pi() {
+        return di === null && (di = ei(()=>import(fi).then(async (m)=>{
                 await m.__tla;
                 return m;
-            }), []).catch(()=>null)), fi;
+            }), []).catch(()=>null)), di;
     }
-    function hi() {
-        return di(this, void 0, void 0, function*() {
+    function mi() {
+        return ui(this, void 0, void 0, function*() {
             try {
-                let e = yield mi();
+                let e = yield pi();
                 if (!e || !e.propagation || !e.context) return null;
                 let t = {};
                 e.propagation.inject(e.context.active(), t);
@@ -7860,7 +7860,7 @@ Resources:`;
             }
         });
     }
-    function gi(e) {
+    function hi(e) {
         if (!e || typeof e != `string`) return null;
         let t = e.split(`-`);
         if (t.length !== 4) return null;
@@ -7875,7 +7875,7 @@ Resources:`;
             isSampled: (parseInt(a, 16) & 1) == 1
         };
     }
-    function _i(e, t) {
+    function gi(e, t) {
         if (!e || !t || t.length === 0) return !1;
         let n;
         if (e instanceof URL) n = e;
@@ -7886,7 +7886,7 @@ Resources:`;
         }
         for (let e of t)try {
             if (typeof e == `string`) {
-                if (vi(n.hostname, e)) return !0;
+                if (_i(n.hostname, e)) return !0;
             } else if (e instanceof RegExp) {
                 if (e.test(n.hostname)) return !0;
             } else if (typeof e == `function` && e(n)) return !0;
@@ -7895,7 +7895,7 @@ Resources:`;
         }
         return !1;
     }
-    function vi(e, t) {
+    function _i(e, t) {
         if (t === e) return !0;
         if (t.startsWith(`*.`)) {
             let n = t.slice(2);
@@ -7903,7 +7903,7 @@ Resources:`;
         }
         return !1;
     }
-    function yi(e) {
+    function vi(e) {
         let t = [];
         try {
             let n = new URL(e);
@@ -7911,37 +7911,37 @@ Resources:`;
         } catch  {}
         return t.push(`*.supabase.co`, `*.supabase.in`), t.push(`localhost`, `127.0.0.1`, `[::1]`), t;
     }
-    function bi(e) {
+    function yi(e) {
         "@babel/helpers - typeof";
-        return bi = typeof Symbol == `function` && typeof Symbol.iterator == `symbol` ? function(e) {
+        return yi = typeof Symbol == `function` && typeof Symbol.iterator == `symbol` ? function(e) {
             return typeof e;
         } : function(e) {
             return e && typeof Symbol == `function` && e.constructor === Symbol && e !== Symbol.prototype ? `symbol` : typeof e;
-        }, bi(e);
+        }, yi(e);
     }
-    function xi(e, t) {
-        if (bi(e) != `object` || !e) return e;
+    function bi(e, t) {
+        if (yi(e) != `object` || !e) return e;
         var n = e[Symbol.toPrimitive];
         if (n !== void 0) {
             var r = n.call(e, t || `default`);
-            if (bi(r) != `object`) return r;
+            if (yi(r) != `object`) return r;
             throw TypeError(`@@toPrimitive must return a primitive value.`);
         }
         return (t === `string` ? String : Number)(e);
     }
-    function Si(e) {
-        var t = xi(e, `string`);
-        return bi(t) == `symbol` ? t : t + ``;
+    function xi(e) {
+        var t = bi(e, `string`);
+        return yi(t) == `symbol` ? t : t + ``;
     }
-    function Ci(e, t, n) {
-        return (t = Si(t)) in e ? Object.defineProperty(e, t, {
+    function Si(e, t, n) {
+        return (t = xi(t)) in e ? Object.defineProperty(e, t, {
             value: n,
             enumerable: !0,
             configurable: !0,
             writable: !0
         }) : e[t] = n, e;
     }
-    function wi(e, t) {
+    function Ci(e, t) {
         var n = Object.keys(e);
         if (Object.getOwnPropertySymbols) {
             var r = Object.getOwnPropertySymbols(e);
@@ -7951,56 +7951,56 @@ Resources:`;
         }
         return n;
     }
-    function X(e) {
+    function Z(e) {
         for(var t = 1; t < arguments.length; t++){
             var n = arguments[t] == null ? {} : arguments[t];
-            t % 2 ? wi(Object(n), !0).forEach(function(t) {
-                Ci(e, t, n[t]);
-            }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(n)) : wi(Object(n)).forEach(function(t) {
+            t % 2 ? Ci(Object(n), !0).forEach(function(t) {
+                Si(e, t, n[t]);
+            }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(n)) : Ci(Object(n)).forEach(function(t) {
                 Object.defineProperty(e, t, Object.getOwnPropertyDescriptor(n, t));
             });
         }
         return e;
     }
-    var Ti = (e)=>e ? (...t)=>e(...t) : (...e)=>fetch(...e), Ei = ()=>Headers, Di = (e, t, n, r, i)=>{
-        let a = Ti(r), o = Ei(), s = i?.enabled === !0, c = i?.respectSamplingDecision !== !1, l = s ? yi(t) : null;
+    var wi = (e)=>e ? (...t)=>e(...t) : (...e)=>fetch(...e), Ti = ()=>Headers, Ei = (e, t, n, r, i)=>{
+        let a = wi(r), o = Ti(), s = i?.enabled === !0, c = i?.respectSamplingDecision !== !1, l = s ? vi(t) : null;
         return async (t, r)=>{
             let i = await n() ?? e, s = new o(r?.headers);
             if (s.has(`apikey`) || s.set(`apikey`, e), s.has(`Authorization`) || s.set(`Authorization`, `Bearer ${i}`), l) {
-                let e = await Oi(t, l, c);
+                let e = await Di(t, l, c);
                 e && (e.traceparent && !s.has(`traceparent`) && s.set(`traceparent`, e.traceparent), e.tracestate && !s.has(`tracestate`) && s.set(`tracestate`, e.tracestate), e.baggage && !s.has(`baggage`) && s.set(`baggage`, e.baggage));
             }
-            return a(t, X(X({}, r), {}, {
+            return a(t, Z(Z({}, r), {}, {
                 headers: s
             }));
         };
     };
-    async function Oi(e, t, n) {
-        if (!_i(typeof e == `string` || e instanceof URL ? e : e.url, t)) return null;
-        let r = await hi();
+    async function Di(e, t, n) {
+        if (!gi(typeof e == `string` || e instanceof URL ? e : e.url, t)) return null;
+        let r = await mi();
         if (!r || !r.traceparent) return null;
         if (n) {
-            let e = gi(r.traceparent);
+            let e = hi(r.traceparent);
             if (e && !e.isSampled) return null;
         }
         return r;
     }
-    function ki(e) {
+    function Oi(e) {
         return typeof e == `boolean` ? {
             enabled: e
         } : e;
     }
-    function Ai(e) {
+    function ki(e) {
         return e.endsWith(`/`) ? e : e + `/`;
     }
-    function ji(e, t) {
-        let { db: n, auth: r, realtime: i, global: a } = e, { db: o, auth: s, realtime: c, global: l } = t, u = ki(e.tracePropagation), d = ki(t.tracePropagation), f = {
-            db: X(X({}, o), n),
-            auth: X(X({}, s), r),
-            realtime: X(X({}, c), i),
+    function Ai(e, t) {
+        let { db: n, auth: r, realtime: i, global: a } = e, { db: o, auth: s, realtime: c, global: l } = t, u = Oi(e.tracePropagation), d = Oi(t.tracePropagation), f = {
+            db: Z(Z({}, o), n),
+            auth: Z(Z({}, s), r),
+            realtime: Z(Z({}, c), i),
             storage: {},
-            global: X(X(X({}, l), a), {}, {
-                headers: X(X({}, l?.headers ?? {}), a?.headers ?? {})
+            global: Z(Z(Z({}, l), a), {}, {
+                headers: Z(Z({}, l?.headers ?? {}), a?.headers ?? {})
             }),
             tracePropagation: {
                 enabled: u?.enabled ?? d?.enabled ?? !1,
@@ -8010,40 +8010,40 @@ Resources:`;
         };
         return e.accessToken ? f.accessToken = e.accessToken : delete f.accessToken, f;
     }
-    function Mi(e) {
+    function ji(e) {
         let t = e?.trim();
         if (!t) throw Error(`supabaseUrl is required.`);
         if (!t.match(/^https?:\/\//i)) throw Error(`Invalid supabaseUrl: Must be a valid HTTP or HTTPS URL.`);
         try {
-            return new URL(Ai(t));
+            return new URL(ki(t));
         } catch  {
             throw Error(`Invalid supabaseUrl: Provided URL is malformed.`);
         }
     }
-    var Ni = class extends Zr {
+    var Mi = class extends Xr {
         constructor(e){
             super(e);
         }
-    }, Pi = class {
+    }, Ni = class {
         constructor(e, t, n){
             this.supabaseUrl = e, this.supabaseKey = t;
-            let r = Mi(e);
+            let r = ji(e);
             if (!t) throw Error(`supabaseKey is required.`);
             this.realtimeUrl = new URL(`realtime/v1`, r), this.realtimeUrl.protocol = this.realtimeUrl.protocol.replace(`http`, `ws`), this.authUrl = new URL(`auth/v1`, r), this.storageUrl = new URL(`storage/v1`, r), this.functionsUrl = new URL(`functions/v1`, r);
             let i = `sb-${r.hostname.split(`.`)[0]}-auth-token`, a = {
-                db: si,
-                realtime: li,
-                auth: X(X({}, ci), {}, {
+                db: oi,
+                realtime: ci,
+                auth: Z(Z({}, si), {}, {
                     storageKey: i
                 }),
-                global: oi,
-                tracePropagation: ui
-            }, o = ji(n ?? {}, a);
+                global: ai,
+                tracePropagation: li
+            }, o = Ai(n ?? {}, a);
             this.settings = o, this.storageKey = o.auth.storageKey ?? ``, this.headers = o.global.headers ?? {}, o.accessToken ? (this.accessToken = o.accessToken, this.auth = new Proxy({}, {
                 get: (e, t)=>{
                     throw Error(`@supabase/supabase-js: Supabase Client is configured with the accessToken option, accessing supabase.auth.${String(t)} is not possible`);
                 }
-            })) : this.auth = this._initSupabaseAuthClient(o.auth ?? {}, this.headers, o.global.fetch), this.fetch = Di(t, e, this._getAccessToken.bind(this), o.global.fetch, o.tracePropagation), this.realtime = this._initRealtimeClient(X({
+            })) : this.auth = this._initSupabaseAuthClient(o.auth ?? {}, this.headers, o.global.fetch), this.fetch = Ei(t, e, this._getAccessToken.bind(this), o.global.fetch, o.tracePropagation), this.realtime = this._initRealtimeClient(Z({
                 headers: this.headers,
                 accessToken: this._getAccessToken.bind(this),
                 fetch: this.fetch
@@ -8099,9 +8099,9 @@ Resources:`;
                 Authorization: `Bearer ${this.supabaseKey}`,
                 apikey: `${this.supabaseKey}`
             };
-            return new Ni({
+            return new Mi({
                 url: this.authUrl.href,
-                headers: X(X({}, h), p),
+                headers: Z(Z({}, h), p),
                 storageKey: a,
                 autoRefreshToken: e,
                 persistSession: t,
@@ -8120,8 +8120,8 @@ Resources:`;
             });
         }
         _initRealtimeClient(e) {
-            return new ft(this.realtimeUrl.href, X(X({}, e), {}, {
-                params: X(X({}, {
+            return new ft(this.realtimeUrl.href, Z(Z({}, e), {}, {
+                params: Z(Z({}, {
                     apikey: this.supabaseKey
                 }), e?.params)
             }));
@@ -8134,8 +8134,8 @@ Resources:`;
         _handleTokenChanged(e, t, n) {
             (e === `TOKEN_REFRESHED` || e === `SIGNED_IN`) && this.changedAccessToken !== n ? (this.changedAccessToken = n, this.realtime.setAuth(n)) : e === `SIGNED_OUT` && (this.realtime.setAuth(), t == `STORAGE` && this.auth.signOut(), this.changedAccessToken = void 0);
         }
-    }, Fi = (e, t, n)=>new Pi(e, t, n);
-    function Ii() {
+    }, Pi = (e, t, n)=>new Ni(e, t, n);
+    function Fi() {
         if (typeof window < `u`) return !1;
         let e = globalThis.process;
         if (!e) return !1;
@@ -8144,8 +8144,9 @@ Resources:`;
         let n = t.match(/^v(\d+)\./);
         return n ? parseInt(n[1], 10) <= 18 : !1;
     }
-    Ii() && console.warn(`⚠️  Node.js 18 and below are deprecated and will no longer be supported in future versions of @supabase/supabase-js. Please upgrade to Node.js 20 or later. For more information, visit: https://github.com/orgs/supabase/discussions/37217`);
-    Z = {
+    Fi() && console.warn(`⚠️  Node.js 18 and below are deprecated and will no longer be supported in future versions of @supabase/supabase-js. Please upgrade to Node.js 20 or later. For more information, visit: https://github.com/orgs/supabase/discussions/37217`);
+    let Li;
+    Q = {
         id: `binding_2026_01`,
         name: `The Binding`,
         regOpen: `2026-10-22T00:00:00.000Z`,
@@ -8158,7 +8159,7 @@ Resources:`;
         prize1: `brother_eli`,
         prize2: `lil_duckie`
     };
-    Li = {
+    Ii = {
         sealed: !0,
         championUsername: `nexonik`,
         runnerUpUsername: `zyro`,
@@ -8167,7 +8168,7 @@ Resources:`;
         forfeit: !1,
         weekTotal: 21322
     };
-    Ri = [
+    Li = [
         {
             id: 1,
             a: {
@@ -8235,90 +8236,35 @@ Resources:`;
             }
         }
     ];
-    Q = function(e) {
+    function Ri(e) {
         try {
             return `0x` + BigInt(e).toString(16);
         } catch  {
             return e.toLowerCase();
         }
-    };
-    function zi() {
-        let e = [], t = Date.parse(Z.weekStart + `T00:00:00.000Z`), n = Date.parse(Z.weekEnd + `T00:00:00.000Z`);
-        for(; t <= n;)e.push(new Date(t).toISOString().slice(0, 10)), t += 864e5;
-        return e;
     }
-    function Bi(e = Date.now()) {
-        let t = new Date(e).toISOString().slice(0, 10);
-        return t < Z.weekStart ? [] : zi().filter((e)=>e <= t);
-    }
-    function Vi(e, t) {
-        return Math.max(e ?? 0, t ?? 0);
-    }
-    function Hi(e) {
-        return [
-            ...e
-        ].sort((e, t)=>t.total - e.total || e.id - t.id);
-    }
-    Ui = function(e = Bi()) {
-        return Hi(Ri.map((t)=>({
-                id: t.id,
-                a: {
-                    username: t.a.username,
-                    wallet: t.a.wallet
-                },
-                b: {
-                    username: t.b.username,
-                    wallet: t.b.wallet
-                },
-                total: 0,
-                days: e.map((e)=>({
-                        date: e,
-                        scoreA: null,
-                        scoreB: null,
-                        duo: 0
-                    }))
-            })));
-    };
-    Wi = function() {
+    zi = function() {
         return !0;
     };
-    Gi = function(e = Date.now()) {
+    function Bi(e = Date.now()) {
         let t = e;
-        if (t < Date.parse(Z.regOpen)) return `upcoming`;
-        if (t <= Date.parse(Z.regClose)) return `registration`;
+        if (t < Date.parse(Q.regOpen)) return `upcoming`;
+        if (t <= Date.parse(Q.regClose)) return `registration`;
         let n = new Date(t).toISOString().slice(0, 10);
-        return n < Z.weekStart ? `closed` : n <= Z.weekEnd ? `week` : n === Z.finalDay ? `final` : `ended`;
+        return n < Q.weekStart ? `closed` : n <= Q.weekEnd ? `week` : n === Q.finalDay ? `final` : `ended`;
+    }
+    Vi = function(e = Date.now()) {
+        return Bi(e) === `registration`;
     };
-    Ki = function(e = Date.now()) {
-        return Gi(e) === `registration`;
-    };
-    qi = function() {
-        return `Register by ${new Date(Z.regClose).toLocaleDateString(`en-GB`, {
+    Hi = function() {
+        return `Register by ${new Date(Q.regClose).toLocaleDateString(`en-GB`, {
             day: `numeric`,
             month: `short`,
             timeZone: `UTC`
         })} · UTC`;
     };
-    Ji = function(e) {
-        let t = new Date(Z.regClose).toLocaleDateString(`en-GB`, {
-            day: `numeric`,
-            month: `short`,
-            timeZone: `UTC`
-        });
-        return [
-            `I just bound for The Binding — Corsair's duo tournament.`,
-            ``,
-            `Random partner. One week of Daily. Binding Mark for every captain.`,
-            ``,
-            `${Math.max(1, e)} bound. Dare you join before ${t}?`,
-            ``,
-            `@PlayCorsair`,
-            `https://playcorsair.xyz/`
-        ].join(`
-`);
-    };
-    var Yi = `https://eyahboeaekejmcgknsty.supabase.co`, Xi = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5YWhib2VhZWtlam1jZ2tuc3R5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyNjQ2NDIsImV4cCI6MjA4ODg0MDY0Mn0.utkttOZq0ilQgpd-6Shl3aH7dscaTwygzpl1G1krOPk`, $ = Fi(Yi, Xi);
-    Zi = async function(e, t, n, r, i, a, o) {
+    var Ui = `https://eyahboeaekejmcgknsty.supabase.co`, Wi = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5YWhib2VhZWtlam1jZ2tuc3R5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyNjQ2NDIsImV4cCI6MjA4ODg0MDY0Mn0.utkttOZq0ilQgpd-6Shl3aH7dscaTwygzpl1G1krOPk`, $ = Pi(Ui, Wi);
+    Gi = async function(e, t, n, r, i, a, o) {
         let { error: s } = await $.from(`corsair_scores`).insert({
             wallet_address: e,
             username: o ?? null,
@@ -8330,41 +8276,41 @@ Resources:`;
         });
         return !s;
     };
-    Qi = async function() {
+    Ki = async function() {
         let { data: e, error: t } = await $.from(`corsair_scores`).select(`*`).order(`score`, {
             ascending: !1
         }).limit(20);
         return t ? [] : e;
     };
-    function $i(e) {
-        let t = Q(e);
-        for (let e of Ri){
-            if (Q(e.a.wallet) === t) return e.a.username;
-            if (Q(e.b.wallet) === t) return e.b.username;
+    function qi(e) {
+        let t = Ri(e);
+        for (let e of Li){
+            if (Ri(e.a.wallet) === t) return e.a.username;
+            if (Ri(e.b.wallet) === t) return e.b.username;
         }
         return null;
     }
-    ea = async function(e) {
+    Ji = async function(e) {
         let { data: t, error: n } = await $.from(`corsair_daily_scores`).select(`id, wallet_address, username, score, date, submitted_at`).eq(`date`, e).order(`score`, {
             ascending: !1
         }).limit(20);
         return n ? (console.warn(`[daily board]`, n.message), []) : (t ?? []).map((e)=>({
                 ...e,
                 seed: null,
-                username: e.username || $i(e.wallet_address)
+                username: e.username || qi(e.wallet_address)
             }));
     };
-    ta = async function() {
+    Yi = async function() {
         let { data: e, error: t } = await $.from(`starktember_board`).select(`rank, wallet_address, username, total, days_played, best_day`).limit(50);
         return t ? (console.warn(`[starktember]`, t.message), []) : e ?? [];
     };
-    na = async function(e) {
+    Xi = async function(e) {
         try {
             return await (await fetch(`https://eyahboeaekejmcgknsty.supabase.co/functions/v1/check-nft-conditions`, {
                 method: `POST`,
                 headers: {
                     "Content-Type": `application/json`,
-                    Authorization: `Bearer ${Xi}`
+                    Authorization: `Bearer ${Wi}`
                 },
                 body: JSON.stringify(e)
             })).json();
@@ -8374,8 +8320,8 @@ Resources:`;
             };
         }
     };
-    var ra = `0x06c8b06fb6a94f3ae9b26c87b1baacc4a7a1f2e0184870c957728b5d17bd0202`;
-    ia = async function() {
+    var Zi = `0x06c8b06fb6a94f3ae9b26c87b1baacc4a7a1f2e0184870c957728b5d17bd0202`;
+    Qi = async function() {
         let e = await $.from(`nft_mints`).select(`id, wallet_address, nft_name, nft_id, status, tx_hash, token_id, run_id`).order(`id`, {
             ascending: !1
         });
@@ -8386,23 +8332,23 @@ Resources:`;
         });
         return n ? (console.warn(`[admin] getPendingMints:`, n.message), []) : t ?? [];
     };
-    var aa = new Set([
+    var $i = new Set([
         `brother_eli`,
         `lil_duckie`
     ]);
-    oa = async function() {
+    ea = async function() {
         let { data: e, error: t } = await $.from(`nft_conditions`).select(`name, minted, max_supply`).order(`name`, {
             ascending: !0
         });
-        return t ? (console.warn(`[admin] getSupply:`, t.message), []) : (e ?? []).filter((e)=>!aa.has(e.name));
+        return t ? (console.warn(`[admin] getSupply:`, t.message), []) : (e ?? []).filter((e)=>!$i.has(e.name));
     };
-    function sa() {
+    function ta() {
         let e = localStorage.getItem(`corsair_admin_secret`);
         return e || (console.warn(`[admin] cle admin absente — localStorage.setItem("corsair_admin_secret", "...")`), alert(`Admin secret missing. In the console run:
 localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
     }
-    async function ca(e) {
-        let t = sa();
+    async function na(e) {
+        let t = ta();
         if (!t) return {
             ok: !1,
             error: `no secret`
@@ -8422,80 +8368,35 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
         }
         return i;
     }
-    la = async function(e, t, n, r) {
+    ra = async function(e, t, n, r) {
         let i = {
             action: `mark`,
             id: e,
             tx_hash: t,
             nft_name: n
         };
-        return r != null && r > 0 && (i.token_id = r), ca(i);
+        return r != null && r > 0 && (i.token_id = r), na(i);
     };
-    ua = async function(e) {
-        return ca({
+    ia = async function(e) {
+        return na({
             action: `resync`,
             id: e
         });
     };
-    da = async function() {
-        return ca({
+    aa = async function() {
+        return na({
             action: `audit`
         });
     };
-    fa = async function() {
-        return ca({
+    oa = async function() {
+        return na({
             action: `sync_supply`
         });
     };
-    pa = function(e) {
+    sa = function(e) {
         return `https://eyahboeaekejmcgknsty.supabase.co/functions/v1/nft-metadata/${e}`;
     };
-    ma = async function(e) {
-        try {
-            let { data: t, error: n } = await $.functions.invoke(`tournament-register`, {
-                body: {
-                    action: `status`,
-                    wallet_address: e ?? void 0
-                }
-            });
-            return n || !t?.ok ? {
-                ok: !1,
-                count: 0,
-                registered: !1,
-                open: !1,
-                error: n?.message ?? t?.error
-            } : t;
-        } catch (e) {
-            return {
-                ok: !1,
-                count: 0,
-                registered: !1,
-                open: !1,
-                error: String(e)
-            };
-        }
-    };
-    ha = async function(e, t) {
-        try {
-            let { data: n, error: r } = await $.functions.invoke(`tournament-register`, {
-                body: {
-                    action: `register`,
-                    wallet_address: e,
-                    username: t ?? null
-                }
-            });
-            return r || !n?.ok ? {
-                ok: !1,
-                error: n?.error ?? r?.message ?? `failed`
-            } : n;
-        } catch (e) {
-            return {
-                ok: !1,
-                error: String(e)
-            };
-        }
-    };
-    ga = async function() {
+    ca = async function() {
         let { data: e, error: t } = await $.from(`tournament_registrations`).select(`id, wallet_address, username, registered_at`).eq(`tournament_id`, `binding_2026_01`).order(`registered_at`, {
             ascending: !0
         });
@@ -8512,8 +8413,8 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             registrations: n
         };
     };
-    _a = async function() {
-        let e = sa();
+    la = async function() {
+        let e = ta();
         if (!e) return {
             ok: !1,
             error: `no secret`
@@ -8529,90 +8430,23 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             error: t?.error ?? n?.message
         } : t;
     };
-    var va = `corsair_binding_board_v1`;
-    function ya() {
-        try {
-            let e = localStorage.getItem(va);
-            if (!e) return null;
-            let t = JSON.parse(e);
-            return !t?.rows?.length || t.at && Date.now() - t.at > 36 * 36e5 ? null : t.rows;
-        } catch  {
-            return null;
-        }
-    }
-    function ba(e) {
-        try {
-            localStorage.setItem(va, JSON.stringify({
-                at: Date.now(),
-                rows: e
-            }));
-        } catch  {}
-    }
-    xa = async function() {
-        let e = Bi(), t = new Map;
-        if (e.length > 0) {
-            let n = $.from(`corsair_daily_scores`).select(`wallet_address, score, date`).in(`date`, e).limit(2e3), { data: r, error: i } = await Promise.race([
-                n,
-                new Promise((e)=>setTimeout(()=>e({
-                            data: null,
-                            error: {
-                                message: `timeout`
-                            }
-                        }), 8e3))
-            ]);
-            i && console.warn(`[binding board]`, i.message);
-            for (let e of r ?? []){
-                let n = Q(e.wallet_address), r = e.date, i = Number(e.score) || 0, a = `${n}|${r}`, o = t.get(a);
-                (o === void 0 || i > o) && t.set(a, i);
-            }
-        }
-        if (e.length > 0 && t.size === 0) {
-            let e = ya();
-            if (e) return e;
-        }
-        let n = Hi(Ri.map((n)=>{
-            let r = e.map((e)=>{
-                let r = t.get(`${Q(n.a.wallet)}|${e}`) ?? null, i = t.get(`${Q(n.b.wallet)}|${e}`) ?? null, a = r, o = i;
-                return {
-                    date: e,
-                    scoreA: a,
-                    scoreB: o,
-                    duo: Vi(a, o)
-                };
-            });
-            return {
-                id: n.id,
-                a: {
-                    username: n.a.username,
-                    wallet: n.a.wallet
-                },
-                b: {
-                    username: n.b.username,
-                    wallet: n.b.wallet
-                },
-                total: r.reduce((e, t)=>e + t.duo, 0),
-                days: r
-            };
-        }));
-        return t.size > 0 && ba(n), n;
-    };
-    Sa = function(e, t) {
+    ua = function(e, t) {
         return `sncast --account corsair_deployer_mainnet invoke \\
-  --contract-address ${ra} \\
+  --contract-address ${Zi} \\
   --function mint \\
   --arguments '${e}' \\
   --network mainnet`;
     };
-    var Ca = (e)=>`0x` + e.toLowerCase().replace(/^0x0*/, ``);
-    wa = async function(e) {
+    var da = (e)=>`0x` + e.toLowerCase().replace(/^0x0*/, ``);
+    fa = async function(e) {
         let { data: t, error: n } = await $.from(`nft_mints`).select(`nft_name, wallet_address, status, token_id`).in(`status`, [
             `pending`,
             `minted`
         ]);
         if (n || !t) return [];
-        let r = Ca(e), i = new Map;
+        let r = da(e), i = new Map;
         for (let e of t){
-            if (Ca(e.wallet_address) !== r) continue;
+            if (da(e.wallet_address) !== r) continue;
             let t = e.status === `minted` ? `minted` : `pending`, n = i.get(e.nft_name);
             (!n || t === `minted` && n.status !== `minted`) && i.set(e.nft_name, {
                 nft_name: e.nft_name,
@@ -8624,10 +8458,10 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             ...i.values()
         ];
     };
-    async function Ta(e) {
-        return (await wa(e)).map((e)=>e.nft_name);
+    async function pa(e) {
+        return (await fa(e)).map((e)=>e.nft_name);
     }
-    Ea = async function(e) {
+    ma = async function(e) {
         try {
             let { error: t } = await $.functions.invoke(`player-write`, {
                 body: {
@@ -8640,7 +8474,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             console.warn(`[runs] start:`, e?.message ?? e);
         }
     };
-    Da = async function(e, t) {
+    ha = async function(e, t) {
         try {
             let { error: n } = await $.functions.invoke(`player-write`, {
                 body: {
@@ -8654,7 +8488,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             console.warn(`[runs] heartbeat:`, e?.message ?? e);
         }
     };
-    Oa = async function(e, t) {
+    ga = async function(e, t) {
         try {
             let { error: n } = await $.functions.invoke(`player-write`, {
                 body: {
@@ -8668,7 +8502,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             console.warn(`[runs] finish:`, e?.message ?? e);
         }
     };
-    ka = async function(e) {
+    _a = async function(e) {
         try {
             let { data: t, error: n } = await $.functions.invoke(`get-run-replay`, {
                 body: e
@@ -8687,13 +8521,13 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             };
         }
     };
-    Aa = async function(e) {
+    va = async function(e) {
         let { error: t } = await $.from(`corsair_run_logs`).insert(e);
         if (!t) return;
         let n = `${t.code ?? ``} ${t.message ?? ``}`;
         if (!/23505|duplicate|unique/i.test(n)) throw console.warn(`[runlog]`, t.message), Error(t.message || `saveRunLog failed`);
     };
-    ja = async function(e) {
+    ya = async function(e) {
         if (e.length === 0) return {};
         let { data: t, error: n } = await $.from(`corsair_run_verdicts`).select(`run_id, verified, replay_score, final_score`).in(`run_id`, e);
         if (n || !t) return console.warn(`[verdicts]`, n?.message), {};
@@ -8701,7 +8535,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
         for (let e of t)r[e.run_id] = e;
         return r;
     };
-    Ma = async function(e) {
+    ba = async function(e) {
         try {
             let { data: t, error: n } = await $.functions.invoke(`issue-seed`, {
                 body: {
@@ -8716,7 +8550,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             return console.warn(`[seed] emission impossible`), null;
         }
     };
-    Na = async function(e) {
+    xa = async function(e) {
         let [t, n] = await Promise.all([
             $.from(`player_feats`).select(`feat_id`).eq(`wallet_address`, e),
             $.from(`player_titles`).select(`title`).eq(`wallet_address`, e).maybeSingle()
@@ -8726,8 +8560,8 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             title: n.data?.title ?? null
         };
     };
-    Pa = async function(e, t) {};
-    Fa = async function(e, t) {
+    Sa = async function(e, t) {};
+    Ca = async function(e, t) {
         try {
             let { error: n } = await $.functions.invoke(`player-write`, {
                 body: {
@@ -8741,7 +8575,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             console.warn(`[title]`, e?.message ?? e);
         }
     };
-    Ia = async function(e) {
+    wa = async function(e) {
         try {
             let [t, n, r] = await Promise.all([
                 $.from(`corsair_scores`).select(`score, zone, turn`).eq(`wallet_address`, e),
@@ -8749,7 +8583,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
                     count: `exact`,
                     head: !0
                 }).eq(`wallet_address`, e),
-                Ta(e)
+                pa(e)
             ]), i = t.data ?? [], a = 0, o = 1, s = 0;
             for (let e of i)e.score > a && (a = e.score), (e.zone ?? 1) > o && (o = e.zone ?? 1), (e.turn ?? 0) > s && (s = e.turn ?? 0);
             let c = n.count ?? 0, l = r.length;
@@ -8764,13 +8598,13 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             return null;
         }
     };
-    La = async function(e, t) {
+    Ta = async function(e, t) {
         if (t.length !== 8) return !1;
         let n = `${t.slice(0, 4)}-${t.slice(4, 6)}-${t.slice(6, 8)}`, { data: r, error: i } = await $.from(`corsair_daily_scores`).select(`id`).eq(`wallet_address`, e).eq(`date`, n).maybeSingle();
         return i ? !1 : !!r;
     };
-    Ra = async function(e, t) {};
-    za = async function(e) {
+    Ea = async function(e, t) {};
+    Da = async function(e) {
         let { data: t, error: n } = await $.functions.invoke(`approve-run`, {
             body: {
                 run_id: e
@@ -8780,4 +8614,4 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
         return t;
     };
 })();
-export { Aa as A, qi as B, la as C, _a as D, Fa as E, Ri as F, Ki as H, Li as I, Gi as L, Zi as M, fa as N, ha as O, Z as P, Ji as R, Ra as S, Pa as T, Q as U, Wi as V, ti as W, wa as _, Na as a, Ma as b, Oa as c, Qi as d, ia as f, ma as g, oa as h, na as i, Ea as j, ua as k, xa as l, ta as m, da as n, ka as o, ja as p, Sa as r, Ia as s, za as t, ea as u, La as v, pa as w, ga as x, Da as y, Ui as z, __tla };
+export { oa as A, Sa as C, va as D, ia as E, Vi as F, ei as I, Ii as M, Hi as N, ma as O, zi as P, sa as S, la as T, ha as _, xa as a, Ea as b, ga as c, Qi as d, ya as f, Ta as g, fa as h, Xi as i, Q as j, Gi as k, Ji as l, ea as m, aa as n, _a as o, Yi as p, ua as r, wa as s, Da as t, Ki as u, ba as v, Ca as w, ra as x, ca as y, __tla };
