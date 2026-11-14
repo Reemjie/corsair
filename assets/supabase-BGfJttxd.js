@@ -1,4 +1,4 @@
-let oa, Sa, va, ia, Vi, ei, Ii, Hi, ma, zi, sa, la, ha, xa, Ea, ga, Qi, ya, Ta, fa, Xi, Q, Gi, Ji, ea, aa, _a, Yi, ua, wa, Da, Ki, ba, Ca, ra, ca;
+let Ii, va, Hi, la, $r, ra, _a, pa, ua, ga, ea, da, Yi, ma, ba, sa, qi, zi, Fi, Gi, Zi, na, fa, Ki, aa, ya, Sa, Ui, ha, ta, ia, xa;
 let __tla = (async ()=>{
     function e(e, t) {
         var n = {};
@@ -5307,22 +5307,22 @@ Resources:`;
         lockAcquireTimeout: 5e3,
         skipAutoInitialize: !1,
         experimental: {}
-    }, Jr = {}, Yr = class e {
+    }, Z = {}, Jr = class e {
         get jwks() {
-            return Jr[this.storageKey]?.jwks ?? {
+            return Z[this.storageKey]?.jwks ?? {
                 keys: []
             };
         }
         set jwks(e) {
-            Jr[this.storageKey] = Object.assign(Object.assign({}, Jr[this.storageKey]), {
+            Z[this.storageKey] = Object.assign(Object.assign({}, Z[this.storageKey]), {
                 jwks: e
             });
         }
         get jwks_cached_at() {
-            return Jr[this.storageKey]?.cachedAt ?? -(2 ** 53 - 1);
+            return Z[this.storageKey]?.cachedAt ?? -(2 ** 53 - 1);
         }
         set jwks_cached_at(e) {
-            Jr[this.storageKey] = Object.assign(Object.assign({}, Jr[this.storageKey]), {
+            Z[this.storageKey] = Object.assign(Object.assign({}, Z[this.storageKey]), {
                 cachedAt: e
             });
         }
@@ -7739,15 +7739,15 @@ Resources:`;
             }
         }
     };
-    Yr.nextInstanceID = {};
-    let Xr, Zr, Qr, $r, ti, ni, ri;
-    Xr = Yr;
-    Zr = `modulepreload`;
-    Qr = function(e) {
+    Jr.nextInstanceID = {};
+    let Yr, Xr, Zr, Qr, ei, ti, ni;
+    Yr = Jr;
+    Xr = `modulepreload`;
+    Zr = function(e) {
         return `/` + e;
     };
-    $r = {};
-    ei = function(e, t, n) {
+    Qr = {};
+    $r = function(e, t, n) {
         let r = Promise.resolve();
         if (t && t.length > 0) {
             let e = document.getElementsByTagName(`link`), i = document.querySelector(`meta[property=csp-nonce]`), a = i?.nonce || i?.getAttribute(`nonce`);
@@ -7761,8 +7761,8 @@ Resources:`;
                         }))));
             }
             r = o(t.map((t)=>{
-                if (t = Qr(t, n), t in $r) return;
-                $r[t] = !0;
+                if (t = Zr(t, n), t in Qr) return;
+                Qr[t] = !0;
                 let r = t.endsWith(`.css`), i = r ? `[rel="stylesheet"]` : ``;
                 if (n) for(let n = e.length - 1; n >= 0; n--){
                     let i = e[n];
@@ -7770,7 +7770,7 @@ Resources:`;
                 }
                 else if (document.querySelector(`link[href="${t}"]${i}`)) return;
                 let o = document.createElement(`link`);
-                if (o.rel = r ? `stylesheet` : Zr, r || (o.as = `script`), o.crossOrigin = ``, o.href = t, a && o.setAttribute(`nonce`, a), document.head.appendChild(o), r) return new Promise((e, n)=>{
+                if (o.rel = r ? `stylesheet` : Xr, r || (o.as = `script`), o.crossOrigin = ``, o.href = t, a && o.setAttribute(`nonce`, a), document.head.appendChild(o), r) return new Promise((e, n)=>{
                     o.addEventListener(`load`, e), o.addEventListener(`error`, ()=>n(Error(`Unable to preload CSS for ${t}`)));
                 });
             }));
@@ -7786,29 +7786,29 @@ Resources:`;
             return e().catch(i);
         });
     };
-    ti = `2.108.1`;
-    ni = ``;
-    typeof Deno < `u` ? (ni = `deno`, ri = Deno.version?.deno) : typeof document < `u` ? ni = `web` : typeof navigator < `u` && navigator.product === `ReactNative` ? ni = `react-native` : (ni = `node`, ri = typeof process < `u` ? process.version?.replace(/^v/, ``) : void 0);
-    var ii = [
-        `runtime=${ni}`
+    ei = `2.108.1`;
+    ti = ``;
+    typeof Deno < `u` ? (ti = `deno`, ni = Deno.version?.deno) : typeof document < `u` ? ti = `web` : typeof navigator < `u` && navigator.product === `ReactNative` ? ti = `react-native` : (ti = `node`, ni = typeof process < `u` ? process.version?.replace(/^v/, ``) : void 0);
+    var ri = [
+        `runtime=${ti}`
     ];
-    ri && ii.push(`runtime-version=${ri}`);
-    var ai = {
+    ni && ri.push(`runtime-version=${ni}`);
+    var ii = {
         headers: {
-            "X-Client-Info": `supabase-js/${ti}; ${ii.join(`; `)}`
+            "X-Client-Info": `supabase-js/${ei}; ${ri.join(`; `)}`
         }
-    }, oi = {
+    }, ai = {
         schema: `public`
-    }, si = {
+    }, oi = {
         autoRefreshToken: !0,
         persistSession: !0,
         detectSessionInUrl: !0,
         flowType: `implicit`
-    }, ci = {}, li = {
+    }, si = {}, ci = {
         enabled: !1,
         respectSamplingDecision: !0
     };
-    function ui(e, t, n, r) {
+    function li(e, t, n, r) {
         function i(e) {
             return e instanceof n ? e : new n(function(t) {
                 t(e);
@@ -7835,17 +7835,17 @@ Resources:`;
             c((r = r.apply(e, t || [])).next());
         });
     }
-    var di = null, fi = `@opentelemetry/api`;
-    function pi() {
-        return di === null && (di = ei(()=>import(fi).then(async (m)=>{
+    var ui = null, di = `@opentelemetry/api`;
+    function fi() {
+        return ui === null && (ui = $r(()=>import(di).then(async (m)=>{
                 await m.__tla;
                 return m;
-            }), []).catch(()=>null)), di;
+            }), []).catch(()=>null)), ui;
     }
-    function mi() {
-        return ui(this, void 0, void 0, function*() {
+    function pi() {
+        return li(this, void 0, void 0, function*() {
             try {
-                let e = yield pi();
+                let e = yield fi();
                 if (!e || !e.propagation || !e.context) return null;
                 let t = {};
                 e.propagation.inject(e.context.active(), t);
@@ -7860,7 +7860,7 @@ Resources:`;
             }
         });
     }
-    function hi(e) {
+    function mi(e) {
         if (!e || typeof e != `string`) return null;
         let t = e.split(`-`);
         if (t.length !== 4) return null;
@@ -7875,7 +7875,7 @@ Resources:`;
             isSampled: (parseInt(a, 16) & 1) == 1
         };
     }
-    function gi(e, t) {
+    function hi(e, t) {
         if (!e || !t || t.length === 0) return !1;
         let n;
         if (e instanceof URL) n = e;
@@ -7886,7 +7886,7 @@ Resources:`;
         }
         for (let e of t)try {
             if (typeof e == `string`) {
-                if (_i(n.hostname, e)) return !0;
+                if (gi(n.hostname, e)) return !0;
             } else if (e instanceof RegExp) {
                 if (e.test(n.hostname)) return !0;
             } else if (typeof e == `function` && e(n)) return !0;
@@ -7895,7 +7895,7 @@ Resources:`;
         }
         return !1;
     }
-    function _i(e, t) {
+    function gi(e, t) {
         if (t === e) return !0;
         if (t.startsWith(`*.`)) {
             let n = t.slice(2);
@@ -7903,7 +7903,7 @@ Resources:`;
         }
         return !1;
     }
-    function vi(e) {
+    function _i(e) {
         let t = [];
         try {
             let n = new URL(e);
@@ -7911,37 +7911,37 @@ Resources:`;
         } catch  {}
         return t.push(`*.supabase.co`, `*.supabase.in`), t.push(`localhost`, `127.0.0.1`, `[::1]`), t;
     }
-    function yi(e) {
+    function vi(e) {
         "@babel/helpers - typeof";
-        return yi = typeof Symbol == `function` && typeof Symbol.iterator == `symbol` ? function(e) {
+        return vi = typeof Symbol == `function` && typeof Symbol.iterator == `symbol` ? function(e) {
             return typeof e;
         } : function(e) {
             return e && typeof Symbol == `function` && e.constructor === Symbol && e !== Symbol.prototype ? `symbol` : typeof e;
-        }, yi(e);
+        }, vi(e);
     }
-    function bi(e, t) {
-        if (yi(e) != `object` || !e) return e;
+    function yi(e, t) {
+        if (vi(e) != `object` || !e) return e;
         var n = e[Symbol.toPrimitive];
         if (n !== void 0) {
             var r = n.call(e, t || `default`);
-            if (yi(r) != `object`) return r;
+            if (vi(r) != `object`) return r;
             throw TypeError(`@@toPrimitive must return a primitive value.`);
         }
         return (t === `string` ? String : Number)(e);
     }
-    function xi(e) {
-        var t = bi(e, `string`);
-        return yi(t) == `symbol` ? t : t + ``;
+    function bi(e) {
+        var t = yi(e, `string`);
+        return vi(t) == `symbol` ? t : t + ``;
     }
-    function Si(e, t, n) {
-        return (t = xi(t)) in e ? Object.defineProperty(e, t, {
+    function xi(e, t, n) {
+        return (t = bi(t)) in e ? Object.defineProperty(e, t, {
             value: n,
             enumerable: !0,
             configurable: !0,
             writable: !0
         }) : e[t] = n, e;
     }
-    function Ci(e, t) {
+    function Si(e, t) {
         var n = Object.keys(e);
         if (Object.getOwnPropertySymbols) {
             var r = Object.getOwnPropertySymbols(e);
@@ -7951,56 +7951,56 @@ Resources:`;
         }
         return n;
     }
-    function Z(e) {
+    function Q(e) {
         for(var t = 1; t < arguments.length; t++){
             var n = arguments[t] == null ? {} : arguments[t];
-            t % 2 ? Ci(Object(n), !0).forEach(function(t) {
-                Si(e, t, n[t]);
-            }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(n)) : Ci(Object(n)).forEach(function(t) {
+            t % 2 ? Si(Object(n), !0).forEach(function(t) {
+                xi(e, t, n[t]);
+            }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(n)) : Si(Object(n)).forEach(function(t) {
                 Object.defineProperty(e, t, Object.getOwnPropertyDescriptor(n, t));
             });
         }
         return e;
     }
-    var wi = (e)=>e ? (...t)=>e(...t) : (...e)=>fetch(...e), Ti = ()=>Headers, Ei = (e, t, n, r, i)=>{
-        let a = wi(r), o = Ti(), s = i?.enabled === !0, c = i?.respectSamplingDecision !== !1, l = s ? vi(t) : null;
+    var Ci = (e)=>e ? (...t)=>e(...t) : (...e)=>fetch(...e), wi = ()=>Headers, Ti = (e, t, n, r, i)=>{
+        let a = Ci(r), o = wi(), s = i?.enabled === !0, c = i?.respectSamplingDecision !== !1, l = s ? _i(t) : null;
         return async (t, r)=>{
             let i = await n() ?? e, s = new o(r?.headers);
             if (s.has(`apikey`) || s.set(`apikey`, e), s.has(`Authorization`) || s.set(`Authorization`, `Bearer ${i}`), l) {
-                let e = await Di(t, l, c);
+                let e = await Ei(t, l, c);
                 e && (e.traceparent && !s.has(`traceparent`) && s.set(`traceparent`, e.traceparent), e.tracestate && !s.has(`tracestate`) && s.set(`tracestate`, e.tracestate), e.baggage && !s.has(`baggage`) && s.set(`baggage`, e.baggage));
             }
-            return a(t, Z(Z({}, r), {}, {
+            return a(t, Q(Q({}, r), {}, {
                 headers: s
             }));
         };
     };
-    async function Di(e, t, n) {
-        if (!gi(typeof e == `string` || e instanceof URL ? e : e.url, t)) return null;
-        let r = await mi();
+    async function Ei(e, t, n) {
+        if (!hi(typeof e == `string` || e instanceof URL ? e : e.url, t)) return null;
+        let r = await pi();
         if (!r || !r.traceparent) return null;
         if (n) {
-            let e = hi(r.traceparent);
+            let e = mi(r.traceparent);
             if (e && !e.isSampled) return null;
         }
         return r;
     }
-    function Oi(e) {
+    function Di(e) {
         return typeof e == `boolean` ? {
             enabled: e
         } : e;
     }
-    function ki(e) {
+    function Oi(e) {
         return e.endsWith(`/`) ? e : e + `/`;
     }
-    function Ai(e, t) {
-        let { db: n, auth: r, realtime: i, global: a } = e, { db: o, auth: s, realtime: c, global: l } = t, u = Oi(e.tracePropagation), d = Oi(t.tracePropagation), f = {
-            db: Z(Z({}, o), n),
-            auth: Z(Z({}, s), r),
-            realtime: Z(Z({}, c), i),
+    function ki(e, t) {
+        let { db: n, auth: r, realtime: i, global: a } = e, { db: o, auth: s, realtime: c, global: l } = t, u = Di(e.tracePropagation), d = Di(t.tracePropagation), f = {
+            db: Q(Q({}, o), n),
+            auth: Q(Q({}, s), r),
+            realtime: Q(Q({}, c), i),
             storage: {},
-            global: Z(Z(Z({}, l), a), {}, {
-                headers: Z(Z({}, l?.headers ?? {}), a?.headers ?? {})
+            global: Q(Q(Q({}, l), a), {}, {
+                headers: Q(Q({}, l?.headers ?? {}), a?.headers ?? {})
             }),
             tracePropagation: {
                 enabled: u?.enabled ?? d?.enabled ?? !1,
@@ -8010,40 +8010,40 @@ Resources:`;
         };
         return e.accessToken ? f.accessToken = e.accessToken : delete f.accessToken, f;
     }
-    function ji(e) {
+    function Ai(e) {
         let t = e?.trim();
         if (!t) throw Error(`supabaseUrl is required.`);
         if (!t.match(/^https?:\/\//i)) throw Error(`Invalid supabaseUrl: Must be a valid HTTP or HTTPS URL.`);
         try {
-            return new URL(ki(t));
+            return new URL(Oi(t));
         } catch  {
             throw Error(`Invalid supabaseUrl: Provided URL is malformed.`);
         }
     }
-    var Mi = class extends Xr {
+    var ji = class extends Yr {
         constructor(e){
             super(e);
         }
-    }, Ni = class {
+    }, Mi = class {
         constructor(e, t, n){
             this.supabaseUrl = e, this.supabaseKey = t;
-            let r = ji(e);
+            let r = Ai(e);
             if (!t) throw Error(`supabaseKey is required.`);
             this.realtimeUrl = new URL(`realtime/v1`, r), this.realtimeUrl.protocol = this.realtimeUrl.protocol.replace(`http`, `ws`), this.authUrl = new URL(`auth/v1`, r), this.storageUrl = new URL(`storage/v1`, r), this.functionsUrl = new URL(`functions/v1`, r);
             let i = `sb-${r.hostname.split(`.`)[0]}-auth-token`, a = {
-                db: oi,
-                realtime: ci,
-                auth: Z(Z({}, si), {}, {
+                db: ai,
+                realtime: si,
+                auth: Q(Q({}, oi), {}, {
                     storageKey: i
                 }),
-                global: ai,
-                tracePropagation: li
-            }, o = Ai(n ?? {}, a);
+                global: ii,
+                tracePropagation: ci
+            }, o = ki(n ?? {}, a);
             this.settings = o, this.storageKey = o.auth.storageKey ?? ``, this.headers = o.global.headers ?? {}, o.accessToken ? (this.accessToken = o.accessToken, this.auth = new Proxy({}, {
                 get: (e, t)=>{
                     throw Error(`@supabase/supabase-js: Supabase Client is configured with the accessToken option, accessing supabase.auth.${String(t)} is not possible`);
                 }
-            })) : this.auth = this._initSupabaseAuthClient(o.auth ?? {}, this.headers, o.global.fetch), this.fetch = Ei(t, e, this._getAccessToken.bind(this), o.global.fetch, o.tracePropagation), this.realtime = this._initRealtimeClient(Z({
+            })) : this.auth = this._initSupabaseAuthClient(o.auth ?? {}, this.headers, o.global.fetch), this.fetch = Ti(t, e, this._getAccessToken.bind(this), o.global.fetch, o.tracePropagation), this.realtime = this._initRealtimeClient(Q({
                 headers: this.headers,
                 accessToken: this._getAccessToken.bind(this),
                 fetch: this.fetch
@@ -8099,9 +8099,9 @@ Resources:`;
                 Authorization: `Bearer ${this.supabaseKey}`,
                 apikey: `${this.supabaseKey}`
             };
-            return new Mi({
+            return new ji({
                 url: this.authUrl.href,
-                headers: Z(Z({}, h), p),
+                headers: Q(Q({}, h), p),
                 storageKey: a,
                 autoRefreshToken: e,
                 persistSession: t,
@@ -8120,8 +8120,8 @@ Resources:`;
             });
         }
         _initRealtimeClient(e) {
-            return new ft(this.realtimeUrl.href, Z(Z({}, e), {}, {
-                params: Z(Z({}, {
+            return new ft(this.realtimeUrl.href, Q(Q({}, e), {}, {
+                params: Q(Q({}, {
                     apikey: this.supabaseKey
                 }), e?.params)
             }));
@@ -8134,8 +8134,8 @@ Resources:`;
         _handleTokenChanged(e, t, n) {
             (e === `TOKEN_REFRESHED` || e === `SIGNED_IN`) && this.changedAccessToken !== n ? (this.changedAccessToken = n, this.realtime.setAuth(n)) : e === `SIGNED_OUT` && (this.realtime.setAuth(), t == `STORAGE` && this.auth.signOut(), this.changedAccessToken = void 0);
         }
-    }, Pi = (e, t, n)=>new Ni(e, t, n);
-    function Fi() {
+    }, Ni = (e, t, n)=>new Mi(e, t, n);
+    function Pi() {
         if (typeof window < `u`) return !1;
         let e = globalThis.process;
         if (!e) return !1;
@@ -8144,9 +8144,9 @@ Resources:`;
         let n = t.match(/^v(\d+)\./);
         return n ? parseInt(n[1], 10) <= 18 : !1;
     }
-    Fi() && console.warn(`⚠️  Node.js 18 and below are deprecated and will no longer be supported in future versions of @supabase/supabase-js. Please upgrade to Node.js 20 or later. For more information, visit: https://github.com/orgs/supabase/discussions/37217`);
+    Pi() && console.warn(`⚠️  Node.js 18 and below are deprecated and will no longer be supported in future versions of @supabase/supabase-js. Please upgrade to Node.js 20 or later. For more information, visit: https://github.com/orgs/supabase/discussions/37217`);
     let Li;
-    Q = {
+    Fi = {
         id: `binding_2026_01`,
         name: `The Binding`,
         regOpen: `2026-10-22T00:00:00.000Z`,
@@ -8246,25 +8246,8 @@ Resources:`;
     zi = function() {
         return !0;
     };
-    function Bi(e = Date.now()) {
-        let t = e;
-        if (t < Date.parse(Q.regOpen)) return `upcoming`;
-        if (t <= Date.parse(Q.regClose)) return `registration`;
-        let n = new Date(t).toISOString().slice(0, 10);
-        return n < Q.weekStart ? `closed` : n <= Q.weekEnd ? `week` : n === Q.finalDay ? `final` : `ended`;
-    }
-    Vi = function(e = Date.now()) {
-        return Bi(e) === `registration`;
-    };
-    Hi = function() {
-        return `Register by ${new Date(Q.regClose).toLocaleDateString(`en-GB`, {
-            day: `numeric`,
-            month: `short`,
-            timeZone: `UTC`
-        })} · UTC`;
-    };
-    var Ui = `https://eyahboeaekejmcgknsty.supabase.co`, Wi = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5YWhib2VhZWtlam1jZ2tuc3R5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyNjQ2NDIsImV4cCI6MjA4ODg0MDY0Mn0.utkttOZq0ilQgpd-6Shl3aH7dscaTwygzpl1G1krOPk`, $ = Pi(Ui, Wi);
-    Gi = async function(e, t, n, r, i, a, o) {
+    var Bi = `https://eyahboeaekejmcgknsty.supabase.co`, Vi = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5YWhib2VhZWtlam1jZ2tuc3R5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyNjQ2NDIsImV4cCI6MjA4ODg0MDY0Mn0.utkttOZq0ilQgpd-6Shl3aH7dscaTwygzpl1G1krOPk`, $ = Ni(Bi, Vi);
+    Hi = async function(e, t, n, r, i, a, o) {
         let { error: s } = await $.from(`corsair_scores`).insert({
             wallet_address: e,
             username: o ?? null,
@@ -8276,13 +8259,13 @@ Resources:`;
         });
         return !s;
     };
-    Ki = async function() {
+    Ui = async function() {
         let { data: e, error: t } = await $.from(`corsair_scores`).select(`*`).order(`score`, {
             ascending: !1
         }).limit(20);
         return t ? [] : e;
     };
-    function qi(e) {
+    function Wi(e) {
         let t = Ri(e);
         for (let e of Li){
             if (Ri(e.a.wallet) === t) return e.a.username;
@@ -8290,27 +8273,27 @@ Resources:`;
         }
         return null;
     }
-    Ji = async function(e) {
+    Gi = async function(e) {
         let { data: t, error: n } = await $.from(`corsair_daily_scores`).select(`id, wallet_address, username, score, date, submitted_at`).eq(`date`, e).order(`score`, {
             ascending: !1
         }).limit(20);
         return n ? (console.warn(`[daily board]`, n.message), []) : (t ?? []).map((e)=>({
                 ...e,
                 seed: null,
-                username: e.username || qi(e.wallet_address)
+                username: e.username || Wi(e.wallet_address)
             }));
     };
-    Yi = async function() {
+    Ki = async function() {
         let { data: e, error: t } = await $.from(`starktember_board`).select(`rank, wallet_address, username, total, days_played, best_day`).limit(50);
         return t ? (console.warn(`[starktember]`, t.message), []) : e ?? [];
     };
-    Xi = async function(e) {
+    qi = async function(e) {
         try {
             return await (await fetch(`https://eyahboeaekejmcgknsty.supabase.co/functions/v1/check-nft-conditions`, {
                 method: `POST`,
                 headers: {
                     "Content-Type": `application/json`,
-                    Authorization: `Bearer ${Wi}`
+                    Authorization: `Bearer ${Vi}`
                 },
                 body: JSON.stringify(e)
             })).json();
@@ -8320,8 +8303,8 @@ Resources:`;
             };
         }
     };
-    var Zi = `0x06c8b06fb6a94f3ae9b26c87b1baacc4a7a1f2e0184870c957728b5d17bd0202`;
-    Qi = async function() {
+    var Ji = `0x06c8b06fb6a94f3ae9b26c87b1baacc4a7a1f2e0184870c957728b5d17bd0202`;
+    Yi = async function() {
         let e = await $.from(`nft_mints`).select(`id, wallet_address, nft_name, nft_id, status, tx_hash, token_id, run_id`).order(`id`, {
             ascending: !1
         });
@@ -8332,23 +8315,23 @@ Resources:`;
         });
         return n ? (console.warn(`[admin] getPendingMints:`, n.message), []) : t ?? [];
     };
-    var $i = new Set([
+    var Xi = new Set([
         `brother_eli`,
         `lil_duckie`
     ]);
-    ea = async function() {
+    Zi = async function() {
         let { data: e, error: t } = await $.from(`nft_conditions`).select(`name, minted, max_supply`).order(`name`, {
             ascending: !0
         });
-        return t ? (console.warn(`[admin] getSupply:`, t.message), []) : (e ?? []).filter((e)=>!$i.has(e.name));
+        return t ? (console.warn(`[admin] getSupply:`, t.message), []) : (e ?? []).filter((e)=>!Xi.has(e.name));
     };
-    function ta() {
+    function Qi() {
         let e = localStorage.getItem(`corsair_admin_secret`);
         return e || (console.warn(`[admin] cle admin absente — localStorage.setItem("corsair_admin_secret", "...")`), alert(`Admin secret missing. In the console run:
 localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
     }
-    async function na(e) {
-        let t = ta();
+    async function $i(e) {
+        let t = Qi();
         if (!t) return {
             ok: !1,
             error: `no secret`
@@ -8368,85 +8351,51 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
         }
         return i;
     }
-    ra = async function(e, t, n, r) {
+    ea = async function(e, t, n, r) {
         let i = {
             action: `mark`,
             id: e,
             tx_hash: t,
             nft_name: n
         };
-        return r != null && r > 0 && (i.token_id = r), na(i);
+        return r != null && r > 0 && (i.token_id = r), $i(i);
     };
-    ia = async function(e) {
-        return na({
+    ta = async function(e) {
+        return $i({
             action: `resync`,
             id: e
         });
     };
-    aa = async function() {
-        return na({
+    na = async function() {
+        return $i({
             action: `audit`
         });
     };
-    oa = async function() {
-        return na({
+    ra = async function() {
+        return $i({
             action: `sync_supply`
         });
     };
-    sa = function(e) {
+    ia = function(e) {
         return `https://eyahboeaekejmcgknsty.supabase.co/functions/v1/nft-metadata/${e}`;
     };
-    ca = async function() {
-        let { data: e, error: t } = await $.from(`tournament_registrations`).select(`id, wallet_address, username, registered_at`).eq(`tournament_id`, `binding_2026_01`).order(`registered_at`, {
-            ascending: !0
-        });
-        if (t) return console.warn(`[binding] list:`, t.message), {
-            ok: !1,
-            count: 0,
-            registrations: [],
-            error: t.message
-        };
-        let n = e ?? [];
-        return {
-            ok: !0,
-            count: n.length,
-            registrations: n
-        };
-    };
-    la = async function() {
-        let e = ta();
-        if (!e) return {
-            ok: !1,
-            error: `no secret`
-        };
-        let { data: t, error: n } = await $.functions.invoke(`tournament-register`, {
-            body: {
-                action: `queue_marks`,
-                secret: e
-            }
-        });
-        return n || !t?.ok ? {
-            ok: !1,
-            error: t?.error ?? n?.message
-        } : t;
-    };
-    ua = function(e, t) {
+    aa = function(e, t) {
         return `sncast --account corsair_deployer_mainnet invoke \\
-  --contract-address ${Zi} \\
+  --contract-address ${Ji} \\
   --function mint \\
   --arguments '${e}' \\
   --network mainnet`;
     };
-    var da = (e)=>`0x` + e.toLowerCase().replace(/^0x0*/, ``);
-    fa = async function(e) {
+    var oa = (e)=>`0x` + e.toLowerCase().replace(/^0x0*/, ``);
+    sa = async function(e) {
         let { data: t, error: n } = await $.from(`nft_mints`).select(`nft_name, wallet_address, status, token_id`).in(`status`, [
             `pending`,
             `minted`
         ]);
         if (n || !t) return [];
-        let r = da(e), i = new Map;
+        let r = oa(e), i = new Map;
         for (let e of t){
-            if (da(e.wallet_address) !== r) continue;
+            if (oa(e.wallet_address) !== r) continue;
             let t = e.status === `minted` ? `minted` : `pending`, n = i.get(e.nft_name);
             (!n || t === `minted` && n.status !== `minted`) && i.set(e.nft_name, {
                 nft_name: e.nft_name,
@@ -8458,10 +8407,10 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             ...i.values()
         ];
     };
-    async function pa(e) {
-        return (await fa(e)).map((e)=>e.nft_name);
+    async function ca(e) {
+        return (await sa(e)).map((e)=>e.nft_name);
     }
-    ma = async function(e) {
+    la = async function(e) {
         try {
             let { error: t } = await $.functions.invoke(`player-write`, {
                 body: {
@@ -8474,7 +8423,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             console.warn(`[runs] start:`, e?.message ?? e);
         }
     };
-    ha = async function(e, t) {
+    ua = async function(e, t) {
         try {
             let { error: n } = await $.functions.invoke(`player-write`, {
                 body: {
@@ -8488,7 +8437,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             console.warn(`[runs] heartbeat:`, e?.message ?? e);
         }
     };
-    ga = async function(e, t) {
+    da = async function(e, t) {
         try {
             let { error: n } = await $.functions.invoke(`player-write`, {
                 body: {
@@ -8502,7 +8451,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             console.warn(`[runs] finish:`, e?.message ?? e);
         }
     };
-    _a = async function(e) {
+    fa = async function(e) {
         try {
             let { data: t, error: n } = await $.functions.invoke(`get-run-replay`, {
                 body: e
@@ -8521,13 +8470,13 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             };
         }
     };
-    va = async function(e) {
+    pa = async function(e) {
         let { error: t } = await $.from(`corsair_run_logs`).insert(e);
         if (!t) return;
         let n = `${t.code ?? ``} ${t.message ?? ``}`;
         if (!/23505|duplicate|unique/i.test(n)) throw console.warn(`[runlog]`, t.message), Error(t.message || `saveRunLog failed`);
     };
-    ya = async function(e) {
+    ma = async function(e) {
         if (e.length === 0) return {};
         let { data: t, error: n } = await $.from(`corsair_run_verdicts`).select(`run_id, verified, replay_score, final_score`).in(`run_id`, e);
         if (n || !t) return console.warn(`[verdicts]`, n?.message), {};
@@ -8535,7 +8484,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
         for (let e of t)r[e.run_id] = e;
         return r;
     };
-    ba = async function(e) {
+    ha = async function(e) {
         try {
             let { data: t, error: n } = await $.functions.invoke(`issue-seed`, {
                 body: {
@@ -8550,7 +8499,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             return console.warn(`[seed] emission impossible`), null;
         }
     };
-    xa = async function(e) {
+    ga = async function(e) {
         let [t, n] = await Promise.all([
             $.from(`player_feats`).select(`feat_id`).eq(`wallet_address`, e),
             $.from(`player_titles`).select(`title`).eq(`wallet_address`, e).maybeSingle()
@@ -8560,8 +8509,8 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             title: n.data?.title ?? null
         };
     };
-    Sa = async function(e, t) {};
-    Ca = async function(e, t) {
+    _a = async function(e, t) {};
+    va = async function(e, t) {
         try {
             let { error: n } = await $.functions.invoke(`player-write`, {
                 body: {
@@ -8575,7 +8524,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             console.warn(`[title]`, e?.message ?? e);
         }
     };
-    wa = async function(e) {
+    ya = async function(e) {
         try {
             let [t, n, r] = await Promise.all([
                 $.from(`corsair_scores`).select(`score, zone, turn`).eq(`wallet_address`, e),
@@ -8583,7 +8532,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
                     count: `exact`,
                     head: !0
                 }).eq(`wallet_address`, e),
-                pa(e)
+                ca(e)
             ]), i = t.data ?? [], a = 0, o = 1, s = 0;
             for (let e of i)e.score > a && (a = e.score), (e.zone ?? 1) > o && (o = e.zone ?? 1), (e.turn ?? 0) > s && (s = e.turn ?? 0);
             let c = n.count ?? 0, l = r.length;
@@ -8598,13 +8547,13 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             return null;
         }
     };
-    Ta = async function(e, t) {
+    ba = async function(e, t) {
         if (t.length !== 8) return !1;
         let n = `${t.slice(0, 4)}-${t.slice(4, 6)}-${t.slice(6, 8)}`, { data: r, error: i } = await $.from(`corsair_daily_scores`).select(`id`).eq(`wallet_address`, e).eq(`date`, n).maybeSingle();
         return i ? !1 : !!r;
     };
-    Ea = async function(e, t) {};
-    Da = async function(e) {
+    xa = async function(e, t) {};
+    Sa = async function(e) {
         let { data: t, error: n } = await $.functions.invoke(`approve-run`, {
             body: {
                 run_id: e
@@ -8614,4 +8563,4 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
         return t;
     };
 })();
-export { oa as A, Sa as C, va as D, ia as E, Vi as F, ei as I, Ii as M, Hi as N, ma as O, zi as P, sa as S, la as T, ha as _, xa as a, Ea as b, ga as c, Qi as d, ya as f, Ta as g, fa as h, Xi as i, Q as j, Gi as k, Ji as l, ea as m, aa as n, _a as o, Yi as p, ua as r, wa as s, Da as t, Ki as u, ba as v, Ca as w, ra as x, ca as y, __tla };
+export { Ii as A, va as C, Hi as D, la as E, $r as M, ra as O, _a as S, pa as T, ua as _, ga as a, ea as b, da as c, Yi as d, ma as f, ba as g, sa as h, qi as i, zi as j, Fi as k, Gi as l, Zi as m, na as n, fa as o, Ki as p, aa as r, ya as s, Sa as t, Ui as u, ha as v, ta as w, ia as x, xa as y, __tla };
