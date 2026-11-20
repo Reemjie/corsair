@@ -1,4 +1,4 @@
-let Ii, va, Hi, la, $r, ra, _a, pa, ua, ga, ea, da, Yi, ma, ba, sa, qi, zi, Fi, Gi, Zi, na, fa, Ki, aa, ya, Sa, Ui, ha, ta, ia, xa;
+let Fi, ya, la, pa, zi, $r, Hi, va, ga, ua, _a, ea, da, Yi, ma, xa, sa, qi, Ii, ra, Gi, Zi, na, fa, Ki, aa, ba, Ca, Ui, ha, ta, ia, Sa;
 let __tla = (async ()=>{
     function e(e, t) {
         var n = {};
@@ -8493,13 +8493,32 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             });
             return n || typeof t?.seed != `number` ? (console.warn(`[seed] emission impossible`), null) : {
                 seed: t.seed,
-                seed_token: t.seed_token
+                seed_token: t.seed_token,
+                fair_fog: !!t.fair_fog,
+                map_commitment: t.map_commitment ?? null
             };
         } catch  {
             return console.warn(`[seed] emission impossible`), null;
         }
     };
-    ga = async function(e) {
+    ga = async function(e, t, n = `default`) {
+        try {
+            let { data: r, error: i } = await $.functions.invoke(`reveal-cells`, {
+                body: {
+                    seed_token: e,
+                    actions: t,
+                    ship_id: n
+                }
+            });
+            return i || !Array.isArray(r?.reveals) ? (console.warn(`[fair-fog] reveal failed`, i ?? r), null) : {
+                reveals: r.reveals,
+                map_commitment: r.map_commitment ?? ``
+            };
+        } catch (e) {
+            return console.warn(`[fair-fog] reveal failed`, e), null;
+        }
+    };
+    _a = async function(e) {
         let [t, n] = await Promise.all([
             $.from(`player_feats`).select(`feat_id`).eq(`wallet_address`, e),
             $.from(`player_titles`).select(`title`).eq(`wallet_address`, e).maybeSingle()
@@ -8509,8 +8528,8 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             title: n.data?.title ?? null
         };
     };
-    _a = async function(e, t) {};
-    va = async function(e, t) {
+    va = async function(e, t) {};
+    ya = async function(e, t) {
         try {
             let { error: n } = await $.functions.invoke(`player-write`, {
                 body: {
@@ -8524,7 +8543,7 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             console.warn(`[title]`, e?.message ?? e);
         }
     };
-    ya = async function(e) {
+    ba = async function(e) {
         try {
             let [t, n, r] = await Promise.all([
                 $.from(`corsair_scores`).select(`score, zone, turn`).eq(`wallet_address`, e),
@@ -8547,13 +8566,13 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
             return null;
         }
     };
-    ba = async function(e, t) {
+    xa = async function(e, t) {
         if (t.length !== 8) return !1;
         let n = `${t.slice(0, 4)}-${t.slice(4, 6)}-${t.slice(6, 8)}`, { data: r, error: i } = await $.from(`corsair_daily_scores`).select(`id`).eq(`wallet_address`, e).eq(`date`, n).maybeSingle();
         return i ? !1 : !!r;
     };
-    xa = async function(e, t) {};
-    Sa = async function(e) {
+    Sa = async function(e, t) {};
+    Ca = async function(e) {
         let { data: t, error: n } = await $.functions.invoke(`approve-run`, {
             body: {
                 run_id: e
@@ -8563,4 +8582,4 @@ localStorage.setItem("corsair_admin_secret", "YOUR_SECRET")`)), e;
         return t;
     };
 })();
-export { Ii as A, va as C, Hi as D, la as E, $r as M, ra as O, _a as S, pa as T, ua as _, ga as a, ea as b, da as c, Yi as d, ma as f, ba as g, sa as h, qi as i, zi as j, Fi as k, Gi as l, Zi as m, na as n, fa as o, Ki as p, aa as r, ya as s, Sa as t, Ui as u, ha as v, ta as w, ia as x, xa as y, __tla };
+export { Fi as A, ya as C, la as D, pa as E, zi as M, $r as N, Hi as O, va as S, ga as T, ua as _, _a as a, ea as b, da as c, Yi as d, ma as f, xa as g, sa as h, qi as i, Ii as j, ra as k, Gi as l, Zi as m, na as n, fa as o, Ki as p, aa as r, ba as s, Ca as t, Ui as u, ha as v, ta as w, ia as x, Sa as y, __tla };

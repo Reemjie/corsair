@@ -1,10 +1,10 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-BdcJijiU.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-BGfJttxd.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/ReplayScreen-lQNncKf_.js","assets/anchor-CD6bGgSz.js","assets/walletApi-DYniPf4L.js","assets/nftCatalog-3Mir_rrL.js","assets/rpc-BQNg8r_c.js","assets/AdminPanel-CmTPrUXF.js","assets/ReplayScreen-CPPN8c-t.js","assets/cartridge-exYVfj4S.js","assets/cartridge-DlFwJFjQ.js","assets/LiveWalletBridge-CMRPbhOI.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/CorsairGame-ZNM8uDdN.js","assets/rolldown-runtime-Cyuzqnbw.js","assets/supabase-DvWtbdnt.js","assets/wallet-D0U5_iuP.js","assets/motion-wKhEcHeU.js","assets/ReplayScreen-DhTy7NLp.js","assets/anchor-CCl1efU4.js","assets/walletApi-DYniPf4L.js","assets/nftCatalog-3Mir_rrL.js","assets/rpc-BQNg8r_c.js","assets/AdminPanel-Bfmk4SVs.js","assets/ReplayScreen-1XENuVbx.js","assets/cartridge-exYVfj4S.js","assets/cartridge-DlFwJFjQ.js","assets/LiveWalletBridge-CMRPbhOI.js"])))=>i.map(i=>d[i]);
 import { a as e, t } from "./rolldown-runtime-Cyuzqnbw.js";
 import { i as n, n as r, r as i, t as a } from "./motion-wKhEcHeU.js";
 import { n as o, t as s } from "./walletApi-DYniPf4L.js";
-import { c, d as l, l as u, n as d, o as f, r as p, t as m, u as h } from "./anchor-CD6bGgSz.js";
-import { A as g, C as _, D as v, J as y, K as b, M as x, O as ee, S as te, T as S, W as ne, X as re, Y as ie, _ as ae, b as oe, k as se, q as ce, t as le, v as ue, x as C, y as w } from "./ReplayScreen-lQNncKf_.js";
-import { A as de, D as fe, M as pe, T as me, g as T, h as E, i as he, j as ge, k as _e, l as ve, m as ye, o as be, p as xe, s as Se, t as Ce, u as we, v as Te, __tla as __tla_0 } from "./supabase-BGfJttxd.js";
+import { c, d as l, l as u, n as d, o as f, r as p, t as m, u as h } from "./anchor-CCl1efU4.js";
+import { A as g, C as _, D as v, J as y, K as b, N as x, O as ee, Q as te, S as ne, T as S, X as re, Y as ie, Z as ae, _ as oe, b as se, k as ce, t as le, v as ue, x as C, y as w } from "./ReplayScreen-DhTy7NLp.js";
+import { A as de, E as fe, M as pe, N as me, O as T, g as E, h as he, i as ge, j as _e, l as ve, m as ye, o as be, p as xe, s as Se, t as Ce, u as we, v as Te, __tla as __tla_0 } from "./supabase-DvWtbdnt.js";
 import { i as Ee, n as De, o as Oe, r as ke, t as Ae } from "./nftCatalog-3Mir_rrL.js";
 Promise.all([
     (()=>{
@@ -92,14 +92,14 @@ Promise.all([
                 t !== null && ce(x, t.startTime - e);
             }
         }
-        var ee = !1, te = -1, S = 5, ne = -1;
+        var ee = !1, te = -1, ne = 5, S = -1;
         function re() {
-            return g ? !0 : !(e.unstable_now() - ne < S);
+            return g ? !0 : !(e.unstable_now() - S < ne);
         }
         function ie() {
             if (g = !1, ee) {
                 var t = e.unstable_now();
-                ne = t;
+                S = t;
                 var i = !0;
                 try {
                     a: {
@@ -157,7 +157,7 @@ Promise.all([
         e.unstable_IdlePriority = 5, e.unstable_ImmediatePriority = 1, e.unstable_LowPriority = 4, e.unstable_NormalPriority = 3, e.unstable_Profiling = null, e.unstable_UserBlockingPriority = 2, e.unstable_cancelCallback = function(e) {
             e.callback = null;
         }, e.unstable_forceFrameRate = function(e) {
-            0 > e || 125 < e ? console.error(`forceFrameRate takes a positive int between 0 and 125, forcing frame rates higher than 125 fps is not supported`) : S = 0 < e ? Math.floor(1e3 / e) : 5;
+            0 > e || 125 < e ? console.error(`forceFrameRate takes a positive int between 0 and 125, forcing frame rates higher than 125 fps is not supported`) : ne = 0 < e ? Math.floor(1e3 / e) : 5;
         }, e.unstable_getCurrentPriorityLevel = function() {
             return f;
         }, e.unstable_next = function(e) {
@@ -469,7 +469,7 @@ Promise.all([
             }
             return null;
         }
-        var p = Object.assign, m = Symbol.for(`react.element`), h = Symbol.for(`react.transitional.element`), g = Symbol.for(`react.portal`), _ = Symbol.for(`react.fragment`), v = Symbol.for(`react.strict_mode`), y = Symbol.for(`react.profiler`), b = Symbol.for(`react.consumer`), x = Symbol.for(`react.context`), ee = Symbol.for(`react.forward_ref`), te = Symbol.for(`react.suspense`), S = Symbol.for(`react.suspense_list`), ne = Symbol.for(`react.memo`), re = Symbol.for(`react.lazy`), ie = Symbol.for(`react.activity`), ae = Symbol.for(`react.memo_cache_sentinel`), oe = Symbol.iterator;
+        var p = Object.assign, m = Symbol.for(`react.element`), h = Symbol.for(`react.transitional.element`), g = Symbol.for(`react.portal`), _ = Symbol.for(`react.fragment`), v = Symbol.for(`react.strict_mode`), y = Symbol.for(`react.profiler`), b = Symbol.for(`react.consumer`), x = Symbol.for(`react.context`), ee = Symbol.for(`react.forward_ref`), te = Symbol.for(`react.suspense`), ne = Symbol.for(`react.suspense_list`), S = Symbol.for(`react.memo`), re = Symbol.for(`react.lazy`), ie = Symbol.for(`react.activity`), ae = Symbol.for(`react.memo_cache_sentinel`), oe = Symbol.iterator;
         function se(e) {
             return typeof e != `object` || !e ? null : (e = oe && e[oe] || e[`@@iterator`], typeof e == `function` ? e : null);
         }
@@ -487,7 +487,7 @@ Promise.all([
                     return `StrictMode`;
                 case te:
                     return `Suspense`;
-                case S:
+                case ne:
                     return `SuspenseList`;
                 case ie:
                     return `Activity`;
@@ -502,7 +502,7 @@ Promise.all([
                 case ee:
                     var t = e.render;
                     return e = e.displayName, e ||= (e = t.displayName || t.name || ``, e === `` ? `ForwardRef` : `ForwardRef(` + e + `)`), e;
-                case ne:
+                case S:
                     return t = e.displayName || null, t === null ? le(e.type) || `Memo` : t;
                 case re:
                     t = e._payload, e = e._init;
@@ -2110,8 +2110,8 @@ Error generating stack: ` + e.message + `
                     return e = gi(12, n, t, i | 2), e.elementType = y, e.lanes = o, e;
                 case te:
                     return e = gi(13, n, t, i), e.elementType = te, e.lanes = o, e;
-                case S:
-                    return e = gi(19, n, t, i), e.elementType = S, e.lanes = o, e;
+                case ne:
+                    return e = gi(19, n, t, i), e.elementType = ne, e.lanes = o, e;
                 default:
                     if (typeof e == `object` && e) switch(e.$$typeof){
                         case x:
@@ -2123,7 +2123,7 @@ Error generating stack: ` + e.message + `
                         case ee:
                             s = 11;
                             break a;
-                        case ne:
+                        case S:
                             s = 14;
                             break a;
                         case re:
@@ -4386,7 +4386,7 @@ Error generating stack: ` + e.message + `
                                 if (i === ee) {
                                     t.tag = 11, t = cc(null, t, e, r, n);
                                     break a;
-                                } else if (i === ne) {
+                                } else if (i === S) {
                                     t.tag = 14, t = lc(null, t, e, r, n);
                                     break a;
                                 }
@@ -9738,7 +9738,7 @@ Error generating stack: ` + e.message + `
         });
     }
     function Ue({ onClose: e }) {
-        let t = new Set(ce()), [n, r] = (0, O.useState)(b()), [i, s] = (0, O.useState)(()=>d()), [l, u] = (0, O.useState)(0), { address: p } = o(), m = ne.filter((e)=>t.has(e.id)).length;
+        let t = new Set(ie()), [n, r] = (0, O.useState)(y()), [i, s] = (0, O.useState)(()=>d()), [l, u] = (0, O.useState)(0), { address: p } = o(), m = b.filter((e)=>t.has(e.id)).length;
         return (0, O.useEffect)(()=>{
             if (!p) {
                 s(d()), u(0);
@@ -9841,7 +9841,7 @@ Error generating stack: ` + e.message + `
                         children: [
                             m,
                             ` / `,
-                            ne.length,
+                            b.length,
                             ` UNLOCKED`
                         ]
                     }),
@@ -9941,7 +9941,7 @@ Error generating stack: ` + e.message + `
                             flexDirection: `column`,
                             gap: 10
                         },
-                        children: ne.map((e)=>{
+                        children: b.map((e)=>{
                             let i = t.has(e.id), a = n === e.title;
                             return (0, k.jsxs)(`div`, {
                                 style: {
@@ -10014,7 +10014,7 @@ Error generating stack: ` + e.message + `
                                     i && (0, k.jsx)(`button`, {
                                         onClick: ()=>{
                                             let t = a ? null : e.title;
-                                            y(t), r(t);
+                                            re(t), r(t);
                                         },
                                         style: {
                                             padding: `7px 12px`,
@@ -10237,7 +10237,7 @@ Error generating stack: ` + e.message + `
     function Ke({ onClose: e }) {
         let { address: t } = o(), [n, r] = (0, O.useState)([]), [i, a] = (0, O.useState)([]);
         return (0, O.useEffect)(()=>{
-            ye().then(r), t ? E(t).then(a) : a([]);
+            ye().then(r), t ? he(t).then(a) : a([]);
         }, [
             t
         ]), (0, k.jsx)(`div`, {
@@ -10299,7 +10299,7 @@ Error generating stack: ` + e.message + `
                             ` on Starknet. Limited supply.`
                         ]
                     }),
-                    ge() && We.length > 0 && (0, k.jsxs)(k.Fragment, {
+                    pe() && We.length > 0 && (0, k.jsxs)(k.Fragment, {
                         children: [
                             (0, k.jsx)(`h2`, {
                                 style: qe,
@@ -10319,7 +10319,7 @@ Error generating stack: ` + e.message + `
                     (0, k.jsx)(`h2`, {
                         style: {
                             ...qe,
-                            marginTop: ge() ? 28 : 0
+                            marginTop: pe() ? 28 : 0
                         },
                         children: `Tideborn — Season 1`
                     }),
@@ -11048,7 +11048,7 @@ Error generating stack: ` + e.message + `
         }
     ];
     function rt({ onClose: e }) {
-        let t = typeof window < `u` && window.innerWidth < 768, n = ge() ? nt : nt.filter((e)=>e.version !== `1.2`);
+        let t = typeof window < `u` && window.innerWidth < 768, n = pe() ? nt : nt.filter((e)=>e.version !== `1.2`);
         return (0, k.jsx)(a.div, {
             initial: {
                 opacity: 0
@@ -11710,19 +11710,19 @@ Error generating stack: ` + e.message + `
             let e = ()=>x(window.innerHeight < 860);
             return window.addEventListener(`resize`, e), ()=>window.removeEventListener(`resize`, e);
         }, []);
-        let [ne, re] = (0, O.useState)(!1), [ie, ae] = (0, O.useState)(!1), [ce, le] = (0, O.useState)(!1), [ue, C] = (0, O.useState)(!1), [w, fe] = (0, O.useState)(!1), [pe, me] = (0, O.useState)([]), [E, he] = (0, O.useState)(``);
+        let [te, re] = (0, O.useState)(!1), [ie, ae] = (0, O.useState)(!1), [oe, le] = (0, O.useState)(!1), [ue, C] = (0, O.useState)(!1), [w, fe] = (0, O.useState)(!1), [me, T] = (0, O.useState)([]), [he, ge] = (0, O.useState)(``);
         (0, O.useEffect)(()=>{
-            ve(new Date().toISOString().slice(0, 10)).then((e)=>me(e.slice(0, 3))).catch(()=>me([]));
+            ve(new Date().toISOString().slice(0, 10)).then((e)=>T(e.slice(0, 3))).catch(()=>T([]));
         }, []), (0, O.useEffect)(()=>{
             let e = ()=>{
                 let e = Date.now(), t = new Date(e), n = Date.UTC(t.getUTCFullYear(), t.getUTCMonth(), t.getUTCDate() + 1, 0, 0, 0), r = Math.max(0, n - e);
-                he(`${String(Math.floor(r / 36e5)).padStart(2, `0`)}:${String(Math.floor(r % 36e5 / 6e4)).padStart(2, `0`)}:${String(Math.floor(r % 6e4 / 1e3)).padStart(2, `0`)}`);
+                ge(`${String(Math.floor(r / 36e5)).padStart(2, `0`)}:${String(Math.floor(r % 36e5 / 6e4)).padStart(2, `0`)}:${String(Math.floor(r % 6e4 / 1e3)).padStart(2, `0`)}`);
             };
             e();
             let t = setInterval(e, 1e3);
             return ()=>clearInterval(t);
         }, []);
-        let [ye, be] = (0, O.useState)(!1), [Ce, we] = (0, O.useState)(!1), [Ee, De] = (0, O.useState)(!1), [Oe, ke] = (0, O.useState)(null), [Ae, je] = (0, O.useState)(0), [Me, Ne] = (0, O.useState)(0), { address: D, username: Pe, connecting: Fe, connect: Ie, disconnect: Le, openProfile: Re } = o(), ze = de.sealed;
+        let [ye, be] = (0, O.useState)(!1), [Ce, we] = (0, O.useState)(!1), [Ee, De] = (0, O.useState)(!1), [Oe, ke] = (0, O.useState)(null), [Ae, je] = (0, O.useState)(0), [Me, Ne] = (0, O.useState)(0), { address: D, username: Pe, connecting: Fe, connect: Ie, disconnect: Le, openProfile: Re } = o(), ze = _e.sealed;
         (0, O.useEffect)(()=>{
             if (!D) {
                 Ne(0);
@@ -11747,9 +11747,9 @@ Error generating stack: ` + e.message + `
             }
             e(D, Pe, n.seed, !1, n.seed_token, t);
         }, Ve = async ()=>{
-            let t = oe();
+            let t = se();
             if (t.length >= 2) {
-                ke(te(3));
+                ke(ne(3));
                 return;
             }
             if (!D) {
@@ -11770,7 +11770,7 @@ Error generating stack: ` + e.message + `
                 return;
             }
             let e = !1;
-            return T(D, ee()).then((t)=>{
+            return E(D, ee()).then((t)=>{
                 if (e) return;
                 if (t) {
                     _(!0);
@@ -12291,7 +12291,7 @@ Error generating stack: ` + e.message + `
                                                                             color: `#88ddff`,
                                                                             fontWeight: 700
                                                                         },
-                                                                        children: E
+                                                                        children: he
                                                                     }),
                                                                     ` `,
                                                                     (0, k.jsx)(`span`, {
@@ -12323,7 +12323,7 @@ Error generating stack: ` + e.message + `
                                                                     scale: .96
                                                                 },
                                                                 onClick: ()=>{
-                                                                    D ? e(D, Pe, se(), !0) : Ie();
+                                                                    D ? e(D, Pe, ce(), !0) : Ie();
                                                                 },
                                                                 style: {
                                                                     padding: `10px 20px`,
@@ -12367,7 +12367,7 @@ Error generating stack: ` + e.message + `
                                             })
                                         ]
                                     }),
-                                    pe.length > 0 && !b && (0, k.jsxs)(`div`, {
+                                    me.length > 0 && !b && (0, k.jsxs)(`div`, {
                                         style: {
                                             padding: `10px 20px`,
                                             borderRadius: 12,
@@ -12399,7 +12399,7 @@ Error generating stack: ` + e.message + `
                                                     `TODAY'S TOP`
                                                 ]
                                             }),
-                                            pe.map((e, t)=>(0, k.jsxs)(`div`, {
+                                            me.map((e, t)=>(0, k.jsxs)(`div`, {
                                                     style: {
                                                         display: `flex`,
                                                         alignItems: `center`,
@@ -12625,7 +12625,7 @@ Error generating stack: ` + e.message + `
                                             })()
                                         ]
                                     }),
-                                    ge() && !m && ze && (0, k.jsxs)(`div`, {
+                                    pe() && !m && ze && (0, k.jsxs)(`div`, {
                                         style: {
                                             padding: y || b ? `14px 14px 16px` : `16px 18px 18px`,
                                             borderRadius: 14,
@@ -12692,7 +12692,7 @@ Error generating stack: ` + e.message + `
                                                             letterSpacing: 2,
                                                             lineHeight: 1.05
                                                         },
-                                                        children: de.championUsername
+                                                        children: _e.championUsername
                                                     }),
                                                     (0, k.jsx)(`div`, {
                                                         style: {
@@ -12703,7 +12703,7 @@ Error generating stack: ` + e.message + `
                                                             letterSpacing: 1,
                                                             marginTop: 6
                                                         },
-                                                        children: de.championScore.toLocaleString(`en-US`)
+                                                        children: _e.championScore.toLocaleString(`en-US`)
                                                     }),
                                                     (0, k.jsxs)(`div`, {
                                                         style: {
@@ -12713,7 +12713,7 @@ Error generating stack: ` + e.message + `
                                                         },
                                                         children: [
                                                             `Brother Eli · Final Daily `,
-                                                            _e.finalDay
+                                                            de.finalDay
                                                         ]
                                                     }),
                                                     (0, k.jsxs)(`div`, {
@@ -12726,8 +12726,8 @@ Error generating stack: ` + e.message + `
                                                         },
                                                         children: [
                                                             `vs `,
-                                                            de.runnerUpUsername,
-                                                            de.runnerUpScore == null ? `` : ` · ${de.runnerUpScore.toLocaleString(`en-US`)}`,
+                                                            _e.runnerUpUsername,
+                                                            _e.runnerUpScore == null ? `` : ` · ${_e.runnerUpScore.toLocaleString(`en-US`)}`,
                                                             ` · Lil Duckie`
                                                         ]
                                                     })
@@ -12987,7 +12987,7 @@ Error generating stack: ` + e.message + `
                 }),
                 (0, k.jsxs)(r, {
                     children: [
-                        ne && (0, k.jsx)(He, {
+                        te && (0, k.jsx)(He, {
                             onClose: ()=>re(!1),
                             onPlay: async ()=>{
                                 re(!1), await Ve();
@@ -13002,7 +13002,7 @@ Error generating stack: ` + e.message + `
                         ue && (0, k.jsx)($e, {
                             onClose: ()=>C(!1)
                         }),
-                        ce && (0, k.jsx)(Ke, {
+                        oe && (0, k.jsx)(Ke, {
                             onClose: ()=>le(!1)
                         }),
                         ye && (0, k.jsx)(ct, {
@@ -13019,13 +13019,13 @@ Error generating stack: ` + e.message + `
             ]
         });
     }
-    var dt = (0, O.lazy)(()=>pe(()=>import(`./CorsairGame-BdcJijiU.js`).then(async (m)=>{
+    var dt = (0, O.lazy)(()=>me(()=>import(`./CorsairGame-ZNM8uDdN.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
-            }), __vite__mapDeps([0,1,2,3,4,5,6,7,8,9]))), ft = (0, O.lazy)(()=>pe(()=>import(`./AdminPanel-CmTPrUXF.js`).then(async (m)=>{
+            }), __vite__mapDeps([0,1,2,3,4,5,6,7,8,9]))), ft = (0, O.lazy)(()=>me(()=>import(`./AdminPanel-Bfmk4SVs.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
-            }), __vite__mapDeps([10,1,2,4,8]))), pt = (0, O.lazy)(()=>pe(()=>import(`./ReplayScreen-CPPN8c-t.js`).then(async (m)=>{
+            }), __vite__mapDeps([10,1,2,4,8]))), pt = (0, O.lazy)(()=>me(()=>import(`./ReplayScreen-1XENuVbx.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }), __vite__mapDeps([11,5,1,2,4]))), mt = `corsair_crew_bypass`;
@@ -13054,9 +13054,9 @@ Error generating stack: ` + e.message + `
         }
     }
     function gt() {
-        let { address: e, account: t, username: n } = o(), [r, i] = (0, O.useState)(`home`), [a, s] = (0, O.useState)(void 0), [c, l] = (0, O.useState)(!1), [d, f] = (0, O.useState)(void 0), [p, m] = (0, O.useState)(void 0), [g, _] = (0, O.useState)(null), [v, y] = (0, O.useState)(void 0), [b, x] = (0, O.useState)(0), [ee] = (0, O.useState)(()=>ht()), [te, S] = (0, O.useState)(null);
+        let { address: e, account: t, username: n } = o(), [r, i] = (0, O.useState)(`home`), [a, s] = (0, O.useState)(void 0), [c, l] = (0, O.useState)(!1), [d, f] = (0, O.useState)(void 0), [p, m] = (0, O.useState)(void 0), [g, _] = (0, O.useState)(null), [v, y] = (0, O.useState)(void 0), [b, x] = (0, O.useState)(0), [ee] = (0, O.useState)(()=>ht()), [ne, S] = (0, O.useState)(null);
         (0, O.useEffect)(()=>{
-            ie(e ?? null), e && re(e);
+            ae(e ?? null), e && te(e);
         }, [
             e
         ]), (0, O.useEffect)(()=>{
@@ -13083,7 +13083,7 @@ Error generating stack: ` + e.message + `
         ]), (0, O.useEffect)(()=>{
             h(async (e, t)=>{
                 if (e === `runlog`) {
-                    await me(t);
+                    await fe(t);
                     let e = await Ce(t.run_id);
                     return window.dispatchEvent(new CustomEvent(`corsair-sync`, {
                         detail: {
@@ -13101,7 +13101,7 @@ Error generating stack: ` + e.message + `
                         }
                     })), !0;
                 }
-                return e === `score` ? await fe(t.wallet, t.score, t.run_title, t.turn, t.zone, t.seed, t.username) : (await he(t), !0);
+                return e === `score` ? await T(t.wallet, t.score, t.run_title, t.turn, t.zone, t.seed, t.username) : (await ge(t), !0);
             });
         }, []), (0, O.useEffect)(()=>{
             let e = ()=>{
@@ -13109,13 +13109,13 @@ Error generating stack: ` + e.message + `
             };
             return e(), window.addEventListener(`hashchange`, e), ()=>window.removeEventListener(`hashchange`, e);
         }, []);
-        let ne = (e, t, n, r, a, o)=>{
+        let re = (e, t, n, r, a, o)=>{
             _(t ?? null), m(void 0), s(n), l(!!r), f(a), y(r ? `default` : o), x((e)=>e + 1), i(`game`);
         };
         (0, O.useEffect)(()=>{
-            new URLSearchParams(window.location.search).has(`guest`) && ne(null, `Guest`, Math.floor(Math.random() * 999999), !1, void 0);
+            new URLSearchParams(window.location.search).has(`guest`) && re(null, `Guest`, Math.floor(Math.random() * 999999), !1, void 0);
         }, []);
-        let oe = g ?? n, ce = c ? `default` : v ?? w();
+        let ie = g ?? n, se = c ? `default` : v ?? w();
         return r === `admin` ? (0, k.jsx)(O.Suspense, {
             fallback: (0, k.jsx)(A, {}),
             children: (0, k.jsx)(ft, {
@@ -13128,15 +13128,15 @@ Error generating stack: ` + e.message + `
             children: (0, k.jsx)(dt, {
                 walletAddress: e,
                 account: t,
-                username: oe,
+                username: ie,
                 onHome: ()=>i(`home`),
                 onPlayDaily: ()=>{
-                    e && ne(e, n, se(), !0);
+                    e && re(e, n, ce(), !0);
                 },
                 dailySeed: a,
                 isDaily: c,
                 seedToken: d,
-                shipId: p ? p.run.ship_id : ce,
+                shipId: p ? p.run.ship_id : se,
                 resumeState: p?.state,
                 resumeRunId: p?.run.run_id,
                 resumeActions: p?.run.actions
@@ -13144,10 +13144,10 @@ Error generating stack: ` + e.message + `
         }) : (0, k.jsxs)(k.Fragment, {
             children: [
                 (0, k.jsx)(ut, {
-                    onPlay: ne,
+                    onPlay: re,
                     onResume: (e)=>{
                         try {
-                            let t = ae(e.seed, e.ship_id, e.actions);
+                            let t = oe(e.seed, e.ship_id, e.actions);
                             if (t.gameOver) {
                                 u();
                                 return;
@@ -13161,10 +13161,10 @@ Error generating stack: ` + e.message + `
                         }
                     }
                 }),
-                te && (0, k.jsx)(O.Suspense, {
+                ne && (0, k.jsx)(O.Suspense, {
                     fallback: null,
                     children: (0, k.jsx)(pt, {
-                        payload: te,
+                        payload: ne,
                         isMobile: typeof window < `u` && window.innerWidth < 768,
                         onClose: ()=>{
                             S(null);
@@ -13176,12 +13176,12 @@ Error generating stack: ` + e.message + `
             ]
         });
     }
-    var _t = (0, O.lazy)(()=>pe(()=>import(`./cartridge-exYVfj4S.js`).then(async (m)=>{
+    var _t = (0, O.lazy)(()=>me(()=>import(`./cartridge-exYVfj4S.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }).then((e)=>({
                     default: e.StarknetProvider
-                })), __vite__mapDeps([12,13,3,1,4,9]))), vt = (0, O.lazy)(()=>pe(()=>import(`./LiveWalletBridge-CMRPbhOI.js`).then(async (m)=>{
+                })), __vite__mapDeps([12,13,3,1,4,9]))), vt = (0, O.lazy)(()=>me(()=>import(`./LiveWalletBridge-CMRPbhOI.js`).then(async (m)=>{
                 await m.__tla;
                 return m;
             }), __vite__mapDeps([14,1,3,4,13,9,7])));
